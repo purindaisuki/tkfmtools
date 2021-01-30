@@ -1,0 +1,2928 @@
+[
+    {
+        "name": "野獸之爪",
+        "id": "001",
+        "rank": 0,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "2",
+                "energy": 6,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "0",
+                "stage": "6 free",
+                "energy": 8,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "0",
+                "stage": "7",
+                "energy": 8,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "5 free",
+                "energy": 8,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "6",
+                "energy": 9,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "8",
+                "energy": 10,
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "2",
+                "energy": 10,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "5 free",
+                "energy": 10,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "2",
+                "energy": 12,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "2",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-1",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "6",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "11",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "12",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "2",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "9 free",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "2",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "6 free",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "7",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "14",
+                "energy": 16,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "7",
+                "stage": "2",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "7",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "9 free",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "17",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "17 free",
+                "energy": 18,
+                "rarity": "必定"
+            },
+            {
+                "chapter": "8",
+                "stage": "2",
+                "energy": 17,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "12",
+                "energy": 19,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "2",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "4 free",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": 2,
+                "energy": 19,
+                "rarity": "必定"
+            }
+        ]
+    },
+    {
+        "name": "鐵錠",
+        "id": "002",
+        "rank": 0,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "1",
+                "energy": 6,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "0",
+                "stage": "6",
+                "energy": 7,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "0",
+                "stage": "6 free",
+                "energy": 8,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "5",
+                "energy": 9,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "5 free",
+                "energy": 8,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "7",
+                "energy": 9,
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "3",
+                "energy": 10,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7 free",
+                "energy": 10,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "3",
+                "energy": 12,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "2",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-2",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "3",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "10",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "13",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "3",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "3 free",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "8",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "8",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "11 free",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "15",
+                "energy": 16,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "3",
+                "energy": 17,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "11 free",
+                "energy": 17,
+                "rarity": "必定"
+            },
+            {
+                "chapter": "9",
+                "stage": "3",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "8 free",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "13",
+                "energy": 19,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "3",
+                "energy": 19,
+                "rarity": "必定"
+            },
+            {
+                "chapter": "10",
+                "stage": "12 free",
+                "energy": 20,
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "純淨水",
+        "id": "003",
+        "rank": 0,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "5",
+                "energy": 7,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "4",
+                "energy": 8,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "6 free",
+                "energy": 9,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "7 free",
+                "energy": 9,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "4",
+                "energy": 11,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "8 free",
+                "energy": 11,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "4",
+                "energy": 12,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "4",
+                "energy": 14,
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "5 free",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "6",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "7",
+                "energy": 14,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-3",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "4",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "9",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "12",
+                "energy": 16,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "2 free",
+                "energy": 18,
+                "rarity": "必定"
+            },
+            {
+                "chapter": "8",
+                "stage": "4",
+                "energy": 17,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "4",
+                "energy": 18,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "14",
+                "energy": 19,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "4",
+                "energy": 19,
+                "rarity": "必定"
+            },
+            {
+                "chapter": "10",
+                "stage": "16 free",
+                "energy": 20,
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "史萊姆殘液",
+        "id": "004",
+        "rank": 0,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "4",
+                "energy": "7",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "3",
+                "energy": "8",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "7 free",
+                "energy": "9",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "8",
+                "energy": "10",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "5",
+                "energy": "11",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "2 free",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "5",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "4",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "5",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "7 free",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "4",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "4 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "9",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "14",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "4",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "9",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-2",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "10",
+                "energy": "16",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "5",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "8 free",
+                "energy": "18",
+                "rarity": "必定"
+            },
+            {
+                "chapter": "8",
+                "stage": "18",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "5",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "15",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "5",
+                "energy": "19",
+                "rarity": "必定"
+            },
+            {
+                "chapter": "10",
+                "stage": "9 free",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "毒之粉",
+        "id": "005",
+        "rank": 0,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "3",
+                "energy": "6",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "2",
+                "energy": "8",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "1",
+                "stage": "6 free",
+                "energy": "9",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "7",
+                "energy": "9",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "6",
+                "energy": "11",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "6",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "6 free",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "5",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "6",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9 free",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "5",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "5",
+                "stage": "6 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "8",
+                "energy": "14",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "8 free",
+                "energy": "16",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "10",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-1",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "6",
+                "energy": "16",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "7",
+                "stage": "11",
+                "energy": "16",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "6",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "19",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "6",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "12 free",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "16",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "6",
+                "energy": "19",
+                "rarity": "必定"
+            }
+        ]
+    },
+    {
+        "name": "巨獸之爪",
+        "id": "101",
+        "rank": 1,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "2",
+                "stage": "2",
+                "energy": "10",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "5 free",
+                "energy": "10",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-1",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "7",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "2",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "4 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "9 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "2",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "6 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "13",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "9 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "2",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "2 free",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "12",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "7",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "鍛鐵錠",
+        "id": "102",
+        "rank": 1,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "2",
+                "stage": "3",
+                "energy": "10",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7 free",
+                "energy": "10",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "9",
+                "energy": "13",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-2",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "8",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "3",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "6 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "12",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "3",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "3 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "12",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "11 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "3",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "8 free",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "13",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "8",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "月光水",
+        "id": "103",
+        "rank": 1,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "2",
+                "stage": "4",
+                "energy": "11",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "8 free",
+                "energy": "11",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "8",
+                "energy": "13",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "5 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "6",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "13",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "4",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "6",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "11",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "14",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-3",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "14",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "4",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "11 free",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "14",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "9",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "高級合劑",
+        "id": "104",
+        "rank": 1,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "2",
+                "stage": "5",
+                "energy": "11",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "2 free",
+                "energy": "12",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "7",
+                "energy": "13",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "7 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "10",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "4",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "14",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "15",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-2",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "15",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "5",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "17 free",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "15",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "10",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "星之粉",
+        "id": "105",
+        "rank": 1,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "2",
+                "stage": "6",
+                "energy": "11",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "6 free",
+                "energy": "12",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "3",
+                "stage": "10",
+                "energy": "13",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "4",
+                "stage": "11",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "5",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "6",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "8 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-1",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "6",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "16",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "11",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "惡魔之爪",
+        "id": "201",
+        "rank": 2,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "6",
+                "stage": "6 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "13",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "12",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "12",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "2",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "12",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "純源鋼錠",
+        "id": "202",
+        "rank": 2,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "6",
+                "stage": "3 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "6",
+                "stage": "12",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "13",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "3",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "13",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "精靈露水",
+        "id": "203",
+        "rank": 2,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "6",
+                "stage": "14",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-1",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "14",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "4",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "14",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "彩虹合劑",
+        "id": "204",
+        "rank": 2,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "6",
+                "stage": "15",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "15",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "5",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "15",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "暗之粉",
+        "id": "205",
+        "rank": 2,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "6",
+                "stage": "8 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "16",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "6",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "16",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "堅固之角",
+        "id": "301",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "5",
+                "stage": "9 free",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "5",
+                "stage": "12",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "2",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "7",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "9 free",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "銀錠",
+        "id": "302",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "5",
+                "stage": "13",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "11 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "13",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "8",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "17",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "儀式之油",
+        "id": "303",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "5",
+                "stage": "14",
+                "energy": "14",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "3 free-2",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "4",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "9",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "12 free",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "腐蝕之塵",
+        "id": "304",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "10",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "17",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "4 free",
+                "energy": "18",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "劇毒蛇牙",
+        "id": "305",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "6",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "9 free",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "11",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "16 free",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "獅鷲之喙",
+        "id": "306",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "7",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "19",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "12 free",
+                "energy": "18",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "熊皮",
+        "id": "307",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "8",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "2 free",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "8 free",
+                "energy": "18",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "邪語之書",
+        "id": "308",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "9",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "8 free",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "18",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "18",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "精緻尾羽",
+        "id": "309",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "10",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "11 free",
+                "energy": "17",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "9",
+                "stage": "17",
+                "energy": "19",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "蟲巢之絲",
+        "id": "310",
+        "rank": 3,
+        "categroy": "潛力材料",
+        "drop": [
+            {
+                "chapter": "7",
+                "stage": "3 free-3",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "7",
+                "stage": "11",
+                "energy": "16",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "8",
+                "stage": "17 free",
+                "energy": "18",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "10",
+                "stage": "19",
+                "energy": "20",
+                "rarity": "罕見"
+            }
+        ]
+    },
+    {
+        "name": "闇(初)",
+        "id": "501",
+        "rank": 0,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "7",
+                "energy": "8",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "1",
+                "stage": "6",
+                "energy": "9",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "8",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "8",
+                "energy": "13",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "8 free",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "8",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "3",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "8",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "8",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "13",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "8",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "13",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "風(初)",
+        "id": "502",
+        "rank": 0,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "1",
+                "stage": "2",
+                "energy": "8",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "9",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "9",
+                "energy": "13",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "4",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "9",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "9",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "14",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "9",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "14",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "光(初)",
+        "id": "503",
+        "rank": 0,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "1",
+                "stage": "3",
+                "energy": "8",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "10",
+                "energy": "13",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "10",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "10",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "10",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "15",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "10",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "15",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "水(初)",
+        "id": "504",
+        "rank": 0,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "1",
+                "stage": "3",
+                "energy": "8",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "10",
+                "energy": "13",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "10",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "5",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "10",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "10",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "15",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "10",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "15",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "火(初)",
+        "id": "505",
+        "rank": 0,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "6",
+                "energy": "7",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "1",
+                "stage": "5",
+                "energy": "9",
+                "rarity": "罕見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "2",
+                "stage": "9",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "7",
+                "energy": "13",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "3",
+                "stage": "7 free",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "7",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "2",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "7",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "7",
+                "stage": "13",
+                "energy": "16",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "7",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "8",
+                "stage": "12",
+                "energy": "17",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "7",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "12",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "闇(中)",
+        "id": "601",
+        "rank": 1,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "4",
+                "stage": "13",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "4 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "11",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "7",
+                "stage": "15",
+                "energy": "16",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "16",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "11",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "11",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "19",
+                "energy": "20",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "風(中)",
+        "id": "602",
+        "categroy": "調教道具",
+        "rank": 1,
+        "drop": [
+            {
+                "chapter": "4",
+                "stage": "13",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "10",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "9",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "14",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "9",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "9",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "17",
+                "energy": "20",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "光(中)",
+        "id": "603",
+        "rank": 1,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "3",
+                "stage": "8 free",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "12",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "6 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "9",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "8",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "13",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "8",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "8",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "水(中)",
+        "id": "604",
+        "rank": 1,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "3",
+                "stage": "7 free",
+                "energy": "12",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "8",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "7",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "12",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "7",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "7",
+                "energy": "19",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "火(中)",
+        "id": "605",
+        "rank": 1,
+        "categroy": "調教道具",
+        "drop": [
+            {
+                "chapter": "4",
+                "stage": "12",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "7",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "5",
+                "stage": "11",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "10",
+                "energy": "15",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "7",
+                "stage": "14",
+                "energy": "16",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "8",
+                "stage": "15",
+                "energy": "17",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "9",
+                "stage": "10",
+                "energy": "18",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "10",
+                "energy": "19",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "10",
+                "stage": "18",
+                "energy": "20",
+                "rarity": "少見"
+            }
+        ]
+    },
+    {
+        "name": "小型經驗藥水",
+        "id": "701",
+        "rank": 0,
+        "categroy": "經驗藥水",
+        "drop": [
+            {
+                "chapter": "0",
+                "stage": "1",
+                "energy": "6",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "0",
+                "stage": "2",
+                "energy": "6",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "0",
+                "stage": "3",
+                "energy": "6",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "0",
+                "stage": "4",
+                "energy": "7",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "0",
+                "stage": "5",
+                "energy": "7",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "2",
+                "energy": "8",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "3",
+                "energy": "8",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "4",
+                "energy": "8",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "5",
+                "energy": "9",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "6",
+                "energy": "9",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "7",
+                "energy": "9",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "1",
+                "stage": "8",
+                "energy": "10",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "2",
+                "stage": "7",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "2",
+                "stage": "8",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "2",
+                "stage": "9",
+                "energy": "12",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "中型經驗藥水",
+        "id": "702",
+        "rank": 1,
+        "categroy": "經驗藥水",
+        "drop": [
+            {
+                "chapter": "3",
+                "stage": "2",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "3",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "4",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "5",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "6",
+                "energy": "12",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "7",
+                "energy": "13",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "8",
+                "energy": "13",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "9",
+                "energy": "13",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "3",
+                "stage": "10",
+                "energy": "13",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-1",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "3 free-2",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "5 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "7 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "8",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "9 free",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "10",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "4",
+                "stage": "11",
+                "energy": "14",
+                "rarity": "少見"
+            },
+            {
+                "chapter": "6",
+                "stage": "12",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "13",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "14",
+                "energy": "15",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "15",
+                "energy": "15",
+                "rarity": "常見"
+            }
+        ]
+    },
+    {
+        "name": "大型經驗藥水",
+        "id": "703",
+        "rank": 2,
+        "categroy": "經驗藥水",
+        "drop": [
+            {
+                "chapter": "9",
+                "stage": "2",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "3",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "4",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "5",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "6",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "7",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "8",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "9",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "10",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "11",
+                "energy": "18",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "12",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "13",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "14",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "15",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "16",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "9",
+                "stage": "17",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "2",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "3",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "4",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "5",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "6",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "7",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "8",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "9",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "10",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "11",
+                "energy": "19",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "12",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "13",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "14",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "15",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "16",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "17",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "18",
+                "energy": "20",
+                "rarity": "常見"
+            },
+            {
+                "chapter": "10",
+                "stage": "19",
+                "energy": "20",
+                "rarity": "常見"
+            }
+        ]
+    }
+]

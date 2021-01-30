@@ -11,3 +11,137 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.color-mode-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+.color-mode-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: lightblue;
+    background-image: './img/sun.svg';
+    background-position: 28px;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 4px; bottom: 4px;
+    border-radius: 50%;
+    background-color: var(--surface);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.container {
+    padding: 15px;
+    max-width: none;
+}
+
+.filter-bar {
+    display: flex;
+}
+
+.card-container {
+    margin-top: 15px;
+}
+
+.gutter-sizer {
+    width: 15px;
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.card-img {
+    width: 40px;
+}
+
+.card-title {
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-table {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.card-table > tbody > tr > th {
+    padding-left: .75rem;
+}
+
+.card-table-img {
+    width: 16px;
+}
+
+@media (min-width: 300px) {
+    .container-sizer,
+    .card {
+        width: calc((100% - 15px) / 2);
+    }
+}
+
+@media (min-width: 768px) {
+    .container-sizer,
+    .card {
+        width: calc((100% - 30px) / 3);
+    }
+}
+
+@media (min-width: 992px) {
+    .container-sizer,
+    .card {
+        width: calc((100% - 45px) / 4);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-sizer,
+    .card {
+        width: calc((100% - 60px) / 5);
+    }
+}
+
+@media (min-width: 1350px) {
+    .container-sizer,
+    .card {
+        width: calc((100% - 75px) / 6);
+    }
+}
