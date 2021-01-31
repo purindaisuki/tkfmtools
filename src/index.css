@@ -56,17 +56,13 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.container {
-    padding: 15px;
-    max-width: none;
-}
-
-.filter-bar {
-    display: flex;
+.container,
+.tab-content {
+    margin: 0 15px;
 }
 
 .card-container {
-    margin-top: 15px;
+    margin: 0;
 }
 
 .gutter-sizer {
@@ -83,7 +79,8 @@ input:checked + .slider:before {
     justify-content: center;
 }
 
-.card-img {
+.card-img,
+.filter-button-group > .btn > img {
     width: 40px;
 }
 
@@ -109,6 +106,47 @@ input:checked + .slider:before {
 
 .card-table-img {
     width: 16px;
+}
+
+.filter-panel {
+    display: inline-block;
+    width: 40%;
+    border-radius: .25rem;
+    background-color: antiquewhite;
+}
+
+.filter-header {
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    justify-content: space-between;
+    padding: 15px; padding-bottom: 0;
+}
+
+#delete-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: 15px;
+    width: 16px; height: 16px;
+}
+
+.filter-button-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 15px;
+}
+
+.filter-button-group > .btn {
+    font-size: small;
+    padding: .15rem .15rem;
+}
+
+.result-table {
+    display: inline-block;
+    vertical-align: top;
+    width: 60%;
 }
 
 @media (min-width: 300px) {
