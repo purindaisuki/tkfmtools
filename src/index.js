@@ -5,7 +5,6 @@ import {
     Nav, Navbar, Tab, Tabs
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import Masonry from 'masonry-layout';
 import ItemShowcase from './ItemShowcase';
 import ItemFilter from './ItemFilter';
 import './index.css';
@@ -25,11 +24,7 @@ function ItemInfoContainer() {
         <StyledTabs
             defaultActiveKey='filter'
             onClick={() => {
-                setTimeout(() => {
-                    Masonry
-                        .data(document.querySelector('.card-container'))
-                        .layout()
-                })
+                //reset masonry
             }}
         >
             <Tab eventKey='view' title='總覽'>

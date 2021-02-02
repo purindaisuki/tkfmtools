@@ -1,26 +1,13 @@
 import React from 'react';
 import { Accordion, Card, Table } from 'react-bootstrap';
-import Masonry from 'masonry-layout';
+import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import data from './item.json'
 
 const StyleCard = styled(Card)`
   margin-bottom: 15px;
-  width: calc((100% - 75px) / 6);
   box-shadow: .1rem .1rem .25em lightgray;
-  @media (max-width: 1360px) {
-    width: calc((100% - 60px) / 5);
-  }
-  @media (max-width: 1200px) {
-    width: calc((100% - 45px) / 4);
-  }
-  @media (max-width: 992px) {
-    width: calc((100% - 30px) / 3);
-  }
-  @media (max-width: 768px) {
-    width: calc((100% - 15px) / 2);
-  }
 `
 const StyledCardHeader = styled(Card.Header)`
   display: flex;
@@ -37,15 +24,6 @@ const StyledCardTitle = styled(Card.Title)`
 `
 const StyledCardBody = styled(Card.Body)`
   padding: 0;
-  > .show {
-    position: relative;
-    background-color: white;
-    z-index: 1;
-  }
-  > .collapsing {
-    z-index: 2;
-    background-color: white;
-  }
 `
 const CardTable = styled(Table)`
   font-size: 14px;
@@ -58,19 +36,28 @@ const CardTable = styled(Table)`
 const CardTableImg = styled.img`
   width: 16px;
 `
+const StyledMasonry = styled(Masonry)`
+  display: flex;
+  width: auto;
+  margin-left: -15px;
+  > div {
+    padding-left: 15px;
+    background-clip: padding-box;
+  }
+`
+const breakpointColumnsConfig = {
+  default: 6,
+  1360: 5,
+  1200: 4,
+  992: 3,
+  768: 2
+};
 
 export default function ItemShowcase() {
   return (
-    <div
-      className='card-container'
-      data-masonry='{
-                    "columnWidth": ".container-sizer",
-                    "gutter": ".gutter-sizer",
-                    "itemSelector": ".card"
-                  }'
+    <StyledMasonry
+      breakpointCols={breakpointColumnsConfig}
     >
-      <div className='container-sizer' />
-      <div className='gutter-sizer' />
       {data.map((item) => {
         return (
           <Accordion defaultActiveKey="0" key={item.id}>
@@ -79,11 +66,7 @@ export default function ItemShowcase() {
                 as={StyledCardHeader}
                 eventKey="0"
                 onClick={() => {
-                  setTimeout(() => {
-                    Masonry
-                      .data(document.querySelector('.card-container'))
-                      .layout()
-                  }, 320)
+
                 }}
               >
                 <StyledCardImg
@@ -128,6 +111,6 @@ export default function ItemShowcase() {
           </Accordion>
         )
       })}
-    </div>
+    </StyledMasonry>
   )
 }
