@@ -181,7 +181,7 @@
             },
             {
                 "chapter": "10",
-                "stage": 2,
+                "stage": "2",
                 "energy": 19,
                 "rarity": "必定"
             }
@@ -518,157 +518,157 @@
             {
                 "chapter": "0",
                 "stage": "4",
-                "energy": "7",
+                "energy": 7,
                 "rarity": "少見"
             },
             {
                 "chapter": "1",
                 "stage": "3",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "少見"
             },
             {
                 "chapter": "1",
                 "stage": "7 free",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "8",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "少見"
             },
             {
                 "chapter": "2",
                 "stage": "5",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "2 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "5",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "4",
                 "stage": "4",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "5",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "7 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "5",
                 "stage": "4",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "5",
                 "stage": "4 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "9",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "5",
                 "stage": "14",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "4",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "9",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "10",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "5",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "8 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "必定"
             },
             {
                 "chapter": "8",
                 "stage": "18",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "5",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "15",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "5",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "必定"
             },
             {
                 "chapter": "10",
                 "stage": "9 free",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -682,151 +682,151 @@
             {
                 "chapter": "0",
                 "stage": "3",
-                "energy": "6",
+                "energy": 6,
                 "rarity": "少見"
             },
             {
                 "chapter": "1",
                 "stage": "2",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "少見"
             },
             {
                 "chapter": "1",
                 "stage": "6 free",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "7",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "少見"
             },
             {
                 "chapter": "2",
                 "stage": "6",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "6",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "6 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "4",
                 "stage": "5",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "6",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "9 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "5",
                 "stage": "5",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "5",
                 "stage": "6 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "8",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "8 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "10",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-1",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "6",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "常見"
             },
             {
                 "chapter": "7",
                 "stage": "11",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "6",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "19",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "6",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "12 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "16",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "6",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "必定"
             }
         ]
@@ -840,91 +840,91 @@
             {
                 "chapter": "2",
                 "stage": "2",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "5 free",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "3 free-1",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "7",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "2",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "4 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "9 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "6 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "13",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "9 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "2",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "2 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "12",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "7",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -938,97 +938,97 @@
             {
                 "chapter": "2",
                 "stage": "3",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "7 free",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "9",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "3 free-2",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "8",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "3",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "6 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "12",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "3",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "3 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "12",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "11 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "3",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "8 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "13",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "8",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -1042,103 +1042,103 @@
             {
                 "chapter": "2",
                 "stage": "4",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "8 free",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "8",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "5 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "9",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "6",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "13",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "4",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "6",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "11",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "14",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-3",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "14",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "4",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "11 free",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "14",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "9",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -1152,91 +1152,91 @@
             {
                 "chapter": "2",
                 "stage": "5",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "2 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "7",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "7 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "10",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "4",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "14",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "15",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "15",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "5",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "17 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "15",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "10",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -1250,73 +1250,73 @@
             {
                 "chapter": "2",
                 "stage": "6",
-                "energy": "11",
+                "energy": 11,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "6 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "罕見"
             },
             {
                 "chapter": "3",
                 "stage": "10",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "9 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "4",
                 "stage": "11",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "5",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "6",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "8 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-1",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "6",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "16",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "11",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -1330,37 +1330,37 @@
             {
                 "chapter": "6",
                 "stage": "6 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "13",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "12",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "12",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "2",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "12",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1374,31 +1374,31 @@
             {
                 "chapter": "6",
                 "stage": "3 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "6",
                 "stage": "12",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "13",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "3",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "13",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1412,31 +1412,31 @@
             {
                 "chapter": "6",
                 "stage": "14",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-1",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "14",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "4",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "14",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1450,25 +1450,25 @@
             {
                 "chapter": "6",
                 "stage": "15",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "15",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "5",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "15",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1482,25 +1482,25 @@
             {
                 "chapter": "6",
                 "stage": "8 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "16",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "6",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "16",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1514,31 +1514,31 @@
             {
                 "chapter": "5",
                 "stage": "9 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "5",
                 "stage": "12",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "7",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "9 free",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1552,37 +1552,37 @@
             {
                 "chapter": "5",
                 "stage": "13",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "11 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "13",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "8",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "17",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1596,31 +1596,31 @@
             {
                 "chapter": "5",
                 "stage": "14",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "3 free-2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "4",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "9",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "12 free",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1634,25 +1634,25 @@
             {
                 "chapter": "7",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "10",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "17",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "4 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             }
         ]
@@ -1666,25 +1666,25 @@
             {
                 "chapter": "7",
                 "stage": "6",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "9 free",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "11",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "16 free",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1698,19 +1698,19 @@
             {
                 "chapter": "7",
                 "stage": "7",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "19",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "12 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             }
         ]
@@ -1724,19 +1724,19 @@
             {
                 "chapter": "7",
                 "stage": "8",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "2 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "8 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             }
         ]
@@ -1750,25 +1750,25 @@
             {
                 "chapter": "7",
                 "stage": "9",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "8 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "18",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "18",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1782,19 +1782,19 @@
             {
                 "chapter": "7",
                 "stage": "10",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "11 free",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "罕見"
             },
             {
                 "chapter": "9",
                 "stage": "17",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "罕見"
             }
         ]
@@ -1808,25 +1808,25 @@
             {
                 "chapter": "7",
                 "stage": "3 free-3",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "7",
                 "stage": "11",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "罕見"
             },
             {
                 "chapter": "8",
                 "stage": "17 free",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "罕見"
             },
             {
                 "chapter": "10",
                 "stage": "19",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "罕見"
             }
         ]
@@ -1840,73 +1840,73 @@
             {
                 "chapter": "0",
                 "stage": "7",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "罕見"
             },
             {
                 "chapter": "1",
                 "stage": "6",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "8",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "8",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "8 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "8",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "3",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "8",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "8",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "13",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "8",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "13",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -1920,61 +1920,61 @@
             {
                 "chapter": "1",
                 "stage": "2",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "9",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "9",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "9",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "4",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "9",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "9",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "14",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "9",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "14",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -1988,61 +1988,61 @@
             {
                 "chapter": "1",
                 "stage": "3",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "7",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "10",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "10",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "10",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "10",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "15",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "10",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "15",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -2056,61 +2056,61 @@
             {
                 "chapter": "1",
                 "stage": "3",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "7",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "10",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "10",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "5",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "10",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "10",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "15",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "10",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "15",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -2124,85 +2124,85 @@
             {
                 "chapter": "0",
                 "stage": "6",
-                "energy": "7",
+                "energy": 7,
                 "rarity": "罕見"
             },
             {
                 "chapter": "1",
                 "stage": "5",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "罕見"
             },
             {
                 "chapter": "2",
                 "stage": "7",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "2",
                 "stage": "9",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "7",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "少見"
             },
             {
                 "chapter": "3",
                 "stage": "7 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "7",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "2",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "7",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "7",
                 "stage": "13",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "7",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "8",
                 "stage": "12",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "7",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "12",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]
@@ -2216,49 +2216,49 @@
             {
                 "chapter": "4",
                 "stage": "13",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "4 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "11",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "7",
                 "stage": "15",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "16",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "11",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "11",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "19",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "少見"
             }
         ]
@@ -2272,43 +2272,43 @@
             {
                 "chapter": "4",
                 "stage": "13",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "10",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "9",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "14",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "9",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "9",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "17",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "少見"
             }
         ]
@@ -2322,49 +2322,49 @@
             {
                 "chapter": "3",
                 "stage": "8 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "12",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "6 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "9",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "8",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "13",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "8",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "8",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -2378,37 +2378,37 @@
             {
                 "chapter": "3",
                 "stage": "7 free",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "8",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "7",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "12",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "7",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "7",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             }
         ]
@@ -2422,55 +2422,55 @@
             {
                 "chapter": "4",
                 "stage": "12",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "7",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "5",
                 "stage": "11",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "10",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "少見"
             },
             {
                 "chapter": "7",
                 "stage": "14",
-                "energy": "16",
+                "energy": 16,
                 "rarity": "少見"
             },
             {
                 "chapter": "8",
                 "stage": "15",
-                "energy": "17",
+                "energy": 17,
                 "rarity": "少見"
             },
             {
                 "chapter": "9",
                 "stage": "10",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "10",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "少見"
             },
             {
                 "chapter": "10",
                 "stage": "18",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "少見"
             }
         ]
@@ -2484,91 +2484,91 @@
             {
                 "chapter": "0",
                 "stage": "1",
-                "energy": "6",
+                "energy": 6,
                 "rarity": "常見"
             },
             {
                 "chapter": "0",
                 "stage": "2",
-                "energy": "6",
+                "energy": 6,
                 "rarity": "常見"
             },
             {
                 "chapter": "0",
                 "stage": "3",
-                "energy": "6",
+                "energy": 6,
                 "rarity": "常見"
             },
             {
                 "chapter": "0",
                 "stage": "4",
-                "energy": "7",
+                "energy": 7,
                 "rarity": "常見"
             },
             {
                 "chapter": "0",
                 "stage": "5",
-                "energy": "7",
+                "energy": 7,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "2",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "3",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "4",
-                "energy": "8",
+                "energy": 8,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "5",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "6",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "7",
-                "energy": "9",
+                "energy": 9,
                 "rarity": "常見"
             },
             {
                 "chapter": "1",
                 "stage": "8",
-                "energy": "10",
+                "energy": 10,
                 "rarity": "常見"
             },
             {
                 "chapter": "2",
                 "stage": "7",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "2",
                 "stage": "8",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "2",
                 "stage": "9",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             }
         ]
@@ -2582,133 +2582,133 @@
             {
                 "chapter": "3",
                 "stage": "2",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "3",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "4",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "5",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "6",
-                "energy": "12",
+                "energy": 12,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "7",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "8",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "9",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "常見"
             },
             {
                 "chapter": "3",
                 "stage": "10",
-                "energy": "13",
+                "energy": 13,
                 "rarity": "常見"
             },
             {
                 "chapter": "4",
                 "stage": "3 free-1",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "3 free-2",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "5 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "7 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "8",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "9",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "9 free",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "10",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "4",
                 "stage": "11",
-                "energy": "14",
+                "energy": 14,
                 "rarity": "少見"
             },
             {
                 "chapter": "6",
                 "stage": "12",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "13",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "14",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             },
             {
                 "chapter": "6",
                 "stage": "15",
-                "energy": "15",
+                "energy": 15,
                 "rarity": "常見"
             }
         ]
@@ -2722,205 +2722,205 @@
             {
                 "chapter": "9",
                 "stage": "2",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "3",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "4",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "5",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "6",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "7",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "8",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "9",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "10",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "11",
-                "energy": "18",
+                "energy": 18,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "12",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "13",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "14",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "15",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "16",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "9",
                 "stage": "17",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "2",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "3",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "4",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "5",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "6",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "7",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "8",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "9",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "10",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "11",
-                "energy": "19",
+                "energy": 19,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "12",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "13",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "14",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "15",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "16",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "17",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "18",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             },
             {
                 "chapter": "10",
                 "stage": "19",
-                "energy": "20",
+                "energy": 20,
                 "rarity": "常見"
             }
         ]

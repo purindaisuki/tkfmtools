@@ -1,16 +1,68 @@
-import React from 'react';
-import { ToggleButton, ToggleButtonGroup, Table, Container } from 'react-bootstrap';
+import React, { useMemo, useState } from 'react';
+import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import data from './item.json'
 
-class FilterPanel extends React.Component {
-    render() {
-        return (
-            <div className='filter-panel'>
-                <div className='filter-header'>
-                    道具選擇
-                    <svg id="delete-icon" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg" version="1.1">
+const StyledFilterPanel = styled.div`
+    width: 52%; height: 100%;
+    padding: 15px;
+    border-radius: .25rem;
+    background-color: antiquewhite;
+    @media (max-width: 1360px) {
+        width: 62%;
+    }
+    @media (max-width: 992px) {
+        width: 100%;
+    }
+`
+const ContainerHeader = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    justify-content: space-between;
+    margin-bottom: 15px;
+`
+const ImgWrapper = styled.div`
+    cursor: pointer;
+`
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    @media (max-width: 1360px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+`
+const StyledToggleButton = styled(ToggleButton)`
+    font-size: small;
+    padding: .15rem .15rem;
+    > img {
+        width: 40px; height: 40px;
+    }
+`
+
+function FilterPanel(props) {
+    return (
+        <StyledFilterPanel>
+            <ContainerHeader>
+                道具選擇
+                <ImgWrapper
+                    onClick={props.onClick}
+                >
+                    <svg
+                        viewBox="0 0 20 20"
+                        width="18px"
+                        xmlns="http://www.w3.org/2000/svg"
+                        version="1.1"
+                    >
                         <g stroke="currentColor" strokeWidth="1.8"
                             strokeLinecap="butt" fill="none" strokeLinejoin="round">
                             <polyline points="15 4 15 18 5 18 5 4" />
@@ -20,68 +72,304 @@ class FilterPanel extends React.Component {
                             <polyline points="8 1 12 1" />
                         </g>
                     </svg>
-                </div>
-                <ToggleButtonGroup
-                    type="checkbox"
-                    defaultValue={[]}
-                    className="filter-button-group">
-                    {data.map((item, idx) => {
-                        return (
-                            <ToggleButton
-                                value={idx}
-                                key={item.name}
-                                variant='secondary'
-                                style={{ borderRadius: '.25rem' }}>
-                                <img
-                                    src={'./img/item_' + item.id + '.png'}
-                                    alt=''
-                                />
-                                {item.name}
-                            </ToggleButton>
-                        )
-                    })}
-                </ToggleButtonGroup>
-            </div>
-        )
-    }
-}
-class ResultTable extends React.Component {
-    render() {
-        return (
-            <Table
-                striped
-                borderless
-                size="sm"
-                className='result-table'
+                </ImgWrapper>
+            </ContainerHeader>
+            <StyledToggleButtonGroup
+                type="checkbox"
+                value={props.value}
+                onChange={props.onChange}
             >
-                <thead>
-                    <tr>
-                        <th>關卡</th>
-                        <th>稀有度</th>
-                        <th>
+                {data.map((item, idx) => {
+                    return (
+                        <StyledToggleButton
+                            value={idx}
+                            key={item.name}
+                            variant='secondary'
+                            style={{ borderRadius: '.25rem' }}
+                        >
                             <img
-                                src='./img/energy.png'
-                                className='card-table-img'
-                                alt='體力消耗'
+                                src={`./img/item_${item.id}.png`}
+                                alt=''
                             />
-                        </th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </Table>
-        )
-    }
+                            {item.name}
+                        </StyledToggleButton>
+                    )
+                })}
+            </StyledToggleButtonGroup>
+        </StyledFilterPanel>
+    )
 }
 
-class ItemFilter extends React.Component {
-    render() {
+const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {
+    // when key is number meaning sorted by the number of item
+    const [sortConfig, setSortConfig] = useState(config)
+
+    const toStageKey = key => {
         return (
-            <div className='filter-container'>
-                <FilterPanel />
-                <ResultTable />
-            </div>
+            parseInt(key['chapter']) * 1000 +
+            parseInt(key['stage'].split(' ')[0]) *10 +
+            (key['stage'].includes('free') ? 1 : 0) +
+            (key['stage'].includes('-') ? parseInt(key['stage'].split('-')[1]) : 0)
         )
     }
+
+    const toRarityKey = (key, idx) => {
+        switch(key['drop'][idx]['rarity']) {
+            case '罕見': return 0
+            case '少見': return 1
+            case '常見': return 2
+            default: return 3
+        }
+    }
+
+    const sortedItems = useMemo(() => {
+        let sortableItems = [...items]
+
+        sortableItems.sort((a, b) => {
+            let aKey
+            let bKey
+            if (sortConfig.key === 'stage') {
+                aKey = toStageKey(a)
+                bKey = toStageKey(b)
+                console.log(a, aKey)
+            } else if (sortConfig.key === 'energy') {
+                aKey = a[sortConfig.key]
+                bKey = b[sortConfig.key]
+            } else {
+                aKey = toRarityKey(a, sortConfig.key)
+                bKey = toRarityKey(b, sortConfig.key)
+            }
+            if (aKey < bKey) {
+                return sortConfig.direction === 'asc' ? -1 : 1
+            }
+            if (aKey > bKey) {
+                return sortConfig.direction === 'asc' ? 1 : -1
+            }
+            return 0
+        })
+
+        return sortableItems
+    }, [items, sortConfig])
+
+    const requestSort = key => {
+        let direction = 'desc';
+        if (
+            sortConfig.key === key &&
+            sortConfig.direction === 'desc'
+        ) {
+            direction = 'asc';
+        }
+        setSortConfig({ key, direction })
+    }
+
+    return { items: sortedItems, requestSort, sortConfig }
+}
+
+const ResultTableContainer = styled.div`
+    vertical-align: top;
+    width: 30%;
+    position: absolute;
+    margin-left: calc(52% + 15px);
+    padding: 15px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: antiquewhite;
+    @media (max-width: 1360px) {
+        width: calc(38% - 15px);
+        margin-left: calc(62% + 15px);
+    }
+    @media (max-width: 992px) {
+        width: 100%;
+        position: relative;
+        margin-left: 0;
+        margin-top: 15px;
+    }
+`
+const ResultTableWrapper = styled.div`
+    height: calc(100% - 42px);
+    overflow-x: hidden; overflow-y: auto;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+`
+const StyledResultTable = styled(Table)`
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    > thead > tr > th {
+        position: sticky;
+        top: 0;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        background-color: white;
+    }
+    img {
+        width: 28px; height: 28px;
+    }
+`
+const SortTh = styled.th`
+    &:after {
+        content: '${props => {
+            if (!props.direction) return
+            return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
+        }}';
+    }
+`
+
+function ResultTable(props) {
+    const { items, requestSort, sortConfig } = useSortableData(props.stages)
+    const getClassNamesFor = (name) => {
+        if (items.length === 0) {
+            return
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined
+    }
+
+    const TableHeader = () => {
+        if (items.length === 0) {
+            return <th>稀有度</th>
+        }
+
+        return (
+            items[0].drop.map((item, idx) => {
+                return (
+                    <SortTh
+                        key={idx}
+                        onClick={() => requestSort(idx)}
+                        direction={getClassNamesFor(idx)}
+                    >
+                        <img
+                            src={`./img/item_${item.id}.png`}
+                            alt={item.name}
+                        />
+                    </SortTh>
+                )
+            })
+        )
+    }
+
+    return (
+        <ResultTableContainer>
+            <ContainerHeader>篩選結果</ContainerHeader>
+            <ResultTableWrapper>
+                <StyledResultTable
+                    striped
+                    borderless
+                    size="sm"
+                    hover
+                >
+                    <thead>
+                        <tr>
+                            <th
+                                onClick={() => requestSort('stage')}
+                                className={getClassNamesFor('stage')}
+                            >
+                                關卡
+                            </th>
+                            <TableHeader />
+                            <th
+                                onClick={() => requestSort('energy')}
+                                className={getClassNamesFor('energy')}
+                            >
+                                <img
+                                    src='./img/energy.png'
+                                    className='card-table-img'
+                                    alt='體力消耗'
+                                />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((stage, idx) => {
+                            return (
+                                <tr key={idx}>
+                                    <td>{`${stage.chapter}-${stage.stage}`}</td>
+                                    {stage.drop.map(item => {
+                                        return (
+                                            <td key={item.id}>{item.rarity}</td>
+                                        )
+                                    })}
+                                    <td>{stage.energy}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </StyledResultTable>
+            </ResultTableWrapper>
+        </ResultTableContainer>
+    )
+}
+
+const FilterContainer = styled.div`
+    display: flex;
+    @media (max-width: 992px) {
+        display: block;
+    }
+`
+
+function ItemFilter() {
+    const [value, setValue] = useState([])
+    const [stages, setStages] = useState([])
+
+    const handleChange = (val) => {
+        setValue(val)
+        if (val.length === 0) {
+            setStages([])
+            return;
+        }
+        let curVal = val.sort()
+        // deep copy
+        let filteredStages = JSON.parse(JSON.stringify(data[curVal[0]].drop))
+        filteredStages.forEach(stage => {
+            stage['drop'] = [{
+                id: data[curVal[0]].id,
+                name: data[curVal[0]].name,
+                rarity: stage.rarity
+            }]
+            delete stage['rarity']
+        })
+        curVal.forEach((itemIdx, idx) => {
+            if (idx === 0) return true
+            filteredStages = filteredStages.filter(thisStage => {
+                let flag = false
+                data[itemIdx].drop.forEach(that => {
+                    if (
+                        that.chapter === thisStage.chapter
+                        && that.stage === thisStage.stage
+                    ) {
+                        let newDrop = {
+                            id: data[itemIdx].id,
+                            name: data[itemIdx].name,
+                            rarity: that.rarity
+                        }
+                        thisStage.drop.push(newDrop)
+                        flag = true
+                        return false
+                    }
+                })
+                return flag
+            })
+        })
+        setStages(filteredStages)
+    }
+
+    return (
+        <FilterContainer>
+            <FilterPanel
+                value={value}
+                onChange={handleChange}
+                onClick={() => handleChange([])}
+            />
+            <ResultTable
+                stages={stages}
+            />
+        </FilterContainer>
+    )
+
 }
 
 export default ItemFilter;
