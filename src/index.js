@@ -1,32 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
-import {
-    Nav, Navbar, Tab, Tabs
-} from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
+import styled, { ThemeProvider } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
 import ItemShowcase from './ItemShowcase';
 import ItemFilter from './ItemFilter';
-import './index.css';
+import StyledNavbar from './StyledNavbar';
+import { lightTheme, darkTheme } from './Theme';
 
 const StyledTabs = styled(Tabs)`
-    margin: 0 15px;
+    display: flex;
+    margin: 0 1rem;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.surfaceShadow};
     + .tab-content {
-        margin: 0 15px;
+        margin: 1rem;
     }
     + .tab-content > .tab-pane {
         position: relative;
+    }
+    > a {
+        display: inline;
+        color: ${props => props.theme.colors.onSurface};
+        border-radius: .25rem .25rem 0 0;
+    }
+    > .active {
+        border: 1px solid ${props => props.theme.colors.surfaceShadow};
+        border-bottom: none;
+        box-shadow: 0 1px ${props => props.theme.colors.background}
     }
 `
 
 function ItemInfoContainer() {
     return (
-        <StyledTabs
-            defaultActiveKey='filter'
-            onClick={() => {
-                //reset masonry
-            }}
-        >
+        <StyledTabs defaultActiveKey='filter' bsPrefix='escape'>
             <Tab eventKey='view' title='總覽'>
                 <ItemShowcase />
             </Tab>
@@ -37,81 +45,55 @@ function ItemInfoContainer() {
     )
 }
 
-const ThemeSwitcherLabel = styled.label`
-    position: relative;
-    display: inline-block;
-    width: 52px;
-    height: 26px;
+const Body = styled.div`
+    min-height: 100vh;
+    background-color: ${props => props.theme.colors.background};
 `
-const Slider = styled.span`
-    position: absolute;
-    cursor: pointer;
-    top: 0; bottom: 0; left: 0; right: 0;
-    background-color: white;
-    background-position: 28px;
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 26px;
-    background-image: url('/img/sun.svg');
+const Main = styled.main`
+    padding:1rem
+`
 
-    &:before {
-        position: absolute;
-        content: "";
-        height: 18px; width: 18px;
-        left: 4px; bottom: 4px;
-        border-radius: 50%;
-        background-color: #FFF8E1;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-`
-const ThemeSwitcherSwither = styled.input`
-    opacity: 0;
-    width: 0;
-    height: 0;
-    &:checked + ${Slider} {
-        &:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
+function App() {
+    const getDefaultTheme = () => {
+        let localSetting = localStorage.getItem('color-theme')
+        if (localSetting) {
+            return localSetting
         }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark'
+        }
+        return 'light'
     }
-`
 
-function MyNavbar() {
+    const [theme, setTheme] = useState(() => getDefaultTheme())
+
+    const handleThemeChange = () => {
+        let toTheme = theme === 'light' ? 'dark' : 'light'
+        setTheme(toTheme)
+        localStorage.setItem('color-theme', toTheme)
+    }
+
     return (
-        <Navbar>
-            <Navbar.Brand href="#">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="40"
-                    width="40"
-                    viewBox="0 0 24 24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-                </svg>
-            </Navbar.Brand>
-            <Nav className='ml-auto'>
-                <ThemeSwitcherLabel>
-                    <ThemeSwitcherSwither type="checkbox" />
-                    <Slider />
-                </ThemeSwitcherLabel>
-            </Nav>
-        </Navbar>
+        <ThemeProvider
+            theme={theme === 'light' ? lightTheme : darkTheme}
+            prefixes={{btn: 'escape'}}
+        >
+            <Body>
+                <StyledNavbar
+                    onChange={() => handleThemeChange()}
+                    checked={theme === 'dark'}
+                />
+                <Main>
+                    <ItemInfoContainer themeVariant={theme === 'light' ? 'light' : 'dark'} />
+                </Main>
+            </Body>
+        </ThemeProvider>
     )
 }
 
 // ========================================
 
 ReactDOM.render(
-    <MyNavbar />,
-    document.querySelector('#nav-bar')
+    <App />,
+    document.querySelector('.root')
 )
-
-ReactDOM.render(
-    <ItemInfoContainer />,
-    document.querySelector('#main-container')
-);

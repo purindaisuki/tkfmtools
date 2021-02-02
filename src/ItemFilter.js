@@ -1,14 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
-import 'bootstrap/dist/css/bootstrap.css';
 import data from './item.json'
 
 const StyledFilterPanel = styled.div`
     width: 52%; height: 100%;
-    padding: 15px;
+    padding: 1rem;
     border-radius: .25rem;
-    background-color: antiquewhite;
+    background-color: ${props => props.theme.colors.surface};
+    border: 1px solid ${props => props.theme.colors.surfaceShadow};
+    box-shadow: 0 0 .15em ${props => props.theme.colors.surfaceShadow};
     @media (max-width: 1360px) {
         width: 62%;
     }
@@ -22,7 +23,10 @@ const ContainerHeader = styled.div`
     font-size: large;
     font-weight: bold;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
+    padding-bottom: .4rem;
+    border-bottom: solid 1px ${props => props.theme.colors.surfaceShadow};
+    color: ${props => props.theme.colors.onSurface};
 `
 const ImgWrapper = styled.div`
     cursor: pointer;
@@ -30,7 +34,11 @@ const ImgWrapper = styled.div`
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
+    gap: .5rem;
+    > .active {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
     @media (max-width: 1360px) {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -40,12 +48,35 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     @media (max-width: 768px) {
         grid-template-columns: repeat(4, 1fr);
     }
+    @media (max-width: 624px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 `
 const StyledToggleButton = styled(ToggleButton)`
     font-size: small;
+    text-align: center;
     padding: .15rem .15rem;
+    margin-bottom: 0;
+    border-radius: .25rem;
+    border: 1px solid ${props => props.theme.colors.border};
+    background-color: ${props => props.theme.colors.surface};
+    color: ${props => props.theme.colors.onSurface};
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+        border: 1px solid ${props => props.theme.colors.secondary};
+        box-shadow: inset 0 0 .5rem ${props => props.theme.colors.secondary}
+            , 0 0 .1rem ${props => props.theme.colors.secondary};
+    }
+    &:active {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+    > input {
+        display: none;
+    }
     > img {
-        width: 40px; height: 40px;
+        width: 2.26rem; height: 2.26rem;
     }
 `
 
@@ -84,8 +115,7 @@ function FilterPanel(props) {
                         <StyledToggleButton
                             value={idx}
                             key={item.name}
-                            variant='secondary'
-                            style={{ borderRadius: '.25rem' }}
+                            bsPrefix='btn-escape'
                         >
                             <img
                                 src={`./img/item_${item.id}.png`}
@@ -169,49 +199,59 @@ const ResultTableContainer = styled.div`
     vertical-align: top;
     width: 30%;
     position: absolute;
-    margin-left: calc(52% + 15px);
-    padding: 15px;
+    margin-left: calc(52% + 1rem);
+    padding: 1rem;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: antiquewhite;
+    border-radius: .25rem;
+    background-color: ${props => props.theme.colors.surface};
+    border: 1px solid ${props => props.theme.colors.surfaceShadow};
+    box-shadow: 0 0 .15em ${props => props.theme.colors.surfaceShadow};
     @media (max-width: 1360px) {
-        width: calc(38% - 15px);
-        margin-left: calc(62% + 15px);
+        width: calc(38% - 1rem);
+        margin-left: calc(62% + 1rem);
     }
     @media (max-width: 992px) {
         width: 100%;
         position: relative;
         margin-left: 0;
-        margin-top: 15px;
+        margin-top: 1rem;
     }
 `
 const ResultTableWrapper = styled.div`
-    height: calc(100% - 42px);
+    height: calc(100% - 1.4rem - 1.5rem);
+    maring-top: -.5rem;
     overflow-x: hidden; overflow-y: auto;
     scrollbar-width: thin;
     &::-webkit-scrollbar {
-        width: 6px;
+        width: .4rem;
+        background: ${props => props.theme.colors.surface};
+    }
+    &::-webkit-scrollbar-thumb {
+        background: ${props => props.theme.colors.surfaceShadow};
+        border-radius: .25rem;
+    }
+    &::-webkit-scrollbar-track {
+        background: ${props => props.theme.colors.surface};
     }
 `
 const StyledResultTable = styled(Table)`
     width: 100%;
     table-layout: fixed;
-    text-align: center;
-    > thead > tr > th {
-        position: sticky;
-        top: 0;
-        vertical-align: middle;
-        cursor: pointer;
-        user-select: none;
-        background-color: white;
-    }
+    color: ${props => props.theme.colors.onSurface};
     img {
-        width: 28px; height: 28px;
+        width: 1.8rem; height: 1.8rem;
     }
 `
 const SortTh = styled.th`
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    user-select: none;
+    background-color: ${props => props.theme.colors.surface};
+    color: ${props => props.theme.colors.onSurface};
     &:after {
         content: '${props => {
             if (!props.direction) return
@@ -220,9 +260,10 @@ const SortTh = styled.th`
     }
 `
 
+
 function ResultTable(props) {
     const { items, requestSort, sortConfig } = useSortableData(props.stages)
-    const getClassNamesFor = (name) => {
+    const getSortDirection = (name) => {
         if (items.length === 0) {
             return
         }
@@ -231,7 +272,7 @@ function ResultTable(props) {
 
     const TableHeader = () => {
         if (items.length === 0) {
-            return <th>稀有度</th>
+            return <SortTh>稀有度</SortTh>
         }
 
         return (
@@ -240,7 +281,7 @@ function ResultTable(props) {
                     <SortTh
                         key={idx}
                         onClick={() => requestSort(idx)}
-                        direction={getClassNamesFor(idx)}
+                        direction={getSortDirection(idx)}
                     >
                         <img
                             src={`./img/item_${item.id}.png`}
@@ -260,27 +301,26 @@ function ResultTable(props) {
                     striped
                     borderless
                     size="sm"
-                    hover
                 >
                     <thead>
                         <tr>
-                            <th
+                            <SortTh
                                 onClick={() => requestSort('stage')}
-                                className={getClassNamesFor('stage')}
+                                direction={getSortDirection('stage')}
                             >
                                 關卡
-                            </th>
+                            </SortTh>
                             <TableHeader />
-                            <th
+                            <SortTh
                                 onClick={() => requestSort('energy')}
-                                className={getClassNamesFor('energy')}
+                                direction={getSortDirection('energy')}
                             >
                                 <img
                                     src='./img/energy.png'
                                     className='card-table-img'
                                     alt='體力消耗'
                                 />
-                            </th>
+                            </SortTh>
                         </tr>
                     </thead>
                     <tbody>
@@ -311,7 +351,7 @@ const FilterContainer = styled.div`
     }
 `
 
-function ItemFilter() {
+function ItemFilter(props) {
     const [value, setValue] = useState([])
     const [stages, setStages] = useState([])
 
@@ -361,10 +401,12 @@ function ItemFilter() {
         <FilterContainer>
             <FilterPanel
                 value={value}
+                themeVariant={props.themeVariant}
                 onChange={handleChange}
                 onClick={() => handleChange([])}
             />
             <ResultTable
+                theme={props.theme}
                 stages={stages}
             />
         </FilterContainer>

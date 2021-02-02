@@ -2,11 +2,10 @@ import React from 'react';
 import { Accordion, Card, Table } from 'react-bootstrap';
 import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
-import 'bootstrap/dist/css/bootstrap.css';
 import data from './item.json'
 
 const StyleCard = styled(Card)`
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   box-shadow: .1rem .1rem .25em lightgray;
 `
 const StyledCardHeader = styled(Card.Header)`
@@ -19,8 +18,9 @@ const StyledCardImg = styled(Card.Img)`
 `
 const StyledCardTitle = styled(Card.Title)`
   white-space: nowrap;
-  font-size: 16px;
+  font-size: large;
   font-weight: bold;
+  margin-bottom: none;
 `
 const StyledCardBody = styled(Card.Body)`
   padding: 0;
@@ -39,9 +39,9 @@ const CardTableImg = styled.img`
 const StyledMasonry = styled(Masonry)`
   display: flex;
   width: auto;
-  margin-left: -15px;
+  margin-left: -1rem;
   > div {
-    padding-left: 15px;
+    padding-left: 1rem;
     background-clip: padding-box;
   }
 `
@@ -57,6 +57,7 @@ export default function ItemShowcase() {
   return (
     <StyledMasonry
       breakpointCols={breakpointColumnsConfig}
+      columnClassName=''
     >
       {data.map((item) => {
         return (
@@ -65,9 +66,6 @@ export default function ItemShowcase() {
               <Accordion.Toggle
                 as={StyledCardHeader}
                 eventKey="0"
-                onClick={() => {
-
-                }}
               >
                 <StyledCardImg
                   src={`./img/item_${item.id}.png`}
