@@ -4,7 +4,6 @@ export const lightTheme = {
         surface: '#fff',
         pirmary: '#e92390',
         secondary: '#b20063',
-        border: '#b20063',
         error: '#B00020',
         onBackground: '#000',
         onSurface: '#000',
@@ -12,7 +11,9 @@ export const lightTheme = {
         onSecondary: '#fff',
         onError: '#fff',
         slider: '#fff',
-        surfaceShadow: '#b20063'
+        border: '#b20063',
+        secondaryBorder: '#b20063',
+        shadow: 'gray'
     },
     switcher: {
         iconOffest: '28px',
@@ -26,7 +27,6 @@ export const darkTheme = {
         surface: '#424242',
         pirmary: '#212121',
         secondary: '#F48FB1',
-        border: '#424242',
         error: '#F48FB1',
         onBackground: '#fff',
         onSurface: '#fff',
@@ -34,7 +34,9 @@ export const darkTheme = {
         onSecondary: '#000',
         onError: '#fff',
         slider: '#01579B',
-        surfaceShadow: '#F48FB1'
+        border: '#F48FB1',
+        secondaryBorder: '#424242',
+        shadow: 'lightgray'
     },
     switcher: {
         iconOffest: '6px',

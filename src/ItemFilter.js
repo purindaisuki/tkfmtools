@@ -8,8 +8,8 @@ const StyledFilterPanel = styled.div`
     padding: 1rem;
     border-radius: .25rem;
     background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.surfaceShadow};
-    box-shadow: 0 0 .15em ${props => props.theme.colors.surfaceShadow};
+    border: 1px solid ${props => props.theme.colors.border};
+    box-shadow: 0 0 .15em lightgray;
     @media (max-width: 1360px) {
         width: 62%;
     }
@@ -25,7 +25,7 @@ const ContainerHeader = styled.div`
     justify-content: space-between;
     margin-bottom: 1rem;
     padding-bottom: .4rem;
-    border-bottom: solid 1px ${props => props.theme.colors.surfaceShadow};
+    border-bottom: solid 1px ${props => props.theme.colors.border};
     color: ${props => props.theme.colors.onSurface};
 `
 const ImgWrapper = styled.div`
@@ -58,7 +58,7 @@ const StyledToggleButton = styled(ToggleButton)`
     padding: .15rem .15rem;
     margin-bottom: 0;
     border-radius: .25rem;
-    border: 1px solid ${props => props.theme.colors.border};
+    border: 1px solid ${props => props.theme.colors.secondaryBorder};
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
     cursor: pointer;
@@ -207,8 +207,8 @@ const ResultTableContainer = styled.div`
     left: 0;
     border-radius: .25rem;
     background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.surfaceShadow};
-    box-shadow: 0 0 .15em ${props => props.theme.colors.surfaceShadow};
+    border: 1px solid ${props => props.theme.colors.border};
+    box-shadow: 0 0 .15em lightgray;
     @media (max-width: 1360px) {
         width: calc(38% - 1rem);
         margin-left: calc(62% + 1rem);
@@ -230,7 +230,7 @@ const ResultTableWrapper = styled.div`
         background: ${props => props.theme.colors.surface};
     }
     &::-webkit-scrollbar-thumb {
-        background: ${props => props.theme.colors.surfaceShadow};
+        background: ${props => props.theme.colors.border};
         border-radius: .25rem;
     }
     &::-webkit-scrollbar-track {

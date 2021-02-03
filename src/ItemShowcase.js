@@ -4,17 +4,33 @@ import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
 import data from './item.json'
 
-const StyleCard = styled(Card)`
+const StyleCardContainer = styled(Accordion)`
+  box-shadow: 0 0 .15em lightgray;
+  border-radius: .25rem;
   margin-bottom: 1rem;
-  box-shadow: .1rem .1rem .25em lightgray;
+  border: 1px solid ${props => props.theme.colors.border};
+  > .card:first-of-type {
+    border-radius: .25rem;
+  }
+  &:hover {
+    box-shadow: 0 0 .25em ${props => props.theme.colors.shadow};
+  }
+`
+
+const StyleCard = styled(Card)`
+  border: none;
+  background-color: ${props => props.theme.colors.surface};
 `
 const StyledCardHeader = styled(Card.Header)`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  color: ${props => props.theme.colors.onSurface};
+  border-bottom: 1px solid ${props => props.theme.colors.border};
 `
 const StyledCardImg = styled(Card.Img)`
-  width: 40px; height: 40px;
+  width: 2.5rem; height: 2.5rem;
+  user-select: none;
 `
 const StyledCardTitle = styled(Card.Title)`
   white-space: nowrap;
@@ -26,15 +42,15 @@ const StyledCardBody = styled(Card.Body)`
   padding: 0;
 `
 const CardTable = styled(Table)`
-  font-size: 14px;
-  font-weight: bold;
+  font-size: normal;
+  color: ${props => props.theme.colors.onSurface};
   margin: 0;
   > tbody > tr > td {
     padding-left: .75rem;
   }
 `
 const CardTableImg = styled.img`
-  width: 16px;
+  width: 1.2rem; height: 1.2rem;
 `
 const StyledMasonry = styled(Masonry)`
   display: flex;
@@ -61,7 +77,7 @@ export default function ItemShowcase() {
     >
       {data.map((item) => {
         return (
-          <Accordion defaultActiveKey="0" key={item.id}>
+          <StyleCardContainer defaultActiveKey="0" key={item.id}>
             <StyleCard>
               <Accordion.Toggle
                 as={StyledCardHeader}
@@ -106,7 +122,7 @@ export default function ItemShowcase() {
                 </Accordion.Collapse>
               </StyledCardBody>
             </StyleCard>
-          </Accordion>
+          </StyleCardContainer>
         )
       })}
     </StyledMasonry>

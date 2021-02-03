@@ -24,7 +24,6 @@ const Slider = styled.span`
     transition: .4s;
     border-radius: 26px;
     background-image: url(${props => props.theme.switcher.iconUrl});
-
     &:before {
         position: absolute;
         content: "";
