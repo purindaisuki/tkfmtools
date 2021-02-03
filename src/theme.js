@@ -2,7 +2,7 @@ export const lightTheme = {
     colors: {
         background: '#FAFAFA',
         surface: '#fff',
-        pirmary: '#e92390',
+        primary: '#e92390',
         secondary: '#b20063',
         error: '#B00020',
         onBackground: '#000',
@@ -25,7 +25,7 @@ export const darkTheme = {
     colors: {
         background: '#424242',
         surface: '#424242',
-        pirmary: '#212121',
+        primary: '#212121',
         secondary: '#F48FB1',
         error: '#F48FB1',
         onBackground: '#fff',

@@ -9,11 +9,6 @@ html, body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scrollbar-width: thin;
-}
-
-::-webkit-scrollbar {
-    width: .4rem;
 }
 
 @media screen and (max-width: 490px) {

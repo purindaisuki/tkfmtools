@@ -84,9 +84,6 @@ const StyledToggleButton = styled(ToggleButton)`
         width: 2.26rem; height: 2.26rem;
     }
 `
-const BtnText = styled.span`
-
-`
 
 function FilterPanel(props) {
     return (
@@ -94,7 +91,7 @@ function FilterPanel(props) {
             <ContainerHeader>
                 道具選擇
                 <ImgWrapper
-                    onClick={props.onClick}
+                    onClick={props.clearAll}
                 >
                     <svg
                         viewBox="0 0 20 20"
@@ -116,7 +113,7 @@ function FilterPanel(props) {
             <StyledToggleButtonGroup
                 type="checkbox"
                 value={props.value}
-                onChange={props.onChange}
+                onChange={props.filterBy}
             >
                 {data.map((item, idx) => {
                     return (
@@ -126,7 +123,7 @@ function FilterPanel(props) {
                             bsPrefix='btn-escape'
                         >
                             <img
-                                src={`./img/item_${item.id}.png`}
+                                src={`/img/item_${item.id}.png`}
                                 alt=''
                             />
                             {item.name}
@@ -260,7 +257,6 @@ const StyledResultTable = styled(Table)`
 const SortTh = styled.th`
     position: sticky;
     top: 0;
-    padding-left: .75rem;
     cursor: pointer;
     user-select: none;
     font-size: 1.1rem;
@@ -274,7 +270,6 @@ const SortTh = styled.th`
         }}';
     }
 `
-
 
 function ResultTable(props) {
     const { items, requestSort, sortConfig } = useSortableData(props.stages)
@@ -299,7 +294,7 @@ function ResultTable(props) {
                         direction={getSortDirection(idx)}
                     >
                         <img
-                            src={`./img/item_${item.id}.png`}
+                            src={`/img/item_${item.id}.png`}
                             alt={item.name}
                         />
                     </SortTh>
@@ -331,7 +326,7 @@ function ResultTable(props) {
                                 direction={getSortDirection('energy')}
                             >
                                 <img
-                                    src='./img/energy.png'
+                                    src='/img/energy.png'
                                     className='card-table-img'
                                     alt='體力消耗'
                                 />
@@ -370,7 +365,7 @@ function ItemFilter(props) {
     const [value, setValue] = useState([])
     const [stages, setStages] = useState([])
 
-    const handleChange = (val) => {
+    const filterBy = (val) => {
         setValue(val)
         if (val.length === 0) {
             setStages([])
@@ -417,8 +412,8 @@ function ItemFilter(props) {
             <FilterPanel
                 value={value}
                 themeVariant={props.themeVariant}
-                onChange={handleChange}
-                onClick={() => handleChange([])}
+                filterBy={filterBy}
+                clearAll={() => filterBy([])}
             />
             <ResultTable
                 theme={props.theme}

@@ -84,7 +84,7 @@ export default function ItemShowcase() {
                 eventKey="0"
               >
                 <StyledCardImg
-                  src={`./img/item_${item.id}.png`}
+                  src={`/img/item_${item.id}.png`}
                   alt=''
                 />
                 <StyledCardTitle>
@@ -109,7 +109,7 @@ export default function ItemShowcase() {
                             <td>{drop.rarity}</td>
                             <td>
                               <CardTableImg
-                                src='./img/energy.png'
+                                src='/img/energy.png'
                                 alt='體力消耗'
                               />
                               {drop.energy}
