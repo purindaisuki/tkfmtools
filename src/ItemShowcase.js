@@ -34,15 +34,15 @@ const StyledCardImg = styled(Card.Img)`
 `
 const StyledCardTitle = styled(Card.Title)`
   white-space: nowrap;
-  font-size: large;
-  font-weight: bold;
+  font-size: medium;
+  font-weight: normal;
   margin-bottom: none;
 `
 const StyledCardBody = styled(Card.Body)`
   padding: 0;
 `
 const CardTable = styled(Table)`
-  font-size: normal;
+  font-size: .9rem;
   color: ${props => props.theme.colors.onSurface};
   margin: 0;
   > tbody > tr > td {

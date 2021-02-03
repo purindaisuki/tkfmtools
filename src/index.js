@@ -81,7 +81,10 @@ const Body = styled.div`
     background-color: ${props => props.theme.colors.background};
 `
 const Main = styled.main`
-    padding:1rem
+    padding: 1rem;
+    @media screen and (max-width: 490px) {
+        padding: 1rem 0;
+    }
 `
 
 function App() {

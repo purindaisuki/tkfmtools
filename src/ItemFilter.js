@@ -10,10 +10,10 @@ const StyledFilterPanel = styled.div`
     background-color: ${props => props.theme.colors.surface};
     border: 1px solid ${props => props.theme.colors.border};
     box-shadow: 0 0 .15em lightgray;
-    @media (max-width: 1360px) {
+    @media screen and (max-width: 1360px) {
         width: 62%;
     }
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         width: 100%;
     }
 `
@@ -21,7 +21,7 @@ const ContainerHeader = styled.div`
     display: flex;
     align-items: center;
     font-size: large;
-    font-weight: bold;
+    font-weight: normal;
     justify-content: space-between;
     margin-bottom: 1rem;
     padding-bottom: .4rem;
@@ -39,21 +39,25 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
         background-color: ${props => props.theme.colors.secondary};
         color: ${props => props.theme.colors.onSecondary};
     }
-    @media (max-width: 1360px) {
+    @media screen and (max-width: 1360px) {
         grid-template-columns: repeat(4, 1fr);
     }
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         grid-template-columns: repeat(5, 1fr);
     }
-    @media (max-width: 768px) {
+    @media screen and (max-width: 768px) {
         grid-template-columns: repeat(4, 1fr);
     }
-    @media (max-width: 624px) {
+    @media screen and (max-width: 624px) {
         grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 410px) {
+        grid-template-columns: repeat(2, 1fr);
     }
 `
 const StyledToggleButton = styled(ToggleButton)`
-    font-size: small;
+    font-size: .85rem;
+    font-weight: normal;
     text-align: center;
     padding: .15rem .15rem;
     margin-bottom: 0;
@@ -61,6 +65,7 @@ const StyledToggleButton = styled(ToggleButton)`
     border: 1px solid ${props => props.theme.colors.secondaryBorder};
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
+    white-space: nowrap;
     cursor: pointer;
     user-select: none;
     &:hover {
@@ -78,6 +83,9 @@ const StyledToggleButton = styled(ToggleButton)`
     > img {
         width: 2.26rem; height: 2.26rem;
     }
+`
+const BtnText = styled.span`
+
 `
 
 function FilterPanel(props) {
@@ -209,11 +217,11 @@ const ResultTableContainer = styled.div`
     background-color: ${props => props.theme.colors.surface};
     border: 1px solid ${props => props.theme.colors.border};
     box-shadow: 0 0 .15em lightgray;
-    @media (max-width: 1360px) {
+    @media screen and (max-width: 1360px) {
         width: calc(38% - 1rem);
         margin-left: calc(62% + 1rem);
     }
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         width: 100%;
         position: relative;
         margin-left: 0;
@@ -240,16 +248,23 @@ const ResultTableWrapper = styled.div`
 const StyledResultTable = styled(Table)`
     width: 100%;
     table-layout: fixed;
+    font-size: normal;
     color: ${props => props.theme.colors.onSurface};
     img {
         width: 1.8rem; height: 1.8rem;
+    }
+    td {
+        padding-left: .75rem;
     }
 `
 const SortTh = styled.th`
     position: sticky;
     top: 0;
+    padding-left: .75rem;
     cursor: pointer;
     user-select: none;
+    font-size: 1.1rem;
+    font-weight: normal;
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
     &:after {
@@ -346,7 +361,7 @@ function ResultTable(props) {
 
 const FilterContainer = styled.div`
     display: flex;
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         display: block;
     }
 `
