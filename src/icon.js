@@ -1,7 +1,7 @@
 export const ToolIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 24 24"
+        enableBackground="new 0 0 24 24"
         viewBox="0 0 24 24"
     >
         <g>
@@ -28,7 +28,7 @@ export const ToolIcon = (
 export const HomeIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 24 24"
+        enableBackground="new 0 0 24 24"
         viewBox="0 0 24 24"
     >
         <g>
@@ -57,7 +57,7 @@ export const EnlistIcon = (
 export const ChestIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 24 24"
+        enableBackground="new 0 0 24 24"
         viewBox="2 2 22 24"
     >
         <g>
@@ -108,4 +108,15 @@ export const MenuIcon = (
     </svg>
 )
 
+export const ExpandMoreIcon = (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+    >
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+    </svg >
+)
 

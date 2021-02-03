@@ -14,7 +14,7 @@ const HomeContainer = styled.div`
 export const Home = () => {
     return (
         <HomeContainer>
-
+            
         </HomeContainer>
     )
 }

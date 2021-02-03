@@ -13,7 +13,9 @@ export const lightTheme = {
         slider: '#fff',
         border: '#b20063',
         secondaryBorder: '#b20063',
-        shadow: 'gray'
+        shadow: 'gray',
+        link: '#007bff',
+        linkHover: '#0056b3',
     },
     switcher: {
         iconOffest: '28px',
@@ -36,7 +38,9 @@ export const darkTheme = {
         slider: '#01579B',
         border: '#F48FB1',
         secondaryBorder: '#424242',
-        shadow: 'lightgray'
+        shadow: 'lightgray',
+        link: '#b3e5fc',
+        linkHover: '#e1f5fe',
     },
     switcher: {
         iconOffest: '6px',

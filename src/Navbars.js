@@ -3,7 +3,17 @@ import { ListGroup, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Drawer from '@material-ui/core/Drawer';
-import { ChestIcon, EnlistIcon, FeedbackIcon, HomeIcon, MenuIcon, ToolIcon, } from './icon';
+import {
+    ChestIcon,
+    EnlistIcon,
+    ExpandMoreIcon,
+    FeedbackIcon,
+    HomeIcon,
+    LinkIcon,
+    MenuIcon,
+    ToolIcon,
+} from './icon';
+import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
@@ -136,7 +146,6 @@ const SiderbarItem = styled(ListGroup.Item)`
     }
     &:hover {
         border-left: .5rem solid ${props => props.theme.colors.secondary};
-        box-shadow: inset 0 0 .25rem ${props => props.theme.colors.secondary};
     }
 `
 const StyledLink = styled(Link)`
@@ -146,44 +155,166 @@ const StyledLink = styled(Link)`
 `
 
 export const Sidebar = (props) => (
-    <div>
-        <React.Fragment>
-            <StyledDrawer
-                open={props.open}
-                onClose={props.toggleSidebar(false)}
+    <React.Fragment>
+        <StyledDrawer
+            open={props.open}
+            onClose={props.toggleSidebar(false)}
+        >
+            <ListGroup
+                onClick={props.toggleSidebar(false)}
+                onKeyDown={props.toggleSidebar(false)}
             >
-                <ListGroup
-                    onClick={props.toggleSidebar(false)}
-                    onKeyDown={props.toggleSidebar(false)}
-                >
-                    <SidebarHeader>
-                        {ToolIcon}
-                        天下布魔工具箱
-                    </SidebarHeader>
-                    <StyledLink to='/'>
+                <SidebarHeader>
+                    {ToolIcon}
+                    天下布魔工具箱
+                </SidebarHeader>
+                {[
+                    {
+                        to: '/',
+                        icon: HomeIcon,
+                        title: '首頁',
+                    },
+                    {
+                        to: '/enlist',
+                        icon: EnlistIcon,
+                        title: '全境徵才',
+                    },
+                    {
+                        to: '/potential',
+                        icon: ChestIcon,
+                        title: '潛力材料',
+                    },
+                ].map(item => (
+                    <StyledLink key={item['title']} to={item['to']}>
                         <SiderbarItem>
-                            {HomeIcon}
-                            首頁
+                            {item['icon']}
+                            {item['title']}
                         </SiderbarItem>
                     </StyledLink>
-                    <StyledLink  to='/enlist'>
-                        <SiderbarItem>
-                            {EnlistIcon}
-                            全境徵才
-                        </SiderbarItem>
-                    </StyledLink>
-                    <StyledLink to='potential'>
-                        <SiderbarItem>
-                            {ChestIcon}
-                            潛力材料
-                        </SiderbarItem>
-                    </StyledLink>
-                    <SiderbarItem>
-                        {FeedbackIcon}
-                        意見回饋
-                    </SiderbarItem>
-                </ListGroup>
-            </StyledDrawer>
-        </React.Fragment>
-    </div>
+                ))}
+            </ListGroup>
+            <ListGroup>
+                {[
+                    {
+                        icon: LinkIcon,
+                        title: '外部連結',
+                        links: [
+                            {
+                                description: '官方網站',
+                                link: 'https://www.tenkafuma.com/'
+                            },
+                            {
+                                description: '資料統整',
+                                link: 'https://reurl.cc/5o5A7z/'
+                            },
+                            {
+                                description: '潛力整理&猜測',
+                                link: 'https://reurl.cc/1gZ5nV/'
+                            },
+                        ],
+                    },
+                    {
+                        icon: FeedbackIcon,
+                        title: '資訊回報',
+                        links: [
+                            {
+                                description: '全境徵才數據回報',
+                                link: 'https://forms.gle/VYMGibGfs36F9tdQ6'
+                            },
+                            {
+                                description: '角色潛力數據回報',
+                                link: 'https://reurl.cc/E22vDa'
+                            },
+                            {
+                                description: '意見回饋',
+                                link: '#'
+                            },
+                        ],
+                    },
+                ].map(item => (
+                    <ControlledAccordions data={item} key={item['title']} />
+                ))}
+            </ListGroup>
+        </StyledDrawer>
+    </React.Fragment>
+
 )
+const AccordionWrapper = styled.div`
+    margin: -.75rem -1.25rem;
+    cursor: default;
+    .MuiPaper-elevation1 {
+        box-shadow: none;
+    }
+`
+const StyledAccordion = styled(Accordion)`
+    div {
+        background-color: ${props => props.theme.colors.surface};
+        color: ${props => props.theme.colors.onSurface};
+    }
+    .MuiAccordionSummary-root,
+    .MuiAccordionSummary-root.Mui-expanded {
+        min-height: 0;
+        padding: .75rem 1.25rem;
+    }
+    .MuiAccordionSummary-content,
+    .MuiAccordionSummary-content.Mui-expanded {
+        margin: 0;
+    }
+    .MuiAccordionDetails-root {
+        font-size: medium;
+        padding: 0 4rem;
+        cursor: default;
+        a {
+            padding-bottom: .5rem;
+        }
+    }
+    .MuiAccordionSummary-expandIcon svg {
+        margin: 0;
+    }
+`
+const AccordionItem = styled(ListGroup.Item)`
+    color: ${props => props.theme.colors.link};
+    &:hover {
+        color: ${props => props.theme.colors.linkHover};
+    }
+`
+
+
+function ControlledAccordions(props) {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
+    return (
+        <SiderbarItem>
+            <AccordionWrapper>
+                <StyledAccordion
+                    expanded={expanded === 'panel1'}
+                    onChange={handleChange('panel1')}
+                    square={true}
+                >
+                    <AccordionSummary expandIcon={ExpandMoreIcon}>
+                        {props.data['icon']}
+                        {props.data['title']}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <ListGroup>
+                            {props.data['links'].map((item, idx) => (
+                                <AccordionItem
+                                    as='a'
+                                    href={item['link']}
+                                    target="_blank"
+                                    key={item['description']}
+                                >
+                                    {item['description']}
+                                </AccordionItem>
+                            ))}
+                        </ListGroup>
+                    </AccordionDetails>
+                </StyledAccordion>
+            </AccordionWrapper>
+        </SiderbarItem>
+    );
+}
