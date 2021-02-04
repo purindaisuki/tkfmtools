@@ -2,7 +2,7 @@ import React from 'react';
 import { Accordion, Card, Table } from 'react-bootstrap';
 import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
-import data from './item.json'
+import data from '../item.json'
 
 const StyleCardContainer = styled(Accordion)`
   box-shadow: 0 0 .15em lightgray;

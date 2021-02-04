@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
+import { MainNavbar, Sidebar } from './components/Navbars';
+import { lightTheme, darkTheme } from './components/Theme';
+import Home from './pages/Home';
+import Enlist from './pages/Enlist';
+import Potential from './pages/Potential';
+import data from './item.json'
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import { MainNavbar, Sidebar } from './Navbars';
-import { lightTheme, darkTheme } from './Theme';
-import { Enlist, Home, Potential } from './pages';
-import data from './item.json'
 
 const Body = styled.div`
     min-height: 100vh;
@@ -56,7 +58,7 @@ export default function App() {
     //potential showcase
     const [cardActiveKeys, setCardActiveKeys] = useState(Array(data.length).fill('0'))
 
-    const handleCardClick = (idx) => (e) => {
+    const handleCardClick = (idx) => (event) => {
       let copyActiveKeys = cardActiveKeys.slice()
       copyActiveKeys[idx] ? copyActiveKeys[idx] = undefined : copyActiveKeys[idx] = '0'
       console.log(idx, copyActiveKeys[idx])
@@ -159,7 +161,7 @@ export default function App() {
             return sortableItems
         }, [items, sortConfig])
     
-        const requestSort = (key) => (e) => {
+        const requestSort = (key) => (event) => {
             let direction = 'desc';
             if (
                 sortConfig.key === key &&

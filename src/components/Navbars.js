@@ -2,7 +2,6 @@ import React from 'react';
 import { ListGroup, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
 import {
     ChestIcon,
     EnlistIcon,
@@ -133,9 +132,13 @@ const SidebarHeader = styled.div`
         vertical-align: bottom;
     }
 `
+const SiderbarList = styled(ListGroup)`
+    border-radius: 0;
+`
 const SiderbarItem = styled(ListGroup.Item)`
     font-size: large;
     border: 0;
+    padding: 1rem 1.25rem;
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
     cursor: pointer;
@@ -144,7 +147,6 @@ const SiderbarItem = styled(ListGroup.Item)`
         margin-right: 1.25rem;
         width: 1.6rem;
         height: 1.6rem;
-        vertical-align: text-bottom;
     }
     &:hover {
         border-left: .5rem solid ${props => props.theme.colors.secondary};
@@ -162,7 +164,7 @@ export const Sidebar = (props) => (
             open={props.open}
             onClose={props.toggleSidebar(false)}
         >
-            <ListGroup
+            <SiderbarList
                 onClick={props.toggleSidebar(false)}
                 onKeyDown={props.toggleSidebar(false)}
             >
@@ -194,8 +196,8 @@ export const Sidebar = (props) => (
                         </SiderbarItem>
                     </StyledLink>
                 ))}
-            </ListGroup>
-            <ListGroup>
+            </SiderbarList>
+            <SiderbarList>
                 {[
                     {
                         icon: LinkIcon,
@@ -236,13 +238,13 @@ export const Sidebar = (props) => (
                 ].map(item => (
                     <ControlledAccordions data={item} key={item['title']} />
                 ))}
-            </ListGroup>
+            </SiderbarList>
         </StyledDrawer>
     </React.Fragment>
 
 )
 const AccordionWrapper = styled.div`
-    margin: -.75rem -1.25rem;
+    margin: -1rem -1.25rem;
     cursor: default;
     .MuiPaper-elevation1 {
         box-shadow: none;
@@ -251,8 +253,9 @@ const AccordionWrapper = styled.div`
 const StyledBarAccordion = styled(StyledAccordion)`
     .MuiAccordionSummary-root,
     .MuiAccordionSummary-root.Mui-expanded {
+        padding: 1rem 1.25rem;
         min-height: 0;
-        padding: .75rem 1.25rem;
+        padding-right: 1.75rem;
     }
     .MuiAccordionSummary-content,
     .MuiAccordionSummary-content.Mui-expanded {
@@ -266,8 +269,11 @@ const StyledBarAccordion = styled(StyledAccordion)`
             padding-bottom: .5rem;
         }
     }
-    .MuiAccordionSummary-expandIcon svg {
-        margin: 0;
+    .MuiAccordionSummary-expandIcon {
+        padding: 0;
+        svg {
+            margin: 0;
+        }
     }
 `
 const AccordionItem = styled(ListGroup.Item)`
@@ -279,18 +285,16 @@ const AccordionItem = styled(ListGroup.Item)`
 
 
 function ControlledAccordions(props) {
-    const [expanded, setExpanded] = React.useState(false);
+    const [isExpanded, setExpanded] = React.useState(false)
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+    const handleChange = () => setExpanded(!isExpanded)
 
     return (
         <SiderbarItem>
             <AccordionWrapper>
                 <StyledBarAccordion
-                    expanded={expanded === 'panel1'}
-                    onChange={handleChange('panel1')}
+                    expanded={isExpanded}
+                    onChange={handleChange}
                     square={true}
                 >
                     <AccordionSummary expandIcon={ExpandMoreIcon}>

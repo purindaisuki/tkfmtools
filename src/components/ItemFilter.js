@@ -1,7 +1,7 @@
 import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
 import { ClearIcon } from './icon';
-import data from './item.json'
+import data from '../item.json'
 
 const StyledFilterPanel = styled.div`
     width: 52%; height: 100%;
@@ -89,41 +89,39 @@ const StyledToggleButton = styled(ToggleButton)`
     }
 `
 
-function FilterPanel(props) {
-    return (
-        <StyledFilterPanel>
-            <ContainerHeader>
-                道具選擇
+const FilterPanel = (props) => (
+    <StyledFilterPanel>
+        <ContainerHeader>
+            道具選擇
                 <ImgWrapper
-                    onClick={props.clearFilter}
-                >
-                    {ClearIcon}
-                </ImgWrapper>
-            </ContainerHeader>
-            <StyledToggleButtonGroup
-                type="checkbox"
-                value={props.filterBtnValue}
-                onChange={props.filterBy}
+                onClick={props.clearFilter}
             >
-                {data.map((item, idx) => {
-                    return (
-                        <StyledToggleButton
-                            value={idx}
-                            key={item.name}
-                            bsPrefix='btn-escape'
-                        >
-                            <img
-                                src={`/img/item_${item.id}.png`}
-                                alt=''
-                            />
-                            {item.name}
-                        </StyledToggleButton>
-                    )
-                })}
-            </StyledToggleButtonGroup>
-        </StyledFilterPanel>
-    )
-}
+                {ClearIcon}
+            </ImgWrapper>
+        </ContainerHeader>
+        <StyledToggleButtonGroup
+            type="checkbox"
+            value={props.filterBtnValue}
+            onChange={props.filterBy}
+        >
+            {data.map((item, idx) => {
+                return (
+                    <StyledToggleButton
+                        value={idx}
+                        key={item.name}
+                        bsPrefix='btn-escape'
+                    >
+                        <img
+                            src={`/img/item_${item.id}.png`}
+                            alt=''
+                        />
+                        {item.name}
+                    </StyledToggleButton>
+                )
+            })}
+        </StyledToggleButtonGroup>
+    </StyledFilterPanel>
+)
 
 const ResultTableContainer = styled.div`
     vertical-align: top;
@@ -197,8 +195,6 @@ const SortTh = styled.th`
 `
 
 function ResultTable(props) {
-
-
     const TableHeader = () => {
         if (props.dropTableItems.length === 0) {
             return <SortTh>稀有度</SortTh>
@@ -280,22 +276,19 @@ const FilterContainer = styled.div`
     }
 `
 
-function ItemFilter(props) {
-    return (
-        <FilterContainer>
-            <FilterPanel
-                filterBtnValue={props.filterBtnValue}
-                filterBy={props.filterBy}
-                clearFilter={props.clearFilter}
-            />
-            <ResultTable
-                dropTableItems={props.dropTableItems}
-                requestSort={props.requestSort}
-                getSortDirection={props.getSortDirection}
-            />
-        </FilterContainer>
-    )
-
-}
+const ItemFilter = (props) => (
+    <FilterContainer>
+        <FilterPanel
+            filterBtnValue={props.filterBtnValue}
+            filterBy={props.filterBy}
+            clearFilter={props.clearFilter}
+        />
+        <ResultTable
+            dropTableItems={props.dropTableItems}
+            requestSort={props.requestSort}
+            getSortDirection={props.getSortDirection}
+        />
+    </FilterContainer>
+)
 
 export default ItemFilter;
