@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
 import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
+import { ClearIcon } from './icon';
 import data from './item.json'
 
 const StyledFilterPanel = styled.div`
@@ -30,6 +30,10 @@ const ContainerHeader = styled.div`
 `
 const ImgWrapper = styled.div`
     cursor: pointer;
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
 `
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
@@ -91,28 +95,14 @@ function FilterPanel(props) {
             <ContainerHeader>
                 道具選擇
                 <ImgWrapper
-                    onClick={props.clearAll}
+                    onClick={props.clearFilter}
                 >
-                    <svg
-                        viewBox="0 0 20 20"
-                        width="18px"
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                    >
-                        <g stroke="currentColor" strokeWidth="1.8"
-                            strokeLinecap="butt" fill="none" strokeLinejoin="round">
-                            <polyline points="15 4 15 18 5 18 5 4" />
-                            <polyline points="18 4 2 4" />
-                            <polyline points="8.2 15 8.2 7" />
-                            <polyline points="11.8 15 11.8 7" />
-                            <polyline points="8 1 12 1" />
-                        </g>
-                    </svg>
+                    {ClearIcon}
                 </ImgWrapper>
             </ContainerHeader>
             <StyledToggleButtonGroup
                 type="checkbox"
-                value={props.value}
+                value={props.filterBtnValue}
                 onChange={props.filterBy}
             >
                 {data.map((item, idx) => {
@@ -133,71 +123,6 @@ function FilterPanel(props) {
             </StyledToggleButtonGroup>
         </StyledFilterPanel>
     )
-}
-
-const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {
-    // when key is number meaning sorted by the number of item
-    const [sortConfig, setSortConfig] = useState(config)
-
-    const toStageKey = key => {
-        return (
-            parseInt(key['chapter']) * 1000 +
-            parseInt(key['stage'].split(' ')[0]) *10 +
-            (key['stage'].includes('free') ? 1 : 0) +
-            (key['stage'].includes('-') ? parseInt(key['stage'].split('-')[1]) : 0)
-        )
-    }
-
-    const toRarityKey = (key, idx) => {
-        switch(key['drop'][idx]['rarity']) {
-            case '罕見': return 0
-            case '少見': return 1
-            case '常見': return 2
-            default: return 3
-        }
-    }
-
-    const sortedItems = useMemo(() => {
-        let sortableItems = [...items]
-
-        sortableItems.sort((a, b) => {
-            let aKey
-            let bKey
-            if (sortConfig.key === 'stage') {
-                aKey = toStageKey(a)
-                bKey = toStageKey(b)
-                console.log(a, aKey)
-            } else if (sortConfig.key === 'energy') {
-                aKey = a[sortConfig.key]
-                bKey = b[sortConfig.key]
-            } else {
-                aKey = toRarityKey(a, sortConfig.key)
-                bKey = toRarityKey(b, sortConfig.key)
-            }
-            if (aKey < bKey) {
-                return sortConfig.direction === 'asc' ? -1 : 1
-            }
-            if (aKey > bKey) {
-                return sortConfig.direction === 'asc' ? 1 : -1
-            }
-            return 0
-        })
-
-        return sortableItems
-    }, [items, sortConfig])
-
-    const requestSort = key => {
-        let direction = 'desc';
-        if (
-            sortConfig.key === key &&
-            sortConfig.direction === 'desc'
-        ) {
-            direction = 'asc';
-        }
-        setSortConfig({ key, direction })
-    }
-
-    return { items: sortedItems, requestSort, sortConfig }
 }
 
 const ResultTableContainer = styled.div`
@@ -265,33 +190,27 @@ const SortTh = styled.th`
     color: ${props => props.theme.colors.onSurface};
     &:after {
         content: '${props => {
-            if (!props.direction) return
-            return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-        }}';
+        if (!props.direction) return
+        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
+    }}';
     }
 `
 
 function ResultTable(props) {
-    const { items, requestSort, sortConfig } = useSortableData(props.stages)
-    const getSortDirection = (name) => {
-        if (items.length === 0) {
-            return
-        }
-        return sortConfig.key === name ? sortConfig.direction : undefined
-    }
+
 
     const TableHeader = () => {
-        if (items.length === 0) {
+        if (props.dropTableItems.length === 0) {
             return <SortTh>稀有度</SortTh>
         }
 
         return (
-            items[0].drop.map((item, idx) => {
+            props.dropTableItems[0].drop.map((item, idx) => {
                 return (
                     <SortTh
                         key={idx}
-                        onClick={() => requestSort(idx)}
-                        direction={getSortDirection(idx)}
+                        onClick={props.requestSort(idx)}
+                        direction={props.getSortDirection(idx)}
                     >
                         <img
                             src={`/img/item_${item.id}.png`}
@@ -315,15 +234,15 @@ function ResultTable(props) {
                     <thead>
                         <tr>
                             <SortTh
-                                onClick={() => requestSort('stage')}
-                                direction={getSortDirection('stage')}
+                                onClick={props.requestSort('stage')}
+                                direction={props.getSortDirection('stage')}
                             >
                                 關卡
                             </SortTh>
                             <TableHeader />
                             <SortTh
-                                onClick={() => requestSort('energy')}
-                                direction={getSortDirection('energy')}
+                                onClick={props.requestSort('energy')}
+                                direction={props.getSortDirection('energy')}
                             >
                                 <img
                                     src='/img/energy.png'
@@ -334,7 +253,7 @@ function ResultTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {items.map((stage, idx) => {
+                        {props.dropTableItems.map((stage, idx) => {
                             return (
                                 <tr key={idx}>
                                     <td>{`${stage.chapter}-${stage.stage}`}</td>
@@ -362,62 +281,17 @@ const FilterContainer = styled.div`
 `
 
 function ItemFilter(props) {
-    const [value, setValue] = useState([])
-    const [stages, setStages] = useState([])
-
-    const filterBy = (val) => {
-        setValue(val)
-        if (val.length === 0) {
-            setStages([])
-            return;
-        }
-        let curVal = val.sort()
-        // deep copy
-        let filteredStages = JSON.parse(JSON.stringify(data[curVal[0]].drop))
-        filteredStages.forEach(stage => {
-            stage['drop'] = [{
-                id: data[curVal[0]].id,
-                name: data[curVal[0]].name,
-                rarity: stage.rarity
-            }]
-            delete stage['rarity']
-        })
-        curVal.forEach((itemIdx, idx) => {
-            if (idx === 0) return true
-            filteredStages = filteredStages.filter(thisStage => {
-                let flag = false
-                data[itemIdx].drop.forEach(that => {
-                    if (
-                        that.chapter === thisStage.chapter
-                        && that.stage === thisStage.stage
-                    ) {
-                        let newDrop = {
-                            id: data[itemIdx].id,
-                            name: data[itemIdx].name,
-                            rarity: that.rarity
-                        }
-                        thisStage.drop.push(newDrop)
-                        flag = true
-                        return false
-                    }
-                })
-                return flag
-            })
-        })
-        setStages(filteredStages)
-    }
-
     return (
         <FilterContainer>
             <FilterPanel
-                value={value}
-                themeVariant={props.themeVariant}
-                filterBy={filterBy}
-                clearAll={() => filterBy([])}
+                filterBtnValue={props.filterBtnValue}
+                filterBy={props.filterBy}
+                clearFilter={props.clearFilter}
             />
             <ResultTable
-                theme={props.theme}
-                stages={stages}
+                dropTableItems={props.dropTableItems}
+                requestSort={props.requestSort}
+                getSortDirection={props.getSortDirection}
             />
         </FilterContainer>
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import { ListGroup, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Drawer from '@material-ui/core/Drawer';
+
 import {
     ChestIcon,
     EnlistIcon,
@@ -13,10 +13,12 @@ import {
     MenuIcon,
     ToolIcon,
 } from './icon';
-import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
+import { AccordionDetails, AccordionSummary, Drawer } from '@material-ui/core';
+import { StyledAccordion } from './StyledAccordion';
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
+    transition: all 204ms ease;
     padding: .8rem 1.25rem;
     align-item: end;
     a:nth-of-type(1) {
@@ -246,11 +248,7 @@ const AccordionWrapper = styled.div`
         box-shadow: none;
     }
 `
-const StyledAccordion = styled(Accordion)`
-    div {
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
+const StyledBarAccordion = styled(StyledAccordion)`
     .MuiAccordionSummary-root,
     .MuiAccordionSummary-root.Mui-expanded {
         min-height: 0;
@@ -290,7 +288,7 @@ function ControlledAccordions(props) {
     return (
         <SiderbarItem>
             <AccordionWrapper>
-                <StyledAccordion
+                <StyledBarAccordion
                     expanded={expanded === 'panel1'}
                     onChange={handleChange('panel1')}
                     square={true}
@@ -313,7 +311,7 @@ function ControlledAccordions(props) {
                             ))}
                         </ListGroup>
                     </AccordionDetails>
-                </StyledAccordion>
+                </StyledBarAccordion>
             </AccordionWrapper>
         </SiderbarItem>
     );

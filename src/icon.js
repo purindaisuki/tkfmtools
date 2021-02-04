@@ -112,11 +112,25 @@ export const ExpandMoreIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        width="24"
-        height="24"
     >
         <path d="M0 0h24v24H0z" fill="none" />
         <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
     </svg >
 )
 
+export const ClearIcon = (
+    <svg
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+    >
+        <g stroke="currentColor" strokeWidth="1.8"
+            strokeLinecap="butt" fill="none" strokeLinejoin="round">
+            <polyline points="15 4 15 18 5 18 5 4" />
+            <polyline points="18 4 2 4" />
+            <polyline points="8.2 15 8.2 7" />
+            <polyline points="11.8 15 11.8 7" />
+            <polyline points="8 1 12 1" />
+        </g>
+    </svg>
+)

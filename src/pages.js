@@ -3,18 +3,83 @@ import { Tab, Tabs } from 'react-bootstrap';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import { ExpandMoreIcon } from './icon';
+import { AccordionDetails, AccordionSummary } from '@material-ui/core';
 import ItemShowcase from './ItemShowcase';
 import ItemFilter from './ItemFilter';
+import { StyledAccordion } from './StyledAccordion';
+import data from './item.json'
 
 const HomeContainer = styled.div`
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    justify-content: center;
+`
+const AccordionWrapper = styled.div`
+    width: 60%;
+    .MuiPaper-elevation1 {
+        background-color: ${props => props.theme.colors.surface};
+        border: 1px solid ${props => props.theme.colors.border};
+        border-radius: .25rem;
+        box-shadow: 0 0 .15em lightgray;
+    }
+`
+const StyledHomeAccordion = styled(StyledAccordion)`
+    .MuiAccordionSummary-root,
+    .MuiAccordionSummary-root.Mui-expanded {
+        padding: .75rem 1.25rem;
+        border-radius: .2rem;
+    }
+    .MuiAccordionSummary-root.Mui-expanded {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom: 1px solid ${props => props.theme.colors.border};
+    }
+    .MuiAccordionSummary-expandIcon svg {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+    .MuiCollapse-container {
+        font-size: medium;
+        padding: .5rem 2rem;
+        border-radius: .2rem;
+    }
 `
 
-export const Home = () => {
+export function Home() {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
     return (
         <HomeContainer>
-            
+            {/*[{
+                    header: '關於本站',
+                    content: '本站為',
+                },
+                {
+                    header: '更新日誌',
+                    content: '',
+                },
+                {
+                    header: 'License',
+                    content: '',
+                },
+            ]*/}
+            <AccordionWrapper>
+                <StyledHomeAccordion
+                    expanded={expanded === 'panel1'}
+                    onChange={handleChange('panel1')}
+                >
+                    <AccordionSummary expandIcon={ExpandMoreIcon}>
+                        test
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        text
+                    </AccordionDetails>
+                </StyledHomeAccordion>
+            </AccordionWrapper>
         </HomeContainer>
     )
 }
@@ -53,7 +118,7 @@ const StyledTabs = styled(Tabs)`
     }
 `
 
-export function Potential() {
+export function Potential(props) {
     const getDefaultTab = () => {
         let localSetting = localStorage.getItem('select-tab')
         if (localSetting) {
@@ -68,7 +133,7 @@ export function Potential() {
         setTab(toTab)
         localStorage.setItem('select-tab', toTab)
     }
-
+  
     return (
         <StyledTabs
             defaultActiveKey={getDefaultTab}
@@ -76,10 +141,20 @@ export function Potential() {
             bsPrefix='escape'
         >
             <Tab eventKey='overview' title='總覽'>
-                <ItemShowcase />
+                <ItemShowcase
+                    cardActiveKeys={props.cardActiveKeys}
+                    handleCardClick={props.handleCardClick}
+                />
             </Tab>
             <Tab eventKey='filter' title='篩選'>
-                <ItemFilter />
+                <ItemFilter
+                    filterBtnValue={props.filterBtnValue}
+                    filterBy={props.filterBy}
+                    clearFilter={props.clearFilter}
+                    dropTableItems={props.dropTableItems}
+                    requestSort={props.requestSort}
+                    getSortDirection={props.getSortDirection}
+                />
             </Tab>
         </StyledTabs>
     )
@@ -103,7 +178,7 @@ export const Enlist = () => {
         <H3>
             🚧施工中，請先移至
             <a href='https://purindaisuki.github.io/TenkafuMaRecruitFilter/'
-             target="_blank" rel="noreferrer">現有版本</a>
+                target="_blank" rel="noreferrer">現有版本</a>
         </H3>
     )
 }

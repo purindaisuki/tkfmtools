@@ -69,19 +69,20 @@ const breakpointColumnsConfig = {
   768: 2
 };
 
-export default function ItemShowcase() {
+export default function ItemShowcase(props) {
   return (
     <StyledMasonry
       breakpointCols={breakpointColumnsConfig}
       columnClassName=''
     >
-      {data.map((item) => {
+      {data.map((item, idx) => {
         return (
-          <StyleCardContainer defaultActiveKey="0" key={item.id}>
+          <StyleCardContainer defaultActiveKey={props.cardActiveKeys[idx]} key={item.id}>
             <StyleCard>
               <Accordion.Toggle
                 as={StyledCardHeader}
-                eventKey="0"
+                eventKey='0'
+                onClick={props.handleCardClick(idx)}
               >
                 <StyledCardImg
                   src={`/img/item_${item.id}.png`}
@@ -97,7 +98,6 @@ export default function ItemShowcase() {
                     striped
                     borderless
                     size="sm"
-                    className='card-table'
                   >
                     <tbody>
                       {item.drop.map((drop, idx) => {
