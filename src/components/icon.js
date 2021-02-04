@@ -1,3 +1,5 @@
+import { Badge } from "react-bootstrap"
+
 export const ToolIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -133,4 +135,16 @@ export const ClearIcon = (
             <polyline points="8 1 12 1" />
         </g>
     </svg>
+)
+
+export const NewBadge = (
+    <Badge pill variant="success">新增</Badge>
+)
+
+export const FixBadge = (
+    <Badge pill variant="danger">修正</Badge>
+)
+
+export const ChangeBadge = (
+    <Badge pill variant="primary">變更</Badge>
 )

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AccordionDetails, AccordionSummary } from '@material-ui/core';
-import { ExpandMoreIcon } from '../components/icon';
+import { ExpandMoreIcon } from '../components/Icon';
 import { StyledAccordion } from '../components/StyledAccordion';
 import {SiteDescription , SiteUpdateLog , SiteLicense } from '../components/SiteAccordionBody'
 
@@ -33,7 +33,7 @@ width: 60%;
     width: 90%;
 }
 margin-bottom: 2rem;
-.MuiPaper-elevation1 {
+> .MuiPaper-elevation1 {
     background-color: ${props => props.theme.colors.surface};
     border: 1px solid ${props => props.theme.colors.border};
     border-radius: .25rem;
@@ -41,28 +41,28 @@ margin-bottom: 2rem;
 }
 `
 const StyledHomeAccordion = styled(StyledAccordion)`
-.MuiAccordionSummary-root,
-.MuiAccordionSummary-root.Mui-expanded {
+> .MuiAccordionSummary-root,
+> .MuiAccordionSummary-root.Mui-expanded {
     padding: .75rem 1.25rem;
     border-radius: .2rem;
 }
-.MuiAccordionSummary-root {
+> .MuiAccordionSummary-root {
     border-bottom: 1px solid ${props => props.theme.colors.surface};
+    > .MuiAccordionSummary-expandIcon svg {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
 }
-.MuiAccordionSummary-root.Mui-expanded {
+> .MuiAccordionSummary-root.Mui-expanded {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom: 1px solid ${props => props.theme.colors.border};
 }
-.MuiAccordionSummary-expandIcon svg {
-    width: 1.6rem;
-    height: 1.6rem;
-}
-.MuiCollapse-container {
+> .MuiCollapse-container {
     border-radius: .2rem;
-}
-.MuiAccordionDetails-root {
-    padding: 1.5rem;
+    > div > div > div > .MuiAccordionDetails-root {
+        padding: 1.5rem;
+    }
 }
 `
 const StyledAccordionHeader = styled(AccordionSummary)`
@@ -75,11 +75,14 @@ export default function Home() {
     const handleExpand = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+    React.useEffect(() => {
+        document.title = '天下布魔工具箱'
+    })
 
     return (
         <HomeContainer>
             <Header>
-                天下布魔工具箱
+                天下布魔工具箱 v0.1
         </Header>
             {[
                 {
@@ -88,7 +91,7 @@ export default function Home() {
                 },
                 {
                     header: '更新日誌',
-                    body: SiteUpdateLog,
+                    body: <SiteUpdateLog/>,
                 },
                 {
                     header: 'License',

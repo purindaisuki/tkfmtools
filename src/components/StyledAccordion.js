@@ -1,5 +1,5 @@
-import { Accordion } from '@material-ui/core';
 import styled from 'styled-components';
+import { Accordion } from '@material-ui/core';
 
 export const StyledAccordion = styled(Accordion)`
 .MuiAccordion-root {

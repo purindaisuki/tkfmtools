@@ -61,7 +61,6 @@ export default function App() {
     const handleCardClick = (idx) => (event) => {
       let copyActiveKeys = cardActiveKeys.slice()
       copyActiveKeys[idx] ? copyActiveKeys[idx] = undefined : copyActiveKeys[idx] = '0'
-      console.log(idx, copyActiveKeys[idx])
       setCardActiveKeys(copyActiveKeys)
     }
     //potential filter
@@ -141,7 +140,6 @@ export default function App() {
                 if (sortConfig.key === 'stage') {
                     aKey = toStageKey(a)
                     bKey = toStageKey(b)
-                    console.log(a, aKey)
                 } else if (sortConfig.key === 'energy') {
                     aKey = a[sortConfig.key]
                     bKey = b[sortConfig.key]

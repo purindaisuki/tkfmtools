@@ -53,6 +53,9 @@ export default function Potential(props) {
         setTab(toTab)
         localStorage.setItem('select-tab', toTab)
     }
+    React.useEffect(() => {
+        document.title = '天下布魔工具箱 — 掉落道具'
+    })
 
     return (
         <StyledTabs

@@ -1,6 +1,6 @@
 import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
-import { ClearIcon } from './icon';
+import { ClearIcon } from './Icon';
 import data from '../item.json'
 
 const StyledFilterPanel = styled.div`

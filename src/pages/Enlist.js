@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const H3 = styled.h3`
@@ -15,6 +16,9 @@ a:hover {
 }
 `
 export default function Enlist() {
+    React.useEffect(() => {
+        document.title = '天下布魔工具箱 — 全境徵才'
+    })
     return (
         <H3>
             🚧施工中，請先移至

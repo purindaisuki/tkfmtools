@@ -1,5 +1,4 @@
 import React from 'react';
-import { ListGroup, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -11,9 +10,10 @@ import {
     LinkIcon,
     MenuIcon,
     ToolIcon,
-} from './icon';
-import { AccordionDetails, AccordionSummary, Drawer } from '@material-ui/core';
+} from './Icon';
 import { StyledAccordion } from './StyledAccordion';
+import { ListGroup, Nav, Navbar } from 'react-bootstrap';
+import { AccordionDetails, AccordionSummary, Drawer } from '@material-ui/core';
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
@@ -159,89 +159,86 @@ const StyledLink = styled(Link)`
 `
 
 export const Sidebar = (props) => (
-    <React.Fragment>
-        <StyledDrawer
-            open={props.open}
-            onClose={props.toggleSidebar(false)}
+    <StyledDrawer
+        open={props.open}
+        onClose={props.toggleSidebar(false)}
+    >
+        <SiderbarList
+            onClick={props.toggleSidebar(false)}
+            onKeyDown={props.toggleSidebar(false)}
         >
-            <SiderbarList
-                onClick={props.toggleSidebar(false)}
-                onKeyDown={props.toggleSidebar(false)}
-            >
-                <SidebarHeader>
-                    {ToolIcon}
+            <SidebarHeader>
+                {ToolIcon}
                     天下布魔工具箱
                 </SidebarHeader>
-                {[
-                    {
-                        to: '/',
-                        icon: HomeIcon,
-                        title: '首頁',
-                    },
-                    {
-                        to: '/enlist',
-                        icon: EnlistIcon,
-                        title: '全境徵才',
-                    },
-                    {
-                        to: '/potential',
-                        icon: ChestIcon,
-                        title: '潛力材料',
-                    },
-                ].map(item => (
-                    <StyledLink key={item['title']} to={item['to']}>
-                        <SiderbarItem>
-                            {item['icon']}
-                            {item['title']}
-                        </SiderbarItem>
-                    </StyledLink>
-                ))}
-            </SiderbarList>
-            <SiderbarList>
-                {[
-                    {
-                        icon: LinkIcon,
-                        title: '外部連結',
-                        links: [
-                            {
-                                description: '官方網站',
-                                link: 'https://www.tenkafuma.com/'
-                            },
-                            {
-                                description: '資料統整',
-                                link: 'https://reurl.cc/5o5A7z/'
-                            },
-                            {
-                                description: '潛力整理&猜測',
-                                link: 'https://reurl.cc/1gZ5nV/'
-                            },
-                        ],
-                    },
-                    {
-                        icon: FeedbackIcon,
-                        title: '資訊回報',
-                        links: [
-                            {
-                                description: '全境徵才數據回報',
-                                link: 'https://forms.gle/VYMGibGfs36F9tdQ6'
-                            },
-                            {
-                                description: '角色潛力數據回報',
-                                link: 'https://reurl.cc/E22vDa'
-                            },
-                            {
-                                description: '意見回饋',
-                                link: '#'
-                            },
-                        ],
-                    },
-                ].map(item => (
-                    <ControlledAccordions data={item} key={item['title']} />
-                ))}
-            </SiderbarList>
-        </StyledDrawer>
-    </React.Fragment>
-
+            {[
+                {
+                    to: '/',
+                    icon: HomeIcon,
+                    title: '首頁',
+                },
+                {
+                    to: '/enlist',
+                    icon: EnlistIcon,
+                    title: '全境徵才',
+                },
+                {
+                    to: '/potential',
+                    icon: ChestIcon,
+                    title: '潛力材料',
+                },
+            ].map(item => (
+                <StyledLink key={item['title']} to={item['to']}>
+                    <SiderbarItem>
+                        {item['icon']}
+                        {item['title']}
+                    </SiderbarItem>
+                </StyledLink>
+            ))}
+        </SiderbarList>
+        <SiderbarList>
+            {[
+                {
+                    icon: LinkIcon,
+                    title: '外部連結',
+                    links: [
+                        {
+                            description: '官方網站',
+                            link: 'https://www.tenkafuma.com/'
+                        },
+                        {
+                            description: '資料統整',
+                            link: 'https://reurl.cc/5o5A7z/'
+                        },
+                        {
+                            description: '潛力整理&猜測',
+                            link: 'https://reurl.cc/1gZ5nV/'
+                        },
+                    ],
+                },
+                {
+                    icon: FeedbackIcon,
+                    title: '資訊回報',
+                    links: [
+                        {
+                            description: '全境徵才數據回報',
+                            link: 'https://forms.gle/VYMGibGfs36F9tdQ6'
+                        },
+                        {
+                            description: '角色潛力數據回報',
+                            link: 'https://reurl.cc/E22vDa'
+                        },
+                        {
+                            description: '意見回饋',
+                            link: '#'
+                        },
+                    ],
+                },
+            ].map(item => (
+                <ControlledAccordions data={item} key={item['title']} />
+            ))}
+        </SiderbarList>
+    </StyledDrawer>
 )
 const AccordionWrapper = styled.div`
     margin: -1rem -1.25rem;
