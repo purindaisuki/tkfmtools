@@ -45,7 +45,7 @@ export const SiteDescription = () => (
             <DescriptionContainer key={0}>
                 <DescriptionHeader>介紹</DescriptionHeader>
                 <DescriptionBody>
-                    <p>本站為基於手遊"天下布魔"中數據所建之網站，旨在統整資料、並提供方便的工具。</p>
+                    <p>本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。</p>
                     <p>網站目前包含主線地圖道具掉落整理及篩選</p>
                 </DescriptionBody>
             </DescriptionContainer>
