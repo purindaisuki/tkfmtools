@@ -195,10 +195,10 @@ export default function App() {
                     toggleSidebar={toggleSidebar}
                 />
                 <Main>
-                    <Route path='/' exact component={Home} />
+                    <Route path='/' exact render={Home} />
                     <Route
                         path='/potential'
-                        component={() => (
+                        render={() => (
                             <Potential
                                 cardActiveKeys={cardActiveKeys}
                                 handleCardClick={handleCardClick}
@@ -213,7 +213,7 @@ export default function App() {
                     />
                     <Route
                         path='/enlist'
-                        component={() => (
+                        render={() => (
                             <Enlist />
                         )}
                     />
