@@ -70,18 +70,17 @@ export default function App() {
                     toggleSidebar={toggleSidebar}
                 />
                 <Main>
-                    <Route path='/' exact render={Home} />
+                    <Route
+                        path='/' exact
+                        render={() => <Home />}
+                    />
                     <Route
                         path='/potential'
-                        render={() => (
-                            <Potential />
-                        )}
+                        render={() => <Potential />}
                     />
                     <Route
                         path='/enlist'
-                        render={() => (
-                            <Enlist />
-                        )}
+                        render={() => <Enlist />}
                     />
                 </Main>
             </Body>

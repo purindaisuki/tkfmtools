@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AccordionDetails, AccordionSummary } from '@material-ui/core';
 import { ExpandMoreIcon } from '../components/Icon';
 import { StyledAccordion } from '../components/StyledAccordion';
-import {SiteDescription , SiteUpdateLog , SiteLicense } from '../components/SiteAccordionBody'
+import { SiteDescription, SiteUpdateLog, SiteLicense } from '../components/SiteAccordionBody'
 
 const HomeContainer = styled.div`
 display: flex;
@@ -61,12 +61,13 @@ const StyledHomeAccordion = styled(StyledAccordion)`
 > .MuiCollapse-container {
     border-radius: .2rem;
     > div > div > div > .MuiAccordionDetails-root {
-        padding: 1.5rem;
+        margin: 1rem;
+        padding: 0;
     }
 }
 `
 const StyledAccordionHeader = styled(AccordionSummary)`
-font-size: large;
+    font-size: large;
 `
 
 export default function Home() {
@@ -81,21 +82,19 @@ export default function Home() {
 
     return (
         <HomeContainer>
-            <Header>
-                天下布魔工具箱 v0.1
-        </Header>
+            <Header>天下布魔工具箱 v0.1</Header>
             {[
                 {
                     header: '關於本站',
-                    body: SiteDescription,
+                    body: <SiteDescription />,
                 },
                 {
                     header: '更新日誌',
-                    body: <SiteUpdateLog/>,
+                    body: <SiteUpdateLog />,
                 },
                 {
                     header: 'License',
-                    body: SiteLicense,
+                    body: <SiteLicense />,
                 },
             ].map((item, idx) => (
                 <AccordionWrapper key={idx}>

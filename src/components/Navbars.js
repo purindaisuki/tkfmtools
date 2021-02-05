@@ -230,7 +230,7 @@ export const Sidebar = (props) => (
                         },
                         {
                             description: '意見回饋',
-                            link: '#'
+                            link: 'https://peing.net/ja/b5295760aebf4c'
                         },
                     ],
                 },
@@ -243,7 +243,7 @@ export const Sidebar = (props) => (
 const AccordionWrapper = styled.div`
     margin: -1rem -1.25rem;
     cursor: default;
-    .MuiPaper-elevation1 {
+    .MuiAccordion-root {
         box-shadow: none;
     }
 `
