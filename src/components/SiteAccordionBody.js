@@ -58,7 +58,7 @@ export const SiteDescription = () => (
             <DescriptionContainer key={2}>
                 <DescriptionHeader>免責聲明</DescriptionHeader>
                 <DescriptionBody>
-                    <p>依本站工具結果僅供參考，所致利害一概不負責。</p>
+                    <p>本站工具結果僅供參考，所致利害一概不負責。</p>
                 </DescriptionBody>
             </DescriptionContainer>
             <DescriptionContainer key={3}>
