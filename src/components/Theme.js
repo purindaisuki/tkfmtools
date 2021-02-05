@@ -19,7 +19,7 @@ export const lightTheme = {
     },
     switcher: {
         iconOffest: '28px',
-        iconUrl: '/img/sun.svg'
+        iconUrl: `${process.env.PUBLIC_URL}/img/sun.svg`
     }
 }
 
@@ -44,6 +44,6 @@ export const darkTheme = {
     },
     switcher: {
         iconOffest: '6px',
-        iconUrl: '/img/moon.svg'
+        iconUrl: `${process.env.PUBLIC_URL}/img/moon.svg`
     }
 }

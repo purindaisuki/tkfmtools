@@ -92,7 +92,7 @@ export default function ItemShowcase() {
                 onClick={() => handleCardClick(idx)}
               >
                 <StyledCardImg
-                  src={`/img/item_${item.id}.png`}
+                  src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                   alt=''
                 />
                 <StyledCardTitle>
@@ -116,7 +116,7 @@ export default function ItemShowcase() {
                             <td>{drop.rarity}</td>
                             <td>
                               <CardTableImg
-                                src='/img/energy.png'
+                                src={`${process.env.PUBLIC_URL}/img/energy.png`}
                                 alt='體力消耗'
                               />
                               {drop.energy}

@@ -113,7 +113,7 @@ const FilterPanel = (props) => (
                         bsPrefix='btn-escape'
                     >
                         <img
-                            src={`/img/item_${item.id}.png`}
+                            src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                             alt=''
                         />
                         {item.name}
@@ -280,7 +280,7 @@ function ResultTable(props) {
                         direction={getSortDirection(idx)}
                     >
                         <img
-                            src={`/img/item_${item.id}.png`}
+                            src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                             alt={item.name}
                         />
                     </SortTh>
@@ -312,7 +312,7 @@ function ResultTable(props) {
                                 direction={getSortDirection('energy')}
                             >
                                 <img
-                                    src='/img/energy.png'
+                                    src={`${process.env.PUBLIC_URL}/img/energy.png`}
                                     className='card-table-img'
                                     alt='體力消耗'
                                 />
