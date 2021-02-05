@@ -22,3 +22,7 @@
 2. [潛力整理&猜測](https://reurl.cc/1gZ5nV/)
 3. [Discord天下布魔場外群資料整理(舊)](https://reurl.cc/8ypXzM)
 4. 其他Discord天下布魔場外討論群善心人士提供之資料
+
+## License
+* [The MIT License](https://github.com/purindaisuki/tkfmtools/blob/master/LICENSE)
+* NOTE: SVG ICONS FROM [Material icons - Google Design](https://github.com/google/material-design-icons) IS LICENSED UNDER [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE). THE ART RESOURCES FORM Tenkafu MA! ARE NOT LICENSED BY MIT AND RESERVED FOR SG Art Inc. 
