@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 
 ReactDOM.render(
-    <BrowserRouter basename={window.location.pathname || ''}>
+    <HashRouter basename={''}>
         <Switch>
             <App />
         </Switch>
-    </BrowserRouter>,
+    </HashRouter>,
     document.querySelector('#root')
 )
