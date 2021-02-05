@@ -6,6 +6,7 @@ import { lightTheme, darkTheme } from './components/Theme';
 import Home from './pages/Home';
 import Enlist from './pages/Enlist';
 import Potential from './pages/Potential';
+import ToTopBtn from './components/ToTopBtn';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
@@ -86,6 +87,7 @@ export default function App() {
                         render={() => <Enlist />}
                     />
                 </Main>
+                <ToTopBtn/>
             </Body>
         </ThemeProvider>
     )

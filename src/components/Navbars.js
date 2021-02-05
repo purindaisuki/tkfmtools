@@ -20,6 +20,9 @@ const StyledMainNavBar = styled(Navbar)`
     transition: all 204ms ease;
     padding: .8rem 1.25rem;
     align-item: end;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     a:nth-of-type(1) {
         padding: 0;
     }

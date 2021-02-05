@@ -82,7 +82,7 @@ export default function Home() {
 
     return (
         <HomeContainer>
-            <Header>天下布魔工具箱 v0.1</Header>
+            <Header>天下布魔工具箱 v0.2</Header>
             {[
                 {
                     header: '關於本站',

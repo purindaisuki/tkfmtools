@@ -55,21 +55,21 @@ export const SiteDescription = () => (
                     <p>本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主。</p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer  key={2}>
+            <DescriptionContainer key={2}>
                 <DescriptionHeader>免責聲明</DescriptionHeader>
                 <DescriptionBody>
                     <p>依本站工具結果僅供參考，所致利害一概不負責。</p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer  key={3}>
+            <DescriptionContainer key={3}>
                 <DescriptionHeader>意見回饋</DescriptionHeader>
                 <DescriptionBody>
                     <p>
                         Bug、建議、使用心得等請至
                         <a
                             href='https://peing.net/ja/b5295760aebf4c'
-                            target="_blank"
-                            rel="noreferrer"
+                            target='_blank'
+                            rel='noreferrer'
                         >
                             這裡
                         </a>
@@ -77,7 +77,7 @@ export const SiteDescription = () => (
                     </p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer  key={4}>
+            <DescriptionContainer key={4}>
                 <DescriptionHeader>參考</DescriptionHeader>
                 <DescriptionBody>
                     {[
@@ -101,8 +101,8 @@ export const SiteDescription = () => (
                         <p key={idx}>
                             <a
                                 href={item.link}
-                                target="_blank"
-                                rel="noreferrer"
+                                target='_blank'
+                                rel='noreferrer'
                             >
                                 {item.title}
                             </a>
@@ -120,8 +120,17 @@ export function SiteUpdateLog() {
         <BodyContainer>
             {[
                 {
+                    version: 'v0.2',
+                    content: [
+                        {
+                            badge: NewBadge,
+                            title: '潛力材料掉落',
+                            description: '新增潛力材料掉落一覽及篩選器',
+                        },
+                    ],
+                },
+                {
                     version: 'v0.1',
-
                     content: [
                         {
                             badge: NewBadge,
@@ -208,7 +217,7 @@ const LicenseItemContent = styled.div`
 export const SiteLicense = () => (
     <BodyContainer>
         <LicenseList>
-            <li key={0}>
+            <li key={'text'}>
                 <LicenseItemTitle>
                     <span>遊戲圖像</span>
                 </LicenseItemTitle>
@@ -218,126 +227,71 @@ export const SiteLicense = () => (
                     </span>
                 </LicenseItemContent>
             </li>
-            <li key={1}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/google/material-design-icons'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Material icons - Google Design
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/google/material-design-icons/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Apache License 2.0
-                    </a>
-                </LicenseItemContent>
-            </li>
-            <li key={2}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/facebook/react'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        react
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/facebook/react/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        MIT License
-                    </a>
-                </LicenseItemContent>
-            </li>
-            <li key={3}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/react-bootstrap/react-bootstrap'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        react-bootstrap
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        MIT License
-                    </a>
-                </LicenseItemContent>
-            </li>
-            <li key={4}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/paulcollett/react-masonry-css'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        react-masonry-css
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        MIT License
-                    </a>
-                </LicenseItemContent>
-            </li>
-            <li key={5}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/mui-org/material-ui'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        material-ui
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/mui-org/material-ui/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        MIT License
-                    </a>
-                </LicenseItemContent>
-            </li>
-            <li key={6}>
-                <LicenseItemTitle>
-                    <a
-                        href='https://github.com/mui-org/material-ui'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        styled-components
-                    </a>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <a
-                        href='https://github.com/styled-components/styled-components/blob/master/LICENSE'
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        MIT License
-                    </a>
-                </LicenseItemContent>
-            </li>
+            {[
+                {
+                    titleLink: 'https://github.com/google/material-design-icons',
+                    title: 'Material icons - Google Design',
+                    license: 'https://github.com/google/material-design-icons/blob/master/LICENSE',
+                    licenseLink: 'Apache License 2.0',
+                },
+                {
+                    titleLink: 'https://github.com/facebook/react',
+                    title: 'react',
+                    license: 'https://github.com/facebook/react/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+                {
+                    titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
+                    title: 'react-bootstrap',
+                    license: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+                {
+                    titleLink: 'https://github.com/paulcollett/react-masonry-css',
+                    title: 'react-masonry-css',
+                    license: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+                {
+                    titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
+                    title: 'react-scroll-up-button',
+                    license: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+                {
+                    titleLink: 'https://github.com/mui-org/material-ui',
+                    title: 'material-ui',
+                    license: 'https://github.com/mui-org/material-ui/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+                {
+                    titleLink: 'https://github.com/styled-components/styled-components',
+                    title: 'styled-components',
+                    license: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
+                    licenseLink: 'MIT License',
+                },
+            ].map((item, idx) => (
+                <li key={idx}>
+                    <LicenseItemTitle>
+                        <a
+                            href={item.titleLink}
+                            target='_blank'
+                            rel='noreferrer'
+                        >
+                            {item.title}
+                        </a>
+                    </LicenseItemTitle>
+                    <LicenseItemContent>
+                        <a
+                            href={item.licenseLink}
+                            target='_blank'
+                            rel='noreferrer'
+                        >
+                            {item.license}
+                        </a>
+                    </LicenseItemContent>
+                </li>
+            ))}
         </LicenseList>
     </BodyContainer>
 )
