@@ -31,10 +31,10 @@ border-bottom: 1px solid ${props => props.theme.colors.border};
     box-shadow: 0 1px ${props => props.theme.colors.background}
 }
 a:nth-of-type(1) {
-    background-image:url('/img/overview.svg');
+    background-image:url('${process.env.PUBLIC_URL}/img/overview.svg');
 }
 a:nth-of-type(2) {
-    background-image:url('/img/filter.svg');
+    background-image:url('${process.env.PUBLIC_URL}/img/filter.svg');
 }
 `
 
