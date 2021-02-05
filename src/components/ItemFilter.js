@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Table, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
 import { ClearIcon } from './Icon';
@@ -195,18 +196,88 @@ const SortTh = styled.th`
 `
 
 function ResultTable(props) {
+    const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {
+        // when key is number meaning sorted by the number of item
+        const [sortConfig, setSortConfig] = useState(config)
+
+        const toStageKey = key => {
+            return (
+                parseInt(key['chapter']) * 1000 +
+                parseInt(key['stage'].split(' ')[0]) * 10 +
+                (key['stage'].includes('free') ? 1 : 0) +
+                (key['stage'].includes('-') ? parseInt(key['stage'].split('-')[1]) : 0)
+            )
+        }
+
+        const toRarityKey = (key, idx) => {
+            switch (key['drop'][idx]['rarity']) {
+                case '罕見': return 0
+                case '少見': return 1
+                case '常見': return 2
+                default: return 3
+            }
+        }
+
+        const sortedItems = React.useMemo(() => {
+            let sortableItems = [...items]
+
+            sortableItems.sort((a, b) => {
+                let aKey
+                let bKey
+                if (sortConfig.key === 'stage') {
+                    aKey = toStageKey(a)
+                    bKey = toStageKey(b)
+                } else if (sortConfig.key === 'energy') {
+                    aKey = a[sortConfig.key]
+                    bKey = b[sortConfig.key]
+                } else {
+                    aKey = toRarityKey(a, sortConfig.key)
+                    bKey = toRarityKey(b, sortConfig.key)
+                }
+                if (aKey < bKey) {
+                    return sortConfig.direction === 'asc' ? -1 : 1
+                }
+                if (aKey > bKey) {
+                    return sortConfig.direction === 'asc' ? 1 : -1
+                }
+                return 0
+            })
+
+            return sortableItems
+        }, [items, sortConfig])
+
+        const requestSort = (key) => {
+            let direction = 'desc';
+            if (
+                sortConfig.key === key &&
+                sortConfig.direction === 'desc'
+            ) {
+                direction = 'asc';
+            }
+            setSortConfig({ key, direction })
+        }
+
+        return { dropTableItems: sortedItems, requestSort, sortConfig }
+    }
+    const { dropTableItems, requestSort, sortConfig } = useSortableData(props.stages)
+    const getSortDirection = (name) => {
+        if (dropTableItems.length === 0) {
+            return
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined
+    }
     const TableHeader = () => {
-        if (props.dropTableItems.length === 0) {
+        if (dropTableItems.length === 0) {
             return <SortTh>稀有度</SortTh>
         }
 
         return (
-            props.dropTableItems[0].drop.map((item, idx) => {
+            dropTableItems[0].drop.map((item, idx) => {
                 return (
                     <SortTh
                         key={idx}
-                        onClick={props.requestSort(idx)}
-                        direction={props.getSortDirection(idx)}
+                        onClick={() => requestSort(idx)}
+                        direction={getSortDirection(idx)}
                     >
                         <img
                             src={`/img/item_${item.id}.png`}
@@ -230,15 +301,15 @@ function ResultTable(props) {
                     <thead>
                         <tr>
                             <SortTh
-                                onClick={props.requestSort('stage')}
-                                direction={props.getSortDirection('stage')}
+                                onClick={() => requestSort('stage')}
+                                direction={getSortDirection('stage')}
                             >
                                 關卡
                             </SortTh>
                             <TableHeader />
                             <SortTh
-                                onClick={props.requestSort('energy')}
-                                direction={props.getSortDirection('energy')}
+                                onClick={() => requestSort('energy')}
+                                direction={getSortDirection('energy')}
                             >
                                 <img
                                     src='/img/energy.png'
@@ -249,7 +320,7 @@ function ResultTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.dropTableItems.map((stage, idx) => {
+                        {dropTableItems.map((stage, idx) => {
                             return (
                                 <tr key={idx}>
                                     <td>{`${stage.chapter}-${stage.stage}`}</td>
@@ -276,19 +347,59 @@ const FilterContainer = styled.div`
     }
 `
 
-const ItemFilter = (props) => (
-    <FilterContainer>
-        <FilterPanel
-            filterBtnValue={props.filterBtnValue}
-            filterBy={props.filterBy}
-            clearFilter={props.clearFilter}
-        />
-        <ResultTable
-            dropTableItems={props.dropTableItems}
-            requestSort={props.requestSort}
-            getSortDirection={props.getSortDirection}
-        />
-    </FilterContainer>
-)
+export default function ItemFilter() {
+    const [filterBtnValue, setFilterBtnValue] = useState([])
+    const [stages, setStages] = useState([])
 
-export default ItemFilter;
+    const filterBy = (val) => {
+        setFilterBtnValue(val)
+        if (val.length === 0) {
+            setStages([])
+            return;
+        }
+        let curVal = val.sort()
+        // deep copy
+        let filteredStages = JSON.parse(JSON.stringify(data[curVal[0]].drop))
+        filteredStages.forEach(stage => {
+            stage['drop'] = [{
+                id: data[curVal[0]].id,
+                name: data[curVal[0]].name,
+                rarity: stage.rarity
+            }]
+            delete stage['rarity']
+        })
+        curVal.forEach((itemIdx, idx) => {
+            if (idx === 0) return true
+            filteredStages = filteredStages.filter(thisStage => {
+                let flag = false
+                data[itemIdx].drop.forEach(that => {
+                    if (
+                        that.chapter === thisStage.chapter
+                        && that.stage === thisStage.stage
+                    ) {
+                        let newDrop = {
+                            id: data[itemIdx].id,
+                            name: data[itemIdx].name,
+                            rarity: that.rarity
+                        }
+                        thisStage.drop.push(newDrop)
+                        flag = true
+                        return false
+                    }
+                })
+                return flag
+            })
+        })
+        setStages(filteredStages)
+    }
+    return (
+        <FilterContainer>
+            <FilterPanel
+                filterBtnValue={filterBtnValue}
+                filterBy={filterBy}
+                clearFilter={() => filterBy([])}
+            />
+            <ResultTable stages={stages}/>
+        </FilterContainer>
+    )
+}

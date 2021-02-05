@@ -64,20 +64,10 @@ export default function Potential(props) {
             bsPrefix='escape'
         >
             <Tab eventKey='overview' title='總覽'>
-                <ItemShowcase
-                    cardActiveKeys={props.cardActiveKeys}
-                    handleCardClick={props.handleCardClick}
-                />
+                <ItemShowcase/>
             </Tab>
             <Tab eventKey='filter' title='篩選'>
-                <ItemFilter
-                    filterBtnValue={props.filterBtnValue}
-                    filterBy={props.filterBy}
-                    clearFilter={props.clearFilter}
-                    dropTableItems={props.dropTableItems}
-                    requestSort={props.requestSort}
-                    getSortDirection={props.getSortDirection}
-                />
+                <ItemFilter />
             </Tab>
         </StyledTabs>
     )

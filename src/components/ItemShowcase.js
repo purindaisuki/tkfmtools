@@ -69,7 +69,14 @@ const breakpointColumnsConfig = {
   768: 2
 };
 
-export default function ItemShowcase(props) {
+export default function ItemShowcase() {
+  const [cardActiveKeys, setCardActiveKeys] = React.useState(Array(data.length).fill('0'))
+
+  const handleCardClick = (idx) => {
+    let copyActiveKeys = cardActiveKeys.slice()
+    copyActiveKeys[idx] ? copyActiveKeys[idx] = undefined : copyActiveKeys[idx] = '0'
+    setCardActiveKeys(copyActiveKeys)
+  }
   return (
     <StyledMasonry
       breakpointCols={breakpointColumnsConfig}
@@ -77,12 +84,12 @@ export default function ItemShowcase(props) {
     >
       {data.map((item, idx) => {
         return (
-          <StyleCardContainer defaultActiveKey={props.cardActiveKeys[idx]} key={item.id}>
+          <StyleCardContainer defaultActiveKey={cardActiveKeys[idx]} key={item.id}>
             <StyleCard>
               <Accordion.Toggle
                 as={StyledCardHeader}
                 eventKey='0'
-                onClick={props.handleCardClick(idx)}
+                onClick={() => handleCardClick(idx)}
               >
                 <StyledCardImg
                   src={`/img/item_${item.id}.png`}
