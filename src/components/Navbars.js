@@ -92,7 +92,7 @@ export const MainNavbar = (props) => (
         <Navbar.Brand href="#" onClick={props.toggleSidebar(true)}>
             <Svg>{MenuIcon}</Svg>
         </Navbar.Brand>
-        <Text to='/'>天下布魔</Text>
+        <Text to='/'>天下布魔工具箱</Text>
         <Nav className='ml-auto'>
             <ThemeSwitcherLabel>
                 <ThemeSwitcherSwither
@@ -111,7 +111,7 @@ const StyledDrawer = styled(Drawer)`
         background-color: ${props => props.theme.colors.surface};
         width: 20rem;
         @media screen and (max-width: 624px) {
-            width: 16rem;
+            width: 20rem;
         }
     }
 `
@@ -162,10 +162,11 @@ export const Sidebar = (props) => (
     <StyledDrawer
         open={props.open}
         onClose={props.toggleSidebar(false)}
+        onClick={props.toggleSidebar(false)}
+        onKeyDown={props.toggleSidebar(false)}
     >
         <SiderbarList
-            onClick={props.toggleSidebar(false)}
-            onKeyDown={props.toggleSidebar(false)}
+            
         >
             <SidebarHeader>
                 {ToolIcon}
@@ -235,7 +236,7 @@ export const Sidebar = (props) => (
                     ],
                 },
             ].map(item => (
-                <ControlledAccordions data={item} key={item['title']} />
+                <SidebarAccordions data={item} key={item['title']} />
             ))}
         </SiderbarList>
     </StyledDrawer>
@@ -281,17 +282,15 @@ const AccordionItem = styled(ListGroup.Item)`
 `
 
 
-function ControlledAccordions(props) {
+function SidebarAccordions(props) {
     const [isExpanded, setExpanded] = React.useState(false)
-
-    const handleChange = () => setExpanded(!isExpanded)
 
     return (
         <SiderbarItem>
             <AccordionWrapper>
                 <StyledBarAccordion
                     expanded={isExpanded}
-                    onChange={handleChange}
+                    onChange={() => setExpanded(!isExpanded)}
                     square={true}
                 >
                     <AccordionSummary expandIcon={ExpandMoreIcon}>

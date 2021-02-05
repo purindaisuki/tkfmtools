@@ -42,26 +42,26 @@ const DescriptionBody = styled.div`
 export const SiteDescription = () => (
     <BodyContainer>
         <ul>
-            <DescriptionContainer>
+            <DescriptionContainer key={0}>
                 <DescriptionHeader>介紹</DescriptionHeader>
                 <DescriptionBody>
                     <p>本站為基於手遊"天下布魔"中數據所建之網站，旨在統整資料、並提供方便的工具。</p>
                     <p>網站目前包含主線地圖道具掉落整理及篩選</p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer>
+            <DescriptionContainer key={1}>
                 <DescriptionHeader>注意事項</DescriptionHeader>
                 <DescriptionBody>
                     <p>本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主。</p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer>
+            <DescriptionContainer  key={2}>
                 <DescriptionHeader>免責聲明</DescriptionHeader>
                 <DescriptionBody>
                     <p>依本站工具結果僅供參考，所致利害一概不負責。</p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer>
+            <DescriptionContainer  key={3}>
                 <DescriptionHeader>意見回饋</DescriptionHeader>
                 <DescriptionBody>
                     <p>
@@ -77,7 +77,7 @@ export const SiteDescription = () => (
                     </p>
                 </DescriptionBody>
             </DescriptionContainer>
-            <DescriptionContainer>
+            <DescriptionContainer  key={4}>
                 <DescriptionHeader>參考</DescriptionHeader>
                 <DescriptionBody>
                     {[
@@ -97,8 +97,8 @@ export const SiteDescription = () => (
                             link: '',
                             title: '',
                         },
-                    ].map(item => (
-                        <p>
+                    ].map((item, idx) => (
+                        <p key={idx}>
                             <a
                                 href={item.link}
                                 target="_blank"
@@ -208,7 +208,7 @@ const LicenseItemContent = styled.div`
 export const SiteLicense = () => (
     <BodyContainer>
         <LicenseList>
-            <li>
+            <li key={0}>
                 <LicenseItemTitle>
                     <span>遊戲圖像</span>
                 </LicenseItemTitle>
@@ -218,7 +218,7 @@ export const SiteLicense = () => (
                     </span>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={1}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/google/material-design-icons'
@@ -238,7 +238,7 @@ export const SiteLicense = () => (
                     </a>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={2}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/facebook/react'
@@ -258,7 +258,7 @@ export const SiteLicense = () => (
                     </a>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={3}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/react-bootstrap/react-bootstrap'
@@ -278,7 +278,7 @@ export const SiteLicense = () => (
                     </a>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={4}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/paulcollett/react-masonry-css'
@@ -298,7 +298,7 @@ export const SiteLicense = () => (
                     </a>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={5}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/mui-org/material-ui'
@@ -318,7 +318,7 @@ export const SiteLicense = () => (
                     </a>
                 </LicenseItemContent>
             </li>
-            <li>
+            <li key={6}>
                 <LicenseItemTitle>
                     <a
                         href='https://github.com/mui-org/material-ui'

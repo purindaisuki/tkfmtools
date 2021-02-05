@@ -49,7 +49,10 @@ export default function App() {
     const [open, setOpen] = useState(false)
 
     const toggleSidebar = (toOpen) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        if (
+            (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) ||
+            event.target.closest('.MuiAccordion-root') !== null
+        ) {
             return;
         }
         setOpen(toOpen);
