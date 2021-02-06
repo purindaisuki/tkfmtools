@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 
 ReactDOM.render(
-    <HashRouter basename={''}>
+    <BrowserRouter basename={'/tkfmtools' || ''}>
         <Switch>
             <App />
         </Switch>
-    </HashRouter>,
+    </BrowserRouter>,
     document.querySelector('#root')
 )

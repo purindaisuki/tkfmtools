@@ -75,7 +75,8 @@ export default function App() {
                 />
                 <Main>
                     <Route
-                        path='/' exact
+                        path='/'
+                        exact
                         render={() => <Home />}
                     />
                     <Route
