@@ -1,29 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import CharFilter from '../components/CharFilter';
+import PageWithTabs from '../components/PageWithTabs';
+import { OverviewIcon, FilterIcon } from '../components/Icon';
 
-const H3 = styled.h3`
-margin-right: auto;
-margin-top: 16rem;
-margin-left: auto;
-width: max-content;
-color: ${props => props.theme.colors.onSurface};
-a {
-    color: ${props => props.theme.colors.link};
-}
-a:hover {
-    color: ${props => props.theme.colors.linkHover};
-}
-}
-`
 export default function Enlist() {
-    React.useEffect(() => {
-        document.title = '天下布魔工具箱 — 全境徵才'
-    })
     return (
-        <H3>
-            🚧施工中，請先移至
-            <a href='https://purindaisuki.github.io/TenkafuMaRecruitFilter/'
-                target="_blank" rel="noreferrer">現有版本</a>
-        </H3>
+        <PageWithTabs
+            title='天下布魔工具箱 — 全境徵才'
+            tabs={[
+                { label: '總覽', icon: OverviewIcon, content: <div /> },
+                { label: '篩選', icon: FilterIcon, content: <CharFilter /> },
+            ]}
+        />
     )
 }

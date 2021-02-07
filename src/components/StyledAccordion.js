@@ -9,13 +9,13 @@ export const StyledAccordion = styled(Accordion)`
 .MuiAccordionSummary-root,
 .MuiAccordionSummary-root.Mui-expanded {
     min-height: 0;
-    transition: all 204ms ease;
+    transition: all 355ms ease;
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
 }
 .MuiAccordionSummary-content,
 .MuiAccordionSummary-content.Mui-expanded {
-    transition: all 204ms ease;
+    transition: all 355ms ease;
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
 }
@@ -23,7 +23,7 @@ export const StyledAccordion = styled(Accordion)`
     fill: ${props => props.theme.colors.secondary};
 }
 .MuiCollapse-container {
-    transition: all 204ms ease;
+    transition: all 355ms ease;
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
 }
