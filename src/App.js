@@ -12,8 +12,9 @@ import './index.css';
 
 const Body = styled.div`
     min-height: 100vh;
-    transition: background-color 204ms ease;
+    transition: background-color 355ms ease;
     background-color: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.onSurface};
 `
 const Main = styled.main`
     padding: 1rem;
