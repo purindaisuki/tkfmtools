@@ -448,6 +448,18 @@
                 "rarity": "常見"
             },
             {
+                "chapter": "6",
+                "stage": "6",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
+                "chapter": "6",
+                "stage": "11",
+                "energy": 15,
+                "rarity": "常見"
+            },
+            {
                 "chapter": "7",
                 "stage": "3 free-3",
                 "energy": 16,
@@ -1086,18 +1098,6 @@
                 "stage": "4",
                 "energy": 15,
                 "rarity": "罕見"
-            },
-            {
-                "chapter": "6",
-                "stage": "6",
-                "energy": 15,
-                "rarity": "常見"
-            },
-            {
-                "chapter": "6",
-                "stage": "11",
-                "energy": 15,
-                "rarity": "常見"
             },
             {
                 "chapter": "6",
