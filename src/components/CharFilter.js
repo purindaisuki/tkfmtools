@@ -37,7 +37,7 @@ const SortTh = styled.th`
     }}';
     }
 `
-const SvgWrapper = styled.div`
+const StarIconWrapper = styled.div`
     display: inline;
     vertical-align: text-bottom;
     svg {
@@ -56,7 +56,7 @@ function TableContent(props) {
             .map(comb => comb.join(', ')).join('\n')
         return (
             <Tooltip title={texts} TransitionComponent={Zoom} arrow>
-                <SvgWrapper>{StarIcon}</SvgWrapper>
+                <StarIconWrapper>{StarIcon}</StarIconWrapper>
             </Tooltip>
         )
     }
@@ -117,16 +117,16 @@ const FilterContainer = styled.div`
         @media screen and (max-width: 992px) {
             width: 100%;
         }
+        div > div > svg {
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: ${props => props.theme.colors.onSurface};
+            color: ${props => props.theme.colors.onSurface};
+        }
     }
     display: flex;
     @media screen and (max-width: 992px) {
         display: block;
-    }
-    > div > div > div > svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        fill: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.secondary};
     }
     > .MuiSnackbar-root > div {
         background-color: #ff9800;
@@ -277,6 +277,17 @@ export default function CharFilter() {
         isSnackbarOpen: false,
     })
 
+    const attrIcons = {
+        type: TypeIcon,
+        category: CategoryIcon,
+        race: RaceIcon,
+        body: BodysizeIcon,
+        oppai: OppaiIcon,
+        rank: RankIcon,
+        else: ElseIcon
+    }
+
+    // filter characters by query tags
     const filterBy = useCallback((val) => {
         if (val.length > 5) {
             setState((prevState) => ({
@@ -416,16 +427,6 @@ export default function CharFilter() {
         [filterBy, state.filterBtnValue, state.enlistHour]
     )
 
-    const attrIcons = {
-        type: TypeIcon,
-        category: CategoryIcon,
-        race: RaceIcon,
-        body: BodysizeIcon,
-        oppai: OppaiIcon,
-        rank: RankIcon,
-        else: ElseIcon
-    }
-
     const sortFunc = (sortableItems, sortConfig) => {
         // initial key is 0
         if (sortConfig.key === 0) sortConfig.key = 'grade'
@@ -458,6 +459,10 @@ export default function CharFilter() {
             isSnackbarOpen: false,
         }))
     }
+
+    const [modalOpen, setModalOpen] = useState(false)
+    const handleModalOpen = () => setModalOpen(true)
+    const handleModalClose = () => setModalOpen(false)
 
     return (
         <FilterContainer>
@@ -524,6 +529,10 @@ export default function CharFilter() {
                 <ResultTable
                     result={state.characters}
                     sortFunc={sortFunc}
+                    modalContent={<HelpModalContent handleModalClose={handleModalClose} />}
+                    modalOpen={modalOpen}
+                    handleModalOpen={handleModalOpen}
+                    handleModalClose={handleModalClose}
                 >
                     <TableContent />
                 </ResultTable>
@@ -542,3 +551,53 @@ export default function CharFilter() {
         </FilterContainer>
     )
 }
+
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
+
+const HelpModalContent = (props) => (
+    <>
+        <ModalHeader>
+            <span>介紹</span>
+            <span onClick={props.handleModalClose}>&times;</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>此頁為用於遊戲中全境徵才之篩選器</p>
+            <p>應用徵才隨機得到的五個標籤，篩選出可能的人選</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>操作說明</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>選擇標籤以篩選角色</p>
+            <p>點擊表格標頭可依升/降序排列</p>
+            <p>若出現星星圖示，表示有組合可篩出唯一角色</p>
+            <p>將游標移至該圖示上會顯示所有最小標籤組合</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>常用情境</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>鎖定高星角:</p>
+            <p>填入招募的五個標籤，並選擇至少應用一標籤</p>
+            <p>將結果依星數排序，觀察高星角是否有星星圖示</p>
+            <p>若所有高星角皆無圖示，則不值得使用此標籤組合招募</p>
+            <p>若有出現圖示，則有一試之價值</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>注意事項</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>並未考慮標籤被劃掉之可能性</p>
+            <p>即使出現星星圖示也不代表必中，因為標籤可能被劃掉，或有符合條件但仍未知之角色</p>
+            <p>搜尋結果高度依賴現有資料庫，願意的話可以點左邊資訊回報中"全境徵才數據回報"</p>
+        </ModalBody>
+    </>
+)

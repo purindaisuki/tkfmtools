@@ -88,6 +88,10 @@ const TableContent = (props) => {
 }
 
 const FilterContainer = styled.div`
+    display: flex;
+    @media screen and (max-width: 992px) {
+        display: block;
+    }
     > div:first-child {
         width: 60%; height: 100%;
         @media screen and (max-width: 1360px) {
@@ -97,9 +101,8 @@ const FilterContainer = styled.div`
             width: 100%;
         }
     }
-    display: flex;
-    @media screen and (max-width: 992px) {
-        display: block;
+    > div:last-child > div:first-child {
+        justify-content: start;
     }
 `
 const ContainerHeader = styled.div`
@@ -294,6 +297,10 @@ export default function ItemFilter() {
         })
     }
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const handleModalOpen = () => setModalOpen(true)
+    const handleModalClose = () => setModalOpen(false)
+
     return (
         <FilterContainer>
             <FilterPanel>
@@ -329,6 +336,10 @@ export default function ItemFilter() {
                 <ResultTable
                     result={state.stages}
                     sortFunc={sortFunc}
+                    modalContent={<HelpModalContent handleModalClose={handleModalClose} />}
+                    modalOpen={modalOpen}
+                    handleModalOpen={handleModalOpen}
+                    handleModalClose={handleModalClose}
                 >
                     <TableContent />
                 </ResultTable>
@@ -336,3 +347,40 @@ export default function ItemFilter() {
         </FilterContainer>
     )
 }
+
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
+
+const HelpModalContent = (props) => (
+    <>
+        <ModalHeader>
+            <span>介紹</span>
+            <span onClick={props.handleModalClose}>&times;</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>此頁為遊戲中主線掉落物之篩選器</p>
+            <p>根據目標掉落物，篩選出可能的地圖</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>操作說明</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>選擇掉落物以篩選地圖</p>
+            <p>點擊表格標頭可依升/降序排列</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>注意事項</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>只包含主線之掉落物</p>
+            <p>即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同</p>
+        </ModalBody>
+    </>
+)

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
+import { HelpIcon } from './Icon';
+import { Backdrop, Fade, Modal } from '@material-ui/core';
 
 const StyledFilterPanel = styled.div`
     padding: 1rem;
@@ -21,11 +23,21 @@ const ContainerHeader = styled.div`
     align-items: center;
     font-size: large;
     font-weight: normal;
-    justify-content: space-between;
+    justify-content: left;
     margin-bottom: 1rem;
     padding-bottom: .4rem;
     border-bottom: solid 1px ${props => props.theme.colors.border};
     color: ${props => props.theme.colors.onSurface};
+`
+const Svg = styled.div`
+    svg {
+        fill: ${props => props.theme.colors.secondary};
+        width: 1.4rem;
+        height: 1.4rem;
+        margin-left: .4rem;
+        cursor: pointer;
+        vertical-align: top;
+    }
 `
 const ResultTableWrapper = styled.div`
     height: calc(100% - 1.4rem - 1.5rem);
@@ -53,6 +65,50 @@ const StyledResultTable = styled(Table)`
     }
     td {
         padding-left: .75rem;
+    }
+`
+const ModalContainer = styled.div`
+    background-color: ${props => props.theme.colors.surface};
+    color: ${props => props.theme.colors.onSurface};
+    width: 70%;
+    @media screen and (max-width: 992px) {
+        width: 80%;
+    }
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        height: 90%;
+    }
+    @media screen and (max-width: 624px) {
+        width: 90%;
+    }
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    padding: 1rem;
+    border-radius: .25rem;
+    border: 1px solid ${props => props.theme.colors.border};
+    > div > div:first-child > span:last-child {
+        font-size: x-large;
+        cursor: pointer;
+    }
+`
+const ModalContent = styled.div`
+    overflow: auto;
+    height: 100%;
+    scrollbar-width: thin;
+    padding-right: .5rem;
+    margin-right: -.5rem;
+    &::-webkit-scrollbar {
+        width: .4rem;
+        background: ${props => props.theme.colors.surface};
+    }
+    &::-webkit-scrollbar-thumb {
+        background: ${props => props.theme.colors.border};
+        border-radius: .25rem;
+    }
+    &::-webkit-scrollbar-track {
+        background: ${props => props.theme.colors.surface};
     }
 `
 
@@ -90,7 +146,10 @@ export function ResultTable(props) {
 
     return (
         <>
-            <ContainerHeader>篩選結果</ContainerHeader>
+            <ContainerHeader>
+                {'篩選結果'}
+                <Svg onClick={props.handleModalOpen}>{HelpIcon}</Svg>
+            </ContainerHeader>
             <ResultTableWrapper>
                 <StyledResultTable
                     striped
@@ -104,6 +163,25 @@ export function ResultTable(props) {
                     })}
                 </StyledResultTable>
             </ResultTableWrapper>
+            <Modal
+                open={props.modalOpen}
+                onClose={props.handleModalClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+                aria-labelledby="help-modal-title"
+                aria-describedby="help-modal-description"
+            >
+                <Fade in={props.modalOpen}>
+                    <ModalContainer>
+                        <ModalContent>
+                            {props.modalContent}
+                        </ModalContent>
+                    </ModalContainer>
+                </Fade>
+            </Modal>
         </>
     )
 }

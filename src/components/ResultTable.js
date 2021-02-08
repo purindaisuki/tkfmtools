@@ -55,22 +55,6 @@ const StyledResultTable = styled(Table)`
         padding-left: .75rem;
     }
 `
-const SortTh = styled.th`
-    position: sticky;
-    top: 0;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1.1rem;
-    font-weight: normal;
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    &:after {
-        content: '${props => {
-        if (!props.direction) return
-        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-    }}';
-    }
-`
 
 export function ResultTable(props) {
     const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {

@@ -21,7 +21,7 @@ const StyledTabs = styled(Tabs)`
             > .MuiTab-root {
                 min-width: 0;
                 min-height: 0;
-                padding: .5rem 1rem;
+                padding: 0 1rem;
                 padding-top: .6rem;
                 z-index: 1;
                 > span {
