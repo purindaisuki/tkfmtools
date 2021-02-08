@@ -120,6 +120,16 @@ export function SiteUpdateLog() {
         <BodyContainer>
             {[
                 {
+                    version: 'v1.0',
+                    content: [
+                        {
+                            badge: NewBadge,
+                            title: '全境徵才篩選',
+                            description: '新增全境徵才篩選器',
+                        },
+                    ],
+                },
+                {
                     version: 'v0.2',
                     content: [
                         {

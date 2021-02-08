@@ -8,7 +8,6 @@ export default function Enlist() {
         <PageWithTabs
             title='天下布魔工具箱 — 全境徵才'
             tabs={[
-                { label: '總覽', icon: OverviewIcon, content: <div /> },
                 { label: '篩選', icon: FilterIcon, content: <CharFilter /> },
             ]}
         />

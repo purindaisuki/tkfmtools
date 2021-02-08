@@ -22,7 +22,7 @@ const StyledMainNavBar = styled(Navbar)`
     align-item: end;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     a:nth-of-type(1) {
         padding: 0;
     }
@@ -231,6 +231,10 @@ export const Sidebar = (props) => (
                         {
                             description: '角色潛力數據回報',
                             link: 'https://reurl.cc/E22vDa'
+                        },
+                        {
+                            description: '主線掉落數據回報',
+                            link: 'https://reurl.cc/jqGAVL'
                         },
                         {
                             description: '意見回饋',
