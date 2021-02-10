@@ -90,19 +90,23 @@ const ItemFilterPanel = (props) => {
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
             >
-                {data.map((item, idx) => (
-                    <StyledToggleButton
-                        value={idx}
-                        key={idx}
-                        bsPrefix='btn-escape'
-                    >
-                        <img
-                            src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                            alt=''
-                        />
-                        {item.name}
-                    </StyledToggleButton>
-                ))}
+                {data.map((item, idx) => {
+                    if (item.drop.length === 0) return true
+
+                    return (
+                        <StyledToggleButton
+                            value={idx}
+                            key={idx}
+                            bsPrefix='btn-escape'
+                        >
+                            <img
+                                src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
+                                alt=''
+                            />
+                            {item.name}
+                        </StyledToggleButton>
+                    )
+                })}
             </StyledToggleButtonGroup>
         </FilterPanel>
     )
