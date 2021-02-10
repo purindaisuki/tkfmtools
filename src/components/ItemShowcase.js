@@ -83,6 +83,8 @@ export default function ItemShowcase() {
       columnClassName=''
     >
       {data.map((item, idx) => {
+        if (item.drop.length === 0) return true
+
         return (
           <StyleCardContainer defaultActiveKey={cardActiveKeys[idx]} key={item.id}>
             <StyleCard>

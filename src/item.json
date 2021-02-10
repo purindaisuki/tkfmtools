@@ -2924,5 +2924,89 @@
                 "rarity": "常見"
             }
         ]
+    },
+    {
+        "name": "狂牛之角",
+        "id": "401",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "聖銀錠",
+        "id": "402",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "聖油",
+        "id": "403",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "暗龍結晶",
+        "id": "404",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "邪龍毒牙",
+        "id": "405",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "聖鷲之喙",
+        "id": "406",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "巨鹿毛皮",
+        "id": "407",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "墮天之書",
+        "id": "408",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "女妖尾羽",
+        "id": "409",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "蛛后之絲",
+        "id": "410",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "技之碎片",
+        "id": "801",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
+    },
+    {
+        "name": "技之原石",
+        "id": "901",
+        "rank": 4,
+        "categroy": "潛力材料",
+        "drop": []
     }
 ]

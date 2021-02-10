@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NewBadge } from './Icon';
+import { NewBadge, FixBadge } from './Icon';
 import { StyledAccordion } from './StyledAccordion';
 import { AccordionDetails, AccordionSummary } from '@material-ui/core';
 
@@ -17,6 +17,12 @@ const BodyContainer = styled.div`
         list-style: none;
         padding: 0;
         margin: 0;
+    }
+    > div {
+        margin-top: 1rem;
+    }
+    > div:first-child {
+        margin-top: 0;
     }
 `
 const DescriptionContainer = styled.li`
@@ -93,10 +99,6 @@ export const SiteDescription = () => (
                             link: 'https://reurl.cc/8ypXzM',
                             title: 'Discord天下布魔場外群資料整理(舊)',
                         },
-                        {
-                            link: '',
-                            title: '',
-                        },
                     ].map((item, idx) => (
                         <p key={idx}>
                             <a
@@ -115,10 +117,34 @@ export const SiteDescription = () => (
     </BodyContainer>
 )
 
+const MsgBox = styled.div`
+    > div:first-child {
+        border-bottom: 1px solid lightgray;
+    }
+    > div > div {
+        border-top: none;
+    }
+`
+
 export function SiteUpdateLog() {
     return (
         <BodyContainer>
             {[
+                {
+                    version: 'v1.1',
+                    content: [
+                        {
+                            badge: NewBadge,
+                            title: '角色潛力材料計算',
+                            description: '新增角色潛力材料計算功能',
+                        },
+                        {
+                            badge: FixBadge,
+                            title: '修正地圖掉落',
+                            description: '修正6-6, 6-11之月光水為純淨水',
+                        },
+                    ],
+                },
                 {
                     version: 'v1.0',
                     content: [
@@ -150,12 +176,12 @@ export function SiteUpdateLog() {
                     ],
                 },
             ].map((version, idx) => (
-                <React.Fragment key={idx}>
-                    {version.version}
+                <MsgBox key={idx}>
+                    <div>{version.version}</div>
                     {version.content.map((msg, idx) => (
                         <LogMsg key={idx} msg={msg} />
                     ))}
-                </React.Fragment>
+                </MsgBox>
             ))}
         </BodyContainer>
     )
