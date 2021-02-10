@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContainerHeader, FilterPanel } from '../components/FilterComponents';
-import { AlertIcon, BuffIcon, ItemIcon, RaceIcon } from '../components/Icon';
+import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
+import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './Icon';
 import { Col, Form } from 'react-bootstrap';
 import data from '../../src/characterPotential.json';
 import { Snackbar } from '@material-ui/core';
@@ -27,6 +27,7 @@ const IconWrapper = styled.div`
 `
 const CharImgWrapper = styled.img`
     width: 5rem;
+    height: 15rem;
     border: 2px solid ${props => props.theme.colors.secondary};
     border-radius: .25rem;
 `
@@ -75,7 +76,7 @@ const SelectPanel = (props) => {
                                 </Select>
                             </Form.Group>
                         </Form.Row>
-                        <Gutter/>當前<br />
+                        <Gutter />當前<br />
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Select
@@ -132,6 +133,41 @@ const SelectPanel = (props) => {
     )
 }
 
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
+
+const HelpModalContent = (props) => (
+    <>
+        <ModalHeader>
+            <span>介紹</span>
+            <span onClick={props.handleModalClose}>&times;</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>本頁可計算角色所需之潛力材料及增益效果</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>說明</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>選擇起迄潛力階段(包含首尾)，結果為累計之所需道具</p>
+            <p>若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>注意事項</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>大多角色潛力需求為依規律推測而得，並非實際蒐集結果</p>
+        </ModalBody>
+    </>
+)
+
 const ImgMaterialWrapper = styled.img`
     width: 2rem;
     height: 2rem;
@@ -152,13 +188,29 @@ const MaterialContainer = styled.div`
 const MaterialWrapper = styled.span`
     min-width: 4.8rem;
 `
+const HelpIconWrapper = styled.div`
+    margin-right: auto;
+    svg {
+        fill: ${props => props.theme.colors.secondary};
+        width: 1.4rem;
+        height: 1.4rem;
+        margin-left: .4rem;
+        cursor: pointer;
+        vertical-align: top;
+    }
+`
 
 const ResultPanel = (props) => {
+    const [modalOpen, setModalOpen] = React.useState(false)
+
+    const handleModalOpen = () => setModalOpen(true)
+    const handleModalClose = () => setModalOpen(false)
+
     const MaterialBox = () => {
         if (!props.result.items) return <></>
 
         return (
-            <MaterialContainer>
+            <>
                 {Object.entries(props.result.items).map((item, idx) => (
                     <MaterialWrapper key={idx}>
                         <ImgMaterialWrapper
@@ -177,7 +229,7 @@ const ResultPanel = (props) => {
                     />
                     {props.result.money}
                 </MaterialWrapper>
-            </MaterialContainer>
+            </>
         )
     }
 
@@ -186,12 +238,21 @@ const ResultPanel = (props) => {
             <div>
                 <ContainerHeader
                     title={
-                        <IconWrapper>
-                            {ItemIcon}{'需求道具'}
-                        </IconWrapper>
+                        <>
+                            <IconWrapper>
+                                {ItemIcon}{'需求道具'}
+                            </IconWrapper>
+                            <HelpIconWrapper
+                                onClick={handleModalOpen}
+                            >
+                                {HelpIcon}
+                            </HelpIconWrapper>
+                        </>
                     }
                 />
-                <MaterialBox />
+                <MaterialContainer>
+                    <MaterialBox />
+                </MaterialContainer>
             </div>
             <div>
                 <ContainerHeader
@@ -218,6 +279,12 @@ const ResultPanel = (props) => {
                     </MaterialWrapper>
                 </div>
             </div>
+            <HelpModal
+                modalOpen={modalOpen}
+                handleModalClose={handleModalClose}
+            >
+                <HelpModalContent />
+            </HelpModal>
         </FilterPanel>
     )
 }
