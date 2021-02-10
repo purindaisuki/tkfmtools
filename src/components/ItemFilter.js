@@ -1,9 +1,112 @@
 import React, { useState } from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { FilterPanel, ResultTable } from './FilterComponents'
+import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents'
 import styled from 'styled-components';
 import { ClearIcon } from './Icon';
 import data from '../item.json'
+
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: .5rem;
+    > .active {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+    @media screen and (max-width: 1360px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media screen and (max-width: 992px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media screen and (max-width: 624px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 410px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`
+const StyledToggleButton = styled(ToggleButton)`
+    font-size: .85rem;
+    font-weight: normal;
+    text-align: center;
+    padding: .15rem .15rem;
+    margin-bottom: 0;
+    border-radius: .25rem;
+    border: 1px solid ${props => props.theme.colors.secondaryBorder};
+    background-color: ${props => props.theme.colors.surface};
+    color: ${props => props.theme.colors.onSurface};
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+        border: 1px solid ${props => props.theme.colors.secondary};
+        box-shadow: inset 0 0 .5rem ${props => props.theme.colors.secondary}
+            , 0 0 .1rem ${props => props.theme.colors.secondary};
+    }
+    &:active {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+    > input {
+        display: none;
+    }
+    > img {
+        width: 2.26rem; height: 2.26rem;
+    }
+`
+const IconWrapper = styled.div`
+    cursor: pointer;
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+`
+
+const ItemFilterPanel = (props) => {
+    const widthConfig = {
+        default: '60%',
+        1360: '62%',
+        992: '100%',
+    }
+
+    return (
+        <FilterPanel widthConfig={widthConfig}>
+            <ContainerHeader
+                title={'道具選擇'}
+                end={
+                    <IconWrapper
+                        onClick={() => props.filterBy([])}
+                    >
+                        {ClearIcon}
+                    </IconWrapper>
+                }
+            />
+            <StyledToggleButtonGroup
+                type="checkbox"
+                value={props.filterBtnValue}
+                onChange={props.filterBy}
+            >
+                {data.map((item, idx) => (
+                    <StyledToggleButton
+                        value={idx}
+                        key={idx}
+                        bsPrefix='btn-escape'
+                    >
+                        <img
+                            src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
+                            alt=''
+                        />
+                        {item.name}
+                    </StyledToggleButton>
+                ))}
+            </StyledToggleButtonGroup>
+        </FilterPanel>
+    )
+}
 
 const SortTh = styled.th`
     position: sticky;
@@ -87,118 +190,51 @@ const TableContent = (props) => {
     )
 }
 
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
+
+const HelpModalContent = (props) => (
+    <>
+        <ModalHeader>
+            <span>介紹</span>
+            <span onClick={props.handleModalClose}>&times;</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>此頁為遊戲中主線掉落物之篩選器</p>
+            <p>根據目標掉落物，篩選出可能的地圖</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>操作說明</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>選擇掉落物以篩選地圖</p>
+            <p>點擊表格標頭可依升/降序排列</p>
+        </ModalBody>
+        <ModalHeader>
+            <span>注意事項</span>
+        </ModalHeader>
+        <ModalBody>
+            <p>只包含主線之掉落物</p>
+            <p>即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同</p>
+            <p>目前掉落率尚不明，願意的話可以點左邊資訊回報中"主線掉落數據回報"，或許未來資料足夠可新增刷圖計算功能</p>
+        </ModalBody>
+    </>
+)
+
 const FilterContainer = styled.div`
     display: flex;
     @media screen and (max-width: 992px) {
         display: block;
     }
-    > div:first-child {
-        width: 60%; height: 100%;
-        @media screen and (max-width: 1360px) {
-            width: 62%;
-        }
-        @media screen and (max-width: 992px) {
-            width: 100%;
-        }
-    }
     > div:last-child > div:first-child {
         justify-content: start;
-    }
-`
-const ContainerHeader = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: large;
-    font-weight: normal;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding-bottom: .4rem;
-    border-bottom: solid 1px ${props => props.theme.colors.border};
-    color: ${props => props.theme.colors.onSurface};
-`
-const ImgWrapper = styled.div`
-    cursor: pointer;
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-    }
-`
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: .5rem;
-    > .active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-    @media screen and (max-width: 1360px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media screen and (max-width: 992px) {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    @media screen and (max-width: 768px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media screen and (max-width: 624px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @media screen and (max-width: 410px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-`
-const StyledToggleButton = styled(ToggleButton)`
-    font-size: .85rem;
-    font-weight: normal;
-    text-align: center;
-    padding: .15rem .15rem;
-    margin-bottom: 0;
-    border-radius: .25rem;
-    border: 1px solid ${props => props.theme.colors.secondaryBorder};
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    &:hover {
-        border: 1px solid ${props => props.theme.colors.secondary};
-        box-shadow: inset 0 0 .5rem ${props => props.theme.colors.secondary}
-            , 0 0 .1rem ${props => props.theme.colors.secondary};
-    }
-    &:active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-    > input {
-        display: none;
-    }
-    > img {
-        width: 2.26rem; height: 2.26rem;
-    }
-`
-const ResultTableContainer = styled.div`
-    vertical-align: top;
-    width: calc(40% - 1rem);
-    position: absolute;
-    margin-left: calc(60% + 1rem);
-    padding: 1rem;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: .25rem;
-    background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.border};
-    box-shadow: 0 0 .15em lightgray;
-    @media screen and (max-width: 1360px) {
-        width: calc(38% - 1rem);
-        margin-left: calc(62% + 1rem);
-    }
-    @media screen and (max-width: 992px) {
-        width: 100%;
-        position: relative;
-        margin-left: 0;
-        margin-top: 1rem;
     }
 `
 
@@ -301,87 +337,30 @@ export default function ItemFilter() {
     const handleModalOpen = () => setModalOpen(true)
     const handleModalClose = () => setModalOpen(false)
 
+    const tableWidthConfig = {
+        default: 'calc(40% - 1rem)',
+        1360: 'calc(38% - 1rem)',
+        992: '100%',
+    }
+
     return (
         <FilterContainer>
-            <FilterPanel>
-                <ContainerHeader>
-                    {'道具選擇'}
-                    <ImgWrapper
-                        onClick={() => filterBy([])}
-                    >
-                        {ClearIcon}
-                    </ImgWrapper>
-                </ContainerHeader>
-                <StyledToggleButtonGroup
-                    type="checkbox"
-                    value={state.filterBtnValue}
-                    onChange={filterBy}
-                >
-                    {data.map((item, idx) => (
-                        <StyledToggleButton
-                            value={idx}
-                            key={idx}
-                            bsPrefix='btn-escape'
-                        >
-                            <img
-                                src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                                alt=''
-                            />
-                            {item.name}
-                        </StyledToggleButton>
-                    ))}
-                </StyledToggleButtonGroup>
-            </FilterPanel>
-            <ResultTableContainer>
-                <ResultTable
-                    result={state.stages}
-                    sortFunc={sortFunc}
-                    modalContent={<HelpModalContent handleModalClose={handleModalClose} />}
-                    modalOpen={modalOpen}
-                    handleModalOpen={handleModalOpen}
-                    handleModalClose={handleModalClose}
-                >
-                    <TableContent />
-                </ResultTable>
-            </ResultTableContainer>
+            <ItemFilterPanel
+                filterBtnValue={state.filterBtnValue}
+                filterBy={filterBy}
+            />
+            <ResultTable
+                result={state.stages}
+                sortFunc={sortFunc}
+                modalContent={<HelpModalContent handleModalClose={handleModalClose} />}
+                modalOpen={modalOpen}
+                handleModalOpen={handleModalOpen}
+                handleModalClose={handleModalClose}
+                widthConfig={tableWidthConfig}
+            >
+                <TableContent />
+            </ResultTable>
         </FilterContainer>
     )
 }
 
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const ModalBody = styled.div`
-    margin: 1rem 0;
-`
-
-const HelpModalContent = (props) => (
-    <>
-        <ModalHeader>
-            <span>介紹</span>
-            <span onClick={props.handleModalClose}>&times;</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>此頁為遊戲中主線掉落物之篩選器</p>
-            <p>根據目標掉落物，篩選出可能的地圖</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>操作說明</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>選擇掉落物以篩選地圖</p>
-            <p>點擊表格標頭可依升/降序排列</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>注意事項</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>只包含主線之掉落物</p>
-            <p>即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同</p>
-            <p>目前掉落率尚不明，願意的話可以點左邊資訊回報中"主線掉落數據回報"，或許未來資料足夠可新增刷圖計算功能</p>
-        </ModalBody>
-    </>
-)
