@@ -11,9 +11,9 @@ import {
     MenuIcon,
     ToolIcon,
 } from './Icon';
-import { StyledAccordion } from './StyledAccordion';
+import MyAccordion from './MyAccordion';
 import { ListGroup, Nav, Navbar } from 'react-bootstrap';
-import { AccordionDetails, AccordionSummary, Drawer } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
@@ -169,7 +169,7 @@ export const Sidebar = (props) => (
         onKeyDown={props.toggleSidebar(false)}
     >
         <SiderbarList
-            
+
         >
             <SidebarHeader>
                 {ToolIcon}
@@ -254,12 +254,9 @@ const AccordionWrapper = styled.div`
     .MuiAccordion-root {
         box-shadow: none;
     }
-`
-const StyledBarAccordion = styled(StyledAccordion)`
     .MuiAccordionSummary-root,
     .MuiAccordionSummary-root.Mui-expanded {
         padding: 1rem 1.25rem;
-        min-height: 0;
         padding-right: 1.75rem;
     }
     .MuiAccordionSummary-content,
@@ -274,12 +271,6 @@ const StyledBarAccordion = styled(StyledAccordion)`
             padding-bottom: .5rem;
         }
     }
-    .MuiAccordionSummary-expandIcon {
-        padding: 0;
-        svg {
-            margin: 0;
-        }
-    }
 `
 const AccordionItem = styled(ListGroup.Item)`
     color: ${props => props.theme.colors.link};
@@ -288,23 +279,23 @@ const AccordionItem = styled(ListGroup.Item)`
     }
 `
 
-
 function SidebarAccordions(props) {
     const [isExpanded, setExpanded] = React.useState(false)
 
     return (
         <SiderbarItem>
             <AccordionWrapper>
-                <StyledBarAccordion
+                <MyAccordion
                     expanded={isExpanded}
                     onChange={() => setExpanded(!isExpanded)}
-                    square={true}
-                >
-                    <AccordionSummary expandIcon={ExpandMoreIcon}>
-                        {props.data['icon']}
-                        {props.data['title']}
-                    </AccordionSummary>
-                    <AccordionDetails>
+                    expandIcon={ExpandMoreIcon}
+                    title={
+                        <>
+                            {props.data['icon']}
+                            {props.data['title']}
+                        </>
+                    }
+                    content={
                         <ListGroup>
                             {props.data['links'].map((item, idx) => (
                                 <AccordionItem
@@ -317,8 +308,8 @@ function SidebarAccordions(props) {
                                 </AccordionItem>
                             ))}
                         </ListGroup>
-                    </AccordionDetails>
-                </StyledBarAccordion>
+                    }
+                />
             </AccordionWrapper>
         </SiderbarItem>
     );

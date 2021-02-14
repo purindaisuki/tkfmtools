@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NewBadge, FixBadge } from './Icon';
-import { StyledAccordion } from './StyledAccordion';
-import { AccordionDetails, AccordionSummary } from '@material-ui/core';
+import MyAccordion from './MyAccordion';
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -190,31 +189,26 @@ export function SiteUpdateLog() {
 const AccordionWrapper = styled.div`
     > .MuiAccordion-root {
         box-shadow: none;
-    }
-`
-const UpdateMsgAccordion = styled(StyledAccordion)`
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
-    > .MuiAccordionSummary-root {
-        padding: 0 .5rem;
-        border-bottom: lightgray;
-        > .MuiAccordionSummary-content {
-            display: inline;
-            margin: .5rem 0;
-            > span {
-                padding: .25rem .4rem;
+        border-bottom: 1px solid lightgray;
+        > .MuiAccordionSummary-root {
+            padding: 0 .5rem;
+            border-bottom: lightgray;
+            > .MuiAccordionSummary-content {
+                display: inline;
+                margin: .5rem 0;
+                > span {
+                    padding: .25rem .4rem;
+                }
             }
         }
+        > .Mui-expanded {
+            border-bottom: 1px solid lightgray;
+        }
+        .MuiAccordionDetails-root {
+            font-size: small;
+            padding: .4rem .5rem;
+        }
     }
-    > .Mui-expanded {
-        border-bottom: 1px solid lightgray;
-    }
-    .MuiAccordionDetails-root {
-        font-size: small;
-        padding: .4rem .5rem;
-    }
-}
-    
 `
 
 function LogMsg(props) {
@@ -222,19 +216,17 @@ function LogMsg(props) {
     const { badge, title, description } = props.msg
     return (
         <AccordionWrapper>
-            <UpdateMsgAccordion
+            <MyAccordion
                 expanded={isExpanded}
                 onChange={() => setExpanded(!isExpanded)}
-                square={true}
-            >
-                <AccordionSummary>
-                    {badge}
-                    {` ${title}`}
-                </AccordionSummary>
-                <AccordionDetails>
-                    {description}
-                </AccordionDetails>
-            </UpdateMsgAccordion>
+                title={
+                    <>
+                        {badge}
+                        {` ${title}`}
+                    </>
+                }
+                content={description}
+            />
         </AccordionWrapper>
     )
 }

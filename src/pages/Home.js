@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AccordionDetails, AccordionSummary } from '@material-ui/core';
 import { ExpandMoreIcon } from '../components/Icon';
-import { StyledAccordion } from '../components/StyledAccordion';
+import MyAccordion from '../components/MyAccordion';
 import { SiteDescription, SiteUpdateLog, SiteLicense } from '../components/SiteAccordionBody'
 
 const HomeContainer = styled.div`
@@ -33,41 +32,33 @@ const AccordionWrapper = styled.div`
         width: 90%;
     }
     margin-bottom: 2rem;
-    > .MuiPaper-elevation1 {
+    > .MuiAccordion-root {
         background-color: ${props => props.theme.colors.surface};
         border: 1px solid ${props => props.theme.colors.border};
         border-radius: .25rem;
         box-shadow: 0 0 .15em lightgray;
-    }
-`
-const StyledHomeAccordion = styled(StyledAccordion)`
-    > .MuiAccordionSummary-root,
-    > .MuiAccordionSummary-root.Mui-expanded {
-        padding: .75rem 1.25rem;
-        border-radius: .2rem;
-    }
-    > .MuiAccordionSummary-root {
-        border-bottom: 1px solid ${props => props.theme.colors.surface};
-        > .MuiAccordionSummary-expandIcon svg {
-            width: 1.6rem;
-            height: 1.6rem;
+        > .MuiAccordionSummary-root {
+            font-size: large;
+            border-bottom: 1px solid ${props => props.theme.colors.surface};
+        }
+        > .MuiAccordionSummary-root,
+        > .MuiAccordionSummary-root.Mui-expanded {
+            padding: .75rem 1.25rem;
+            border-radius: .2rem;
+        }
+        > .MuiAccordionSummary-root.Mui-expanded {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom: 1px solid ${props => props.theme.colors.border};
+        }
+        > .MuiCollapse-container {
+            border-radius: .2rem;
+            > div > div > div > .MuiAccordionDetails-root {
+                margin: 1rem;
+                padding: 0;
+            }
         }
     }
-    > .MuiAccordionSummary-root.Mui-expanded {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-        border-bottom: 1px solid ${props => props.theme.colors.border};
-    }
-    > .MuiCollapse-container {
-        border-radius: .2rem;
-        > div > div > div > .MuiAccordionDetails-root {
-            margin: 1rem;
-            padding: 0;
-        }
-    }
-`
-const StyledAccordionHeader = styled(AccordionSummary)`
-    font-size: large;
 `
 
 export default function Home() {
@@ -98,19 +89,13 @@ export default function Home() {
                 },
             ].map((item, idx) => (
                 <AccordionWrapper key={idx}>
-                    <StyledHomeAccordion
+                    <MyAccordion
                         expanded={expanded === idx}
                         onChange={handleExpand(idx)}
-                    >
-                        <StyledAccordionHeader
-                            expandIcon={ExpandMoreIcon}
-                        >
-                            {item.header}
-                        </StyledAccordionHeader>
-                        <AccordionDetails>
-                            {item.body}
-                        </AccordionDetails>
-                    </StyledHomeAccordion>
+                        expandIcon={ExpandMoreIcon}
+                        title={item.header}
+                        content={item.body}
+                    />
                 </AccordionWrapper>
             ))}
         </HomeContainer>
