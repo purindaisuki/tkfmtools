@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NewBadge, FixBadge } from './Icon';
+import { ChangeBadge, FixBadge, NewBadge } from './Icon';
 import MyAccordion from './MyAccordion';
+import stringData from '../strings.json'
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -47,144 +48,58 @@ const DescriptionBody = styled.div`
 export const SiteDescription = () => (
     <BodyContainer>
         <ul>
-            <DescriptionContainer key={0}>
-                <DescriptionHeader>介紹</DescriptionHeader>
-                <DescriptionBody>
-                    <p>本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。</p>
-                    <p>網站目前包含主線地圖道具掉落整理及篩選</p>
-                </DescriptionBody>
-            </DescriptionContainer>
-            <DescriptionContainer key={1}>
-                <DescriptionHeader>注意事項</DescriptionHeader>
-                <DescriptionBody>
-                    <p>本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主。</p>
-                </DescriptionBody>
-            </DescriptionContainer>
-            <DescriptionContainer key={2}>
-                <DescriptionHeader>免責聲明</DescriptionHeader>
-                <DescriptionBody>
-                    <p>本站工具結果僅供參考，所致利害一概不負責。</p>
-                </DescriptionBody>
-            </DescriptionContainer>
-            <DescriptionContainer key={3}>
-                <DescriptionHeader>意見回饋</DescriptionHeader>
-                <DescriptionBody>
-                    <p>
-                        Bug、建議、使用心得等請至
-                        <a
-                            href='https://peing.net/ja/b5295760aebf4c'
-                            target='_blank'
-                            rel='noreferrer'
-                        >
-                            這裡
-                        </a>
-                        。
-                    </p>
-                </DescriptionBody>
-            </DescriptionContainer>
-            <DescriptionContainer key={4}>
-                <DescriptionHeader>參考</DescriptionHeader>
-                <DescriptionBody>
-                    {[
-                        {
-                            link: 'https://reurl.cc/5o5A7z/',
-                            title: '資料統整 - 凱薩沒在用的腦',
-                        },
-                        {
-                            link: 'https://reurl.cc/1gZ5nV/',
-                            title: '潛力整理&猜測',
-                        },
-                        {
-                            link: 'https://reurl.cc/8ypXzM',
-                            title: 'Discord天下布魔場外群資料整理(舊)',
-                        },
-                    ].map((item, idx) => (
-                        <p key={idx}>
+            {stringData.home.about.content.map((item, idx) => {
+                let Body
+                if (item.name === 'feedback') {
+                    Body = () => (
+                        <p>
+                            {item.content[0]}
                             <a
-                                href={item.link}
+                                href='https://peing.net/ja/b5295760aebf4c'
                                 target='_blank'
                                 rel='noreferrer'
                             >
-                                {item.title}
+                                {item.content[1]}
                             </a>
+                            {item.content[2]}
                         </p>
-                    ))}
-                    <p>其他Discord天下布魔場外討論群善心人士提供之資料</p>
-                </DescriptionBody>
-            </DescriptionContainer>
+                    )
+                } else if (item.name === 'reference') {
+                    Body = () => (
+                        item.content.map((refItem, idx) => {
+                            if (idx === 3) {
+                                return <p key={idx}>{refItem}</p>
+                            }
+                            return (
+                                <p key={idx}>
+                                    <a
+                                        href={refItem.link}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        {refItem.title}
+                                    </a>
+                                </p>
+                            )
+                        })
+                    )
+                } else {
+                    Body = () => item.content
+                        .map((text, idx) => <p key={idx}>{text}</p>)
+                }
+
+                return (
+                    <DescriptionContainer key={idx}>
+                        <DescriptionHeader>{item.header}</DescriptionHeader>
+                        <DescriptionBody>
+                            <Body />
+                        </DescriptionBody>
+                    </DescriptionContainer>
+                )
+            })}
         </ul>
     </BodyContainer>
 )
-
-const MsgBox = styled.div`
-    > div:first-child {
-        border-bottom: 1px solid lightgray;
-    }
-    > div > div {
-        border-top: none;
-    }
-`
-
-export function SiteUpdateLog() {
-    return (
-        <BodyContainer>
-            {[
-                {
-                    version: 'v1.1',
-                    content: [
-                        {
-                            badge: NewBadge,
-                            title: '角色潛力材料計算',
-                            description: '新增角色潛力材料計算功能',
-                        },
-                        {
-                            badge: FixBadge,
-                            title: '修正地圖掉落',
-                            description: '修正6-6, 6-11之月光水為純淨水',
-                        },
-                    ],
-                },
-                {
-                    version: 'v1.0',
-                    content: [
-                        {
-                            badge: NewBadge,
-                            title: '全境徵才篩選',
-                            description: '新增全境徵才篩選器',
-                        },
-                    ],
-                },
-                {
-                    version: 'v0.2',
-                    content: [
-                        {
-                            badge: NewBadge,
-                            title: '潛力材料掉落',
-                            description: '新增潛力材料掉落一覽及篩選器',
-                        },
-                    ],
-                },
-                {
-                    version: 'v0.1',
-                    content: [
-                        {
-                            badge: NewBadge,
-                            title: '網站設置',
-                            description: '網站設置',
-                        },
-                    ],
-                },
-            ].map((version, idx) => (
-                <MsgBox key={idx}>
-                    <div>{version.version}</div>
-                    {version.content.map((msg, idx) => (
-                        <LogMsg key={idx} msg={msg} />
-                    ))}
-                </MsgBox>
-            ))}
-        </BodyContainer>
-    )
-}
 
 const AccordionWrapper = styled.div`
     > .MuiAccordion-root {
@@ -213,7 +128,10 @@ const AccordionWrapper = styled.div`
 
 function LogMsg(props) {
     const [isExpanded, setExpanded] = React.useState(false)
-    const { badge, title, description } = props.msg
+    const { type, title, description } = props.msg
+    const badge = type === 'New'? NewBadge
+        : type === 'Fix' ? FixBadge
+            : ChangeBadge
     return (
         <AccordionWrapper>
             <MyAccordion
@@ -228,6 +146,30 @@ function LogMsg(props) {
                 content={description}
             />
         </AccordionWrapper>
+    )
+}
+
+const MsgBox = styled.div`
+    > div:first-child {
+        border-bottom: 1px solid lightgray;
+    }
+    > div > div {
+        border-top: none;
+    }
+`
+
+export function SiteUpdateLog() {
+    return (
+        <BodyContainer>
+            {stringData.home.updateLog.content.map((version, idx) => (
+                <MsgBox key={idx}>
+                    <div>{version.version}</div>
+                    {version.content.map((msg, idx) => (
+                        <LogMsg key={idx} msg={msg} />
+                    ))}
+                </MsgBox>
+            ))}
+        </BodyContainer>
     )
 }
 
@@ -247,12 +189,10 @@ export const SiteLicense = () => (
         <LicenseList>
             <li key={'text'}>
                 <LicenseItemTitle>
-                    <span>遊戲圖像</span>
+                    <span>{stringData.home.license.content.title}</span>
                 </LicenseItemTitle>
                 <LicenseItemContent>
-                    <span>
-                        基於著作權法§65引用，著作財產權屬著作權人所有。若著作權人要求將盡速撤除。
-                    </span>
+                    <span>{stringData.home.license.content.content}</span>
                 </LicenseItemContent>
             </li>
             {[

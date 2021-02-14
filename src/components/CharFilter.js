@@ -20,6 +20,7 @@ import {
 } from './Icon';
 import './tooltip.css';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
+import stringData from '../strings.json'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
@@ -127,7 +128,7 @@ const CharFilterPanel = (props) => {
                 title={
                     <div>
                         {TagIcon}
-                        {'標籤選擇'}
+                        {stringData.enlist.tagSelectTitle}
                     </div>
                 }
                 end={
@@ -158,7 +159,7 @@ const CharFilterPanel = (props) => {
                 title={
                     <div>
                         {ClockIcon}
-                        {'招募時間'}
+                        {stringData.enlist.timeSelectTitle}
                     </div>
                 }
             />
@@ -241,20 +242,16 @@ function TableContent(props) {
         <>
             <thead>
                 <tr>
-                    {[
-                        { title: '名字', attr: 'name' },
-                        { title: '稀有度', attr: 'grade' },
-                        { title: '定位', attr: 'type' },
-                        { title: '應用標籤', attr: 'appliedTags' },
-                    ].map((item, idx) => (
-                        <SortTh
-                            key={idx}
-                            onClick={() => props.requestSort(item.attr)}
-                            direction={props.getSortDirection(item.attr)}
-                        >
-                            {item.title}
-                        </SortTh>
-                    ))}
+                    {stringData.enlist.tableHead
+                        .map((item, idx) => (
+                            <SortTh
+                                key={idx}
+                                onClick={() => props.requestSort(item.attr)}
+                                direction={props.getSortDirection(item.attr)}
+                            >
+                                {item.title}
+                            </SortTh>
+                        ))}
                 </tr>
             </thead>
             <tbody>
@@ -274,56 +271,6 @@ function TableContent(props) {
     )
 }
 
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const ModalBody = styled.div`
-    margin: 1rem 0;
-`
-
-const HelpModalContent = (props) => (
-    <>
-        <ModalHeader>
-            <span>介紹</span>
-            <span onClick={props.handleModalClose}>&times;</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>此頁為用於遊戲中全境徵才之篩選器</p>
-            <p>應用徵才隨機得到的五個標籤，篩選出可能的人選</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>操作說明</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>選擇標籤以篩選角色</p>
-            <p>點擊表格標頭可依升/降序排列</p>
-            <p>若出現星星圖示，表示有組合可篩出唯一角色</p>
-            <p>將游標移至該圖示上會顯示所有最小標籤組合</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>常用情境</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>鎖定高星角:</p>
-            <p>填入招募的五個標籤，並選擇至少應用一標籤</p>
-            <p>將結果依星數排序，觀察高星角是否有星星圖示</p>
-            <p>若所有高星角皆無圖示，則不值得使用此標籤組合招募</p>
-            <p>若有出現圖示，則有一試之價值</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>注意事項</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>並未考慮標籤被劃掉之可能性</p>
-            <p>即使出現星星圖示也不代表必中，因為標籤可能被劃掉，或有符合條件但仍未知之角色</p>
-            <p>搜尋結果高度依賴現有資料庫，願意的話可以點左邊資訊回報中"全境徵才數據回報"</p>
-        </ModalBody>
-    </>
-)
-
 const FilterContainer = styled.div`
     display: flex;
     @media screen and (max-width: 992px) {
@@ -342,9 +289,6 @@ const FilterContainer = styled.div`
                 color: ${props => props.theme.colors.onSurface};
             }
         }
-    }
-    > div:last-child > div > div {
-        margin-right: auto;
     }
     > .MuiSnackbar-root > div {
         background-color: #ff9800;
@@ -419,9 +363,9 @@ export default function CharFilter() {
             tagCombs.forEach(tags => {
                 // filter by rank and time
                 let chars = JSON.parse(JSON.stringify(charData))
-                if (!tags.includes("領袖")) {
+                if (!tags.includes(tagData[20].name)) {
                     chars = chars.filter(char => char.grade < 3)
-                    if (state.enlistHour < 4 && !tags.includes("菁英")) {
+                    if (state.enlistHour < 4 && !tags.includes(tagData[19].name)) {
                         chars = chars.filter(char => char.grade < 2)
                     }
                 }
@@ -547,8 +491,6 @@ export default function CharFilter() {
     }
 
     const [modalOpen, setModalOpen] = useState(false)
-    const handleModalOpen = () => setModalOpen(true)
-    const handleModalClose = () => setModalOpen(false)
 
     const tableWidthConfig = {
         default: 'calc(60% - 1rem)',
@@ -563,17 +505,6 @@ export default function CharFilter() {
                 handleEnlistHour={handleEnlistHour}
                 filterBtnValue={state.filterBtnValue}
             />
-            <ResultTable
-                result={state.characters}
-                sortFunc={sortFunc}
-                modalContent={<HelpModalContent handleModalClose={handleModalClose} />}
-                modalOpen={modalOpen}
-                handleModalOpen={handleModalOpen}
-                handleModalClose={handleModalClose}
-                widthConfig={tableWidthConfig}
-            >
-                <TableContent />
-            </ResultTable>
             <Snackbar
                 open={state.isSnackbarOpen}
                 autoHideDuration={3000}
@@ -582,9 +513,20 @@ export default function CharFilter() {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                message="最多5個標籤"
+                message={stringData.enlist.snackbarMsg}
                 action={AlertIcon}
             />
+            <ResultTable
+                result={state.characters}
+                sortFunc={sortFunc}
+                modalOpen={modalOpen}
+                handleModalOpen={() => setModalOpen(true)}
+                handleModalClose={() => setModalOpen(false)}
+                modalContent={stringData.enlist.modal}
+                widthConfig={tableWidthConfig}
+            >
+                <TableContent />
+            </ResultTable>
         </FilterContainer>
     )
 }

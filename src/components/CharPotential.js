@@ -5,6 +5,7 @@ import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './Icon';
 import { Col, Form } from 'react-bootstrap';
 import data from '../../src/characterPotential.json';
 import { Snackbar } from '@material-ui/core';
+import stringData from '../strings.json'
 
 const Select = styled(Form.Control)`
     background-color: ${props => props.theme.colors.surface};
@@ -21,7 +22,7 @@ const IconWrapper = styled.div`
     svg {
         width: 1.2rem;
         height: 1.2rem;
-        margin-bottom: .2rem;
+        margin-right: .4rem;
         fill: ${props => props.theme.colors.onSurface};
     }
 `
@@ -51,7 +52,8 @@ const SelectPanel = (props) => {
             <ContainerHeader
                 title={
                     <IconWrapper>
-                        {RaceIcon}{'角色選擇'}
+                        {RaceIcon}
+                        {stringData.potential.character.characterPanelTitle}
                     </IconWrapper>
                 }
             />
@@ -62,7 +64,8 @@ const SelectPanel = (props) => {
                 />
                 <div>
                     <Form>
-                        角色<br />
+                        {stringData.potential.character.characterSelectTitle}
+                        <br />
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Select
@@ -76,7 +79,9 @@ const SelectPanel = (props) => {
                                 </Select>
                             </Form.Group>
                         </Form.Row>
-                        <Gutter />當前<br />
+                        <Gutter />
+                        {stringData.potential.character.currentSelectTitle}
+                        <br />
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Select
@@ -101,7 +106,8 @@ const SelectPanel = (props) => {
                                 </Select>
                             </Form.Group>
                         </Form.Row>
-                        目標<br />
+                        {stringData.potential.character.targetSelectTitle}
+                        <br />
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Select
@@ -132,41 +138,6 @@ const SelectPanel = (props) => {
         </FilterPanel>
     )
 }
-
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const ModalBody = styled.div`
-    margin: 1rem 0;
-`
-
-const HelpModalContent = (props) => (
-    <>
-        <ModalHeader>
-            <span>介紹</span>
-            <span onClick={props.handleModalClose}>&times;</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>本頁可計算角色所需之潛力材料及增益效果</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>說明</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>選擇起迄潛力階段(包含首尾)，結果為累計之所需道具</p>
-            <p>若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具</p>
-        </ModalBody>
-        <ModalHeader>
-            <span>注意事項</span>
-        </ModalHeader>
-        <ModalBody>
-            <p>大多角色潛力需求為依規律推測而得，並非實際蒐集結果</p>
-        </ModalBody>
-    </>
-)
 
 const ImgMaterialWrapper = styled.img`
     width: 2rem;
@@ -203,9 +174,6 @@ const HelpIconWrapper = styled.div`
 const ResultPanel = (props) => {
     const [modalOpen, setModalOpen] = React.useState(false)
 
-    const handleModalOpen = () => setModalOpen(true)
-    const handleModalClose = () => setModalOpen(false)
-
     const MaterialBox = () => {
         if (!props.result.items) return <></>
 
@@ -238,16 +206,15 @@ const ResultPanel = (props) => {
             <div>
                 <ContainerHeader
                     title={
-                        <>
-                            <IconWrapper>
-                                {ItemIcon}{'需求道具'}
-                            </IconWrapper>
+                        <IconWrapper>
+                            {ItemIcon}
+                            {stringData.potential.character.resultDemandTitle}
                             <HelpIconWrapper
-                                onClick={handleModalOpen}
+                                onClick={() => setModalOpen(true)}
                             >
                                 {HelpIcon}
                             </HelpIconWrapper>
-                        </>
+                        </IconWrapper>
                     }
                 />
                 <MaterialContainer>
@@ -258,7 +225,8 @@ const ResultPanel = (props) => {
                 <ContainerHeader
                     title={
                         <IconWrapper>
-                            {BuffIcon}{'增益'}
+                            {BuffIcon}
+                            {stringData.potential.character.resultBuffTitle}
                         </IconWrapper>
                     }
                 />
@@ -281,10 +249,9 @@ const ResultPanel = (props) => {
             </div>
             <HelpModal
                 modalOpen={modalOpen}
-                handleModalClose={handleModalClose}
-            >
-                <HelpModalContent />
-            </HelpModal>
+                handleModalClose={() => setModalOpen(false)}
+                content={stringData.potential.character.modal}
+            />
         </FilterPanel>
     )
 }

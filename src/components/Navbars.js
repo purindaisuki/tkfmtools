@@ -14,6 +14,7 @@ import {
 import MyAccordion from './MyAccordion';
 import { ListGroup, Nav, Navbar } from 'react-bootstrap';
 import { Drawer } from '@material-ui/core';
+import stringData from '../strings.json';
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
@@ -95,7 +96,7 @@ export const MainNavbar = (props) => (
         <Navbar.Brand href="#" onClick={props.toggleSidebar(true)}>
             <Svg>{MenuIcon}</Svg>
         </Navbar.Brand>
-        <Text to='/'>天下布魔工具箱</Text>
+        <Text to='/'>{stringData.home.documentTitle}</Text>
         <Nav className='ml-auto'>
             <ThemeSwitcherLabel>
                 <ThemeSwitcherSwither
@@ -173,23 +174,23 @@ export const Sidebar = (props) => (
         >
             <SidebarHeader>
                 {ToolIcon}
-                    天下布魔工具箱
-                </SidebarHeader>
+                {stringData.home.documentTitle}
+            </SidebarHeader>
             {[
                 {
                     to: '/',
                     icon: HomeIcon,
-                    title: '首頁',
+                    title: stringData.home.name,
                 },
                 {
                     to: '/enlist',
                     icon: EnlistIcon,
-                    title: '全境徵才',
+                    title: stringData.enlist.name,
                 },
                 {
                     to: '/potential',
                     icon: ChestIcon,
-                    title: '潛力材料',
+                    title: stringData.potential.name,
                 },
             ].map(item => (
                 <StyledLink key={item['title']} to={item['to']}>
@@ -202,48 +203,15 @@ export const Sidebar = (props) => (
         </SiderbarList>
         <SiderbarList>
             {[
-                {
-                    icon: LinkIcon,
-                    title: '外部連結',
-                    links: [
-                        {
-                            description: '官方網站',
-                            link: 'https://www.tenkafuma.com/'
-                        },
-                        {
-                            description: '資料統整',
-                            link: 'https://reurl.cc/5o5A7z/'
-                        },
-                        {
-                            description: '潛力整理&猜測',
-                            link: 'https://reurl.cc/1gZ5nV/'
-                        },
-                    ],
-                },
-                {
-                    icon: FeedbackIcon,
-                    title: '資訊回報',
-                    links: [
-                        {
-                            description: '全境徵才數據回報',
-                            link: 'https://forms.gle/VYMGibGfs36F9tdQ6'
-                        },
-                        {
-                            description: '角色潛力數據回報',
-                            link: 'https://reurl.cc/E22vDa'
-                        },
-                        {
-                            description: '主線掉落數據回報',
-                            link: 'https://reurl.cc/jqGAVL'
-                        },
-                        {
-                            description: '意見回饋',
-                            link: 'https://peing.net/ja/b5295760aebf4c'
-                        },
-                    ],
-                },
-            ].map(item => (
-                <SidebarAccordions data={item} key={item['title']} />
+                LinkIcon,
+                FeedbackIcon
+            ].map((item, idx) => (
+                <SidebarAccordions
+                    icon={item}
+                    key={idx}
+                    title={stringData.navbar[idx].title}
+                    links={stringData.navbar[idx].links}
+                />
             ))}
         </SiderbarList>
     </StyledDrawer>
@@ -291,20 +259,20 @@ function SidebarAccordions(props) {
                     expandIcon={ExpandMoreIcon}
                     title={
                         <>
-                            {props.data['icon']}
-                            {props.data['title']}
+                            {props.icon}
+                            {props.title}
                         </>
                     }
                     content={
                         <ListGroup>
-                            {props.data['links'].map((item, idx) => (
+                            {props.links.map((item, idx) => (
                                 <AccordionItem
                                     as='a'
-                                    href={item['link']}
+                                    href={item.link}
                                     target="_blank"
-                                    key={item['description']}
+                                    key={idx}
                                 >
-                                    {item['description']}
+                                    {item.description}
                                 </AccordionItem>
                             ))}
                         </ListGroup>

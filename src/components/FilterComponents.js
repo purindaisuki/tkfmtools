@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
 import { HelpIcon } from './Icon';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
+import stringData from '../strings.json'
 
 const StyledFilterPanel = styled.div`
     height: 100%;
@@ -36,6 +37,10 @@ const StyledContainerHeader = styled.div`
     padding-bottom: .4rem;
     border-bottom: solid 1px ${props => props.theme.colors.border};
     color: ${props => props.theme.colors.onSurface};
+    > div {
+        display: flex;
+        align-items: center;
+    }
 `
 export const ContainerHeader = (props) => (
     <StyledContainerHeader>
@@ -47,21 +52,19 @@ export const ContainerHeader = (props) => (
 const ModalContainer = styled.div`
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
+    position: absolute;
     width: 70%;
+    left: 15%;
+    top: 10%;
     @media screen and (max-width: 992px) {
         width: 80%;
+        left: 10%;
     }
     @media screen and (max-width: 768px) {
         width: 90%;
-        height: 90%;
+        left: 5%;
+        top: 5%;
     }
-    @media screen and (max-width: 624px) {
-        width: 90%;
-    }
-    height: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
     padding: 1rem;
     border-radius: .25rem;
     border: 1px solid ${props => props.theme.colors.border};
@@ -70,9 +73,9 @@ const ModalContainer = styled.div`
         cursor: pointer;
     }
 `
-const ModalContent = styled.div`
+const ModalContentWrapper = styled.div`
     overflow: auto;
-    height: 100%;
+    max-height: calc(80vh - 2rem);
     scrollbar-width: thin;
     padding-right: .5rem;
     margin-right: -.5rem;
@@ -88,28 +91,58 @@ const ModalContent = styled.div`
         background: ${props => props.theme.colors.surface};
     }
 `
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
 
-export const HelpModal = (props) => (
-    <Modal
-        open={props.modalOpen}
-        onClose={props.handleModalClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-            timeout: 500,
-        }}
-        aria-labelledby="help-modal-title"
-        aria-describedby="help-modal-description"
-    >
-        <Fade in={props.modalOpen}>
-            <ModalContainer>
-                <ModalContent>
-                    {props.children}
-                </ModalContent>
-            </ModalContainer>
-        </Fade>
-    </Modal>
-)
+export function HelpModal(props) {
+    const HelpModalContent = () => (
+        props.content.map((item, idx) => {
+            let CloseBtn = () => idx === 0
+                ? <span onClick={props.handleModalClose}>&times;</span>
+                : <></>
+            return (
+                <>
+                    <ModalHeader key={'header' + idx}>
+                        <span>{item.title}</span>
+                        <CloseBtn />
+                    </ModalHeader>
+                    <ModalBody key={'body' + idx}>
+                        {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
+                    </ModalBody>
+                </>
+            )
+        })
+    )
+
+    return (
+        <Modal
+            open={props.modalOpen}
+            onClose={props.handleModalClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+                timeout: 500,
+            }}
+            aria-labelledby="help-modal-title"
+            aria-describedby="help-modal-description"
+        >
+            <Fade in={props.modalOpen}>
+                <ModalContainer>
+                    <ModalContentWrapper>
+                        <HelpModalContent/>
+                    </ModalContentWrapper>
+                </ModalContainer>
+            </Fade>
+        </Modal>
+    )
+}
 
 const ResultTableContainer = styled.div`
     vertical-align: top;
@@ -210,11 +243,14 @@ export function ResultTable(props) {
     return (
         <ResultTableContainer widthConfig={props.widthConfig}>
             <ContainerHeader
-                title={<>
-                    {'篩選結果'}
-                    <IconWrapper onClick={props.handleModalOpen}>{HelpIcon}</IconWrapper>
-                </>}
-
+                title={
+                    <div>
+                        {stringData.potential.filter.resultTitle}
+                        <IconWrapper onClick={props.handleModalOpen}>
+                            {HelpIcon}
+                        </IconWrapper>
+                    </div>
+                }
             />
             <ResultTableWrapper>
                 <StyledResultTable
@@ -232,8 +268,8 @@ export function ResultTable(props) {
             <HelpModal
                 modalOpen={props.modalOpen}
                 handleModalClose={props.handleModalClose}
+                content={props.modalContent}
             >
-                {props.modalContent}
             </HelpModal>
         </ResultTableContainer>
     )

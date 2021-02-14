@@ -3,6 +3,7 @@ import { Accordion, Card, Table } from 'react-bootstrap';
 import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
 import data from '../item.json'
+import stringData from '../strings.json'
 
 const StyleCardContainer = styled(Accordion)`
   box-shadow: 0 0 .15em lightgray;
@@ -16,7 +17,6 @@ const StyleCardContainer = styled(Accordion)`
     box-shadow: 0 0 .25em ${props => props.theme.colors.shadow};
   }
 `
-
 const StyleCard = styled(Card)`
   border: none;
   background-color: ${props => props.theme.colors.surface};
@@ -119,7 +119,7 @@ export default function ItemShowcase() {
                             <td>
                               <CardTableImg
                                 src={`${process.env.PUBLIC_URL}/img/energy.png`}
-                                alt='體力消耗'
+                                alt={stringData.potential.filter.tableHead[2]}
                               />
                               {drop.energy}
                             </td>

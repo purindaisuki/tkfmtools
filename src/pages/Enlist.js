@@ -1,14 +1,15 @@
 import React from 'react';
 import CharFilter from '../components/CharFilter';
 import PageWithTabs from '../components/PageWithTabs';
-import { OverviewIcon, FilterIcon } from '../components/Icon';
+import { FilterIcon } from '../components/Icon';
+import stringData from '../strings.json';
 
 export default function Enlist() {
     return (
         <PageWithTabs
-            title='天下布魔工具箱 — 全境徵才'
+            title={stringData.enlist.documentTitle}
             tabs={[
-                { label: '篩選', icon: FilterIcon, content: <CharFilter /> },
+                { label: stringData.enlist.label[0], icon: FilterIcon, content: <CharFilter /> },
             ]}
         />
     )

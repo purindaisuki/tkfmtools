@@ -1,0 +1,298 @@
+{
+    "home": {
+        "name": "首頁",
+        "documentTitle": "天下布魔工具箱",
+        "about": {
+            "header": "關於本站",
+            "content": [
+                {
+                    "name": "introduction",
+                    "header": "介紹",
+                    "content": [
+                        "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。",
+                        "網站目前包含主線地圖道具掉落整理及篩選"
+                    ]
+                },
+                {
+                    "name": "notes",
+                    "header": "注意事項",
+                    "content": [
+                        "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主。"
+                    ]
+                },
+                {
+                    "name": "disclaimer",
+                    "header": "免責聲明",
+                    "content": [
+                        "本站工具結果僅供參考，所致利害一概不負責。"
+                    ]
+                },
+                {
+                    "name": "feedback",
+                    "header": "意見回饋",
+                    "content": [
+                        "Bug、建議、使用心得等請至",
+                        "這裡",
+                        "。"
+                    ]
+                },
+                {
+                    "name": "reference",
+                    "header": "參考",
+                    "content": [
+                        {
+                            "link": "https://reurl.cc/5o5A7z/",
+                            "title": "資料統整 - 凱薩沒在用的腦"
+                        },
+                        {
+                            "link": "https://reurl.cc/1gZ5nV/",
+                            "title": "潛力整理&猜測"
+                        },
+                        {
+                            "link": "https://reurl.cc/8ypXzM",
+                            "title": "Discord天下布魔場外群資料整理(舊)"
+                        },
+                        "其他Discord天下布魔場外討論群善心人士提供之資料"
+                    ]
+                }
+            ]
+        },
+        "updateLog": {
+            "header": "更新日誌",
+            "content": [
+                {
+                    "version": "v1.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色潛力材料計算",
+                            "description": "新增角色潛力材料計算功能"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正地圖掉落",
+                            "description": "修正6-6, 6-11之月光水為純淨水"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全境徵才篩選",
+                            "description": "新增全境徵才篩選器"
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "潛力材料掉落",
+                            "description": "新增潛力材料掉落一覽及篩選器"
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "網站設置",
+                            "description": "網站設置"
+                        }
+                    ]
+                }
+            ]
+        },
+        "license": {
+            "header": "License",
+            "content": {
+                "title": "遊戲圖像",
+                "content": "基於著作權法§65引用，著作財產權屬著作權人所有。若著作權人要求將盡速撤除。"
+            }
+        }
+    },
+    "enlist": {
+        "name": "全境徵才",
+        "documentTitle": "天下布魔工具箱 — 全境徵才",
+        "label": [
+            "篩選"
+        ],
+        "tagSelectTitle": "標籤選擇",
+        "timeSelectTitle": "招募時間",
+        "tableHead": [
+            {
+                "title": "名字",
+                "attr": "name"
+            },
+            {
+                "title": "稀有度",
+                "attr": "grade"
+            },
+            {
+                "title": "定位",
+                "attr": "type"
+            },
+            {
+                "title": "應用標籤",
+                "attr": "appliedTags"
+            }
+        ],
+        "modal": [
+            {
+                "title": "介紹",
+                "content": [
+                    "此頁為用於遊戲中全境徵才之篩選器",
+                    "應用徵才隨機得到的五個標籤，篩選出可能的人選"
+                ]
+            },
+            {
+                "title": "操作說明",
+                "content": [
+                    "選擇標籤以篩選角色",
+                    "點擊表格標頭可依升/降序排列",
+                    "若出現星星圖示，表示有組合可篩出唯一角色",
+                    "將游標移至該圖示上會顯示所有最小標籤組合"
+                ]
+            },
+            {
+                "title": "常用情境",
+                "content": [
+                    "鎖定高星角:",
+                    "填入招募的五個標籤，並選擇至少應用一標籤",
+                    "將結果依星數排序，觀察高星角是否有星星圖示",
+                    "若所有高星角皆無圖示，則不值得使用此標籤組合招募",
+                    "若有出現圖示，則有一試之價值"
+                ]
+            },
+            {
+                "title": "注意事項",
+                "content": [
+                    "並未考慮標籤被劃掉之可能性",
+                    "即使出現星星圖示也不代表必中，因為標籤可能被劃掉，或有符合條件但仍未知之角色",
+                    "搜尋結果高度依賴現有資料庫，願意的話可以點左邊資訊回報中'全境徵才數據回報'"
+                ]
+            }
+        ],
+        "snackbarMsg": "最多5個標籤"
+    },
+    "potential": {
+        "name": "潛力材料",
+        "documentTitle": "天下布魔工具箱 — 潛力材料",
+        "label": [
+            "總覽",
+            "篩選",
+            "角色需求"
+        ],
+        "character": {
+            "characterPanelTitle": "角色選擇",
+            "characterSelectTitle": "角色",
+            "currentSelectTitle": "當前",
+            "targetSelectTitle": "目標",
+            "resultDemandTitle": "需求道具",
+            "resultBuffTitle": "增益",
+            "modal": [
+                {
+                    "title": "介紹",
+                    "content": [
+                        "本頁可計算角色所需之潛力材料及增益效果"
+                    ]
+                },
+                {
+                    "title": "說明",
+                    "content": [
+                        "選擇起迄潛力階段(包含首尾)，結果為累計之所需道具",
+                        "若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具"
+                    ]
+                },
+                {
+                    "title": "注意事項",
+                    "content": [
+                        "大多角色潛力需求為依規律推測而得，並非實際蒐集結果"
+                    ]
+                }
+            ]
+        },
+        "filter": {
+            "itemPanelTitle": "道具選擇",
+            "resultTitle": "篩選結果",
+            "tableHead": [
+                "關卡",
+                "稀有度",
+                "體力消耗"
+            ],
+            "rarity": [
+                "罕見",
+                "少見",
+                "常見"
+            ],
+            "modal": [
+                {
+                    "title": "介紹",
+                    "content": [
+                        "此頁為遊戲中主線掉落物之篩選器",
+                        "根據目標掉落物，篩選出可能的地圖"
+                    ]
+                },
+                {
+                    "title": "操作說明",
+                    "content": [
+                        "選擇掉落物以篩選地圖",
+                        "點擊表格標頭可依升/降序排列"
+                    ]
+                },
+                {
+                    "title": "注意事項",
+                    "content": [
+                        "只包含主線之掉落物",
+                        "即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同",
+                        "目前掉落率尚不明，願意的話可以點左邊資訊回報中'主線掉落數據回報'，或許未來資料足夠可新增刷圖計算功能"
+                    ]
+                }
+            ]
+        }
+    },
+    "navbar": [
+        {
+            "title": "外部連結",
+            "links": [
+                {
+                    "description": "官方網站",
+                    "link": "https://www.tenkafuma.com/"
+                },
+                {
+                    "description": "資料統整",
+                    "link": "https://reurl.cc/5o5A7z/"
+                },
+                {
+                    "description": "潛力整理&猜測",
+                    "link": "https://reurl.cc/1gZ5nV/"
+                }
+            ]
+        },
+        {
+            "title": "資訊回報",
+            "links": [
+                {
+                    "description": "全境徵才數據回報",
+                    "link": "https://forms.gle/VYMGibGfs36F9tdQ6"
+                },
+                {
+                    "description": "角色潛力數據回報",
+                    "link": "https://reurl.cc/E22vDa"
+                },
+                {
+                    "description": "主線掉落數據回報",
+                    "link": "https://reurl.cc/jqGAVL"
+                },
+                {
+                    "description": "意見回饋",
+                    "link": "https://peing.net/ja/b5295760aebf4c"
+                }
+            ]
+        }
+    ]
+}

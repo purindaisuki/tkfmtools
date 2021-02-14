@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ExpandMoreIcon } from '../components/Icon';
 import MyAccordion from '../components/MyAccordion';
 import { SiteDescription, SiteUpdateLog, SiteLicense } from '../components/SiteAccordionBody'
+import stringData from '../strings.json'
 
 const HomeContainer = styled.div`
     display: flex;
@@ -68,23 +69,25 @@ export default function Home() {
         setExpanded(isExpanded ? panel : false);
     };
     React.useEffect(() => {
-        document.title = '天下布魔工具箱'
+        document.title = stringData.home.documentTitle
     })
 
     return (
         <HomeContainer>
-            <Header>天下布魔工具箱 v1.1</Header>
+            <Header>
+                {`${stringData.home.documentTitle} ${stringData.home.updateLog.content[0].version}`}
+            </Header>
             {[
                 {
-                    header: '關於本站',
+                    header: stringData.home.about.header,
                     body: <SiteDescription />,
                 },
                 {
-                    header: '更新日誌',
+                    header: stringData.home.updateLog.header,
                     body: <SiteUpdateLog />,
                 },
                 {
-                    header: 'License',
+                    header: stringData.home.license.header,
                     body: <SiteLicense />,
                 },
             ].map((item, idx) => (
