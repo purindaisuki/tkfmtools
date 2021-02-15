@@ -193,7 +193,7 @@ const SidebarHeader = styled.div`
     border-radius: 0;
     font-size: x-large;
     @media screen and (max-width: 490px) {
-        font-size: 0;
+        font-size: large;
     }
     font-weight: bold;
     background-color: ${props => props.theme.colors.primary};

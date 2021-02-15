@@ -30,7 +30,10 @@ const StyledTabs = styled(Tabs)`
                         if (props.lang === 'en') return 'flex'
                         else return 'inline'
                     }};
-                    font-size: medium;
+                    font-size: ${props => {
+                        if (props.lang === 'en') return '1rem'
+                        else return 'medium'
+                    }};
                     color: ${props => props.theme.colors.onSurface}
                 }
             }
