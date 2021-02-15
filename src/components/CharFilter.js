@@ -20,12 +20,17 @@ import {
 } from './Icon';
 import './tooltip.css';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
     gap: .5rem;
+    ${props => Object.entries(props.layoutConfig).map(entries => (
+    `@media screen and (min-width: ${entries[0]}px) {
+            grid-template-columns: repeat(${entries[1]}, 1fr);
+        }
+        `
+    ))}
     > .active {
         background-color: ${props => props.theme.colors.secondary};
         color: ${props => props.theme.colors.onSecondary};
@@ -33,21 +38,6 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
             fill: ${props => props.theme.colors.onSecondary};
             color: ${props => props.theme.colors.onSecondary};
         }
-    }
-    @media screen and (max-width: 1360px) {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    @media screen and (max-width: 992px) {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    @media screen and (max-width: 768px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media screen and (max-width: 624px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @media screen and (max-width: 410px) {
-        grid-template-columns: repeat(2, 1fr);
     }
 `
 const StyledToggleButton = styled(ToggleButton)`
@@ -106,6 +96,8 @@ const IconWrapper = styled.div`
 `
 
 const CharFilterPanel = (props) => {
+    const { userLanguage, stringData } = React.useContext(LanguageContext)
+
     const attrIcons = {
         type: TypeIcon,
         category: CategoryIcon,
@@ -121,6 +113,21 @@ const CharFilterPanel = (props) => {
         1360: '52%',
         992: '100%',
     }
+
+    const btnLayoutConfig = userLanguage === 'en'
+        ? {
+            990: 3,
+            768: 4,
+            624: 3,
+            410: 2,
+            0: 2
+        }
+        : {
+            768: 5,
+            624: 4,
+            410: 3,
+            0: 2
+        }
 
     return (
         <FilterPanel widthConfig={widthConfig}>
@@ -143,6 +150,7 @@ const CharFilterPanel = (props) => {
                 type="checkbox"
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
+                layoutConfig={btnLayoutConfig}
             >
                 {tagData.map((item, idx) => (
                     <StyledToggleButton
@@ -150,8 +158,8 @@ const CharFilterPanel = (props) => {
                         key={idx}
                         bsPrefix='btn-escape'
                     >
-                        {attrIcons[item['icon']]}
-                        {item['name']}
+                        {attrIcons[item.icon]}
+                        {stringData.characters.tags[item.id]}
                     </StyledToggleButton>
                 ))}
             </StyledToggleButtonGroup>
@@ -219,11 +227,15 @@ const StarIconWrapper = styled.div`
 `
 
 function TableContent(props) {
+    const { stringData } = React.useContext(LanguageContext)
+
     const TagTooltip = (props) => {
         if (props.char.distinctTagCombs.length === 0) return <></>
 
-        let texts = props.char.distinctTagCombs
-            .map(comb => comb.join(', ')).join('\n')
+        const texts = props.char.distinctTagCombs
+            .map(comb => comb.map(i => stringData.characters.tags[i]).join(', '))
+            .join('\n')
+
         return (
             <Tooltip title={texts} TransitionComponent={Zoom} arrow>
                 <StarIconWrapper>{StarIcon}</StarIconWrapper>
@@ -258,12 +270,14 @@ function TableContent(props) {
                 {props.sortedResult.map((item, idx) => (
                     <tr key={idx}>
                         <td>
-                            {item.name}
+                            {stringData.characters.name[item.name]}
                             <TagTooltip char={item} />
                         </td>
                         <td>{gradeToRarity(item.grade)}</td>
-                        <td>{item.type}</td>
-                        <td>{item.appliedTags.join(', ')}</td>
+                        <td>{stringData.characters.tags[item.type]}</td>
+                        <td>
+                            {item.appliedTags.map(i => stringData.characters.tags[i]).join(', ')}
+                        </td>
                     </tr>
                 ))}
             </tbody>
@@ -310,6 +324,8 @@ const FilterContainer = styled.div`
 `
 
 export default function CharFilter() {
+    const { stringData } = React.useContext(LanguageContext)
+
     const [state, setState] = useState({
         filterBtnValue: [],
         characters: [],
@@ -320,20 +336,17 @@ export default function CharFilter() {
     // filter characters by query tags
     const filterBy = useCallback((val) => {
         if (val.length > 5) {
-            setState((prevState) => ({
-                filterBtnValue: prevState.filterBtnValue,
-                characters: prevState.characters,
-                enlistHour: prevState.enlistHour,
-                isSnackbarOpen: true,
+            setState((state) => ({
+                ...state,
+                isSnackbarOpen: true
             }))
             return;
         }
         if (val.length === 0) {
-            setState((prevState) => ({
+            setState((state) => ({
+                ...state,
                 filterBtnValue: val,
-                characters: [],
-                enlistHour: prevState.enlistHour,
-                isSnackbarOpen: false,
+                characters: []
             }))
             return;
         }
@@ -343,7 +356,7 @@ export default function CharFilter() {
                 if (num === 1)
                     yield [elements[i]]
                 else {
-                    let remaining = combinations(
+                    const remaining = combinations(
                         elements.slice(i + 1, elements.length),
                         num - 1
                     )
@@ -353,82 +366,82 @@ export default function CharFilter() {
             }
         }
 
-        let curVal = val.sort()
-        const queryTags = curVal.map(element => tagData[element]['name'])
-        let newCharacters = []
+        const curVal = val.sort()
+        let filteredChars = []
         for (let i = curVal.length; i > 0; i--) {
             // generate combinations
-            const tagCombs = Array.from(combinations(queryTags, i))
+            const tagCombs = Array.from(combinations(curVal, i))
             // screen out ineligible characters
             tagCombs.forEach(tags => {
                 // filter by rank and time
-                let chars = JSON.parse(JSON.stringify(charData))
-                if (!tags.includes(tagData[20].name)) {
-                    chars = chars.filter(char => char.grade < 3)
-                    if (state.enlistHour < 4 && !tags.includes(tagData[19].name)) {
-                        chars = chars.filter(char => char.grade < 2)
+                let survivors = JSON.parse(JSON.stringify(charData))
+                if (!tags.includes(20)) {
+                    survivors = survivors.filter(char => char.grade < 3)
+                    if (state.enlistHour < 4 && !tags.includes(19)) {
+                        survivors = survivors.filter(char => char.grade < 2)
                     }
                 }
                 // filter by tags
                 let appliedTagsNum = 0
-                tagData.forEach((tag, idx) => {
-                    if (appliedTagsNum === tags.length || chars.length === 0) {
+                tagData.forEach((tag) => {
+                    if (appliedTagsNum === tags.length || survivors.length === 0) {
                         return false
                     }
-                    if (tags.includes(tag['name'])) {
-                        if (idx < 21) {
-                            chars = chars.filter(c => c[tag['icon']] === tag['name'])
+                    if (tags.includes(tag.id)) {
+                        appliedTagsNum++
+                        if (tag.id < 21) {
+                            survivors = survivors.filter(c => c[tag.icon] === tag.id)
                         } else {
-                            chars = chars.filter(c => c[tag['icon']].includes(tag['name']))
+                            survivors = survivors.filter(c => c[tag.icon].includes(tag.id))
                         }
                     }
                 })
                 // whether any three (or fewer) tags can lead to only one characters
-                if (chars.length === 1 && appliedTagsNum <= 3) {
+                if (survivors.length === 1 && appliedTagsNum <= 3) {
                     let isExist = false
-                    newCharacters.forEach(existChar => {
-                        if (existChar['name'] === chars[0]['name']) {
+                    filteredChars.forEach(existChar => {
+                        if (existChar.name === survivors[0].name) {
                             isExist = true
                             for (
-                                let j = existChar['distinctTagCombs'].length - 1;
+                                let j = existChar.distinctTagCombs.length - 1;
                                 j >= 0;
                                 j--
                             ) {
                                 if (
-                                    tags.every(t => existChar['distinctTagCombs'][j].includes(t))
+                                    tags.every(t => existChar.distinctTagCombs[j].includes(t))
                                 ) {
-                                    existChar['distinctTagCombs'].splice(j, 1)
+                                    existChar.distinctTagCombs.splice(j, 1)
                                 }
                             }
-                            existChar['distinctTagCombs'].push(tags)
+                            existChar.distinctTagCombs.push(tags)
                             return false
                         }
                     })
                     if (!isExist) {
-                        newCharacters.push({
-                            name: chars[0]['name'],
-                            grade: chars[0]['grade'],
-                            type: chars[0]['type'],
-                            category: chars[0]['category'],
+                        filteredChars.push({
+                            name: survivors[0].name,
+                            grade: survivors[0].grade,
+                            type: survivors[0].type,
+                            category: survivors[0].category,
                             appliedTags: tags,
                             distinctTagCombs: [tags]
                         })
                     }
                 } else {
-                    chars.forEach(char => {
+                    survivors.forEach(char => {
                         let isExist = false
-                        newCharacters.forEach(existChar => {
-                            if (existChar['name'] === char['name']) {
+                        filteredChars.forEach(existChar => {
+                            if (existChar.name === char.name) {
                                 isExist = true
                                 return false
                             }
                         })
                         if (!isExist) {
-                            newCharacters.push({
-                                name: char['name'],
-                                grade: char['grade'],
-                                type: char['type'],
-                                category: char['category'],
+                            filteredChars.push({
+                                name: char.name,
+                                grade: char.grade,
+                                type: char.type,
+                                category: char.category,
                                 appliedTags: tags,
                                 distinctTagCombs: []
                             })
@@ -437,19 +450,17 @@ export default function CharFilter() {
                 }
             })
         }
-        setState((prevState) => ({
+        setState((state) => ({
+            ...state,
             filterBtnValue: val,
-            characters: newCharacters,
-            enlistHour: prevState.enlistHour,
-            isSnackbarOpen: false,
+            characters: filteredChars
         }))
     }, [state.enlistHour])
 
     const handleEnlistHour = (event) => {
-        setState((prevState) => ({
-            filterBtnValue: prevState.filterBtnValue,
-            characters: prevState.characters,
-            enlistHour: event.target.value,
+        setState((state) => ({
+            ...state,
+            enlistHour: event.target.value
         }));
     }
     useEffect(

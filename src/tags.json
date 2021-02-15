@@ -1,35 +1,134 @@
 [
-    {"name":"火屬性", "icon":"type"},
-    {"name":"水屬性", "icon":"type"},
-    {"name":"風屬性", "icon":"type"},
-    {"name":"光屬性", "icon":"type"},
-    {"name":"闇屬性", "icon":"type"},
-    {"name":"攻擊者", "icon":"category"},
-    {"name":"守護者", "icon":"category"},
-    {"name":"治療者", "icon":"category"},
-    {"name":"妨礙者", "icon":"category"},
-    {"name":"輔助者", "icon":"category"},
-    {"name":"人類", "icon":"race"},
-    {"name":"魔族", "icon":"race"},
-    {"name":"亞人", "icon":"race"},
-    {"name":"小體型", "icon":"body"},
-    {"name":"中體型", "icon":"body"},
-    {"name":"貧乳", "icon":"oppai"},
-    {"name":"美乳", "icon":"oppai"},
-    {"name":"巨乳", "icon":"oppai"},
-    {"name":"士兵", "icon":"rank"},
-    {"name":"菁英", "icon":"rank"},
-    {"name":"領袖", "icon":"rank"},
-    {"name":"輸出", "icon":"else"},
-    {"name":"保護", "icon":"else"},
-    {"name":"防禦", "icon":"else"},
-    {"name":"回復", "icon":"else"},
-    {"name":"干擾", "icon":"else"},
-    {"name":"支援", "icon":"else"},
-    {"name":"削弱", "icon":"else"},
-    {"name":"爆發力", "icon":"else"},
-    {"name":"生存力", "icon":"else"},
-    {"name":"越戰越強", "icon":"else"},
-    {"name":"群體攻擊", "icon":"else"},
-    {"name":"回擊", "icon":"else"}
+    {
+        "id": 0,
+        "icon": "type"
+    },
+    {
+        "id": 1,
+        "icon": "type"
+    },
+    {
+        "id": 2,
+        "icon": "type"
+    },
+    {
+        "id": 3,
+        "icon": "type"
+    },
+    {
+        "id": 4,
+        "icon": "type"
+    },
+    {
+        "id": 5,
+        "icon": "category"
+    },
+    {
+        "id": 6,
+        "icon": "category"
+    },
+    {
+        "id": 7,
+        "icon": "category"
+    },
+    {
+        "id": 8,
+        "icon": "category"
+    },
+    {
+        "id": 9,
+        "icon": "category"
+    },
+    {
+        "id": 10,
+        "icon": "race"
+    },
+    {
+        "id": 11,
+        "icon": "race"
+    },
+    {
+        "id": 12,
+        "icon": "race"
+    },
+    {
+        "id": 13,
+        "icon": "body"
+    },
+    {
+        "id": 14,
+        "icon": "body"
+    },
+    {
+        "id": 15,
+        "icon": "oppai"
+    },
+    {
+        "id": 16,
+        "icon": "oppai"
+    },
+    {
+        "id": 17,
+        "icon": "oppai"
+    },
+    {
+        "id": 18,
+        "icon": "rank"
+    },
+    {
+        "id": 19,
+        "icon": "rank"
+    },
+    {
+        "id": 20,
+        "icon": "rank"
+    },
+    {
+        "id": 21,
+        "icon": "else"
+    },
+    {
+        "id": 22,
+        "icon": "else"
+    },
+    {
+        "id": 23,
+        "icon": "else"
+    },
+    {
+        "id": 24,
+        "icon": "else"
+    },
+    {
+        "id": 25,
+        "icon": "else"
+    },
+    {
+        "id": 26,
+        "icon": "else"
+    },
+    {
+        "id": 27,
+        "icon": "else"
+    },
+    {
+        "id": 28,
+        "icon": "else"
+    },
+    {
+        "id": 29,
+        "icon": "else"
+    },
+    {
+        "id": 30,
+        "icon": "else"
+    },
+    {
+        "id": 31,
+        "icon": "else"
+    },
+    {
+        "id": 32,
+        "icon": "else"
+    }
 ]

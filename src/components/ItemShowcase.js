@@ -3,7 +3,7 @@ import { Accordion, Card, Table } from 'react-bootstrap';
 import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
 import data from '../item.json'
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const StyleCardContainer = styled(Accordion)`
   box-shadow: 0 0 .15em lightgray;
@@ -70,6 +70,8 @@ const breakpointColumnsConfig = {
 };
 
 export default function ItemShowcase() {
+  const { stringData } = React.useContext(LanguageContext)
+
   const [cardActiveKeys, setCardActiveKeys] = React.useState(Array(data.length).fill('0'))
 
   const handleCardClick = (idx) => {
@@ -77,6 +79,7 @@ export default function ItemShowcase() {
     copyActiveKeys[idx] ? copyActiveKeys[idx] = undefined : copyActiveKeys[idx] = '0'
     setCardActiveKeys(copyActiveKeys)
   }
+
   return (
     <StyledMasonry
       breakpointCols={breakpointColumnsConfig}
@@ -98,7 +101,7 @@ export default function ItemShowcase() {
                   alt=''
                 />
                 <StyledCardTitle>
-                  {item.name}
+                  {stringData.items.name[item.name]}
                 </StyledCardTitle>
               </Accordion.Toggle>
               <StyledCardBody>
@@ -115,7 +118,7 @@ export default function ItemShowcase() {
                             <td>
                               {`${drop.chapter}-${drop.stage}`}
                             </td>
-                            <td>{drop.rarity}</td>
+                            <td>{stringData.items.rarity[drop.rarity]}</td>
                             <td>
                               <CardTableImg
                                 src={`${process.env.PUBLIC_URL}/img/energy.png`}

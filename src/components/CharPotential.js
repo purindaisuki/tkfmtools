@@ -5,7 +5,7 @@ import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './Icon';
 import { Col, Form } from 'react-bootstrap';
 import data from '../../src/characterPotential.json';
 import { Snackbar } from '@material-ui/core';
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const Select = styled(Form.Control)`
     background-color: ${props => props.theme.colors.surface};
@@ -27,8 +27,8 @@ const IconWrapper = styled.div`
     }
 `
 const CharImgWrapper = styled.img`
-    width: 5rem;
     height: 15rem;
+    margin-right: 1rem;
     border: 2px solid ${props => props.theme.colors.secondary};
     border-radius: .25rem;
 `
@@ -42,6 +42,8 @@ const Gutter = styled.div`
 `
 
 const SelectPanel = (props) => {
+    const { stringData } = React.useContext(LanguageContext)
+
     const widthConfig = {
         default: '25%',
         992: '100%',
@@ -74,8 +76,12 @@ const SelectPanel = (props) => {
                                     size="sm"
                                     onChange={props.handleSelect('character')}
                                 >
-                                    {Object.keys(data['characters'])
-                                        .map((c, idx) => <option key={idx}>{c}</option>)}
+                                    {
+                                        Object.keys(data.characters)
+                                            .map((c, idx) => <option key={idx}>
+                                                {stringData.characters.name[parseInt(c)]}
+                                            </option>)
+                                    }
                                 </Select>
                             </Form.Group>
                         </Form.Row>
@@ -157,7 +163,17 @@ const MaterialContainer = styled.div`
     min-height: 6rem;
 `
 const MaterialWrapper = styled.span`
-    min-width: 4.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .4rem;
+    margin: .2rem 0;
+    ${props => Object.entries(props.layoutConfig).map(entries => (
+    `@media screen and (min-width: ${entries[0]}px) {
+            width: calc(100% / ${entries[1]});
+        }
+        `
+    ))}
 `
 const HelpIconWrapper = styled.div`
     margin-right: auto;
@@ -172,7 +188,37 @@ const HelpIconWrapper = styled.div`
 `
 
 const ResultPanel = (props) => {
+    const { userLanguage, stringData } = React.useContext(LanguageContext)
+
     const [modalOpen, setModalOpen] = React.useState(false)
+
+    const itemIdToName = (id) => {
+        if (id === '801') return stringData.items.name[35]
+        if (id === '901') return stringData.items.name[36]
+
+        const rank = Math.floor(id / 100)
+        const item = id % 100
+        if (rank <= 3) {
+            return stringData.items.name[rank * 5 + item - 1]
+        }
+
+        return stringData.items.name[rank * 5 + item + 4]
+    }
+
+    const resultLayoutConfig = userLanguage === 'en'
+        ? {
+            1360: 5,
+            1200: 4,
+            768: 3,
+            0: 2
+        }
+        : {
+            1360: 6,
+            1200: 5,
+            768: 4,
+            624: 3,
+            0: 2
+        }
 
     const MaterialBox = () => {
         if (!props.result.items) return <></>
@@ -180,17 +226,25 @@ const ResultPanel = (props) => {
         return (
             <>
                 {Object.entries(props.result.items).map((item, idx) => (
-                    <MaterialWrapper key={idx}>
-                        <ImgMaterialWrapper
-                            src={
-                                `${process.env.PUBLIC_URL}/img/item_${('00' + item[0]).slice(-3)}.png`
-                            }
-                            alt=''
-                        />
+                    <MaterialWrapper
+                        key={idx}
+                        layoutConfig={resultLayoutConfig}
+                    >
+                        <div>
+                            <ImgMaterialWrapper
+                                src={
+                                    `${process.env.PUBLIC_URL}/img/item_${('00' + item[0]).slice(-3)}.png`
+                                }
+                                alt=''
+                            />
+                            {`${itemIdToName(item[0])}`}
+                        </div>
                         {item[1]}
                     </MaterialWrapper>
                 ))}
-                <MaterialWrapper>
+                <MaterialWrapper
+                    layoutConfig={resultLayoutConfig}
+                >
                     <ImgMaterialWrapper
                         src={`${process.env.PUBLIC_URL}/img/money.png`}
                         alt='money'
@@ -231,19 +285,27 @@ const ResultPanel = (props) => {
                     }
                 />
                 <div>
-                    <MaterialWrapper>
-                        <ImgOtherWrapper
-                            src={`${process.env.PUBLIC_URL}/img/ATK.png`}
-                            alt='ATK'
-                        />
-                        {`${props.result.buff.ATK} %`}
+                    <MaterialWrapper
+                        layoutConfig={resultLayoutConfig}
+                    >
+                        <div>
+                            <ImgOtherWrapper
+                                src={`${process.env.PUBLIC_URL}/img/ATK.png`}
+                                alt='ATK'
+                            />
+                            {`${props.result.buff.ATK} %`}
+                        </div>
                     </MaterialWrapper>
-                    <MaterialWrapper>
-                        <ImgOtherWrapper
-                            src={`${process.env.PUBLIC_URL}/img/HP.png`}
-                            alt='HP'
-                        />
-                        {`${props.result.buff.HP} %`}
+                    <MaterialWrapper
+                        layoutConfig={resultLayoutConfig}
+                    >
+                        <div>
+                            <ImgOtherWrapper
+                                src={`${process.env.PUBLIC_URL}/img/HP.png`}
+                                alt='HP'
+                            />
+                            {`${props.result.buff.HP} %`}
+                        </div>
                     </MaterialWrapper>
                 </div>
             </div>
@@ -257,18 +319,18 @@ const ResultPanel = (props) => {
 }
 
 const FilterContainer = styled.div`
-    display: flex;
+    display: table;
+    width: 100%;
+    > div {
+        display: table-cell;
+    }
     @media screen and (max-width: 992px) {
         display: block;
+        > div {
+            display: block; 
+        }
     }
     > div:last-child {
-        vertical-align: top;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin-left: calc(100% - ${props => props.resultPanelWidthConfig.default});
         @media screen and (max-width: 992px) {
             width: ${props => props.resultPanelWidthConfig[992]};
             margin-left: calc(100% - ${props => props.resultPanelWidthConfig[992]});
@@ -276,22 +338,31 @@ const FilterContainer = styled.div`
             margin-top: 1rem;
         }
     }
-    > .MuiSnackbar-root > div {
-        background-color: #ff9800;
-        font-size: medium;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        > .MuiSnackbarContent-action {
-            margin: 0;
-            padding: 0;
-            svg 
-            {
-                width: 1.4rem;
-                height: 1.4rem;
-                fill: #fff;
+    > .MuiSnackbar-root {
+        > div {
+            background-color: #ff9800;
+            font-size: medium;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            > .MuiSnackbarContent-action {
+                margin: 0;
+                padding: 0;
+                svg 
+                {
+                    width: 1.4rem;
+                    height: 1.4rem;
+                    fill: #fff;
+                }
             }
         }
+    }
+`
+const TableGutter = styled.div`
+    width: 0;
+    padding: .5rem;
+    @media screen and (max-width: 992px) {
+        padding: 0;
     }
 `
 
@@ -301,8 +372,10 @@ const resultPanelWidthConfig = {
 }
 
 export default function CharPotential() {
+    const { stringData } = React.useContext(LanguageContext)
+
     const [state, setState] = React.useState({
-        character: '魔王 巴爾',
+        character: '0',
         currStage: "1",
         currSub: "1",
         targetStage: "1",
@@ -323,8 +396,14 @@ export default function CharPotential() {
     const handleSelect = (attr) => (event) => {
         //update state
         let newState = { ...state }
-        newState[attr] = event.target.value
-        if (event.target.value === 'N/R角') {
+
+        // parse character name to id
+        const selected = attr === 'character'
+            ? stringData.characters.name.indexOf(event.target.value).toString()
+            : event.target.value
+
+        newState[attr] = selected
+        if (selected === '40') {
             newState.currStage = state.currStage > 6 ? 1 : state.currStage
             newState.targetStage = state.targetStage > 6 ? 1 : state.targetStage
         }
@@ -356,10 +435,10 @@ export default function CharPotential() {
             },
         }
         // calculate demand
-        let type = data.characters[newState.character].type
-        let stages = data.type[type]
-        let start = newState.currStage - 1
-        let end = newState.targetStage - 1
+        const type = data.characters[newState.character].type
+        const stages = data.type[type]
+        const start = newState.currStage - 1
+        const end = newState.targetStage - 1
         for (let i = start; i < end + 1; i++) {
             let stage = stages[i]
             for (
@@ -399,24 +478,18 @@ export default function CharPotential() {
         setState(newState)
     }
 
-    const stages = [...Array(state.character === 'N/R角' ? 7 : 13).keys()]
+    const stages = [...Array(state.character === '40' ? 7 : 13).keys()]
         .slice(1).map(i => <option key={i}>{i}</option>)
 
-    const handleSnackbarClose = () => {
-        let newState = { ...state }
-        newState.isSnackbarOpen = false
-        setState(newState)
-    }
+    const handleSnackbarClose = () => setState((state) => ({
+        ...state,
+        isSnackbarOpen: false
+    }))
 
     return (
         <FilterContainer
             resultPanelWidthConfig={resultPanelWidthConfig}
         >
-            <SelectPanel
-                handleSelect={handleSelect}
-                stages={stages}
-                character={state.character}
-            />
             <Snackbar
                 open={state.isSnackbarOpen}
                 autoHideDuration={3000}
@@ -425,9 +498,15 @@ export default function CharPotential() {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                message="目標階段小於當前階段"
+                message={stringData.potential.character.snackbarMsg}
                 action={AlertIcon}
             />
+            <SelectPanel
+                handleSelect={handleSelect}
+                stages={stages}
+                character={state.character}
+            />
+            <TableGutter />
             <ResultPanel
                 widthConfig={resultPanelWidthConfig}
                 result={state.result}

@@ -2,9 +2,11 @@ import React from 'react';
 import CharFilter from '../components/CharFilter';
 import PageWithTabs from '../components/PageWithTabs';
 import { FilterIcon } from '../components/Icon';
-import stringData from '../strings.json';
+import { LanguageContext } from '../components/LanguageProvider';
 
 export default function Enlist() {
+    const { stringData } = React.useContext(LanguageContext)
+
     return (
         <PageWithTabs
             title={stringData.enlist.documentTitle}

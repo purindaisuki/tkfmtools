@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
 import { HelpIcon } from './Icon';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const StyledFilterPanel = styled.div`
     height: 100%;
@@ -104,7 +104,7 @@ const ModalBody = styled.div`
 export function HelpModal(props) {
     const HelpModalContent = () => (
         props.content.map((item, idx) => {
-            let CloseBtn = () => idx === 0
+            const CloseBtn = () => idx === 0
                 ? <span onClick={props.handleModalClose}>&times;</span>
                 : <></>
             return (
@@ -209,6 +209,8 @@ const IconWrapper = styled.div`
 `
 
 export function ResultTable(props) {
+    const { stringData } = React.useContext(LanguageContext)
+
     const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {
         // when key is number meaning sorted by the number of item
         const [sortConfig, setSortConfig] = useState(config)

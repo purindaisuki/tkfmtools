@@ -1,4 +1,6 @@
+import React from 'react';
 import { Badge } from "react-bootstrap"
+import { LanguageContext } from './LanguageProvider';
 
 export const ToolIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24" /></g><g><g><rect height="8.48" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.8717 17.6255)" width="3" x="16.34" y="12.87" /><path d="M17.5,10c1.93,0,3.5-1.57,3.5-3.5c0-0.58-0.16-1.12-0.41-1.6l-2.7,2.7L16.4,6.11l2.7-2.7C18.62,3.16,18.08,3,17.5,3 C15.57,3,14,4.57,14,6.5c0,0.41,0.08,0.8,0.21,1.16l-1.85,1.85l-1.78-1.78l0.71-0.71L9.88,5.61L12,3.49 c-1.17-1.17-3.07-1.17-4.24,0L4.22,7.03l1.41,1.41H2.81L2.1,9.15l3.54,3.54l0.71-0.71V9.15l1.41,1.41l0.71-0.71l1.78,1.78 l-7.41,7.41l2.12,2.12L16.34,9.79C16.7,9.92,17.09,10,17.5,10z" /></g></g></svg>
 export const HomeIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24" /></g><g><path d="M19,9.3V4h-3v2.6L12,3L2,12h3v8h5v-6h4v6h5v-8h3L19,9.3z M10,10c0-1.1,0.9-2,2-2s2,0.9,2,2H10z" /></g></svg>
@@ -26,7 +28,26 @@ export const StarIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 
 export const AlertIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24" /></g><g><g><g><path d="M11.53,5l7.53,13.01H4L11.53,5 M2.27,17.01c-0.77,1.33,0.19,3,1.73,3h15.06c1.54,0,2.5-1.67,1.73-3 L13.26,4c-0.77-1.33-2.69-1.33-3.46,0L2.27,17.01z" /><path d="M10.53,10.01V13c0,0.55,0.45,1,1,1l0,0c0.55,0,1-0.45,1-1v-2.99c0-0.55-0.45-1-1-1l0,0 C10.98,9.01,10.53,9.46,10.53,10.01z" /><circle cx="11.53" cy="16.01" r="1" /></g></g></g></svg>
 export const CalcIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7z" /></svg>
 export const ItemIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 20 20"><path d="M0 0h24v24H0z" fill="none" /><path d="M18.25 7.6l-5.5-3.18c-.46-.27-1.04-.27-1.5 0L5.75 7.6c-.46.27-.75.76-.75 1.3v6.35c0 .54.29 1.03.75 1.3l5.5 3.18c.46.27 1.04.27 1.5 0l5.5-3.18c.46-.27.75-.76.75-1.3V8.9c0-.54-.29-1.03-.75-1.3zM7 14.96v-4.62l4 2.32v4.61l-4-2.31zm5-4.03L8 8.61l4-2.31 4 2.31-4 2.32zm1 6.34v-4.61l4-2.32v4.62l-4 2.31z" /></svg>
-export const BuffIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-export const NewBadge = <Badge pill variant="success">新增</Badge>
-export const FixBadge = <Badge pill variant="danger">修正</Badge>
-export const ChangeBadge = <Badge pill variant="primary">變更</Badge>
+export const BuffIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" /></svg>
+export const LanguageIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" /></svg>
+
+
+export const NewBadge = () => {
+    const { stringData } = React.useContext(LanguageContext)
+    return (
+        < Badge pill variant = "success" > { stringData.home.updateLog.new }</Badge>
+    )
+}
+export const FixBadge = () => {
+    const { stringData } = React.useContext(LanguageContext)
+    return (
+        < Badge pill variant = "danger" > { stringData.home.updateLog.fix }</Badge>
+    )
+}
+export const ChangeBadge = () => {
+    const { stringData } = React.useContext(LanguageContext)
+    return (
+        < Badge pill variant = "primary" > { stringData.home.updateLog.change }</Badge>
+    )
+}
+

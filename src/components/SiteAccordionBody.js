@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ChangeBadge, FixBadge, NewBadge } from './Icon';
 import MyAccordion from './MyAccordion';
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -45,61 +45,65 @@ const DescriptionBody = styled.div`
     }
 `
 
-export const SiteDescription = () => (
-    <BodyContainer>
-        <ul>
-            {stringData.home.about.content.map((item, idx) => {
-                let Body
-                if (item.name === 'feedback') {
-                    Body = () => (
-                        <p>
-                            {item.content[0]}
-                            <a
-                                href='https://peing.net/ja/b5295760aebf4c'
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                {item.content[1]}
-                            </a>
-                            {item.content[2]}
-                        </p>
-                    )
-                } else if (item.name === 'reference') {
-                    Body = () => (
-                        item.content.map((refItem, idx) => {
-                            if (idx === 3) {
-                                return <p key={idx}>{refItem}</p>
-                            }
-                            return (
-                                <p key={idx}>
-                                    <a
-                                        href={refItem.link}
-                                        target='_blank'
-                                        rel='noreferrer'
-                                    >
-                                        {refItem.title}
-                                    </a>
-                                </p>
-                            )
-                        })
-                    )
-                } else {
-                    Body = () => item.content
-                        .map((text, idx) => <p key={idx}>{text}</p>)
-                }
+export const SiteDescription = () => {
+    const { stringData } = React.useContext(LanguageContext)
 
-                return (
-                    <DescriptionContainer key={idx}>
-                        <DescriptionHeader>{item.header}</DescriptionHeader>
-                        <DescriptionBody>
-                            <Body />
-                        </DescriptionBody>
-                    </DescriptionContainer>
-                )
-            })}
-        </ul>
-    </BodyContainer>
-)
+    return (
+        <BodyContainer>
+            <ul>
+                {stringData.home.about.content.map((item, idx) => {
+                    let Body
+                    if (item.name === 'feedback') {
+                        Body = () => (
+                            <p>
+                                {item.content[0]}
+                                <a
+                                    href='https://peing.net/ja/b5295760aebf4c'
+                                    target='_blank'
+                                    rel='noreferrer'
+                                >
+                                    {item.content[1]}
+                                </a>
+                                {item.content[2]}
+                            </p>
+                        )
+                    } else if (item.name === 'reference') {
+                        Body = () => (
+                            item.content.map((refItem, idx) => {
+                                if (idx === 3) {
+                                    return <p key={idx}>{refItem}</p>
+                                }
+                                return (
+                                    <p key={idx}>
+                                        <a
+                                            href={refItem.link}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                        >
+                                            {refItem.title}
+                                        </a>
+                                    </p>
+                                )
+                            })
+                        )
+                    } else {
+                        Body = () => item.content
+                            .map((text, idx) => <p key={idx}>{text}</p>)
+                    }
+
+                    return (
+                        <DescriptionContainer key={idx}>
+                            <DescriptionHeader>{item.header}</DescriptionHeader>
+                            <DescriptionBody>
+                                <Body />
+                            </DescriptionBody>
+                        </DescriptionContainer>
+                    )
+                })}
+            </ul>
+        </BodyContainer>
+    )
+}
 
 const AccordionWrapper = styled.div`
     > .MuiAccordion-root {
@@ -129,9 +133,10 @@ const AccordionWrapper = styled.div`
 function LogMsg(props) {
     const [isExpanded, setExpanded] = React.useState(false)
     const { type, title, description } = props.msg
-    const badge = type === 'New'? NewBadge
+    const Badge = type === 'New' ? NewBadge
         : type === 'Fix' ? FixBadge
             : ChangeBadge
+
     return (
         <AccordionWrapper>
             <MyAccordion
@@ -139,7 +144,7 @@ function LogMsg(props) {
                 onChange={() => setExpanded(!isExpanded)}
                 title={
                     <>
-                        {badge}
+                        <Badge />
                         {` ${title}`}
                     </>
                 }
@@ -159,6 +164,8 @@ const MsgBox = styled.div`
 `
 
 export function SiteUpdateLog() {
+    const { stringData } = React.useContext(LanguageContext)
+
     return (
         <BodyContainer>
             {stringData.home.updateLog.content.map((version, idx) => (
@@ -184,84 +191,86 @@ const LicenseItemContent = styled.div`
     padding-bottom: .5rem;
 `
 
-export const SiteLicense = () => (
-    <BodyContainer>
-        <LicenseList>
-            <li key={'text'}>
-                <LicenseItemTitle>
-                    <span>{stringData.home.license.content.title}</span>
-                </LicenseItemTitle>
-                <LicenseItemContent>
-                    <span>{stringData.home.license.content.content}</span>
-                </LicenseItemContent>
-            </li>
-            {[
-                {
-                    titleLink: 'https://github.com/google/material-design-icons',
-                    title: 'Material icons - Google Design',
-                    licenseLink: 'https://github.com/google/material-design-icons/blob/master/LICENSE',
-                    license: 'Apache License 2.0',
-                },
-                {
-                    titleLink: 'https://github.com/facebook/react',
-                    title: 'react',
-                    licenseLink: 'https://github.com/facebook/react/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-                {
-                    titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
-                    title: 'react-bootstrap',
-                    licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-                {
-                    titleLink: 'https://github.com/paulcollett/react-masonry-css',
-                    title: 'react-masonry-css',
-                    licenseLink: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-                {
-                    titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
-                    title: 'react-scroll-up-button',
-                    licenseLink: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-                {
-                    titleLink: 'https://github.com/mui-org/material-ui',
-                    title: 'material-ui',
-                    licenseLink: 'https://github.com/mui-org/material-ui/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-                {
-                    titleLink: 'https://github.com/styled-components/styled-components',
-                    title: 'styled-components',
-                    licenseLink: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
-                    license: 'MIT License',
-                },
-            ].map((item, idx) => (
-                <li key={idx}>
+export const SiteLicense = () => {
+    const { stringData } = React.useContext(LanguageContext)
+
+    return (
+        <BodyContainer>
+            <LicenseList>
+                <li key={'text'}>
                     <LicenseItemTitle>
-                        <a
-                            href={item.titleLink}
-                            target='_blank'
-                            rel='noreferrer'
-                        >
-                            {item.title}
-                        </a>
+                        <span>{stringData.home.license.content.title}</span>
                     </LicenseItemTitle>
                     <LicenseItemContent>
-                        <a
-                            href={item.licenseLink}
-                            target='_blank'
-                            rel='noreferrer'
-                        >
-                            {item.license}
-                        </a>
+                        <span>{stringData.home.license.content.content}</span>
                     </LicenseItemContent>
                 </li>
-            ))}
-        </LicenseList>
-    </BodyContainer>
-)
-
-
+                {[
+                    {
+                        titleLink: 'https://github.com/google/material-design-icons',
+                        title: 'Material icons - Google Design',
+                        licenseLink: 'https://github.com/google/material-design-icons/blob/master/LICENSE',
+                        license: 'Apache License 2.0',
+                    },
+                    {
+                        titleLink: 'https://github.com/facebook/react',
+                        title: 'react',
+                        licenseLink: 'https://github.com/facebook/react/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
+                        title: 'react-bootstrap',
+                        licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/paulcollett/react-masonry-css',
+                        title: 'react-masonry-css',
+                        licenseLink: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
+                        title: 'react-scroll-up-button',
+                        licenseLink: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/mui-org/material-ui',
+                        title: 'material-ui',
+                        licenseLink: 'https://github.com/mui-org/material-ui/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/styled-components/styled-components',
+                        title: 'styled-components',
+                        licenseLink: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                ].map((item, idx) => (
+                    <li key={idx}>
+                        <LicenseItemTitle>
+                            <a
+                                href={item.titleLink}
+                                target='_blank'
+                                rel='noreferrer'
+                            >
+                                {item.title}
+                            </a>
+                        </LicenseItemTitle>
+                        <LicenseItemContent>
+                            <a
+                                href={item.licenseLink}
+                                target='_blank'
+                                rel='noreferrer'
+                            >
+                                {item.license}
+                            </a>
+                        </LicenseItemContent>
+                    </li>
+                ))}
+            </LicenseList>
+        </BodyContainer>
+    )
+}

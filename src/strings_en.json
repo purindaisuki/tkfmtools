@@ -1,0 +1,444 @@
+{
+    "home": {
+        "name": "Home",
+        "documentTitle": "Tenkafu MA! toolbox",
+        "shortTitle": "Tkfm toolbox",
+        "about": {
+            "header": "About",
+            "content": [
+                {
+                    "name": "introduction",
+                    "header": "Introduction",
+                    "content": [
+                        "The goal of this website is to collect, organize and present the data in Tenkafu MA!.",
+                        "This website currently includes recruitment filter, item drops filter and character potential material calculator."
+                    ]
+                },
+                {
+                    "name": "disclaimer",
+                    "header": "Disclaimer",
+                    "content": [
+                        "All materials and information on this website are collected from players and not guaranteed the correctness , the actual gameplay shall prevail."
+                    ]
+                },
+                {
+                    "name": "feedback",
+                    "header": "Feedback",
+                    "content": [
+                        "Suggestion and thoughts are welcome. Please check ",
+                        "here",
+                        "."
+                    ]
+                },
+                {
+                    "name": "reference",
+                    "header": "Reference",
+                    "content": [
+                        {
+                            "link": "https://reurl.cc/5o5A7z/",
+                            "title": "資料統整 - 凱薩沒在用的腦"
+                        },
+                        {
+                            "link": "https://reurl.cc/1gZ5nV/",
+                            "title": "潛力整理&猜測"
+                        },
+                        {
+                            "link": "https://reurl.cc/8ypXzM",
+                            "title": "Discord天下布魔場外群資料整理(舊)"
+                        },
+                        "And data provided from kind people."
+                    ]
+                }
+            ]
+        },
+        "updateLog": {
+            "header": "Update Logs",
+            "new": "New",
+            "fix": "Fix",
+            "change": "Change",
+            "content": [
+                {
+                    "version": "v1.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "English version",
+                            "description": "Add English version."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Correct tags of some characters",
+                            "description": "Correct tags of Satan, Iblis and Lana."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Character potential material calculator",
+                            "description": "Add character potential material calculator"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix item drops",
+                            "description": "Correct item drops of stage 6-6 and 6-11."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Recruitment filter",
+                            "description": "Add recruitment filter."
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item drops",
+                            "description": "Add overview and filter of item drops."
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Website published",
+                            "description": "Website published"
+                        }
+                    ]
+                }
+            ]
+        },
+        "license": {
+            "header": "License",
+            "content": {
+                "title": "Game art",
+                "content": "Used under R.O.C. Copyright Act §65, all rights are reserved for the copyright owner."
+            }
+        }
+    },
+    "enlist": {
+        "name": "Recruitment",
+        "documentTitle": "Tenkafu MA! toolbox — Recruitment",
+        "label": [
+            "Filter"
+        ],
+        "tagSelectTitle": "Tag Selection",
+        "timeSelectTitle": "Recruitment time",
+        "tableHead": [
+            {
+                "title": "Name",
+                "attr": "name"
+            },
+            {
+                "title": "Rarity",
+                "attr": "grade"
+            },
+            {
+                "title": "Position",
+                "attr": "type"
+            },
+            {
+                "title": "Applied Tags",
+                "attr": "appliedTags"
+            }
+        ],
+        "modal": [
+            {
+                "title": "Introduction",
+                "content": [
+                    "Apply the tags you get to find possible characters."
+                ]
+            },
+            {
+                "title": "How To",
+                "content": [
+                    "Select tags to filter out characters.",
+                    "Sort result by clicking the table header.",
+                    "Star icon after characters means there are some combinations lead to only one character. Hover on the icon to show the combinations."
+                ]
+            },
+            {
+                "title": "Common scenario",
+                "content": [
+                    "Target at SR (or higher) characters:",
+                    "Select five tags you get from the recruitment.",
+                    "If there is a star icon after SR characters, then it's worth a shot."
+                ]
+            },
+            {
+                "title": "Notes",
+                "content": [
+                    "Deletion of tags is not considered.",
+                    "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
+                ]
+            }
+        ],
+        "snackbarMsg": "At most 5 tags"
+    },
+    "potential": {
+        "name": "Potential material",
+        "documentTitle": "Tenkafu MA! toolbox — Potential material",
+        "label": [
+            "Overview",
+            "Filter",
+            "Character requirement"
+        ],
+        "character": {
+            "characterPanelTitle": "Character Selection",
+            "characterSelectTitle": "Character",
+            "currentSelectTitle": "Current",
+            "targetSelectTitle": "Target",
+            "resultDemandTitle": "Material",
+            "resultBuffTitle": "Buff",
+            "snackbarMsg": "Target stage should larger than current stage",
+            "modal": [
+                {
+                    "title": "Introduction",
+                    "content": [
+                        "This page is to calculate the requirement of potential material and buff of characters."
+                    ]
+                },
+                {
+                    "title": "How To",
+                    "content": [
+                        "Select character and current and target stages (both included) to calculate the material requirement.",
+                        "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
+                    ]
+                },
+                {
+                    "title": "Notes",
+                    "content": [
+                        "Most results are inferred from patterns of character potential, not from actual data."
+                    ]
+                }
+            ]
+        },
+        "filter": {
+            "itemPanelTitle": "Item Selection",
+            "resultTitle": "Result",
+            "tableHead": [
+                "Stage",
+                "Rarity",
+                "Energy"
+            ],
+            "modal": [
+                {
+                    "title": "Introduction",
+                    "content": [
+                        "This page is to find the stages that includes target items."
+                    ]
+                },
+                {
+                    "title": "How To",
+                    "content": [
+                        "Select items to filter out stages.",
+                        "Sort result by clicking the table header."
+                    ]
+                },
+                {
+                    "title": "Notes",
+                    "content": [
+                        "Only includes items that drops in 'World' instance.",
+                        "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
+                    ]
+                }
+            ]
+        }
+    },
+    "navbar": [
+        {
+            "title": "External Links",
+            "links": [
+                {
+                    "description": "Official website",
+                    "link": "https://www.tenkafuma.com/"
+                },
+                {
+                    "description": "Game data (Chinese)",
+                    "link": "https://reurl.cc/5o5A7z/"
+                },
+                {
+                    "description": "Potential data (Chinese)",
+                    "link": "https://reurl.cc/1gZ5nV/"
+                }
+            ]
+        },
+        {
+            "title": "Report",
+            "links": [
+                {
+                    "description": "Recruitment (Chinese)",
+                    "link": "https://forms.gle/VYMGibGfs36F9tdQ6"
+                },
+                {
+                    "description": "Potential (Chinese)",
+                    "link": "https://reurl.cc/E22vDa"
+                },
+                {
+                    "description": "Item drop rate (Chinese)",
+                    "link": "https://reurl.cc/jqGAVL"
+                },
+                {
+                    "description": "Feedback",
+                    "link": "https://peing.net/ja/b5295760aebf4c"
+                }
+            ]
+        }
+    ],
+    "characters": {
+        "name": [
+            "Archdemon Ba'al",
+            "Archdemon Satan",
+            "Archdemon Iblis",
+            "Elf Queen Salucia",
+            "Dwarf Queen Lana",
+            "Phasi Princess Lulu",
+            "Festive Ba'al",
+            "Idol Iblis",
+            "Idol Noel",
+            "Demon Servant Aiko",
+            "Holy Knight Capt. Leona",
+            "High Priestess Fiora",
+            "Ninja Ritsuki",
+            "Blademaster Minayomi",
+            "Fox Spirit Shizuka",
+            "General Juneau",
+            "Genius Tactician Britney",
+            "Head Nurse Irene",
+            "Bakeneko Nana",
+            "Dragoon Iris",
+            "Dog-Girl Dora",
+            "Succubus Sable",
+            "Mermaid Marlene",
+            "Wandering Witch Yoi",
+            "Dark Elf Shiraka",
+            "Phasi Soldier Siren",
+            "Phasi Wizard Petra",
+            "Demon Soldier Flay",
+            "Sorceress Manuella",
+            "Isori Warrior Kikyou",
+            "Isori Shaman Kaede",
+            "Elven Archer Ola",
+            "Dwarven Soldier Kani",
+            "Mercenary Charlene",
+            "Holy Knight Martina",
+            "Excelsis Deo Monk Claire",
+            "Slime-Girl Lori",
+            "Cow-Girl Minnow",
+            "Snake-Girl Lamia",
+            "Bird-Girl Harpy",
+            "N/R characters"
+        ],
+        "tags": [
+            "Fire attribute",
+            "Water attribute",
+            "Wind attribute",
+            "Light attribute",
+            "Dark attribute",
+            "Attacker",
+            "Protector",
+            "Healer",
+            "Obstructer",
+            "Support",
+            "Human",
+            "Demon",
+            "Demihuman",
+            "Small Sized",
+            "Medium Sized",
+            "Flat Tits  ",
+            "Hot Tits",
+            "Giant Tits",
+            "Soldier",
+            "Elite",
+            "Leader",
+            "Damage Output",
+            "Protection",
+            "Defense",
+            "Recovery",
+            "Interference",
+            "Support",
+            "Weaken",
+            "Explosiveness",
+            "Survivability",
+            "More Power",
+            "AoE",
+            "Counterstrike"
+        ]
+    },
+    "items": {
+        "name": [
+            "Beast Claw",
+            "Iron",
+            "Clean Water",
+            "Slime",
+            "Drugs",
+            "Giant Beast Claw",
+            "Wrought Iron",
+            "Moonlight Water",
+            "Quality Mixture",
+            "Stardust",
+            "Demon Claw",
+            "Pure Steel",
+            "Elven Dew",
+            "Rainbow Mixture",
+            "Dark Dust",
+            "Sturdy Horn",
+            "Silver",
+            "Ceremonial Oil",
+            "Corrosive Dirt",
+            "Venomous Fang",
+            "Griffin Snout",
+            "Bear Skin",
+            "Book of Curses",
+            "Exquisite Feather",
+            "Insectoid Thread",
+            "Horny Cow Horn",
+            "Holy Silver",
+            "Holy Oil",
+            "Dragon Crystal",
+            "Evil Fang",
+            "Vulture Beak",
+            "Elk Skin",
+            "Book of Fallen Angels",
+            "Banshee Feather",
+            "Spider Web",
+            "Skill Fragment",
+            "Skill Stone",
+            "Fire (basic)",
+            "Water (basic)",
+            "Wind (basic)",
+            "Light (basic)",
+            "Dark (basic)",
+            "Fire (int.)",
+            "Water (int.)",
+            "Wind (int.)",
+            "Light (int.)",
+            "Dark (int.)",
+            "Small EXP Potion",
+            "Medium EXP Potion",
+            "Large EXP Potion"
+        ],
+        "category": [
+            "Material",
+            "Discipline",
+            "EXP Potion"
+        ],
+        "rarity": [
+            "Epic",
+            "Rare",
+            "Com.",
+            "Required"
+        ]
+    }
+}

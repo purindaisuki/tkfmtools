@@ -16,6 +16,7 @@ export const lightTheme = {
         shadow: 'gray',
         link: '#007bff',
         linkHover: '#0056b3',
+        dropdownHover: 'lightgray'
     },
     switcher: {
         iconOffest: '28px',
@@ -41,6 +42,7 @@ export const darkTheme = {
         shadow: 'lightgray',
         link: '#b3e5fc',
         linkHover: '#e1f5fe',
+        dropdownHover: 'gray'
     },
     switcher: {
         iconOffest: '6px',

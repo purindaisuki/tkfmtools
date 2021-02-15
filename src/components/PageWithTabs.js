@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import { LanguageContext } from './LanguageProvider';
 
 const TabPanel = styled.div`
     position: relative;
@@ -25,7 +26,10 @@ const StyledTabs = styled(Tabs)`
                 padding-top: .6rem;
                 z-index: 1;
                 > span {
-                    display: inline;
+                    display: ${props => {
+                        if (props.lang === 'en') return 'flex'
+                        else return 'inline'
+                    }};
                     font-size: medium;
                     color: ${props => props.theme.colors.onSurface}
                 }
@@ -55,8 +59,10 @@ const StyledTabs = styled(Tabs)`
 }
 `
 export default function PageWithTabs(props) {
+    const { userLanguage } = React.useContext(LanguageContext)
+
     const getDefaultTab = () => {
-        let localSetting = localStorage.getItem(props.title + 'select-tab')
+        const localSetting = localStorage.getItem(props.title + 'select-tab')
         return localSetting ? parseInt(localSetting) : 0
     }
     const [tab, setTab] = useState(getDefaultTab)
@@ -74,6 +80,7 @@ export default function PageWithTabs(props) {
             <StyledTabs
                 value={tab}
                 onChange={handleTabChange}
+                lang={userLanguage}
             >
                 {props.tabs.map(item => (
                     <Tab label={item.label} icon={item.icon} key={item.label} />

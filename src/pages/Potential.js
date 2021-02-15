@@ -4,9 +4,11 @@ import ItemFilter from '../components/ItemFilter';
 import CharPotential from '../components/CharPotential';
 import { CalcIcon, OverviewIcon, FilterIcon } from '../components/Icon';
 import PageWithTabs from '../components/PageWithTabs';
-import stringData from '../strings.json';
+import { LanguageContext } from '../components/LanguageProvider';
 
 export default function Potential() {
+    const { stringData } = React.useContext(LanguageContext)
+
     return (
         <PageWithTabs
             title={stringData.potential.documentTitle}

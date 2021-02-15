@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ExpandMoreIcon } from '../components/Icon';
 import MyAccordion from '../components/MyAccordion';
 import { SiteDescription, SiteUpdateLog, SiteLicense } from '../components/SiteAccordionBody'
-import stringData from '../strings.json'
+import { LanguageContext } from '../components/LanguageProvider';
 
 const HomeContainer = styled.div`
     display: flex;
@@ -63,11 +63,14 @@ const AccordionWrapper = styled.div`
 `
 
 export default function Home() {
-    const [expanded, setExpanded] = React.useState(0);
+    const { stringData } = React.useContext(LanguageContext)
+
+    const [expanded, setExpanded] = React.useState(0)
 
     const handleExpand = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+        setExpanded(isExpanded ? panel : false)
+    }
+
     React.useEffect(() => {
         document.title = stringData.home.documentTitle
     })

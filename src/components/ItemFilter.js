@@ -4,30 +4,21 @@ import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents'
 import styled from 'styled-components';
 import { ClearIcon } from './Icon';
 import data from '../item.json'
-import stringData from '../strings.json'
+import { LanguageContext } from './LanguageProvider';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(${props => props.layoutConfig.default}, 1fr);
     gap: .5rem;
+    ${props => Object.entries(props.layoutConfig).map(entries => (
+    `@media screen and (min-width: ${entries[0]}px) {
+            grid-template-columns: repeat(${entries[1]}, 1fr);
+        }
+        `
+    ))}
     > .active {
         background-color: ${props => props.theme.colors.secondary};
         color: ${props => props.theme.colors.onSecondary};
-    }
-    @media screen and (max-width: 1360px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media screen and (max-width: 992px) {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    @media screen and (max-width: 768px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    @media screen and (max-width: 624px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @media screen and (max-width: 410px) {
-        grid-template-columns: repeat(2, 1fr);
     }
 `
 const StyledToggleButton = styled(ToggleButton)`
@@ -68,11 +59,30 @@ const IconWrapper = styled.div`
 `
 
 const ItemFilterPanel = (props) => {
+    const { userLanguage, stringData } = React.useContext(LanguageContext)
+
     const widthConfig = {
         default: '60%',
         1360: '62%',
         992: '100%',
     }
+
+    const btnLayoutConfig = userLanguage === 'en'
+        ? {
+            1360: 4,
+            992: 3,
+            768: 4,
+            624: 3,
+            410: 2
+        }
+        : {
+            1360: 5,
+            992: 4,
+            768: 5,
+            624: 4,
+            410: 3,
+            0: 2,
+        }
 
     return (
         <FilterPanel widthConfig={widthConfig}>
@@ -90,6 +100,7 @@ const ItemFilterPanel = (props) => {
                 type="checkbox"
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
+                layoutConfig={btnLayoutConfig}
             >
                 {data.map((item, idx) => {
                     if (item.drop.length === 0) return true
@@ -104,7 +115,7 @@ const ItemFilterPanel = (props) => {
                                 src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                                 alt=''
                             />
-                            {item.name}
+                            {stringData.items.name[item.name]}
                         </StyledToggleButton>
                     )
                 })}
@@ -131,6 +142,8 @@ const SortTh = styled.th`
 `
 
 const TableContent = (props) => {
+    const { stringData } = React.useContext(LanguageContext)
+
     const TableHeader = (props) => {
         if (props.sortedResult.length === 0) {
             return <SortTh>{stringData.potential.filter.tableHead[1]}</SortTh>
@@ -146,7 +159,7 @@ const TableContent = (props) => {
                     >
                         <img
                             src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                            alt={item.name}
+                            alt={stringData.items.name[item.name]}
                         />
                     </SortTh>
                 )
@@ -162,7 +175,7 @@ const TableContent = (props) => {
                         direction={props.getSortDirection('stage')}
                     >
                         {stringData.potential.filter.tableHead[0]}
-                            </SortTh>
+                    </SortTh>
                     <TableHeader {...props} />
                     <SortTh
                         onClick={() => props.requestSort('energy')}
@@ -183,7 +196,9 @@ const TableContent = (props) => {
                             <td>{`${stage.chapter}-${stage.stage}`}</td>
                             {stage.drop.map(item => {
                                 return (
-                                    <td key={item.id}>{item.rarity}</td>
+                                    <td key={item.id}>
+                                        {stringData.items.rarity[item.rarity]}
+                                    </td>
                                 )
                             })}
                             <td>{stage.energy}</td>
@@ -206,6 +221,8 @@ const FilterContainer = styled.div`
 `
 
 export default function ItemFilter() {
+    const { stringData } = React.useContext(LanguageContext)
+
     const [state, setState] = useState({
         filterBtnValue: [],
         stages: [],
@@ -219,7 +236,7 @@ export default function ItemFilter() {
             })
             return;
         }
-        let curVal = val.sort()
+        const curVal = val.sort()
         // deep copy
         let filteredStages = JSON.parse(JSON.stringify(data[curVal[0]].drop))
         filteredStages.forEach(stage => {
@@ -268,15 +285,6 @@ export default function ItemFilter() {
             )
         }
 
-        const toRarityKey = (key, idx) => {
-            switch (key.drop[idx].rarity) {
-                case stringData.potential.filter.rarity[0]: return 0
-                case stringData.potential.filter.rarity[1]: return 1
-                case stringData.potential.filter.rarity[2]: return 2
-                default: return 3
-            }
-        }
-
         sortableItems.sort((a, b) => {
             let aKey
             let bKey
@@ -287,8 +295,8 @@ export default function ItemFilter() {
                 aKey = a[sortConfig.key]
                 bKey = b[sortConfig.key]
             } else {
-                aKey = toRarityKey(a, sortConfig.key)
-                bKey = toRarityKey(b, sortConfig.key)
+                aKey = a.drop[sortConfig.key].rarity
+                bKey = b.drop[sortConfig.key].rarity
             }
             if (aKey < bKey) {
                 return sortConfig.direction === 'asc' ? -1 : 1
