@@ -16,8 +16,8 @@ export default function LanguageProvider({ children }) {
             return localSetting
         }
         const lang = navigator.language || navigator.userLanguage
-        if (lang === 'zh-TW' || lang === 'en') {
-            return lang
+        if (/en*/.test(lang)) {
+            return 'en'
         }
         return 'zh-TW'
     }
