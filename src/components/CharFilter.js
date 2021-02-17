@@ -25,7 +25,7 @@ import { LanguageContext } from './LanguageProvider';
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
     gap: .5rem;
-    ${props => Object.entries(props.layoutConfig).map(entries => (
+    ${props => Object.entries(props.$layoutConfig).map(entries => (
     `@media screen and (min-width: ${entries[0]}px) {
             grid-template-columns: repeat(${entries[1]}, 1fr);
         }
@@ -150,7 +150,7 @@ const CharFilterPanel = (props) => {
                 type="checkbox"
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
-                layoutConfig={btnLayoutConfig}
+                $layoutConfig={btnLayoutConfig}
             >
                 {tagData.map((item, idx) => (
                     <StyledToggleButton

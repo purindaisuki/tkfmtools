@@ -8,9 +8,9 @@ import { LanguageContext } from './LanguageProvider';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
-    grid-template-columns: repeat(${props => props.layoutConfig.default}, 1fr);
+    grid-template-columns: repeat(${props => props.$layoutConfig.default}, 1fr);
     gap: .5rem;
-    ${props => Object.entries(props.layoutConfig).map(entries => (
+    ${props => Object.entries(props.$layoutConfig).map(entries => (
     `@media screen and (min-width: ${entries[0]}px) {
             grid-template-columns: repeat(${entries[1]}, 1fr);
         }
@@ -100,7 +100,7 @@ const ItemFilterPanel = (props) => {
                 type="checkbox"
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
-                layoutConfig={btnLayoutConfig}
+                $layoutConfig={btnLayoutConfig}
             >
                 {data.map((item, idx) => {
                     if (item.drop.length === 0) return true

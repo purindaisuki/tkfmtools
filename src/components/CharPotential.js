@@ -168,7 +168,7 @@ const MaterialWrapper = styled.span`
     justify-content: space-between;
     padding: 0 .4rem;
     margin: .2rem 0;
-    ${props => Object.entries(props.layoutConfig).map(entries => (
+    ${props => Object.entries(props.$layoutConfig).map(entries => (
     `@media screen and (min-width: ${entries[0]}px) {
             width: calc(100% / ${entries[1]});
         }
@@ -228,7 +228,7 @@ const ResultPanel = (props) => {
                 {Object.entries(props.result.items).map((item, idx) => (
                     <MaterialWrapper
                         key={idx}
-                        layoutConfig={resultLayoutConfig}
+                        $layoutConfig={resultLayoutConfig}
                     >
                         <div>
                             <ImgMaterialWrapper
@@ -243,7 +243,7 @@ const ResultPanel = (props) => {
                     </MaterialWrapper>
                 ))}
                 <MaterialWrapper
-                    layoutConfig={resultLayoutConfig}
+                    $layoutConfig={resultLayoutConfig}
                 >
                     <ImgMaterialWrapper
                         src={`${process.env.PUBLIC_URL}/img/money.png`}
@@ -286,7 +286,7 @@ const ResultPanel = (props) => {
                 />
                 <div>
                     <MaterialWrapper
-                        layoutConfig={resultLayoutConfig}
+                        $layoutConfig={resultLayoutConfig}
                     >
                         <div>
                             <ImgOtherWrapper
@@ -297,7 +297,7 @@ const ResultPanel = (props) => {
                         </div>
                     </MaterialWrapper>
                     <MaterialWrapper
-                        layoutConfig={resultLayoutConfig}
+                        $layoutConfig={resultLayoutConfig}
                     >
                         <div>
                             <ImgOtherWrapper
