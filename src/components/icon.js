@@ -12,7 +12,7 @@ export const MenuIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 
 export const ExpandMoreIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path d="M0 0h24v24H0z" fill="none" /> <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" /> </svg >
 export const OverviewIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" /></svg>
 export const FilterIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><path d="M0,0h24 M24,24H0" fill="none" /><path d="M4.25,5.61C6.27,8.2,10,13,10,13v6c0,0.55,0.45,1,1,1h2c0.55,0,1-0.45,1-1v-6c0,0,3.72-4.8,5.74-7.39 C20.25,4.95,19.78,4,18.95,4H5.04C4.21,4,3.74,4.95,4.25,5.61z" /><path d="M0,0h24v24H0V0z" fill="none" /></g></svg>
-export const ClearIcon = <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" version="1.1"><g stroke="currentColor" strokeWidth="1.8" strokeLinecap="butt" fill="none" strokeLinejoin="round"><polyline points="15 4 15 18 5 18 5 4" /><polyline points="18 4 2 4" /><polyline points="8.2 15 8.2 7" /><polyline points="11.8 15 11.8 7" /><polyline points="8 1 12 1" /></g></svg>
+export const ClearIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" version="1.1"><g stroke="currentColor" strokeWidth="1.8" strokeLinecap="butt" fill="none" strokeLinejoin="round"><polyline points="15 4 15 18 5 18 5 4" /><polyline points="18 4 2 4" /><polyline points="8.2 15 8.2 7" /><polyline points="11.8 15 11.8 7" /><polyline points="8 1 12 1" /></g></svg>
 export const ToTopIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /> <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" /></svg>
 export const HelpIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" /></svg>
 export const TagIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><path d="M0,0h24v24H0V0z" fill="none" /></g><g><path d="M21.41,11.41l-8.83-8.83C12.21,2.21,11.7,2,11.17,2H4C2.9,2,2,2.9,2,4v7.17c0,0.53,0.21,1.04,0.59,1.41l8.83,8.83 c0.78,0.78,2.05,0.78,2.83,0l7.17-7.17C22.2,13.46,22.2,12.2,21.41,11.41z M6.5,8C5.67,8,5,7.33,5,6.5S5.67,5,6.5,5S8,5.67,8,6.5 S7.33,8,6.5,8z" /></g></svg>
@@ -30,24 +30,25 @@ export const CalcIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 
 export const ItemIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 20 20"><path d="M0 0h24v24H0z" fill="none" /><path d="M18.25 7.6l-5.5-3.18c-.46-.27-1.04-.27-1.5 0L5.75 7.6c-.46.27-.75.76-.75 1.3v6.35c0 .54.29 1.03.75 1.3l5.5 3.18c.46.27 1.04.27 1.5 0l5.5-3.18c.46-.27.75-.76.75-1.3V8.9c0-.54-.29-1.03-.75-1.3zM7 14.96v-4.62l4 2.32v4.61l-4-2.31zm5-4.03L8 8.61l4-2.31 4 2.31-4 2.32zm1 6.34v-4.61l4-2.32v4.62l-4 2.31z" /></svg>
 export const BuffIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" /></svg>
 export const LanguageIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" /></svg>
-
+export const TableViewIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24" /><path d="M19,7H9C7.9,7,7,7.9,7,9v10c0,1.1,0.9,2,2,2h10c1.1,0,2-0.9,2-2V9C21,7.9,20.1,7,19,7z M19,9v2H9V9H19z M13,15v-2h2v2H13z M15,17v2h-2v-2H15z M11,15H9v-2h2V15z M17,13h2v2h-2V13z M9,17h2v2H9V17z M17,19v-2h2v2H17z M6,17H5c-1.1,0-2-0.9-2-2V5 c0-1.1,0.9-2,2-2h10c1.1,0,2,0.9,2,2v1h-2V5H5v10h1V17z" /></g></svg>
+export const MasonryViewIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z" /></svg>
 
 export const NewBadge = () => {
     const { stringData } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant = "success" > { stringData.home.updateLog.new }</Badge>
+        < Badge pill variant="success" > { stringData.home.updateLog.new}</Badge>
     )
 }
 export const FixBadge = () => {
     const { stringData } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant = "danger" > { stringData.home.updateLog.fix }</Badge>
+        < Badge pill variant="danger" > { stringData.home.updateLog.fix}</Badge>
     )
 }
 export const ChangeBadge = () => {
     const { stringData } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant = "primary" > { stringData.home.updateLog.change }</Badge>
+        < Badge pill variant="primary" > { stringData.home.updateLog.change}</Badge>
     )
 }
 

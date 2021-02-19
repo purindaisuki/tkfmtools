@@ -64,6 +64,21 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.2.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色標籤總覽佈局",
+                            "description": "新增表格佈局"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正排版",
+                            "description": "修正角色總覽在小螢幕時對齊問題"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.1",
                     "content": [
                         {
@@ -155,6 +170,7 @@
             "總覽",
             "篩選"
         ],
+        "layout": "佈局",
         "tagSelectTitle": "標籤選擇",
         "timeSelectTitle": "招募時間",
         "tableHead": [
@@ -402,6 +418,17 @@
             "越戰越強",
             "群體攻擊",
             "回擊"
+        ],
+        "tagAttributes": [
+            "角色",
+            "稀有度",
+            "屬性",
+            "定位",
+            "種族",
+            "體型",
+            "ㄋㄋ",
+            "階級",
+            "其他標籤"
         ],
         "tagWarnMsg": "徵才目前無法取得"
     },

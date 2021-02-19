@@ -14,16 +14,23 @@ import {
     ElseIcon,
 } from './Icon';
 import charTagData from '../characters.json'
+import { IconButton } from '@material-ui/core';
+import { MasonryViewIcon, TableViewIcon } from './Icon'
+import { Table } from 'react-bootstrap';
 
 const TextWrapper = styled.div`
     display: flex;
-    align-items: ${props => props.$lang === 'en' ? 'flex-end' : 'start'};
+    align-items: ${props => props.$lang === 'en'
+        ? 'flex-end'
+        : 'flex-start'
+    };
     @media screen and (max-width: 490px) {
         align-items: flex-end;
     }
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    min-width: 10rem;
     height: 3.6rem;
     background-image: url(${props => props.$img});
     background-repeat: no-repeat;
@@ -31,8 +38,9 @@ const TextWrapper = styled.div`
     background-position: 0 -1.6rem;
     > div {
         ${props => props.$lang === 'en'
-        ? 'margin-right: 1rem'
-        : 'margin-left: 6rem'};
+            ? 'margin-right: 1rem'
+            : 'margin-left: 6rem'
+        };
         transition: all 355ms ease;
         text-shadow: 0 0 1px ${props => props.theme.colors.surface},
         -2px 0 1px  ${props => props.theme.colors.surface},
@@ -59,8 +67,8 @@ const CardHeader = (props) => {
                 $img={`${process.env.PUBLIC_URL}/img/char_small_${props.id}.png`}
                 $lang={userLanguage}
             >
-                <div>{props.name.split(" ").slice(0, -1).join(' ')}</div>
-                <div>{props.name.split(" ").slice(-1)[0]}</div>
+                <div>{props.name.split(' ').slice(0, -1).join(' ')}</div>
+                <div>{props.name.split(' ').slice(-1)[0]}</div>
             </TextWrapper>
         </>
     )
@@ -205,9 +213,212 @@ const CharCard = (props) => {
     )
 }
 
+const TableWrapper = styled.div`
+    overflow-x: auto;
+    overflow-y: auto;
+    height: calc(100vh - 12rem);
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 1rem;
+        height: 1rem;
+        background: ${props => props.theme.colors.surface};
+    }
+    &::-webkit-scrollbar-thumb {
+        background: lightgray;
+        border-radius: .25rem;
+    }
+    &::-webkit-scrollbar-track {
+        background: ${props => props.theme.colors.surface};
+    }
+    &::-webkit-scrollbar-corner {
+        background: ${props => props.theme.colors.surface};
+    }
+`
+const StyledTable = styled(Table)`
+    color: ${props => props.theme.colors.onSurface};
+    thead th {
+        position: sticky;
+        top: 0;
+        padding: .75rem .25rem;
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+    thead th:first-child {
+        padding-left: .75rem;
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid ${props => props.theme.colors.secondary};
+        }
+        td {
+            vertical-align: middle;
+        }
+    }
+    @media screen and (min-width: ${props => (
+        props.$lang === 'en'
+            ? '1300'
+            : '900'
+    )}px) {
+        td:first-child > div {
+            flex-direction: row;
+            align-items: center;
+            justify-content: ${props => (
+                props.$lang === 'en'
+                    ? 'flex-end'
+                    : 'flex-start'
+            )};
+            > div:last-child {
+                margin-left: ${props => (
+                    props.$lang === 'en'
+                        ? '-.8rem'
+                        : '.5rem'
+                )};
+            }
+        }
+    }
+`
+
+const CharTable = () => {
+    const { userLanguage, stringData } = React.useContext(LanguageContext)
+
+    return (
+        <TableWrapper>
+            <StyledTable
+                borderless
+                size='sm'
+                $lang={userLanguage}
+            >
+                <thead>
+                    <tr>
+                        {stringData.characters
+                            .tagAttributes.map((attr, idx) => (
+                                <th key={idx} nowrap='nowrap'>
+                                    {attr}
+                                </th>
+                            ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {charTagData.map((char, i) => {
+                        if (i >= 6 && i <= 8) {
+                            return (
+                                <tr key={i}>
+                                    <td>
+                                        <CardHeader
+                                            id={i + 1}
+                                            name={stringData.characters.name[i]}
+                                        />
+                                    </td>
+                                    <td colSpan='8'>
+                                        {stringData.characters.tagWarnMsg}
+                                    </td>
+                                </tr>
+                            )
+                        }
+
+                        return (
+                            <tr key={i}>
+                                {Object.values(char).map((attr, j) => {
+                                    if (j === 0) {
+                                        return (
+                                            <td key={j}>
+                                                <CardHeader
+                                                    id={i + 1}
+                                                    name={stringData.characters.name[i]}
+                                                />
+                                            </td>
+                                        )
+                                    }
+                                    if (j === 1) {
+                                        let rarity
+                                        switch (attr) {
+                                            case 3:
+                                                rarity = 'SSR'
+                                                break
+                                            case 2:
+                                                rarity = 'SR'
+                                                break
+                                            case 1:
+                                                rarity = 'R'
+                                                break
+                                            default:
+                                                rarity = 'N'
+                                                break
+                                        }
+                                        return <td key={j}>{rarity}</td>
+                                    }
+                                    if (j < 8) {
+                                        let tag
+                                        if (attr.length === 0) {
+                                            tag = '-'
+                                        } else {
+                                            tag = stringData.characters.tags[attr]
+                                        }
+                                        return <td key={j} nowrap='nowrap'>{tag}</td>
+                                    }
+
+                                    return (
+                                        <td key={j} nowrap='nowrap'>
+                                            {attr.map(tag => (
+                                                stringData.characters.tags[tag]
+                                            )).join(', ')}
+                                        </td>
+                                    )
+                                })}
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </StyledTable>
+        </TableWrapper>
+    )
+}
+
+const LayoutBtnContainer = styled.div`
+    position: absolute;
+    right: 0;
+    top: -4rem;
+    @media screen and (max-width: 410px) {
+        font-size: 0;
+    }
+`
+const StyledBtn = styled(IconButton)`
+    padding: .75rem .5rem;
+    svg {
+        fill: ${props => (
+        props.$active
+            ? props.theme.colors.secondary
+            : props.theme.colors.onSurface
+    )};
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+    &:hover {
+        svg {
+            fill: ${props => props.theme.colors.secondary};
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+    }
+`
+const ShowcaseContainer = styled.div`
+    display: ${props => props.$hidden ? 'none' : 'block'}
+`
+
 export default function CharShowcase() {
     const { stringData } = React.useContext(LanguageContext)
     const characters = stringData.characters.name
+
+    const getDefaultLayout = () => {
+        const localSetting = localStorage.getItem('enlist-character-layout')
+        return localSetting ? localSetting : 'Masonry'
+    }
+    const [layout, setLayout] = React.useState(getDefaultLayout)
+
+    const handleLayoutChange = (toLayout) => () => {
+        setLayout(toLayout)
+        localStorage.setItem('enlist-character-layout', toLayout)
+    }
 
     const breakpointColumnsConfig = {
         default: 6,
@@ -218,16 +429,40 @@ export default function CharShowcase() {
     };
 
     return (
-        <MyMasonry
-            breakpointCols={breakpointColumnsConfig}
-        >
-            {characters.slice(0, characters.length - 1).map((char, idx) => (
-                <CharCard
-                    header={<CardHeader id={idx + 1} name={char} />}
-                    body={<CardBody id={idx} />}
-                    key={idx}
-                />
-            ))}
-        </MyMasonry>
+        <>
+            <LayoutBtnContainer>
+                {stringData.enlist.layout}
+                <StyledBtn
+                    $active={layout === 'Masonry'}
+                    onClick={handleLayoutChange('Masonry')}
+                >
+                    {MasonryViewIcon}
+                </StyledBtn>
+                <StyledBtn
+                    $active={layout === 'Table'}
+                    onClick={handleLayoutChange('Table')}
+                >
+                    {TableViewIcon}
+                </StyledBtn>
+            </LayoutBtnContainer>
+            <ShowcaseContainer $hidden={layout !== 'Masonry'}>
+                <MyMasonry
+                    breakpointCols={breakpointColumnsConfig}
+                >
+                    {characters.slice(0, characters.length - 1).map((char, idx) => (
+                        <CharCard
+                            header={<CardHeader id={idx + 1} name={char} />}
+                            body={<CardBody id={idx} />}
+                            key={idx}
+                        />
+                    ))}
+                </MyMasonry>
+            </ShowcaseContainer>
+            <ShowcaseContainer $hidden={layout !== 'Table'}>
+                <CharTable>
+
+                </CharTable>
+            </ShowcaseContainer>
+        </>
     )
 }

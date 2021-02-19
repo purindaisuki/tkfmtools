@@ -57,6 +57,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.2.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Layout of character tags overview",
+                            "description": "Add table view."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix layout",
+                            "description": "Fix text align of character names in character tags overview on small screen."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.1",
                     "content": [
                         {
@@ -148,6 +163,7 @@
             "Overview",
             "Filter"
         ],
+        "layout": "Layout",
         "tagSelectTitle": "Tag Selection",
         "timeSelectTitle": "Recruitment time",
         "tableHead": [
@@ -390,7 +406,18 @@
             "AoE",
             "Counterstrike"
         ],
-        "tagWarnMsg": "Not availible"
+        "tagAttributes": [
+            "Character",
+            "Rarity",
+            "Attribute",
+            "Position",
+            "Race",
+            "Body size",
+            "Oppai",
+            "Rank",
+            "Else tags"
+        ],
+        "tagWarnMsg": "Not available"
     },
     "items": {
         "name": [

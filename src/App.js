@@ -4,7 +4,7 @@ import { MainNavbar, Sidebar } from './components/Navbars';
 import { lightTheme, darkTheme } from './components/Theme';
 import LanguageProvider from './components/LanguageProvider';
 import { Route } from 'react-router-dom';
-import { routes } from './Routes'
+import { routes } from './routes'
 import ToTopBtn from './components/ToTopBtn';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';

@@ -35,7 +35,6 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
     }
     .dropdown-menu {
         top: 120%;
-        right: 0;
         border: none;
         background-color: ${props => props.theme.colors.surface};
         box-shadow: 0 0 .15em ${props => props.theme.colors.shadow};
@@ -66,6 +65,7 @@ function LanguageSwitcher() {
             title={LanguageIcon}
             onSelect={handleUserLanguage}
             bsPrefix='escape'
+            menuAlign='right'
         >
             <Dropdown.Item eventKey='zh-TW'>繁體中文</Dropdown.Item>
             <Dropdown.Item eventKey='en'>English</Dropdown.Item>
