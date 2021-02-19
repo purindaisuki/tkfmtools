@@ -19,7 +19,7 @@ export const lightTheme = {
         dropdownHover: 'lightgray'
     },
     switcher: {
-        iconOffest: '28px',
+        iconOffest: '1.8rem',
         iconUrl: `${process.env.PUBLIC_URL}/img/sun.svg`
     }
 }

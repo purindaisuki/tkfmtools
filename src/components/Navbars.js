@@ -18,7 +18,8 @@ import { LanguageIcon } from './Icon';
 import { LanguageContext } from './LanguageProvider';
 
 const StyledLanguageSwitcher = styled(DropdownButton)`
-    padding: 0 1.25rem;
+    padding: 0;
+    padding-right: 1.25rem;
     button {
         margin: 0;
         padding: 0;
@@ -28,8 +29,8 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
         background-color: ${props => props.theme.colors.primary};
     }
     svg {
-        width: 1.6rem;
-        height: 1.6rem;
+        width: 1.4rem;
+        height: 1.4rem;
         fill: ${props => props.theme.colors.onPrimary};
     }
     .dropdown-menu {
@@ -88,8 +89,8 @@ const ThemeSwitcherLabel = styled.label`
     position: relative;
     display: inline-block;
     margin-bottom: 0;
-    width: 52px;
-    height: 26px;
+    width: 3.2rem;
+    height: 1.6rem;
 `
 const Slider = styled.span`
     position: absolute;
@@ -98,16 +99,18 @@ const Slider = styled.span`
     background-color: ${props => props.theme.colors.slider};
     background-position: ${props => props.theme.switcher.iconOffest};
     background-repeat: no-repeat;
-    background-size: 18px 18px;
+    background-size: 1rem 1rem;
     -webkit-transition: .4s;
     transition: .4s;
-    border-radius: 26px;
+    border-radius: 2rem;
     background-image: url(${props => props.theme.switcher.iconUrl});
     &:before {
         position: absolute;
         content: "";
-        height: 18px; width: 18px;
-        left: 4px; bottom: 4px;
+        height: 1.2rem;
+        width: 1.2rem;
+        left: .2rem;
+        bottom: .2rem;
         border-radius: 50%;
         background-color: #D7CCC8;
         -webkit-transition: .4s;
@@ -120,16 +123,19 @@ const ThemeSwitcherSwither = styled.input`
     height: 0;
     &:checked + ${Slider} {
         &:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
+            -webkit-transform: translateX(1.6rem);
+            -ms-transform: translateX(1.6rem);
+            transform: translateX(1.6rem);
         }
     }
 `
-const Text = styled(Link)`
+const MenuBtn = styled(Navbar.Brand)`
+    cursor: pointer;
+`
+const Text = styled.div`
     font-size: x-large;
     @media screen and (max-width: 490px) {
-        font-size: 0;
+        font-size: 1.2rem;
     }
     font-weight: bold;
     color: ${props => props.theme.colors.onPrimary};
@@ -152,12 +158,17 @@ const Svg = styled.div`
 export function MainNavbar(props) {
     const { stringData } = React.useContext(LanguageContext)
 
+    const path = /\/(?:.(?!\/))+$/.exec(window.location)
+    const title = path === null
+        ? stringData.home.documentTitle
+        : stringData[path[0].slice(1)].name
+
     return (
         <StyledMainNavBar>
-            <Navbar.Brand href='#' onClick={props.toggleSidebar(true)}>
+            <MenuBtn href='' onClick={props.toggleSidebar(true)}>
                 <Svg>{MenuIcon}</Svg>
-            </Navbar.Brand>
-            <Text to='/'>{stringData.home.documentTitle}</Text>
+            </MenuBtn>
+            <Text>{title}</Text>
             <Nav className='ml-auto'>
                 <LanguageSwitcher
                     handleLanguage={props.handleLanguage}

@@ -15,27 +15,49 @@ import {
 } from './Icon';
 import charTagData from '../characters.json'
 
-const Img = styled.img`
-    width: 6rem;
-    height: 6rem;
-    margin-top: -1.6rem;
-    margin-bottom: -.8rem;
-    margin-left: .4rem;
-    margin-right: calc((100% - 13.4rem) / 2);
+const TextWrapper = styled.div`
+    display: flex;
+    align-items: ${props => props.$lang === 'en' ? 'end' : 'start'};
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 3.6rem;
+    background-image: url(${props => props.$img});
+    background-repeat: no-repeat;
+    background-size: 6rem 6rem;
+    background-position: 0 -1.6rem;
+    > div {
+        ${props => props.$lang === 'en'
+        ? 'margin-right: 1rem'
+        : 'margin-left: 6rem'};
+        transition: all 355ms ease;
+        text-shadow: 0 0 1px ${props => props.theme.colors.surface},
+        -2px 0 1px  ${props => props.theme.colors.surface},
+        2px 0 1px  ${props => props.theme.colors.surface},
+        0 -2px 1px ${props => props.theme.colors.surface},
+        0 2px 1px  ${props => props.theme.colors.surface},
+        2px 2px 1px ${props => props.theme.colors.surface},
+        2px -2px 1px ${props => props.theme.colors.surface},
+        -2px 2px 1px ${props => props.theme.colors.surface},
+        -2px -2px 1px ${props => props.theme.colors.surface};
+    }
 `
 
-const CardHeader = (props) => (
-    <>
-        <Img
-            src={`${process.env.PUBLIC_URL}/img/char_small_${props.id}.png`}
-            alt=''
-        />
-        <div>
-            <div>{props.name.split(" ").slice(0, -1).join(' ')}</div>
-            <div>{props.name.split(" ").slice(-1)[0]}</div>
-        </div>
-    </>
-)
+const CardHeader = (props) => {
+    const { userLanguage } = React.useContext(LanguageContext)
+
+    return (
+        <>
+            <TextWrapper
+                $img={`${process.env.PUBLIC_URL}/img/char_small_${props.id}.png`}
+                $lang={userLanguage}
+            >
+                <div>{props.name.split(" ").slice(0, -1).join(' ')}</div>
+                <div>{props.name.split(" ").slice(-1)[0]}</div>
+            </TextWrapper>
+        </>
+    )
+}
 
 const IconWrapper = styled.div`
     margin-bottom: .1rem;
@@ -135,7 +157,7 @@ const AccordionWrapper = styled.div`
             > .MuiAccordionSummary-content {
                 display: flex;
                 align-items: center;
-                justify-content: start;
+                justify-content: space-between;
                 overflow: hidden;
                 border-radius: .25rem;
                 padding: 0;
@@ -179,10 +201,9 @@ const CharCard = (props) => {
 export default function CharShowcase() {
     const { stringData } = React.useContext(LanguageContext)
     const characters = stringData.characters.name
-    const tags = stringData.characters.tags
 
     const breakpointColumnsConfig = {
-        default: 5,
+        default: 6,
         1360: 5,
         1200: 4,
         992: 3,
