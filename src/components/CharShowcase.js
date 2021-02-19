@@ -18,6 +18,9 @@ import charTagData from '../characters.json'
 const TextWrapper = styled.div`
     display: flex;
     align-items: ${props => props.$lang === 'en' ? 'end' : 'start'};
+    @media screen and (max-width: 490px) {
+        align-items: end;
+    }
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -40,6 +43,10 @@ const TextWrapper = styled.div`
         2px -2px 1px ${props => props.theme.colors.surface},
         -2px 2px 1px ${props => props.theme.colors.surface},
         -2px -2px 1px ${props => props.theme.colors.surface};
+        @media screen and (max-width: 490px) {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
     }
 `
 
