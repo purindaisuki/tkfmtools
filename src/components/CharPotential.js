@@ -168,9 +168,9 @@ const MaterialWrapper = styled.span`
     justify-content: space-between;
     padding: 0 .4rem;
     margin: .2rem 0;
-    ${props => Object.entries(props.$layoutConfig).map(entries => (
-    `@media screen and (min-width: ${entries[0]}px) {
-            width: calc(100% / ${entries[1]});
+    ${props => Object.entries(props.$layoutConfig).map(entry => (
+    `@media screen and (min-width: ${entry[0]}px) {
+            width: calc(100% / ${entry[1]});
         }
         `
     ))}

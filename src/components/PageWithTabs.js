@@ -64,15 +64,17 @@ const StyledTabs = styled(Tabs)`
 export default function PageWithTabs(props) {
     const { userLanguage } = React.useContext(LanguageContext)
 
+    const location = /\/(?:.(?!\/))+$/.exec(window.location)[0]
+
     const getDefaultTab = () => {
-        const localSetting = localStorage.getItem(props.title + 'select-tab')
+        const localSetting = localStorage.getItem(location + '-select-tab')
         return localSetting ? parseInt(localSetting) : 0
     }
     const [tab, setTab] = useState(getDefaultTab)
 
     const handleTabChange = (event, toTab) => {
         setTab(toTab)
-        localStorage.setItem(props.title + 'select-tab', toTab)
+        localStorage.setItem(location + '-select-tab', toTab)
     }
     React.useEffect(() => {
         document.title = props.title

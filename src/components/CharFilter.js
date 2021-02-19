@@ -25,9 +25,9 @@ import { LanguageContext } from './LanguageProvider';
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
     gap: .5rem;
-    ${props => Object.entries(props.$layoutConfig).map(entries => (
-    `@media screen and (min-width: ${entries[0]}px) {
-            grid-template-columns: repeat(${entries[1]}, 1fr);
+    ${props => Object.entries(props.$layoutConfig).map(entry => (
+    `@media screen and (min-width: ${entry[0]}px) {
+            grid-template-columns: repeat(${entry[1]}, 1fr);
         }
         `
     ))}

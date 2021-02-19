@@ -45,7 +45,7 @@ const AccordionWrapper = styled.div`
         > .MuiAccordionSummary-root,
         > .MuiAccordionSummary-root.Mui-expanded {
             padding: .75rem 1.25rem;
-            border-radius: .2rem;
+            border-radius: .25rem;
         }
         > .MuiAccordionSummary-root.Mui-expanded {
             border-bottom-right-radius: 0;
@@ -98,6 +98,7 @@ export default function Home() {
                     <MyAccordion
                         expanded={expanded === idx}
                         onChange={handleExpand(idx)}
+                        square={false}
                         expandIcon={ExpandMoreIcon}
                         title={item.header}
                         content={item.body}

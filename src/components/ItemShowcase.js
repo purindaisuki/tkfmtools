@@ -1,47 +1,69 @@
 import React from 'react';
-import { Accordion, Card, Table } from 'react-bootstrap';
-import Masonry from 'react-masonry-css'
+import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import data from '../item.json'
 import { LanguageContext } from './LanguageProvider';
+import MyMasonry from './MyMasonry'
+import MyAccordion from './MyAccordion';
 
-const StyleCardContainer = styled(Accordion)`
-  box-shadow: 0 0 .15em lightgray;
-  border-radius: .25rem;
-  margin-bottom: 1rem;
-  border: 1px solid ${props => props.theme.colors.border};
-  > .card:first-of-type {
-    border-radius: .25rem;
-  }
-  &:hover {
-    box-shadow: 0 0 .25em ${props => props.theme.colors.shadow};
-  }
-`
-const StyleCard = styled(Card)`
-  border: none;
-  background-color: ${props => props.theme.colors.surface};
-`
-const StyledCardHeader = styled(Card.Header)`
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  color: ${props => props.theme.colors.onSurface};
-  border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const StyledCardImg = styled(Card.Img)`
-  width: 2.5rem; height: 2.5rem;
+const ImgWrapper = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: .4rem;
   user-select: none;
 `
-const StyledCardTitle = styled(Card.Title)`
+const StyledHeader = styled.div`
   white-space: nowrap;
   font-size: medium;
   font-weight: normal;
-  margin-bottom: none;
 `
-const StyledCardBody = styled(Card.Body)`
-  padding: 0;
+
+const ItemCardHeader = (props) => {
+    const { stringData } = React.useContext(LanguageContext)
+
+    return (
+        <>
+            <ImgWrapper
+                src={`${process.env.PUBLIC_URL}/img/item_${props.id}.png`}
+                alt=''
+            />
+            <StyledHeader>
+                {stringData.items.name[props.name]}
+            </StyledHeader>
+        </>
+    )
+}
+
+const EnergyIconWrapper = styled.img`
+  width: 1.2rem;
+  height: 1.2rem;
 `
-const CardTable = styled(Table)`
+
+const CardBodyContnet = (props) => {
+    const { stringData } = React.useContext(LanguageContext)
+
+    return (
+        <tbody>
+            {props.drop.map((drop, idx) => (
+                <tr key={idx}>
+                    <td>
+                        {`${drop.chapter}-${drop.stage}`}
+                    </td>
+                    <td>{stringData.items.rarity[drop.rarity]}</td>
+                    <td>
+                        <EnergyIconWrapper
+                            src={`${process.env.PUBLIC_URL}/img/energy.png`}
+                            alt={stringData.potential.filter.tableHead[2]}
+                        />
+                        {drop.energy}
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    )
+}
+
+const StyledTable = styled(Table)`
   font-size: .9rem;
   color: ${props => props.theme.colors.onSurface};
   margin: 0;
@@ -49,94 +71,105 @@ const CardTable = styled(Table)`
     padding-left: .75rem;
   }
 `
-const CardTableImg = styled.img`
-  width: 1.2rem; height: 1.2rem;
+
+export const ItemCardBody = (props) => {
+    return (
+        <StyledTable
+            striped
+            borderless
+            size="sm"
+        >
+            {props.children}
+        </StyledTable>
+    )
+}
+
+const AccordionWrapper = styled.div`
+    margin-bottom: 1rem;
+    > .MuiAccordion-root {
+        background-color: ${props => props.theme.colors.surface};
+        border: 1px solid ${props => props.theme.colors.border};
+        border-radius: .25rem;
+        box-shadow: 0 0 .15em lightgray;
+        > .MuiAccordionSummary-root {
+            border-bottom: 1px solid ${props => props.theme.colors.surface};
+        }
+        > .MuiAccordionSummary-root,
+        > .MuiAccordionSummary-root.Mui-expanded {
+            padding: .75rem 1.25rem;
+            border-radius: .25rem;
+            > .MuiAccordionSummary-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: .25rem;
+                margin: 0;
+            }
+        }
+        > .MuiAccordionSummary-root.Mui-expanded {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom: 1px solid ${props => props.theme.colors.border};
+        }
+        > .MuiCollapse-container {
+            border-radius: .2rem;
+            > div > div > div > .MuiAccordionDetails-root {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
 `
-const StyledMasonry = styled(Masonry)`
-  display: flex;
-  width: auto;
-  margin-left: -1rem;
-  > div {
-    padding-left: 1rem;
-    background-clip: padding-box;
-  }
-`
-const breakpointColumnsConfig = {
-  default: 6,
-  1360: 5,
-  1200: 4,
-  992: 3,
-  768: 2
-};
+
+const ItemCard = (props) => {
+    const [isExpanded, setExpanded] = React.useState(false)
+
+    return (
+        <AccordionWrapper>
+            <MyAccordion
+                expanded={isExpanded}
+                onChange={() => setExpanded(!isExpanded)}
+                square={false}
+                title={props.header}
+                content={props.body}
+            />
+        </AccordionWrapper>
+    )
+}
 
 export default function ItemShowcase() {
-  const { stringData } = React.useContext(LanguageContext)
+    const breakpointColumnsConfig = {
+        default: 6,
+        1360: 5,
+        1200: 4,
+        992: 3,
+        768: 2
+    };
 
-  const [cardActiveKeys, setCardActiveKeys] = React.useState(Array(data.length).fill('0'))
-
-  const handleCardClick = (idx) => {
-    let copyActiveKeys = cardActiveKeys.slice()
-    copyActiveKeys[idx] ? copyActiveKeys[idx] = undefined : copyActiveKeys[idx] = '0'
-    setCardActiveKeys(copyActiveKeys)
-  }
-
-  return (
-    <StyledMasonry
-      breakpointCols={breakpointColumnsConfig}
-      columnClassName=''
-    >
-      {data.map((item, idx) => {
-        if (item.drop.length === 0) return true
-
-        return (
-          <StyleCardContainer defaultActiveKey={cardActiveKeys[idx]} key={item.id}>
-            <StyleCard>
-              <Accordion.Toggle
-                as={StyledCardHeader}
-                eventKey='0'
-                onClick={() => handleCardClick(idx)}
-              >
-                <StyledCardImg
-                  src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                  alt=''
-                />
-                <StyledCardTitle>
-                  {stringData.items.name[item.name]}
-                </StyledCardTitle>
-              </Accordion.Toggle>
-              <StyledCardBody>
-                <Accordion.Collapse eventKey="0">
-                  <CardTable
-                    striped
-                    borderless
-                    size="sm"
-                  >
-                    <tbody>
-                      {item.drop.map((drop, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td>
-                              {`${drop.chapter}-${drop.stage}`}
-                            </td>
-                            <td>{stringData.items.rarity[drop.rarity]}</td>
-                            <td>
-                              <CardTableImg
-                                src={`${process.env.PUBLIC_URL}/img/energy.png`}
-                                alt={stringData.potential.filter.tableHead[2]}
-                              />
-                              {drop.energy}
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </CardTable>
-                </Accordion.Collapse>
-              </StyledCardBody>
-            </StyleCard>
-          </StyleCardContainer>
-        )
-      })}
-    </StyledMasonry>
-  )
+    return (
+        <MyMasonry
+            breakpointCols={breakpointColumnsConfig}
+        >
+            {data.map((item, idx) => (
+                item.drop.length === 0
+                    ? true
+                    : <ItemCard
+                        key={idx}
+                        header={
+                            <ItemCardHeader
+                                id={item.id}
+                                name={item.name}
+                            />
+                        }
+                        body={
+                            <ItemCardBody>
+                                <CardBodyContnet
+                                    drop={item.drop}
+                                />
+                            </ItemCardBody>
+                        }
+                    />
+            ))}
+        </MyMasonry>
+    )
 }

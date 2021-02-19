@@ -40,7 +40,7 @@ export default function MyAccordion(props) {
         <StyledAccordion
             expanded={props.expanded}
             onChange={props.onChange}
-            square={true}
+            square={props.square}
         >
             <AccordionSummary
                 expandIcon={props.expandIcon}

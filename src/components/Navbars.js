@@ -332,6 +332,7 @@ function SidebarAccordions(props) {
                 <MyAccordion
                     expanded={isExpanded}
                     onChange={() => setExpanded(!isExpanded)}
+                    square={true}
                     expandIcon={ExpandMoreIcon}
                     title={
                         <>

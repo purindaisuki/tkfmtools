@@ -142,6 +142,7 @@ function LogMsg(props) {
             <MyAccordion
                 expanded={isExpanded}
                 onChange={() => setExpanded(!isExpanded)}
+                square={true}
                 title={
                     <>
                         <Badge />
