@@ -65,6 +65,21 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.2.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色標籤總覽",
+                            "description": "新增角色標籤總覽功能"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正排版",
+                            "description": "修正英文版材料總覽在小螢幕時行數錯誤"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2",
                     "content": [
                         {
@@ -138,6 +153,7 @@
         "name": "全境徵才",
         "documentTitle": "天下布魔工具箱 — 全境徵才",
         "label": [
+            "總覽",
             "篩選"
         ],
         "tagSelectTitle": "標籤選擇",
@@ -387,7 +403,8 @@
             "越戰越強",
             "群體攻擊",
             "回擊"
-        ]
+        ],
+        "tagWarnMsg": "徵才目前無法取得"
     },
     "items": {
         "name": [

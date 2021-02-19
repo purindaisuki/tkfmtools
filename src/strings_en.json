@@ -58,6 +58,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.2.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Overview of character tags",
+                            "description": "Show tags characters have."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix layout",
+                            "description": "Fix layout of material overview on small screen in English version."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2",
                     "content": [
                         {
@@ -131,6 +146,7 @@
         "name": "Recruitment",
         "documentTitle": "Tenkafu MA! toolbox — Recruitment",
         "label": [
+            "Overview",
             "Filter"
         ],
         "tagSelectTitle": "Tag Selection",
@@ -374,7 +390,8 @@
             "More Power",
             "AoE",
             "Counterstrike"
-        ]
+        ],
+        "tagWarnMsg": "Not availible"
     },
     "items": {
         "name": [
