@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { MainNavbar, Sidebar } from './components/Navbars';
 import { lightTheme, darkTheme } from './components/Theme';
 import LanguageProvider from './components/LanguageProvider';
-import Home from './pages/Home';
-import Enlist from './pages/Enlist';
-import Potential from './pages/Potential';
+import { Route } from 'react-router-dom';
+import { routes } from './Routes'
 import ToTopBtn from './components/ToTopBtn';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
@@ -62,7 +60,7 @@ export default function App() {
             ...state,
             sidebarOpen: toOpen
         }))
-    };
+    }
 
     return (
         <LanguageProvider>
@@ -80,19 +78,17 @@ export default function App() {
                         toggleSidebar={toggleSidebar}
                     />
                     <Main>
-                        <Route
-                            path='/'
-                            exact
-                            render={() => <Home />}
-                        />
-                        <Route
-                            path='/potential'
-                            render={() => <Potential />}
-                        />
-                        <Route
-                            path='/enlist'
-                            render={() => <Enlist />}
-                        />
+                        {routes.map((route, idx) => {
+                            const { path, exact } = route;
+                            return (
+                                <Route
+                                    key={idx}
+                                    path={path}
+                                    exact={exact}
+                                    render={() => <route.component />}
+                                />
+                            );
+                        })}
                     </Main>
                     <ToTopBtn />
                 </Body>
