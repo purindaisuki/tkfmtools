@@ -17,9 +17,9 @@ import charTagData from '../characters.json'
 
 const TextWrapper = styled.div`
     display: flex;
-    align-items: ${props => props.$lang === 'en' ? 'end' : 'start'};
+    align-items: ${props => props.$lang === 'en' ? 'flex-end' : 'start'};
     @media screen and (max-width: 490px) {
-        align-items: end;
+        align-items: flex-end;
     }
     flex-direction: column;
     justify-content: center;
