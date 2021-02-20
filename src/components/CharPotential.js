@@ -1,12 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
-import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './Icon';
-import { Col, Form } from 'react-bootstrap';
-import data from '../../src/characterPotential.json';
 import { Snackbar } from '@material-ui/core';
+import { Col, Form } from 'react-bootstrap';
+import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
+import charPotentialData from '../gamedata/characterPotential.json';
 import { LanguageContext } from './LanguageProvider';
+import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
 
+const IconWrapper = styled.div`
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: .4rem;
+        fill: ${props => props.theme.colors.onSurface};
+    }
+`
+const ContainerBody = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+`
+const CharImgWrapper = styled.img`
+    height: 15rem;
+    margin-right: 1rem;
+    border: 2px solid ${props => props.theme.colors.secondary};
+    border-radius: .25rem;
+`
 const Select = styled(Form.Control)`
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
@@ -18,31 +37,11 @@ const Select = styled(Form.Control)`
         box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
     }
 `
-const IconWrapper = styled.div`
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        margin-right: .4rem;
-        fill: ${props => props.theme.colors.onSurface};
-    }
-`
-const CharImgWrapper = styled.img`
-    height: 15rem;
-    margin-right: 1rem;
-    border: 2px solid ${props => props.theme.colors.secondary};
-    border-radius: .25rem;
-`
-const ContainerBody = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-`
 const Gutter = styled.div`
     margin-top: 3rem;
 `
-
 const SelectPanel = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString, charString } = React.useContext(LanguageContext)
 
     const widthConfig = {
         default: '25%',
@@ -55,18 +54,22 @@ const SelectPanel = (props) => {
                 title={
                     <IconWrapper>
                         {RaceIcon}
-                        {stringData.potential.character.characterPanelTitle}
+                        {pageString.potential.character.characterPanelTitle}
                     </IconWrapper>
                 }
             />
             <ContainerBody>
                 <CharImgWrapper
-                    src={`${process.env.PUBLIC_URL}/img/char_${data.characters[props.character].id}.png`}
+                    src={
+                        `${process.env.PUBLIC_URL}/img/char_${
+                            charPotentialData.characters[props.character].id
+                        }.png`
+                    }
                     alt=''
                 />
                 <div>
                     <Form>
-                        {stringData.potential.character.characterSelectTitle}
+                        {pageString.potential.character.characterSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -77,16 +80,16 @@ const SelectPanel = (props) => {
                                     onChange={props.handleSelect('character')}
                                 >
                                     {
-                                        Object.keys(data.characters)
+                                        Object.keys(charPotentialData.characters)
                                             .map((c, idx) => <option key={idx}>
-                                                {stringData.characters.name[parseInt(c)]}
+                                                {charString.name[parseInt(c)]}
                                             </option>)
                                     }
                                 </Select>
                             </Form.Group>
                         </Form.Row>
                         <Gutter />
-                        {stringData.potential.character.currentSelectTitle}
+                        {pageString.potential.character.currentSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -112,7 +115,7 @@ const SelectPanel = (props) => {
                                 </Select>
                             </Form.Group>
                         </Form.Row>
-                        {stringData.potential.character.targetSelectTitle}
+                        {pageString.potential.character.targetSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -145,16 +148,6 @@ const SelectPanel = (props) => {
     )
 }
 
-const ImgMaterialWrapper = styled.img`
-    width: 2rem;
-    height: 2rem;
-    margin-right: .4rem;
-`
-const ImgOtherWrapper = styled.img`
-    width: 1.6rem;
-    height: 1.6rem;
-    margin-right: .4rem;
-`
 const MaterialContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -175,6 +168,11 @@ const MaterialWrapper = styled.span`
         `
     ))}
 `
+const MaterialImg = styled.img`
+    width: 2rem;
+    height: 2rem;
+    margin-right: .4rem;
+`
 const HelpIconWrapper = styled.div`
     margin-right: auto;
     svg {
@@ -186,23 +184,27 @@ const HelpIconWrapper = styled.div`
         vertical-align: top;
     }
 `
-
+const OtherImg = styled.img`
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: .4rem;
+`
 const ResultPanel = (props) => {
-    const { userLanguage, stringData } = React.useContext(LanguageContext)
+    const { userLanguage, pageString, itemString } = React.useContext(LanguageContext)
 
     const [modalOpen, setModalOpen] = React.useState(false)
 
     const itemIdToName = (id) => {
-        if (id === '801') return stringData.items.name[35]
-        if (id === '901') return stringData.items.name[36]
+        if (id === '801') return itemString.name[35]
+        if (id === '901') return itemString.name[36]
 
         const rank = Math.floor(id / 100)
         const item = id % 100
         if (rank <= 3) {
-            return stringData.items.name[rank * 5 + item - 1]
+            return itemString.name[rank * 5 + item - 1]
         }
 
-        return stringData.items.name[rank * 5 + item + 4]
+        return itemString.name[rank * 5 + item + 4]
     }
 
     const resultLayoutConfig = userLanguage === 'en'
@@ -231,9 +233,11 @@ const ResultPanel = (props) => {
                         $layoutConfig={resultLayoutConfig}
                     >
                         <div>
-                            <ImgMaterialWrapper
+                            <MaterialImg
                                 src={
-                                    `${process.env.PUBLIC_URL}/img/item_${('00' + item[0]).slice(-3)}.png`
+                                    `${process.env.PUBLIC_URL}/img/item_${
+                                        ('00' + item[0]).slice(-3)
+                                    }.png`
                                 }
                                 alt=''
                             />
@@ -245,7 +249,7 @@ const ResultPanel = (props) => {
                 <MaterialWrapper
                     $layoutConfig={resultLayoutConfig}
                 >
-                    <ImgMaterialWrapper
+                    <MaterialImg
                         src={`${process.env.PUBLIC_URL}/img/money.png`}
                         alt='money'
                     />
@@ -262,7 +266,7 @@ const ResultPanel = (props) => {
                     title={
                         <IconWrapper>
                             {ItemIcon}
-                            {stringData.potential.character.resultDemandTitle}
+                            {pageString.potential.character.resultDemandTitle}
                             <HelpIconWrapper
                                 onClick={() => setModalOpen(true)}
                             >
@@ -280,7 +284,7 @@ const ResultPanel = (props) => {
                     title={
                         <IconWrapper>
                             {BuffIcon}
-                            {stringData.potential.character.resultBuffTitle}
+                            {pageString.potential.character.resultBuffTitle}
                         </IconWrapper>
                     }
                 />
@@ -289,7 +293,7 @@ const ResultPanel = (props) => {
                         $layoutConfig={resultLayoutConfig}
                     >
                         <div>
-                            <ImgOtherWrapper
+                            <OtherImg
                                 src={`${process.env.PUBLIC_URL}/img/ATK.png`}
                                 alt='ATK'
                             />
@@ -300,7 +304,7 @@ const ResultPanel = (props) => {
                         $layoutConfig={resultLayoutConfig}
                     >
                         <div>
-                            <ImgOtherWrapper
+                            <OtherImg
                                 src={`${process.env.PUBLIC_URL}/img/HP.png`}
                                 alt='HP'
                             />
@@ -312,7 +316,7 @@ const ResultPanel = (props) => {
             <HelpModal
                 modalOpen={modalOpen}
                 handleModalClose={() => setModalOpen(false)}
-                content={stringData.potential.character.modal}
+                content={pageString.potential.character.modal}
             />
         </FilterPanel>
     )
@@ -365,14 +369,13 @@ const TableGutter = styled.div`
         padding: 0;
     }
 `
-
 const resultPanelWidthConfig = {
     default: 'calc(75% - 1rem)',
     992: '100%',
 }
 
 export default function CharPotential() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString, charString } = React.useContext(LanguageContext)
 
     const [state, setState] = React.useState({
         character: '0',
@@ -399,7 +402,7 @@ export default function CharPotential() {
 
         // parse character name to id
         const selected = attr === 'character'
-            ? stringData.characters.name.indexOf(event.target.value).toString()
+            ? charString.name.indexOf(event.target.value).toString()
             : event.target.value
 
         newState[attr] = selected
@@ -435,8 +438,8 @@ export default function CharPotential() {
             },
         }
         // calculate demand
-        const type = data.characters[newState.character].type
-        const stages = data.type[type]
+        const type = charPotentialData.characters[newState.character].type
+        const stages = charPotentialData.type[type]
         const start = newState.currStage - 1
         const end = newState.targetStage - 1
         for (let i = start; i < end + 1; i++) {
@@ -453,14 +456,14 @@ export default function CharPotential() {
                     result.items[id] = stage.num[j]
                 }
                 result.money += (i + 1) * 8000
-                let buff = data.itemMap[stage.pattern[j]].type
+                let buff = charPotentialData.itemMap[stage.pattern[j]].type
                 result.buff[buff] += stage.buff[j]
             }
         }
         // parse result
         let parsedItem = {}
         for (const [key, value] of Object.entries(result.items)) {
-            let itemId = data.itemMap[key[0]].id.map(id => (
+            let itemId = charPotentialData.itemMap[key[0]].id.map(id => (
                 (parseInt(key[1]) * 100 + id).toString()
             ))
             for (let i of itemId) {
@@ -498,7 +501,7 @@ export default function CharPotential() {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                message={stringData.potential.character.snackbarMsg}
+                message={pageString.potential.character.snackbarMsg}
                 action={AlertIcon}
             />
             <SelectPanel

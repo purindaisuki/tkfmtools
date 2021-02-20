@@ -34,7 +34,6 @@ const StyledAccordion = styled(Accordion)`
         color: ${props => props.theme.colors.onSurface};
     }
 `
-
 export default function MyAccordion(props) {
     return (
         <StyledAccordion

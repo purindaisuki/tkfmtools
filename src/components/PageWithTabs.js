@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import styled from 'styled-components';
 import { LanguageContext } from './LanguageProvider';
 
 const TabPanel = styled.div`
@@ -70,7 +70,7 @@ export default function PageWithTabs(props) {
         const localSetting = localStorage.getItem(location + '-select-tab')
         return localSetting ? parseInt(localSetting) : 0
     }
-    const [tab, setTab] = useState(getDefaultTab)
+    const [tab, setTab] = React.useState(getDefaultTab)
 
     const handleTabChange = (event, toTab) => {
         setTab(toTab)

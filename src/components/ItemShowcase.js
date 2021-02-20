@@ -1,12 +1,12 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
-import data from '../item.json'
-import { LanguageContext } from './LanguageProvider';
+import { Table } from 'react-bootstrap';
 import MyMasonry from './MyMasonry'
 import MyAccordion from './MyAccordion';
+import itemDropData from '../gamedata/itemDrop.json';
+import { LanguageContext } from './LanguageProvider';
 
-const ImgWrapper = styled.img`
+const ItemImg = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   margin-right: .4rem;
@@ -17,30 +17,28 @@ const StyledHeader = styled.div`
   font-size: medium;
   font-weight: normal;
 `
-
 const ItemCardHeader = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { itemString } = React.useContext(LanguageContext)
 
     return (
         <>
-            <ImgWrapper
+            <ItemImg
                 src={`${process.env.PUBLIC_URL}/img/item_${props.id}.png`}
                 alt=''
             />
             <StyledHeader>
-                {stringData.items.name[props.name]}
+                {itemString.name[props.name]}
             </StyledHeader>
         </>
     )
 }
 
-const EnergyIconWrapper = styled.img`
+const EnergyIcon = styled.img`
   width: 1.2rem;
   height: 1.2rem;
 `
-
 const CardBodyContnet = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString, itemString } = React.useContext(LanguageContext)
 
     return (
         <tbody>
@@ -49,11 +47,11 @@ const CardBodyContnet = (props) => {
                     <td>
                         {`${drop.chapter}-${drop.stage}`}
                     </td>
-                    <td>{stringData.items.rarity[drop.rarity]}</td>
+                    <td>{itemString.rarity[drop.rarity]}</td>
                     <td>
-                        <EnergyIconWrapper
+                        <EnergyIcon
                             src={`${process.env.PUBLIC_URL}/img/energy.png`}
-                            alt={stringData.potential.filter.tableHead[2]}
+                            alt={pageString.potential.filter.tableHead[2]}
                         />
                         {drop.energy}
                     </td>
@@ -71,7 +69,6 @@ const StyledTable = styled(Table)`
     padding-left: .75rem;
   }
 `
-
 export const ItemCardBody = (props) => {
     return (
         <StyledTable
@@ -120,7 +117,6 @@ const AccordionWrapper = styled.div`
         }
     }
 `
-
 const ItemCard = (props) => {
     const [isExpanded, setExpanded] = React.useState(false)
 
@@ -150,7 +146,7 @@ export default function ItemShowcase() {
         <MyMasonry
             breakpointCols={breakpointColumnsConfig}
         >
-            {data.map((item, idx) => (
+            {itemDropData.map((item, idx) => (
                 item.drop.length === 0
                     ? true
                     : <ItemCard

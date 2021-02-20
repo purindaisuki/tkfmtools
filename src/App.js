@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { MainNavbar, Sidebar } from './components/Navbars';
-import { lightTheme, darkTheme } from './components/Theme';
-import LanguageProvider from './components/LanguageProvider';
 import { Route } from 'react-router-dom';
-import { routes } from './routes'
+import styled, { ThemeProvider } from 'styled-components';
+import LanguageProvider from './components/LanguageProvider';
+import { MainNavbar, Sidebar } from './components/Navbars';
 import ToTopBtn from './components/ToTopBtn';
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import { lightTheme, darkTheme } from './components/theme';
+import { routes } from './routes'
 
 const Body = styled.div`
     min-height: 100vh;
@@ -18,7 +16,6 @@ const Body = styled.div`
 const Main = styled.main`
     padding: 1rem;
 `
-
 export default function App() {
     const getDefaultTheme = () => {
         const localSetting = localStorage.getItem('color-theme')

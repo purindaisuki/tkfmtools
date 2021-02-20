@@ -1,5 +1,5 @@
-import Masonry from 'react-masonry-css'
 import styled from 'styled-components';
+import Masonry from 'react-masonry-css';
 
 const StyledMasonry = styled(Masonry)`
     display: flex;
@@ -9,7 +9,6 @@ const StyledMasonry = styled(Masonry)`
         padding-left: 1rem;
     }
 `
-
 export default function MyMasonry(props) {
     return (
         <StyledMasonry

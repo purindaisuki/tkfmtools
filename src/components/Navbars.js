@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Drawer } from '@material-ui/core';
+import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
+import MyAccordion from './MyAccordion';
+import { LanguageContext } from './LanguageProvider';
 import {
     ChestIcon,
     EnlistIcon,
@@ -10,12 +14,8 @@ import {
     LinkIcon,
     MenuIcon,
     ToolIcon,
-} from './Icon';
-import MyAccordion from './MyAccordion';
-import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
-import { Drawer } from '@material-ui/core';
-import { LanguageIcon } from './Icon';
-import { LanguageContext } from './LanguageProvider';
+    LanguageIcon,
+} from './icon';
 
 const StyledLanguageSwitcher = styled(DropdownButton)`
     padding: 0;
@@ -54,7 +54,6 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
         }
     }
 `
-
 function LanguageSwitcher() {
     const { setUserLanguage } = React.useContext(LanguageContext)
 
@@ -76,13 +75,35 @@ function LanguageSwitcher() {
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
     transition: all 355ms ease;
-    padding: .8rem 1.25rem;
+    padding: .6rem 1.25rem;
     align-item: end;
     position: sticky;
     top: 0;
     z-index: 2;
     a:nth-of-type(1) {
         padding: 0;
+    }
+`
+const MenuBtn = styled(Navbar.Brand)`
+    cursor: pointer;
+    svg {
+        width: 1.6rem;
+        height: 1.6rem;
+        fill: ${props => props.theme.colors.onPrimary};
+        margin: .4rem;
+        margin-top: .2rem;
+    }
+`
+const Text = styled.div`
+    font-size: x-large;
+    @media screen and (max-width: 490px) {
+        font-size: 1.2rem;
+    }
+    font-weight: bold;
+    color: ${props => props.theme.colors.onPrimary};
+    &:hover {
+        text-decoration: none;
+        color: ${props => props.theme.colors.onPrimary};
     }
 `
 const ThemeSwitcherLabel = styled.label`
@@ -129,44 +150,18 @@ const ThemeSwitcherSwither = styled.input`
         }
     }
 `
-const MenuBtn = styled(Navbar.Brand)`
-    cursor: pointer;
-`
-const Text = styled.div`
-    font-size: x-large;
-    @media screen and (max-width: 490px) {
-        font-size: 1.2rem;
-    }
-    font-weight: bold;
-    color: ${props => props.theme.colors.onPrimary};
-    &:hover {
-        text-decoration: none;
-        color: ${props => props.theme.colors.onPrimary};
-    }
-}
-`
-const Svg = styled.div`
-    svg {
-        width: 1.6rem;
-        height: 1.6rem;
-        fill: ${props => props.theme.colors.onPrimary};
-        margin: .4rem;
-        margin-top: .2rem;
-    }
-`
-
 export function MainNavbar(props) {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     const path = /\/(?:.(?!\/))+$/.exec(window.location)
     const title = path === null
-        ? stringData.home.documentTitle
-        : stringData[path[0].slice(1)].name
+        ? pageString.home.documentTitle
+        : pageString[path[0].slice(1)].name
 
     return (
         <StyledMainNavBar>
             <MenuBtn href='' onClick={props.toggleSidebar(true)}>
-                <Svg>{MenuIcon}</Svg>
+                <div>{MenuIcon}</div>
             </MenuBtn>
             <Text>{title}</Text>
             <Nav className='ml-auto'>
@@ -196,10 +191,13 @@ const StyledDrawer = styled(Drawer)`
         }
     }
 `
+const SiderbarList = styled(ListGroup)`
+    border-radius: 0;
+`
 const SidebarHeader = styled.div`
     display: flex;
     align-items: center;
-    height: 3.8rem;
+    height: 4rem;
     padding: .8rem;
     border-radius: 0;
     font-size: x-large;
@@ -219,8 +217,10 @@ const SidebarHeader = styled.div`
         vertical-align: bottom;
     }
 `
-const SiderbarList = styled(ListGroup)`
-    border-radius: 0;
+const StyledLink = styled(Link)`
+    &:hover {
+        text-decoration: none;
+    }
 `
 const SiderbarItem = styled(ListGroup.Item)`
     font-size: large;
@@ -239,14 +239,8 @@ const SiderbarItem = styled(ListGroup.Item)`
         border-left: .5rem solid ${props => props.theme.colors.secondary};
     }
 `
-const StyledLink = styled(Link)`
-    &:hover {
-        text-decoration: none;
-    }
-`
-
 export function Sidebar(props) {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
     return (
         <StyledDrawer
             open={props.open}
@@ -259,23 +253,23 @@ export function Sidebar(props) {
             >
                 <SidebarHeader>
                     {ToolIcon}
-                    {stringData.home.documentTitle}
+                    {pageString.home.documentTitle}
                 </SidebarHeader>
                 {[
                     {
                         to: '/',
                         icon: HomeIcon,
-                        title: stringData.home.name,
+                        title: pageString.home.name,
                     },
                     {
                         to: '/enlist',
                         icon: EnlistIcon,
-                        title: stringData.enlist.name,
+                        title: pageString.enlist.name,
                     },
                     {
                         to: '/potential',
                         icon: ChestIcon,
-                        title: stringData.potential.name,
+                        title: pageString.potential.name,
                     },
                 ].map(item => (
                     <StyledLink key={item['title']} to={item['to']}>
@@ -294,8 +288,8 @@ export function Sidebar(props) {
                     <SidebarAccordions
                         icon={item}
                         key={idx}
-                        title={stringData.navbar[idx].title}
-                        links={stringData.navbar[idx].links}
+                        title={pageString.navbar[idx].title}
+                        links={pageString.navbar[idx].links}
                     />
                 ))}
             </SiderbarList>
@@ -333,7 +327,6 @@ const AccordionItem = styled(ListGroup.Item)`
         color: ${props => props.theme.colors.linkHover};
     }
 `
-
 function SidebarAccordions(props) {
     const [isExpanded, setExpanded] = React.useState(false)
 
@@ -368,5 +361,5 @@ function SidebarAccordions(props) {
                 />
             </AccordionWrapper>
         </SiderbarItem>
-    );
+    )
 }

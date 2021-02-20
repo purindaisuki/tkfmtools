@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ScrollUpButton from 'react-scroll-up-button';
-import { ToTopIcon } from './Icon';
-
+import { ToTopIcon } from './icon';
 
 const StyledBtn = styled.div`
     .Container {
@@ -24,7 +23,6 @@ const StyledBtn = styled.div`
         fill: ${props => props.theme.colors.onSecondary};
     }
 `
-
 export default function ToTopBtn() {
     return (
         <StyledBtn>

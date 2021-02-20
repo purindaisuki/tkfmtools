@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import styled from 'styled-components';
-import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents'
-import tagData from '../tags.json';
-import charData from '../characters.json';
+import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
+import { Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents';
+import './tooltip.css';
+import tagData from '../gamedata/tags.json';
+import charTagData from '../gamedata/characterTags.json';
+import { LanguageContext } from './LanguageProvider';
 import {
     ClearIcon,
     TagIcon,
@@ -17,11 +20,16 @@ import {
     ElseIcon,
     StarIcon,
     AlertIcon
-} from './Icon';
-import './tooltip.css';
-import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
-import { LanguageContext } from './LanguageProvider';
+} from './icon';
 
+const IconWrapper = styled.div`
+    cursor: pointer;
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin: 0;
+    }
+`
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
     gap: .5rem;
@@ -30,7 +38,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
             grid-template-columns: repeat(${entry[1]}, 1fr);
         }
         `
-    ))}
+))}
     > .active {
         background-color: ${props => props.theme.colors.secondary};
         color: ${props => props.theme.colors.onSecondary};
@@ -86,17 +94,12 @@ const Select = styled(Form.Control)`
         box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
     }
 `
-const IconWrapper = styled.div`
-    cursor: pointer;
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        margin: 0;
-    }
-`
-
 const CharFilterPanel = (props) => {
-    const { userLanguage, stringData } = React.useContext(LanguageContext)
+    const {
+        userLanguage,
+        pageString,
+        charString
+    } = React.useContext(LanguageContext)
 
     const attrIcons = {
         type: TypeIcon,
@@ -135,7 +138,7 @@ const CharFilterPanel = (props) => {
                 title={
                     <div>
                         {TagIcon}
-                        {stringData.enlist.tagSelectTitle}
+                        {pageString.enlist.tagSelectTitle}
                     </div>
                 }
                 end={
@@ -159,7 +162,7 @@ const CharFilterPanel = (props) => {
                         bsPrefix='btn-escape'
                     >
                         {attrIcons[item.icon]}
-                        {stringData.characters.tags[item.id]}
+                        {charString.tags[item.id]}
                     </StyledToggleButton>
                 ))}
             </StyledToggleButtonGroup>
@@ -167,7 +170,7 @@ const CharFilterPanel = (props) => {
                 title={
                     <div>
                         {ClockIcon}
-                        {stringData.enlist.timeSelectTitle}
+                        {pageString.enlist.timeSelectTitle}
                     </div>
                 }
             />
@@ -225,15 +228,14 @@ const StarIconWrapper = styled.div`
         fill: ${props => props.theme.colors.onSurface};
     }
 `
-
 function TableContent(props) {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString, charString } = React.useContext(LanguageContext)
 
     const TagTooltip = (props) => {
         if (props.char.distinctTagCombs.length === 0) return <></>
 
         const texts = props.char.distinctTagCombs
-            .map(comb => comb.map(i => stringData.characters.tags[i]).join(', '))
+            .map(comb => comb.map(i => charString.tags[i]).join(', '))
             .join('\n')
 
         return (
@@ -254,7 +256,7 @@ function TableContent(props) {
         <>
             <thead>
                 <tr>
-                    {stringData.enlist.tableHead
+                    {pageString.enlist.tableHead
                         .map((item, idx) => (
                             <SortTh
                                 key={idx}
@@ -270,13 +272,16 @@ function TableContent(props) {
                 {props.sortedResult.map((item, idx) => (
                     <tr key={idx}>
                         <td>
-                            {stringData.characters.name[item.name]}
+                            {charString.name[item.name]}
                             <TagTooltip char={item} />
                         </td>
                         <td>{gradeToRarity(item.grade)}</td>
-                        <td>{stringData.characters.tags[item.type]}</td>
+                        <td>{charString.tags[item.type]}</td>
                         <td>
-                            {item.appliedTags.map(i => stringData.characters.tags[i]).join(', ')}
+                            {
+                                item.appliedTags
+                                    .map(i => charString.tags[i]).join(', ')
+                            }
                         </td>
                     </tr>
                 ))}
@@ -322,9 +327,8 @@ const FilterContainer = styled.div`
         }
     }
 `
-
 export default function CharFilter() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     const [state, setState] = useState({
         filterBtnValue: [],
@@ -367,7 +371,7 @@ export default function CharFilter() {
         }
 
         const curVal = val.sort()
-        const filterableChars = charData.filter(char => char.available)
+        const filterableChars = charTagData.filter(char => char.available)
         let filteredChars = []
         for (let i = curVal.length; i > 0; i--) {
             // generate combinations
@@ -522,7 +526,7 @@ export default function CharFilter() {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                message={stringData.enlist.snackbarMsg}
+                message={pageString.enlist.snackbarMsg}
                 action={AlertIcon}
             />
             <ResultTable
@@ -532,7 +536,7 @@ export default function CharFilter() {
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
-                modalContent={stringData.enlist.modal}
+                modalContent={pageString.enlist.modal}
                 widthConfig={tableWidthConfig}
                 striped={true}
             >

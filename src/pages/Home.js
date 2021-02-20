@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ExpandMoreIcon } from '../components/Icon';
+import { LanguageContext } from '../components/LanguageProvider';
 import MyAccordion from '../components/MyAccordion';
 import { SiteDescription, SiteUpdateLog, SiteLicense } from '../components/SiteAccordionBody'
-import { LanguageContext } from '../components/LanguageProvider';
+import { ExpandMoreIcon } from '../components/icon';
 
 const HomeContainer = styled.div`
     display: flex;
@@ -61,9 +61,8 @@ const AccordionWrapper = styled.div`
         }
     }
 `
-
 export default function Home() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     const [expanded, setExpanded] = React.useState(0)
 
@@ -72,25 +71,25 @@ export default function Home() {
     }
 
     React.useEffect(() => {
-        document.title = stringData.home.documentTitle
+        document.title = pageString.home.documentTitle
     })
 
     return (
         <HomeContainer>
             <Header>
-                {`${stringData.home.documentTitle} ${stringData.home.updateLog.content[0].version}`}
+                {`${pageString.home.documentTitle} ${pageString.home.updateLog.content[0].version}`}
             </Header>
             {[
                 {
-                    header: stringData.home.about.header,
+                    header: pageString.home.about.header,
                     body: <SiteDescription />,
                 },
                 {
-                    header: stringData.home.updateLog.header,
+                    header: pageString.home.updateLog.header,
                     body: <SiteUpdateLog />,
                 },
                 {
-                    header: stringData.home.license.header,
+                    header: pageString.home.license.header,
                     body: <SiteLicense />,
                 },
             ].map((item, idx) => (

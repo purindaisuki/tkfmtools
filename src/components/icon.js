@@ -34,21 +34,21 @@ export const TableViewIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackg
 export const MasonryViewIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z" /></svg>
 
 export const NewBadge = () => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant="success" > { stringData.home.updateLog.new}</Badge>
+        < Badge pill variant="success" > { pageString.home.updateLog.new}</Badge>
     )
 }
 export const FixBadge = () => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant="danger" > { stringData.home.updateLog.fix}</Badge>
+        < Badge pill variant="danger" > { pageString.home.updateLog.fix}</Badge>
     )
 }
 export const ChangeBadge = () => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
     return (
-        < Badge pill variant="primary" > { stringData.home.updateLog.change}</Badge>
+        < Badge pill variant="primary" > { pageString.home.updateLog.change}</Badge>
     )
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ChangeBadge, FixBadge, NewBadge } from './Icon';
 import MyAccordion from './MyAccordion';
 import { LanguageContext } from './LanguageProvider';
+import { ChangeBadge, FixBadge, NewBadge } from './icon';
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -44,14 +44,13 @@ const DescriptionBody = styled.div`
         margin: .3rem .5rem;
     }
 `
-
 export const SiteDescription = () => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     return (
         <BodyContainer>
             <ul>
-                {stringData.home.about.content.map((item, idx) => {
+                {pageString.home.about.content.map((item, idx) => {
                     let Body
                     if (item.name === 'feedback') {
                         Body = () => (
@@ -129,7 +128,6 @@ const AccordionWrapper = styled.div`
         }
     }
 `
-
 function LogMsg(props) {
     const [isExpanded, setExpanded] = React.useState(false)
     const { type, title, description } = props.msg
@@ -163,13 +161,12 @@ const MsgBox = styled.div`
         border-top: none;
     }
 `
-
 export function SiteUpdateLog() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     return (
         <BodyContainer>
-            {stringData.home.updateLog.content.map((version, idx) => (
+            {pageString.home.updateLog.content.map((version, idx) => (
                 <MsgBox key={idx}>
                     <div>{version.version}</div>
                     {version.content.map((msg, idx) => (
@@ -191,19 +188,18 @@ const LicenseItemContent = styled.div`
     padding-left: .5rem;
     padding-bottom: .5rem;
 `
-
 export const SiteLicense = () => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     return (
         <BodyContainer>
             <LicenseList>
                 <li key={'text'}>
                     <LicenseItemTitle>
-                        <span>{stringData.home.license.content.title}</span>
+                        <span>{pageString.home.license.content.title}</span>
                     </LicenseItemTitle>
                     <LicenseItemContent>
-                        <span>{stringData.home.license.content.content}</span>
+                        <span>{pageString.home.license.content.content}</span>
                     </LicenseItemContent>
                 </li>
                 {[
