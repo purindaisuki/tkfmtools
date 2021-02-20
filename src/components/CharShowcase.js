@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LanguageContext } from './LanguageProvider';
+import { IconButton } from '@material-ui/core';
+import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
-import MyMasonry from './MyMasonry'
 import { ItemCardBody } from './ItemShowcase'
 import { SortableTable } from './FilterComponents';
+import charTagData from '../gamedata/characterTags.json';
+import { LanguageContext } from './LanguageProvider';
 import {
     TypeIcon,
     CategoryIcon,
@@ -13,10 +15,9 @@ import {
     OppaiIcon,
     RankIcon,
     ElseIcon,
-} from './Icon';
-import charTagData from '../characters.json'
-import { IconButton } from '@material-ui/core';
-import { MasonryViewIcon, TableViewIcon } from './Icon'
+    MasonryViewIcon,
+    TableViewIcon
+} from './icon';
 
 const TextWrapper = styled.div`
     display: flex;
@@ -38,9 +39,9 @@ const TextWrapper = styled.div`
     background-position: 0 -1.6rem;
     > div {
         ${props => props.$lang === 'en'
-        ? 'margin-right: 1rem'
-        : 'margin-left: 6rem'
-    };
+            ? 'margin-right: 1rem'
+            : 'margin-left: 6rem'
+        };
         transition: all 355ms ease;
         text-shadow: 0 0 1px ${props => props.theme.colors.surface},
         -2px 0 1px  ${props => props.theme.colors.surface},
@@ -57,7 +58,6 @@ const TextWrapper = styled.div`
         }
     }
 `
-
 const CardHeader = (props) => {
     const { userLanguage } = React.useContext(LanguageContext)
 
@@ -74,6 +74,10 @@ const CardHeader = (props) => {
     )
 }
 
+const TagWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 const IconWrapper = styled.div`
     margin-bottom: .1rem;
     margin-left: .25rem;
@@ -84,13 +88,8 @@ const IconWrapper = styled.div`
         color:  ${props => props.theme.colors.secondary};
     }
 `
-const TagWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-
 const CardBody = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { charString } = React.useContext(LanguageContext)
 
     const attrIcons = {
         type: TypeIcon,
@@ -106,7 +105,7 @@ const CardBody = (props) => {
         return (
             <ItemCardBody>
                 <tbody><tr><td>
-                    {stringData.characters.tagWarnMsg}
+                    {charString.tagWarnMsg}
                 </td></tr></tbody>
             </ItemCardBody>
         )
@@ -132,7 +131,7 @@ const CardBody = (props) => {
                                             <IconWrapper>
                                                 {attrIcons[entry[0]]}
                                             </IconWrapper>
-                                            {stringData.characters.tags[tag]}
+                                            {charString.tags[tag]}
                                         </TagWrapper>
                                     </td>
                                 </tr>
@@ -148,7 +147,7 @@ const CardBody = (props) => {
                                         <IconWrapper>
                                             {attrIcons[entry[0]]}
                                         </IconWrapper>
-                                        {stringData.characters.tags[entry[1]]}
+                                        {charString.tags[entry[1]]}
                                     </TagWrapper>
                                 </td>
                             </tr>
@@ -200,7 +199,6 @@ const AccordionWrapper = styled.div`
         }
     }
 `
-
 const CharCard = (props) => {
     const [isExpanded, setExpanded] = React.useState(false)
 
@@ -221,17 +219,130 @@ const SortTh = styled.th`
     position: sticky;
     top: 0;
     cursor: pointer;
-    padding: .75rem .25rem;
     user-select: none;
     background-color: ${props => props.theme.colors.secondary};
     color: ${props => props.theme.colors.onSecondary};
     &:after {
         content: '${props => {
-        if (!props.direction) return
-        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-    }}';
+            if (!props.direction) return
+            return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
+        }}';
     }
 `
+const TableContent = (props) => {
+    const { charString } = React.useContext(LanguageContext)
+
+    const gradeToRarity = (grade) => (
+        grade === 0 ? 'N'
+            : grade === 1 ? 'R'
+                : grade === 2 ? 'SR'
+                    : 'SSR'
+    )
+
+    const TableHeader = () => (
+        <thead>
+            <tr>
+                {charString
+                    .tagAttributes.map((attr, idx) => {
+                        const key = Object.keys(attr)[0]
+                        const val = Object.values(attr)[0]
+                        return (
+                            <SortTh
+                                onClick={() => props.requestSort(key)}
+                                direction={props.getSortDirection(key)}
+                                key={idx}
+                                nowrap='nowrap'
+                            >
+                                {val}
+                            </SortTh>
+                        )
+                    })}
+            </tr>
+        </thead>
+    )
+
+    return (
+        <>
+            <TableHeader />
+            <tbody>
+                {props.sortedResult.map(char => {
+                    if (!char.available) {
+                        return (
+                            <tr key={char.name}>
+                                <td>
+                                    <CardHeader
+                                        id={char.name + 1}
+                                        name={charString.name[char.name]}
+                                    />
+                                </td>
+                                <td>
+                                    {gradeToRarity(char.grade)}
+                                </td>
+                                <td>
+                                    {charString.tags[char.type]}
+                                </td>
+                                <td>
+                                    {charString.tags[char.category]}
+                                </td>
+                                <td colSpan='5'>
+                                    {charString.tagWarnMsg}
+                                </td>
+                            </tr>
+                        )
+                    }
+
+                    return (
+                        <tr key={char.name}>
+                            {Object.entries(char).map((entry, j) => {
+                                if (entry[0] === 'available') {
+                                    return true
+                                }
+                                if (entry[0] === 'name') {
+                                    return (
+                                        <td key={j}>
+                                            <CardHeader
+                                                id={char.name + 1}
+                                                name={
+                                                    charString
+                                                        .name[char.name]
+                                                }
+                                            />
+                                        </td>
+                                    )
+                                }
+                                if (entry[0] === 'grade') {
+                                    return (
+                                        <td key={j}>
+                                            {gradeToRarity(entry[1])}
+                                        </td>
+                                    )
+                                }
+                                if (entry[0] === 'else') {
+                                    return (
+                                        <td key={j} nowrap='nowrap'>
+                                            {entry[1].map(tag => (
+                                                charString.tags[tag]
+                                            )).join(', ')}
+                                        </td>
+                                    )
+                                }
+
+                                let tag
+                                if (entry[1].length === 0) {
+                                    tag = '-'
+                                } else {
+                                    tag = charString.tags[entry[1]]
+                                }
+                                return <td key={j} nowrap='nowrap'>{tag}</td>
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </>
+    )
+}
+
 const TableWrapper = styled.div`
     overflow-x: auto;
     overflow-y: auto;
@@ -253,9 +364,16 @@ const TableWrapper = styled.div`
         background: ${props => props.theme.colors.surface};
     }
     > table {
+        width: 100%;
         color: ${props => props.theme.colors.onSurface};
-        thead th:first-child {
-            padding-left: .75rem;
+        thead {
+            width: 100%;
+            th {
+                padding: .75rem .25rem;
+            }
+            th:first-child {
+                padding-left: .75rem;
+            }
         }
         tbody {
             tr {
@@ -289,118 +407,6 @@ const TableWrapper = styled.div`
         }
     }
 `
-
-const TableContent = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
-
-    const gradeToRarity = (grade) => (
-        grade === 0 ? 'N'
-            : grade === 1 ? 'R'
-                : grade === 2 ? 'SR'
-                    : 'SSR'
-    )
-
-    return (
-        <>
-            <thead>
-                <tr>
-                    {stringData.characters
-                        .tagAttributes.map((attr, idx) => {
-                            const key = Object.keys(attr)[0]
-                            const val = Object.values(attr)[0]
-                            return (
-                                <SortTh
-                                    onClick={() => props.requestSort(key)}
-                                    direction={props.getSortDirection(key)}
-                                    key={idx}
-                                    nowrap='nowrap'
-                                >
-                                    {val}
-                                </SortTh>
-                            )
-                        })}
-                </tr>
-            </thead>
-            <tbody>
-                {props.sortedResult.map(char => {
-                    if (!char.available) {
-                        return (
-                            <tr key={char.name}>
-                                <td>
-                                    <CardHeader
-                                        id={char.name + 1}
-                                        name={stringData.characters.name[char.name]}
-                                    />
-                                </td>
-                                <td>
-                                    {gradeToRarity(char.grade)}
-                                </td>
-                                <td>
-                                    {stringData.characters.tags[char.type]}
-                                </td>
-                                <td>
-                                    {stringData.characters.tags[char.category]}
-                                </td>
-                                <td colSpan='5'>
-                                    {stringData.characters.tagWarnMsg}
-                                </td>
-                            </tr>
-                        )
-                    }
-
-                    return (
-                        <tr key={char.name}>
-                            {Object.entries(char).map((entry, j) => {
-                                if (entry[0] === 'availabilty') {
-                                    return true
-                                }
-                                if (entry[0] === 'name') {
-                                    return (
-                                        <td key={j}>
-                                            <CardHeader
-                                                id={char.name + 1}
-                                                name={
-                                                    stringData.characters
-                                                        .name[char.name]
-                                                }
-                                            />
-                                        </td>
-                                    )
-                                }
-                                if (entry[0] === 'grade') {
-                                    return (
-                                        <td key={j}>
-                                            {gradeToRarity(entry[1])}
-                                        </td>
-                                    )
-                                }
-                                if (entry[0] === 'else') {
-                                    console.log(entry[1])
-                                    return (
-                                        <td key={j} nowrap='nowrap'>
-                                            {entry[1].map(tag => (
-                                                stringData.characters.tags[tag]
-                                            )).join(', ')}
-                                        </td>
-                                    )
-                                }
-
-                                let tag
-                                if (entry[1].length === 0) {
-                                    tag = '-'
-                                } else {
-                                    tag = stringData.characters.tags[entry[1]]
-                                }
-                                return <td key={j} nowrap='nowrap'>{tag}</td>
-                            })}
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </>
-    )
-}
-
 const CharTable = () => {
     const { userLanguage } = React.useContext(LanguageContext)
 
@@ -441,6 +447,9 @@ const CharTable = () => {
     )
 }
 
+const ShowcaseContainer = styled.div`
+    display: ${props => props.$hidden ? 'none' : 'block'}
+`
 const LayoutBtnContainer = styled.div`
     position: absolute;
     right: 0;
@@ -468,13 +477,9 @@ const StyledBtn = styled(IconButton)`
         }
     }
 `
-const ShowcaseContainer = styled.div`
-    display: ${props => props.$hidden ? 'none' : 'block'}
-`
-
 export default function CharShowcase() {
-    const { stringData } = React.useContext(LanguageContext)
-    const characters = stringData.characters.name
+    const { pageString, charString } = React.useContext(LanguageContext)
+    const characters = charString.name
 
     const getDefaultLayout = () => {
         const localSetting = localStorage.getItem('enlist-character-layout')
@@ -498,7 +503,7 @@ export default function CharShowcase() {
     return (
         <>
             <LayoutBtnContainer>
-                {stringData.enlist.layout}
+                {pageString.enlist.layout}
                 <StyledBtn
                     $active={layout === 'Masonry'}
                     onClick={handleLayoutChange('Masonry')}
@@ -526,9 +531,7 @@ export default function CharShowcase() {
                 </MyMasonry>
             </ShowcaseContainer>
             <ShowcaseContainer $hidden={layout !== 'Table'}>
-                <CharTable>
-
-                </CharTable>
+                <CharTable />
             </ShowcaseContainer>
         </>
     )

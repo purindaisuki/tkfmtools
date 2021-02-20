@@ -1,0 +1,110 @@
+{
+    "name": [
+        "Archdemon Ba'al",
+        "Archdemon Satan",
+        "Archdemon Iblis",
+        "Elf Queen Salucia",
+        "Dwarf Queen Lana",
+        "Phasi Princess Lulu",
+        "Festive Ba'al",
+        "Idol Iblis",
+        "Idol Noel",
+        "Demon Servant Aiko",
+        "Holy Knight Capt. Leona",
+        "High Priestess Fiora",
+        "Ninja Ritsuki",
+        "Blademaster Minayomi",
+        "Fox Spirit Shizuka",
+        "General Juneau",
+        "Genius Tactician Britney",
+        "Head Nurse Irene",
+        "Bakeneko Nana",
+        "Dragoon Iris",
+        "Dog-Girl Dora",
+        "Succubus Sable",
+        "Mermaid Marlene",
+        "Wandering Witch Yoi",
+        "Dark Elf Shiraka",
+        "Phasi Soldier Siren",
+        "Phasi Wizard Petra",
+        "Demon Soldier Flay",
+        "Sorceress Manuella",
+        "Isori Warrior Kikyou",
+        "Isori Shaman Kaede",
+        "Elven Archer Ola",
+        "Dwarven Soldier Kani",
+        "Mercenary Charlene",
+        "Holy Knight Martina",
+        "Excelsis Deo Monk Claire",
+        "Slime-Girl Lori",
+        "Cow-Girl Minnow",
+        "Snake-Girl Lamia",
+        "Bird-Girl Harpy",
+        "N/R characters"
+    ],
+    "tags": [
+        "Fire attribute",
+        "Water attribute",
+        "Wind attribute",
+        "Light attribute",
+        "Dark attribute",
+        "Attacker",
+        "Protector",
+        "Healer",
+        "Obstructer",
+        "Support",
+        "Human",
+        "Demon",
+        "Demihuman",
+        "Small Sized",
+        "Medium Sized",
+        "Flat Tits  ",
+        "Hot Tits",
+        "Giant Tits",
+        "Soldier",
+        "Elite",
+        "Leader",
+        "Damage Output",
+        "Protection",
+        "Defense",
+        "Recovery",
+        "Interference",
+        "Support",
+        "Weaken",
+        "Explosiveness",
+        "Survivability",
+        "More Power",
+        "AoE",
+        "Counterstrike"
+    ],
+    "tagAttributes": [
+        {
+            "name": "Character"
+        },
+        {
+            "grade": "Rarity"
+        },
+        {
+            "type": "Attribute"
+        },
+        {
+            "category": "Position"
+        },
+        {
+            "race": "Race"
+        },
+        {
+            "body": "Body size"
+        },
+        {
+            "oppai": "Oppai"
+        },
+        {
+            "rank": "Rank"
+        },
+        {
+            "else": "Else tags"
+        }
+    ],
+    "tagWarnMsg": "Not available from recruitment"
+}

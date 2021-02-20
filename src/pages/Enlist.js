@@ -1,19 +1,19 @@
 import React from 'react';
+import PageWithTabs from '../components/PageWithTabs';
 import CharFilter from '../components/CharFilter';
 import CharShowcase from '../components/CharShowcase';
-import PageWithTabs from '../components/PageWithTabs';
-import { FilterIcon, OverviewIcon } from '../components/Icon';
 import { LanguageContext } from '../components/LanguageProvider';
+import { FilterIcon, OverviewIcon } from '../components/icon';
 
 export default function Enlist() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     return (
         <PageWithTabs
-            title={stringData.enlist.documentTitle}
+            title={pageString.enlist.documentTitle}
             tabs={[
-                { label: stringData.enlist.label[0], icon: OverviewIcon, content: <CharShowcase /> },
-                { label: stringData.enlist.label[1], icon: FilterIcon, content: <CharFilter /> },
+                { label: pageString.enlist.label[0], icon: OverviewIcon, content: <CharShowcase /> },
+                { label: pageString.enlist.label[1], icon: FilterIcon, content: <CharFilter /> },
             ]}
         />
     )

@@ -1,31 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Table } from 'react-bootstrap';
-import { HelpIcon } from './Icon';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
+import { Table } from 'react-bootstrap';
 import { LanguageContext } from './LanguageProvider';
-
-const StyledFilterPanel = styled.div`
-    height: 100%;
-    width: ${props => props.widthConfig.default};
-    padding: 1rem;
-    border-radius: .25rem;
-    background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.border};
-    box-shadow: 0 0 .15em lightgray;
-    @media screen and (max-width: 1360px) {
-        width: ${props => props.widthConfig[1360]};
-    }
-    @media screen and (max-width: 992px) {
-        width: ${props => props.widthConfig[992]};
-    }
-`
-
-export const FilterPanel = (props) => (
-    <StyledFilterPanel widthConfig={props.widthConfig}>
-        {props.children}
-    </StyledFilterPanel>
-)
+import { HelpIcon } from './icon';
 
 const StyledContainerHeader = styled.div`
     display: flex;
@@ -47,6 +25,27 @@ export const ContainerHeader = (props) => (
         {props.title}
         {props.end}
     </StyledContainerHeader>
+)
+
+const StyledFilterPanel = styled.div`
+    height: 100%;
+    width: ${props => props.widthConfig.default};
+    padding: 1rem;
+    border-radius: .25rem;
+    background-color: ${props => props.theme.colors.surface};
+    border: 1px solid ${props => props.theme.colors.border};
+    box-shadow: 0 0 .15em lightgray;
+    @media screen and (max-width: 1360px) {
+        width: ${props => props.widthConfig[1360]};
+    }
+    @media screen and (max-width: 992px) {
+        width: ${props => props.widthConfig[992]};
+    }
+`
+export const FilterPanel = (props) => (
+    <StyledFilterPanel widthConfig={props.widthConfig}>
+        {props.children}
+    </StyledFilterPanel>
 )
 
 const ModalContainer = styled.div`
@@ -100,7 +99,6 @@ const ModalHeader = styled.div`
 const ModalBody = styled.div`
     margin: 1rem 0;
 `
-
 export function HelpModal(props) {
     const HelpModalContent = () => (
         props.content.map((item, idx) => {
@@ -260,16 +258,15 @@ const IconWrapper = styled.div`
         vertical-align: top;
     }
 `
-
 export function ResultTable(props) {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     return (
         <ResultTableContainer widthConfig={props.widthConfig}>
             <ContainerHeader
                 title={
                     <div>
-                        {stringData.potential.filter.resultTitle}
+                        {pageString.potential.filter.resultTitle}
                         <IconWrapper onClick={props.handleModalOpen}>
                             {HelpIcon}
                         </IconWrapper>
@@ -281,6 +278,7 @@ export function ResultTable(props) {
                     result={props.result}
                     sortFunc={props.sortFunc}
                     defaultSortKey={props.defaultSortKey}
+                    striped={props.striped}
                 >
                     {props.children}
                 </SortableTable>

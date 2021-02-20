@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents'
 import styled from 'styled-components';
-import { ClearIcon } from './Icon';
-import data from '../item.json'
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents';
+import itemDropData from '../gamedata/itemDrop.json';
 import { LanguageContext } from './LanguageProvider';
+import { ClearIcon } from './icon';
 
+const IconWrapper = styled.div`
+    cursor: pointer;
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+`
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
     display: grid;
     grid-template-columns: repeat(${props => props.$layoutConfig.default}, 1fr);
@@ -50,16 +57,8 @@ const StyledToggleButton = styled(ToggleButton)`
         width: 2.26rem; height: 2.26rem;
     }
 `
-const IconWrapper = styled.div`
-    cursor: pointer;
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-    }
-`
-
 const ItemFilterPanel = (props) => {
-    const { userLanguage, stringData } = React.useContext(LanguageContext)
+    const { userLanguage, pageString, itemString } = React.useContext(LanguageContext)
 
     const widthConfig = {
         default: '60%',
@@ -87,7 +86,7 @@ const ItemFilterPanel = (props) => {
     return (
         <FilterPanel widthConfig={widthConfig}>
             <ContainerHeader
-                title={stringData.potential.filter.itemPanelTitle}
+                title={pageString.potential.filter.itemPanelTitle}
                 end={
                     <IconWrapper
                         onClick={() => props.filterBy([])}
@@ -102,7 +101,7 @@ const ItemFilterPanel = (props) => {
                 onChange={props.filterBy}
                 $layoutConfig={btnLayoutConfig}
             >
-                {data.map((item, idx) => {
+                {itemDropData.map((item, idx) => {
                     if (item.drop.length === 0) return true
 
                     return (
@@ -115,7 +114,7 @@ const ItemFilterPanel = (props) => {
                                 src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                                 alt=''
                             />
-                            {stringData.items.name[item.name]}
+                            {itemString.name[item.name]}
                         </StyledToggleButton>
                     )
                 })}
@@ -140,13 +139,12 @@ const SortTh = styled.th`
     }}';
     }
 `
-
 const TableContent = (props) => {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString, itemString } = React.useContext(LanguageContext)
 
     const TableHeader = (props) => {
         if (props.sortedResult.length === 0) {
-            return <SortTh>{stringData.potential.filter.tableHead[1]}</SortTh>
+            return <SortTh>{pageString.potential.filter.tableHead[1]}</SortTh>
         }
 
         return (
@@ -159,13 +157,14 @@ const TableContent = (props) => {
                     >
                         <img
                             src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                            alt={stringData.items.name[item.name]}
+                            alt={itemString.name[item.name]}
                         />
                     </SortTh>
                 )
             })
         )
     }
+
     return (
         <>
             <thead>
@@ -174,7 +173,7 @@ const TableContent = (props) => {
                         onClick={() => props.requestSort('stage')}
                         direction={props.getSortDirection('stage')}
                     >
-                        {stringData.potential.filter.tableHead[0]}
+                        {pageString.potential.filter.tableHead[0]}
                     </SortTh>
                     <TableHeader {...props} />
                     <SortTh
@@ -184,7 +183,7 @@ const TableContent = (props) => {
                         <img
                             src={`${process.env.PUBLIC_URL}/img/energy.png`}
                             className='card-table-img'
-                            alt={stringData.potential.filter.tableHead[2]}
+                            alt={pageString.potential.filter.tableHead[2]}
                         />
                     </SortTh>
                 </tr>
@@ -197,7 +196,7 @@ const TableContent = (props) => {
                             {stage.drop.map(item => {
                                 return (
                                     <td key={item.id}>
-                                        {stringData.items.rarity[item.rarity]}
+                                        {itemString.rarity[item.rarity]}
                                     </td>
                                 )
                             })}
@@ -219,9 +218,8 @@ const FilterContainer = styled.div`
         justify-content: start;
     }
 `
-
 export default function ItemFilter() {
-    const { stringData } = React.useContext(LanguageContext)
+    const { pageString } = React.useContext(LanguageContext)
 
     const [state, setState] = useState({
         filterBtnValue: [],
@@ -238,11 +236,11 @@ export default function ItemFilter() {
         }
         const curVal = val.sort()
         // deep copy
-        let filteredStages = JSON.parse(JSON.stringify(data[curVal[0]].drop))
+        let filteredStages = JSON.parse(JSON.stringify(itemDropData[curVal[0]].drop))
         filteredStages.forEach(stage => {
             stage.drop = [{
-                id: data[curVal[0]].id,
-                name: data[curVal[0]].name,
+                id: itemDropData[curVal[0]].id,
+                name: itemDropData[curVal[0]].name,
                 rarity: stage.rarity
             }]
             delete stage.rarity
@@ -251,14 +249,14 @@ export default function ItemFilter() {
             if (idx === 0) return true
             filteredStages = filteredStages.filter(thisStage => {
                 let flag = false
-                data[itemIdx].drop.forEach(that => {
+                itemDropData[itemIdx].drop.forEach(that => {
                     if (
                         that.chapter === thisStage.chapter
                         && that.stage === thisStage.stage
                     ) {
                         let newDrop = {
-                            id: data[itemIdx].id,
-                            name: data[itemIdx].name,
+                            id: itemDropData[itemIdx].id,
+                            name: itemDropData[itemIdx].name,
                             rarity: that.rarity
                         }
                         thisStage.drop.push(newDrop)
@@ -329,7 +327,7 @@ export default function ItemFilter() {
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
-                modalContent={stringData.potential.filter.modal}
+                modalContent={pageString.potential.filter.modal}
                 widthConfig={tableWidthConfig}
                 striped={true}
             >
@@ -338,4 +336,3 @@ export default function ItemFilter() {
         </FilterContainer>
     )
 }
-
