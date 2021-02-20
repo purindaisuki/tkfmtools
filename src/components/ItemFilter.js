@@ -325,11 +325,13 @@ export default function ItemFilter() {
             <ResultTable
                 result={state.stages}
                 sortFunc={sortFunc}
+                defaultSortKey={0}
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
                 modalContent={stringData.potential.filter.modal}
                 widthConfig={tableWidthConfig}
+                striped={true}
             >
                 <TableContent />
             </ResultTable>

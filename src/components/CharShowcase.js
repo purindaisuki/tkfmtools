@@ -4,6 +4,7 @@ import { LanguageContext } from './LanguageProvider';
 import MyAccordion from './MyAccordion';
 import MyMasonry from './MyMasonry'
 import { ItemCardBody } from './ItemShowcase'
+import { SortableTable } from './FilterComponents';
 import {
     TypeIcon,
     CategoryIcon,
@@ -16,7 +17,6 @@ import {
 import charTagData from '../characters.json'
 import { IconButton } from '@material-ui/core';
 import { MasonryViewIcon, TableViewIcon } from './Icon'
-import { Table } from 'react-bootstrap';
 
 const TextWrapper = styled.div`
     display: flex;
@@ -38,9 +38,9 @@ const TextWrapper = styled.div`
     background-position: 0 -1.6rem;
     > div {
         ${props => props.$lang === 'en'
-            ? 'margin-right: 1rem'
-            : 'margin-left: 6rem'
-        };
+        ? 'margin-right: 1rem'
+        : 'margin-left: 6rem'
+    };
         transition: all 355ms ease;
         text-shadow: 0 0 1px ${props => props.theme.colors.surface},
         -2px 0 1px  ${props => props.theme.colors.surface},
@@ -102,7 +102,7 @@ const CardBody = (props) => {
         else: ElseIcon
     }
 
-    if (props.id >= 6 && props.id <= 8) {
+    if (!charTagData[props.id].available) {
         return (
             <ItemCardBody>
                 <tbody><tr><td>
@@ -116,42 +116,46 @@ const CardBody = (props) => {
         <ItemCardBody>
             <tbody>
                 {Object.entries(charTagData[props.id]).map((entry, idx) => {
-                    if (idx < 2)
+                    if (
+                        entry[0] === 'name' ||
+                        entry[0] === 'grade' ||
+                        entry[0] === 'available'
+                    ) {
                         return true
-
-                    if (idx < 8) {
-                        if (entry[1].length !== 0) {
-                            return (
-                                <tr key={idx}>
+                    }
+                    if (entry[0] === 'else') {
+                        return (
+                            entry[1].map((tag, i) => (
+                                <tr key={idx + i + 1}>
                                     <td>
                                         <TagWrapper>
                                             <IconWrapper>
                                                 {attrIcons[entry[0]]}
                                             </IconWrapper>
-                                            {stringData.characters.tags[entry[1]]}
+                                            {stringData.characters.tags[tag]}
                                         </TagWrapper>
                                     </td>
                                 </tr>
-                            )
-                        } else {
-                            return true
-                        }
+                            ))
+                        )
                     }
 
-                    return (
-                        entry[1].map((tag, i) => (
-                            <tr key={idx + i + 1}>
+                    if (entry[1].length !== 0) {
+                        return (
+                            <tr key={idx}>
                                 <td>
                                     <TagWrapper>
                                         <IconWrapper>
                                             {attrIcons[entry[0]]}
                                         </IconWrapper>
-                                        {stringData.characters.tags[tag]}
+                                        {stringData.characters.tags[entry[1]]}
                                     </TagWrapper>
                                 </td>
                             </tr>
-                        ))
-                    )
+                        )
+                    } else {
+                        return true
+                    }
                 })}
             </tbody>
         </ItemCardBody>
@@ -213,6 +217,21 @@ const CharCard = (props) => {
     )
 }
 
+const SortTh = styled.th`
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    padding: .75rem .25rem;
+    user-select: none;
+    background-color: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.onSecondary};
+    &:after {
+        content: '${props => {
+        if (!props.direction) return
+        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
+    }}';
+    }
+`
 const TableWrapper = styled.div`
     overflow-x: auto;
     overflow-y: auto;
@@ -233,143 +252,191 @@ const TableWrapper = styled.div`
     &::-webkit-scrollbar-corner {
         background: ${props => props.theme.colors.surface};
     }
-`
-const StyledTable = styled(Table)`
-    color: ${props => props.theme.colors.onSurface};
-    thead th {
-        position: sticky;
-        top: 0;
-        padding: .75rem .25rem;
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-    thead th:first-child {
-        padding-left: .75rem;
-    }
-    tbody {
-        tr {
-            border-bottom: 1px solid ${props => props.theme.colors.secondary};
+    > table {
+        color: ${props => props.theme.colors.onSurface};
+        thead th:first-child {
+            padding-left: .75rem;
         }
-        td {
-            vertical-align: middle;
+        tbody {
+            tr {
+                border-bottom: 1px solid ${props => props.theme.colors.secondary};
+            }
+            td {
+                vertical-align: middle;
+            }
         }
-    }
-    @media screen and (min-width: ${props => (
+        @media screen and (min-width: ${props => (
         props.$lang === 'en'
             ? '1300'
             : '900'
     )}px) {
-        td:first-child > div {
-            flex-direction: row;
-            align-items: center;
-            justify-content: ${props => (
-                props.$lang === 'en'
-                    ? 'flex-end'
-                    : 'flex-start'
-            )};
-            > div:last-child {
-                margin-left: ${props => (
-                    props.$lang === 'en'
-                        ? '-.8rem'
-                        : '.5rem'
-                )};
+            td:first-child > div {
+                flex-direction: row;
+                align-items: center;
+                justify-content: ${props => (
+        props.$lang === 'en'
+            ? 'flex-end'
+            : 'flex-start'
+    )};
+                > div:last-child {
+                    margin-left: ${props => (
+        props.$lang === 'en'
+            ? '-.8rem'
+            : '.5rem'
+    )};
+                }
             }
         }
     }
 `
 
-const CharTable = () => {
-    const { userLanguage, stringData } = React.useContext(LanguageContext)
+const TableContent = (props) => {
+    const { stringData } = React.useContext(LanguageContext)
+
+    const gradeToRarity = (grade) => (
+        grade === 0 ? 'N'
+            : grade === 1 ? 'R'
+                : grade === 2 ? 'SR'
+                    : 'SSR'
+    )
 
     return (
-        <TableWrapper>
-            <StyledTable
-                borderless
-                size='sm'
-                $lang={userLanguage}
-            >
-                <thead>
-                    <tr>
-                        {stringData.characters
-                            .tagAttributes.map((attr, idx) => (
-                                <th key={idx} nowrap='nowrap'>
-                                    {attr}
-                                </th>
-                            ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {charTagData.map((char, i) => {
-                        if (i >= 6 && i <= 8) {
+        <>
+            <thead>
+                <tr>
+                    {stringData.characters
+                        .tagAttributes.map((attr, idx) => {
+                            const key = Object.keys(attr)[0]
+                            const val = Object.values(attr)[0]
                             return (
-                                <tr key={i}>
-                                    <td>
-                                        <CardHeader
-                                            id={i + 1}
-                                            name={stringData.characters.name[i]}
-                                        />
-                                    </td>
-                                    <td colSpan='8'>
-                                        {stringData.characters.tagWarnMsg}
-                                    </td>
-                                </tr>
+                                <SortTh
+                                    onClick={() => props.requestSort(key)}
+                                    direction={props.getSortDirection(key)}
+                                    key={idx}
+                                    nowrap='nowrap'
+                                >
+                                    {val}
+                                </SortTh>
                             )
-                        }
-
+                        })}
+                </tr>
+            </thead>
+            <tbody>
+                {props.sortedResult.map(char => {
+                    if (!char.available) {
                         return (
-                            <tr key={i}>
-                                {Object.values(char).map((attr, j) => {
-                                    if (j === 0) {
-                                        return (
-                                            <td key={j}>
-                                                <CardHeader
-                                                    id={i + 1}
-                                                    name={stringData.characters.name[i]}
-                                                />
-                                            </td>
-                                        )
-                                    }
-                                    if (j === 1) {
-                                        let rarity
-                                        switch (attr) {
-                                            case 3:
-                                                rarity = 'SSR'
-                                                break
-                                            case 2:
-                                                rarity = 'SR'
-                                                break
-                                            case 1:
-                                                rarity = 'R'
-                                                break
-                                            default:
-                                                rarity = 'N'
-                                                break
-                                        }
-                                        return <td key={j}>{rarity}</td>
-                                    }
-                                    if (j < 8) {
-                                        let tag
-                                        if (attr.length === 0) {
-                                            tag = '-'
-                                        } else {
-                                            tag = stringData.characters.tags[attr]
-                                        }
-                                        return <td key={j} nowrap='nowrap'>{tag}</td>
-                                    }
+                            <tr key={char.name}>
+                                <td>
+                                    <CardHeader
+                                        id={char.name + 1}
+                                        name={stringData.characters.name[char.name]}
+                                    />
+                                </td>
+                                <td>
+                                    {gradeToRarity(char.grade)}
+                                </td>
+                                <td>
+                                    {stringData.characters.tags[char.type]}
+                                </td>
+                                <td>
+                                    {stringData.characters.tags[char.category]}
+                                </td>
+                                <td colSpan='5'>
+                                    {stringData.characters.tagWarnMsg}
+                                </td>
+                            </tr>
+                        )
+                    }
 
+                    return (
+                        <tr key={char.name}>
+                            {Object.entries(char).map((entry, j) => {
+                                if (entry[0] === 'availabilty') {
+                                    return true
+                                }
+                                if (entry[0] === 'name') {
+                                    return (
+                                        <td key={j}>
+                                            <CardHeader
+                                                id={char.name + 1}
+                                                name={
+                                                    stringData.characters
+                                                        .name[char.name]
+                                                }
+                                            />
+                                        </td>
+                                    )
+                                }
+                                if (entry[0] === 'grade') {
+                                    return (
+                                        <td key={j}>
+                                            {gradeToRarity(entry[1])}
+                                        </td>
+                                    )
+                                }
+                                if (entry[0] === 'else') {
+                                    console.log(entry[1])
                                     return (
                                         <td key={j} nowrap='nowrap'>
-                                            {attr.map(tag => (
+                                            {entry[1].map(tag => (
                                                 stringData.characters.tags[tag]
                                             )).join(', ')}
                                         </td>
                                     )
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </StyledTable>
+                                }
+
+                                let tag
+                                if (entry[1].length === 0) {
+                                    tag = '-'
+                                } else {
+                                    tag = stringData.characters.tags[entry[1]]
+                                }
+                                return <td key={j} nowrap='nowrap'>{tag}</td>
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </>
+    )
+}
+
+const CharTable = () => {
+    const { userLanguage } = React.useContext(LanguageContext)
+
+    const sortFunc = (sortableItems, sortConfig) => {
+        sortableItems.sort((a, b) => {
+            let aKey
+            let bKey
+            if (sortConfig.key === 'else') {
+                aKey = a[sortConfig.key].join('')
+                bKey = b[sortConfig.key].join('')
+            } else {
+                aKey = a[sortConfig.key]
+                bKey = b[sortConfig.key]
+            }
+            if (aKey < bKey) {
+                return sortConfig.direction === 'asc' ? -1 : 1
+            }
+            if (aKey > bKey) {
+                return sortConfig.direction === 'asc' ? 1 : -1
+            }
+            return 0
+        })
+    }
+
+    return (
+        <TableWrapper
+            $lang={userLanguage}
+        >
+            <SortableTable
+                sortFunc={sortFunc}
+                defaultSortKey={'grade'}
+                result={charTagData}
+                striped={false}
+            >
+                <TableContent />
+            </SortableTable>
         </TableWrapper>
     )
 }

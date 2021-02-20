@@ -407,17 +407,35 @@
             "Counterstrike"
         ],
         "tagAttributes": [
-            "Character",
-            "Rarity",
-            "Attribute",
-            "Position",
-            "Race",
-            "Body size",
-            "Oppai",
-            "Rank",
-            "Else tags"
+            {
+                "name": "Character"
+            },
+            {
+                "grade": "Rarity"
+            },
+            {
+                "type": "Attribute"
+            },
+            {
+                "category": "Position"
+            },
+            {
+                "race": "Race"
+            },
+            {
+                "body": "Body size"
+            },
+            {
+                "oppai": "Oppai"
+            },
+            {
+                "rank": "Rank"
+            },
+            {
+                "else": "Else tags"
+            }
         ],
-        "tagWarnMsg": "Not available"
+        "tagWarnMsg": "Not available from recruitment"
     },
     "items": {
         "name": [

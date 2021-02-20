@@ -367,6 +367,7 @@ export default function CharFilter() {
         }
 
         const curVal = val.sort()
+        const filterableChars = charData.filter(char => char.available)
         let filteredChars = []
         for (let i = curVal.length; i > 0; i--) {
             // generate combinations
@@ -374,7 +375,7 @@ export default function CharFilter() {
             // screen out ineligible characters
             tagCombs.forEach(tags => {
                 // filter by rank and time
-                let survivors = JSON.parse(JSON.stringify(charData))
+                let survivors = JSON.parse(JSON.stringify(filterableChars))
                 if (!tags.includes(20)) {
                     survivors = survivors.filter(char => char.grade < 3)
                     if (state.enlistHour < 4 && !tags.includes(19)) {
@@ -469,9 +470,6 @@ export default function CharFilter() {
     )
 
     const sortFunc = (sortableItems, sortConfig) => {
-        // initial key is 0
-        if (sortConfig.key === 0) sortConfig.key = 'grade'
-
         sortableItems.sort((a, b) => {
             let aKey
             let bKey
@@ -530,11 +528,13 @@ export default function CharFilter() {
             <ResultTable
                 result={state.characters}
                 sortFunc={sortFunc}
+                defaultSortKey={'grade'}
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
                 modalContent={stringData.enlist.modal}
                 widthConfig={tableWidthConfig}
+                striped={true}
             >
                 <TableContent />
             </ResultTable>

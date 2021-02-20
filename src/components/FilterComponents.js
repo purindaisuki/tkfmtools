@@ -136,11 +136,64 @@ export function HelpModal(props) {
             <Fade in={props.modalOpen}>
                 <ModalContainer>
                     <ModalContentWrapper>
-                        <HelpModalContent/>
+                        <HelpModalContent />
                     </ModalContentWrapper>
                 </ModalContainer>
             </Fade>
         </Modal>
+    )
+}
+
+export const SortableTable = (props) => {
+    const useSortableData = (
+        items, config = {
+            key: props.defaultSortKey,
+            direction: 'desc'
+        }
+    ) => {
+        const [sortConfig, setSortConfig] = useState(config)
+
+        const sortedItems = React.useMemo(() => {
+            let sortableItems = [...items]
+            props.sortFunc(sortableItems, sortConfig)
+            return sortableItems
+        }, [items, sortConfig])
+
+        const requestSort = (key) => {
+            let direction = 'desc';
+            if (
+                sortConfig.key === key &&
+                sortConfig.direction === 'desc'
+            ) {
+                direction = 'asc';
+            }
+            setSortConfig({ key, direction })
+        }
+
+        return { sortedResult: sortedItems, requestSort, sortConfig }
+    }
+
+    const { sortedResult, requestSort, sortConfig } = useSortableData(props.result)
+
+    const getSortDirection = (name) => {
+        if (sortedResult.length === 0) {
+            return
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined
+    }
+
+    return (
+        <Table
+            striped={props.striped}
+            borderless
+            size="sm"
+        >
+            {React.cloneElement(props.children, {
+                requestSort: requestSort,
+                getSortDirection: getSortDirection,
+                sortedResult: sortedResult,
+            })}
+        </Table>
     )
 }
 
@@ -185,16 +238,16 @@ const ResultTableWrapper = styled.div`
     &::-webkit-scrollbar-track {
         background: ${props => props.theme.colors.surface};
     }
-`
-const StyledResultTable = styled(Table)`
-    width: 100%;
-    font-size: normal;
-    color: ${props => props.theme.colors.onSurface};
-    img {
-        width: 1.8rem; height: 1.8rem;
-    }
-    td {
-        padding-left: .75rem;
+    > table {
+        width: 100%;
+        font-size: normal;
+        color: ${props => props.theme.colors.onSurface};
+        img {
+            width: 1.8rem; height: 1.8rem;
+        }
+        td {
+            padding-left: .75rem;
+        }
     }
 `
 const IconWrapper = styled.div`
@@ -211,37 +264,6 @@ const IconWrapper = styled.div`
 export function ResultTable(props) {
     const { stringData } = React.useContext(LanguageContext)
 
-    const useSortableData = (items, config = { key: 0, direction: 'desc' }) => {
-        // when key is number meaning sorted by the number of item
-        const [sortConfig, setSortConfig] = useState(config)
-
-        const sortedItems = React.useMemo(() => {
-            let sortableItems = [...items]
-            props.sortFunc(sortableItems, sortConfig)
-            return sortableItems
-        }, [items, sortConfig])
-
-        const requestSort = (key) => {
-            let direction = 'desc';
-            if (
-                sortConfig.key === key &&
-                sortConfig.direction === 'desc'
-            ) {
-                direction = 'asc';
-            }
-            setSortConfig({ key, direction })
-        }
-
-        return { sortedResult: sortedItems, requestSort, sortConfig }
-    }
-    const { sortedResult, requestSort, sortConfig } = useSortableData(props.result)
-    const getSortDirection = (name) => {
-        if (sortedResult.length === 0) {
-            return
-        }
-        return sortConfig.key === name ? sortConfig.direction : undefined
-    }
-
     return (
         <ResultTableContainer widthConfig={props.widthConfig}>
             <ContainerHeader
@@ -255,17 +277,13 @@ export function ResultTable(props) {
                 }
             />
             <ResultTableWrapper>
-                <StyledResultTable
-                    striped
-                    borderless
-                    size="sm"
+                <SortableTable
+                    result={props.result}
+                    sortFunc={props.sortFunc}
+                    defaultSortKey={props.defaultSortKey}
                 >
-                    {React.cloneElement(props.children, {
-                        requestSort: requestSort,
-                        getSortDirection: getSortDirection,
-                        sortedResult: sortedResult,
-                    })}
-                </StyledResultTable>
+                    {props.children}
+                </SortableTable>
             </ResultTableWrapper>
             <HelpModal
                 modalOpen={props.modalOpen}
