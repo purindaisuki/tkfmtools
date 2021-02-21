@@ -64,6 +64,26 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.2.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "掉落道具表格",
+                            "description": "新增掉落道具表格"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選結果呈現",
+                            "description": "新增角色圖片"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "變更部分排版",
+                            "description": "變更角色文字對齊、導航列高、語言選擇對齊、按鈕效果"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.2",
                     "content": [
                         {

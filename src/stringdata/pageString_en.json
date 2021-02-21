@@ -57,6 +57,26 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.2.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item drops table",
+                            "description": "Add table of item drops in main stages."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Result presentation of character filter",
+                            "description": "Add character pictures."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Some minor changes in layout",
+                            "description": "Change alignment of character texts and language switcher dropdwon, height of main navigation bar and button effects."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.2",
                     "content": [
                         {

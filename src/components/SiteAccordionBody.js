@@ -121,7 +121,7 @@ const MsgAccordion = styled(MyAccordion)`
                 padding: .25rem .4rem;
             }
         }
-        .MuiAccordionDetails-root {
+        && .MuiAccordionDetails-root {
             font-size: small;
             padding: .4rem .5rem;
             margin: 0;
