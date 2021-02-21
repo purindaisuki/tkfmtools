@@ -230,7 +230,14 @@
                 "byItem": "by Item",
                 "byStage": "by Stage"
             },
-            "notAvailableMsg": "Not available from stages"
+            "notAvailableMsg": "Not available from stage drops",
+            "tableHead": {
+                "stage": "Stage",
+                "materials": "Potential materials",
+                "trainItems": "Toys",
+                "expPotions": "Exp. potion",
+                "energy": "Energy"
+            }
         },
         "filter": {
             "itemPanelTitle": "Item Selection",

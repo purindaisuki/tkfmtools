@@ -241,7 +241,14 @@
                 "byItem": "依道具",
                 "byStage": "依地圖"
             },
-            "notAvailableMsg": "無法從地圖掉落取得"
+            "notAvailableMsg": "無法從地圖掉落取得",
+            "tableHead": {
+                "stage": "關卡",
+                "materials": "潛力材料",
+                "trainItems": "調教道具",
+                "expPotions": "經驗藥水",
+                "energy": "體力消耗"
+            }
         },
         "filter": {
             "itemPanelTitle": "道具選擇",

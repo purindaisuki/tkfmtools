@@ -1,3319 +1,3437 @@
 [
     {
         "chapter": "0",
-        "stages": [
+        "stage": "1",
+        "energy": 6,
+        "materials": [
             {
-                "stage": "1",
-                "energy": "6",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "0",
+        "stage": "2",
+        "energy": 6,
+        "materials": [
+            {
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "0",
+        "stage": "3",
+        "energy": 6,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "0",
+        "stage": "4",
+        "energy": 7,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "0",
+        "stage": "5",
+        "energy": 7,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "0",
+        "stage": "6",
+        "energy": 7,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 0
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "0",
+        "stage": "6 free",
+        "energy": 8,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 1
             },
             {
-                "stage": "2",
-                "energy": "6",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "0",
+        "stage": "7",
+        "energy": 8,
+        "materials": [
             {
-                "stage": "3",
-                "energy": "6",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "4",
-                "energy": "7",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "501",
+                "rarity": 0
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "1",
+        "stage": "2",
+        "energy": 8,
+        "materials": [
             {
-                "stage": "5",
-                "energy": "7",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "005",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "6",
-                "energy": "7",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": []
-            },
+                "id": "502",
+                "rarity": 0
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "6 free",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "7",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": []
+                "id": "701",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "1",
-        "stages": [
+        "stage": "3",
+        "energy": 8,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "004",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 0
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "4",
+        "energy": 8,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 0
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "5",
+        "energy": 8,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 0
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "5 free",
+        "energy": 8,
+        "materials": [
+            {
+                "id": "001",
+                "rarity": 2
             },
             {
-                "stage": "3",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "1",
+        "stage": "6",
+        "energy": 9,
+        "materials": [
+            {
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 0
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "6 free",
+        "energy": 9,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 2
             },
             {
-                "stage": "4",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "1",
+        "stage": "7",
+        "energy": 9,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 1
             },
             {
-                "stage": "5",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "7 free",
+        "energy": 9,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 2
             },
             {
-                "stage": "5 free",
-                "energy": "8",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "1",
+        "stage": "8",
+        "energy": 10,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 1
             },
             {
-                "stage": "6",
-                "energy": "9",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "罕見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "001",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
             {
-                "stage": "6 free",
-                "energy": "9",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "7",
-                "energy": "9",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "7 free",
-                "energy": "9",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "8",
-                "energy": "10",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "701",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "2",
-        "stages": [
+        "stage": "2",
+        "energy": 10,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "10",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "10",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "3",
+        "energy": 10,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
             },
             {
-                "stage": "4",
-                "energy": "11",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "4",
+        "energy": 11,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
             },
             {
-                "stage": "5",
-                "energy": "11",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "5",
+        "energy": 11,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
             },
             {
-                "stage": "5 free",
-                "energy": "10",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "004",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "5 free",
+        "energy": 10,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "6",
-                "energy": "11",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "6",
+        "energy": 11,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
             },
             {
-                "stage": "7",
-                "energy": "12",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "005",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "7",
+        "energy": 12,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 1
             },
             {
-                "stage": "7 free",
-                "energy": "10",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "2",
+        "stage": "7 free",
+        "energy": 10,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
             },
             {
-                "stage": "8",
-                "energy": "12",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "水(初)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "8",
+        "energy": 12,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 1
             },
             {
-                "stage": "8 free",
-                "energy": "11",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "2",
+        "stage": "8 free",
+        "energy": 11,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
             },
             {
-                "stage": "9",
-                "energy": "12",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "風(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "小型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "2",
+        "stage": "9",
+        "energy": 12,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 1
+            },
+            {
+                "id": "502",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "701",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "3",
-        "stages": [
+        "stage": "2",
+        "energy": 12,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "2 free",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
             },
             {
-                "stage": "2 free",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "3",
+        "stage": "3",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "4",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "5",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "6",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "6 free",
+        "energy": 12,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "3",
+        "stage": "7",
+        "energy": 13,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "7 free",
+        "energy": 12,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
             },
             {
-                "stage": "4",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "3",
+        "stage": "8",
+        "energy": 13,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "8 free",
+        "energy": 12,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
             },
             {
-                "stage": "5",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "3",
+        "stage": "9",
+        "energy": 13,
+        "materials": [
             {
-                "stage": "6",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "102",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "6 free",
-                "energy": "12",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
+                "id": "502",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "7",
-                "energy": "13",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "3",
+        "stage": "10",
+        "energy": 13,
+        "materials": [
             {
-                "stage": "7 free",
-                "energy": "12",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
+                "id": "105",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "8",
-                "energy": "13",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "503",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "8 free",
-                "energy": "12",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "9",
-                "energy": "13",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "10",
-                "energy": "13",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "702",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "4",
-        "stages": [
+        "stage": "2",
+        "energy": 14,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 1
             },
             {
-                "stage": "3",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "3",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 1
             },
             {
-                "stage": "3 free-1",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
+                "id": "003",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "3 free-1",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "3 free-2",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
             {
-                "stage": "4",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "5",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "5 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "6",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "7",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "7 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "8",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "9",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "9 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "10",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "11",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "少見"
-                    }
-                ]
-            },
-            {
-                "stage": "12",
-                "energy": "14",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "12",
-                "energy": "14",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "702",
+                "rarity": 1
             }
         ]
     },
     {
+        "chapter": "4",
+        "stage": "3 free-2",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "4",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 1
+            },
+            {
+                "id": "004",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "5",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 1
+            },
+            {
+                "id": "005",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "5 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "6",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 1
+            },
+            {
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "7",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "7 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
+            },
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "8",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "9",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "502",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "9 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "10",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "11",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 1
+            }
+        ]
+    },
+    {
+        "chapter": "4",
+        "stage": "12",
+        "energy": 14,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            },
+            {
+                "id": "603",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "4",
+        "stage": "12",
+        "energy": 14,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
+            },
+            {
+                "id": "602",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
         "chapter": "5",
-        "stages": [
+        "stage": "2",
+        "energy": 14,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "3",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
             },
             {
-                "stage": "4",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "4",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
             },
             {
-                "stage": "4 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "4 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "5",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "004",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "5",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
             },
             {
-                "stage": "6",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "6",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
             },
             {
-                "stage": "6 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "6 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
             },
             {
-                "stage": "7",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "005",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "7",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "8",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "9",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "9 free",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "301",
+                "rarity": 0
             },
             {
-                "stage": "8",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "101",
+                "rarity": 0
             },
             {
-                "stage": "9",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "10",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "602",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "11",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "12",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "301",
+                "rarity": 0
             },
             {
-                "stage": "9 free",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "堅固之角",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "102",
+                "rarity": 0
             },
             {
-                "stage": "10",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "13",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "302",
+                "rarity": 0
             },
             {
-                "stage": "11",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "103",
+                "rarity": 0
             },
             {
-                "stage": "12",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "堅固之角",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "5",
+        "stage": "14",
+        "energy": 14,
+        "materials": [
+            {
+                "id": "303",
+                "rarity": 0
             },
             {
-                "stage": "13",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "104",
+                "rarity": 0
             },
             {
-                "stage": "14",
-                "energy": "14",
-                "materials": [
-                    {
-                        "id": "儀式之油",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "2",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "3",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "3 free",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "202",
+                "rarity": 0
+            },
+            {
+                "id": "102",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "4",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
+            },
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "502",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "5",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "6",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "6 free",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "201",
+                "rarity": 0
+            },
+            {
+                "id": "101",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "7",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
+            },
+            {
+                "id": "505",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "8",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
+            },
+            {
+                "id": "501",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "8 free",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "205",
+                "rarity": 0
+            },
+            {
+                "id": "105",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "9",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "602",
+                "rarity": 1
+            },
+            {
+                "id": "502",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "10",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            },
+            {
+                "id": "503",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "11",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
+            },
+            {
+                "id": "504",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "6",
+        "stage": "12",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "202",
+                "rarity": 0
+            },
+            {
+                "id": "102",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "6",
-        "stages": [
+        "stage": "13",
+        "energy": 15,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "201",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "101",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "6",
+        "stage": "14",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "203",
+                "rarity": 0
             },
             {
-                "stage": "3 free",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "純源鋼錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "103",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "702",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "6",
+        "stage": "15",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "204",
+                "rarity": 0
             },
             {
-                "stage": "4",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
+                "id": "104",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
             {
-                "stage": "5",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "6",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "6 free",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "7",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "火(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "8",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "闇(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "8 free",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "暗之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "9",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "風(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "10",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "光(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "11",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "水(初)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "12",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "純源鋼錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "13",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "14",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "精靈露水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "15",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "彩虹合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "中型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "702",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "7",
-        "stages": [
+        "stage": "2",
+        "energy": 15,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "堅固之角",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "301",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "3 free-1",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "精靈露水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "星之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "3 free-2",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "儀式之油",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "3 free-3",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "蟲巢之絲",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "4",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "儀式之油",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "5",
-                "energy": "15",
-                "materials": [
-                    {
-                        "id": "腐蝕之塵",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "6",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "劇毒蛇牙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "7",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "獅鷲之喙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "8",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "熊皮",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "9",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "邪語之書",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "9 free",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "劇毒蛇牙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "10",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "精緻尾羽",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "11",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "蟲巢之絲",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "11 free",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "12",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "13",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "14",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
-            },
-            {
-                "stage": "15",
-                "energy": "16",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
             }
-        ]
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "3",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "302",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "3 free-1",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "203",
+                "rarity": 0
+            },
+            {
+                "id": "105",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "3 free-2",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "303",
+                "rarity": 0
+            },
+            {
+                "id": "104",
+                "rarity": 0
+            },
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "3 free-3",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "310",
+                "rarity": 0
+            },
+            {
+                "id": "103",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "4",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "303",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "5",
+        "energy": 15,
+        "materials": [
+            {
+                "id": "304",
+                "rarity": 0
+            },
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "6",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "305",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "7",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "306",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "8",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "307",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "9",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "308",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "9 free",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "305",
+                "rarity": 0
+            },
+            {
+                "id": "101",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "10",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "309",
+                "rarity": 0
+            },
+            {
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "11",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "310",
+                "rarity": 0
+            },
+            {
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "11 free",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "302",
+                "rarity": 0
+            },
+            {
+                "id": "102",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "12",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "201",
+                "rarity": 0
+            },
+            {
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "13",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "302",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "14",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "7",
+        "stage": "15",
+        "energy": 16,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 0
+            },
+            {
+                "id": "002",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
+            }
+        ],
+        "expPotions": []
     },
     {
         "chapter": "8",
-        "stages": [
+        "stage": "2",
+        "energy": 17,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "101",
+                "rarity": 1
             },
             {
-                "stage": "2 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "熊皮",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "必見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "2 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "307",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "101",
+                "rarity": 1
             },
             {
-                "stage": "4",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "003",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "3",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 1
             },
             {
-                "stage": "5",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "4",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 1
             },
             {
-                "stage": "6",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "5",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 1
             },
             {
-                "stage": "7",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "堅固之角",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "6",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 1
             },
             {
-                "stage": "8",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "7",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "301",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "8",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "302",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "8 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "308",
+                "rarity": 0
             },
             {
-                "stage": "8 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "邪語之書",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "必見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "102",
+                "rarity": 1
             },
             {
-                "stage": "9",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "儀式之油",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "004",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "9",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "303",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "502",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "10",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "304",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "11",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "305",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "11 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "309",
+                "rarity": 0
             },
             {
-                "stage": "10",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "腐蝕之塵",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "103",
+                "rarity": 1
             },
             {
-                "stage": "11",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "劇毒蛇牙",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "002",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "12",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "201",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
             },
             {
-                "stage": "11 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "精緻尾羽",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "月光水",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "必見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "505",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "13",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "202",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
             },
             {
-                "stage": "12",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "火(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "501",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "14",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "203",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "602",
+                "rarity": 1
             },
             {
-                "stage": "13",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "純源鋼錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "闇(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "502",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "15",
+        "energy": 17,
+        "materials": [
+            {
+                "id": "204",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
             },
             {
-                "stage": "14",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "精靈露水",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "風(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "503",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "16",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "205",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
             },
             {
-                "stage": "15",
-                "energy": "17",
-                "materials": [
-                    {
-                        "id": "彩虹合劑",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "光(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "504",
+                "rarity": 2
+            }
+        ],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "17",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "304",
+                "rarity": 0
             },
             {
-                "stage": "16",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "暗之粉",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "水(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "17 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "310",
+                "rarity": 0
             },
             {
-                "stage": "17",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "腐蝕之塵",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "104",
+                "rarity": 1
             },
             {
-                "stage": "17 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "蟲巢之絲",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "高級合劑",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "必見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "18",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "308",
+                "rarity": 0
             },
             {
-                "stage": "18",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "邪語之書",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "8",
+        "stage": "19",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "306",
+                "rarity": 0
             },
             {
-                "stage": "19",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "獅鷲之喙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "9",
+        "stage": "2",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "201",
+                "rarity": 0
+            },
+            {
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "9",
-        "stages": [
+        "stage": "3",
+        "energy": 18,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "202",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "純源鋼錠",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "4",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "203",
+                "rarity": 0
             },
             {
-                "stage": "4",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "精靈露水",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "4 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "304",
+                "rarity": 0
             },
             {
-                "stage": "4 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "腐蝕之塵",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "9",
+        "stage": "5",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "204",
+                "rarity": 0
             },
             {
-                "stage": "5",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "彩虹合劑",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "6",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "205",
+                "rarity": 0
             },
             {
-                "stage": "6",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "暗之粉",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "7",
+        "energy": 18,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
             },
             {
-                "stage": "7",
-                "energy": "18",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "火(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "505",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "8",
+        "energy": 18,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
             },
             {
-                "stage": "8",
-                "energy": "18",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "闇(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "501",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "8 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "307",
+                "rarity": 0
             },
             {
-                "stage": "8 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "熊皮",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "9",
+        "stage": "9",
+        "energy": 18,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "602",
+                "rarity": 1
             },
             {
-                "stage": "9",
-                "energy": "18",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "風(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "502",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "10",
+        "energy": 18,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
             },
             {
-                "stage": "10",
-                "energy": "18",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "光(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "503",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "11",
+        "energy": 18,
+        "materials": [],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
             },
             {
-                "stage": "11",
-                "energy": "18",
-                "materials": [],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "水(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "504",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "12",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 1
             },
             {
-                "stage": "12",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "001",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "12 free",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "306",
+                "rarity": 0
             },
             {
-                "stage": "12 free",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "獅鷲之喙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "9",
+        "stage": "13",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 1
             },
             {
-                "stage": "13",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "14",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 1
             },
             {
-                "stage": "14",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "15",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 1
             },
             {
-                "stage": "15",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "16",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 1
             },
             {
-                "stage": "16",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "少見"
-                    },
-                    {
-                        "id": "毒之粉",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "005",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
             {
-                "stage": "17",
-                "energy": "18",
-                "materials": [
-                    {
-                        "id": "精緻尾羽",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "9",
+        "stage": "17",
+        "energy": 18,
+        "materials": [
+            {
+                "id": "309",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
             }
         ]
     },
     {
         "chapter": "10",
-        "stages": [
+        "stage": "2",
+        "energy": 19,
+        "materials": [
             {
-                "stage": "2",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "野獸之爪",
-                        "rarity": "必定"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "001",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "3",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "002",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "4",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "003",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "5",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "004",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "6",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "005",
+                "rarity": 3
+            }
+        ],
+        "trainItems": [],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "7",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "101",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "604",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "8",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "102",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "603",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "9",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "103",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "602",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "9 free",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "301",
+                "rarity": 0
             },
             {
-                "stage": "3",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "鐵錠",
-                        "rarity": "必定"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "004",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "10",
+        "stage": "10",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "104",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "605",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "11",
+        "energy": 19,
+        "materials": [
+            {
+                "id": "105",
+                "rarity": 1
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "601",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "12",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "201",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "505",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "12 free",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "303",
+                "rarity": 0
             },
             {
-                "stage": "4",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "純淨水",
-                        "rarity": "必定"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "002",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "10",
+        "stage": "13",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "202",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "501",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "14",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "203",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "502",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "15",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "204",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "503",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "16",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "205",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
+            {
+                "id": "504",
+                "rarity": 2
+            }
+        ],
+        "expPotions": [
+            {
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "16 free",
+        "energy": 20,
+        "materials": [
+            {
+                "id": "305",
+                "rarity": 0
             },
             {
-                "stage": "5",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "必定"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "003",
+                "rarity": 2
+            }
+        ],
+        "trainItems": [],
+        "expPotions": []
+    },
+    {
+        "chapter": "10",
+        "stage": "17",
+        "energy": 20,
+        "materials": [
             {
-                "stage": "6",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "毒之粉",
-                        "rarity": "必定"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "302",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "7",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "巨獸之爪",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "602",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "8",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "鍛鐵錠",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "18",
+        "energy": 20,
+        "materials": [
             {
-                "stage": "9",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "月光水",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "308",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "9 free",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "堅固之角",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "史萊姆殘液",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
+                "id": "605",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "10",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "高級合劑",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "703",
+                "rarity": 2
+            }
+        ]
+    },
+    {
+        "chapter": "10",
+        "stage": "19",
+        "energy": 20,
+        "materials": [
             {
-                "stage": "11",
-                "energy": "19",
-                "materials": [
-                    {
-                        "id": "星之粉",
-                        "rarity": "少見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "310",
+                "rarity": 0
+            }
+        ],
+        "trainItems": [
             {
-                "stage": "12",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "惡魔之爪",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
+                "id": "601",
+                "rarity": 1
+            }
+        ],
+        "expPotions": [
             {
-                "stage": "12 free",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "儀式之油",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "鐵錠",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "13",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "純源鋼錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(初)(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "14",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "精靈露水",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(初)(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "15",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "彩虹合劑",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "光(初)(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "16",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "暗之粉",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "水(初)(初)",
-                        "rarity": "常見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "16 free",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "劇毒蛇牙",
-                        "rarity": "罕見"
-                    },
-                    {
-                        "id": "純淨水",
-                        "rarity": "常見"
-                    }
-                ],
-                "trainItems": [],
-                "expPotions": []
-            },
-            {
-                "stage": "17",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "銀錠",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "風(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "18",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "邪語之書",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "火(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
-            },
-            {
-                "stage": "19",
-                "energy": "20",
-                "materials": [
-                    {
-                        "id": "蟲巢之絲",
-                        "rarity": "罕見"
-                    }
-                ],
-                "trainItems": [
-                    {
-                        "id": "闇(中)",
-                        "rarity": "少見"
-                    }
-                ],
-                "expPotions": [
-                    {
-                        "id": "大型經驗藥水",
-                        "rarity": "常見"
-                    }
-                ]
+                "id": "703",
+                "rarity": 2
             }
         ]
     }
