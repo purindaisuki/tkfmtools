@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@material-ui/core';
+import SwitchableShowcase from './SwitchableShowcase';
 import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
-import { ItemCardBody } from './ItemShowcase'
-import { SortableTable } from './FilterComponents';
+import CardTable from './CardTable';
+import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
 import charTagData from '../gamedata/characterTags.json';
 import { LanguageContext } from './LanguageProvider';
 import {
@@ -58,19 +59,22 @@ const TextWrapper = styled.div`
         }
     }
 `
-const CardHeader = (props) => {
+const CardHeader = ({
+    className,
+    id,
+    name
+}) => {
     const { userLanguage } = React.useContext(LanguageContext)
 
     return (
-        <>
-            <TextWrapper
-                $img={`${process.env.PUBLIC_URL}/img/char_small_${props.id}.png`}
-                $lang={userLanguage}
-            >
-                <div>{props.name.split(' ').slice(0, -1).join(' ')}</div>
-                <div>{props.name.split(' ').slice(-1)[0]}</div>
-            </TextWrapper>
-        </>
+        <TextWrapper
+            className={className}
+            $img={`${process.env.PUBLIC_URL}/img/char_small_${id}.png`}
+            $lang={userLanguage}
+        >
+            <div>{name.split(' ').slice(0, -1).join(' ')}</div>
+            <div>{name.split(' ').slice(-1)[0]}</div>
+        </TextWrapper>
     )
 }
 
@@ -103,16 +107,16 @@ const CardBody = (props) => {
 
     if (!charTagData[props.id].available) {
         return (
-            <ItemCardBody>
+            <CardTable striped={true}>
                 <tbody><tr><td>
                     {charString.tagWarnMsg}
                 </td></tr></tbody>
-            </ItemCardBody>
+            </CardTable>
         )
     }
 
     return (
-        <ItemCardBody>
+        <CardTable striped={true}>
             <tbody>
                 {Object.entries(charTagData[props.id]).map((entry, idx) => {
                     if (
@@ -157,80 +161,155 @@ const CardBody = (props) => {
                     }
                 })}
             </tbody>
-        </ItemCardBody>
+        </CardTable>
     )
 }
 
-const AccordionWrapper = styled.div`
-    margin-bottom: 1rem;
-    > .MuiAccordion-root {
-        background-color: ${props => props.theme.colors.surface};
+const StyledAccordion = styled(MyAccordion)`
+    && {
+        && {
+            margin-bottom: 1rem;
+        }
         border: 1px solid ${props => props.theme.colors.border};
         border-radius: .25rem;
         box-shadow: 0 0 .15em lightgray;
-        > .MuiAccordionSummary-root,
-        > .MuiAccordionSummary-root.Mui-expanded {
-            padding: 0;
-            border-radius: .25rem;
-            > .MuiAccordionSummary-content {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                overflow: hidden;
-                border-radius: .25rem;
-                padding: 0;
-                margin: 0;
-            }
-        }
         > .MuiAccordionSummary-root {
+            padding: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
             border-bottom: 0px solid ${props => props.theme.colors.border};
         }
         > .MuiAccordionSummary-root.Mui-expanded {
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
             border-bottom: 1px solid ${props => props.theme.colors.border};
         }
-        > .MuiCollapse-container {
-            border-radius: .2rem;
-            > div > div > div > .MuiAccordionDetails-root {
-                margin: 0;
-                padding: 0;
-            }
+        .MuiAccordionSummary-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+        }
+        .MuiAccordionDetails-root {
+            margin: 0;
+            padding: 0;
         }
     }
 `
-const CharCard = (props) => {
+const CharAccordion = (props) => {
     const [isExpanded, setExpanded] = React.useState(false)
 
     return (
-        <AccordionWrapper>
-            <MyAccordion
-                expanded={isExpanded}
-                onChange={() => setExpanded(!isExpanded)}
-                square={false}
-                title={props.header}
-                content={props.body}
-            />
-        </AccordionWrapper>
+        <StyledAccordion
+            expanded={isExpanded}
+            onChange={() => setExpanded(!isExpanded)}
+            square={false}
+            title={props.header}
+            content={props.body}
+        />
     )
 }
 
-const SortTh = styled.th`
-    position: sticky;
-    top: 0;
-    cursor: pointer;
-    user-select: none;
-    background-color: ${props => props.theme.colors.secondary};
-    color: ${props => props.theme.colors.onSecondary};
-    &:after {
-        content: '${props => {
-            if (!props.direction) return
-            return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-        }}';
+const LayoutBtnContainer = styled.div`
+    position: absolute;
+    right: 0;
+    top: -4rem;
+    @media screen and (max-width: 410px) {
+        font-size: 0;
+    }
+`
+const StyledBtn = styled(IconButton)`
+    padding: .75rem .5rem;
+    svg {
+        width: 1.6rem;
+        height: 1.6rem;
+        fill: ${props => (
+            props.$active
+                ? props.theme.colors.secondary
+                : props.theme.colors.onSurface
+        )};
+    }
+    &:hover svg {
+        fill: ${props => props.theme.colors.secondary};
+    }
+`
+const LayoutSwitcher = (props) => {
+    const { pageString } = React.useContext(LanguageContext)
+
+    return (
+        <LayoutBtnContainer>
+            {pageString.enlist.layout}
+            <StyledBtn
+                $active={props.layout === 'Masonry'}
+                onClick={props.handleLayoutChange('Masonry')}
+            >
+                {MasonryViewIcon}
+            </StyledBtn>
+            <StyledBtn
+                $active={props.layout === 'Table'}
+                onClick={props.handleLayoutChange('Table')}
+            >
+                {TableViewIcon}
+            </StyledBtn>
+        </LayoutBtnContainer>
+    )
+}
+
+const CharMasnory = () => {
+    const { charString } = React.useContext(LanguageContext)
+
+    const breakpointColumnsConfig = {
+        default: 6,
+        1360: 5,
+        1200: 4,
+        992: 3,
+        768: 2
+    }
+
+    return (
+        <MyMasonry
+            breakpointCols={breakpointColumnsConfig}
+        >
+            {charString.name.slice(0, charString.name.length - 1)
+                .map((char, idx) => (
+                    <CharAccordion
+                        header={<CardHeader id={idx + 1} name={char} />}
+                        body={<CardBody id={idx} />}
+                        key={idx}
+                    />
+                ))}
+        </MyMasonry>
+    )
+}
+
+const StyledTh = styled(SortableTh)`
+    background-color:  ${props => props.theme.colors.secondary};
+    color:  ${props => props.theme.colors.onSecondary};
+    white-space: nowrap;
+`
+const CharCardHeader = styled(CardHeader)`
+    @media screen and (min-width: ${props => (
+        props.$lang === 'en'
+            ? '1300'
+            : '900'
+    )}px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: ${props => (
+            props.$lang === 'en'
+                ? 'flex-end'
+                : 'flex-start'
+        )};
+        > div:last-child {
+            margin-left: ${props => (
+                props.$lang === 'en'
+                    ? '-.8rem'
+                    : '.5rem'
+            )};
+        }
     }
 `
 const TableContent = (props) => {
-    const { charString } = React.useContext(LanguageContext)
+    const { userLanguage, charString } = React.useContext(LanguageContext)
 
     const gradeToRarity = (grade) => (
         grade === 0 ? 'N'
@@ -242,173 +321,114 @@ const TableContent = (props) => {
     const TableHeader = () => (
         <thead>
             <tr>
-                {charString
-                    .tagAttributes.map((attr, idx) => {
-                        const key = Object.keys(attr)[0]
-                        const val = Object.values(attr)[0]
-                        return (
-                            <SortTh
-                                onClick={() => props.requestSort(key)}
-                                direction={props.getSortDirection(key)}
-                                key={idx}
-                                nowrap='nowrap'
-                            >
-                                {val}
-                            </SortTh>
-                        )
-                    })}
+                {Object.entries(charString.tagAttributes)
+                    .map((entry, idx) => (
+                        <StyledTh
+                            onClick={() => props.requestSort(entry[0])}
+                            direction={props.getSortDirection(entry[0])}
+                            key={idx}
+                        >
+                            {entry[1]}
+                        </StyledTh>
+                    ))}
             </tr>
         </thead>
+    )
+
+    const TableBody = () => (
+        <tbody>
+            {props.sortedResult.map(char => {
+                if (!char.available) {
+                    return (
+                        <tr key={char.name}>
+                            <td>
+                                <CharCardHeader
+                                    id={char.name + 1}
+                                    name={charString.name[char.name]}
+                                    $lang={userLanguage}
+                                />
+                            </td>
+                            <td>
+                                {gradeToRarity(char.grade)}
+                            </td>
+                            <td>
+                                {charString.tags[char.type]}
+                            </td>
+                            <td>
+                                {charString.tags[char.category]}
+                            </td>
+                            <td colSpan='5'>
+                                {charString.tagWarnMsg}
+                            </td>
+                        </tr>
+                    )
+                }
+
+                return (
+                    <tr key={char.name}>
+                        {Object.entries(char).map((entry, j) => {
+                            if (entry[0] === 'available') {
+                                return true
+                            }
+                            if (entry[0] === 'name') {
+                                return (
+                                    <td key={j}>
+                                        <CharCardHeader
+                                            id={char.name + 1}
+                                            name={
+                                                charString
+                                                    .name[char.name]
+                                            }
+                                            $lang={userLanguage}
+                                        />
+                                    </td>
+                                )
+                            }
+                            if (entry[0] === 'grade') {
+                                return (
+                                    <td key={j}>
+                                        {gradeToRarity(entry[1])}
+                                    </td>
+                                )
+                            }
+                            if (entry[0] === 'else') {
+                                return (
+                                    <td key={j} nowrap='nowrap'>
+                                        {entry[1].map(tag => (
+                                            charString.tags[tag]
+                                        )).join(', ')}
+                                    </td>
+                                )
+                            }
+
+                            let tag
+                            if (entry[1].length === 0) {
+                                tag = '-'
+                            } else {
+                                tag = charString.tags[entry[1]]
+                            }
+                            return <td key={j} nowrap='nowrap'>{tag}</td>
+                        })}
+                    </tr>
+                )
+            })}
+        </tbody>
     )
 
     return (
         <>
             <TableHeader />
-            <tbody>
-                {props.sortedResult.map(char => {
-                    if (!char.available) {
-                        return (
-                            <tr key={char.name}>
-                                <td>
-                                    <CardHeader
-                                        id={char.name + 1}
-                                        name={charString.name[char.name]}
-                                    />
-                                </td>
-                                <td>
-                                    {gradeToRarity(char.grade)}
-                                </td>
-                                <td>
-                                    {charString.tags[char.type]}
-                                </td>
-                                <td>
-                                    {charString.tags[char.category]}
-                                </td>
-                                <td colSpan='5'>
-                                    {charString.tagWarnMsg}
-                                </td>
-                            </tr>
-                        )
-                    }
-
-                    return (
-                        <tr key={char.name}>
-                            {Object.entries(char).map((entry, j) => {
-                                if (entry[0] === 'available') {
-                                    return true
-                                }
-                                if (entry[0] === 'name') {
-                                    return (
-                                        <td key={j}>
-                                            <CardHeader
-                                                id={char.name + 1}
-                                                name={
-                                                    charString
-                                                        .name[char.name]
-                                                }
-                                            />
-                                        </td>
-                                    )
-                                }
-                                if (entry[0] === 'grade') {
-                                    return (
-                                        <td key={j}>
-                                            {gradeToRarity(entry[1])}
-                                        </td>
-                                    )
-                                }
-                                if (entry[0] === 'else') {
-                                    return (
-                                        <td key={j} nowrap='nowrap'>
-                                            {entry[1].map(tag => (
-                                                charString.tags[tag]
-                                            )).join(', ')}
-                                        </td>
-                                    )
-                                }
-
-                                let tag
-                                if (entry[1].length === 0) {
-                                    tag = '-'
-                                } else {
-                                    tag = charString.tags[entry[1]]
-                                }
-                                return <td key={j} nowrap='nowrap'>{tag}</td>
-                            })}
-                        </tr>
-                    )
-                })}
-            </tbody>
+            <TableBody />
         </>
     )
 }
 
-const TableWrapper = styled.div`
+const CharTableWrapper = styled(TableWrapper)`
     overflow-x: auto;
-    overflow-y: auto;
     height: calc(100vh - 12rem);
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-        width: 1rem;
-        height: 1rem;
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-thumb {
-        background: lightgray;
-        border-radius: .25rem;
-    }
-    &::-webkit-scrollbar-track {
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-corner {
-        background: ${props => props.theme.colors.surface};
-    }
-    > table {
-        width: 100%;
-        color: ${props => props.theme.colors.onSurface};
-        thead {
-            width: 100%;
-            th {
-                padding: .75rem .25rem;
-            }
-            th:first-child {
-                padding-left: .75rem;
-            }
-        }
-        tbody {
-            tr {
-                border-bottom: 1px solid ${props => props.theme.colors.secondary};
-            }
-            td {
-                vertical-align: middle;
-            }
-        }
-        @media screen and (min-width: ${props => (
-        props.$lang === 'en'
-            ? '1300'
-            : '900'
-    )}px) {
-            td:first-child > div {
-                flex-direction: row;
-                align-items: center;
-                justify-content: ${props => (
-        props.$lang === 'en'
-            ? 'flex-end'
-            : 'flex-start'
-    )};
-                > div:last-child {
-                    margin-left: ${props => (
-        props.$lang === 'en'
-            ? '-.8rem'
-            : '.5rem'
-    )};
-                }
-            }
-        }
-    }
 `
 const CharTable = () => {
-    const { userLanguage } = React.useContext(LanguageContext)
+    const { charString } = React.useContext(LanguageContext)
 
     const sortFunc = (sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {
@@ -417,6 +437,9 @@ const CharTable = () => {
             if (sortConfig.key === 'else') {
                 aKey = a[sortConfig.key].join('')
                 bKey = b[sortConfig.key].join('')
+            } else if (sortConfig.key === 'name') {
+                aKey = charString.name[a[sortConfig.key]]
+                bKey = charString.name[b[sortConfig.key]]
             } else {
                 aKey = a[sortConfig.key]
                 bKey = b[sortConfig.key]
@@ -432,107 +455,29 @@ const CharTable = () => {
     }
 
     return (
-        <TableWrapper
-            $lang={userLanguage}
-        >
+        <CharTableWrapper>
             <SortableTable
                 sortFunc={sortFunc}
                 defaultSortKey={'grade'}
                 result={charTagData}
                 striped={false}
+                border={true}
             >
                 <TableContent />
             </SortableTable>
-        </TableWrapper>
+        </CharTableWrapper>
     )
 }
 
-const ShowcaseContainer = styled.div`
-    display: ${props => props.$hidden ? 'none' : 'block'}
-`
-const LayoutBtnContainer = styled.div`
-    position: absolute;
-    right: 0;
-    top: -4rem;
-    @media screen and (max-width: 410px) {
-        font-size: 0;
-    }
-`
-const StyledBtn = styled(IconButton)`
-    padding: .75rem .5rem;
-    svg {
-        fill: ${props => (
-        props.$active
-            ? props.theme.colors.secondary
-            : props.theme.colors.onSurface
-    )};
-        width: 1.6rem;
-        height: 1.6rem;
-    }
-    &:hover {
-        svg {
-            fill: ${props => props.theme.colors.secondary};
-            width: 1.6rem;
-            height: 1.6rem;
-        }
-    }
-`
 export default function CharShowcase() {
-    const { pageString, charString } = React.useContext(LanguageContext)
-    const characters = charString.name
-
-    const getDefaultLayout = () => {
-        const localSetting = localStorage.getItem('enlist-character-layout')
-        return localSetting ? localSetting : 'Masonry'
-    }
-    const [layout, setLayout] = React.useState(getDefaultLayout)
-
-    const handleLayoutChange = (toLayout) => () => {
-        setLayout(toLayout)
-        localStorage.setItem('enlist-character-layout', toLayout)
-    }
-
-    const breakpointColumnsConfig = {
-        default: 6,
-        1360: 5,
-        1200: 4,
-        992: 3,
-        768: 2
-    };
-
     return (
-        <>
-            <LayoutBtnContainer>
-                {pageString.enlist.layout}
-                <StyledBtn
-                    $active={layout === 'Masonry'}
-                    onClick={handleLayoutChange('Masonry')}
-                >
-                    {MasonryViewIcon}
-                </StyledBtn>
-                <StyledBtn
-                    $active={layout === 'Table'}
-                    onClick={handleLayoutChange('Table')}
-                >
-                    {TableViewIcon}
-                </StyledBtn>
-            </LayoutBtnContainer>
-            <ShowcaseContainer $hidden={layout !== 'Masonry'}>
-                <MyMasonry
-                    breakpointCols={breakpointColumnsConfig}
-                >
-                    {characters.slice(0, characters.length - 1).map((char, idx) => (
-                        <CharCard
-                            header={<CardHeader id={idx + 1} name={char} />}
-                            body={<CardBody id={idx} />}
-                            key={idx}
-                        />
-                    ))}
-                </MyMasonry>
-            </ShowcaseContainer>
-            <ShowcaseContainer $hidden={layout !== 'Table'}>
-                <CharTable />
-            </ShowcaseContainer>
-        </>
+        <SwitchableShowcase
+            localLayoutConfig='enlist-character-layout'
+            layoutSwitcher={<LayoutSwitcher />}
+            items={[
+                { layout: 'Masonry', content: <CharMasnory /> },
+                { layout: 'Table', content: <CharTable /> },
+            ]}
+        />
     )
 }

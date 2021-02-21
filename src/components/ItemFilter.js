@@ -1,58 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents';
+import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import MyToggleButtonGroup, {MyToggleButton} from './MyToggleButtonGroup';
 import itemDropData from '../gamedata/itemDrop.json';
 import { LanguageContext } from './LanguageProvider';
 import { ClearIcon } from './icon';
 
-const IconWrapper = styled.div`
+const ClearIconWrapper = styled.div`
     cursor: pointer;
     svg {
         width: 1.2rem;
         height: 1.2rem;
     }
 `
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
-    display: grid;
-    grid-template-columns: repeat(${props => props.$layoutConfig.default}, 1fr);
-    gap: .5rem;
-    ${props => Object.entries(props.$layoutConfig).map(entries => (
-    `@media screen and (min-width: ${entries[0]}px) {
-            grid-template-columns: repeat(${entries[1]}, 1fr);
-        }
-        `
-    ))}
-    > .active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-`
-const StyledToggleButton = styled(ToggleButton)`
+const StyledToggleButton = styled(MyToggleButton)`
     font-size: .85rem;
-    font-weight: normal;
-    text-align: center;
-    padding: .15rem .15rem;
-    margin-bottom: 0;
-    border-radius: .25rem;
-    border: 1px solid ${props => props.theme.colors.secondaryBorder};
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    &:hover {
-        border: 1px solid ${props => props.theme.colors.secondary};
-        box-shadow: inset 0 0 .5rem ${props => props.theme.colors.secondary}
-            , 0 0 .1rem ${props => props.theme.colors.secondary};
-    }
-    &:active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-    > input {
-        display: none;
-    }
     > img {
         width: 2.26rem; height: 2.26rem;
     }
@@ -88,18 +50,18 @@ const ItemFilterPanel = (props) => {
             <ContainerHeader
                 title={pageString.potential.filter.itemPanelTitle}
                 end={
-                    <IconWrapper
+                    <ClearIconWrapper
                         onClick={() => props.filterBy([])}
                     >
                         {ClearIcon}
-                    </IconWrapper>
+                    </ClearIconWrapper>
                 }
             />
-            <StyledToggleButtonGroup
-                type="checkbox"
+            <MyToggleButtonGroup
+                type='checkbox'
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
-                $layoutConfig={btnLayoutConfig}
+                layoutConfig={btnLayoutConfig}
             >
                 {itemDropData.map((item, idx) => {
                     if (item.drop.length === 0) return true
@@ -108,58 +70,41 @@ const ItemFilterPanel = (props) => {
                         <StyledToggleButton
                             value={idx}
                             key={idx}
-                            bsPrefix='btn-escape'
                         >
                             <img
                                 src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
                                 alt=''
                             />
-                            {itemString.name[item.name]}
+                            {itemString.name[item.id]}
                         </StyledToggleButton>
                     )
                 })}
-            </StyledToggleButtonGroup>
+            </MyToggleButtonGroup>
         </FilterPanel>
     )
 }
 
-const SortTh = styled.th`
-    position: sticky;
-    top: 0;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1.1rem;
-    font-weight: normal;
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    &:after {
-        content: '${props => {
-        if (!props.direction) return
-        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-    }}';
-    }
-`
 const TableContent = (props) => {
     const { pageString, itemString } = React.useContext(LanguageContext)
 
-    const TableHeader = (props) => {
+    const ItemTh = (props) => {
         if (props.sortedResult.length === 0) {
-            return <SortTh>{pageString.potential.filter.tableHead[1]}</SortTh>
+            return <SortableTh>{pageString.potential.filter.tableHead[1]}</SortableTh>
         }
 
         return (
             props.sortedResult[0].drop.map((item, idx) => {
                 return (
-                    <SortTh
+                    <SortableTh
                         key={idx}
                         onClick={() => props.requestSort(idx)}
                         direction={props.getSortDirection(idx)}
                     >
                         <img
                             src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
-                            alt={itemString.name[item.name]}
+                            alt={itemString.name[item.id]}
                         />
-                    </SortTh>
+                    </SortableTh>
                 )
             })
         )
@@ -169,14 +114,14 @@ const TableContent = (props) => {
         <>
             <thead>
                 <tr>
-                    <SortTh
+                    <SortableTh
                         onClick={() => props.requestSort('stage')}
                         direction={props.getSortDirection('stage')}
                     >
                         {pageString.potential.filter.tableHead[0]}
-                    </SortTh>
-                    <TableHeader {...props} />
-                    <SortTh
+                    </SortableTh>
+                    <ItemTh {...props} />
+                    <SortableTh
                         onClick={() => props.requestSort('energy')}
                         direction={props.getSortDirection('energy')}
                     >
@@ -185,7 +130,7 @@ const TableContent = (props) => {
                             className='card-table-img'
                             alt={pageString.potential.filter.tableHead[2]}
                         />
-                    </SortTh>
+                    </SortableTh>
                 </tr>
             </thead>
             <tbody>
@@ -240,7 +185,6 @@ export default function ItemFilter() {
         filteredStages.forEach(stage => {
             stage.drop = [{
                 id: itemDropData[curVal[0]].id,
-                name: itemDropData[curVal[0]].name,
                 rarity: stage.rarity
             }]
             delete stage.rarity
@@ -256,7 +200,6 @@ export default function ItemFilter() {
                     ) {
                         let newDrop = {
                             id: itemDropData[itemIdx].id,
-                            name: itemDropData[itemIdx].name,
                             rarity: that.rarity
                         }
                         thisStage.drop.push(newDrop)

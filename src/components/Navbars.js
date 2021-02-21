@@ -19,28 +19,29 @@ import {
 
 const StyledLanguageSwitcher = styled(DropdownButton)`
     padding: 0;
-    padding-right: 1.25rem;
-    button {
+    margin-right: 1.25rem;
+    &&&& button {
         margin: 0;
         padding: 0;
         border: none;
-        transition: background-color 355ms ease;
-        color: ${props => props.theme.colors.onPrimary};
-        background-color: ${props => props.theme.colors.primary};
+        color: inherit;
+        background-color: inherit;
+        &:focus,
+        &:active {
+            background-color: inherit;
+            box-shadow: none;
+        }
     }
     svg {
         width: 1.4rem;
         height: 1.4rem;
         fill: ${props => props.theme.colors.onPrimary};
     }
-    .dropdown-menu {
+    &&&& .dropdown-menu {
         top: 120%;
         border: none;
         background-color: ${props => props.theme.colors.surface};
         box-shadow: 0 0 .15em ${props => props.theme.colors.shadow};
-        a:nth-of-type(1) {
-            padding: .5rem .5rem;
-        }
         a {
             padding: .5rem .5rem;
             color: ${props => props.theme.colors.onSurface};
@@ -63,7 +64,6 @@ function LanguageSwitcher() {
         <StyledLanguageSwitcher
             title={LanguageIcon}
             onSelect={handleUserLanguage}
-            bsPrefix='escape'
             menuAlign='right'
         >
             <Dropdown.Item eventKey='zh-TW'>繁體中文</Dropdown.Item>
@@ -74,6 +74,7 @@ function LanguageSwitcher() {
 
 const StyledMainNavBar = styled(Navbar)`
     background-color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.onPrimary};
     transition: all 355ms ease;
     padding: .6rem 1.25rem;
     align-item: end;
@@ -100,11 +101,7 @@ const Text = styled.div`
         font-size: 1.2rem;
     }
     font-weight: bold;
-    color: ${props => props.theme.colors.onPrimary};
-    &:hover {
-        text-decoration: none;
-        color: ${props => props.theme.colors.onPrimary};
-    }
+    color: inherit;
 `
 const ThemeSwitcherLabel = styled.label`
     position: relative;
@@ -154,7 +151,7 @@ export function MainNavbar(props) {
     const { pageString } = React.useContext(LanguageContext)
 
     const path = /\/(?:.(?!\/))+$/.exec(window.location)
-    const title = path === null
+    const title = path === null || path[0] === '/tkfmtools'
         ? pageString.home.documentTitle
         : pageString[path[0].slice(1)].name
 
@@ -186,9 +183,6 @@ const StyledDrawer = styled(Drawer)`
     .MuiDrawer-paper {
         background-color: ${props => props.theme.colors.surface};
         width: 20rem;
-        @media screen and (max-width: 624px) {
-            width: 20rem;
-        }
     }
 `
 const SiderbarList = styled(ListGroup)`
@@ -226,7 +220,7 @@ const SiderbarItem = styled(ListGroup.Item)`
     font-size: large;
     border: 0;
     padding: 1rem 1.25rem;
-    background-color: ${props => props.theme.colors.surface};
+    background-color: inherit;
     color: ${props => props.theme.colors.onSurface};
     cursor: pointer;
     svg {
@@ -297,27 +291,26 @@ export function Sidebar(props) {
     )
 }
 
-const AccordionWrapper = styled.div`
-    margin: -1rem -1.25rem;
-    cursor: default;
-    .MuiAccordion-root {
-        box-shadow: none;
-    }
-    .MuiAccordionSummary-root,
-    .MuiAccordionSummary-root.Mui-expanded {
-        padding: 1rem 1.25rem;
-        padding-right: 1.75rem;
-    }
-    .MuiAccordionSummary-content,
-    .MuiAccordionSummary-content.Mui-expanded {
-        margin: 0;
-    }
-    .MuiAccordionDetails-root {
-        font-size: medium;
-        padding: 0 4rem;
+const ListItemAccordion = styled(MyAccordion)`
+    && {
         cursor: default;
-        a {
-            padding-bottom: .5rem;
+        && {
+            margin: -1rem -1.25rem;
+        }
+        .MuiAccordionSummary-root {
+            padding: 1rem 1.25rem;
+            padding-right: 1.75rem;
+        }
+        .MuiAccordionSummary-content {
+            margin: 0;
+        }
+        .MuiAccordionDetails-root {
+            font-size: medium;
+            padding: 0 4rem;
+            cursor: default;
+            a {
+                padding-bottom: .5rem;
+            }
         }
     }
 `
@@ -332,34 +325,32 @@ function SidebarAccordions(props) {
 
     return (
         <SiderbarItem>
-            <AccordionWrapper>
-                <MyAccordion
-                    expanded={isExpanded}
-                    onChange={() => setExpanded(!isExpanded)}
-                    square={true}
-                    expandIcon={ExpandMoreIcon}
-                    title={
-                        <>
-                            {props.icon}
-                            {props.title}
-                        </>
-                    }
-                    content={
-                        <ListGroup>
-                            {props.links.map((item, idx) => (
-                                <AccordionItem
-                                    as='a'
-                                    href={item.link}
-                                    target='_blank'
-                                    key={idx}
-                                >
-                                    {item.description}
-                                </AccordionItem>
-                            ))}
-                        </ListGroup>
-                    }
-                />
-            </AccordionWrapper>
+            <ListItemAccordion
+                expanded={isExpanded}
+                onChange={() => setExpanded(!isExpanded)}
+                square={true}
+                expandIcon={ExpandMoreIcon}
+                title={
+                    <>
+                        {props.icon}
+                        {props.title}
+                    </>
+                }
+                content={
+                    <ListGroup>
+                        {props.links.map((item, idx) => (
+                            <AccordionItem
+                                as='a'
+                                href={item.link}
+                                target='_blank'
+                                key={idx}
+                            >
+                                {item.description}
+                            </AccordionItem>
+                        ))}
+                    </ListGroup>
+                }
+            />
         </SiderbarItem>
     )
 }

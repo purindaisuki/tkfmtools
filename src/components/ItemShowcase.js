@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Table } from 'react-bootstrap';
-import MyMasonry from './MyMasonry'
+import Button from '@material-ui/core/Button';
+import SwitchableShowcase from './SwitchableShowcase';
+import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
+import CardTable from './CardTable';
 import itemDropData from '../gamedata/itemDrop.json';
 import { LanguageContext } from './LanguageProvider';
 
@@ -40,6 +42,14 @@ const EnergyIcon = styled.img`
 const CardBodyContnet = (props) => {
     const { pageString, itemString } = React.useContext(LanguageContext)
 
+    if (props.drop.length === 0) {
+        return (
+            <tbody><tr><td>
+                {pageString.potential.overview.notAvailableMsg}
+            </td></tr></tbody>
+        )
+    }
+
     return (
         <tbody>
             {props.drop.map((drop, idx) => (
@@ -61,59 +71,32 @@ const CardBodyContnet = (props) => {
     )
 }
 
-const StyledTable = styled(Table)`
-  font-size: .9rem;
-  color: ${props => props.theme.colors.onSurface};
-  margin: 0;
-  > tbody > tr > td {
-    padding-left: .75rem;
-  }
-`
-export const ItemCardBody = (props) => {
-    return (
-        <StyledTable
-            striped
-            borderless
-            size="sm"
-        >
-            {props.children}
-        </StyledTable>
-    )
-}
-
-const AccordionWrapper = styled.div`
-    margin-bottom: 1rem;
-    > .MuiAccordion-root {
-        background-color: ${props => props.theme.colors.surface};
+const ItemAccordion = styled(MyAccordion)`
+    && {
+        && {
+            margin-bottom: 1rem;
+        }
         border: 1px solid ${props => props.theme.colors.border};
         border-radius: .25rem;
         box-shadow: 0 0 .15em lightgray;
         > .MuiAccordionSummary-root {
-            border-bottom: 1px solid ${props => props.theme.colors.surface};
-        }
-        > .MuiAccordionSummary-root,
-        > .MuiAccordionSummary-root.Mui-expanded {
             padding: .75rem 1.25rem;
-            border-radius: .25rem;
-            > .MuiAccordionSummary-content {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: .25rem;
-                margin: 0;
-            }
-        }
-        > .MuiAccordionSummary-root.Mui-expanded {
             border-bottom-right-radius: 0;
             border-bottom-left-radius: 0;
+            border-bottom: 0px solid ${props => props.theme.colors.border};
+        }
+        > .MuiAccordionSummary-root.Mui-expanded {
             border-bottom: 1px solid ${props => props.theme.colors.border};
         }
-        > .MuiCollapse-container {
-            border-radius: .2rem;
-            > div > div > div > .MuiAccordionDetails-root {
-                margin: 0;
-                padding: 0;
-            }
+        .MuiAccordionSummary-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .MuiAccordionDetails-root {
+            margin: 0;
+            padding: 0;
         }
     }
 `
@@ -121,19 +104,62 @@ const ItemCard = (props) => {
     const [isExpanded, setExpanded] = React.useState(false)
 
     return (
-        <AccordionWrapper>
-            <MyAccordion
-                expanded={isExpanded}
-                onChange={() => setExpanded(!isExpanded)}
-                square={false}
-                title={props.header}
-                content={props.body}
-            />
-        </AccordionWrapper>
+        <ItemAccordion
+            expanded={isExpanded}
+            onChange={() => setExpanded(!isExpanded)}
+            square={false}
+            title={props.header}
+            content={props.body}
+        />
     )
 }
 
-export default function ItemShowcase() {
+const LayoutBtnContainer = styled.div`
+    position: absolute;
+    right: 0;
+    top: -4rem;
+`
+const BtnWrapper = styled.span`
+    > button {
+        padding: .4rem .6rem;
+        margin-left: .6rem;
+        background-color: ${props => (
+        props.$active
+            ? props.theme.colors.secondary
+            : 'lightgray'
+    )};
+    }
+    > button:hover {
+        background-color: ${props => props.theme.colors.secondary};
+    }
+`
+const LayoutSwitcher = (props) => {
+    const { pageString } = React.useContext(LanguageContext)
+    return (
+        <LayoutBtnContainer>
+            <BtnWrapper
+                $active={props.layout === 'Masonry'}
+            >
+                <Button
+                    onClick={props.handleLayoutChange('Masonry')}
+                >
+                    {pageString.potential.overview.layout.byItem}
+                </Button>
+            </BtnWrapper>
+            <BtnWrapper
+                $active={props.layout === 'Table'}
+            >
+                <Button
+                    onClick={props.handleLayoutChange('Table')}
+                >
+                    {pageString.potential.overview.layout.byStage}
+                </Button>
+            </BtnWrapper>
+        </LayoutBtnContainer>
+    )
+}
+
+const ItemMasonry = () => {
     const breakpointColumnsConfig = {
         default: 6,
         1360: 5,
@@ -147,25 +173,36 @@ export default function ItemShowcase() {
             breakpointCols={breakpointColumnsConfig}
         >
             {itemDropData.map((item, idx) => (
-                item.drop.length === 0
-                    ? true
-                    : <ItemCard
-                        key={idx}
-                        header={
-                            <ItemCardHeader
-                                id={item.id}
-                                name={item.name}
+                <ItemCard
+                    key={idx}
+                    header={
+                        <ItemCardHeader
+                            id={item.id}
+                            name={item.name}
+                        />
+                    }
+                    body={
+                        <CardTable>
+                            <CardBodyContnet
+                                drop={item.drop}
                             />
-                        }
-                        body={
-                            <ItemCardBody>
-                                <CardBodyContnet
-                                    drop={item.drop}
-                                />
-                            </ItemCardBody>
-                        }
-                    />
+                        </CardTable>
+                    }
+                />
             ))}
         </MyMasonry>
+    )
+}
+
+export default function ItemShowcase() {
+    return (
+        <SwitchableShowcase
+            localLayoutConfig='potential-item-layout'
+            layoutSwitcher={<LayoutSwitcher />}
+            items={[
+                { layout: 'Masonry', content: <ItemMasonry /> },
+                { layout: 'Table', content: <div /> },
+            ]}
+        />
     )
 }

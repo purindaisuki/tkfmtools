@@ -77,34 +77,16 @@
         "AoE",
         "Counterstrike"
     ],
-    "tagAttributes": [
-        {
-            "name": "Character"
-        },
-        {
-            "grade": "Rarity"
-        },
-        {
-            "type": "Attribute"
-        },
-        {
-            "category": "Position"
-        },
-        {
-            "race": "Race"
-        },
-        {
-            "body": "Body size"
-        },
-        {
-            "oppai": "Oppai"
-        },
-        {
-            "rank": "Rank"
-        },
-        {
-            "else": "Else tags"
-        }
-    ],
+    "tagAttributes": {
+        "name": "Character",
+        "grade": "Rarity",
+        "type": "Attribute",
+        "category": "Position",
+        "race": "Race",
+        "body": "Body size",
+        "oppai": "Oppai",
+        "rank": "Rank",
+        "else": "Else tags"
+    },
     "tagWarnMsg": "Not available from recruitment"
 }

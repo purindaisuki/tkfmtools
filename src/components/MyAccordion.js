@@ -2,52 +2,52 @@ import styled from 'styled-components';
 import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 
 const StyledAccordion = styled(Accordion)`
-    .MuiAccordion-root {
+    && {
+        box-shadow: none;
         background-color: ${props => props.theme.colors.surface};
         color: ${props => props.theme.colors.onSurface};
-    }
-    .MuiAccordionSummary-root,
-    .MuiAccordionSummary-root.Mui-expanded {
-        min-height: 0;
-        transition: all 355ms ease;
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
-    .MuiAccordionSummary-content,
-    .MuiAccordionSummary-content.Mui-expanded {
-        transition: all 355ms ease;
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
-    .MuiAccordionSummary-expandIcon {
-        padding: 0;
-        svg {
-            fill: ${props => props.theme.colors.secondary};
+        transition: all 0.3s ease;
+        &.Mui-expanded {
             margin: 0;
-            width: 1.6rem;
-            height: 1.6rem;
+        }
+        > .MuiAccordionSummary-root {
+            transition: border-bottom 0.3s ease;
+            min-height: 0;
+        }
+        .MuiAccordionSummary-expandIcon {
+            padding: 0;
+            svg {
+                fill: ${props => props.theme.colors.secondary};
+                margin: 0;
+                width: 1.6rem;
+                height: 1.6rem;
+            }
         }
     }
-    .MuiCollapse-container {
-        transition: all 355ms ease;
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
 `
-export default function MyAccordion(props) {
+export default function MyAccordion({
+    className,
+    expanded,
+    onChange,
+    square,
+    expandIcon,
+    title,
+    content
+}) {
     return (
         <StyledAccordion
-            expanded={props.expanded}
-            onChange={props.onChange}
-            square={props.square}
+            className={className}
+            expanded={expanded}
+            onChange={onChange}
+            square={square}
         >
             <AccordionSummary
-                expandIcon={props.expandIcon}
+                expandIcon={expandIcon}
             >
-                {props.title}
+                {title}
             </AccordionSummary>
             <AccordionDetails>
-                {props.content}
+                {content}
             </AccordionDetails>
         </StyledAccordion>
     )

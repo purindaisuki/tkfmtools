@@ -194,19 +194,6 @@ const ResultPanel = (props) => {
 
     const [modalOpen, setModalOpen] = React.useState(false)
 
-    const itemIdToName = (id) => {
-        if (id === '801') return itemString.name[35]
-        if (id === '901') return itemString.name[36]
-
-        const rank = Math.floor(id / 100)
-        const item = id % 100
-        if (rank <= 3) {
-            return itemString.name[rank * 5 + item - 1]
-        }
-
-        return itemString.name[rank * 5 + item + 4]
-    }
-
     const resultLayoutConfig = userLanguage === 'en'
         ? {
             1360: 5,
@@ -241,7 +228,7 @@ const ResultPanel = (props) => {
                                 }
                                 alt=''
                             />
-                            {`${itemIdToName(item[0])}`}
+                            {`${itemString.name[('00' + item[0]).slice(-3)]}`}
                         </div>
                         {item[1]}
                     </MaterialWrapper>

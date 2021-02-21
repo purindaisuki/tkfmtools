@@ -104,27 +104,27 @@ export const SiteDescription = () => {
     )
 }
 
-const AccordionWrapper = styled.div`
-    > .MuiAccordion-root {
-        box-shadow: none;
+const MsgAccordion = styled(MyAccordion)`
+    && {
         border-bottom: 1px solid lightgray;
         > .MuiAccordionSummary-root {
             padding: 0 .5rem;
-            border-bottom: lightgray;
-            > .MuiAccordionSummary-content {
-                display: inline;
-                margin: .5rem 0;
-                > span {
-                    padding: .25rem .4rem;
-                }
-            }
+            border-bottom: 0px solid lightgray;
         }
-        > .Mui-expanded {
+        > .MuiAccordionSummary-root.Mui-expanded {
             border-bottom: 1px solid lightgray;
+        }
+        .MuiAccordionSummary-content {
+            display: inline;
+            margin: .5rem 0;
+            > span {
+                padding: .25rem .4rem;
+            }
         }
         .MuiAccordionDetails-root {
             font-size: small;
             padding: .4rem .5rem;
+            margin: 0;
         }
     }
 `
@@ -136,20 +136,18 @@ function LogMsg(props) {
             : ChangeBadge
 
     return (
-        <AccordionWrapper>
-            <MyAccordion
-                expanded={isExpanded}
-                onChange={() => setExpanded(!isExpanded)}
-                square={true}
-                title={
-                    <>
-                        <Badge />
-                        {` ${title}`}
-                    </>
-                }
-                content={description}
-            />
-        </AccordionWrapper>
+        <MsgAccordion
+            expanded={isExpanded}
+            onChange={() => setExpanded(!isExpanded)}
+            square={true}
+            title={
+                <>
+                    <Badge />
+                    {` ${title}`}
+                </>
+            }
+            content={description}
+        />
     )
 }
 

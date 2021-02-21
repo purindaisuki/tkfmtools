@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
-import { Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel, ResultTable } from './FilterComponents';
+import { Form } from 'react-bootstrap';
+import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import './tooltip.css';
 import tagData from '../gamedata/tags.json';
 import charTagData from '../gamedata/characterTags.json';
@@ -22,66 +23,38 @@ import {
     AlertIcon
 } from './icon';
 
+const StyledFilterPanel = styled(FilterPanel)`
+    > div:nth-child(3) {
+        margin-top: 1rem;
+    }
+`
 const IconWrapper = styled.div`
-    cursor: pointer;
     svg {
         width: 1.2rem;
         height: 1.2rem;
+        margin-right: .4rem;
+        margin-bottom: .2rem;
+        fill: ${props => props.theme.colors.onSurface};
+        color: ${props => props.theme.colors.onSurface};
+    }
+`
+const ClearIconWrapper = styled(IconWrapper)`
+    cursor: pointer;
+    svg {
         margin: 0;
     }
 `
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
-    display: grid;
-    gap: .5rem;
-    ${props => Object.entries(props.$layoutConfig).map(entry => (
-    `@media screen and (min-width: ${entry[0]}px) {
-            grid-template-columns: repeat(${entry[1]}, 1fr);
-        }
-        `
-))}
-    > .active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-        svg {
-            fill: ${props => props.theme.colors.onSecondary};
-            color: ${props => props.theme.colors.onSecondary};
-        }
-    }
-`
-const StyledToggleButton = styled(ToggleButton)`
-    font-weight: normal;
-    text-align: center;
-    padding: .15rem .15rem;
-    margin-bottom: 0;
-    border-radius: .25rem;
-    border: 1px solid ${props => props.theme.colors.secondaryBorder};
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    &:hover {
-        border: 1px solid ${props => props.theme.colors.secondary};
-        box-shadow: inset 0 0 .5rem ${props => props.theme.colors.secondary}
-            , 0 0 .1rem ${props => props.theme.colors.secondary};
-    }
-    &:active {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-        svg {
-            fill: ${props => props.theme.colors.onSecondary};
-            color: ${props => props.theme.colors.onSecondary};
-        }
-    }
-    > input {
-        display: none;
-    }
-    > svg {
+const StyledToggleButton = styled(MyToggleButton)`
+    svg {
         width: 1.6rem;
         height: 1.4rem;
         vertical-align: middle;
         fill: ${props => props.theme.colors.secondary};
         color: ${props => props.theme.colors.secondary};
+    }
+    &.active > svg {
+        fill: ${props => props.theme.colors.onSecondary};
+        color: ${props => props.theme.colors.onSecondary};
     }
 `
 const Select = styled(Form.Control)`
@@ -133,43 +106,46 @@ const CharFilterPanel = (props) => {
         }
 
     return (
-        <FilterPanel widthConfig={widthConfig}>
+        <StyledFilterPanel widthConfig={widthConfig}>
             <ContainerHeader
                 title={
                     <div>
-                        {TagIcon}
+                        <IconWrapper>
+                            {TagIcon}
+                        </IconWrapper>
                         {pageString.enlist.tagSelectTitle}
                     </div>
                 }
                 end={
-                    <IconWrapper
+                    <ClearIconWrapper
                         onClick={() => props.filterBy([])}
                     >
                         {ClearIcon}
-                    </IconWrapper>
+                    </ClearIconWrapper>
                 }
             />
-            <StyledToggleButtonGroup
-                type="checkbox"
+            <MyToggleButtonGroup
+                type='checkbox'
                 value={props.filterBtnValue}
                 onChange={props.filterBy}
-                $layoutConfig={btnLayoutConfig}
+                layoutConfig={btnLayoutConfig}
             >
                 {tagData.map((item, idx) => (
                     <StyledToggleButton
                         value={idx}
                         key={idx}
-                        bsPrefix='btn-escape'
                     >
                         {attrIcons[item.icon]}
                         {charString.tags[item.id]}
                     </StyledToggleButton>
                 ))}
-            </StyledToggleButtonGroup>
+            </MyToggleButtonGroup>
             <ContainerHeader
                 title={
                     <div>
-                        {ClockIcon}
+                        <IconWrapper>
+                            {ClockIcon}
+                        </IconWrapper>
                         {pageString.enlist.timeSelectTitle}
                     </div>
                 }
@@ -198,34 +174,16 @@ const CharFilterPanel = (props) => {
                     </Select>
                 </Form.Group>
             </Form>
-        </FilterPanel>
+        </StyledFilterPanel>
     )
 }
 
-const SortTh = styled.th`
-    position: sticky;
-    top: 0;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1.1rem;
-    font-weight: normal;
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    &:after {
-        content: '${props => {
-        if (!props.direction) return
-        return props.direction === 'asc' ? ' \\25B2' : ' \\25BC'
-    }}';
-    }
-`
-const StarIconWrapper = styled.div`
+const StarIconWrapper = styled(IconWrapper)`
     display: inline;
-    vertical-align: text-bottom;
     svg {
-        width: 1.3rem;
-        height: 1.3rem;
+        width: 1.2rem;
+        height: 1.2rem;
         margin: 0 .4rem;
-        fill: ${props => props.theme.colors.onSurface};
     }
 `
 function TableContent(props) {
@@ -258,13 +216,13 @@ function TableContent(props) {
                 <tr>
                     {pageString.enlist.tableHead
                         .map((item, idx) => (
-                            <SortTh
+                            <SortableTh
                                 key={idx}
                                 onClick={() => props.requestSort(item.attr)}
                                 direction={props.getSortDirection(item.attr)}
                             >
                                 {item.title}
-                            </SortTh>
+                            </SortableTh>
                         ))}
                 </tr>
             </thead>
@@ -290,41 +248,47 @@ function TableContent(props) {
     )
 }
 
+const StyledSnackbar = styled(Snackbar)`
+    > div {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        background-color: #ff9800;
+        font-size: medium;
+    }
+    .MuiSnackbarContent-action {
+        margin: 0;
+        padding: 0;
+    }
+    svg {
+        width: 1.4rem;
+        height: 1.4rem;
+        margin-right: .4rem;
+        fill: #fff;
+    }
+`
+const MySnackbar = ({
+    open,
+    onClose,
+    message
+}) => (
+    <StyledSnackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={onClose}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+        }}
+        message={message}
+        action={AlertIcon}
+    />
+)
+
 const FilterContainer = styled.div`
     display: flex;
     @media screen and (max-width: 992px) {
         display: block;
-    }
-    > div:first-child {
-        > div:nth-child(3) {
-            margin-top: 1rem;
-        }
-        > div > div > svg {
-                width: 1.2rem;
-                height: 1.2rem;
-                margin-right: .4rem;
-                margin-bottom: .2rem;
-                fill: ${props => props.theme.colors.onSurface};
-                color: ${props => props.theme.colors.onSurface};
-            }
-        }
-    }
-    > .MuiSnackbar-root > div {
-        background-color: #ff9800;
-        font-size: medium;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        > .MuiSnackbarContent-action {
-            margin: 0;
-            padding: 0;
-            svg 
-            {
-                width: 1.4rem;
-                height: 1.4rem;
-                fill: #fff;
-            }
-        }
     }
 `
 export default function CharFilter() {
@@ -518,16 +482,10 @@ export default function CharFilter() {
                 handleEnlistHour={handleEnlistHour}
                 filterBtnValue={state.filterBtnValue}
             />
-            <Snackbar
+            <MySnackbar
                 open={state.isSnackbarOpen}
-                autoHideDuration={3000}
                 onClose={handleSnackbarClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
                 message={pageString.enlist.snackbarMsg}
-                action={AlertIcon}
             />
             <ResultTable
                 result={state.characters}

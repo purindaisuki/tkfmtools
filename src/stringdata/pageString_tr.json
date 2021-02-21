@@ -236,35 +236,12 @@
             "篩選",
             "角色需求"
         ],
-        "character": {
-            "characterPanelTitle": "角色選擇",
-            "characterSelectTitle": "角色",
-            "currentSelectTitle": "當前",
-            "targetSelectTitle": "目標",
-            "resultDemandTitle": "需求道具",
-            "resultBuffTitle": "增益",
-            "snackbarMsg": "目標階段小於當前階段",
-            "modal": [
-                {
-                    "title": "介紹",
-                    "content": [
-                        "本頁可計算角色所需之潛力材料及增益效果"
-                    ]
-                },
-                {
-                    "title": "說明",
-                    "content": [
-                        "選擇起訖潛力階段(包含首尾)，結果為累計之所需道具",
-                        "若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具"
-                    ]
-                },
-                {
-                    "title": "注意事項",
-                    "content": [
-                        "大多角色潛力需求為依規律推測而得，並非實際蒐集結果"
-                    ]
-                }
-            ]
+        "overview": {
+            "layout": {
+                "byItem": "依道具",
+                "byStage": "依地圖"
+            },
+            "notAvailableMsg": "無法從地圖掉落取得"
         },
         "filter": {
             "itemPanelTitle": "道具選擇",
@@ -295,6 +272,36 @@
                         "只包含主線之掉落物",
                         "即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同",
                         "目前掉落率尚不明，願意的話可以點左邊資訊回報中'主線掉落數據回報'，或許未來資料足夠可新增刷圖計算功能"
+                    ]
+                }
+            ]
+        },
+        "character": {
+            "characterPanelTitle": "角色選擇",
+            "characterSelectTitle": "角色",
+            "currentSelectTitle": "當前",
+            "targetSelectTitle": "目標",
+            "resultDemandTitle": "需求道具",
+            "resultBuffTitle": "增益",
+            "snackbarMsg": "目標階段小於當前階段",
+            "modal": [
+                {
+                    "title": "介紹",
+                    "content": [
+                        "本頁可計算角色所需之潛力材料及增益效果"
+                    ]
+                },
+                {
+                    "title": "說明",
+                    "content": [
+                        "選擇起訖潛力階段(包含首尾)，結果為累計之所需道具",
+                        "若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具"
+                    ]
+                },
+                {
+                    "title": "注意事項",
+                    "content": [
+                        "大多角色潛力需求為依規律推測而得，並非實際蒐集結果"
                     ]
                 }
             ]

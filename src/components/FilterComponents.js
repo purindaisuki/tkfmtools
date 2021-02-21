@@ -20,10 +20,13 @@ const StyledContainerHeader = styled.div`
         align-items: center;
     }
 `
-export const ContainerHeader = (props) => (
+export const ContainerHeader = ({
+    title,
+    end
+}) => (
     <StyledContainerHeader>
-        {props.title}
-        {props.end}
+        {title}
+        {end}
     </StyledContainerHeader>
 )
 
@@ -42,9 +45,16 @@ const StyledFilterPanel = styled.div`
         width: ${props => props.widthConfig[992]};
     }
 `
-export const FilterPanel = (props) => (
-    <StyledFilterPanel widthConfig={props.widthConfig}>
-        {props.children}
+export const FilterPanel = ({
+    className,
+    children,
+    widthConfig
+}) => (
+    <StyledFilterPanel
+        className={className}
+        widthConfig={widthConfig}
+    >
+        {children}
     </StyledFilterPanel>
 )
 
@@ -142,10 +152,58 @@ export function HelpModal(props) {
     )
 }
 
-export const SortableTable = (props) => {
+export const SortableTh = styled.th`
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    user-select: none;
+    background-color: ${props => props.theme.colors.surface};
+    color: ${props => props.theme.colors.onSurface};
+    &:after {
+        content: '${props => (
+        props.direction
+            ? props.direction === 'asc'
+                ? ' \\25B2'
+                : ' \\25BC'
+            : undefined
+    )}';
+    }
+`
+const StyledTable = styled(Table)`
+    width: 100%;
+    margin-bottom: 0;
+    &, &&& tr {
+        color: ${props => props.theme.colors.onSurface};
+    }
+    th {
+        padding: .75rem .25rem;
+    }
+    th:first-child {
+        padding-left: .75rem;
+    }
+    td {
+        vertical-align: middle;
+    }
+    tr {
+        border-bottom: ${props => (
+            props.$border
+            ? '1px solid ' + props.theme.colors.secondary
+            : 'none'
+        )};
+    }
+`
+export const SortableTable = ({
+    className,
+    children,
+    result,
+    sortFunc,
+    defaultSortKey,
+    striped,
+    border
+}) => {
     const useSortableData = (
         items, config = {
-            key: props.defaultSortKey,
+            key: defaultSortKey,
             direction: 'desc'
         }
     ) => {
@@ -153,7 +211,7 @@ export const SortableTable = (props) => {
 
         const sortedItems = React.useMemo(() => {
             let sortableItems = [...items]
-            props.sortFunc(sortableItems, sortConfig)
+            sortFunc(sortableItems, sortConfig)
             return sortableItems
         }, [items, sortConfig])
 
@@ -171,27 +229,30 @@ export const SortableTable = (props) => {
         return { sortedResult: sortedItems, requestSort, sortConfig }
     }
 
-    const { sortedResult, requestSort, sortConfig } = useSortableData(props.result)
+    const { sortedResult, requestSort, sortConfig } = useSortableData(result)
 
-    const getSortDirection = (name) => {
+    const getSortDirection = (key) => {
         if (sortedResult.length === 0) {
             return
         }
-        return sortConfig.key === name ? sortConfig.direction : undefined
+        return sortConfig.key === key ? sortConfig.direction : undefined
     }
 
     return (
-        <Table
-            striped={props.striped}
+        <StyledTable
+            className={className}
+            striped={striped}
             borderless
+            hover
+            $border={border}
             size="sm"
         >
-            {React.cloneElement(props.children, {
+            {React.cloneElement(children, {
                 requestSort: requestSort,
                 getSortDirection: getSortDirection,
                 sortedResult: sortedResult,
             })}
-        </Table>
+        </StyledTable>
     )
 }
 
@@ -220,10 +281,11 @@ const ResultTableContainer = styled.div`
         margin-top: 1rem;
     }
 `
-const ResultTableWrapper = styled.div`
+export const TableWrapper = styled.div`
     height: calc(100% - 1.4rem - 1.5rem);
     maring-top: -.5rem;
-    overflow-x: hidden; overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     scrollbar-width: thin;
     &::-webkit-scrollbar {
         width: .4rem;
@@ -236,16 +298,14 @@ const ResultTableWrapper = styled.div`
     &::-webkit-scrollbar-track {
         background: ${props => props.theme.colors.surface};
     }
-    > table {
-        width: 100%;
-        font-size: normal;
-        color: ${props => props.theme.colors.onSurface};
-        img {
-            width: 1.8rem; height: 1.8rem;
-        }
-        td {
-            padding-left: .75rem;
-        }
+`
+const StyledSortableTable = styled(SortableTable)`
+    font-size: normal;
+    img {
+        width: 1.8rem; height: 1.8rem;
+    }
+    td {
+        padding-left: .75rem;
     }
 `
 const IconWrapper = styled.div`
@@ -273,16 +333,16 @@ export function ResultTable(props) {
                     </div>
                 }
             />
-            <ResultTableWrapper>
-                <SortableTable
+            <TableWrapper>
+                <StyledSortableTable
                     result={props.result}
                     sortFunc={props.sortFunc}
                     defaultSortKey={props.defaultSortKey}
                     striped={props.striped}
                 >
                     {props.children}
-                </SortableTable>
-            </ResultTableWrapper>
+                </StyledSortableTable>
+            </TableWrapper>
             <HelpModal
                 modalOpen={props.modalOpen}
                 handleModalClose={props.handleModalClose}

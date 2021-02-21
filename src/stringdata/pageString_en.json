@@ -225,35 +225,12 @@
             "Filter",
             "Character requirement"
         ],
-        "character": {
-            "characterPanelTitle": "Character Selection",
-            "characterSelectTitle": "Character",
-            "currentSelectTitle": "Current",
-            "targetSelectTitle": "Target",
-            "resultDemandTitle": "Material",
-            "resultBuffTitle": "Buff",
-            "snackbarMsg": "Target stage should larger than current stage",
-            "modal": [
-                {
-                    "title": "Introduction",
-                    "content": [
-                        "This page is to calculate the requirement of potential material and buff of characters."
-                    ]
-                },
-                {
-                    "title": "How To",
-                    "content": [
-                        "Select character and current and target stages (both included) to calculate the material requirement.",
-                        "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
-                    ]
-                },
-                {
-                    "title": "Notes",
-                    "content": [
-                        "Most results are inferred from patterns of character potential, not from actual data."
-                    ]
-                }
-            ]
+        "overview": {
+            "layout": {
+                "byItem": "by Item",
+                "byStage": "by Stage"
+            },
+            "notAvailableMsg": "Not available from stages"
         },
         "filter": {
             "itemPanelTitle": "Item Selection",
@@ -282,6 +259,36 @@
                     "content": [
                         "Only includes items that drops in 'World' instance.",
                         "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
+                    ]
+                }
+            ]
+        },
+        "character": {
+            "characterPanelTitle": "Character Selection",
+            "characterSelectTitle": "Character",
+            "currentSelectTitle": "Current",
+            "targetSelectTitle": "Target",
+            "resultDemandTitle": "Material",
+            "resultBuffTitle": "Buff",
+            "snackbarMsg": "Target stage should larger than current stage",
+            "modal": [
+                {
+                    "title": "Introduction",
+                    "content": [
+                        "This page is to calculate the requirement of potential material and buff of characters."
+                    ]
+                },
+                {
+                    "title": "How To",
+                    "content": [
+                        "Select character and current and target stages (both included) to calculate the material requirement.",
+                        "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
+                    ]
+                },
+                {
+                    "title": "Notes",
+                    "content": [
+                        "Most results are inferred from patterns of character potential, not from actual data."
                     ]
                 }
             ]

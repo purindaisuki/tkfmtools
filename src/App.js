@@ -9,7 +9,7 @@ import { routes } from './routes'
 
 const Body = styled.div`
     min-height: 100vh;
-    transition: background-color 355ms ease;
+    transition: background-color 0.3s ease;
     background-color: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.onSurface};
 `

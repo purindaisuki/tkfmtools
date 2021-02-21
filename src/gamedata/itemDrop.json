@@ -1,6 +1,5 @@
 [
     {
-        "name": 0,
         "id": "001",
         "rank": 0,
         "category": 0,
@@ -188,7 +187,6 @@
         ]
     },
     {
-        "name": 1,
         "id": "002",
         "rank": 0,
         "category": 0,
@@ -370,7 +368,6 @@
         ]
     },
     {
-        "name": 2,
         "id": "003",
         "rank": 0,
         "category": 0,
@@ -522,7 +519,6 @@
         ]
     },
     {
-        "name": 3,
         "id": "004",
         "rank": 0,
         "category": 0,
@@ -686,7 +682,6 @@
         ]
     },
     {
-        "name": 4,
         "id": "005",
         "rank": 0,
         "category": 0,
@@ -844,7 +839,6 @@
         ]
     },
     {
-        "name": 5,
         "id": "101",
         "rank": 1,
         "category": 0,
@@ -942,7 +936,6 @@
         ]
     },
     {
-        "name": 6,
         "id": "102",
         "rank": 1,
         "category": 0,
@@ -1046,7 +1039,6 @@
         ]
     },
     {
-        "name": 7,
         "id": "103",
         "rank": 1,
         "category": 0,
@@ -1144,7 +1136,6 @@
         ]
     },
     {
-        "name": 8,
         "id": "104",
         "rank": 1,
         "category": 0,
@@ -1242,7 +1233,6 @@
         ]
     },
     {
-        "name": 9,
         "id": "105",
         "rank": 1,
         "category": 0,
@@ -1322,7 +1312,6 @@
         ]
     },
     {
-        "name": 10,
         "id": "201",
         "rank": 2,
         "category": 0,
@@ -1366,7 +1355,6 @@
         ]
     },
     {
-        "name": 11,
         "id": "202",
         "rank": 2,
         "category": 0,
@@ -1404,7 +1392,6 @@
         ]
     },
     {
-        "name": 12,
         "id": "203",
         "rank": 2,
         "category": 0,
@@ -1442,7 +1429,6 @@
         ]
     },
     {
-        "name": 13,
         "id": "204",
         "rank": 2,
         "category": 0,
@@ -1474,7 +1460,6 @@
         ]
     },
     {
-        "name": 14,
         "id": "205",
         "rank": 2,
         "category": 0,
@@ -1506,7 +1491,6 @@
         ]
     },
     {
-        "name": 15,
         "id": "301",
         "rank": 3,
         "category": 0,
@@ -1544,7 +1528,6 @@
         ]
     },
     {
-        "name": 16,
         "id": "302",
         "rank": 3,
         "category": 0,
@@ -1588,7 +1571,6 @@
         ]
     },
     {
-        "name": 17,
         "id": "303",
         "rank": 3,
         "category": 0,
@@ -1626,7 +1608,6 @@
         ]
     },
     {
-        "name": 18,
         "id": "304",
         "rank": 3,
         "category": 0,
@@ -1658,7 +1639,6 @@
         ]
     },
     {
-        "name": 19,
         "id": "305",
         "rank": 3,
         "category": 0,
@@ -1690,7 +1670,6 @@
         ]
     },
     {
-        "name": 20,
         "id": "306",
         "rank": 3,
         "category": 0,
@@ -1716,7 +1695,6 @@
         ]
     },
     {
-        "name": 21,
         "id": "307",
         "rank": 3,
         "category": 0,
@@ -1742,7 +1720,6 @@
         ]
     },
     {
-        "name": 22,
         "id": "308",
         "rank": 3,
         "category": 0,
@@ -1774,7 +1751,6 @@
         ]
     },
     {
-        "name": 23,
         "id": "309",
         "rank": 3,
         "category": 0,
@@ -1800,7 +1776,6 @@
         ]
     },
     {
-        "name": 24,
         "id": "310",
         "rank": 3,
         "category": 0,
@@ -1832,7 +1807,78 @@
         ]
     },
     {
-        "name": 37,
+        "id": "401",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "402",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "403",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "404",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "405",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "406",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "407",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "408",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "409",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "410",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "801",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
+        "id": "901",
+        "rank": 4,
+        "category": 0,
+        "drop": []
+    },
+    {
         "id": "505",
         "rank": 0,
         "category": 1,
@@ -1924,7 +1970,6 @@
         ]
     },
     {
-        "name": 38,
         "id": "504",
         "rank": 0,
         "category": 1,
@@ -1992,7 +2037,6 @@
         ]
     },
     {
-        "name": 39,
         "id": "502",
         "rank": 0,
         "category": 1,
@@ -2060,7 +2104,6 @@
         ]
     },
     {
-        "name": 40,
         "id": "503",
         "rank": 0,
         "category": 1,
@@ -2128,7 +2171,6 @@
         ]
     },
     {
-        "name": 41,
         "id": "501",
         "rank": 0,
         "category": 1,
@@ -2208,7 +2250,6 @@
         ]
     },
     {
-        "name": 42,
         "id": "605",
         "rank": 1,
         "category": 1,
@@ -2270,7 +2311,6 @@
         ]
     },
     {
-        "name": 43,
         "id": "604",
         "rank": 1,
         "category": 1,
@@ -2314,7 +2354,6 @@
         ]
     },
     {
-        "name": 44,
         "id": "602",
         "category": 1,
         "rank": 1,
@@ -2364,7 +2403,6 @@
         ]
     },
     {
-        "name": 45,
         "id": "603",
         "rank": 1,
         "category": 1,
@@ -2420,7 +2458,6 @@
         ]
     },
     {
-        "name": 46,
         "id": "601",
         "rank": 1,
         "category": 1,
@@ -2476,7 +2513,6 @@
         ]
     },
     {
-        "name": 47,
         "id": "701",
         "rank": 0,
         "category": 2,
@@ -2574,7 +2610,6 @@
         ]
     },
     {
-        "name": 48,
         "id": "702",
         "rank": 1,
         "category": 2,
@@ -2714,7 +2749,6 @@
         ]
     },
     {
-        "name": 49,
         "id": "703",
         "rank": 2,
         "category": 2,
@@ -2924,89 +2958,5 @@
                 "rarity": 2
             }
         ]
-    },
-    {
-        "name": 25,
-        "id": "401",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 26,
-        "id": "402",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 27,
-        "id": "403",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 28,
-        "id": "404",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 29,
-        "id": "405",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 30,
-        "id": "406",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 31,
-        "id": "407",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 32,
-        "id": "408",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 33,
-        "id": "409",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 34,
-        "id": "410",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 35,
-        "id": "801",
-        "rank": 4,
-        "category": 0,
-        "drop": []
-    },
-    {
-        "name": 36,
-        "id": "901",
-        "rank": 4,
-        "category": 0,
-        "drop": []
     }
 ]
