@@ -22,15 +22,9 @@ import {
 
 const TextWrapper = styled.div`
     display: flex;
-    align-items: ${props => props.$lang === 'en'
-        ? 'flex-end'
-        : 'flex-start'
-    };
-    @media screen and (max-width: 490px) {
-        align-items: flex-end;
-    }
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
     width: 100%;
     min-width: 10rem;
     height: 3.6rem;
@@ -39,10 +33,8 @@ const TextWrapper = styled.div`
     background-size: 6rem 6rem;
     background-position: 0 -1.6rem;
     > div {
-        ${props => props.$lang === 'en'
-            ? 'margin-right: 1rem'
-            : 'margin-left: 6rem'
-        };
+        margin-left: 0;
+        margin-right: 1rem;
         transition: all 355ms ease;
         text-shadow: 0 0 1px ${props => props.theme.colors.surface},
         -2px 0 1px  ${props => props.theme.colors.surface},
@@ -53,27 +45,25 @@ const TextWrapper = styled.div`
         2px -2px 1px ${props => props.theme.colors.surface},
         -2px 2px 1px ${props => props.theme.colors.surface},
         -2px -2px 1px ${props => props.theme.colors.surface};
-        @media screen and (max-width: 490px) {
-            margin-left: 0;
-            margin-right: 1rem;
-        }
     }
 `
 const CardHeader = ({
     className,
-    id,
-    name
+    imgId
 }) => {
-    const { userLanguage } = React.useContext(LanguageContext)
+    const { charString } = React.useContext(LanguageContext)
 
     return (
         <TextWrapper
             className={className}
-            $img={`${process.env.PUBLIC_URL}/img/char_small_${id}.png`}
-            $lang={userLanguage}
+            $img={`${process.env.PUBLIC_URL}/img/char_small_${imgId}.png`}
         >
-            <div>{name.split(' ').slice(0, -1).join(' ')}</div>
-            <div>{name.split(' ').slice(-1)[0]}</div>
+            <div>
+                {charString.name[imgId - 1].split(' ').slice(0, -1).join(' ')}
+            </div>
+            <div>
+                {charString.name[imgId - 1].split(' ').slice(-1)[0]}
+            </div>
         </TextWrapper>
     )
 }
@@ -262,7 +252,7 @@ const CharMasnory = () => {
         1360: 5,
         1200: 4,
         992: 3,
-        768: 2
+        600: 2
     }
 
     return (
@@ -272,7 +262,7 @@ const CharMasnory = () => {
             {charString.name.slice(0, charString.name.length - 1)
                 .map((char, idx) => (
                     <CharAccordion
-                        header={<CardHeader id={idx + 1} name={char} />}
+                        header={<CardHeader imgId={idx + 1} />}
                         body={<CardBody id={idx} />}
                         key={idx}
                     />
@@ -286,25 +276,18 @@ const StyledTh = styled(SortableTh)`
     color:  ${props => props.theme.colors.onSecondary};
     white-space: nowrap;
 `
-const CharCardHeader = styled(CardHeader)`
+export const CharCardHeader = styled(CardHeader)`
     @media screen and (min-width: ${props => (
-        props.$lang === 'en'
-            ? '1300'
-            : '900'
+        props.$textWrapConfig
     )}px) {
         flex-direction: row;
         align-items: center;
-        justify-content: ${props => (
-            props.$lang === 'en'
-                ? 'flex-end'
-                : 'flex-start'
-        )};
+        justify-content: flex-start;
+        > div {
+            margin-left: 7rem
+        }
         > div:last-child {
-            margin-left: ${props => (
-                props.$lang === 'en'
-                    ? '-.8rem'
-                    : '.5rem'
-            )};
+            margin-left: -.6rem;
         }
     }
 `
@@ -335,6 +318,11 @@ const TableContent = (props) => {
         </thead>
     )
 
+    const cardTextWrapConfig = {
+        'zh-TW': 900,
+        'en': 1300,
+    }
+
     const TableBody = () => (
         <tbody>
             {props.sortedResult.map(char => {
@@ -343,9 +331,10 @@ const TableContent = (props) => {
                         <tr key={char.name}>
                             <td>
                                 <CharCardHeader
-                                    id={char.name + 1}
-                                    name={charString.name[char.name]}
-                                    $lang={userLanguage}
+                                    imgId={char.name + 1}
+                                    $textWrapConfig={
+                                        cardTextWrapConfig[userLanguage]
+                                    }
                                 />
                             </td>
                             <td>
@@ -374,12 +363,10 @@ const TableContent = (props) => {
                                 return (
                                     <td key={j}>
                                         <CharCardHeader
-                                            id={char.name + 1}
-                                            name={
-                                                charString
-                                                    .name[char.name]
+                                            imgId={char.name + 1}
+                                            $textWrapConfig={
+                                                cardTextWrapConfig[userLanguage]
                                             }
-                                            $lang={userLanguage}
                                         />
                                     </td>
                                 )

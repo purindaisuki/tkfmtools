@@ -4,6 +4,7 @@ import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
 import { Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
+import { CharCardHeader } from './CharShowcase';
 import './tooltip.css';
 import tagData from '../gamedata/tags.json';
 import charTagData from '../gamedata/characterTags.json';
@@ -178,28 +179,45 @@ const CharFilterPanel = (props) => {
     )
 }
 
+const CharCardWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: -.75rem;
+`
+const StyledCharCard = styled(CharCardHeader)`
+`
 const StarIconWrapper = styled(IconWrapper)`
-    display: inline;
+    display: flex;
+    ${props => props.$hidden ? 'visibility: hidden;' : undefined}
+    align-items: center;
     svg {
         width: 1.2rem;
         height: 1.2rem;
-        margin: 0 .4rem;
+        margin: 0;
+        margin-left: -.6rem;
     }
 `
 function TableContent(props) {
-    const { pageString, charString } = React.useContext(LanguageContext)
+    const {
+        userLanguage,
+        pageString,
+        charString
+    } = React.useContext(LanguageContext)
 
     const TagTooltip = (props) => {
-        if (props.char.distinctTagCombs.length === 0) return <></>
-
         const texts = props.char.distinctTagCombs
             .map(comb => comb.map(i => charString.tags[i]).join(', '))
             .join('\n')
 
         return (
-            <Tooltip title={texts} TransitionComponent={Zoom} arrow>
-                <StarIconWrapper>{StarIcon}</StarIconWrapper>
-            </Tooltip>
+            <StarIconWrapper
+                $hidden={props.char.distinctTagCombs.length === 0}
+            >
+                <Tooltip title={texts} TransitionComponent={Zoom} arrow>
+                    {StarIcon}
+                </Tooltip>
+            </StarIconWrapper>
         )
     }
 
@@ -209,6 +227,11 @@ function TableContent(props) {
                 : grade === 2 ? 'SR'
                     : 'SSR'
     )
+
+    const cardTextWrapConfig = {
+        'zh-TW': 1360,
+        'en': 1360,
+    }
 
     return (
         <>
@@ -230,8 +253,15 @@ function TableContent(props) {
                 {props.sortedResult.map((item, idx) => (
                     <tr key={idx}>
                         <td>
-                            {charString.name[item.name]}
-                            <TagTooltip char={item} />
+                            <CharCardWrapper>
+                                <StyledCharCard
+                                    imgId={item.name + 1}
+                                    $textWrapConfig={
+                                        cardTextWrapConfig[userLanguage]
+                                    }
+                                />
+                                <TagTooltip char={item} />
+                            </CharCardWrapper>
                         </td>
                         <td>{gradeToRarity(item.grade)}</td>
                         <td>{charString.tags[item.type]}</td>
