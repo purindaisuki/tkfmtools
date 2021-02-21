@@ -99,6 +99,9 @@ const ModalContentWrapper = styled.div`
     &::-webkit-scrollbar-track {
         background: ${props => props.theme.colors.surface};
     }
+    &::-webkit-scrollbar-corner {
+        background: ${props => props.theme.colors.surface};
+    }
 `
 const ModalHeader = styled.div`
     display: flex;
@@ -296,6 +299,9 @@ export const TableWrapper = styled.div`
         border-radius: .25rem;
     }
     &::-webkit-scrollbar-track {
+        background: ${props => props.theme.colors.surface};
+    }
+    &::-webkit-scrollbar-corner {
         background: ${props => props.theme.colors.surface};
     }
 `
