@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MainNavbar, Sidebar } from './Navbars';
 import ToTopBtn from './ToTopBtn';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../components/index.css';
+import './index.css';
 
 const Body = styled.div`
     min-height: 100vh;

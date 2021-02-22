@@ -360,5 +360,11 @@
                 }
             ]
         }
-    ]
+    ],
+    "404": {
+        "title": "Not found",
+        "h1": "Page not found",
+        "p": "Sorry, Aiko couldn't find what you are looking for.",
+        "link": "Go home"
+    }
 }
