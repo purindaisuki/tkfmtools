@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Snackbar } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
+import ImageSupplier from './ImageSupplier';
 import charPotentialData from '../gamedata/characterPotential.json';
 import { LanguageContext } from './LanguageProvider';
 import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
@@ -20,7 +21,8 @@ const ContainerBody = styled.div`
     flex-direction: row;
     justify-content: space-around;
 `
-const CharImgWrapper = styled.img`
+const CharImgWrapper = styled(ImageSupplier)`
+    width: 5rem;
     height: 15rem;
     margin-right: 1rem;
     border: 2px solid ${props => props.theme.colors.secondary};
@@ -60,11 +62,10 @@ const SelectPanel = (props) => {
             />
             <ContainerBody>
                 <CharImgWrapper
-                    src={
-                        `${process.env.PUBLIC_URL}/img/char_${
+                    name={`char_${
                             charPotentialData.characters[props.character].id
-                        }.png`
-                    }
+                        }.png`}
+                    isBackground={false}
                     alt=''
                 />
                 <div>
@@ -167,8 +168,12 @@ const MaterialWrapper = styled.span`
         }
         `
     ))}
+    > div {
+        display: flex;
+        align-items: center;
+    }
 `
-const MaterialImg = styled.img`
+const MaterialImg = styled(ImageSupplier)`
     width: 2rem;
     height: 2rem;
     margin-right: .4rem;
@@ -184,7 +189,7 @@ const HelpIconWrapper = styled.div`
         vertical-align: top;
     }
 `
-const OtherImg = styled.img`
+const OtherImg = styled(ImageSupplier)`
     width: 1.6rem;
     height: 1.6rem;
     margin-right: .4rem;
@@ -221,11 +226,8 @@ const ResultPanel = (props) => {
                     >
                         <div>
                             <MaterialImg
-                                src={
-                                    `${process.env.PUBLIC_URL}/img/item_${
-                                        ('00' + item[0]).slice(-3)
-                                    }.png`
-                                }
+                                name={`item_${('00' + item[0]).slice(-3)}.png`}
+                                isBackground={false}
                                 alt=''
                             />
                             {`${itemString.name[('00' + item[0]).slice(-3)]}`}
@@ -237,7 +239,8 @@ const ResultPanel = (props) => {
                     $layoutConfig={resultLayoutConfig}
                 >
                     <MaterialImg
-                        src={`${process.env.PUBLIC_URL}/img/money.png`}
+                        name='money.png'
+                        isBackground={false}
                         alt='money'
                     />
                     {props.result.money}
@@ -281,7 +284,8 @@ const ResultPanel = (props) => {
                     >
                         <div>
                             <OtherImg
-                                src={`${process.env.PUBLIC_URL}/img/ATK.png`}
+                                name='ATK.png'
+                                isBackground={false}
                                 alt='ATK'
                             />
                             {`${props.result.buff.ATK} %`}
@@ -292,7 +296,8 @@ const ResultPanel = (props) => {
                     >
                         <div>
                             <OtherImg
-                                src={`${process.env.PUBLIC_URL}/img/HP.png`}
+                                name='HP.png'
+                                isBackground={false}
                                 alt='HP'
                             />
                             {`${props.result.buff.HP} %`}

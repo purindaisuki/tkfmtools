@@ -26,13 +26,17 @@ export const LanguageContext = createContext({
 
 export default function LanguageProvider({ children }) {
     const getDefaultLanguage = () => {
-        const localSetting = localStorage.getItem('language')
-        if (localSetting) {
-            return localSetting
+        if (typeof localStorage !== `undefined`) {
+            const localSetting = localStorage.getItem('language')
+            if (localSetting) {
+                return localSetting
+            }
         }
-        const lang = navigator.language || navigator.userLanguage
-        if (/en*/.test(lang)) {
-            return 'en'
+        if (typeof navigator !== `undefined`) {
+            const lang = navigator.language || navigator.userLanguage
+            if (/en*/.test(lang)) {
+                return 'en'
+            }
         }
         return 'zh-TW'
     }
@@ -43,8 +47,10 @@ export default function LanguageProvider({ children }) {
         userLanguage,
         ...stringDataList[userLanguage],
         setUserLanguage: (toLanguage) => {
-            setUserLanguage(toLanguage);
-            window.localStorage.setItem('language', toLanguage);
+            setUserLanguage(toLanguage)
+            if (typeof localStorage !== `undefined`) {
+                localStorage.setItem('language', toLanguage)
+            }
         }
     }
 

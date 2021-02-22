@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Masonry from 'react-masonry-css';
 

@@ -10,7 +10,11 @@ export default function SwitchableShowcase({
     items
 }) {
     const getDefaultLayout = () => {
-        const localConfig = localStorage.getItem(localLayoutConfig)
+        let localConfig
+        if (typeof localStorage !== `undefined`) {
+            localConfig = localStorage.getItem(localLayoutConfig)
+        }
+
         return (
             localConfig
                 ? localConfig
@@ -22,7 +26,9 @@ export default function SwitchableShowcase({
 
     const handleLayoutChange = (toLayout) => () => {
         setLayout(toLayout)
-        localStorage.setItem(localLayoutConfig, toLayout)
+        if (typeof localStorage !== `undefined`) {
+            localStorage.setItem(localLayoutConfig, toLayout)
+        }
     }
 
     return (

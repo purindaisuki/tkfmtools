@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Drawer } from '@material-ui/core';
 import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
 import MyAccordion from './MyAccordion';
 import { LanguageContext } from './LanguageProvider';
+import { ThemeContext } from './MyThemeProvider';
 import {
     ChestIcon,
     EnlistIcon,
@@ -110,7 +111,7 @@ const ThemeSwitcherLabel = styled.label`
     width: 3.2rem;
     height: 1.6rem;
 `
-const Slider = styled.span`
+const Slider = styled.div`
     position: absolute;
     cursor: pointer;
     top: 0; bottom: 0; left: 0; right: 0;
@@ -150,10 +151,15 @@ const ThemeSwitcherSwither = styled.input`
 export function MainNavbar(props) {
     const { pageString } = React.useContext(LanguageContext)
 
-    const path = /\/(?:.(?!\/))+$/.exec(window.location)
-    const title = path === null || path[0] === '/tkfmtools'
+    let path
+    if (typeof window !== `undefined`) {
+        path = /\/(?:.(?!\/))+$/.exec(window.location)
+    }
+    const title = path === undefined || path === null || path[0] === '/tkfmtools'
         ? pageString.home.documentTitle
         : pageString[path[0].slice(1)].name
+
+    const { theme, toggleTheme } = React.useContext(ThemeContext)
 
     return (
         <StyledMainNavBar>
@@ -168,11 +174,15 @@ export function MainNavbar(props) {
                 <ThemeSwitcherLabel>
                     <ThemeSwitcherSwither
                         type='checkbox'
-                        checked={props.checked}
-                        onChange={props.toggleTheme}
-                        onKeyDown={props.toggleTheme}
+                        checked={theme === 'dark'}
+                        onChange={toggleTheme}
+                        onKeyDown={toggleTheme}
                     />
-                    <Slider />
+                    <Slider
+                        name={theme === 'dark' ? 'moon.svg' : 'sun.svg'}
+                        isBackground={true}
+                        alt=''
+                    />
                 </ThemeSwitcherLabel>
             </Nav>
         </StyledMainNavBar>

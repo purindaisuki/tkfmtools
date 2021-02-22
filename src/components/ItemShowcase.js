@@ -7,6 +7,7 @@ import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
 import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
+import ImageSupplier from './ImageSupplier';
 import itemDropData from '../gamedata/itemDrop.json';
 import stageDropData from '../gamedata/stageDrop.json';
 import { LanguageContext } from './LanguageProvider';
@@ -15,17 +16,18 @@ const StyledCardHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 `
-const ItemImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: .4rem;
-  user-select: none;
+const ItemImg = styled(ImageSupplier)`
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: .4rem;
+    user-select: none;
 `
 const StyledHeader = styled.div`
-  white-space: nowrap;
-  font-size: medium;
-  font-weight: normal;
+    white-space: nowrap;
+    font-size: medium;
+    font-weight: normal;
 `
 const ItemCardHeader = ({
     className,
@@ -38,7 +40,8 @@ const ItemCardHeader = ({
             className={className}
         >
             <ItemImg
-                src={`${process.env.PUBLIC_URL}/img/item_${id}.png`}
+                name={`item_${id}.png`}
+                isBackground={false}
                 alt=''
             />
             <StyledHeader>
@@ -48,9 +51,13 @@ const ItemCardHeader = ({
     )
 }
 
-const EnergyIcon = styled.img`
-  width: 1.2rem;
-  height: 1.2rem;
+const EnergyTd = styled.td`
+    display: flex;
+    align-items: center;
+`
+const EnergyImg = styled(ImageSupplier)`
+    width: 1.2rem;
+    height: 1.2rem;
 `
 const CardBodyContnet = (props) => {
     const { pageString, itemString } = React.useContext(LanguageContext)
@@ -71,13 +78,14 @@ const CardBodyContnet = (props) => {
                         {`${drop.chapter}-${drop.stage}`}
                     </td>
                     <td>{itemString.rarity[drop.rarity]}</td>
-                    <td>
-                        <EnergyIcon
-                            src={`${process.env.PUBLIC_URL}/img/energy.png`}
+                    <EnergyTd>
+                        <EnergyImg
+                            name='energy.png'
+                            isBackground={false}
                             alt={pageString.potential.filter.tableHead[2]}
                         />
                         {drop.energy}
-                    </td>
+                    </EnergyTd>
                 </tr>
             ))}
         </tbody>

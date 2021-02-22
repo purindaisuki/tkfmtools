@@ -9,7 +9,7 @@ const StyledToggleButton = styled(ToggleButton)`
         border: 1px solid ${props => props.theme.colors.secondaryBorder};
         background-color: ${props => props.theme.colors.surface};
         color: ${props => props.theme.colors.onSurface};
-        white-space: nowrap;
+        white-space: break-spaces;
         user-select: none;
         &:hover {
             border: 1px solid ${props => props.theme.colors.secondary};

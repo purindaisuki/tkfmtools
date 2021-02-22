@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
 import MyToggleButtonGroup, {MyToggleButton} from './MyToggleButtonGroup';
+import ImageSupplier from './ImageSupplier';
 import itemDropData from '../gamedata/itemDrop.json';
 import { LanguageContext } from './LanguageProvider';
 import { ClearIcon } from './icon';
@@ -14,10 +15,14 @@ const ClearIconWrapper = styled.div`
     }
 `
 const StyledToggleButton = styled(MyToggleButton)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: .85rem;
-    > img {
-        width: 2.26rem; height: 2.26rem;
-    }
+`
+const ItemImg = styled(ImageSupplier)`
+    width: 2.26rem; 
+    height: 2.26rem;
 `
 const ItemFilterPanel = (props) => {
     const { userLanguage, pageString, itemString } = React.useContext(LanguageContext)
@@ -71,8 +76,9 @@ const ItemFilterPanel = (props) => {
                             value={idx}
                             key={idx}
                         >
-                            <img
-                                src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
+                            <ItemImg
+                                name={`item_${item.id}.png`}
+                                isBackground={false}
                                 alt=''
                             />
                             {itemString.name[item.id]}
@@ -84,6 +90,10 @@ const ItemFilterPanel = (props) => {
     )
 }
 
+const TableImg = styled(ImageSupplier)`
+    width: 1.8rem;
+    height: 1.8rem;
+`
 const TableContent = (props) => {
     const { pageString, itemString } = React.useContext(LanguageContext)
 
@@ -100,8 +110,9 @@ const TableContent = (props) => {
                         onClick={() => props.requestSort(idx)}
                         direction={props.getSortDirection(idx)}
                     >
-                        <img
-                            src={`${process.env.PUBLIC_URL}/img/item_${item.id}.png`}
+                        <TableImg
+                            name={`item_${item.id}.png`}
+                            isBackground={false}
                             alt={itemString.name[item.id]}
                         />
                     </SortableTh>
@@ -125,9 +136,9 @@ const TableContent = (props) => {
                         onClick={() => props.requestSort('energy')}
                         direction={props.getSortDirection('energy')}
                     >
-                        <img
-                            src={`${process.env.PUBLIC_URL}/img/energy.png`}
-                            className='card-table-img'
+                        <TableImg
+                            name='energy.png'
+                            isBackground={false}
                             alt={pageString.potential.filter.tableHead[2]}
                         />
                     </SortableTh>

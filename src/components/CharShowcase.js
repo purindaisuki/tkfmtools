@@ -6,6 +6,7 @@ import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
 import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
+import ImageSupplier from './ImageSupplier';
 import charTagData from '../gamedata/characterTags.json';
 import { LanguageContext } from './LanguageProvider';
 import {
@@ -20,7 +21,7 @@ import {
     TableViewIcon
 } from './icon';
 
-const TextWrapper = styled.div`
+const CharImgWrapper = styled(ImageSupplier)`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,24 +29,23 @@ const TextWrapper = styled.div`
     width: 100%;
     min-width: 10rem;
     height: 3.6rem;
-    background-image: url(${props => props.$img});
     background-repeat: no-repeat;
     background-size: 6rem 6rem;
     background-position: 0 -1.6rem;
-    > div {
-        margin-left: 0;
-        margin-right: 1rem;
-        transition: all 355ms ease;
-        text-shadow: 0 0 1px ${props => props.theme.colors.surface},
-        -2px 0 1px  ${props => props.theme.colors.surface},
-        2px 0 1px  ${props => props.theme.colors.surface},
-        0 -2px 1px ${props => props.theme.colors.surface},
-        0 2px 1px  ${props => props.theme.colors.surface},
-        2px 2px 1px ${props => props.theme.colors.surface},
-        2px -2px 1px ${props => props.theme.colors.surface},
-        -2px 2px 1px ${props => props.theme.colors.surface},
-        -2px -2px 1px ${props => props.theme.colors.surface};
-    }
+`
+const TextWrapper = styled.div`
+    margin-left: 0;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 1px ${props => props.theme.colors.surface},
+    -2px 0 1px  ${props => props.theme.colors.surface},
+    2px 0 1px  ${props => props.theme.colors.surface},
+    0 -2px 1px ${props => props.theme.colors.surface},
+    0 2px 1px  ${props => props.theme.colors.surface},
+    2px 2px 1px ${props => props.theme.colors.surface},
+    2px -2px 1px ${props => props.theme.colors.surface},
+    -2px 2px 1px ${props => props.theme.colors.surface},
+    -2px -2px 1px ${props => props.theme.colors.surface};
 `
 const CardHeader = ({
     className,
@@ -54,17 +54,19 @@ const CardHeader = ({
     const { charString } = React.useContext(LanguageContext)
 
     return (
-        <TextWrapper
+        <CharImgWrapper
             className={className}
-            $img={`${process.env.PUBLIC_URL}/img/char_small_${imgId}.png`}
+            name={`char_small_${imgId}.png`}
+            isBackground={true}
+            alt=''
         >
-            <div>
+            <TextWrapper>
                 {charString.name[imgId - 1].split(' ').slice(0, -1).join(' ')}
-            </div>
-            <div>
+            </TextWrapper>
+            <TextWrapper>
                 {charString.name[imgId - 1].split(' ').slice(-1)[0]}
-            </div>
-        </TextWrapper>
+            </TextWrapper>
+        </CharImgWrapper>
     )
 }
 

@@ -158,6 +158,7 @@ export function HelpModal(props) {
 export const SortableTh = styled.th`
     position: sticky;
     top: 0;
+    z-index: 1;
     cursor: pointer;
     user-select: none;
     background-color: ${props => props.theme.colors.surface};
@@ -169,7 +170,10 @@ export const SortableTh = styled.th`
                 ? ' \\25B2'
                 : ' \\25BC'
             : undefined
-    )}';
+        )}';
+        position: absolute;
+        top: calc(50% - .75rem);
+        margin-left: 2.2rem;
     }
 `
 const StyledTable = styled(Table)`
