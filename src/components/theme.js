@@ -21,7 +21,6 @@ export const lightTheme = {
     },
     switcher: {
         iconOffest: '1.8rem',
-        iconUrl: `/sun.svg`
     }
 }
 
@@ -48,6 +47,5 @@ export const darkTheme = {
     },
     switcher: {
         iconOffest: '6px',
-        iconUrl: `/moon.svg`
     }
 }
