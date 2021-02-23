@@ -1,2 +1,0 @@
-# forked from https://github.com/rafgraph/spa-github-pages/
-https://purindaisuki.github.io/tkfmtools/sitemap.txt
