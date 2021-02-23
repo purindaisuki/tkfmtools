@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Head from './Head';
 import { MainNavbar, Sidebar } from './Navbars';
 import ToTopBtn from './ToTopBtn';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -28,18 +29,21 @@ export default function Layout({ children }) {
     }
 
     return (
-        <Body>
-            <MainNavbar
-                toggleSidebar={toggleSidebar}
-            />
-            <Sidebar
-                open={sidebarOpen}
-                toggleSidebar={toggleSidebar}
-            />
-            <Main>
-                {children}
-            </Main>
-            <ToTopBtn />
-        </Body>
+        <>
+            <Head />
+            <Body>
+                <MainNavbar
+                    toggleSidebar={toggleSidebar}
+                />
+                <Sidebar
+                    open={sidebarOpen}
+                    toggleSidebar={toggleSidebar}
+                />
+                <Main>
+                    {children}
+                </Main>
+                <ToTopBtn />
+            </Body>
+        </>
     )
 }
