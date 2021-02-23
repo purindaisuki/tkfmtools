@@ -90,6 +90,13 @@ const ItemFilterPanel = (props) => {
     )
 }
 
+const ImgTh = styled(SortableTh)`
+    &:after {
+        position: absolute;
+        top: calc(50% - .75rem);
+        margin-left: 2rem;
+    }
+`
 const TableImg = styled(ImageSupplier)`
     width: 1.8rem;
     height: 1.8rem;
@@ -105,7 +112,7 @@ const TableContent = (props) => {
         return (
             props.sortedResult[0].drop.map((item, idx) => {
                 return (
-                    <SortableTh
+                    <ImgTh
                         key={idx}
                         onClick={() => props.requestSort(idx)}
                         direction={props.getSortDirection(idx)}
@@ -115,7 +122,7 @@ const TableContent = (props) => {
                             isBackground={false}
                             alt={itemString.name[item.id]}
                         />
-                    </SortableTh>
+                    </ImgTh>
                 )
             })
         )
@@ -132,7 +139,7 @@ const TableContent = (props) => {
                         {pageString.potential.filter.tableHead[0]}
                     </SortableTh>
                     <ItemTh {...props} />
-                    <SortableTh
+                    <ImgTh
                         onClick={() => props.requestSort('energy')}
                         direction={props.getSortDirection('energy')}
                     >
@@ -141,7 +148,7 @@ const TableContent = (props) => {
                             isBackground={false}
                             alt={pageString.potential.filter.tableHead[2]}
                         />
-                    </SortableTh>
+                    </ImgTh>
                 </tr>
             </thead>
             <tbody>

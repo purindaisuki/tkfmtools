@@ -171,9 +171,6 @@ export const SortableTh = styled.th`
                 : ' \\25BC'
             : undefined
         )}';
-        position: absolute;
-        top: calc(50% - .75rem);
-        margin-left: 2.2rem;
     }
 `
 const StyledTable = styled(Table)`
