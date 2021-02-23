@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import ImageSupplier from '../components/ImageSupplier';
@@ -60,7 +60,7 @@ const StyledLink = styled(Link)`
     }
 `
 export default () => {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <Main>

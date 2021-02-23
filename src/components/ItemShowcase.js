@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Badge } from "react-bootstrap"
@@ -33,7 +33,7 @@ const ItemCardHeader = ({
     className,
     id
 }) => {
-    const { itemString } = React.useContext(LanguageContext)
+    const { itemString } = useContext(LanguageContext)
 
     return (
         <StyledCardHeader
@@ -60,7 +60,7 @@ const EnergyImg = styled(ImageSupplier)`
     height: 1.2rem;
 `
 const CardBodyContnet = (props) => {
-    const { pageString, itemString } = React.useContext(LanguageContext)
+    const { pageString, itemString } = useContext(LanguageContext)
 
     if (props.drop.length === 0) {
         return (
@@ -121,7 +121,7 @@ const ItemAccordion = styled(MyAccordion)`
     }
 `
 const ItemCard = (props) => {
-    const [isExpanded, setExpanded] = React.useState(false)
+    const [isExpanded, setExpanded] = useState(false)
 
     return (
         <ItemAccordion
@@ -157,7 +157,7 @@ const BtnWrapper = styled.span`
     }
 `
 const LayoutSwitcher = (props) => {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
     return (
         <LayoutBtnContainer>
             <BtnWrapper
@@ -251,7 +251,7 @@ const StyledBadge = styled(Badge)`
     margin-left: .4rem;
 `
 const TableContent = (props) => {
-    const { pageString, itemString } = React.useContext(LanguageContext)
+    const { pageString, itemString } = useContext(LanguageContext)
 
     const TableHeader = () => (
         <thead>

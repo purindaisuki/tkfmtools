@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Layout from "../components/Layout";
 import MyAccordion from '../components/MyAccordion';
@@ -62,16 +62,16 @@ const DescriptionAccordion = styled(MyAccordion)`
         }
     }
 `
-export default function home() {
-    const { pageString } = React.useContext(LanguageContext)
+export default () => {
+    const { pageString } = useContext(LanguageContext)
 
-    const [expanded, setExpanded] = React.useState(0)
+    const [expanded, setExpanded] = useState(0)
 
     const handleExpand = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false)
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         document.title = pageString.home.documentTitle
     })
 

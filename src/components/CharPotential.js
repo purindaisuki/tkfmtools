@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Snackbar } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
@@ -43,7 +43,7 @@ const Gutter = styled.div`
     margin-top: 3rem;
 `
 const SelectPanel = (props) => {
-    const { pageString, charString } = React.useContext(LanguageContext)
+    const { pageString, charString } = useContext(LanguageContext)
 
     const widthConfig = {
         default: '25%',
@@ -195,9 +195,9 @@ const OtherImg = styled(ImageSupplier)`
     margin-right: .4rem;
 `
 const ResultPanel = (props) => {
-    const { userLanguage, pageString, itemString } = React.useContext(LanguageContext)
+    const { userLanguage, pageString, itemString } = useContext(LanguageContext)
 
-    const [modalOpen, setModalOpen] = React.useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
 
     const resultLayoutConfig = userLanguage === 'en'
         ? {
@@ -367,9 +367,9 @@ const resultPanelWidthConfig = {
 }
 
 export default function CharPotential() {
-    const { pageString, charString } = React.useContext(LanguageContext)
+    const { pageString, charString } = useContext(LanguageContext)
 
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         character: '0',
         currStage: "1",
         currSub: "1",

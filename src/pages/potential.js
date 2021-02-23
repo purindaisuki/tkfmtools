@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from "../components/Layout";
 import PageWithTabs from '../components/PageWithTabs';
 import ItemShowcase from '../components/ItemShowcase';
@@ -7,13 +7,14 @@ import CharPotential from '../components/CharPotential';
 import { LanguageContext } from '../components/LanguageProvider';
 import { CalcIcon, OverviewIcon, FilterIcon } from '../components/icon';
 
-export default function Potential() {
-    const { pageString } = React.useContext(LanguageContext)
+export default () => {
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <Layout>
             <PageWithTabs
                 title={pageString.potential.documentTitle}
+                path='potential'
                 tabs={[
                     { label: pageString.potential.label[0], icon: OverviewIcon, content: <ItemShowcase /> },
                     { label: pageString.potential.label[1], icon: FilterIcon, content: <ItemFilter /> },

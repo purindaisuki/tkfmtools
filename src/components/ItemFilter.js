@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
 import MyToggleButtonGroup, {MyToggleButton} from './MyToggleButtonGroup';
@@ -25,7 +25,7 @@ const ItemImg = styled(ImageSupplier)`
     height: 2.26rem;
 `
 const ItemFilterPanel = (props) => {
-    const { userLanguage, pageString, itemString } = React.useContext(LanguageContext)
+    const { userLanguage, pageString, itemString } = useContext(LanguageContext)
 
     const widthConfig = {
         default: '60%',
@@ -95,7 +95,7 @@ const TableImg = styled(ImageSupplier)`
     height: 1.8rem;
 `
 const TableContent = (props) => {
-    const { pageString, itemString } = React.useContext(LanguageContext)
+    const { pageString, itemString } = useContext(LanguageContext)
 
     const ItemTh = (props) => {
         if (props.sortedResult.length === 0) {
@@ -175,7 +175,7 @@ const FilterContainer = styled.div`
     }
 `
 export default function ItemFilter() {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     const [state, setState] = useState({
         filterBtnValue: [],

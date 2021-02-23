@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
 import { Table } from 'react-bootstrap';
@@ -216,7 +216,7 @@ export const SortableTable = ({
     ) => {
         const [sortConfig, setSortConfig] = useState(config)
 
-        const sortedItems = React.useMemo(() => {
+        const sortedItems = useMemo(() => {
             let sortableItems = [...items]
             sortFunc(sortableItems, sortConfig)
             return sortableItems
@@ -290,7 +290,6 @@ const ResultTableContainer = styled.div`
 `
 export const TableWrapper = styled.div`
     height: calc(100% - 1.4rem - 1.5rem);
-    maring-top: -.5rem;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: thin;
@@ -310,7 +309,6 @@ export const TableWrapper = styled.div`
     }
 `
 const StyledSortableTable = styled(SortableTable)`
-    font-size: normal;
     img {
         width: 1.8rem; height: 1.8rem;
     }
@@ -329,7 +327,7 @@ const IconWrapper = styled.div`
     }
 `
 export function ResultTable(props) {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <ResultTableContainer widthConfig={props.widthConfig}>

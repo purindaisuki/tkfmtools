@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import MyAccordion from './MyAccordion';
 import { LanguageContext } from './LanguageProvider';
@@ -45,7 +45,7 @@ const DescriptionBody = styled.div`
     }
 `
 export const SiteDescription = () => {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <BodyContainer>
@@ -129,7 +129,7 @@ const MsgAccordion = styled(MyAccordion)`
     }
 `
 function LogMsg(props) {
-    const [isExpanded, setExpanded] = React.useState(false)
+    const [isExpanded, setExpanded] = useState(false)
     const { type, title, description } = props.msg
     const Badge = type === 'New' ? NewBadge
         : type === 'Fix' ? FixBadge
@@ -160,7 +160,7 @@ const MsgBox = styled.div`
     }
 `
 export function SiteUpdateLog() {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <BodyContainer>
@@ -187,7 +187,7 @@ const LicenseItemContent = styled.div`
     padding-bottom: .5rem;
 `
 export const SiteLicense = () => {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <BodyContainer>

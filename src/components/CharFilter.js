@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
 import { Form } from 'react-bootstrap';
@@ -73,7 +73,7 @@ const CharFilterPanel = (props) => {
         userLanguage,
         pageString,
         charString
-    } = React.useContext(LanguageContext)
+    } = useContext(LanguageContext)
 
     const attrIcons = {
         type: TypeIcon,
@@ -203,7 +203,7 @@ function TableContent(props) {
         userLanguage,
         pageString,
         charString
-    } = React.useContext(LanguageContext)
+    } = useContext(LanguageContext)
 
     const TagTooltip = (props) => {
         const texts = props.char.distinctTagCombs
@@ -322,7 +322,7 @@ const FilterContainer = styled.div`
     }
 `
 export default function CharFilter() {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     const [state, setState] = useState({
         filterBtnValue: [],

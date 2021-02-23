@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@material-ui/core';
 import SwitchableShowcase from './SwitchableShowcase';
@@ -51,7 +51,7 @@ const CardHeader = ({
     className,
     imgId
 }) => {
-    const { charString } = React.useContext(LanguageContext)
+    const { charString } = useContext(LanguageContext)
 
     return (
         <CharImgWrapper
@@ -85,7 +85,7 @@ const IconWrapper = styled.div`
     }
 `
 const CardBody = (props) => {
-    const { charString } = React.useContext(LanguageContext)
+    const { charString } = useContext(LanguageContext)
 
     const attrIcons = {
         type: TypeIcon,
@@ -188,7 +188,7 @@ const StyledAccordion = styled(MyAccordion)`
     }
 `
 const CharAccordion = (props) => {
-    const [isExpanded, setExpanded] = React.useState(false)
+    const [isExpanded, setExpanded] = useState(false)
 
     return (
         <StyledAccordion
@@ -225,7 +225,7 @@ const StyledBtn = styled(IconButton)`
     }
 `
 const LayoutSwitcher = (props) => {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     return (
         <LayoutBtnContainer>
@@ -247,7 +247,7 @@ const LayoutSwitcher = (props) => {
 }
 
 const CharMasnory = () => {
-    const { charString } = React.useContext(LanguageContext)
+    const { charString } = useContext(LanguageContext)
 
     const breakpointColumnsConfig = {
         default: 6,
@@ -294,7 +294,7 @@ export const CharCardHeader = styled(CardHeader)`
     }
 `
 const TableContent = (props) => {
-    const { userLanguage, charString } = React.useContext(LanguageContext)
+    const { userLanguage, charString } = useContext(LanguageContext)
 
     const gradeToRarity = (grade) => (
         grade === 0 ? 'N'
@@ -417,7 +417,7 @@ const CharTableWrapper = styled(TableWrapper)`
     height: calc(100vh - 12rem);
 `
 const CharTable = () => {
-    const { charString } = React.useContext(LanguageContext)
+    const { charString } = useContext(LanguageContext)
 
     const sortFunc = (sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {
