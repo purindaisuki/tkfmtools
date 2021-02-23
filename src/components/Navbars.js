@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { Drawer } from '@material-ui/core';
@@ -17,6 +17,8 @@ import {
     ToolIcon,
     LanguageIcon,
 } from './icon';
+import SunIcon from '../images/sun.svg';
+import MoonIcon from '../images/moon.svg';
 
 const StyledLanguageSwitcher = styled(DropdownButton)`
     padding: 0;
@@ -57,7 +59,7 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
     }
 `
 function LanguageSwitcher() {
-    const { setUserLanguage } = React.useContext(LanguageContext)
+    const { setUserLanguage } = useContext(LanguageContext)
 
     const handleUserLanguage = (key, event) => setUserLanguage(key)
 
@@ -78,7 +80,6 @@ const StyledMainNavBar = styled(Navbar)`
     color: ${props => props.theme.colors.onPrimary};
     transition: all 355ms ease;
     padding: .6rem 1.25rem;
-    align-item: end;
     position: sticky;
     top: 0;
     z-index: 2;
@@ -122,7 +123,7 @@ const Slider = styled.div`
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 2rem;
-    background-image: url(${props => props.theme.switcher.iconUrl});
+    background-image: url(${props => props.$icon});
     &:before {
         position: absolute;
         content: "";
@@ -149,17 +150,18 @@ const ThemeSwitcherSwither = styled.input`
     }
 `
 export function MainNavbar(props) {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
+    const { theme, toggleTheme } = useContext(ThemeContext)
 
     let path
     if (typeof window !== `undefined`) {
-        path = /\/(?:.(?!\/))+$/.exec(window.location)
+        const url = window.location.toString().split('/')
+        path = url.pop()
+        path = path.length === 0 ? url.pop() : path
     }
-    const title = path === undefined || path === null || path[0] === '/tkfmtools'
+    const title = !path || !pageString[path]
         ? pageString.home.documentTitle
-        : pageString[path[0].slice(1)].name
-
-    const { theme, toggleTheme } = React.useContext(ThemeContext)
+        : pageString[path].name
 
     return (
         <StyledMainNavBar>
@@ -179,9 +181,7 @@ export function MainNavbar(props) {
                         onKeyDown={toggleTheme}
                     />
                     <Slider
-                        name={theme === 'dark' ? 'moon.svg' : 'sun.svg'}
-                        isBackground={true}
-                        alt=''
+                        $icon={theme === 'dark' ? MoonIcon : SunIcon}
                     />
                 </ThemeSwitcherLabel>
             </Nav>
@@ -244,7 +244,7 @@ const SiderbarItem = styled(ListGroup.Item)`
     }
 `
 export function Sidebar(props) {
-    const { pageString } = React.useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
     return (
         <StyledDrawer
             open={props.open}
@@ -331,7 +331,7 @@ const AccordionItem = styled(ListGroup.Item)`
     }
 `
 function SidebarAccordions(props) {
-    const [isExpanded, setExpanded] = React.useState(false)
+    const [isExpanded, setExpanded] = useState(false)
 
     return (
         <SiderbarItem>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const ShowcaseContainer = styled.div`
@@ -9,26 +9,17 @@ export default function SwitchableShowcase({
     localLayoutConfig,
     items
 }) {
-    const getDefaultLayout = () => {
-        let localConfig
-        if (typeof localStorage !== `undefined`) {
-            localConfig = localStorage.getItem(localLayoutConfig)
-        }
+    const [layout, setLayout] = useState(items[0].layout)
 
-        return (
-            localConfig
-                ? localConfig
-                : items[0].layout
-        )
-    }
-
-    const [layout, setLayout] = React.useState(getDefaultLayout)
+    // set previous layout
+    useEffect(() => {
+        const localConfig = localStorage.getItem(localLayoutConfig)
+        setLayout(localConfig ? localConfig : items[0].layout)
+    })
 
     const handleLayoutChange = (toLayout) => () => {
         setLayout(toLayout)
-        if (typeof localStorage !== `undefined`) {
-            localStorage.setItem(localLayoutConfig, toLayout)
-        }
+        localStorage.setItem(localLayoutConfig, toLayout)
     }
 
     return (

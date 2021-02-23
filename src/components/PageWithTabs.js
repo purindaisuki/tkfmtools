@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -58,31 +58,23 @@ const TabPanel = styled.div`
     margin-top: 1rem;
 `
 export default function PageWithTabs(props) {
-    const { userLanguage } = React.useContext(LanguageContext)
+    const { userLanguage } = useContext(LanguageContext)
 
-    let location
-    if (typeof localStorage !== `undefined`) {
-        location = /\/(?:.(?!\/))+$/.exec(window.location)[0]
-    }
+    const [tab, setTab] = useState(0)
 
-    const getDefaultTab = () => {
-        let localSetting
-        if (typeof localStorage !== `undefined`) {
-            localSetting = localStorage.getItem(location + '-select-tab')
+    useEffect(() => {
+        document.title = props.title
+        // get previously selected tab
+        const localSetting = localStorage.getItem(props.path + '-select-tab')
+        if (localSetting) {
+            setTab(parseInt(localSetting))
         }
-        return localSetting ? parseInt(localSetting) : 0
-    }
-    const [tab, setTab] = React.useState(getDefaultTab)
+    })
 
     const handleTabChange = (event, toTab) => {
         setTab(toTab)
-        if (typeof localStorage !== `undefined`) {
-            localStorage.setItem(location + '-select-tab', toTab)
-        }
+        localStorage.setItem(props.path + '-select-tab', toTab)
     }
-    React.useEffect(() => {
-        document.title = props.title
-    })
 
     return (
         <>

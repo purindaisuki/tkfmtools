@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import pageString_tr from '../stringdata/pageString_tr.json';
 import pageString_en from '../stringdata/pageString_en.json';
 import characterString_tr from '../stringdata/characterString_tr.json';
@@ -25,32 +25,28 @@ export const LanguageContext = createContext({
 })
 
 export default function LanguageProvider({ children }) {
-    const getDefaultLanguage = () => {
-        if (typeof localStorage !== `undefined`) {
-            const localSetting = localStorage.getItem('language')
-            if (localSetting) {
-                return localSetting
-            }
-        }
-        if (typeof navigator !== `undefined`) {
-            const lang = navigator.language || navigator.userLanguage
-            if (/en*/.test(lang)) {
-                return 'en'
-            }
-        }
-        return 'zh-TW'
-    }
+    const [userLanguage, setUserLanguage] = useState('zh-TW')
 
-    const [userLanguage, setUserLanguage] = useState(getDefaultLanguage())
+    // get user language
+    useEffect(() => {
+        const localSetting = localStorage.getItem('language')
+        if (localSetting) {
+            setUserLanguage(localSetting)
+            return
+        }
+        
+        const lang = navigator.language || navigator.userLanguage
+        if (/en*/.test(lang)) {
+            setUserLanguage('en')
+        }
+    })
 
     const provider = {
         userLanguage,
         ...stringDataList[userLanguage],
         setUserLanguage: (toLanguage) => {
             setUserLanguage(toLanguage)
-            if (typeof localStorage !== `undefined`) {
-                localStorage.setItem('language', toLanguage)
-            }
+            localStorage.setItem('language', toLanguage)
         }
     }
 

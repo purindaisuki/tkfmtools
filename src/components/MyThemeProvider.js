@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../components/theme';
 
@@ -7,22 +7,20 @@ export const ThemeContext = createContext({
 })
 
 export default function MyThemeProvider({ children }) {
-    const getDefaultTheme = () => {
-        if (typeof localStorage !== `undefined`) {
-            const localSetting = localStorage.getItem('color-theme')
-            if (localSetting) {
-                return localSetting
-            }
-        }
-        if (typeof window !== `undefined`) {
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark'
-            }
-        }
-        return 'light'
-    }
+    const [theme, setTheme] = useState('light')
 
-    const [theme, setTheme] = useState(getDefaultTheme())
+    // get user theme
+    useEffect(() => {
+        const localSetting = localStorage.getItem('color-theme')
+        if (localSetting) {
+            setTheme(localSetting)
+            return
+        }
+        
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark')
+        }
+    })
 
     const toggleTheme = (event) => {
         // ignore tab and shift key
@@ -32,13 +30,11 @@ export default function MyThemeProvider({ children }) {
         const toTheme = theme === 'light' ? 'dark' : 'light'
         setTheme(toTheme)
 
-        if (typeof localStorage !== `undefined`) {
-            localStorage.setItem('color-theme', toTheme)
-        }
+        localStorage.setItem('color-theme', toTheme)
     }
 
     const provider = {
-        theme,
+        theme: theme,
         toggleTheme: toggleTheme
     }
 
@@ -47,9 +43,7 @@ export default function MyThemeProvider({ children }) {
             <ThemeProvider
                 theme={theme === 'light' ? lightTheme : darkTheme}
             >
-                {React.cloneElement(children, {
-                    toggleTheme: toggleTheme,
-                })}
+                {children}
             </ThemeProvider>
         </ThemeContext.Provider>
     )

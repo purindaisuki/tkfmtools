@@ -1,18 +1,20 @@
 module.exports = {
 	siteMetadata: {
-		title: "Tenkafu MA! toolbox",
+		title: `Tenkafu MA! toolbox`,
 	},
 	pathPrefix: `/tkfmtools`,
 	plugins: [
-		"gatsby-plugin-styled-components",
+		`gatsby-plugin-react-helmet`,
+		`gatsby-plugin-styled-components`,
+		`gatsby-plugin-material-ui`,
+		`gatsby-transformer-sharp`,
+		`gatsby-plugin-sharp`,
 		{
-			resolve: 'gatsby-source-filesystem',
+			resolve: `gatsby-source-filesystem`,
 			options: {
-				path: `${__dirname}/public/img`,
-				name: 'images',
+				path: `${__dirname}/src/images`,
+				name: `images`,
 			},
 		},
-		'gatsby-transformer-sharp',
-		'gatsby-plugin-sharp',
 	],
 }
