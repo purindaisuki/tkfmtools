@@ -13,6 +13,7 @@ const StyledBtn = styled.div`
         background-color: ${props => props.theme.colors.secondary};
         padding: .2rem;
         border-radius: 2rem;
+        z-index: 2;
     }
     .Transition{
         right: 1.1rem;
