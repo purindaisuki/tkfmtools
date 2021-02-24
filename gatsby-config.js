@@ -16,5 +16,22 @@ module.exports = {
 				name: `images`,
 			},
 		},
+		{
+			resolve: `gatsby-plugin-google-gtag`,
+			options: {
+				trackingIds: [
+					"G-Z22RL2KGP1",
+				],
+			},
+			gtagConfig: {
+				optimize_id: "OPT_CONTAINER_ID",
+				anonymize_ip: true,
+				cookie_expires: 0,
+			},
+			pluginConfig: {
+				head: false,
+				respectDNT: true,
+			},
+		},
 	],
 }
