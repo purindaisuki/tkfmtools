@@ -16,7 +16,7 @@ const StyledCardHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 `
 const ItemImg = styled(ImageSupplier)`
     width: 2.5rem;
