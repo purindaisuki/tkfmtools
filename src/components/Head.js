@@ -38,5 +38,6 @@ export default () => (
         <meta property="twitter:description" content="提供天下布魔中資料查詢、處理，減輕娜娜負擔。" />
         <meta property="twitter:url" content="https://purindaisuki.github.io/tkfmtools/" />
         <meta property="twitter:image" content="https://purindaisuki.github.io/tkfmtools/website_preview.png" />
+        <meta name="google-site-verification" content="F_IfmH-gHHQSs2j53dl-2l-zMqnWtwWOnfqdQiwLUow" />
     </Helmet>
 )
