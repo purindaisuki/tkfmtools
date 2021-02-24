@@ -24,3 +24,4 @@ yarn-error.log*
 /.vscode
 /public
 .eslintcache
+gatsby-config.js
