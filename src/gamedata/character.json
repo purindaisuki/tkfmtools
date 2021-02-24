@@ -5,7 +5,7 @@
     { "id": "104", "rarity": 3, "tags": { "attribute": 2, "position": 9 , "race": 12, "body": "", "oppai": "", "rank": 20, "else": [26, 28], "available": true }, "potentialType": 2 },
     { "id": "105", "rarity": 3, "tags": { "attribute": 1, "position": 5 , "race": 12, "body": 13, "oppai": 15, "rank": 20, "else": [21, 28], "available": true }, "potentialType": 0 },
     { "id": "106", "rarity": 3, "tags": { "attribute": 2, "position": 7 , "race": 10, "body": "", "oppai": "", "rank": 20, "else": [24], "available": true }, "potentialType": 2 },
-    { "id": "108", "rarity": 3, "tags": { "attribute": 1, "position": 5 , "race": "", "body": "", "oppai": "", "rank": "", "else": [], "available": false }, "potentialType": 0 },
+    { "id": "108", "rarity": 3, "tags": { "attribute": 4, "position": 5 , "race": "", "body": "", "oppai": "", "rank": "", "else": [], "available": false }, "potentialType": 0 },
     { "id": "117", "rarity": 3, "tags": { "attribute": 4, "position": 5 , "race": "", "body": "", "oppai": "", "rank": "", "else": [], "available": false }, "potentialType": 0 },
     { "id": "125", "rarity": 3, "tags": { "attribute": 1, "position": 8 , "race": "", "body": "", "oppai": "", "rank": "", "else": [], "available": false }, "potentialType": 2 },
     { "id": "126", "rarity": 3, "tags": { "attribute": 0, "position": 9 , "race": "", "body": "", "oppai": "", "rank": "", "else": [], "available": false }, "potentialType": 2 },
