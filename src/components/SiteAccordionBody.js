@@ -214,6 +214,12 @@ export const SiteLicense = () => {
                         license: 'MIT License',
                     },
                     {
+                        titleLink: 'https://github.com/gatsbyjs/gatsby',
+                        title: 'gatsby',
+                        licenseLink: 'https://github.com/gatsbyjs/gatsby/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
                         titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
                         title: 'react-bootstrap',
                         licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
