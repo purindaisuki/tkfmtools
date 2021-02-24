@@ -1,7 +1,7 @@
 {
     "home": {
         "name": "Home",
-        "documentTitle": "Tenkafu MA! toolbox",
+        "documentTitle": "TenkafuMA! toolbox",
         "about": {
             "header": "About",
             "content": [
@@ -203,7 +203,7 @@
     },
     "enlist": {
         "name": "Recruitment",
-        "documentTitle": "Tenkafu MA! toolbox — Recruitment",
+        "documentTitle": "TenkafuMA! toolbox — Recruitment",
         "label": [
             "Overview",
             "Filter"
@@ -264,7 +264,7 @@
     },
     "potential": {
         "name": "Potential",
-        "documentTitle": "Tenkafu MA! toolbox — Potential material",
+        "documentTitle": "TenkafuMA! toolbox — Potential material",
         "label": [
             "Overview",
             "Filter",
