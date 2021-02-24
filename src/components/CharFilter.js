@@ -6,15 +6,15 @@ import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterC
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import { CharCardHeader } from './CharShowcase';
 import './tooltip.css';
-import tagData from '../gamedata/tags.json';
-import charTagData from '../gamedata/characterTags.json';
+import tagData from '../gamedata/tag.json';
+import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import {
     ClearIcon,
     TagIcon,
     ClockIcon,
-    TypeIcon,
-    CategoryIcon,
+    AttributeIcon,
+    PositionIcon,
     RaceIcon,
     BodysizeIcon,
     OppaiIcon,
@@ -76,8 +76,8 @@ const CharFilterPanel = (props) => {
     } = useContext(LanguageContext)
 
     const attrIcons = {
-        type: TypeIcon,
-        category: CategoryIcon,
+        attribute: AttributeIcon,
+        position: PositionIcon,
         race: RaceIcon,
         body: BodysizeIcon,
         oppai: OppaiIcon,
@@ -136,8 +136,8 @@ const CharFilterPanel = (props) => {
                         value={idx}
                         key={idx}
                     >
-                        {attrIcons[item.icon]}
-                        {charString.tags[item.id]}
+                        {attrIcons[item]}
+                        {charString.tags[idx]}
                     </StyledToggleButton>
                 ))}
             </MyToggleButtonGroup>
@@ -185,8 +185,6 @@ const CharCardWrapper = styled.div`
     justify-content: flex-start;
     margin-left: -.75rem;
 `
-const StyledCharCard = styled(CharCardHeader)`
-`
 const StarIconWrapper = styled(IconWrapper)`
     display: flex;
     ${props => props.$hidden ? 'visibility: hidden;' : undefined}
@@ -221,10 +219,10 @@ function TableContent(props) {
         )
     }
 
-    const gradeToRarity = (grade) => (
-        grade === 0 ? 'N'
-            : grade === 1 ? 'R'
-                : grade === 2 ? 'SR'
+    const parseRarity = (rarity) => (
+        rarity === 0 ? 'N'
+            : rarity === 1 ? 'R'
+                : rarity === 2 ? 'SR'
                     : 'SSR'
     )
 
@@ -250,24 +248,24 @@ function TableContent(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.sortedResult.map((item, idx) => (
+                {props.sortedResult.map((char, idx) => (
                     <tr key={idx}>
                         <td>
                             <CharCardWrapper>
-                                <StyledCharCard
-                                    imgId={item.name + 1}
+                                <CharCardHeader
+                                    id={char.id}
                                     $textWrapConfig={
                                         cardTextWrapConfig[userLanguage]
                                     }
                                 />
-                                <TagTooltip char={item} />
+                                <TagTooltip char={char} />
                             </CharCardWrapper>
                         </td>
-                        <td>{gradeToRarity(item.grade)}</td>
-                        <td>{charString.tags[item.type]}</td>
+                        <td>{parseRarity(char.rarity)}</td>
+                        <td>{charString.tags[char.position]}</td>
                         <td>
                             {
-                                item.appliedTags
+                                char.appliedTags
                                     .map(i => charString.tags[i]).join(', ')
                             }
                         </td>
@@ -322,7 +320,7 @@ const FilterContainer = styled.div`
     }
 `
 export default function CharFilter() {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString, charString } = useContext(LanguageContext)
 
     const [state, setState] = useState({
         filterBtnValue: [],
@@ -365,7 +363,12 @@ export default function CharFilter() {
         }
 
         const curVal = val.sort()
-        const filterableChars = charTagData.filter(char => char.available)
+        let charTagData = charData.filter(char => char.tags.available)
+        charTagData = charTagData.map((char => {
+            const { id, rarity, tags, ...rest } = char
+            return ({ id, rarity, ...tags })
+        }))
+
         let filteredChars = []
         for (let i = curVal.length; i > 0; i--) {
             // generate combinations
@@ -373,25 +376,25 @@ export default function CharFilter() {
             // screen out ineligible characters
             tagCombs.forEach(tags => {
                 // filter by rank and time
-                let survivors = JSON.parse(JSON.stringify(filterableChars))
+                let survivors = JSON.parse(JSON.stringify(charTagData))
                 if (!tags.includes(20)) {
-                    survivors = survivors.filter(char => char.grade < 3)
+                    survivors = survivors.filter(char => char.rarity < 3)
                     if (state.enlistHour < 4 && !tags.includes(19)) {
-                        survivors = survivors.filter(char => char.grade < 2)
+                        survivors = survivors.filter(char => char.rarity < 2)
                     }
                 }
                 // filter by tags
                 let appliedTagsNum = 0
-                tagData.forEach((tag) => {
+                tagData.forEach((tagAttr, idx) => {
                     if (appliedTagsNum === tags.length || survivors.length === 0) {
                         return false
                     }
-                    if (tags.includes(tag.id)) {
+                    if (tags.includes(idx)) {
                         appliedTagsNum++
-                        if (tag.id < 21) {
-                            survivors = survivors.filter(c => c[tag.icon] === tag.id)
+                        if (idx < 21) {
+                            survivors = survivors.filter(c => c[tagAttr] === idx)
                         } else {
-                            survivors = survivors.filter(c => c[tag.icon].includes(tag.id))
+                            survivors = survivors.filter(c => c[tagAttr].includes(idx))
                         }
                     }
                 })
@@ -399,7 +402,7 @@ export default function CharFilter() {
                 if (survivors.length === 1 && appliedTagsNum <= 3) {
                     let isExist = false
                     filteredChars.forEach(existChar => {
-                        if (existChar.name === survivors[0].name) {
+                        if (existChar.id === survivors[0].id) {
                             isExist = true
                             for (
                                 let j = existChar.distinctTagCombs.length - 1;
@@ -418,10 +421,10 @@ export default function CharFilter() {
                     })
                     if (!isExist) {
                         filteredChars.push({
-                            name: survivors[0].name,
-                            grade: survivors[0].grade,
-                            type: survivors[0].type,
-                            category: survivors[0].category,
+                            id: survivors[0].id,
+                            rarity: survivors[0].rarity,
+                            attribute: survivors[0].attribute,
+                            position: survivors[0].position,
                             appliedTags: tags,
                             distinctTagCombs: [tags]
                         })
@@ -430,17 +433,17 @@ export default function CharFilter() {
                     survivors.forEach(char => {
                         let isExist = false
                         filteredChars.forEach(existChar => {
-                            if (existChar.name === char.name) {
+                            if (existChar.id === char.id) {
                                 isExist = true
                                 return false
                             }
                         })
                         if (!isExist) {
                             filteredChars.push({
-                                name: char.name,
-                                grade: char.grade,
-                                type: char.type,
-                                category: char.category,
+                                id: char.id,
+                                rarity: char.rarity,
+                                attribute: char.attribute,
+                                position: char.position,
                                 appliedTags: tags,
                                 distinctTagCombs: []
                             })
@@ -474,6 +477,9 @@ export default function CharFilter() {
             if (sortConfig.key === 'appliedTags') {
                 aKey = a[sortConfig.key].join('')
                 bKey = b[sortConfig.key].join('')
+            } else if (sortConfig.key === 'name') {
+                aKey = charString.name[a.id]
+                bKey = charString.name[b.id]
             } else {
                 aKey = a[sortConfig.key]
                 bKey = b[sortConfig.key]
@@ -520,7 +526,7 @@ export default function CharFilter() {
             <ResultTable
                 result={state.characters}
                 sortFunc={sortFunc}
-                defaultSortKey={'grade'}
+                defaultSortKey={'rarity'}
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}

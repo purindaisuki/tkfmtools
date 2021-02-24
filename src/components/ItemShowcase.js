@@ -8,7 +8,7 @@ import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
 import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
 import ImageSupplier from './ImageSupplier';
-import itemDropData from '../gamedata/itemDrop.json';
+import itemDropData from '../gamedata/byStageToItem';
 import stageDropData from '../gamedata/stageDrop.json';
 import { LanguageContext } from './LanguageProvider';
 
@@ -195,18 +195,18 @@ const ItemMasonry = () => {
         <MyMasonry
             breakpointCols={breakpointColumnsConfig}
         >
-            {itemDropData.map((item, idx) => (
+            {Object.entries(itemDropData).map((entry, idx) => (
                 <ItemCard
                     key={idx}
                     header={
                         <ItemCardHeader
-                            id={item.id}
+                            id={entry[0]}
                         />
                     }
                     body={
                         <CardTable striped={true}>
                             <CardBodyContnet
-                                drop={item.drop}
+                                drop={entry[1].drop}
                             />
                         </CardTable>
                     }
@@ -365,7 +365,6 @@ const ItemTable = () => {
                 sortFunc={sortFunc}
                 defaultSortKey={'stage'}
                 result={stageDropData}
-                striped={false}
                 border={true}
             >
                 <TableContent />

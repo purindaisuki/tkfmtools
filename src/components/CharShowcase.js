@@ -7,11 +7,11 @@ import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
 import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
 import ImageSupplier from './ImageSupplier';
-import charTagData from '../gamedata/characterTags.json';
+import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import {
-    TypeIcon,
-    CategoryIcon,
+    AttributeIcon,
+    PositionIcon,
     RaceIcon,
     BodysizeIcon,
     OppaiIcon,
@@ -49,22 +49,22 @@ const TextWrapper = styled.div`
 `
 const CardHeader = ({
     className,
-    imgId
+    id
 }) => {
     const { charString } = useContext(LanguageContext)
 
     return (
         <CharImgWrapper
             className={className}
-            name={`char_small_${imgId}.png`}
+            name={`char_small_${id}.png`}
             isBackground={true}
             alt=''
         >
             <TextWrapper>
-                {charString.name[imgId - 1].split(' ').slice(0, -1).join(' ')}
+                {charString.name[id].split(' ').slice(0, -1).join(' ')}
             </TextWrapper>
             <TextWrapper>
-                {charString.name[imgId - 1].split(' ').slice(-1)[0]}
+                {charString.name[id].split(' ').slice(-1)[0]}
             </TextWrapper>
         </CharImgWrapper>
     )
@@ -88,8 +88,8 @@ const CardBody = (props) => {
     const { charString } = useContext(LanguageContext)
 
     const attrIcons = {
-        type: TypeIcon,
-        category: CategoryIcon,
+        attribute: AttributeIcon,
+        position: PositionIcon,
         race: RaceIcon,
         body: BodysizeIcon,
         oppai: OppaiIcon,
@@ -97,7 +97,12 @@ const CardBody = (props) => {
         else: ElseIcon
     }
 
-    if (!charTagData[props.id].available) {
+    const charTagData = charData.map((char => {
+        const { id, rarity, tags, ...rest } = char
+        return ({ id, rarity, ...tags })
+    }))
+
+    if (!charData[props.idx].tags.available) {
         return (
             <CardTable striped={true}>
                 <tbody><tr><td>
@@ -110,10 +115,10 @@ const CardBody = (props) => {
     return (
         <CardTable striped={true}>
             <tbody>
-                {Object.entries(charTagData[props.id]).map((entry, idx) => {
+                {Object.entries(charTagData[props.idx]).map((entry, idx) => {
                     if (
-                        entry[0] === 'name' ||
-                        entry[0] === 'grade' ||
+                        entry[0] === 'id' ||
+                        entry[0] === 'rarity' ||
                         entry[0] === 'available'
                     ) {
                         return true
@@ -215,10 +220,10 @@ const StyledBtn = styled(IconButton)`
         width: 1.6rem;
         height: 1.6rem;
         fill: ${props => (
-            props.$active
-                ? props.theme.colors.secondary
-                : props.theme.colors.onSurface
-        )};
+        props.$active
+            ? props.theme.colors.secondary
+            : props.theme.colors.onSurface
+    )};
     }
     &:hover svg {
         fill: ${props => props.theme.colors.secondary};
@@ -261,14 +266,17 @@ const CharMasnory = () => {
         <MyMasonry
             breakpointCols={breakpointColumnsConfig}
         >
-            {charString.name.slice(0, charString.name.length - 1)
-                .map((char, idx) => (
+            {Object.entries(charString.name).map((entry, idx) => {
+                if (entry[0] === 'nr') return true
+
+                return (
                     <CharAccordion
-                        header={<CardHeader imgId={idx + 1} />}
-                        body={<CardBody id={idx} />}
+                        header={<CardHeader id={entry[0]} />}
+                        body={<CardBody idx={idx} />}
                         key={idx}
                     />
-                ))}
+                )
+            })}
         </MyMasonry>
     )
 }
@@ -296,10 +304,10 @@ export const CharCardHeader = styled(CardHeader)`
 const TableContent = (props) => {
     const { userLanguage, charString } = useContext(LanguageContext)
 
-    const gradeToRarity = (grade) => (
-        grade === 0 ? 'N'
-            : grade === 1 ? 'R'
-                : grade === 2 ? 'SR'
+    const parseRarity = (rarity) => (
+        rarity === 0 ? 'N'
+            : rarity === 1 ? 'R'
+                : rarity === 2 ? 'SR'
                     : 'SSR'
     )
 
@@ -330,23 +338,23 @@ const TableContent = (props) => {
             {props.sortedResult.map(char => {
                 if (!char.available) {
                     return (
-                        <tr key={char.name}>
+                        <tr key={char.id}>
                             <td>
                                 <CharCardHeader
-                                    imgId={char.name + 1}
+                                    id={char.id}
                                     $textWrapConfig={
                                         cardTextWrapConfig[userLanguage]
                                     }
                                 />
                             </td>
                             <td>
-                                {gradeToRarity(char.grade)}
+                                {parseRarity(char.rarity)}
                             </td>
                             <td>
-                                {charString.tags[char.type]}
+                                {charString.tags[char.attribute]}
                             </td>
                             <td>
-                                {charString.tags[char.category]}
+                                {charString.tags[char.position]}
                             </td>
                             <td colSpan='5'>
                                 {charString.tagWarnMsg}
@@ -356,16 +364,16 @@ const TableContent = (props) => {
                 }
 
                 return (
-                    <tr key={char.name}>
+                    <tr key={char.id}>
                         {Object.entries(char).map((entry, j) => {
                             if (entry[0] === 'available') {
                                 return true
                             }
-                            if (entry[0] === 'name') {
+                            if (entry[0] === 'id') {
                                 return (
                                     <td key={j}>
                                         <CharCardHeader
-                                            imgId={char.name + 1}
+                                            id={char.id}
                                             $textWrapConfig={
                                                 cardTextWrapConfig[userLanguage]
                                             }
@@ -373,10 +381,10 @@ const TableContent = (props) => {
                                     </td>
                                 )
                             }
-                            if (entry[0] === 'grade') {
+                            if (entry[0] === 'rarity') {
                                 return (
                                     <td key={j}>
-                                        {gradeToRarity(entry[1])}
+                                        {parseRarity(entry[1])}
                                     </td>
                                 )
                             }
@@ -419,6 +427,11 @@ const CharTableWrapper = styled(TableWrapper)`
 const CharTable = () => {
     const { charString } = useContext(LanguageContext)
 
+    const charTagData = charData.map((char => {
+        const { id, rarity, tags, ...rest } = char
+        return ({ id, rarity, ...tags })
+    }))
+
     const sortFunc = (sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {
             let aKey
@@ -427,8 +440,8 @@ const CharTable = () => {
                 aKey = a[sortConfig.key].join('')
                 bKey = b[sortConfig.key].join('')
             } else if (sortConfig.key === 'name') {
-                aKey = charString.name[a[sortConfig.key]]
-                bKey = charString.name[b[sortConfig.key]]
+                aKey = charString.name[a.id]
+                bKey = charString.name[b.id]
             } else {
                 aKey = a[sortConfig.key]
                 bKey = b[sortConfig.key]
@@ -447,9 +460,8 @@ const CharTable = () => {
         <CharTableWrapper>
             <SortableTable
                 sortFunc={sortFunc}
-                defaultSortKey={'grade'}
+                defaultSortKey={'rarity'}
                 result={charTagData}
-                striped={false}
                 border={true}
             >
                 <TableContent />

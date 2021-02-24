@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
-import MyToggleButtonGroup, {MyToggleButton} from './MyToggleButtonGroup';
+import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import ImageSupplier from './ImageSupplier';
-import itemDropData from '../gamedata/itemDrop.json';
+import itemDropData from '../gamedata/byStageToItem';
+import stageDropData from '../gamedata/stageDrop.json';
 import { LanguageContext } from './LanguageProvider';
 import { ClearIcon } from './icon';
 
@@ -68,20 +69,20 @@ const ItemFilterPanel = (props) => {
                 onChange={props.filterBy}
                 layoutConfig={btnLayoutConfig}
             >
-                {itemDropData.map((item, idx) => {
-                    if (item.drop.length === 0) return true
+                {Object.entries(itemDropData).map((entry, idx) => {
+                    if (entry[1].drop.length === 0) return true
 
                     return (
                         <StyledToggleButton
-                            value={idx}
+                            value={entry[0]}
                             key={idx}
                         >
                             <ItemImg
-                                name={`item_${item.id}.png`}
+                                name={`item_${entry[0]}.png`}
                                 isBackground={false}
                                 alt=''
                             />
-                            {itemString.name[item.id]}
+                            {itemString.name[entry[0]]}
                         </StyledToggleButton>
                     )
                 })}
@@ -104,23 +105,31 @@ const TableImg = styled(ImageSupplier)`
 const TableContent = (props) => {
     const { pageString, itemString } = useContext(LanguageContext)
 
-    const ItemTh = (props) => {
+    const ItemTh = () => {
         if (props.sortedResult.length === 0) {
-            return <SortableTh>{pageString.potential.filter.tableHead[1]}</SortableTh>
+            return (
+                <SortableTh>
+                    {pageString.potential.filter.tableHead[1]}
+                </SortableTh>
+            )
         }
 
         return (
-            props.sortedResult[0].drop.map((item, idx) => {
+            Object.entries(props.sortedResult[0]).map((entry, idx) => {
+                if (entry[0] === 'stage' || entry[0] === 'energy') {
+                    return
+                }
+
                 return (
                     <ImgTh
                         key={idx}
-                        onClick={() => props.requestSort(idx)}
-                        direction={props.getSortDirection(idx)}
+                        onClick={() => props.requestSort(entry[0])}
+                        direction={props.getSortDirection(entry[0])}
                     >
                         <TableImg
-                            name={`item_${item.id}.png`}
+                            name={`item_${entry[0]}.png`}
                             isBackground={false}
-                            alt={itemString.name[item.id]}
+                            alt={itemString.name[entry[0]]}
                         />
                     </ImgTh>
                 )
@@ -138,7 +147,7 @@ const TableContent = (props) => {
                     >
                         {pageString.potential.filter.tableHead[0]}
                     </SortableTh>
-                    <ItemTh {...props} />
+                    <ItemTh />
                     <ImgTh
                         onClick={() => props.requestSort('energy')}
                         direction={props.getSortDirection('energy')}
@@ -155,11 +164,18 @@ const TableContent = (props) => {
                 {props.sortedResult.map((stage, idx) => {
                     return (
                         <tr key={idx}>
-                            <td>{`${stage.chapter}-${stage.stage}`}</td>
-                            {stage.drop.map(item => {
+                            <td>{stage.stage}</td>
+                            {Object.entries(stage).map((entry, idx) => {
+                                if (
+                                    entry[0] === 'stage' ||
+                                    entry[0] === 'energy'
+                                ) {
+                                    return
+                                }
+
                                 return (
-                                    <td key={item.id}>
-                                        {itemString.rarity[item.rarity]}
+                                    <td key={idx}>
+                                        {itemString.rarity[entry[1]]}
                                     </td>
                                 )
                             })}
@@ -186,61 +202,64 @@ export default function ItemFilter() {
 
     const [state, setState] = useState({
         filterBtnValue: [],
-        stages: [],
+        result: [],
     })
+
+    const [modalOpen, setModalOpen] = useState(false)
 
     const filterBy = (val) => {
         if (val.length === 0) {
             setState({
                 filterBtnValue: val,
-                stages: [],
+                result: [],
             })
             return;
         }
-        const curVal = val.sort()
-        // deep copy
-        let filteredStages = JSON.parse(JSON.stringify(itemDropData[curVal[0]].drop))
-        filteredStages.forEach(stage => {
-            stage.drop = [{
-                id: itemDropData[curVal[0]].id,
-                rarity: stage.rarity
-            }]
-            delete stage.rarity
+
+        const stageDrop = stageDropData.map(stage => {
+            const { materials, trainItems, expPotions, ...rest } = stage
+            return { ...rest, drops: materials.concat(trainItems, expPotions) }
         })
-        curVal.forEach((itemIdx, idx) => {
-            if (idx === 0) return true
-            filteredStages = filteredStages.filter(thisStage => {
+
+        let filteredStages = stageDrop.filter(stage => (
+            val.every(queryItem => {
                 let flag = false
-                itemDropData[itemIdx].drop.forEach(that => {
-                    if (
-                        that.chapter === thisStage.chapter
-                        && that.stage === thisStage.stage
-                    ) {
-                        let newDrop = {
-                            id: itemDropData[itemIdx].id,
-                            rarity: that.rarity
-                        }
-                        thisStage.drop.push(newDrop)
+                stage.drops.forEach(drop => {
+                    if (drop.id === queryItem) {
                         flag = true
                         return false
                     }
                 })
                 return flag
             })
+        ))
+
+        filteredStages = filteredStages.map(stage => {
+            const parsedStage = stage.chapter + '-' + stage.stage
+            const newStage = { stage: parsedStage, energy: stage.energy }
+            stage.drops.forEach(item => {
+                if (val.includes(item.id)) {
+                    newStage[item.id] = item.rarity
+                }
+            })
+            return newStage
         })
+
         setState({
             filterBtnValue: val,
-            stages: filteredStages,
+            result: filteredStages,
         })
     }
 
     const sortFunc = (sortableItems, sortConfig) => {
-        const toStageKey = key => {
+        const toStageKey = (stage) => {
+            const splits = stage.split('-')
+
             return (
-                parseInt(key.chapter) * 1000 +
-                parseInt(key.stage.split(' ')[0]) * 10 +
-                (key.stage.includes('free') ? 1 : 0) +
-                (key.stage.includes('-') ? parseInt(key.stage.split('-')[1]) : 0)
+                parseInt(splits[0]) * 1000 +
+                parseInt(splits[1].split(' ')[0]) * 10 +
+                (splits[1].includes('free') ? 1 : 0) +
+                (splits.length > 2 ? parseInt(splits[2]) : 0)
             )
         }
 
@@ -248,14 +267,11 @@ export default function ItemFilter() {
             let aKey
             let bKey
             if (sortConfig.key === 'stage') {
-                aKey = toStageKey(a)
-                bKey = toStageKey(b)
-            } else if (sortConfig.key === 'energy') {
+                aKey = toStageKey(a.stage)
+                bKey = toStageKey(b.stage)
+            } else {
                 aKey = a[sortConfig.key]
                 bKey = b[sortConfig.key]
-            } else {
-                aKey = a.drop[sortConfig.key].rarity
-                bKey = b.drop[sortConfig.key].rarity
             }
             if (aKey < bKey) {
                 return sortConfig.direction === 'asc' ? -1 : 1
@@ -266,8 +282,6 @@ export default function ItemFilter() {
             return 0
         })
     }
-
-    const [modalOpen, setModalOpen] = useState(false)
 
     const tableWidthConfig = {
         default: 'calc(40% - 1rem)',
@@ -282,9 +296,9 @@ export default function ItemFilter() {
                 filterBy={filterBy}
             />
             <ResultTable
-                result={state.stages}
+                result={state.result}
                 sortFunc={sortFunc}
-                defaultSortKey={0}
+                defaultSortKey={state.filterBtnValue[0]}
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}

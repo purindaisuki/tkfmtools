@@ -57,6 +57,31 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.2.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Magic Automaton KS-Ⅷ",
+                            "description": "Add data of Magic Automaton KS-Ⅷ."
+                        },
+                        {
+                            "type": "New",
+                            "title": "Chapter 11 item drop",
+                            "description": "Add hapter 11 item drop."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Some pictures",
+                            "description": "Change potential picture."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Result of position column in recruitment result table",
+                            "description": "Correct content of position column in recruitment result table."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.3",
                     "content": [
                         {
@@ -193,11 +218,11 @@
             },
             {
                 "title": "Rarity",
-                "attr": "grade"
+                "attr": "rarity"
             },
             {
                 "title": "Position",
-                "attr": "type"
+                "attr": "position"
             },
             {
                 "title": "Applied Tags",

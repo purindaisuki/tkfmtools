@@ -64,6 +64,31 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.2.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "魔人偶 KS-Ⅷ",
+                            "description": "新增魔人偶 KS-Ⅷ資料"
+                        },
+                        {
+                            "type": "New",
+                            "title": "第11章掉落道具",
+                            "description": "新增第11章掉落道具"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "部分圖片",
+                            "description": "更換潛力圖示"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "全境徵才結果定位欄誤植為屬性",
+                            "description": "修正全境徵才定位欄結果"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.2.3",
                     "content": [
                         {
@@ -200,11 +225,11 @@
             },
             {
                 "title": "稀有度",
-                "attr": "grade"
+                "attr": "rarity"
             },
             {
                 "title": "定位",
-                "attr": "type"
+                "attr": "position"
             },
             {
                 "title": "應用標籤",

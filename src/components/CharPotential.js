@@ -4,7 +4,8 @@ import { Snackbar } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
 import ImageSupplier from './ImageSupplier';
-import charPotentialData from '../gamedata/characterPotential.json';
+import charData from '../gamedata/character.json';
+import potentialData from '../gamedata/potential.json';
 import { LanguageContext } from './LanguageProvider';
 import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
 
@@ -62,9 +63,7 @@ const SelectPanel = (props) => {
             />
             <ContainerBody>
                 <CharImgWrapper
-                    name={`char_${
-                            charPotentialData.characters[props.character].id
-                        }.png`}
+                    name={`char_${props.character}.png`}
                     isBackground={false}
                     alt=''
                 />
@@ -81,11 +80,19 @@ const SelectPanel = (props) => {
                                     onChange={props.handleSelect('character')}
                                 >
                                     {
-                                        Object.keys(charPotentialData.characters)
-                                            .map((c, idx) => <option key={idx}>
-                                                {charString.name[parseInt(c)]}
-                                            </option>)
+                                        charData.map((char, idx) => {
+                                            if (char.rarity < 2) return false
+
+                                            return (
+                                                <option value={char.id} key={idx}>
+                                                    {charString.name[char.id]}
+                                                </option>
+                                            )
+                                        })
                                     }
+                                    <option value={'nr'} key={'nr'}>
+                                        {charString.name['nr']}
+                                    </option>
                                 </Select>
                             </Form.Group>
                         </Form.Row>
@@ -112,7 +119,7 @@ const SelectPanel = (props) => {
                                     onChange={props.handleSelect('currSub')}
                                 >
                                     {[...Array(7).keys()].slice(1)
-                                        .map(i => <option key={i}>{i}</option>)}
+                                        .map(i => <option value={i} key={i}>{i}</option>)}
                                 </Select>
                             </Form.Group>
                         </Form.Row>
@@ -138,7 +145,7 @@ const SelectPanel = (props) => {
                                     onChange={props.handleSelect('targetSub')}
                                 >
                                     {[...Array(7).keys()].slice(1)
-                                        .map(i => <option key={i}>{i}</option>)}
+                                        .map(i => <option value={i} key={i}>{i}</option>)}
                                 </Select>
                             </Form.Group>
                         </Form.Row>
@@ -167,7 +174,7 @@ const MaterialWrapper = styled.span`
             width: calc(100% / ${entry[1]});
         }
         `
-    ))}
+))}
     > div {
         display: flex;
         align-items: center;
@@ -194,7 +201,10 @@ const OtherImg = styled(ImageSupplier)`
     height: 1.6rem;
     margin-right: .4rem;
 `
-const ResultPanel = (props) => {
+const ResultPanel = ({
+    widthConfig,
+    result
+}) => {
     const { userLanguage, pageString, itemString } = useContext(LanguageContext)
 
     const [modalOpen, setModalOpen] = useState(false)
@@ -215,22 +225,22 @@ const ResultPanel = (props) => {
         }
 
     const MaterialBox = () => {
-        if (!props.result.items) return <></>
+        if (!result.items) return <></>
 
         return (
             <>
-                {Object.entries(props.result.items).map((item, idx) => (
+                {Object.entries(result.items).map((item, idx) => (
                     <MaterialWrapper
                         key={idx}
                         $layoutConfig={resultLayoutConfig}
                     >
                         <div>
                             <MaterialImg
-                                name={`item_${('00' + item[0]).slice(-3)}.png`}
+                                name={`item_${item[0]}.png`}
                                 isBackground={false}
                                 alt=''
                             />
-                            {`${itemString.name[('00' + item[0]).slice(-3)]}`}
+                            {`${itemString.name[item[0]]}`}
                         </div>
                         {item[1]}
                     </MaterialWrapper>
@@ -243,14 +253,33 @@ const ResultPanel = (props) => {
                         isBackground={false}
                         alt='money'
                     />
-                    {props.result.money}
+                    {result.money}
                 </MaterialWrapper>
             </>
         )
     }
 
+    const PictureSquare = ({
+        children,
+        name,
+        alt
+    }) => (
+        <MaterialWrapper
+            $layoutConfig={resultLayoutConfig}
+        >
+            <div>
+                <OtherImg
+                    name={name}
+                    isBackground={false}
+                    alt={alt}
+                />
+                {children}
+            </div>
+        </MaterialWrapper>
+    )
+
     return (
-        <FilterPanel widthConfig={props.widthConfig}>
+        <FilterPanel widthConfig={widthConfig}>
             <div>
                 <ContainerHeader
                     title={
@@ -279,30 +308,28 @@ const ResultPanel = (props) => {
                     }
                 />
                 <div>
-                    <MaterialWrapper
-                        $layoutConfig={resultLayoutConfig}
+                    <PictureSquare
+                        name='ui_small_atk.png'
+                        alt='ATK'
                     >
-                        <div>
-                            <OtherImg
-                                name='ATK.png'
-                                isBackground={false}
-                                alt='ATK'
-                            />
-                            {`${props.result.buff.ATK} %`}
-                        </div>
-                    </MaterialWrapper>
-                    <MaterialWrapper
-                        $layoutConfig={resultLayoutConfig}
+                        {`${result.buff.ATK} %`}
+                    </PictureSquare>
+                    <PictureSquare
+                        name='ui_small_hp.png'
+                        alt='HP'
                     >
-                        <div>
-                            <OtherImg
-                                name='HP.png'
-                                isBackground={false}
-                                alt='HP'
-                            />
-                            {`${props.result.buff.HP} %`}
-                        </div>
-                    </MaterialWrapper>
+                        {`${result.buff.HP} %`}
+                    </PictureSquare>
+                    <PictureSquare
+                        name='ui_small_potentialPassive.png'
+                        alt='Passive'
+                    >
+                        {`${result.buff.PASSIVE === 0 ? '-'
+                            : result.buff.PASSIVE === 1 ? '1'
+                                : result.buff.PASSIVE === 2 ? '2'
+                                    : '1 & 2'
+                            }`}
+                    </PictureSquare>
                 </div>
             </div>
             <HelpModal
@@ -370,11 +397,11 @@ export default function CharPotential() {
     const { pageString, charString } = useContext(LanguageContext)
 
     const [state, setState] = useState({
-        character: '0',
-        currStage: "1",
-        currSub: "1",
-        targetStage: "1",
-        targetSub: "1",
+        character: '101',
+        currStage: '1',
+        currSub: '1',
+        targetStage: '1',
+        targetSub: '1',
         isValid: true,
         isSnackbarOpen: false,
         result: {
@@ -392,19 +419,16 @@ export default function CharPotential() {
         //update state
         let newState = { ...state }
 
-        // parse character name to id
-        const selected = attr === 'character'
-            ? charString.name.indexOf(event.target.value).toString()
-            : event.target.value
+        const selected = event.target.value
 
         newState[attr] = selected
-        if (selected === '40') {
-            newState.currStage = state.currStage > 6 ? 1 : state.currStage
-            newState.targetStage = state.targetStage > 6 ? 1 : state.targetStage
+        if (selected === 'nr') {
+            newState.currStage = parseInt(state.currStage) > 6 ? 1 : state.currStage
+            newState.targetStage = parseInt(state.targetStage) > 6 ? 1 : state.targetStage
         }
         newState.isValid =
             parseInt(newState.targetStage) > parseInt(newState.currStage) ||
-            (parseInt(newState.targetStage) === parseInt(newState.currStage) &&
+            (newState.targetStage === newState.currStage &&
                 parseInt(newState.targetSub) >= parseInt(newState.currSub))
         newState.isSnackbarOpen = !newState.isValid
         if (!newState.isValid) {
@@ -430,8 +454,19 @@ export default function CharPotential() {
             },
         }
         // calculate demand
-        const type = charPotentialData.characters[newState.character].type
-        const stages = charPotentialData.type[type]
+        let type
+        if (newState.character === 'nr') {
+            type = 3
+        } else {
+            charData.forEach(char => {
+                if (char.id === newState.character) {
+                    type = char.potentialType
+                    return false
+                }
+            })
+        }
+
+        const stages = potentialData.type[type]
         const start = newState.currStage - 1
         const end = newState.targetStage - 1
         for (let i = start; i < end + 1; i++) {
@@ -448,15 +483,17 @@ export default function CharPotential() {
                     result.items[id] = stage.num[j]
                 }
                 result.money += (i + 1) * 8000
-                let buff = charPotentialData.itemMap[stage.pattern[j]].type
+                let buff = potentialData.itemMap[stage.pattern[j]].type
                 result.buff[buff] += stage.buff[j]
             }
         }
         // parse result
         let parsedItem = {}
         for (const [key, value] of Object.entries(result.items)) {
-            let itemId = charPotentialData.itemMap[key[0]].id.map(id => (
-                (parseInt(key[1]) * 100 + id).toString()
+            let itemId = potentialData.itemMap[key[0]].id.map(id => (
+                key[1] === '9' ? '902'
+                    : key[1] === '8' ? '901'
+                        : (parseInt(key[1]) * 100 + id).toString()
             ))
             for (let i of itemId) {
                 if (parsedItem[i]) {
@@ -473,8 +510,8 @@ export default function CharPotential() {
         setState(newState)
     }
 
-    const stages = [...Array(state.character === '40' ? 7 : 13).keys()]
-        .slice(1).map(i => <option key={i}>{i}</option>)
+    const stages = [...Array(state.character === 'nr' ? 7 : 13).keys()]
+        .slice(1).map(i => <option value={i} key={i}>{i}</option>)
 
     const handleSnackbarClose = () => setState((state) => ({
         ...state,

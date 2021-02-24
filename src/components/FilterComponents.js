@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
 import { Table } from 'react-bootstrap';
@@ -170,7 +170,7 @@ export const SortableTh = styled.th`
                 ? ' \\25B2'
                 : ' \\25BC'
             : undefined
-        )}';
+    )}';
     }
 `
 const StyledTable = styled(Table)`
@@ -190,10 +190,10 @@ const StyledTable = styled(Table)`
     }
     tr {
         border-bottom: ${props => (
-            props.$border
+        props.$border
             ? '1px solid ' + props.theme.colors.secondary
             : 'none'
-        )};
+    )};
     }
 `
 export const SortableTable = ({
@@ -215,18 +215,18 @@ export const SortableTable = ({
 
         const sortedItems = useMemo(() => {
             let sortableItems = [...items]
-            sortFunc(sortableItems, sortConfig)
+            if (sortConfig.key) {
+                sortFunc(sortableItems, sortConfig)
+            }
+
             return sortableItems
         }, [items, sortConfig])
 
         const requestSort = (key) => {
-            let direction = 'desc';
-            if (
+            let direction = (
                 sortConfig.key === key &&
                 sortConfig.direction === 'desc'
-            ) {
-                direction = 'asc';
-            }
+            ) ? 'asc' : 'desc'
             setSortConfig({ key, direction })
         }
 
@@ -235,10 +235,16 @@ export const SortableTable = ({
 
     const { sortedResult, requestSort, sortConfig } = useSortableData(result)
 
-    const getSortDirection = (key) => {
-        if (sortedResult.length === 0) {
-            return
+    // apply default key if value assigned after first render
+    useEffect(() => {
+        if (sortConfig.key !== defaultSortKey) {
+            requestSort(defaultSortKey)
         }
+    }, [defaultSortKey])
+
+    const getSortDirection = (key) => {
+        if (sortedResult.length === 0) return
+
         return sortConfig.key === key ? sortConfig.direction : undefined
     }
 
@@ -323,16 +329,27 @@ const IconWrapper = styled.div`
         vertical-align: top;
     }
 `
-export function ResultTable(props) {
+export function ResultTable({
+    children,
+    result,
+    sortFunc,
+    defaultSortKey,
+    modalOpen,
+    handleModalOpen,
+    handleModalClose,
+    modalContent,
+    widthConfig,
+    striped,
+}) {
     const { pageString } = useContext(LanguageContext)
 
     return (
-        <ResultTableContainer widthConfig={props.widthConfig}>
+        <ResultTableContainer widthConfig={widthConfig}>
             <ContainerHeader
                 title={
                     <div>
                         {pageString.potential.filter.resultTitle}
-                        <IconWrapper onClick={props.handleModalOpen}>
+                        <IconWrapper onClick={handleModalOpen}>
                             {HelpIcon}
                         </IconWrapper>
                     </div>
@@ -340,18 +357,18 @@ export function ResultTable(props) {
             />
             <TableWrapper>
                 <StyledSortableTable
-                    result={props.result}
-                    sortFunc={props.sortFunc}
-                    defaultSortKey={props.defaultSortKey}
-                    striped={props.striped}
+                    result={result}
+                    sortFunc={sortFunc}
+                    defaultSortKey={defaultSortKey}
+                    striped={striped}
                 >
-                    {props.children}
+                    {children}
                 </StyledSortableTable>
             </TableWrapper>
             <HelpModal
-                modalOpen={props.modalOpen}
-                handleModalClose={props.handleModalClose}
-                content={props.modalContent}
+                modalOpen={modalOpen}
+                handleModalClose={handleModalClose}
+                content={modalContent}
             >
             </HelpModal>
         </ResultTableContainer>
