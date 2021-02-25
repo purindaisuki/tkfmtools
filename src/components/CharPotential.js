@@ -428,7 +428,7 @@ export default function CharPotential() {
         }
         newState.isValid =
             parseInt(newState.targetStage) > parseInt(newState.currStage) ||
-            (newState.targetStage === newState.currStage &&
+            (parseInt(newState.targetStage) === parseInt(newState.currStage) &&
                 parseInt(newState.targetSub) >= parseInt(newState.currSub))
         newState.isSnackbarOpen = !newState.isValid
         if (!newState.isValid) {
