@@ -447,6 +447,13 @@ export default function CharFilter() {
             ...state,
             characters: filteredChars
         }))
+
+        if (dataLayer && val.length === 5) {
+            dataLayer.push({
+                'event': 'five_tags_selected',
+                'character_tag_combination': curVal,
+            })
+        }
     }, [state.enlistHour])
 
     const handleEnlistHourChange = (event) => {
@@ -499,13 +506,6 @@ export default function CharFilter() {
             ...state,
             filterBtnValue: val
         }))
-
-        if (dataLayer) {
-            dataLayer.push({
-                'character_tag_combination': val,
-                'selected_tag_num': val.length
-            })
-        }
     }
 
     const handleSnackbarClose = () => {
