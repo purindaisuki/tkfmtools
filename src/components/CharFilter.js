@@ -457,6 +457,9 @@ export default function CharFilter() {
             filterBtnValue: val,
             characters: filteredChars
         }))
+        if (val.length === 5 && dataLayer) {
+            dataLayer.push({'character_tag_combination': val})
+        }
     }, [state.enlistHour])
 
     const handleEnlistHour = (event) => {
