@@ -119,7 +119,7 @@ const CharFilterPanel = (props) => {
                 }
                 end={
                     <ClearIconWrapper
-                        onClick={() => props.filterBy([])}
+                        onClick={() => props.handleBtnGroupChange([])}
                     >
                         {ClearIcon}
                     </ClearIconWrapper>
@@ -128,7 +128,7 @@ const CharFilterPanel = (props) => {
             <MyToggleButtonGroup
                 type='checkbox'
                 value={props.filterBtnValue}
-                onChange={props.filterBy}
+                onChange={props.handleBtnGroupChange}
                 layoutConfig={btnLayoutConfig}
             >
                 {tagData.map((item, idx) => (
@@ -158,7 +158,7 @@ const CharFilterPanel = (props) => {
                         custom
                         size="sm"
                         defaultValue='9'
-                        onChange={props.handleEnlistHour}
+                        onChange={props.handleEnlistHourChange}
                     >
                         {[...Array(10).keys()].slice(1)
                             .map(i => <option key={i}>{i}</option>)}
@@ -331,20 +331,11 @@ export default function CharFilter() {
 
     // filter characters by query tags
     const filterBy = useCallback((val) => {
-        if (val.length > 5) {
-            setState((state) => ({
-                ...state,
-                isSnackbarOpen: true
-            }))
-            return;
-        }
         if (val.length === 0) {
             setState((state) => ({
                 ...state,
-                filterBtnValue: val,
                 characters: []
             }))
-            return;
         }
 
         function* combinations(elements, num) {
@@ -454,22 +445,20 @@ export default function CharFilter() {
         }
         setState((state) => ({
             ...state,
-            filterBtnValue: val,
             characters: filteredChars
         }))
-        if (val.length === 5 && dataLayer) {
-            dataLayer.push({'character_tag_combination': val})
-        }
     }, [state.enlistHour])
 
-    const handleEnlistHour = (event) => {
+    const handleEnlistHourChange = (event) => {
         setState((state) => ({
             ...state,
             enlistHour: event.target.value
-        }));
+        }))
     }
     useEffect(
-        () => filterBy(state.filterBtnValue),
+        () => {
+            filterBy(state.filterBtnValue)
+        },
         [filterBy, state.filterBtnValue, state.enlistHour]
     )
 
@@ -497,11 +486,31 @@ export default function CharFilter() {
         })
     }
 
+    const handleBtnGroupChange = (val) => {
+        if (val.length > 5) {
+            setState((state) => ({
+                ...state,
+                isSnackbarOpen: true
+            }))
+            return
+        }
+
+        setState((state) => ({
+            ...state,
+            filterBtnValue: val
+        }))
+
+        if (dataLayer) {
+            dataLayer.push({
+                'character_tag_combination': val,
+                'selected_tag_num': val.length
+            })
+        }
+    }
+
     const handleSnackbarClose = () => {
-        setState((prevState) => ({
-            filterBtnValue: prevState.filterBtnValue,
-            characters: prevState.characters,
-            enlistHour: prevState.enlistHour,
+        setState((state) => ({
+            ...state,
             isSnackbarOpen: false,
         }))
     }
@@ -517,8 +526,8 @@ export default function CharFilter() {
     return (
         <FilterContainer>
             <CharFilterPanel
-                filterBy={filterBy}
-                handleEnlistHour={handleEnlistHour}
+                handleBtnGroupChange={handleBtnGroupChange}
+                handleEnlistHourChange={handleEnlistHourChange}
                 filterBtnValue={state.filterBtnValue}
             />
             <MySnackbar
