@@ -6,6 +6,8 @@ import characterString_en from '../stringdata/characterString_en.json';
 import itemString_tr from '../stringdata/itemString_tr.json';
 import itemString_en from '../stringdata/itemString_en.json';
 
+const defaultLanguage = 'zh-TW'
+
 const stringDataList = {
     "zh-TW": {
         pageString: pageString_tr,
@@ -20,12 +22,13 @@ const stringDataList = {
 }
 
 export const LanguageContext = createContext({
-    userLanguage: 'zh-TW',
-    ...stringDataList['zh-TW'],
+    userLanguage: defaultLanguage,
+    isDefault: true,
+    ...stringDataList[defaultLanguage],
 })
 
-export default function LanguageProvider({ children }) {
-    const [userLanguage, setUserLanguage] = useState('zh-TW')
+export default function LanguageProvider({ children, pageContext }) {
+    const [userLanguage, setUserLanguage] = useState(defaultLanguage)
 
     // get user language
     useEffect(() => {
@@ -42,8 +45,9 @@ export default function LanguageProvider({ children }) {
     })
 
     const provider = {
-        userLanguage,
-        ...stringDataList[userLanguage],
+        userLanguage: pageContext.lang,
+        isDefault: pageContext.lang === defaultLanguage,
+        ...pageContext.stringData,
         setUserLanguage: (toLanguage) => {
             setUserLanguage(toLanguage)
             localStorage.setItem('language', toLanguage)

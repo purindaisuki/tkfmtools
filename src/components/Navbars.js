@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'gatsby';
+import { Location } from "@reach/router"
 import styled from 'styled-components';
 import { Drawer } from '@material-ui/core';
 import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
+import LocalizedLink from './LocalizedLink'
 import MyAccordion from './MyAccordion';
 import { LanguageContext } from './LanguageProvider';
 import { ThemeContext } from './MyThemeProvider';
@@ -58,20 +59,62 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
         }
     }
 `
+const StyledLink = styled(LocalizedLink)`
+    &:hover {
+        text-decoration: none;
+    }
+`
 function LanguageSwitcher() {
-    const { setUserLanguage } = useContext(LanguageContext)
+    const { userLanguage, isDefault, setUserLanguage } = useContext(LanguageContext)
 
     const handleUserLanguage = (key, event) => setUserLanguage(key)
 
     return (
-        <StyledLanguageSwitcher
-            title={LanguageIcon}
-            onSelect={handleUserLanguage}
-            menuAlign='right'
-        >
-            <Dropdown.Item eventKey='zh-TW'>繁體中文</Dropdown.Item>
-            <Dropdown.Item eventKey='en'>English</Dropdown.Item>
-        </StyledLanguageSwitcher>
+        <Location>
+            {({ location }) => {
+                let path
+                if (location.pathname !== '/') {
+                    let pathArray = location.pathname.split('/')
+                    // remove locale prefix
+                    if (!isDefault) {
+                        pathArray.splice(pathArray.indexOf(userLanguage), 1)
+                    }
+                    // remove prefix path
+                    if (__PATH_PREFIX__) {
+                        pathArray.splice(pathArray.indexOf(__PATH_PREFIX__.slice(1)), 1)
+                    }
+                    path = pathArray.length === 1 ? '/' : pathArray.join('/')
+                } else {
+                    path = '/'
+                }
+                const enPath = path.length === 1 ? '/en' : '/en' + path
+                
+                return (
+                    <StyledLanguageSwitcher
+                        title={LanguageIcon}
+                        onSelect={handleUserLanguage}
+                        menuAlign='right'
+                    >
+                        <Dropdown.Item
+                            as={StyledLink}
+                            to={path}
+                            disableLocale={true}
+                            eventKey='zh-TW'
+                        >
+                            {'繁體中文'}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                            as={StyledLink}
+                            to={enPath}
+                            disableLocale={true}
+                            eventKey='en'
+                        >
+                            {'English'}
+                        </Dropdown.Item>
+                    </StyledLanguageSwitcher>
+                )
+            }}
+        </Location>
     )
 }
 
@@ -149,7 +192,10 @@ const ThemeSwitcherSwither = styled.input`
         }
     }
 `
-export function MainNavbar(props) {
+export function MainNavbar({
+    toggleSidebar,
+    handleLanguage,
+}) {
     const { pageString } = useContext(LanguageContext)
     const { theme, toggleTheme } = useContext(ThemeContext)
 
@@ -165,13 +211,13 @@ export function MainNavbar(props) {
 
     return (
         <StyledMainNavBar>
-            <MenuBtn href='' onClick={props.toggleSidebar(true)}>
+            <MenuBtn href='' onClick={toggleSidebar(true)}>
                 <div>{MenuIcon}</div>
             </MenuBtn>
             <Text>{title}</Text>
             <Nav className='ml-auto'>
                 <LanguageSwitcher
-                    handleLanguage={props.handleLanguage}
+                    handleLanguage={handleLanguage}
                 />
                 <ThemeSwitcherLabel>
                     <ThemeSwitcherSwither
@@ -219,11 +265,6 @@ const SidebarHeader = styled.div`
         width: 1.6rem;
         height 1.6rem;
         vertical-align: bottom;
-    }
-`
-const StyledLink = styled(Link)`
-    &:hover {
-        text-decoration: none;
     }
 `
 const SiderbarItem = styled(ListGroup.Item)`
