@@ -255,6 +255,14 @@
             {
                 "title": "Notes",
                 "content": [
+                    "Only the leader tag can give you SSR.",
+                    "Leader and elite tag don't guarantee SSR and SR respectively unless recruitment time is set to be 9 hours.",
+                    "The probability of leader and elite tag is roughly 0.4% and 1.2% respectively."
+                ]
+            },
+            {
+                "title": "Limitations",
+                "content": [
                     "Deletion of tags is not considered.",
                     "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
                 ]
