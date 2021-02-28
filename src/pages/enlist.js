@@ -10,9 +10,11 @@ export default () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
-        <Layout>
+        <Layout
+            title={pageString.enlist.helmet.title}
+            description={pageString.enlist.helmet.description}
+        >
             <PageWithTabs
-                title={pageString.enlist.documentTitle}
                 path='enlist'
                 tabs={[
                     { label: pageString.enlist.label[0], icon: OverviewIcon, content: <CharShowcase /> },

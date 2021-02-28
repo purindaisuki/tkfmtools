@@ -1,7 +1,27 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { navigate } from "gatsby";
+import pageString_tr from '../stringdata/pageString_tr.json';
+import charString_tr from '../stringdata/characterString_tr.json';
+import itemString_tr from '../stringdata/itemString_tr.json';
+import pageString_en from '../stringdata/pageString_en.json';
+import charString_en from '../stringdata/characterString_en.json';
+import itemString_en from '../stringdata/itemString_en.json';
+import langConfig from '../languangeConfig.json';
 
-const defaultLanguage = 'zh-TW'
+const stringData = {
+    'zh-TW': {
+        pageString: pageString_tr,
+        charString: charString_tr,
+        itemString: itemString_tr,
+    }
+    , 'en': {
+        pageString: pageString_en,
+        charString: charString_en,
+        itemString: itemString_en,
+    }
+}
+
+const defaultLanguage = Object.keys(langConfig).filter(key => langConfig[key].default)[0]
 
 export const LanguageContext = createContext({
     userLanguage: defaultLanguage,
@@ -41,7 +61,7 @@ export default function LanguageProvider({ children, pageContext }) {
         ) {
             const pathArray = path.split('/')
             if (__PATH_PREFIX__) {
-                pathArray.splice(2, 0, userLanguage)
+                pathArray.splice(1, 1, userLanguage)
             } else {
                 pathArray.splice(1, 0, userLanguage)
             }
@@ -53,7 +73,7 @@ export default function LanguageProvider({ children, pageContext }) {
     const provider = {
         userLanguage: pageContext.lang,
         isDefault: pageContext.lang === defaultLanguage,
-        ...pageContext.stringData,
+        ...stringData[pageContext.lang],
         setUserLanguage: (toLanguage) => {
             setUserLanguage(toLanguage)
             localStorage.setItem('language', toLanguage)

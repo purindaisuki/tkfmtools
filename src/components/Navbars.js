@@ -206,7 +206,7 @@ export function MainNavbar({
         path = path.length === 0 ? url.pop() : path
     }
     const title = !path || !pageString[path]
-        ? pageString.home.documentTitle
+        ? pageString.home.helmet.title
         : pageString[path].name
 
     return (
@@ -298,7 +298,7 @@ export function Sidebar(props) {
             >
                 <SidebarHeader>
                     {ToolIcon}
-                    {pageString.home.documentTitle}
+                    {pageString.home.helmet.title}
                 </SidebarHeader>
                 {[
                     {

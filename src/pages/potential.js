@@ -11,9 +11,11 @@ export default () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
-        <Layout>
+        <Layout
+            title={pageString.potential.helmet.title}
+            description={pageString.potential.helmet.description}
+        >
             <PageWithTabs
-                title={pageString.potential.documentTitle}
                 path='potential'
                 tabs={[
                     { label: pageString.potential.label[0], icon: OverviewIcon, content: <ItemShowcase /> },

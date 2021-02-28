@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Layout from "../components/Layout";
 import MyAccordion from '../components/MyAccordion';
@@ -71,15 +71,14 @@ export default () => {
         setExpanded(isExpanded ? panel : false)
     }
 
-    useEffect(() => {
-        document.title = pageString.home.documentTitle
-    })
-
     return (
-        <Layout>
+        <Layout
+            title={pageString.home.helmet.title}
+            description={pageString.home.helmet.description}
+        >
             <HomeContainer>
                 <Header>
-                    {`${pageString.home.documentTitle} ${pageString.home.updateLog.content[0].version}`}
+                    {`${pageString.home.helmet.title} ${pageString.home.updateLog.content[0].version}`}
                 </Header>
                 {[
                     {

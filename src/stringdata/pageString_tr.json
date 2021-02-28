@@ -1,7 +1,10 @@
 {
     "home": {
         "name": "首頁",
-        "documentTitle": "天下布魔工具箱",
+        "helmet": {
+            "title": "天下布魔工具箱",
+            "description": "提供天下布魔中資料查詢、處理，減輕娜娜負擔。"
+        },
         "about": {
             "header": "關於本站",
             "content": [
@@ -210,7 +213,10 @@
     },
     "enlist": {
         "name": "全境徵才",
-        "documentTitle": "天下布魔工具箱 — 全境徵才",
+        "helmet": {
+            "title": "天下布魔工具箱 — 全境徵才",
+            "description": "以天下布魔中全境徵才隨機得到的五個標籤為條件，篩選出可能邂逅的人選，再也不用對標籤大眼瞪小眼。"
+        },
         "label": [
             "總覽",
             "篩選"
@@ -283,7 +289,10 @@
     },
     "potential": {
         "name": "潛力材料",
-        "documentTitle": "天下布魔工具箱 — 潛力材料",
+        "helmet": {
+            "title": "天下布魔工具箱 — 潛力材料",
+            "description": "提供潛力材料掉落、篩選及角色需求查詢。"
+        },
         "label": [
             "總覽",
             "篩選",

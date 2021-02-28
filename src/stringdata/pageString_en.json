@@ -1,7 +1,10 @@
 {
     "home": {
         "name": "Home",
-        "documentTitle": "TenkafuMA! toolbox",
+        "helmet": {
+            "title": "TenkafuMA! toolbox",
+            "description": "Collect data and provide useful tools for TenkafuMA! to pick up Caesar's slack."
+        },
         "about": {
             "header": "About",
             "content": [
@@ -17,7 +20,7 @@
                     "name": "disclaimer",
                     "header": "Disclaimer",
                     "content": [
-                        "All materials and information on this website are collected from players and not guaranteed the correctness , the actual gameplay shall prevail."
+                        "All materials and information on this website are collected from players and may not reflect the actual situation. The actual gameplay shall prevail."
                     ]
                 },
                 {
@@ -203,7 +206,10 @@
     },
     "enlist": {
         "name": "Recruitment",
-        "documentTitle": "TenkafuMA! toolbox — Recruitment",
+        "helmet": {
+            "title": "TenkafuMA! toolbox — Recruitment",
+            "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
+        },
         "label": [
             "Overview",
             "Filter"
@@ -272,7 +278,10 @@
     },
     "potential": {
         "name": "Potential",
-        "documentTitle": "TenkafuMA! toolbox — Potential material",
+        "helmet": {
+            "title": "TenkafuMA! toolbox — Potential material",
+            "description": "Item drop list, filter and requirement for characters."
+        },
         "label": [
             "Overview",
             "Filter",

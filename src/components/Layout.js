@@ -15,7 +15,7 @@ const Body = styled.div`
 const Main = styled.main`
     padding: 1rem;
 `
-export default function Layout({ children }) {
+export default function Layout({ children, title, description }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     const toggleSidebar = (toOpen) => (event) => {
@@ -30,7 +30,7 @@ export default function Layout({ children }) {
 
     return (
         <>
-            <Head />
+            <Head title={title} description={description} />
             <Body>
                 <MainNavbar
                     toggleSidebar={toggleSidebar}

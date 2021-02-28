@@ -1,0 +1,15 @@
+{
+    "zh-TW": {
+        "default": true,
+        "path": "",
+        "locale": "zh-TW",
+        "siteLanguage": "zh-TW",
+        "ogLocale": "zh_TW"
+    },
+    "en": {
+        "path": "en",
+        "locale": "en",
+        "siteLanguage": "en",
+        "ogLocale": "en_US"
+    }
+}

@@ -63,7 +63,6 @@ export default function PageWithTabs(props) {
     const [tab, setTab] = useState(0)
 
     useEffect(() => {
-        document.title = props.title
         // get previously selected tab
         const localSetting = localStorage.getItem(props.path + '-select-tab')
         if (localSetting) {
