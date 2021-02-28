@@ -1,30 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import pageString_tr from '../stringdata/pageString_tr.json';
-import pageString_en from '../stringdata/pageString_en.json';
-import characterString_tr from '../stringdata/characterString_tr.json';
-import characterString_en from '../stringdata/characterString_en.json';
-import itemString_tr from '../stringdata/itemString_tr.json';
-import itemString_en from '../stringdata/itemString_en.json';
+import { navigate } from "gatsby";
 
 const defaultLanguage = 'zh-TW'
-
-const stringDataList = {
-    "zh-TW": {
-        pageString: pageString_tr,
-        charString: characterString_tr,
-        itemString: itemString_tr,
-    }
-    , "en": {
-        pageString: pageString_en,
-        charString: characterString_en,
-        itemString: itemString_en,
-    }
-}
 
 export const LanguageContext = createContext({
     userLanguage: defaultLanguage,
     isDefault: true,
-    ...stringDataList[defaultLanguage],
 })
 
 export default function LanguageProvider({ children, pageContext }) {
@@ -37,12 +18,37 @@ export default function LanguageProvider({ children, pageContext }) {
             setUserLanguage(localSetting)
             return
         }
-        
+
         const lang = navigator.language || navigator.userLanguage
         if (/en*/.test(lang)) {
             setUserLanguage('en')
         }
     })
+
+    // redirect user to their locale page
+    useEffect(() => {
+        if (
+            pageContext.lang !== defaultLanguage ||
+            userLanguage === defaultLanguage
+        ) {
+            return
+        }
+
+        const path = window.location.pathname
+        if (
+            !path.match(`${userLanguage}$`) &&
+            !path.includes(`${userLanguage}/`)
+        ) {
+            const pathArray = path.split('/')
+            if (__PATH_PREFIX__) {
+                pathArray.splice(2, 0, userLanguage)
+            } else {
+                pathArray.splice(1, 0, userLanguage)
+            }
+            const to = pathArray.join('/')
+            navigate(to, { replace: true })
+        }
+    }, [userLanguage])
 
     const provider = {
         userLanguage: pageContext.lang,
