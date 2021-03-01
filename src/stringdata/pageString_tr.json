@@ -76,6 +76,16 @@
                         },
                         {
                             "type": "Change",
+                            "title": "全境徵才篩選器佈局",
+                            "description": "調整佈局、增加標籤分組及屬性、移除角色定位欄"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "道具掉落佈局",
+                            "description": "移除道具磚佈局"
+                        },
+                        {
+                            "type": "Change",
                             "title": "全境徵才篩選器幫助訊息",
                             "description": "新稱全境徵才領袖、菁英說明"
                         }
@@ -299,10 +309,6 @@
                 {
                     "title": "稀有度",
                     "attr": "rarity"
-                },
-                {
-                    "title": "定位",
-                    "attr": "position"
                 },
                 {
                     "title": "應用標籤",

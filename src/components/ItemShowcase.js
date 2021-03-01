@@ -385,13 +385,6 @@ const ItemTable = () => {
 
 export default function ItemShowcase() {
     return (
-        <SwitchableShowcase
-            localLayoutConfig='item-drop-layout'
-            layoutSwitcher={<LayoutSwitcher />}
-            items={[
-                { layout: 'Masonry', content: <ItemMasonry /> },
-                { layout: 'Table', content: <ItemTable /> },
-            ]}
-        />
+        <ItemTable />
     )
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
-import { Form } from 'react-bootstrap';
+import { Badge, Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import { CharCardHeader } from './CharShowcase';
@@ -24,9 +24,109 @@ import {
     AlertIcon
 } from './icon';
 
+const BtnGroupWrapper = styled.div`
+    position: relative;
+    padding: .5rem;
+    padding-top: .8rem;
+    margin: 1rem 0;
+    border-radius: .25rem;
+    border: 1px solid ${props => props.theme.colors.secondary};
+    background-color: ${props => props.theme.colors.surface};
+`
+const StyledBadge = styled(Badge)`
+    position: absolute;
+    top: -.6rem;
+    z-index: 1;
+    font-size: small;
+    background-color: brown;
+    color: white;
+`
+const StyledToggleButton = styled(MyToggleButton)`
+    &&&&& {
+        border: none;
+        padding: .5rem .15rem;
+        white-space: nowrap;
+    }
+    svg {
+        width: 1.6rem;
+        height: 1.4rem;
+        margin-right: 1rem;
+        vertical-align: middle;
+        fill: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.secondary};
+    }
+    &.active > svg {
+        fill: ${props => props.theme.colors.onSecondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+`
+const TagBtnGroup = ({
+    filterBtnValue,
+    handleBtnGroupChange,
+}) => {
+    const { userLanguage, charString } = useContext(LanguageContext)
+
+    const attrIcons = {
+        attribute: AttributeIcon,
+        position: PositionIcon,
+        race: RaceIcon,
+        body: BodysizeIcon,
+        oppai: OppaiIcon,
+        rank: RankIcon,
+        else: ElseIcon
+    }
+
+    const btnLayoutConfig = userLanguage === 'en'
+        ? {
+            1200: 6,
+            990: 5,
+            800: 4,
+            550: 3,
+            0: 2
+        }
+        : {
+            800: 6,
+            680: 5,
+            550: 4,
+            390: 3,
+            0: 2
+        }
+
+    return (
+        <div>
+            {Object.entries(tagData).map((entry, idx) => (
+                <BtnGroupWrapper key={idx}>
+                    <StyledBadge pill variant='danger'>
+                        {charString.tagAttributes[entry[0]]}
+                    </StyledBadge>
+                    <MyToggleButtonGroup
+                        type='checkbox'
+                        value={filterBtnValue.filter(v => entry[1].includes(v))}
+                        onChange={handleBtnGroupChange(idx)}
+                        layoutConfig={btnLayoutConfig}
+                    >
+                        {entry[1].map((tag, idx) => (
+                            <StyledToggleButton
+                                value={tag}
+                                key={idx}
+                            >
+                                {attrIcons[entry[0]]}
+                                {charString.tags[tag]}
+                            </StyledToggleButton>
+                        ))}
+                    </MyToggleButtonGroup>
+                </BtnGroupWrapper>
+            ))}
+        </div>
+    )
+}
+
 const StyledFilterPanel = styled(FilterPanel)`
+    > div:nth-child(2) {
+        margin-top: 0;
+    }
     > div:nth-child(3) {
-        margin-top: 1rem;
+        margin-top: .5rem;
     }
 `
 const IconWrapper = styled.div`
@@ -45,19 +145,6 @@ const ClearIconWrapper = styled(IconWrapper)`
         margin: 0;
     }
 `
-const StyledToggleButton = styled(MyToggleButton)`
-    svg {
-        width: 1.6rem;
-        height: 1.4rem;
-        vertical-align: middle;
-        fill: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.secondary};
-    }
-    &.active > svg {
-        fill: ${props => props.theme.colors.onSecondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-`
 const Select = styled(Form.Control)`
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
@@ -68,43 +155,17 @@ const Select = styled(Form.Control)`
         box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
     }
 `
-const CharFilterPanel = (props) => {
-    const {
-        userLanguage,
-        pageString,
-        charString
-    } = useContext(LanguageContext)
-
-    const attrIcons = {
-        attribute: AttributeIcon,
-        position: PositionIcon,
-        race: RaceIcon,
-        body: BodysizeIcon,
-        oppai: OppaiIcon,
-        rank: RankIcon,
-        else: ElseIcon
-    }
+const CharFilterPanel = ({
+    clearBtnValue,
+    filterBtnValue,
+    handleBtnGroupChange,
+    handleEnlistHourChange,
+}) => {
+    const { pageString } = useContext(LanguageContext)
 
     const widthConfig = {
-        default: '40%',
-        1360: '52%',
-        992: '100%',
+        default: '100%',
     }
-
-    const btnLayoutConfig = userLanguage === 'en'
-        ? {
-            990: 3,
-            768: 4,
-            624: 3,
-            410: 2,
-            0: 2
-        }
-        : {
-            768: 5,
-            624: 4,
-            410: 3,
-            0: 2
-        }
 
     return (
         <StyledFilterPanel widthConfig={widthConfig}>
@@ -119,28 +180,16 @@ const CharFilterPanel = (props) => {
                 }
                 end={
                     <ClearIconWrapper
-                        onClick={() => props.handleBtnGroupChange([])}
+                        onClick={clearBtnValue}
                     >
                         {ClearIcon}
                     </ClearIconWrapper>
                 }
             />
-            <MyToggleButtonGroup
-                type='checkbox'
-                value={props.filterBtnValue}
-                onChange={props.handleBtnGroupChange}
-                layoutConfig={btnLayoutConfig}
-            >
-                {tagData.map((item, idx) => (
-                    <StyledToggleButton
-                        value={idx}
-                        key={idx}
-                    >
-                        {attrIcons[item]}
-                        {charString.tags[idx]}
-                    </StyledToggleButton>
-                ))}
-            </MyToggleButtonGroup>
+            <TagBtnGroup
+                filterBtnValue={filterBtnValue}
+                handleBtnGroupChange={handleBtnGroupChange}
+            />
             <ContainerHeader
                 title={
                     <div>
@@ -158,7 +207,7 @@ const CharFilterPanel = (props) => {
                         custom
                         size="sm"
                         defaultValue='9'
-                        onChange={props.handleEnlistHourChange}
+                        onChange={handleEnlistHourChange}
                     >
                         {[...Array(10).keys()].slice(1)
                             .map(i => <option key={i}>{i}</option>)}
@@ -262,7 +311,6 @@ function TableContent(props) {
                             </CharCardWrapper>
                         </td>
                         <td>{parseRarity(char.rarity)}</td>
-                        <td>{charString.tags[char.position]}</td>
                         <td>
                             {
                                 char.appliedTags
@@ -314,9 +362,12 @@ const MySnackbar = ({
 )
 
 const FilterContainer = styled.div`
-    display: flex;
-    @media screen and (max-width: 992px) {
+    display: block;
+    > div {
         display: block;
+        position: relative;
+        margin: auto;
+        margin-top: 1rem;
     }
 `
 export default function CharFilter() {
@@ -376,18 +427,21 @@ export default function CharFilter() {
                 }
                 // filter by tags
                 let appliedTagsNum = 0
-                tagData.forEach((tagAttr, idx) => {
+                Object.entries(tagData).forEach(entry => {
                     if (appliedTagsNum === tags.length || survivors.length === 0) {
                         return false
                     }
-                    if (tags.includes(idx)) {
-                        appliedTagsNum++
-                        if (idx < 21) {
-                            survivors = survivors.filter(c => c[tagAttr] === idx)
-                        } else {
-                            survivors = survivors.filter(c => c[tagAttr].includes(idx))
+
+                    entry[1].forEach(idx => {
+                        if (tags.includes(idx)) {
+                            appliedTagsNum++
+                            if (idx < 21) {
+                                survivors = survivors.filter(c => c[entry[0]] === idx)
+                            } else {
+                                survivors = survivors.filter(c => c[entry[0]].includes(idx))
+                            }
                         }
-                    }
+                    })
                 })
                 // whether any three (or fewer) tags can lead to only one characters
                 if (survivors.length === 1 && appliedTagsNum <= 3) {
@@ -490,8 +544,12 @@ export default function CharFilter() {
         })
     }
 
-    const handleBtnGroupChange = (val) => {
-        if (val.length > 5) {
+    const handleBtnGroupChange = (gropuIdx) => (val) => {
+        const groupValues = Object.keys(tagData)
+            .map(attr => state.filterBtnValue.filter(v => tagData[attr].includes(v)))
+        groupValues[gropuIdx] = val
+        const destructValues = [].concat(...groupValues)
+        if (destructValues.length > 5) {
             setState((state) => ({
                 ...state,
                 isSnackbarOpen: true
@@ -501,7 +559,14 @@ export default function CharFilter() {
 
         setState((state) => ({
             ...state,
-            filterBtnValue: val
+            filterBtnValue: destructValues
+        }))
+    }
+
+    const clearBtnValue = () => {
+        setState((state) => ({
+            ...state,
+            filterBtnValue: []
         }))
     }
 
@@ -515,36 +580,37 @@ export default function CharFilter() {
     const [modalOpen, setModalOpen] = useState(false)
 
     const tableWidthConfig = {
-        default: 'calc(60% - 1rem)',
-        1360: 'calc(48% - 1rem)',
-        992: '100%',
+        default: '100%',
     }
 
     return (
-        <FilterContainer>
-            <CharFilterPanel
-                handleBtnGroupChange={handleBtnGroupChange}
-                handleEnlistHourChange={handleEnlistHourChange}
-                filterBtnValue={state.filterBtnValue}
-            />
+        <>
+            <FilterContainer>
+                <CharFilterPanel
+                    handleBtnGroupChange={handleBtnGroupChange}
+                    clearBtnValue={clearBtnValue}
+                    handleEnlistHourChange={handleEnlistHourChange}
+                    filterBtnValue={state.filterBtnValue}
+                />
+                <ResultTable
+                    result={state.characters}
+                    sortFunc={sortFunc}
+                    defaultSortKey={'rarity'}
+                    modalOpen={modalOpen}
+                    handleModalOpen={() => setModalOpen(true)}
+                    handleModalClose={() => setModalOpen(false)}
+                    modalContent={pageString.enlist.filter.modal}
+                    widthConfig={tableWidthConfig}
+                    striped={true}
+                >
+                    <TableContent />
+                </ResultTable>
+            </FilterContainer>
             <MySnackbar
                 open={state.isSnackbarOpen}
                 onClose={handleSnackbarClose}
                 message={pageString.enlist.filter.snackbarMsg}
             />
-            <ResultTable
-                result={state.characters}
-                sortFunc={sortFunc}
-                defaultSortKey={'rarity'}
-                modalOpen={modalOpen}
-                handleModalOpen={() => setModalOpen(true)}
-                handleModalClose={() => setModalOpen(false)}
-                modalContent={pageString.enlist.filter.modal}
-                widthConfig={tableWidthConfig}
-                striped={true}
-            >
-                <TableContent />
-            </ResultTable>
-        </FilterContainer>
+        </>
     )
 }

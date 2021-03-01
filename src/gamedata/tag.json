@@ -1,35 +1,49 @@
-[
-    "attribute",
-    "attribute",
-    "attribute",
-    "attribute",
-    "attribute",
-    "position",
-    "position",
-    "position",
-    "position",
-    "position",
-    "race",
-    "race",
-    "race",
-    "body",
-    "body",
-    "oppai",
-    "oppai",
-    "oppai",
-    "rank",
-    "rank",
-    "rank",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else",
-    "else"
-]
+{
+    "attribute": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ],
+    "position": [
+        5,
+        6,
+        7,
+        8,
+        9
+    ],
+    "race": [
+        10,
+        11,
+        12
+    ],
+    "body": [
+        13,
+        14
+    ],
+    "oppai": [
+        15,
+        16,
+        17
+    ],
+    "rank": [
+        18,
+        19,
+        20
+    ],
+    "else": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+    ]
+}

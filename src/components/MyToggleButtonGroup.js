@@ -56,15 +56,23 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
         `
     ))}
 `
-export default function MyToggleButtonGroup(props) {
+export default function MyToggleButtonGroup({
+    children,
+    className,
+    type,
+    value,
+    onChange,
+    layoutConfig
+}) {
     return (
         <StyledToggleButtonGroup
-            type={props.type}
-            value={props.value}
-            onChange={props.onChange}
-            $layoutConfig={props.layoutConfig}
+            type={type}
+            value={value}
+            onChange={onChange}
+            $layoutConfig={layoutConfig}
+            className={className}
         >
-            {props.children}
+            {children}
         </StyledToggleButtonGroup>
     )
 }

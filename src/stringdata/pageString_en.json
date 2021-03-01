@@ -69,6 +69,16 @@
                         },
                         {
                             "type": "Change",
+                            "title": "Recruitment filter layout",
+                            "description": "Adjust layout, group tags by their attributes and remove position column."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Item drops layout",
+                            "description": "Remove mansory layout for item drops."
+                        },
+                        {
+                            "type": "Change",
                             "title": "Help info of recruitment filter",
                             "description": "Add notes about leader and elite tags."
                         }
@@ -292,10 +302,6 @@
                 {
                     "title": "Rarity",
                     "attr": "rarity"
-                },
-                {
-                    "title": "Position",
-                    "attr": "position"
                 },
                 {
                     "title": "Applied Tags",

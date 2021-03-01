@@ -319,6 +319,7 @@ export const TableWrapper = styled.div`
     scrollbar-width: thin;
     &::-webkit-scrollbar {
         width: .4rem;
+        height: .4rem;
         background: ${props => props.theme.colors.surface};
     }
     &::-webkit-scrollbar-thumb {
