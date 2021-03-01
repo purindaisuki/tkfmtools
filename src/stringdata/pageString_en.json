@@ -81,6 +81,11 @@
                             "type": "Change",
                             "title": "Help info of recruitment filter",
                             "description": "Add notes about leader and elite tags."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Tags of Britney",
+                            "description": "Add Support tag."
                         }
                     ]
                 },

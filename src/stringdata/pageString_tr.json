@@ -88,6 +88,11 @@
                             "type": "Change",
                             "title": "全境徵才篩選器幫助訊息",
                             "description": "新稱全境徵才領袖、菁英說明"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "布蘭妮標籤",
+                            "description": "新增支援標籤"
                         }
                     ]
                 },
