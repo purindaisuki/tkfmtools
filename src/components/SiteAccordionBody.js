@@ -115,10 +115,12 @@ const MsgAccordion = styled(MyAccordion)`
             border-bottom: 1px solid lightgray;
         }
         .MuiAccordionSummary-content {
-            display: inline;
+            display: flex;
+            align-items: center;
             margin: .5rem 0;
             > span {
                 padding: .25rem .4rem;
+                margin-right: .4rem;
             }
         }
         && .MuiAccordionDetails-root {
@@ -128,22 +130,28 @@ const MsgAccordion = styled(MyAccordion)`
         }
     }
 `
-function LogMsg(props) {
-    const [isExpanded, setExpanded] = useState(false)
-    const { type, title, description } = props.msg
+export function LogMsg({ msg, alwaysOpen }) {
+    const [isExpanded, setExpanded] = useState(alwaysOpen ? true : false)
+    const { type, title, description } = msg
     const Badge = type === 'New' ? NewBadge
         : type === 'Fix' ? FixBadge
             : ChangeBadge
 
+    const handleChange = () => {
+        if (!alwaysOpen) {
+            setExpanded(!isExpanded)
+        }
+    }
+
     return (
         <MsgAccordion
             expanded={isExpanded}
-            onChange={() => setExpanded(!isExpanded)}
+            onChange={handleChange}
             square={true}
             title={
                 <>
                     <Badge />
-                    {` ${title}`}
+                    {title}
                 </>
             }
             content={description}

@@ -32,23 +32,24 @@ export const BuffIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 
 export const LanguageIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" /></svg>
 export const TableViewIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24" /><path d="M19,7H9C7.9,7,7,7.9,7,9v10c0,1.1,0.9,2,2,2h10c1.1,0,2-0.9,2-2V9C21,7.9,20.1,7,19,7z M19,9v2H9V9H19z M13,15v-2h2v2H13z M15,17v2h-2v-2H15z M11,15H9v-2h2V15z M17,13h2v2h-2V13z M9,17h2v2H9V17z M17,19v-2h2v2H17z M6,17H5c-1.1,0-2-0.9-2-2V5 c0-1.1,0.9-2,2-2h10c1.1,0,2,0.9,2,2v1h-2V5H5v10h1V17z" /></g></svg>
 export const MasonryViewIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z" /></svg>
+export const NoteIcon = <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"><g><path d="M0,0h24v24H0V0z" fill="none" /></g><g><path d="M16,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V8L16,3z M7,7h5v2H7V7z M17,17H7v-2h10V17z M17,13H7v-2h10 V13z M15,9V5l4,4H15z" /></g></svg>
 
 export const NewBadge = () => {
     const { pageString } = useContext(LanguageContext)
     return (
-        < Badge pill variant="success" > { pageString.home.updateLog.new}</Badge>
+        < Badge pill variant="success" > { pageString.index.updateLog.new}</Badge>
     )
 }
 export const FixBadge = () => {
     const { pageString } = useContext(LanguageContext)
     return (
-        < Badge pill variant="danger" > { pageString.home.updateLog.fix}</Badge>
+        < Badge pill variant="danger" > { pageString.index.updateLog.fix}</Badge>
     )
 }
 export const ChangeBadge = () => {
     const { pageString } = useContext(LanguageContext)
     return (
-        < Badge pill variant="primary" > { pageString.home.updateLog.change}</Badge>
+        < Badge pill variant="primary" > { pageString.index.updateLog.change}</Badge>
     )
 }
 

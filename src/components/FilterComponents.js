@@ -58,7 +58,38 @@ export const FilterPanel = ({
     </StyledFilterPanel>
 )
 
-const ModalContainer = styled.div`
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    border-bottom: 1px solid ${props => props.theme.colors.border};
+`
+const ModalBody = styled.div`
+    margin: 1rem 0;
+`
+const HelpModalContent = ({
+    handleModalClose,
+    content
+}) => (
+    content.map((item, idx) => {
+        const CloseBtn = () => idx === 0
+            ? <span onClick={handleModalClose}>&times;</span>
+            : null
+        return (
+            <React.Fragment key={idx}>
+                <ModalHeader>
+                    <span>{item.title}</span>
+                    <CloseBtn />
+                </ModalHeader>
+                <ModalBody>
+                    {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
+                </ModalBody>
+            </React.Fragment>
+        )
+    })
+)
+
+const StyledModalContainer = styled.div`
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
     position: absolute;
@@ -103,57 +134,47 @@ const ModalContentWrapper = styled.div`
         background: ${props => props.theme.colors.surface};
     }
 `
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const ModalBody = styled.div`
-    margin: 1rem 0;
-`
-export function HelpModal(props) {
-    const HelpModalContent = () => (
-        props.content.map((item, idx) => {
-            const CloseBtn = () => idx === 0
-                ? <span onClick={props.handleModalClose}>&times;</span>
-                : <></>
-            return (
-                <>
-                    <ModalHeader key={'header' + idx}>
-                        <span>{item.title}</span>
-                        <CloseBtn />
-                    </ModalHeader>
-                    <ModalBody key={'body' + idx}>
-                        {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
-                    </ModalBody>
-                </>
-            )
-        })
-    )
+export const ModalContainer = ({
+    children,
+    className,
+    open,
+    onClose
+}) => (
+    <Modal
+        className={className}
+        open={open}
+        onClose={onClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{ timeout: 500 }}
+    >
+        <Fade in={open}>
+            <StyledModalContainer>
+                <ModalContentWrapper>
+                    {children}
+                </ModalContentWrapper>
+            </StyledModalContainer>
+        </Fade>
+    </Modal>
+)
 
-    return (
-        <Modal
-            open={props.modalOpen}
-            onClose={props.handleModalClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-                timeout: 500,
-            }}
-            aria-labelledby="help-modal-title"
-            aria-describedby="help-modal-description"
-        >
-            <Fade in={props.modalOpen}>
-                <ModalContainer>
-                    <ModalContentWrapper>
-                        <HelpModalContent />
-                    </ModalContentWrapper>
-                </ModalContainer>
-            </Fade>
-        </Modal>
-    )
-}
+export const HelpModal = ({
+    content,
+    modalOpen,
+    handleModalClose,
+}) => (
+    <ModalContainer
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="help-modal-title"
+        aria-describedby="help-modal-description"
+    >
+        <HelpModalContent
+            content={content}
+            handleModalClose={handleModalClose}
+        />
+    </ModalContainer>
+)
 
 export const SortableTh = styled.th`
     position: sticky;
