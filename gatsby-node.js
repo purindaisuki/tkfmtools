@@ -15,6 +15,12 @@ exports.onCreatePage = ({ page, actions }) => {
             ? page.path
             : `${entry[1].path}${page.path}`
 
+        const tabsPage = localizedPath.includes('enlist')
+            ? 'enlist'
+            : localizedPath.includes('drop')
+                ? 'drop'
+                : undefined
+
         return createPage({
             ...page,
             // remove trailing slash
@@ -23,6 +29,8 @@ exports.onCreatePage = ({ page, actions }) => {
             context: {
                 ...page.context,
                 lang: entry[0],
+                withTabLayout: tabsPage !== undefined,
+                pagePath: removeTrailingSlash(page.path),
             }
         })
     })

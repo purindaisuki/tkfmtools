@@ -234,7 +234,7 @@ const LayoutSwitcher = (props) => {
 
     return (
         <LayoutBtnContainer>
-            {pageString.enlist.layout}
+            {pageString.enlist.index.layout}
             <StyledBtn
                 $active={props.layout === 'Masonry'}
                 onClick={props.handleLayoutChange('Masonry')}

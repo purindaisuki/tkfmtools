@@ -20,7 +20,7 @@ export default function MyThemeProvider({ children }) {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             setTheme('dark')
         }
-    })
+    }, [])
 
     const toggleTheme = (event) => {
         // ignore tab and shift key

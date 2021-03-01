@@ -5,10 +5,10 @@ import ImageSupplier from '../components/ImageSupplier';
 import '../components/index.css';
 import { LanguageContext } from '../components/LanguageProvider';
 
-const Main = styled.main`
+const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 6rem);
     background-color: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.onSurface};
 `
@@ -18,7 +18,7 @@ const NotFoundImg = styled(ImageSupplier)`
     background-size: 20rem 40rem;
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 6rem);
 `
 const Message = styled.div`
     position: absolute;
@@ -63,7 +63,7 @@ export default () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
-        <Main>
+        <Wrapper>
             <title>{pageString[404].title}</title>
             <NotFoundImg
                 name='pageNotFound.png'
@@ -76,6 +76,6 @@ export default () => {
                     <StyledLink to="/">{pageString[404].link}</StyledLink>
                 </Message>
             </NotFoundImg>
-        </Main>
+        </Wrapper>
     )
 }

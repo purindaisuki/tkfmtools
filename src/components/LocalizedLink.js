@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
+import styled from 'styled-components';
 import { Link } from "gatsby";
 import { LanguageContext } from './LanguageProvider';
 
-const LocalizedLink = ({ to, disableLocale, ...props }) => {
+const StyledLink = styled(Link)`
+    &:hover {
+        ${props => props.$decoration ? null : 'text-decoration: none;'}
+    }
+`
+const WrappedLink = ({ to, disableLocale, decoration, ...rest }) => {
     const { userLanguage, isDefault } = useContext(LanguageContext)
 
     const isIndex = to === '/'
@@ -13,8 +19,13 @@ const LocalizedLink = ({ to, disableLocale, ...props }) => {
             ? `/${userLanguage}`
             : `/${userLanguage}${to}`
 
-
-    return <Link {...props} to={path} />
+    return <StyledLink $decoration={decoration} {...rest} to={path} />
 }
+
+// pass ref down
+const LocalizedLink = React.forwardRef((props, ref) => (
+    // material-ui use innerRef as prop name
+    <WrappedLink {...props} innerRef={ref} />
+))
 
 export default LocalizedLink

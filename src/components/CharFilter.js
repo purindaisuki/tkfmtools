@@ -114,7 +114,7 @@ const CharFilterPanel = (props) => {
                         <IconWrapper>
                             {TagIcon}
                         </IconWrapper>
-                        {pageString.enlist.tagSelectTitle}
+                        {pageString.enlist.filter.tagSelectTitle}
                     </div>
                 }
                 end={
@@ -147,7 +147,7 @@ const CharFilterPanel = (props) => {
                         <IconWrapper>
                             {ClockIcon}
                         </IconWrapper>
-                        {pageString.enlist.timeSelectTitle}
+                        {pageString.enlist.filter.timeSelectTitle}
                     </div>
                 }
             />
@@ -235,7 +235,7 @@ function TableContent(props) {
         <>
             <thead>
                 <tr>
-                    {pageString.enlist.tableHead
+                    {pageString.enlist.filter.tableHead
                         .map((item, idx) => (
                             <SortableTh
                                 key={idx}
@@ -462,12 +462,9 @@ export default function CharFilter() {
             enlistHour: event.target.value
         }))
     }
-    useEffect(
-        () => {
-            filterBy(state.filterBtnValue)
-        },
-        [filterBy, state.filterBtnValue, state.enlistHour]
-    )
+    useEffect(() => {
+        filterBy(state.filterBtnValue)
+    }, [filterBy, state.filterBtnValue, state.enlistHour])
 
     const sortFunc = (sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {
@@ -533,7 +530,7 @@ export default function CharFilter() {
             <MySnackbar
                 open={state.isSnackbarOpen}
                 onClose={handleSnackbarClose}
-                message={pageString.enlist.snackbarMsg}
+                message={pageString.enlist.filter.snackbarMsg}
             />
             <ResultTable
                 result={state.characters}
@@ -542,7 +539,7 @@ export default function CharFilter() {
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
-                modalContent={pageString.enlist.modal}
+                modalContent={pageString.enlist.filter.modal}
                 widthConfig={tableWidthConfig}
                 striped={true}
             >

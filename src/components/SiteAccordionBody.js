@@ -50,7 +50,7 @@ export const SiteDescription = () => {
     return (
         <BodyContainer>
             <ul>
-                {pageString.home.about.content.map((item, idx) => {
+                {pageString.index.about.content.map((item, idx) => {
                     let Body
                     if (item.name === 'feedback') {
                         Body = () => (
@@ -164,7 +164,7 @@ export function SiteUpdateLog() {
 
     return (
         <BodyContainer>
-            {pageString.home.updateLog.content.map((version, idx) => (
+            {pageString.index.updateLog.content.map((version, idx) => (
                 <MsgBox key={idx}>
                     <div>{version.version}</div>
                     {version.content.map((msg, idx) => (
@@ -194,10 +194,10 @@ export const SiteLicense = () => {
             <LicenseList>
                 <li key={'text'}>
                     <LicenseItemTitle>
-                        <span>{pageString.home.license.content.title}</span>
+                        <span>{pageString.index.license.content.title}</span>
                     </LicenseItemTitle>
                     <LicenseItemContent>
-                        <span>{pageString.home.license.content.content}</span>
+                        <span>{pageString.index.license.content.content}</span>
                     </LicenseItemContent>
                 </li>
                 {[

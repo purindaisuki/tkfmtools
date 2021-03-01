@@ -32,7 +32,9 @@ export default function LanguageProvider({ children, pageContext }) {
     const [userLanguage, setUserLanguage] = useState(defaultLanguage)
 
     // get user language
+    // use useEffect to solve rehydration issue between react and gatsby
     useEffect(() => {
+        // only run at first render
         const localSetting = localStorage.getItem('language')
         if (localSetting) {
             setUserLanguage(localSetting)
@@ -43,7 +45,7 @@ export default function LanguageProvider({ children, pageContext }) {
         if (/en*/.test(lang)) {
             setUserLanguage('en')
         }
-    })
+    }, [])
 
     // redirect user to their locale page
     useEffect(() => {

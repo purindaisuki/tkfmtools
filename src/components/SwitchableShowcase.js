@@ -9,28 +9,42 @@ export default function SwitchableShowcase({
     localLayoutConfig,
     items
 }) {
-    const [layout, setLayout] = useState(items[0].layout)
-
-    // set previous layout
-    useEffect(() => {
-        const localConfig = localStorage.getItem(localLayoutConfig)
-        setLayout(localConfig ? localConfig : items[0].layout)
+    const [state, setState] = useState({
+        layout: items[0].layout,
+        hasMounted: false
     })
 
+    // set previous layout and flag mounted
+    useEffect(() => {
+        const localConfig = localStorage.getItem(localLayoutConfig)
+        setState({
+            layout: localConfig ? localConfig : items[0].layout,
+            hasMounted: true
+        })
+    }, [])
+
+    // not render at SSR time
+    if (!state.hasMounted) {
+        return null
+    }
+
     const handleLayoutChange = (toLayout) => () => {
-        setLayout(toLayout)
+        setState((state) => ({
+            ...state,
+            layout: toLayout
+        }))
         localStorage.setItem(localLayoutConfig, toLayout)
     }
 
     return (
         <>
             {React.cloneElement(layoutSwitcher, {
-                layout: layout,
+                layout: state.layout,
                 handleLayoutChange: handleLayoutChange,
             })}
             {items.map((item, idx) => (
                 <ShowcaseContainer
-                    $hidden={layout !== item.layout}
+                    $hidden={state.layout !== item.layout}
                     key={idx}
                 >
                     {item.content}

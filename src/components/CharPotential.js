@@ -57,7 +57,7 @@ const SelectPanel = (props) => {
                 title={
                     <IconWrapper>
                         {RaceIcon}
-                        {pageString.potential.character.characterPanelTitle}
+                        {pageString.characters.potential.characterPanelTitle}
                     </IconWrapper>
                 }
             />
@@ -69,7 +69,7 @@ const SelectPanel = (props) => {
                 />
                 <div>
                     <Form>
-                        {pageString.potential.character.characterSelectTitle}
+                        {pageString.characters.potential.characterSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -97,7 +97,7 @@ const SelectPanel = (props) => {
                             </Form.Group>
                         </Form.Row>
                         <Gutter />
-                        {pageString.potential.character.currentSelectTitle}
+                        {pageString.characters.potential.currentSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -123,7 +123,7 @@ const SelectPanel = (props) => {
                                 </Select>
                             </Form.Group>
                         </Form.Row>
-                        {pageString.potential.character.targetSelectTitle}
+                        {pageString.characters.potential.targetSelectTitle}
                         <br />
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -285,7 +285,7 @@ const ResultPanel = ({
                     title={
                         <IconWrapper>
                             {ItemIcon}
-                            {pageString.potential.character.resultDemandTitle}
+                            {pageString.characters.potential.resultDemandTitle}
                             <HelpIconWrapper
                                 onClick={() => setModalOpen(true)}
                             >
@@ -303,7 +303,7 @@ const ResultPanel = ({
                     title={
                         <IconWrapper>
                             {BuffIcon}
-                            {pageString.potential.character.resultBuffTitle}
+                            {pageString.characters.potential.resultBuffTitle}
                         </IconWrapper>
                     }
                 />
@@ -335,7 +335,7 @@ const ResultPanel = ({
             <HelpModal
                 modalOpen={modalOpen}
                 handleModalClose={() => setModalOpen(false)}
-                content={pageString.potential.character.modal}
+                content={pageString.characters.potential.modal}
             />
         </FilterPanel>
     )
@@ -530,7 +530,7 @@ export default function CharPotential() {
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-                message={pageString.potential.character.snackbarMsg}
+                message={pageString.characters.potential.snackbarMsg}
                 action={AlertIcon}
             />
             <SelectPanel

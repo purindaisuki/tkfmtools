@@ -348,7 +348,7 @@ export function ResultTable({
             <ContainerHeader
                 title={
                     <div>
-                        {pageString.potential.filter.resultTitle}
+                        {pageString.items.drop.filter.resultTitle}
                         <IconWrapper onClick={handleModalOpen}>
                             {HelpIcon}
                         </IconWrapper>

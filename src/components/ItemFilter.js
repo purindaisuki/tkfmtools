@@ -54,7 +54,7 @@ const ItemFilterPanel = (props) => {
     return (
         <FilterPanel widthConfig={widthConfig}>
             <ContainerHeader
-                title={pageString.potential.filter.itemPanelTitle}
+                title={pageString.items.drop.filter.itemPanelTitle}
                 end={
                     <ClearIconWrapper
                         onClick={() => props.filterBy([])}
@@ -109,7 +109,7 @@ const TableContent = (props) => {
         if (props.sortedResult.length === 0) {
             return (
                 <SortableTh>
-                    {pageString.potential.filter.tableHead[1]}
+                    {pageString.items.drop.filter.tableHead[1]}
                 </SortableTh>
             )
         }
@@ -145,7 +145,7 @@ const TableContent = (props) => {
                         onClick={() => props.requestSort('stage')}
                         direction={props.getSortDirection('stage')}
                     >
-                        {pageString.potential.filter.tableHead[0]}
+                        {pageString.items.drop.filter.tableHead[0]}
                     </SortableTh>
                     <ItemTh />
                     <ImgTh
@@ -155,7 +155,7 @@ const TableContent = (props) => {
                         <TableImg
                             name='energy.png'
                             isBackground={false}
-                            alt={pageString.potential.filter.tableHead[2]}
+                            alt={pageString.items.drop.filter.tableHead[2]}
                         />
                     </ImgTh>
                 </tr>
@@ -302,7 +302,7 @@ export default function ItemFilter() {
                 modalOpen={modalOpen}
                 handleModalOpen={() => setModalOpen(true)}
                 handleModalClose={() => setModalOpen(false)}
-                modalContent={pageString.potential.filter.modal}
+                modalContent={pageString.items.drop.filter.modal}
                 widthConfig={tableWidthConfig}
                 striped={true}
             >

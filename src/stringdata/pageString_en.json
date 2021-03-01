@@ -1,5 +1,5 @@
 {
-    "home": {
+    "index": {
         "name": "Home",
         "helmet": {
             "title": "TenkafuMA! toolbox",
@@ -59,6 +59,21 @@
             "fix": "Fix",
             "change": "Change",
             "content": [
+                {
+                    "version": "v1.3.0",
+                    "content": [   
+                        {
+                            "type": "Change",
+                            "title": "Website structure",
+                            "description": "Restructure website and localize urls."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Help info of recruitment filter",
+                            "description": "Add notes about leader and elite tags."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.2.4",
                     "content": [
@@ -204,135 +219,20 @@
             }
         }
     },
-    "enlist": {
-        "name": "Recruitment",
-        "helmet": {
-            "title": "TenkafuMA! toolbox — Recruitment",
-            "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
-        },
-        "label": [
-            "Overview",
-            "Filter"
-        ],
-        "layout": "Layout",
-        "tagSelectTitle": "Tag Selection",
-        "timeSelectTitle": "Recruitment time",
-        "tableHead": [
-            {
-                "title": "Name",
-                "attr": "name"
-            },
-            {
-                "title": "Rarity",
-                "attr": "rarity"
-            },
-            {
-                "title": "Position",
-                "attr": "position"
-            },
-            {
-                "title": "Applied Tags",
-                "attr": "appliedTags"
-            }
-        ],
-        "modal": [
-            {
-                "title": "Introduction",
-                "content": [
-                    "Apply the tags you get to find possible characters."
-                ]
-            },
-            {
-                "title": "How To",
-                "content": [
-                    "Select tags to filter out characters.",
-                    "Sort result by clicking the table header.",
-                    "Star icon after characters means there are some combinations lead to only one character. Hover on the icon to show the combinations."
-                ]
-            },
-            {
-                "title": "Common scenario",
-                "content": [
-                    "Target at SR (or higher) characters:",
-                    "Select five tags you get from the recruitment.",
-                    "If there is a star icon after SR characters, then it's worth a shot."
-                ]
-            },
-            {
-                "title": "Notes",
-                "content": [
-                    "Only the leader tag can give you SSR.",
-                    "Leader and elite tag don't guarantee SSR and SR respectively unless recruitment time is set to be 9 hours.",
-                    "The probability of leader and elite tag is roughly 0.4% and 1.2% respectively."
-                ]
-            },
-            {
-                "title": "Limitations",
-                "content": [
-                    "Deletion of tags is not considered.",
-                    "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
-                ]
-            }
-        ],
-        "snackbarMsg": "At most 5 tags"
-    },
-    "potential": {
-        "name": "Potential",
-        "helmet": {
-            "title": "TenkafuMA! toolbox — Potential material",
-            "description": "Item drop list, filter and requirement for characters."
-        },
-        "label": [
-            "Overview",
-            "Filter",
-            "Character requirement"
-        ],
-        "overview": {
-            "layout": {
-                "byItem": "by Item",
-                "byStage": "by Stage"
-            },
-            "notAvailableMsg": "Not available from stage drops",
-            "tableHead": {
-                "stage": "Stage",
-                "materials": "Potential materials",
-                "trainItems": "Toys",
-                "expPotions": "Exp. potion",
-                "energy": "Energy"
+    "characters": {
+        "index": {
+            "name": "Characters",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Characters",
+                "description": "Harem of Caesar in TenkafuMA!."
             }
         },
-        "filter": {
-            "itemPanelTitle": "Item Selection",
-            "resultTitle": "Result",
-            "tableHead": [
-                "Stage",
-                "Rarity",
-                "Energy"
-            ],
-            "modal": [
-                {
-                    "title": "Introduction",
-                    "content": [
-                        "This page is to find the stages that includes target items."
-                    ]
-                },
-                {
-                    "title": "How To",
-                    "content": [
-                        "Select items to filter out stages.",
-                        "Sort result by clicking the table header."
-                    ]
-                },
-                {
-                    "title": "Notes",
-                    "content": [
-                        "Only includes items that drops in 'World' instance.",
-                        "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
-                    ]
-                }
-            ]
-        },
-        "character": {
+        "potential": {
+            "name": "Characters Potential",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Characters potential",
+                "description": "Calculate the requirement of potential material and buff of characters in TenkafuMA!."
+            },
             "characterPanelTitle": "Character Selection",
             "characterSelectTitle": "Character",
             "currentSelectTitle": "Current",
@@ -363,7 +263,186 @@
             ]
         }
     },
+    "enlist": {
+        "index": {
+            "name": "Recruitment",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Recruitment",
+                "description": "Present character tags for recruitment in TenkafuMA!."
+            },
+            "label": [
+                "Overview",
+                "Filter"
+            ],
+            "layout": "Layout"
+        },
+        "filter": {
+            "name": "Recruitment filter",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Recruitment filter",
+                "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
+            },
+            "tagSelectTitle": "Tag Selection",
+            "timeSelectTitle": "Recruitment time",
+            "tableHead": [
+                {
+                    "title": "Name",
+                    "attr": "name"
+                },
+                {
+                    "title": "Rarity",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "Position",
+                    "attr": "position"
+                },
+                {
+                    "title": "Applied Tags",
+                    "attr": "appliedTags"
+                }
+            ],
+            "modal": [
+                {
+                    "title": "Introduction",
+                    "content": [
+                        "Apply the tags you get to find possible characters."
+                    ]
+                },
+                {
+                    "title": "How To",
+                    "content": [
+                        "Select tags to filter out characters.",
+                        "Sort result by clicking the table header.",
+                        "Star icon after characters means there are some combinations lead to only one character. Hover on the icon to show the combinations."
+                    ]
+                },
+                {
+                    "title": "Common scenario",
+                    "content": [
+                        "Target at SR (or higher) characters:",
+                        "Select five tags you get from the recruitment.",
+                        "If there is a star icon after SR characters, then it's worth a shot."
+                    ]
+                },
+                {
+                    "title": "Notes",
+                    "content": [
+                        "Only the leader tag can give you SSR.",
+                        "Leader and elite tag don't guarantee SSR and SR respectively unless recruitment time is set to be 9 hours.",
+                        "The probability of leader and elite tag is roughly 0.4% and 1.2% respectively."
+                    ]
+                },
+                {
+                    "title": "Limitations",
+                    "content": [
+                        "Deletion of tags is not considered.",
+                        "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
+                    ]
+                }
+            ],
+            "snackbarMsg": "At most 5 tags"
+        }
+    },
+    "items": {
+        "drop": {
+            "index": {
+                "name": "Item drops",
+                "helmet": {
+                    "title": "TenkafuMA! toolbox — Item drops",
+                    "description": "Show item drops of main stages."
+                },
+                "label": [
+                    "Overview",
+                    "Filter"
+                ],
+                "layout": {
+                    "byItem": "by Item",
+                    "byStage": "by Stage"
+                },
+                "notAvailableMsg": "Not available from stage drops",
+                "tableHead": {
+                    "stage": "Stage",
+                    "materials": "Potential materials",
+                    "trainItems": "Toys",
+                    "expPotions": "Exp. potion",
+                    "energy": "Energy"
+                }
+            },
+            "filter": {
+                "name": "Item drops filter",
+                "helmet": {
+                    "title": "TenkafuMA! toolbox — Item drops filter",
+                    "description": "Filter stages by items to find promising ones."
+                },
+                "itemPanelTitle": "Item Selection",
+                "resultTitle": "Result",
+                "tableHead": [
+                    "Stage",
+                    "Rarity",
+                    "Energy"
+                ],
+                "modal": [
+                    {
+                        "title": "Introduction",
+                        "content": [
+                            "This page is to find the stages that includes target items."
+                        ]
+                    },
+                    {
+                        "title": "How To",
+                        "content": [
+                            "Select items to filter out stages.",
+                            "Sort result by clicking the table header."
+                        ]
+                    },
+                    {
+                        "title": "Notes",
+                        "content": [
+                            "Only includes items that drops in 'World' instance.",
+                            "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
+                        ]
+                    }
+                ]
+            }
+        }
+    },
     "navbar": [
+        {
+            "title": "Characters",
+            "links": [
+                {
+                    "description": "Potential calculation",
+                    "to": "/characters/potential"
+                }
+            ]
+        },
+        {
+            "title": "Recruitment",
+            "links": [
+                {
+                    "description": "Overview",
+                    "to": "/enlist"
+                },
+                {
+                    "description": "Filter",
+                    "to": "/enlist/filter"
+                }
+            ]
+        },
+        {
+            "title": "Item drops",
+            "links": [
+                {
+                    "description": "Overview",
+                    "to": "/items/drop"
+                },
+                {
+                    "description": "Filter",
+                    "to": "/items/drop/filter"
+                }
+            ]
+        },
         {
             "title": "External Links",
             "links": [

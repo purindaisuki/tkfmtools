@@ -65,7 +65,7 @@ const CardBodyContnet = (props) => {
     if (props.drop.length === 0) {
         return (
             <tbody><tr><td>
-                {pageString.potential.overview.notAvailableMsg}
+                {pageString.items.drop.index.notAvailableMsg}
             </td></tr></tbody>
         )
     }
@@ -82,7 +82,7 @@ const CardBodyContnet = (props) => {
                         <EnergyImg
                             name='energy.png'
                             isBackground={false}
-                            alt={pageString.potential.filter.tableHead[2]}
+                            alt={pageString.items.drop.filter.tableHead[2]}
                         />
                         {drop.energy}
                     </EnergyTd>
@@ -136,6 +136,12 @@ const ItemCard = (props) => {
 
 const LayoutBtnContainer = styled.div`
     margin-bottom : 1rem;
+    @media screen and (min-width: 410px) {
+        position: absolute;
+        right: 0;
+        top: -4rem;
+        margin-bottom : 0;
+    }
     > span:last-child button {
         margin: 0;
     }
@@ -145,10 +151,10 @@ const BtnWrapper = styled.span`
         padding: .4rem .6rem;
         margin-right: .6rem;
         background-color: ${props => (
-            props.$active
-                ? props.theme.colors.secondary
-                : 'lightgray'
-        )};
+        props.$active
+            ? props.theme.colors.secondary
+            : 'lightgray'
+    )};
         color: ${props => props.theme.colors.onSecondary};
     }
     > button:hover {
@@ -166,7 +172,7 @@ const LayoutSwitcher = (props) => {
                 <Button
                     onClick={props.handleLayoutChange('Masonry')}
                 >
-                    {pageString.potential.overview.layout.byItem}
+                    {pageString.items.drop.index.layout.byItem}
                 </Button>
             </BtnWrapper>
             <BtnWrapper
@@ -175,7 +181,7 @@ const LayoutSwitcher = (props) => {
                 <Button
                     onClick={props.handleLayoutChange('Table')}
                 >
-                    {pageString.potential.overview.layout.byStage}
+                    {pageString.items.drop.index.layout.byStage}
                 </Button>
             </BtnWrapper>
         </LayoutBtnContainer>
@@ -257,7 +263,7 @@ const TableContent = (props) => {
     const TableHeader = () => (
         <thead>
             <tr>
-                {Object.entries(pageString.potential.overview.tableHead)
+                {Object.entries(pageString.items.drop.index.tableHead)
                     .map((entry, idx) => {
                         const sortable = entry[0] === 'stage' || entry[0] === 'energy'
                         let requestSort
@@ -327,7 +333,10 @@ const TableContent = (props) => {
 
 const ItemTableWrapper = styled(TableWrapper)`
     overflow-x: auto;
-    height: calc(100vh - 14.5rem);
+    height: calc(100vh - 14.2rem);
+    @media screen and (min-width: 410px) {
+        height: calc(100vh - 10.9rem);
+    }
 `
 const ItemTable = () => {
     const sortFunc = (sortableItems, sortConfig) => {
@@ -377,7 +386,7 @@ const ItemTable = () => {
 export default function ItemShowcase() {
     return (
         <SwitchableShowcase
-            localLayoutConfig='potential-item-layout'
+            localLayoutConfig='item-drop-layout'
             layoutSwitcher={<LayoutSwitcher />}
             items={[
                 { layout: 'Masonry', content: <ItemMasonry /> },

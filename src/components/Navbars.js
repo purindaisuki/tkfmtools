@@ -8,6 +8,7 @@ import MyAccordion from './MyAccordion';
 import { LanguageContext } from './LanguageProvider';
 import { ThemeContext } from './MyThemeProvider';
 import {
+    RaceIcon,
     ChestIcon,
     EnlistIcon,
     ExpandMoreIcon,
@@ -59,11 +60,6 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
         }
     }
 `
-const StyledLink = styled(LocalizedLink)`
-    &:hover {
-        text-decoration: none;
-    }
-`
 function LanguageSwitcher() {
     const { userLanguage, isDefault, setUserLanguage } = useContext(LanguageContext)
 
@@ -88,7 +84,7 @@ function LanguageSwitcher() {
                     path = '/'
                 }
                 const enPath = path.length === 1 ? '/en' : '/en' + path
-                
+
                 return (
                     <StyledLanguageSwitcher
                         title={LanguageIcon}
@@ -96,7 +92,7 @@ function LanguageSwitcher() {
                         menuAlign='right'
                     >
                         <Dropdown.Item
-                            as={StyledLink}
+                            as={LocalizedLink}
                             to={path}
                             disableLocale={true}
                             eventKey='zh-TW'
@@ -104,7 +100,7 @@ function LanguageSwitcher() {
                             {'繁體中文'}
                         </Dropdown.Item>
                         <Dropdown.Item
-                            as={StyledLink}
+                            as={LocalizedLink}
                             to={enPath}
                             disableLocale={true}
                             eventKey='en'
@@ -196,18 +192,36 @@ export function MainNavbar({
     toggleSidebar,
     handleLanguage,
 }) {
-    const { pageString } = useContext(LanguageContext)
+    const { userLanguage, pageString } = useContext(LanguageContext)
     const { theme, toggleTheme } = useContext(ThemeContext)
 
-    let path
+    // update mainbar title
+    let title = pageString.index.helmet.title
     if (typeof window !== `undefined`) {
-        const url = window.location.toString().split('/')
-        path = url.pop()
-        path = path.length === 0 ? url.pop() : path
+        const pathArray = window.location.pathname.split('/')
+        let titleString = pageString
+        let flag = false
+        for (let i = 0; i < pathArray.length; i++) {
+            if (
+                (__PATH_PREFIX__ && pathArray[i] === __PATH_PREFIX__.slice(1)) ||
+                pathArray[i] === userLanguage ||
+                pathArray[i].length === 0
+            ) {
+                continue
+            }
+
+            titleString = titleString[pathArray[i]]
+            flag = true
+        }
+
+        if (flag) {
+            if (titleString.name) {
+                title = titleString.name
+            } else {
+                title = titleString.index.name
+            }
+        }
     }
-    const title = !path || !pageString[path]
-        ? pageString.home.helmet.title
-        : pageString[path].name
 
     return (
         <StyledMainNavBar>
@@ -286,6 +300,13 @@ const SiderbarItem = styled(ListGroup.Item)`
 `
 export function Sidebar(props) {
     const { pageString } = useContext(LanguageContext)
+
+    const [expanded, setExpanded] = useState(undefined)
+
+    const handleExpand = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false)
+    }
+
     return (
         <StyledDrawer
             open={props.open}
@@ -293,48 +314,40 @@ export function Sidebar(props) {
             onClick={props.toggleSidebar(false)}
             onKeyDown={props.toggleSidebar(false)}
         >
-            <SiderbarList
-
-            >
+            <SiderbarList>
                 <SidebarHeader>
                     {ToolIcon}
-                    {pageString.home.helmet.title}
+                    {pageString.index.helmet.title}
                 </SidebarHeader>
                 {[
                     {
                         to: '/',
                         icon: HomeIcon,
-                        title: pageString.home.name,
-                    },
-                    {
-                        to: '/enlist',
-                        icon: EnlistIcon,
-                        title: pageString.enlist.name,
-                    },
-                    {
-                        to: '/potential',
-                        icon: ChestIcon,
-                        title: pageString.potential.name,
-                    },
+                        title: pageString.index.name,
+                    }
                 ].map(item => (
-                    <StyledLink key={item['title']} to={item['to']}>
+                    <LocalizedLink key={item['title']} to={item['to']}>
                         <SiderbarItem>
                             {item['icon']}
                             {item['title']}
                         </SiderbarItem>
-                    </StyledLink>
+                    </LocalizedLink>
                 ))}
-            </SiderbarList>
-            <SiderbarList>
                 {[
-                    LinkIcon,
-                    FeedbackIcon
+                    { icon: RaceIcon, linkType: 'internal' },
+                    { icon: EnlistIcon, linkType: 'internal' },
+                    { icon: ChestIcon, linkType: 'internal' },
+                    { icon: LinkIcon, linkType: 'external' },
+                    { icon: FeedbackIcon, linkType: 'external' }
                 ].map((item, idx) => (
                     <SidebarAccordions
-                        icon={item}
-                        key={idx}
+                        icon={item.icon}
                         title={pageString.navbar[idx].title}
                         links={pageString.navbar[idx].links}
+                        linkType={item.linkType}
+                        expanded={expanded === idx}
+                        onChange={handleExpand(idx)}
+                        key={idx}
                     />
                 ))}
             </SiderbarList>
@@ -371,37 +384,55 @@ const AccordionItem = styled(ListGroup.Item)`
         color: ${props => props.theme.colors.linkHover};
     }
 `
-function SidebarAccordions(props) {
-    const [isExpanded, setExpanded] = useState(false)
-
-    return (
-        <SiderbarItem>
-            <ListItemAccordion
-                expanded={isExpanded}
-                onChange={() => setExpanded(!isExpanded)}
-                square={true}
-                expandIcon={ExpandMoreIcon}
-                title={
-                    <>
-                        {props.icon}
-                        {props.title}
-                    </>
-                }
-                content={
-                    <ListGroup>
-                        {props.links.map((item, idx) => (
-                            <AccordionItem
-                                as='a'
-                                href={item.link}
-                                target='_blank'
-                                key={idx}
-                            >
-                                {item.description}
-                            </AccordionItem>
-                        ))}
-                    </ListGroup>
-                }
-            />
-        </SiderbarItem>
-    )
-}
+const SidebarAccordions = ({
+    icon,
+    title,
+    links,
+    linkType,
+    expanded,
+    onChange
+}) => (
+    <SiderbarItem>
+        <ListItemAccordion
+            expanded={expanded}
+            onChange={onChange}
+            square={true}
+            expandIcon={ExpandMoreIcon}
+            title={
+                <>
+                    {icon}
+                    {title}
+                </>
+            }
+            content={
+                <ListGroup>
+                    {links.map((item, idx) => {
+                        if (linkType === 'internal') {
+                            return (
+                                <AccordionItem
+                                    as={LocalizedLink}
+                                    to={item.to}
+                                    decoration={true}
+                                    key={idx}
+                                >
+                                    {item.description}
+                                </AccordionItem>
+                            )
+                        } else {
+                            return (
+                                <AccordionItem
+                                    as='a'
+                                    href={item.link}
+                                    target='_blank'
+                                    key={idx}
+                                >
+                                    {item.description}
+                                </AccordionItem>
+                            )
+                        }
+                    })}
+                </ListGroup>
+            }
+        />
+    </SiderbarItem>
+)

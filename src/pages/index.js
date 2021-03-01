@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import Layout from "../components/Layout";
+import Head from "../components/Head";
 import MyAccordion from '../components/MyAccordion';
 import {
     SiteDescription,
@@ -72,25 +72,26 @@ export default () => {
     }
 
     return (
-        <Layout
-            title={pageString.home.helmet.title}
-            description={pageString.home.helmet.description}
-        >
+        <>
+            <Head
+                title={pageString.index.helmet.title}
+                description={pageString.index.helmet.description}
+            />
             <HomeContainer>
                 <Header>
-                    {`${pageString.home.helmet.title} ${pageString.home.updateLog.content[0].version}`}
+                    {`${pageString.index.helmet.title} ${pageString.index.updateLog.content[0].version}`}
                 </Header>
                 {[
                     {
-                        header: pageString.home.about.header,
+                        header: pageString.index.about.header,
                         body: <SiteDescription />,
                     },
                     {
-                        header: pageString.home.updateLog.header,
+                        header: pageString.index.updateLog.header,
                         body: <SiteUpdateLog />,
                     },
                     {
-                        header: pageString.home.license.header,
+                        header: pageString.index.license.header,
                         body: <SiteLicense />,
                     },
                 ].map((item, idx) => (
@@ -105,6 +106,6 @@ export default () => {
                     />
                 ))}
             </HomeContainer>
-        </Layout>
+        </>
     )
 }
