@@ -2,14 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/</loc>
-    <lastmod>2021-02-24</lastmod>
+    <lastmod>2021-03-02</lastmod>
   </url>
   <url>
-    <loc>https://purindaisuki.github.io/tkfmtools/enlist/</loc>
-    <lastmod>2021-02-24</lastmod>
+    <loc>https://purindaisuki.github.io/tkfmtools/characters/potential</loc>
+    <lastmod>2021-03-02</lastmod>
   </url>
   <url>
-    <loc>https://purindaisuki.github.io/tkfmtools/potential/</loc>
-    <lastmod>2021-02-24</lastmod>
+    <loc>https://purindaisuki.github.io/tkfmtools/enlist</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+    <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/enlist/filter</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/items/drop</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/items/drop/filter</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/characters/potential</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/enlist</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+    <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/enlist/filter</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/items/drop</loc>
+    <lastmod>2021-03-02</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/items/drop/filter</loc>
+    <lastmod>2021-03-02</lastmod>
   </url>
 </urlset>
