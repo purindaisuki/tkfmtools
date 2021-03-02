@@ -169,12 +169,22 @@ export default function CharExp() {
     })
 
     const handleSelect = (attr) => (event) => {
-        console.log(event.keyCode)
-        event.preventDefault()
-
         let newState = { ...state }
         const selected = event.target.value
         newState[attr] = attr === 'character' ? selected : parseInt(selected)
+
+        if (isNaN(parseInt(newState.level)) || newState.level < 0 || newState.level > 60) {
+            setState((state) => ({
+                ...state,
+                level: 1,
+                result: {
+                    ATK: '-',
+                    HP: '-',
+                }
+            }))
+
+            return
+        }
 
         // validate auto updated values
         if (newState.character[0] === '4' || newState.character[0] === '3') {
@@ -209,7 +219,6 @@ export default function CharExp() {
             HP: Math.floor(initHP * levelBuff * (1 + buff.HP / 100) * disciplineBuff * starBuff)
         }
 
-        console.log(newState.result)
         setState(newState)
     }
 
