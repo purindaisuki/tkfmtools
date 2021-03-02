@@ -211,13 +211,18 @@ export function MainNavbar({
             }
 
             titleString = titleString[pathArray[i]]
+            if (!titleString) {
+                flag = false
+                break
+            }
+            
             flag = true
         }
 
         if (flag) {
             if (titleString.name) {
                 title = titleString.name
-            } else {
+            } else if (titleString.index) {
                 title = titleString.index.name
             }
         }
