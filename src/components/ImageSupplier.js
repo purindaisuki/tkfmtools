@@ -3,14 +3,9 @@ import { graphql, useStaticQuery } from "gatsby";
 import GatsbyImage from "gatsby-image";
 import BackgroundImage from 'gatsby-background-image'
 
-const ImageSupplier = ({
-  className,
-  children,
-  name,
-  isBackground,
-  alt,
-}) => {
-  const data = useStaticQuery(graphql`
+const getImgFluid = (name) => {
+  // query images
+  const { allFile } = useStaticQuery(graphql`
     {
       allFile(filter: {
         extension: {regex: "/(jpg)|(jpeg)|(png)/"},
@@ -30,29 +25,33 @@ const ImageSupplier = ({
     }
   `)
 
-  const dataObject = {}
-
-  data.allFile.edges.map(item => {
-    dataObject[
-      item.node.childImageSharp.fluid.originalName
-    ] = item.node.childImageSharp.fluid
-  })
-
   return (
-    isBackground
-      ? <BackgroundImage
-        className={className}
-        fluid={dataObject[name]}
-      >
-        {children}
-      </BackgroundImage>
-      
-      : <GatsbyImage
-        className={className}
-        fluid={dataObject[name]}
-        alt={alt}
-      />
+    allFile.edges
+      .find(i => i.node.childImageSharp.fluid.originalName === name)
+      .node.childImageSharp.fluid
   )
 }
+
+const ImageSupplier = ({
+  className,
+  children,
+  name,
+  isBackground,
+  alt,
+}) => (
+  isBackground
+    ? <BackgroundImage
+      className={className}
+      fluid={getImgFluid(name)}
+    >
+      {children}
+    </BackgroundImage>
+
+    : <GatsbyImage
+      className={className}
+      fluid={getImgFluid(name)}
+      alt={alt}
+    />
+)
 
 export default ImageSupplier
