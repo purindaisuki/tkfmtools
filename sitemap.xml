@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
   </url>
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/characters/potential</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
+  </url>
+    <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/characters/stats</loc>
+    <lastmod>2021-03-03</lastmod>
   </url>
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/enlist</loc>
@@ -26,11 +30,15 @@
   </url>
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/en</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
   </url>
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/en/characters/potential</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
+  </url>
+  <url>
+    <loc>https://purindaisuki.github.io/tkfmtools/en/characters/stats</loc>
+    <lastmod>2021-03-03</lastmod>
   </url>
   <url>
     <loc>https://purindaisuki.github.io/tkfmtools/en/enlist</loc>
