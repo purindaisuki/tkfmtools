@@ -64,7 +64,6 @@ const SelectPanel = (props) => {
             <ContainerBody>
                 <CharImgWrapper
                     name={`char_${props.character}.png`}
-                    isBackground={false}
                     alt=''
                 />
                 <div>
@@ -237,7 +236,6 @@ const ResultPanel = ({
                         <div>
                             <MaterialImg
                                 name={`item_${item[0]}.png`}
-                                isBackground={false}
                                 alt=''
                             />
                             {`${itemString.name[item[0]]}`}
@@ -250,7 +248,6 @@ const ResultPanel = ({
                 >
                     <MaterialImg
                         name='money.png'
-                        isBackground={false}
                         alt='money'
                     />
                     {result.money}
@@ -270,7 +267,6 @@ const ResultPanel = ({
             <div>
                 <OtherImg
                     name={name}
-                    isBackground={false}
                     alt={alt}
                 />
                 {children}

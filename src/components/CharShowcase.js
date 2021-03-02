@@ -57,7 +57,7 @@ const CardHeader = ({
         <CharImgWrapper
             className={className}
             name={`char_small_${id}.png`}
-            isBackground={true}
+            isBackground
             alt=''
         >
             <TextWrapper>
@@ -104,7 +104,7 @@ const CardBody = (props) => {
 
     if (!charData[props.idx].tags.available) {
         return (
-            <CardTable striped={true}>
+            <CardTable striped>
                 <tbody><tr><td>
                     {charString.tagWarnMsg}
                 </td></tr></tbody>
@@ -113,7 +113,7 @@ const CardBody = (props) => {
     }
 
     return (
-        <CardTable striped={true}>
+        <CardTable striped>
             <tbody>
                 {Object.entries(charTagData[props.idx]).map((entry, idx) => {
                     if (
@@ -199,7 +199,6 @@ const CharAccordion = (props) => {
         <StyledAccordion
             expanded={isExpanded}
             onChange={() => setExpanded(!isExpanded)}
-            square={false}
             title={props.header}
             content={props.body}
         />
@@ -462,7 +461,7 @@ const CharTable = () => {
                 sortFunc={sortFunc}
                 defaultSortKey={'rarity'}
                 result={charTagData}
-                border={true}
+                border
             >
                 <TableContent />
             </SortableTable>

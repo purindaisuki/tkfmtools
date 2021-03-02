@@ -79,7 +79,6 @@ const ItemFilterPanel = (props) => {
                         >
                             <ItemImg
                                 name={`item_${entry[0]}.png`}
-                                isBackground={false}
                                 alt=''
                             />
                             {itemString.name[entry[0]]}
@@ -128,7 +127,6 @@ const TableContent = (props) => {
                     >
                         <TableImg
                             name={`item_${entry[0]}.png`}
-                            isBackground={false}
                             alt={itemString.name[entry[0]]}
                         />
                     </ImgTh>
@@ -154,7 +152,6 @@ const TableContent = (props) => {
                     >
                         <TableImg
                             name='energy.png'
-                            isBackground={false}
                             alt={pageString.items.drop.filter.tableHead[2]}
                         />
                     </ImgTh>
@@ -304,7 +301,7 @@ export default function ItemFilter() {
                 handleModalClose={() => setModalOpen(false)}
                 modalContent={pageString.items.drop.filter.modal}
                 widthConfig={tableWidthConfig}
-                striped={true}
+                striped
             >
                 <TableContent />
             </ResultTable>
