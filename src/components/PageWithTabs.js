@@ -5,7 +5,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import LocalizedLink from './LocalizedLink'
 import { LanguageContext } from './LanguageProvider';
-import { FilterIcon, OverviewIcon } from './icon';
+import {
+    CalcIcon,
+    FilterIcon,
+    OverviewIcon,
+    PotentialIcon
+} from './icon';
 
 const StyledTabs = styled(Tabs)`
     && {
@@ -69,27 +74,39 @@ export default function PageWithTabs({
     const tabsConfig = {
         enlist: {
             enlist: {
-                label: pageString.enlist.index.label[0],
+                label: pageString.enlist.tabLabel[0],
                 icon: OverviewIcon,
                 to: '/enlist',
             },
             filter: {
-                label: pageString.enlist.index.label[1],
+                label: pageString.enlist.tabLabel[1],
                 icon: FilterIcon,
                 to: '/enlist/filter',
             },
         },
         drop: {
             drop: {
-                label: pageString.items.drop.index.label[0],
+                label: pageString.items.drop.tabLabel[0],
                 icon: OverviewIcon,
                 to: '/items/drop',
             },
             filter: {
-                label: pageString.items.drop.index.label[1],
+                label: pageString.items.drop.tabLabel[1],
                 icon: FilterIcon,
                 to: '/items/drop/filter',
             },
+        },
+        characters: {
+            potential: {
+                label: pageString.characters.tabLabel[0],
+                icon: PotentialIcon,
+                to: '/characters/potential',
+            },
+            exp: {
+                label: pageString.characters.tabLabel[1],
+                icon: CalcIcon,
+                to: '/characters/stats',
+            }
         }
     }
 
@@ -104,7 +121,7 @@ export default function PageWithTabs({
 
     // handle tab change on location change
     useEffect(() => {
-         setTab(tabIndex)
+        setTab(tabIndex)
     }, [location])
 
     return (

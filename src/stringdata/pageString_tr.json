@@ -67,8 +67,33 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.3.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色素值計算機",
+                            "description": "新增角色攻擊及血量計算"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "道具掉落稀有度標示",
+                            "description": "根據稀有度顯示不同顏色"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選必得提示框",
+                            "description": "擴大觸發範圍至角色框整體"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "404頁面導航列失效",
+                            "description": "修正點擊無反應"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.3.0",
-                    "content": [   
+                    "content": [
                         {
                             "type": "Change",
                             "title": "網站結構",
@@ -249,6 +274,10 @@
                 "description": "天下布魔中凱薩的後宮"
             }
         },
+        "tabLabel": [
+            "潛力",
+            "素值"
+        ],
         "potential": {
             "name": "角色潛力",
             "helmet": {
@@ -261,7 +290,6 @@
             "targetSelectTitle": "目標",
             "resultDemandTitle": "需求道具",
             "resultBuffTitle": "增益",
-            "snackbarMsg": "目標階段小於當前階段",
             "modal": [
                 {
                     "title": "介紹",
@@ -272,8 +300,8 @@
                 {
                     "title": "說明",
                     "content": [
-                        "選擇起訖潛力階段(包含首尾)，結果為累計之所需道具",
-                        "若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具"
+                        "選擇起訖潛力階段(包含首尾)，結果為累計之所需道具。若當前為1-1；目標為6-1，則代表累計角色1~5階之6格潛力格與第6階之第1格所需道具",
+                        "角色可依潛力分為四類；攻擊型、防禦型、輔助型及N/R型(N/R角通用)。所謂攻擊、防禦等與角色定位不一定相等，例如朱諾安角色定位為攻擊者，潛力則是輔助型。"
                     ]
                 },
                 {
@@ -283,19 +311,56 @@
                     ]
                 }
             ]
+        },
+        "stats": {
+            "name": "角色素質",
+            "helmet": {
+                "title": "天下布魔工具箱 — 角色素質",
+                "description": "計算天下布魔角色之攻擊與血量"
+            },
+            "levelTitle": "等級",
+            "potentialTitle": "潛力階段",
+            "disciplineTitle": "調教階段",
+            "starTitle": "星數",
+            "resultTitle": "計算結果",
+            "modal": [
+                {
+                    "title": "介紹",
+                    "content": [
+                        "計算角色攻擊與血量"
+                    ]
+                },
+                {
+                    "title": "使用方法",
+                    "content": [
+                        "選擇角色狀態以計算結果"
+                    ]
+                },
+                {
+                    "title": "說明",
+                    "content": [
+                        "角色初始值、等級、潛力階段、調教階段與星數都會影響角色素值，其公式如下",
+                        "(初始值) × 1.1^(等級 - 1) × (1 + 潛力加成) × (1 + 調教加成) × (星數加成)",
+                        "　　其中　潛力加成 = 依角色及潛力階段而定，由潛力計算機可得",
+                        "　　　　　調教加成 = 5% × 階段",
+                        "　　　　　星數加成 = (星數 + 5) / (原生星數 + 5)",
+                        "*絆數只影響必殺技能倍率"
+                    ]
+                }
+            ]
         }
     },
     "enlist": {
+        "tabLabel": [
+            "總覽",
+            "篩選"
+        ],
         "index": {
             "name": "全境徵才",
             "helmet": {
                 "title": "天下布魔工具箱 — 全境徵才",
                 "description": "呈現天下布魔中全境徵才可得角色及相對應之標籤。"
             },
-            "label": [
-                "總覽",
-                "篩選"
-            ],
             "layout": "佈局"
         },
         "filter": {
@@ -368,17 +433,16 @@
     },
     "items": {
         "drop": {
+            "tabLabel": [
+                "總覽",
+                "篩選"
+            ],
             "index": {
                 "name": "掉落道具",
                 "helmet": {
                     "title": "天下布魔工具箱 — 掉落道具",
                     "description": "提供道具掉落一覽。"
                 },
-                "label": [
-                    "總覽",
-                    "篩選",
-                    "角色需求"
-                ],
                 "layout": {
                     "byItem": "依道具",
                     "byStage": "依地圖"
@@ -439,6 +503,10 @@
                 {
                     "description": "潛力計算",
                     "to": "/characters/potential"
+                },
+                {
+                    "description": "素值計算",
+                    "to": "/characters/stats"
                 }
             ]
         },

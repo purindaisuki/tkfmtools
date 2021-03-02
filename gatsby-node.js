@@ -19,7 +19,9 @@ exports.onCreatePage = ({ page, actions }) => {
             ? 'enlist'
             : localizedPath.includes('drop')
                 ? 'drop'
-                : undefined
+                : localizedPath.includes('characters/')
+                    ? 'characters'
+                    : undefined
 
         return createPage({
             ...page,

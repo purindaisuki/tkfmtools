@@ -60,8 +60,33 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.3.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Character stats calculator",
+                            "description": "Add character attack and hp calculator."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Rarity badge of item drops",
+                            "description": "Color badges accroding to their rarity."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Recruitment result tooltip",
+                            "description": "Expand hover area of the result tooltip."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Navbar not working at 404 page",
+                            "description": "Fix navbar functionality."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.3.0",
-                    "content": [   
+                    "content": [
                         {
                             "type": "Change",
                             "title": "Website structure",
@@ -242,8 +267,12 @@
                 "description": "Harem of Caesar in TenkafuMA!."
             }
         },
+        "tabLabel": [
+            "Potential",
+            "Stats"
+        ],
         "potential": {
-            "name": "Characters Potential",
+            "name": "Characters potential",
             "helmet": {
                 "title": "TenkafuMA! toolbox — Characters potential",
                 "description": "Calculate the requirement of potential material and buff of characters in TenkafuMA!."
@@ -254,7 +283,6 @@
             "targetSelectTitle": "Target",
             "resultDemandTitle": "Material",
             "resultBuffTitle": "Buff",
-            "snackbarMsg": "Target stage should larger than current stage",
             "modal": [
                 {
                     "title": "Introduction",
@@ -272,23 +300,61 @@
                 {
                     "title": "Notes",
                     "content": [
+                        "There are four types of potential patterns which are attacker type, defender type, supporter type and N/R type, a type shared by N/R characters. Note that the attacker, defender and supporter here are not identical to character positions. (e.g. Juneau is an attacker in character position but a support in potential type.)",
                         "Most results are inferred from patterns of character potential, not from actual data."
+                    ]
+                }
+            ]
+        },
+        "stats": {
+            "name": "Characters stats",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Characters stats.",
+                "description": "Calculate the stats of characters in TenkafuMA!."
+            },
+            "levelTitle": "Level",
+            "potentialTitle": "Potential stage",
+            "disciplineTitle": "Discipline stage",
+            "starTitle": "Star",
+            "resultTitle": "Result",
+            "modal": [
+                {
+                    "title": "Introduction",
+                    "content": [
+                        "Calculate the attack and hp values of characters."
+                    ]
+                },
+                {
+                    "title": "How To",
+                    "content": [
+                        "Select character states to calculate the attack and hp values."
+                    ]
+                },
+                {
+                    "title": "Notes",
+                    "content": [
+                        "There are five things affect the character attack and hp, which are their initial values, level, potential stage, discipline stage and star. And the formula of character attack and hp is",
+                        "(Initial value) × 1.1^(Level - 1) × (1 + Potential buff) × (1 + Discipline buff) × (Star buff).",
+                        "　　where　Potential buff = depends on character potential type and stage, you can find it at potential calculator",
+                        "　　　　　　Discipline buff = 5% × stage",
+                        "　　　　　　Star buff = (Star + 5) / (Original star + 5)",
+                        "*Bond only affect the skill effect."
                     ]
                 }
             ]
         }
     },
     "enlist": {
+        "tabLabel": [
+            "Overview",
+            "Filter"
+        ],
         "index": {
             "name": "Recruitment",
             "helmet": {
                 "title": "TenkafuMA! toolbox — Recruitment",
                 "description": "Present character tags for recruitment in TenkafuMA!."
             },
-            "label": [
-                "Overview",
-                "Filter"
-            ],
             "layout": "Layout"
         },
         "filter": {
@@ -357,16 +423,16 @@
     },
     "items": {
         "drop": {
+            "tabLabel": [
+                "Overview",
+                "Filter"
+            ],
             "index": {
                 "name": "Item drops",
                 "helmet": {
                     "title": "TenkafuMA! toolbox — Item drops",
                     "description": "Show item drops of main stages."
                 },
-                "label": [
-                    "Overview",
-                    "Filter"
-                ],
                 "layout": {
                     "byItem": "by Item",
                     "byStage": "by Stage"
@@ -423,8 +489,12 @@
             "title": "Characters",
             "links": [
                 {
-                    "description": "Potential calculation",
+                    "description": "Potential calculator",
                     "to": "/characters/potential"
+                },
+                {
+                    "description": "Stats calculator",
+                    "to": "/characters/stats"
                 }
             ]
         },
