@@ -228,11 +228,37 @@ const CharFilterPanel = ({
     )
 }
 
+const StyledTooltip = styled(Tooltip)`
+    right: 0;
+`
+const TagTooltip = ({
+    children,
+    char
+}) => {
+    const { charString } = useContext(LanguageContext)
+
+    const texts = char.distinctTagCombs
+        .map(comb => comb.map(i => charString.tags[i]).join(', '))
+        .join('\n')
+
+    return (
+        <StyledTooltip
+            title={texts}
+            TransitionComponent={Zoom}
+            placement='bottom'
+            arrow
+        >
+            {children}
+        </StyledTooltip >
+    )
+}
+
 const CharCardWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     margin-left: -.75rem;
+    width: max-content;
 `
 const StarIconWrapper = styled(IconWrapper)`
     display: flex;
@@ -251,22 +277,6 @@ function TableContent(props) {
         pageString,
         charString
     } = useContext(LanguageContext)
-
-    const TagTooltip = (props) => {
-        const texts = props.char.distinctTagCombs
-            .map(comb => comb.map(i => charString.tags[i]).join(', '))
-            .join('\n')
-
-        return (
-            <StarIconWrapper
-                $hidden={props.char.distinctTagCombs.length === 0}
-            >
-                <Tooltip title={texts} TransitionComponent={Zoom} arrow>
-                    {StarIcon}
-                </Tooltip>
-            </StarIconWrapper>
-        )
-    }
 
     const parseRarity = (rarity) => (
         rarity === 0 ? 'N'
@@ -300,15 +310,21 @@ function TableContent(props) {
                 {props.sortedResult.map((char, idx) => (
                     <tr key={idx}>
                         <td>
-                            <CharCardWrapper>
-                                <CharCardHeader
-                                    id={char.id}
-                                    $textWrapConfig={
-                                        cardTextWrapConfig[userLanguage]
-                                    }
-                                />
-                                <TagTooltip char={char} />
-                            </CharCardWrapper>
+                            <TagTooltip char={char}>
+                                <CharCardWrapper>
+                                    <CharCardHeader
+                                        id={char.id}
+                                        $textWrapConfig={
+                                            cardTextWrapConfig[userLanguage]
+                                        }
+                                    />
+                                    <StarIconWrapper
+                                        $hidden={char.distinctTagCombs.length === 0}
+                                    >
+                                        {StarIcon}
+                                    </StarIconWrapper>
+                                </CharCardWrapper>
+                            </TagTooltip>
                         </td>
                         <td>{parseRarity(char.rarity)}</td>
                         <td>
@@ -601,7 +617,7 @@ export default function CharFilter() {
                     handleModalClose={() => setModalOpen(false)}
                     modalContent={pageString.enlist.filter.modal}
                     widthConfig={tableWidthConfig}
-                    striped={true}
+                    striped
                 >
                     <TableContent />
                 </ResultTable>

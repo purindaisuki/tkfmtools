@@ -325,7 +325,7 @@
                     "content": [
                         "Select tags to filter out characters.",
                         "Sort result by clicking the table header.",
-                        "Star icon after characters means there are some combinations lead to only one character. Hover on the icon to show the combinations."
+                        "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie) the character to show the combinations."
                     ]
                 },
                 {
