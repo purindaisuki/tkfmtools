@@ -31,7 +31,7 @@ const ModalHeader = styled.div`
 const ModalBody = styled.div`
     margin: 0;
     margin-top: .5rem;
-    .MuiAccordion-root,
+    &&& .MuiAccordion-root,
     &&& .MuiAccordionSummary-root {
         border: none;
         cursor: text;
@@ -165,7 +165,7 @@ const DescriptionAccordion = styled(MyAccordion)`
     }
 `
 export default () => {
-    const { pageString } = useContext(LanguageContext)
+    const { isDefault, pageString } = useContext(LanguageContext)
     const latestMsg = pageString.index.updateLog.content[0]
 
     const [state, setState] = useState({
@@ -213,6 +213,7 @@ export default () => {
             <Head
                 title={pageString.index.helmet.title}
                 description={pageString.index.helmet.description}
+                path={isDefault ? '/' : ''}
             />
             <HomeContainer>
                 <Header>

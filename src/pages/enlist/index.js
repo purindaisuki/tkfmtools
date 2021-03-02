@@ -4,13 +4,14 @@ import CharShowcase from '../../components/CharShowcase';
 import { LanguageContext } from '../../components/LanguageProvider';
 
 export default () => {
-    const { pageString } = useContext(LanguageContext)
+    const { isDefault, pageString } = useContext(LanguageContext)
 
     return (
         <>
             <Head
                 title={pageString.enlist.index.helmet.title}
                 description={pageString.enlist.index.helmet.description}
+                path='/enlist'
             />
             <CharShowcase />
         </>

@@ -11,6 +11,7 @@ export default () => {
             <Head
                 title={pageString.items.drop.index.helmet.title}
                 description={pageString.items.drop.index.helmet.description}
+                path='/items/drop'
             />
             <ItemShowcase />
         </>

@@ -18,7 +18,7 @@ const Main = styled.main`
     padding: 1rem;
 `
 export default function Layout({ children }) {
-    const { userLanguage, pageString } = useContext(LanguageContext)
+    const { userLanguage, isDefault, pageString } = useContext(LanguageContext)
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -54,14 +54,14 @@ export default function Layout({ children }) {
                 <meta property="og:locale" content={langConfig[userLanguage].ogLocale} />
                 <meta property="og:title" content={pageString.index.helmet.title} />
                 <meta property="og:description" content={pageString.index.helmet.description} />
-                <meta property="og:url" content="https://purindaisuki.github.io/tkfmtools/" />
+                <meta property="og:url" content={`https://purindaisuki.github.io/tkfmtools/${isDefault ? null : userLanguage}`} />
                 <meta property="og:image" content="https://purindaisuki.github.io/tkfmtools/website_preview.png" />
                 <meta property="og:image:width" content="1358" />
                 <meta property="og:image:height" content="756" />
                 <meta property="twitter:card" content="summary_large_image" />
                 <meta property="twitter:title" content={pageString.index.helmet.title} />
                 <meta property="twitter:description" content={pageString.index.helmet.description} />
-                <meta property="twitter:url" content="https://purindaisuki.github.io/tkfmtools/" />
+                <meta property="twitter:url" content={`https://purindaisuki.github.io/tkfmtools/${isDefault ? null : userLanguage}`} />
                 <meta property="twitter:image" content="https://purindaisuki.github.io/tkfmtools/website_preview.png" />
                 <meta name="google-site-verification" content="F_IfmH-gHHQSs2j53dl-2l-zMqnWtwWOnfqdQiwLUow" />
                 <title lang={userLanguage}>{pageString.index.helmet.title}</title>

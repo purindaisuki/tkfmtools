@@ -11,6 +11,7 @@ export default () => {
             <Head
                 title={pageString.items.drop.filter.helmet.title}
                 description={pageString.items.drop.filter.helmet.description}
+                path='/items/drop/filter'
             />
             <ItemFilter />
         </>
