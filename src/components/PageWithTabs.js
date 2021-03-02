@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import LocalizedLink from './LocalizedLink'
 import { LanguageContext } from './LanguageProvider';
 import {
-    CalcIcon,
+    StatusIcon,
     FilterIcon,
     OverviewIcon,
     PotentialIcon
@@ -104,7 +104,7 @@ export default function PageWithTabs({
             },
             exp: {
                 label: pageString.characters.tabLabel[1],
-                icon: CalcIcon,
+                icon: StatusIcon,
                 to: '/characters/stats',
             }
         }
