@@ -23,6 +23,20 @@ exports.onCreatePage = ({ page, actions }) => {
                     ? 'characters'
                     : undefined
 
+        // Check if the page is a localized 404
+        if (localizedPath.match(/^[a-z]{2}\/404\/$/)) {
+            page.matchPath = `/${entry[0]}/*`
+            // Recreate the modified page
+            return createPage({
+                ...page,
+                path: removeTrailingSlash(localizedPath),
+                context: {
+                    ...page.context,
+                    lang: entry[0],
+                }
+            })
+        }
+
         return createPage({
             ...page,
             // remove trailing slash
