@@ -1,13 +1,75 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { Snackbar } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
 import ImageSupplier from './ImageSupplier';
 import charData from '../gamedata/character.json';
 import potentialData from '../gamedata/potential.json';
 import { LanguageContext } from './LanguageProvider';
-import { AlertIcon, BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
+import { BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
+
+export const Select = styled(Form.Control)`
+    && {
+        background-color: ${props => props.theme.colors.surface};
+        color: ${props => props.theme.colors.onSurface};
+        border-radius: .25rem;
+        padding: .1rem;
+        border: 1px solid ${props => props.theme.colors.secondary};
+        width: 100%;
+        height: 1.6rem;
+        &:focus {
+            box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
+        }
+    }
+`
+export const NumForm = ({
+    as,
+    minNum,
+    maxNum,
+    onChange,
+    disabled
+}) => (
+    <Form.Group as={as}>
+        <Select
+            as="select"
+            onChange={onChange}
+            disabled={disabled}
+        >
+            {disabled
+                ? <option>-</option>
+                : [...Array(maxNum + 1).keys()].slice(minNum)
+                    .map(i => <option value={i} key={i}>{i}</option>)}
+        </Select>
+    </Form.Group>
+)
+
+export const TwoStageForm = ({
+    title,
+    handleSelect,
+    subMinNum,
+    minNum,
+    maxNum,
+    selectAttrs,
+}) => (
+    <>
+        {title}
+        <Form.Row>
+            <NumForm
+                as={Col}
+                minNum={minNum}
+                maxNum={maxNum}
+                onChange={handleSelect(selectAttrs[0])}
+            />
+            {'–'}
+            <NumForm
+                as={Col}
+                minNum={subMinNum}
+                maxNum={6}
+                onChange={handleSelect(selectAttrs[1])}
+            />
+        </Form.Row>
+    </>
+)
 
 const IconWrapper = styled.div`
     svg {
@@ -21,29 +83,29 @@ const ContainerBody = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    form {
+        width: 13.5rem;
+        > div:last-child > div {
+        margin-bottom: 0;
+        }
+    }
 `
 const CharImgWrapper = styled(ImageSupplier)`
-    width: 5rem;
-    height: 15rem;
+    width: 5.2rem;
     margin-right: 1rem;
     border: 2px solid ${props => props.theme.colors.secondary};
     border-radius: .25rem;
 `
-const Select = styled(Form.Control)`
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    border-radius: .25rem;
-    padding: .1rem;
-    border: 1px solid ${props => props.theme.colors.secondary};
-    width: 100%;
-    &:focus {
-        box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
-    }
-`
 const Gutter = styled.div`
-    margin-top: 3rem;
+    margin-top: 4rem;
 `
-const SelectPanel = (props) => {
+export const CharSelectPanel = ({
+    children,
+    className,
+    character,
+    handleSelect,
+    lumpNRChars,
+}) => {
     const { pageString, charString } = useContext(LanguageContext)
 
     const widthConfig = {
@@ -52,7 +114,10 @@ const SelectPanel = (props) => {
     }
 
     return (
-        <FilterPanel widthConfig={widthConfig}>
+        <FilterPanel
+            widthConfig={widthConfig}
+            className={className}
+        >
             <ContainerHeader
                 title={
                     <IconWrapper>
@@ -63,105 +128,43 @@ const SelectPanel = (props) => {
             />
             <ContainerBody>
                 <CharImgWrapper
-                    name={`char_${props.character}.png`}
+                    name={`char_${character}.png`}
                     alt=''
                 />
-                <div>
-                    <Form>
-                        {pageString.characters.potential.characterSelectTitle}
-                        <br />
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Select
-                                    as="select"
-                                    custom
-                                    size="sm"
-                                    onChange={props.handleSelect('character')}
-                                >
-                                    {
-                                        charData.map((char, idx) => {
-                                            if (char.rarity < 2) return false
-
-                                            return (
-                                                <option value={char.id} key={idx}>
-                                                    {charString.name[char.id]}
-                                                </option>
-                                            )
-                                        })
+                <Form onSubmit={(event) => event.preventDefault()}>
+                    {pageString.characters.potential.characterSelectTitle}
+                    <Form.Row>
+                        <Form.Group as={Col}>
+                            <Select
+                                as="select"
+                                onChange={handleSelect('character')}
+                            >
+                                {charData.map((char, idx) => {
+                                    if (char.rarity < 2 && lumpNRChars) {
+                                        return false
                                     }
-                                    <option value={'nr'} key={'nr'}>
+
+                                    return (
+                                        <option value={char.id} key={idx}>
+                                            {charString.name[char.id]}
+                                        </option>
+                                    )
+                                })}
+                                {lumpNRChars
+                                    ? <option value={'nr'} key={'nr'}>
                                         {charString.name['nr']}
                                     </option>
-                                </Select>
-                            </Form.Group>
-                        </Form.Row>
-                        <Gutter />
-                        {pageString.characters.potential.currentSelectTitle}
-                        <br />
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Select
-                                    as="select"
-                                    custom
-                                    size="sm"
-                                    onChange={props.handleSelect('currStage')}
-                                >
-                                    {props.stages}
-                                </Select>
-                            </Form.Group>
-                            –
-                            <Form.Group as={Col}>
-                                <Select
-                                    as="select"
-                                    custom
-                                    size="sm"
-                                    onChange={props.handleSelect('currSub')}
-                                >
-                                    {[...Array(7).keys()].slice(1)
-                                        .map(i => <option value={i} key={i}>{i}</option>)}
-                                </Select>
-                            </Form.Group>
-                        </Form.Row>
-                        {pageString.characters.potential.targetSelectTitle}
-                        <br />
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Select
-                                    as="select"
-                                    custom
-                                    size="sm"
-                                    onChange={props.handleSelect('targetStage')}
-                                >
-                                    {props.stages}
-                                </Select>
-                            </Form.Group>
-                            –
-                            <Form.Group as={Col}>
-                                <Select
-                                    as="select"
-                                    custom
-                                    size="sm"
-                                    onChange={props.handleSelect('targetSub')}
-                                >
-                                    {[...Array(7).keys()].slice(1)
-                                        .map(i => <option value={i} key={i}>{i}</option>)}
-                                </Select>
-                            </Form.Group>
-                        </Form.Row>
-                    </Form>
-                </div>
+                                    : null}
+                            </Select>
+                        </Form.Group>
+                    </Form.Row>
+                    {children}
+                </Form>
             </ContainerBody>
-        </FilterPanel>
+        </FilterPanel >
     )
 }
 
-const MaterialContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-    min-height: 6rem;
-`
 const MaterialWrapper = styled.span`
     display: inline-flex;
     align-items: center;
@@ -184,6 +187,68 @@ const MaterialImg = styled(ImageSupplier)`
     height: 2rem;
     margin-right: .4rem;
 `
+const MaterialBox = ({
+    result,
+    layoutConfig
+}) => {
+    const { itemString } = useContext(LanguageContext)
+
+    if (!result.items) return null
+
+    return (
+        <>
+            {Object.entries(result.items).map((item, idx) => (
+                <MaterialWrapper
+                    key={idx}
+                    $layoutConfig={layoutConfig}
+                >
+                    <div>
+                        <MaterialImg
+                            name={`item_${item[0]}.png`}
+                            alt=''
+                        />
+                        {itemString.name[item[0]]}
+                    </div>
+                    {item[1]}
+                </MaterialWrapper>
+            ))}
+            <MaterialWrapper
+                $layoutConfig={layoutConfig}
+            >
+                <MaterialImg
+                    name='money.png'
+                    alt='money'
+                />
+                {result.money}
+            </MaterialWrapper>
+        </>
+    )
+}
+
+const OtherImg = styled(ImageSupplier)`
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: .4rem;
+`
+const PictureSquare = ({
+    children,
+    layoutConfig,
+    name,
+    alt
+}) => (
+    <MaterialWrapper
+        $layoutConfig={layoutConfig}
+    >
+        <div>
+            <OtherImg
+                name={name}
+                alt={alt}
+            />
+            {children}
+        </div>
+    </MaterialWrapper>
+)
+
 const HelpIconWrapper = styled.div`
     margin-right: auto;
     svg {
@@ -195,103 +260,78 @@ const HelpIconWrapper = styled.div`
         vertical-align: top;
     }
 `
-const OtherImg = styled(ImageSupplier)`
-    width: 1.6rem;
-    height: 1.6rem;
-    margin-right: .4rem;
+export const HeaderWithHelp = ({
+    titleIcon,
+    title,
+    handleModalOpen
+}) => (
+    <ContainerHeader
+        title={
+            <IconWrapper>
+                {titleIcon}
+                {title}
+                <HelpIconWrapper
+                    onClick={handleModalOpen}
+                >
+                    {HelpIcon}
+                </HelpIconWrapper>
+            </IconWrapper>
+        }
+    />
+)
+
+const StyledPanel = styled(FilterPanel)`
+    @media screen and (max-width: 992px) {
+        width: ${props => props.widthConfig[992]};
+        margin-left: calc(100% - ${props => props.widthConfig[992]});
+        position: relative;
+        margin-top: 1rem;
+    }
 `
+const MaterialContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    min-height: 6rem;
+`
+const resultLayoutConfig = {
+    'en': {
+        1360: 5,
+        1200: 4,
+        768: 3,
+        0: 2
+    },
+    'zh-TW': {
+        1360: 6,
+        1200: 5,
+        768: 4,
+        624: 3,
+        0: 2
+    }
+}
+
 const ResultPanel = ({
     widthConfig,
     result
 }) => {
-    const { userLanguage, pageString, itemString } = useContext(LanguageContext)
+    const { userLanguage, pageString } = useContext(LanguageContext)
 
     const [modalOpen, setModalOpen] = useState(false)
 
-    const resultLayoutConfig = userLanguage === 'en'
-        ? {
-            1360: 5,
-            1200: 4,
-            768: 3,
-            0: 2
-        }
-        : {
-            1360: 6,
-            1200: 5,
-            768: 4,
-            624: 3,
-            0: 2
-        }
-
-    const MaterialBox = () => {
-        if (!result.items) return <></>
-
-        return (
-            <>
-                {Object.entries(result.items).map((item, idx) => (
-                    <MaterialWrapper
-                        key={idx}
-                        $layoutConfig={resultLayoutConfig}
-                    >
-                        <div>
-                            <MaterialImg
-                                name={`item_${item[0]}.png`}
-                                alt=''
-                            />
-                            {`${itemString.name[item[0]]}`}
-                        </div>
-                        {item[1]}
-                    </MaterialWrapper>
-                ))}
-                <MaterialWrapper
-                    $layoutConfig={resultLayoutConfig}
-                >
-                    <MaterialImg
-                        name='money.png'
-                        alt='money'
-                    />
-                    {result.money}
-                </MaterialWrapper>
-            </>
-        )
-    }
-
-    const PictureSquare = ({
-        children,
-        name,
-        alt
-    }) => (
-        <MaterialWrapper
-            $layoutConfig={resultLayoutConfig}
-        >
-            <div>
-                <OtherImg
-                    name={name}
-                    alt={alt}
-                />
-                {children}
-            </div>
-        </MaterialWrapper>
-    )
-
     return (
-        <FilterPanel widthConfig={widthConfig}>
+        <StyledPanel widthConfig={widthConfig}>
             <div>
-                <ContainerHeader
-                    title={
-                        <IconWrapper>
-                            {ItemIcon}
-                            {pageString.characters.potential.resultDemandTitle}
-                            <HelpIconWrapper
-                                onClick={() => setModalOpen(true)}
-                            >
-                                {HelpIcon}
-                            </HelpIconWrapper>
-                        </IconWrapper>
-                    }
+                <HeaderWithHelp 
+                    titleIcon={ItemIcon}
+                    title={pageString.characters.potential.resultDemandTitle}
+                    handleModalOpen={() => setModalOpen(true)}
                 />
                 <MaterialContainer>
-                    <MaterialBox />
+                    <MaterialBox
+                        result={result}
+                        layoutConfig={resultLayoutConfig[userLanguage]}
+                    />
                 </MaterialContainer>
             </div>
             <div>
@@ -305,18 +345,21 @@ const ResultPanel = ({
                 />
                 <div>
                     <PictureSquare
+                        layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_atk.png'
                         alt='ATK'
                     >
                         {`${result.buff.ATK} %`}
                     </PictureSquare>
                     <PictureSquare
+                        layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_hp.png'
                         alt='HP'
                     >
                         {`${result.buff.HP} %`}
                     </PictureSquare>
                     <PictureSquare
+                        layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_potentialPassive.png'
                         alt='Passive'
                     >
@@ -333,11 +376,67 @@ const ResultPanel = ({
                 handleModalClose={() => setModalOpen(false)}
                 content={pageString.characters.potential.modal}
             />
-        </FilterPanel>
+        </StyledPanel>
     )
 }
 
-const FilterContainer = styled.div`
+export const calcPotential = (char, from, to) => {
+    const result = {
+        items: {},
+        money: 0,
+        buff: {
+            ATK: 0,
+            HP: 0,
+            PASSIVE: 0
+        },
+    }
+    const type = (char === 'nr' || char[0] === '4' || char[0] === '3')
+        ? 3
+        : charData.find(c => c.id === char).potentialType
+
+    const stages = potentialData.type[type]
+    for (let i = from[0] - 1; i < to[0] - 1 + 1; i++) {
+        let stage = stages[i]
+        for (
+            let j = i === from[0] - 1 ? from[1] - 1 : 0;
+            j < (i === to[0] - 1 ? to[1] : 6);
+            j++
+        ) {
+            if (j < 0) continue
+
+            let id = stage.pattern[j] + stage.rank[j]
+            if (result.items[id]) {
+                result.items[id] += stage.num[j]
+            } else {
+                result.items[id] = stage.num[j]
+            }
+            result.money += (i + 1) * 8000
+            let buff = potentialData.itemMap[stage.pattern[j]].type
+            result.buff[buff] += stage.buff[j]
+        }
+    }
+    // parse result
+    let parsedItem = {}
+    for (const [key, value] of Object.entries(result.items)) {
+        let itemId = potentialData.itemMap[key[0]].id.map(id => (
+            key[1] === '9' ? '902'
+                : key[1] === '8' ? '901'
+                    : (parseInt(key[1]) * 100 + id).toString()
+        ))
+        for (let i of itemId) {
+            if (parsedItem[i]) {
+                parsedItem[i] += value
+            } else {
+                parsedItem[i] = value
+            }
+        }
+    }
+
+    result.items = parsedItem
+    return result
+}
+
+const CalculatorContainer = styled.div`
     display: table;
     width: 100%;
     > div {
@@ -349,57 +448,26 @@ const FilterContainer = styled.div`
             display: block; 
         }
     }
-    > div:last-child {
-        @media screen and (max-width: 992px) {
-            width: ${props => props.resultPanelWidthConfig[992]};
-            margin-left: calc(100% - ${props => props.resultPanelWidthConfig[992]});
-            position: relative;
-            margin-top: 1rem;
-        }
-    }
-    > .MuiSnackbar-root {
-        > div {
-            background-color: #ff9800;
-            font-size: medium;
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: center;
-            > .MuiSnackbarContent-action {
-                margin: 0;
-                padding: 0;
-                svg 
-                {
-                    width: 1.4rem;
-                    height: 1.4rem;
-                    fill: #fff;
-                }
-            }
-        }
-    }
 `
 const TableGutter = styled.div`
-    width: 0;
-    padding: .5rem;
+    width: 1rem;
     @media screen and (max-width: 992px) {
-        padding: 0;
+        display: hidden;
     }
 `
 const resultPanelWidthConfig = {
     default: 'calc(75% - 1rem)',
     992: '100%',
 }
-
 export default function CharPotential() {
-    const { pageString, charString } = useContext(LanguageContext)
+    const { pageString } = useContext(LanguageContext)
 
     const [state, setState] = useState({
         character: '101',
-        currStage: '1',
-        currSub: '1',
-        targetStage: '1',
-        targetSub: '1',
-        isValid: true,
-        isSnackbarOpen: false,
+        currStage: 1,
+        currSub: 1,
+        targetStage: 1,
+        targetSub: 1,
         result: {
             items: undefined,
             money: 0,
@@ -412,133 +480,71 @@ export default function CharPotential() {
     })
 
     const handleSelect = (attr) => (event) => {
-        //update state
         let newState = { ...state }
 
         const selected = event.target.value
 
-        newState[attr] = selected
+        newState[attr] = attr === 'character' ? selected : parseInt(selected)
+
+        // validate auto updated values
         if (selected === 'nr') {
-            newState.currStage = parseInt(state.currStage) > 6 ? 1 : state.currStage
-            newState.targetStage = parseInt(state.targetStage) > 6 ? 1 : state.targetStage
-        }
-        newState.isValid =
-            parseInt(newState.targetStage) > parseInt(newState.currStage) ||
-            (parseInt(newState.targetStage) === parseInt(newState.currStage) &&
-                parseInt(newState.targetSub) >= parseInt(newState.currSub))
-        newState.isSnackbarOpen = !newState.isValid
-        if (!newState.isValid) {
-            newState.result = {
-                items: undefined,
-                money: 0,
-                buff: {
-                    ATK: 0,
-                    HP: 0,
-                    PASSIVE: 0
-                },
-            }
-            setState(newState)
-            return
-        }
-        let result = {
-            items: {},
-            money: 0,
-            buff: {
-                ATK: 0,
-                HP: 0,
-                PASSIVE: 0
-            },
-        }
-        // calculate demand
-        let type
-        if (newState.character === 'nr') {
-            type = 3
-        } else {
-            charData.forEach(char => {
-                if (char.id === newState.character) {
-                    type = char.potentialType
-                    return false
-                }
-            })
+            newState.currStage = state.currStage > 6 ? 1 : state.currStage
+            newState.targetStage = state.targetStage > 6 ? 1 : state.targetStage
         }
 
-        const stages = potentialData.type[type]
-        const start = newState.currStage - 1
-        const end = newState.targetStage - 1
-        for (let i = start; i < end + 1; i++) {
-            let stage = stages[i]
-            for (
-                let j = i === start ? newState.currSub - 1 : 0;
-                j < (i === end ? newState.targetSub : 6);
-                j++
-            ) {
-                let id = stage.pattern[j] + stage.rank[j]
-                if (result.items[id]) {
-                    result.items[id] += stage.num[j]
-                } else {
-                    result.items[id] = stage.num[j]
-                }
-                result.money += (i + 1) * 8000
-                let buff = potentialData.itemMap[stage.pattern[j]].type
-                result.buff[buff] += stage.buff[j]
-            }
+        // make sure target is always not smaller than current
+        newState.targetStage = Math.max(newState.targetStage, newState.currStage)
+        if (newState.targetStage === newState.currStage) {
+            newState.targetSub = Math.max(newState.targetSub, newState.currSub)
         }
-        // parse result
-        let parsedItem = {}
-        for (const [key, value] of Object.entries(result.items)) {
-            let itemId = potentialData.itemMap[key[0]].id.map(id => (
-                key[1] === '9' ? '902'
-                    : key[1] === '8' ? '901'
-                        : (parseInt(key[1]) * 100 + id).toString()
-            ))
-            for (let i of itemId) {
-                if (parsedItem[i]) {
-                    parsedItem[i] += value
-                } else {
-                    parsedItem[i] = value
-                }
-            }
-        }
-        result.items = parsedItem
+
+        const result = calcPotential(
+            newState.character,
+            [newState.currStage, newState.currSub],
+            [newState.targetStage, newState.targetSub]
+        )
+
         result.buff.ATK = Math.round(result.buff.ATK * 100) / 100
         result.buff.HP = Math.round(result.buff.HP * 100) / 100
+
         newState.result = result
         setState(newState)
     }
 
-    const stages = [...Array(state.character === 'nr' ? 7 : 13).keys()]
-        .slice(1).map(i => <option value={i} key={i}>{i}</option>)
-
-    const handleSnackbarClose = () => setState((state) => ({
-        ...state,
-        isSnackbarOpen: false
-    }))
+    const maxStage = state.character === 'nr' ? 6 : 12
 
     return (
-        <FilterContainer
+        <CalculatorContainer
             resultPanelWidthConfig={resultPanelWidthConfig}
         >
-            <Snackbar
-                open={state.isSnackbarOpen}
-                autoHideDuration={3000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                message={pageString.characters.potential.snackbarMsg}
-                action={AlertIcon}
-            />
-            <SelectPanel
+            <CharSelectPanel
                 handleSelect={handleSelect}
-                stages={stages}
                 character={state.character}
-            />
+                lumpNRChars
+            >
+                <Gutter />
+                <TwoStageForm
+                    title={pageString.characters.potential.currentSelectTitle}
+                    subMinNum={1}
+                    minNum={1}
+                    maxNum={maxStage}
+                    selectAttrs={['currStage', 'currSub']}
+                    handleSelect={handleSelect}
+                />
+                <TwoStageForm
+                    title={pageString.characters.potential.targetSelectTitle}
+                    subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
+                    minNum={state.currStage}
+                    maxNum={maxStage}
+                    selectAttrs={['targetStage', 'targetSub']}
+                    handleSelect={handleSelect}
+                />
+            </CharSelectPanel>
             <TableGutter />
             <ResultPanel
                 widthConfig={resultPanelWidthConfig}
                 result={state.result}
             />
-        </FilterContainer>
+        </CalculatorContainer>
     )
 }
