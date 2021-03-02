@@ -41,7 +41,6 @@ const ItemCardHeader = ({
         >
             <ItemImg
                 name={`item_${id}.png`}
-                isBackground={false}
                 alt=''
             />
             <StyledHeader>
@@ -81,7 +80,6 @@ const CardBodyContnet = (props) => {
                     <EnergyTd>
                         <EnergyImg
                             name='energy.png'
-                            isBackground={false}
                             alt={pageString.items.drop.filter.tableHead[2]}
                         />
                         {drop.energy}
@@ -127,7 +125,6 @@ const ItemCard = (props) => {
         <ItemAccordion
             expanded={isExpanded}
             onChange={() => setExpanded(!isExpanded)}
-            square={false}
             title={props.header}
             content={props.body}
         />
@@ -210,7 +207,7 @@ const ItemMasonry = () => {
                         />
                     }
                     body={
-                        <CardTable striped={true}>
+                        <CardTable striped>
                             <CardBodyContnet
                                 drop={entry[1].drop}
                             />
@@ -253,7 +250,9 @@ const ItemsContainer = styled.div`
     }
 `
 const StyledBadge = styled(Badge)`
-    background-color: lightgray;
+    background-color: ${props => props.$rarity === 0 ? 'lightgray'
+        : props.$rarity === 1 ? '#90CAF9'
+            : props.$rarity === 2 ? '#A5D6A7' : '#FFAB91'};
     color: black;
     margin-left: .4rem;
 `
@@ -299,7 +298,7 @@ const TableContent = (props) => {
                                 : items.map((item, i) => (
                                     <ItemWrapper key={i}>
                                         <ItemCardHeader id={item.id} />
-                                        <StyledBadge pill>
+                                        <StyledBadge pill $rarity={item.rarity}>
                                             {itemString.rarity[item.rarity]}
                                         </StyledBadge>
                                     </ItemWrapper>
@@ -375,7 +374,7 @@ const ItemTable = () => {
                 sortFunc={sortFunc}
                 defaultSortKey={'stage'}
                 result={stageDropData}
-                border={true}
+                border
             >
                 <TableContent />
             </SortableTable>
