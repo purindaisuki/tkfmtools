@@ -87,7 +87,7 @@
         "body": "Body size",
         "oppai": "Oppai",
         "rank": "Rank",
-        "else": "Else tags"
+        "else": "Else"
     },
     "tagWarnMsg": "Not available from recruitment"
 }
