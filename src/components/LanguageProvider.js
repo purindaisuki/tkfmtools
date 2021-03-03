@@ -47,31 +47,6 @@ export default function LanguageProvider({ children, pageContext }) {
         }
     }, [])
 
-    // redirect user to their locale page
-    useEffect(() => {
-        if (
-            pageContext.lang !== defaultLanguage ||
-            userLanguage === defaultLanguage
-        ) {
-            return
-        }
-
-        const path = window.location.pathname
-        if (
-            !path.match(`${userLanguage}$`) &&
-            !path.includes(`${userLanguage}/`)
-        ) {
-            const pathArray = path.split('/')
-            if (__PATH_PREFIX__) {
-                pathArray.splice(1, 1, userLanguage)
-            } else {
-                pathArray.splice(1, 0, userLanguage)
-            }
-            const to = pathArray.join('/')
-            navigate(to, { replace: true })
-        }
-    }, [userLanguage])
-
     const provider = {
         userLanguage: pageContext.lang,
         isDefault: pageContext.lang === defaultLanguage,
