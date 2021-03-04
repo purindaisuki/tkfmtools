@@ -630,7 +630,7 @@
             "race": 11,
             "body": 14,
             "oppai": 16,
-            "rank": "",
+            "rank": 18,
             "else": [
                 21
             ],
@@ -736,7 +736,7 @@
             "race": 10,
             "body": 14,
             "oppai": 16,
-            "rank": "",
+            "rank": 18,
             "else": [
                 22,
                 23,
