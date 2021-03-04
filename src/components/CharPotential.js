@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Col, Form } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel, HelpModal } from '../components/FilterComponents';
+import { ContainerHeader, FilterPanel } from '../components/FilterComponents';
 import ImageSupplier from './ImageSupplier';
+import { TextModal } from './MyModal';
 import charData from '../gamedata/character.json';
 import potentialData from '../gamedata/potential.json';
 import { LanguageContext } from './LanguageProvider';
@@ -313,19 +314,18 @@ const resultLayoutConfig = {
 
 const ResultPanel = ({
     widthConfig,
-    result
+    result,
+    handleModalOpen
 }) => {
     const { userLanguage, pageString } = useContext(LanguageContext)
-
-    const [modalOpen, setModalOpen] = useState(false)
 
     return (
         <StyledPanel widthConfig={widthConfig}>
             <div>
-                <HeaderWithHelp 
+                <HeaderWithHelp
                     titleIcon={ItemIcon}
                     title={pageString.characters.potential.resultDemandTitle}
-                    handleModalOpen={() => setModalOpen(true)}
+                    handleModalOpen={handleModalOpen}
                 />
                 <MaterialContainer>
                     <MaterialBox
@@ -371,11 +371,6 @@ const ResultPanel = ({
                     </PictureSquare>
                 </div>
             </div>
-            <HelpModal
-                modalOpen={modalOpen}
-                handleModalClose={() => setModalOpen(false)}
-                content={pageString.characters.potential.modal}
-            />
         </StyledPanel>
     )
 }
@@ -477,6 +472,7 @@ export default function CharPotential() {
                 PASSIVE: 0
             },
         },
+        isHelpModalOpen: false,
     })
 
     const handleSelect = (attr) => (event) => {
@@ -513,38 +509,56 @@ export default function CharPotential() {
 
     const maxStage = state.character === 'nr' ? 6 : 12
 
+    const handelHelpModal = (boolean) => () => {
+        setState((state) => ({
+            ...state,
+            isHelpModalOpen: boolean,
+        }))
+    }
+
     return (
-        <CalculatorContainer
-            resultPanelWidthConfig={resultPanelWidthConfig}
-        >
-            <CharSelectPanel
-                handleSelect={handleSelect}
-                character={state.character}
-                lumpNRChars
+        <>
+            <CalculatorContainer
+                resultPanelWidthConfig={resultPanelWidthConfig}
             >
-                <Gutter />
-                <TwoStageForm
-                    title={pageString.characters.potential.currentSelectTitle}
-                    subMinNum={1}
-                    minNum={1}
-                    maxNum={maxStage}
-                    selectAttrs={['currStage', 'currSub']}
+                <CharSelectPanel
                     handleSelect={handleSelect}
+                    character={state.character}
+                    lumpNRChars
+                >
+                    <Gutter />
+                    <TwoStageForm
+                        title={pageString.characters.potential.currentSelectTitle}
+                        subMinNum={1}
+                        minNum={1}
+                        maxNum={maxStage}
+                        selectAttrs={['currStage', 'currSub']}
+                        handleSelect={handleSelect}
+                    />
+                    <TwoStageForm
+                        title={pageString.characters.potential.targetSelectTitle}
+                        subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
+                        minNum={state.currStage}
+                        maxNum={maxStage}
+                        selectAttrs={['targetStage', 'targetSub']}
+                        handleSelect={handleSelect}
+                    />
+                </CharSelectPanel>
+                <TableGutter />
+                <ResultPanel
+                    widthConfig={resultPanelWidthConfig}
+                    result={state.result}
+                    handleModalOpen={handelHelpModal(true)}
                 />
-                <TwoStageForm
-                    title={pageString.characters.potential.targetSelectTitle}
-                    subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
-                    minNum={state.currStage}
-                    maxNum={maxStage}
-                    selectAttrs={['targetStage', 'targetSub']}
-                    handleSelect={handleSelect}
-                />
-            </CharSelectPanel>
-            <TableGutter />
-            <ResultPanel
-                widthConfig={resultPanelWidthConfig}
-                result={state.result}
+            </CalculatorContainer>
+            <TextModal
+                title={pageString.characters.potential.helpModal.title}
+                open={state.isHelpModalOpen}
+                onClose={handelHelpModal(false)}
+                content={pageString.characters.potential.helpModal.content}
+                ariaLabelledby="help-modal-title"
+                ariaDescribedby="help-modal-description"
             />
-        </CalculatorContainer>
+        </>
     )
 }

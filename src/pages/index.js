@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from '../components/Head';
-import { ModalContainer } from '../components/FilterComponents';
 import { LogMsg } from '../components/SiteAccordionBody';
 import MyAccordion from '../components/MyAccordion';
 import {
@@ -9,28 +8,20 @@ import {
     SiteUpdateLog,
     SiteLicense
 } from '../components/SiteAccordionBody';
+import {FitHeightModal} from '../components/MyModal';
 import { LanguageContext } from '../components/LanguageProvider';
 import { ExpandMoreIcon, NoteIcon } from '../components/icon';
 
-const StyledModalContainer = styled(ModalContainer)`
+const MsgModal = styled(FitHeightModal)`
     > div:nth-child(3) {
         width: 40%;
+        top: 20%;
+        min-height: max-content;
         min-width: max-content;
-        left: 0;
-        right: 0;
-        top: 25%;
-        margin: auto;
     }
-`
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
 `
 const ModalBody = styled.div`
     margin: 0;
-    margin-top: .5rem;
     &&& .MuiAccordion-root,
     &&& .MuiAccordionSummary-root {
         border: none;
@@ -45,18 +36,13 @@ const UpdateModal = ({
     const latestMsg = pageString.index.updateLog.content[0]
 
     return (
-        <StyledModalContainer
+        <MsgModal
+            title={`${pageString.index.helmet.title} ${latestMsg.version}`}
             open={modalOpen}
             onClose={onClose}
-            aria-labelledby="update-modal-title"
-            aria-describedby="update-modal-description"
+            ariaLabelledby="update-modal-title"
+            ariaDescribedby="update-modal-description"
         >
-            <ModalHeader>
-                <span>
-                    {`${pageString.index.helmet.title} ${latestMsg.version}`}
-                </span>
-                <span onClick={onClose}>&times;</span>
-            </ModalHeader>
             <ModalBody>
                 {latestMsg.content.map((msg, idx) => (
                     <LogMsg
@@ -66,7 +52,7 @@ const UpdateModal = ({
                     />
                 ))}
             </ModalBody>
-        </StyledModalContainer>
+        </MsgModal>
     )
 }
 
@@ -254,6 +240,8 @@ export default () => {
             <UpdateModal
                 modalOpen={state.modalOpen}
                 onClose={handleModalClose}
+                ariaLabelledby="latest-update-modal-title"
+                ariaDescribedby="latest-update-modal-description"
             />
         </>
     )

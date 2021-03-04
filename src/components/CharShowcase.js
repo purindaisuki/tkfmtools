@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { IconButton } from '@material-ui/core';
 import SwitchableShowcase from './SwitchableShowcase';
+import MyIconButton from './MyIconButton';
 import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
-import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
+import { SortableTable, SortableTh } from './FilterComponents';
+import ScrollableContainer from './ScrollableContainer';
 import ImageSupplier from './ImageSupplier';
 import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
@@ -213,39 +214,24 @@ const LayoutBtnContainer = styled.div`
         font-size: 0;
     }
 `
-const StyledBtn = styled(IconButton)`
-    padding: .75rem .5rem;
-    svg {
-        width: 1.6rem;
-        height: 1.6rem;
-        fill: ${props => (
-        props.$active
-            ? props.theme.colors.secondary
-            : props.theme.colors.onSurface
-    )};
-    }
-    &:hover svg {
-        fill: ${props => props.theme.colors.secondary};
-    }
-`
 const LayoutSwitcher = (props) => {
     const { pageString } = useContext(LanguageContext)
 
     return (
         <LayoutBtnContainer>
             {pageString.enlist.index.layout}
-            <StyledBtn
+            <MyIconButton
                 $active={props.layout === 'Masonry'}
                 onClick={props.handleLayoutChange('Masonry')}
             >
                 {MasonryViewIcon}
-            </StyledBtn>
-            <StyledBtn
+            </MyIconButton>
+            <MyIconButton
                 $active={props.layout === 'Table'}
                 onClick={props.handleLayoutChange('Table')}
             >
                 {TableViewIcon}
-            </StyledBtn>
+            </MyIconButton>
         </LayoutBtnContainer>
     )
 }
@@ -419,15 +405,17 @@ const TableContent = (props) => {
     )
 }
 
-const CharTableWrapper = styled(TableWrapper)`
+const CharTableWrapper = styled(ScrollableContainer)`
     overflow-x: auto;
     height: calc(100vh - 12rem);
+    padding-right: 0;
+    margin-right: 0;
 `
 const CharTable = () => {
     const { charString } = useContext(LanguageContext)
 
     const charTagData = charData.map((char => {
-        const { id, rarity, tags, ...rest } = char
+        const { id, rarity, tags } = char
         return ({ id, rarity, ...tags })
     }))
 

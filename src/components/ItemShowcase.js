@@ -6,7 +6,8 @@ import SwitchableShowcase from './SwitchableShowcase';
 import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
 import CardTable from './CardTable';
-import { SortableTable, SortableTh, TableWrapper } from './FilterComponents';
+import { SortableTable, SortableTh } from './FilterComponents';
+import ScrollableContainer from './ScrollableContainer';
 import ImageSupplier from './ImageSupplier';
 import itemDropData from '../gamedata/byStageToItem';
 import stageDropData from '../gamedata/stageDrop.json';
@@ -330,9 +331,11 @@ const TableContent = (props) => {
     )
 }
 
-const ItemTableWrapper = styled(TableWrapper)`
+const ItemTableWrapper = styled(ScrollableContainer)`
     overflow-x: auto;
     height: calc(100vh - 14.2rem);
+    padding-right: 0;
+    margin-right: 0;
     @media screen and (min-width: 410px) {
         height: calc(100vh - 10.9rem);
     }

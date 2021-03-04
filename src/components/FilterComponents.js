@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Backdrop, Fade, Modal } from '@material-ui/core';
 import { Table } from 'react-bootstrap';
+import { HeaderIconButton } from './MyIconButton';
 import { LanguageContext } from './LanguageProvider';
 import { HelpIcon } from './icon';
 
@@ -12,19 +12,24 @@ const StyledContainerHeader = styled.div`
     font-weight: normal;
     justify-content: space-between;
     margin-bottom: 1rem;
-    padding-bottom: .4rem;
     border-bottom: solid 1px ${props => props.theme.colors.border};
     color: ${props => props.theme.colors.onSurface};
     > div {
         display: flex;
         align-items: center;
+        > span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
     }
 `
 export const ContainerHeader = ({
+    className,
     title,
     end
 }) => (
-    <StyledContainerHeader>
+    <StyledContainerHeader className={className}>
         {title}
         {end}
     </StyledContainerHeader>
@@ -56,124 +61,6 @@ export const FilterPanel = ({
     >
         {children}
     </StyledFilterPanel>
-)
-
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
-const ModalBody = styled.div`
-    margin: 1rem 0;
-`
-const HelpModalContent = ({
-    handleModalClose,
-    content
-}) => (
-    content.map((item, idx) => {
-        const CloseBtn = () => idx === 0
-            ? <span onClick={handleModalClose}>&times;</span>
-            : null
-        return (
-            <React.Fragment key={idx}>
-                <ModalHeader>
-                    <span>{item.title}</span>
-                    <CloseBtn />
-                </ModalHeader>
-                <ModalBody>
-                    {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
-                </ModalBody>
-            </React.Fragment>
-        )
-    })
-)
-
-const StyledModalContainer = styled.div`
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    position: absolute;
-    width: 70%;
-    left: 15%;
-    top: 10%;
-    @media screen and (max-width: 992px) {
-        width: 80%;
-        left: 10%;
-    }
-    @media screen and (max-width: 768px) {
-        width: 90%;
-        left: 5%;
-        top: 5%;
-    }
-    padding: 1rem;
-    border-radius: .25rem;
-    border: 1px solid ${props => props.theme.colors.border};
-    > div > div:first-child > span:last-child {
-        font-size: x-large;
-        cursor: pointer;
-    }
-`
-const ModalContentWrapper = styled.div`
-    overflow: auto;
-    max-height: calc(80vh - 2rem);
-    scrollbar-width: thin;
-    padding-right: .5rem;
-    margin-right: -.5rem;
-    &::-webkit-scrollbar {
-        width: .4rem;
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-thumb {
-        background: ${props => props.theme.colors.border};
-        border-radius: .25rem;
-    }
-    &::-webkit-scrollbar-track {
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-corner {
-        background: ${props => props.theme.colors.surface};
-    }
-`
-export const ModalContainer = ({
-    children,
-    className,
-    open,
-    onClose
-}) => (
-    <Modal
-        className={className}
-        open={open}
-        onClose={onClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500 }}
-    >
-        <Fade in={open}>
-            <StyledModalContainer>
-                <ModalContentWrapper>
-                    {children}
-                </ModalContentWrapper>
-            </StyledModalContainer>
-        </Fade>
-    </Modal>
-)
-
-export const HelpModal = ({
-    content,
-    modalOpen,
-    handleModalClose,
-}) => (
-    <ModalContainer
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="help-modal-title"
-        aria-describedby="help-modal-description"
-    >
-        <HelpModalContent
-            content={content}
-            handleModalClose={handleModalClose}
-        />
-    </ModalContainer>
 )
 
 export const SortableTh = styled.th`
@@ -312,7 +199,7 @@ const ResultTableContainer = styled.div`
         margin-top: 1rem;
     }
 `
-export const TableWrapper = styled.div`
+const TableWrapper = styled.div`
     height: calc(100% - 1.4rem - 1.5rem);
     overflow-x: hidden;
     overflow-y: auto;
@@ -341,25 +228,16 @@ const StyledSortableTable = styled(SortableTable)`
         padding-left: .75rem;
     }
 `
-const IconWrapper = styled.div`
-    svg {
-        fill: ${props => props.theme.colors.secondary};
-        width: 1.4rem;
-        height: 1.4rem;
-        margin-left: .4rem;
-        cursor: pointer;
-        vertical-align: top;
-    }
+const TitleWrapper = styled.div`
+    display: flex;
+    align-items: center;
 `
 export function ResultTable({
     children,
     result,
     sortFunc,
     defaultSortKey,
-    modalOpen,
     handleModalOpen,
-    handleModalClose,
-    modalContent,
     widthConfig,
     striped,
 }) {
@@ -369,12 +247,16 @@ export function ResultTable({
         <ResultTableContainer widthConfig={widthConfig}>
             <ContainerHeader
                 title={
-                    <div>
-                        {pageString.items.drop.filter.resultTitle}
-                        <IconWrapper onClick={handleModalOpen}>
+                    <TitleWrapper>
+                        <span>
+                            {pageString.items.drop.filter.resultTitle}
+                        </span>
+                        <HeaderIconButton
+                            onClick={handleModalOpen}
+                        >
                             {HelpIcon}
-                        </IconWrapper>
-                    </div>
+                        </HeaderIconButton>
+                    </TitleWrapper>
                 }
             />
             <TableWrapper>
@@ -387,12 +269,6 @@ export function ResultTable({
                     {children}
                 </StyledSortableTable>
             </TableWrapper>
-            <HelpModal
-                modalOpen={modalOpen}
-                handleModalClose={handleModalClose}
-                content={modalContent}
-            >
-            </HelpModal>
         </ResultTableContainer>
     )
 }

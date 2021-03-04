@@ -1,20 +1,15 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import { HeaderIconButton } from './MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import ImageSupplier from './ImageSupplier';
+import { TextModal } from './MyModal';
 import itemDropData from '../gamedata/byStageToItem';
 import stageDropData from '../gamedata/stageDrop.json';
 import { LanguageContext } from './LanguageProvider';
-import { ClearIcon } from './icon';
+import { DeleteIcon } from './icon';
 
-const ClearIconWrapper = styled.div`
-    cursor: pointer;
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-    }
-`
 const StyledToggleButton = styled(MyToggleButton)`
     display: flex;
     justify-content: center;
@@ -25,7 +20,11 @@ const ItemImg = styled(ImageSupplier)`
     width: 2.26rem; 
     height: 2.26rem;
 `
-const ItemFilterPanel = (props) => {
+const ItemFilterPanel = ({
+    filterBtnValue,
+    filterBy,
+    clearBtnValue
+}) => {
     const { userLanguage, pageString, itemString } = useContext(LanguageContext)
 
     const widthConfig = {
@@ -34,15 +33,15 @@ const ItemFilterPanel = (props) => {
         992: '100%',
     }
 
-    const btnLayoutConfig = userLanguage === 'en'
-        ? {
+    const btnLayoutConfig = {
+        'en': {
             1360: 4,
             992: 3,
             768: 4,
             624: 3,
             0: 2
-        }
-        : {
+        },
+        'zh-TW': {
             1360: 5,
             992: 4,
             768: 5,
@@ -50,24 +49,25 @@ const ItemFilterPanel = (props) => {
             410: 3,
             0: 2,
         }
+    }
 
     return (
         <FilterPanel widthConfig={widthConfig}>
             <ContainerHeader
                 title={pageString.items.drop.filter.itemPanelTitle}
                 end={
-                    <ClearIconWrapper
-                        onClick={() => props.filterBy([])}
+                    <HeaderIconButton
+                        onClick={clearBtnValue}
                     >
-                        {ClearIcon}
-                    </ClearIconWrapper>
+                        {DeleteIcon}
+                    </HeaderIconButton>
                 }
             />
             <MyToggleButtonGroup
                 type='checkbox'
-                value={props.filterBtnValue}
-                onChange={props.filterBy}
-                layoutConfig={btnLayoutConfig}
+                value={filterBtnValue}
+                onChange={filterBy}
+                layoutConfig={btnLayoutConfig[userLanguage]}
             >
                 {Object.entries(itemDropData).map((entry, idx) => {
                     if (entry[1].drop.length === 0) return true
@@ -200,16 +200,16 @@ export default function ItemFilter() {
     const [state, setState] = useState({
         filterBtnValue: [],
         result: [],
+        isHelpModalOpen: false,
     })
-
-    const [modalOpen, setModalOpen] = useState(false)
 
     const filterBy = (val) => {
         if (val.length === 0) {
-            setState({
+            setState((state) => ({
+                ...state,
                 filterBtnValue: val,
                 result: [],
-            })
+            }))
             return;
         }
 
@@ -242,10 +242,11 @@ export default function ItemFilter() {
             return newStage
         })
 
-        setState({
+        setState((state) => ({
+            ...state,
             filterBtnValue: val,
             result: filteredStages,
-        })
+        }))
     }
 
     const sortFunc = (sortableItems, sortConfig) => {
@@ -280,6 +281,13 @@ export default function ItemFilter() {
         })
     }
 
+    const handelHelpModal = (boolean) => () => {
+        setState((state) => ({
+            ...state,
+            isHelpModalOpen: boolean,
+        }))
+    }
+
     const tableWidthConfig = {
         default: 'calc(40% - 1rem)',
         1360: 'calc(38% - 1rem)',
@@ -291,20 +299,26 @@ export default function ItemFilter() {
             <ItemFilterPanel
                 filterBtnValue={state.filterBtnValue}
                 filterBy={filterBy}
+                clearBtnValue={() => filterBy([])}
             />
             <ResultTable
                 result={state.result}
                 sortFunc={sortFunc}
                 defaultSortKey={state.filterBtnValue[0]}
-                modalOpen={modalOpen}
-                handleModalOpen={() => setModalOpen(true)}
-                handleModalClose={() => setModalOpen(false)}
-                modalContent={pageString.items.drop.filter.modal}
+                handleModalOpen={handelHelpModal(true)}
                 widthConfig={tableWidthConfig}
                 striped
             >
                 <TableContent />
             </ResultTable>
+            <TextModal
+                title={pageString.items.drop.filter.helpModal.title}
+                open={state.isHelpModalOpen}
+                onClose={handelHelpModal(false)}
+                content={pageString.items.drop.filter.helpModal.content}
+                ariaLabelledby="help-modal-title"
+                ariaDescribedby="help-modal-description"
+            />
         </FilterContainer>
     )
 }

@@ -9,7 +9,8 @@ import {
     Select,
     TwoStageForm
 } from './CharPotential';
-import { FilterPanel, HelpModal } from './FilterComponents';
+import { FilterPanel } from './FilterComponents';
+import { TextModal } from './MyModal';
 import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import { AttackIcon, HpIcon } from './icon';
@@ -115,10 +116,13 @@ const ResultPanel = ({
                     {HpIcon}{`HP: ${result.HP}`}
                 </StatusWrapper>
             </BodyContainer>
-            <HelpModal
-                modalOpen={modalOpen}
-                handleModalClose={() => setModalOpen(false)}
-                content={pageString.characters.stats.modal}
+            <TextModal
+                title={pageString.characters.stats.helpModal.title}
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                content={pageString.characters.stats.helpModal.content}
+                ariaLabelledby="help-modal-title"
+                ariaDescribedby="help-modal-description"
             />
         </StyledPanel>
     )
