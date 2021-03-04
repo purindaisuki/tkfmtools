@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
 import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import { HeaderIconButton } from './MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import { CharCardHeader } from './CharShowcase';
+import MyModal, { TextModal } from './MyModal';
+import MyRadioGroup, { MyRadio } from './MyRadioGroup';
 import './tooltip.css';
 import tagData from '../gamedata/tag.json';
 import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import {
-    ClearIcon,
+    DeleteIcon,
     TagIcon,
     ClockIcon,
     AttributeIcon,
@@ -21,8 +24,68 @@ import {
     RankIcon,
     ElseIcon,
     StarIcon,
-    AlertIcon
+    AlertIcon,
+    SettingIcon
 } from './icon';
+
+const StyledToggleButton = styled(MyToggleButton)`
+    &&&&& {
+        border: none;
+        padding: .5rem 0;
+        white-space: nowrap;
+    }
+    svg {
+        width: 1.6rem;
+        height: 1.4rem;
+        margin-right: 1rem;
+        vertical-align: middle;
+        fill: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.secondary};
+    }
+    &.active > svg {
+        fill: ${props => props.theme.colors.onSecondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
+`
+const TagButtonGroup = ({
+    value,
+    onChange,
+    layoutConfig,
+    groupRange
+}) => {
+    const { charString } = useContext(LanguageContext)
+
+    const attrIcons = {
+        attribute: AttributeIcon,
+        position: PositionIcon,
+        race: RaceIcon,
+        body: BodysizeIcon,
+        oppai: OppaiIcon,
+        rank: RankIcon,
+        else: ElseIcon
+    }
+
+    return (
+        <MyToggleButtonGroup
+            type='checkbox'
+            value={value}
+            onChange={onChange}
+            layoutConfig={layoutConfig}
+        >
+            {tagData.slice(groupRange[0], groupRange[1]).map(t =>
+                [...Array(t.range[1]).keys()].slice(t.range[0]).map(id => (
+                    <StyledToggleButton
+                        value={id}
+                        key={id}
+                    >
+                        {attrIcons[t.type]}
+                        {charString.tags[id]}
+                    </StyledToggleButton>
+                ))
+            )}
+        </MyToggleButtonGroup>
+    )
+}
 
 const BtnGroupWrapper = styled.div`
     position: relative;
@@ -41,82 +104,54 @@ const StyledBadge = styled(Badge)`
     background-color: brown;
     color: white;
 `
-const StyledToggleButton = styled(MyToggleButton)`
-    &&&&& {
-        border: none;
-        padding: .5rem .15rem;
-        white-space: nowrap;
-    }
-    svg {
-        width: 1.6rem;
-        height: 1.4rem;
-        margin-right: 1rem;
-        vertical-align: middle;
-        fill: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.secondary};
-    }
-    &.active > svg {
-        fill: ${props => props.theme.colors.onSecondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-`
-const TagBtnGroup = ({
+const TagPanel = ({
     filterBtnValue,
     handleBtnGroupChange,
+    groupBtnByClass
 }) => {
     const { userLanguage, charString } = useContext(LanguageContext)
 
-    const attrIcons = {
-        attribute: AttributeIcon,
-        position: PositionIcon,
-        race: RaceIcon,
-        body: BodysizeIcon,
-        oppai: OppaiIcon,
-        rank: RankIcon,
-        else: ElseIcon
-    }
-
-    const btnLayoutConfig = userLanguage === 'en'
-        ? {
+    const btnLayoutConfig = {
+        'en': {
             1200: 6,
             990: 5,
             800: 4,
             550: 3,
             0: 2
-        }
-        : {
+        },
+        'zh-TW': {
             800: 6,
             680: 5,
             550: 4,
-            390: 3,
+            355: 3,
             0: 2
         }
+    }
 
     return (
         <div>
-            {Object.entries(tagData).map((entry, idx) => (
-                <BtnGroupWrapper key={idx}>
-                    <StyledBadge pill variant='danger'>
-                        {charString.tagAttributes[entry[0]]}
-                    </StyledBadge>
-                    <MyToggleButtonGroup
-                        type='checkbox'
-                        value={filterBtnValue.filter(v => entry[1].includes(v))}
-                        onChange={handleBtnGroupChange(idx)}
-                        layoutConfig={btnLayoutConfig}
-                    >
-                        {entry[1].map((tag, idx) => (
-                            <StyledToggleButton
-                                value={tag}
-                                key={idx}
-                            >
-                                {attrIcons[entry[0]]}
-                                {charString.tags[tag]}
-                            </StyledToggleButton>
-                        ))}
-                    </MyToggleButtonGroup>
-                </BtnGroupWrapper>
-            ))}
+            {groupBtnByClass
+                ? tagData.map((t, idx) => (
+                    <BtnGroupWrapper key={idx}>
+                        <StyledBadge pill variant='danger'>
+                            {charString.tagAttributes[t.type]}
+                        </StyledBadge>
+                        <TagButtonGroup
+                            value={filterBtnValue.filter(v => v >= t.range[0] && v < t.range[1])}
+                            onChange={handleBtnGroupChange(idx)}
+                            layoutConfig={btnLayoutConfig[userLanguage]}
+                            groupRange={[idx, idx + 1]}
+                        />
+                    </BtnGroupWrapper>
+                ))
+                : <BtnGroupWrapper>
+                    <TagButtonGroup
+                        value={filterBtnValue}
+                        onChange={handleBtnGroupChange()}
+                        layoutConfig={btnLayoutConfig[userLanguage]}
+                        groupRange={[0, 7]}
+                    />
+                </BtnGroupWrapper>}
         </div>
     )
 }
@@ -129,6 +164,9 @@ const StyledFilterPanel = styled(FilterPanel)`
         margin-top: .5rem;
     }
 `
+const StyledHeader = styled(ContainerHeader)`
+    padding-bottom: 0;
+`
 const IconWrapper = styled.div`
     svg {
         width: 1.2rem;
@@ -137,12 +175,6 @@ const IconWrapper = styled.div`
         margin-bottom: .2rem;
         fill: ${props => props.theme.colors.onSurface};
         color: ${props => props.theme.colors.onSurface};
-    }
-`
-const ClearIconWrapper = styled(IconWrapper)`
-    cursor: pointer;
-    svg {
-        margin: 0;
     }
 `
 const Select = styled(Form.Control)`
@@ -160,6 +192,8 @@ const CharFilterPanel = ({
     filterBtnValue,
     handleBtnGroupChange,
     handleEnlistHourChange,
+    handleModalOpen,
+    groupBtnByClass
 }) => {
     const { pageString } = useContext(LanguageContext)
 
@@ -169,7 +203,7 @@ const CharFilterPanel = ({
 
     return (
         <StyledFilterPanel widthConfig={widthConfig}>
-            <ContainerHeader
+            <StyledHeader
                 title={
                     <div>
                         <IconWrapper>
@@ -179,16 +213,24 @@ const CharFilterPanel = ({
                     </div>
                 }
                 end={
-                    <ClearIconWrapper
-                        onClick={clearBtnValue}
-                    >
-                        {ClearIcon}
-                    </ClearIconWrapper>
+                    <div>
+                        <HeaderIconButton
+                            onClick={clearBtnValue}
+                        >
+                            {DeleteIcon}
+                        </HeaderIconButton>
+                        <HeaderIconButton
+                            onClick={handleModalOpen}
+                        >
+                            {SettingIcon}
+                        </HeaderIconButton>
+                    </div>
                 }
             />
-            <TagBtnGroup
+            <TagPanel
                 filterBtnValue={filterBtnValue}
                 handleBtnGroupChange={handleBtnGroupChange}
+                groupBtnByClass={groupBtnByClass}
             />
             <ContainerHeader
                 title={
@@ -340,6 +382,46 @@ function TableContent(props) {
     )
 }
 
+const StyledModal = styled(MyModal)`
+    > div:nth-child(3) {
+        width: 30%;
+        min-width: max-content;
+        height: 20%;
+        > div {
+            max-height: calc(80vh - 2rem);
+        }
+    }
+`
+const SettingModal = ({
+    open,
+    onClose,
+    radioValue,
+    handleRadioChange
+}) => {
+    const { pageString } = useContext(LanguageContext)
+
+    return (
+        <StyledModal
+            title={pageString.enlist.filter.settingModal.title}
+            open={open}
+            onClose={onClose}
+            ariaLabelledby='setting-modal-title'
+            ariaDescribedby='setting-modal-description'
+        >
+            <MyRadioGroup
+                label={pageString.enlist.filter.settingModal.groupLabel}
+                value={radioValue}
+                handleChange={handleRadioChange}
+            >
+                {pageString.enlist.filter.settingModal
+                    .labels.map((label, idx) => (
+                        <MyRadio label={label} value={label} key={idx} />
+                    ))}
+            </MyRadioGroup>
+        </StyledModal>
+    )
+}
+
 const StyledSnackbar = styled(Snackbar)`
     > div {
         display: flex;
@@ -379,7 +461,8 @@ const MySnackbar = ({
 
 const FilterContainer = styled.div`
     display: block;
-    > div {
+    > div:first-child,
+    > div:nth-child(2) {
         display: block;
         position: relative;
         margin: auto;
@@ -388,11 +471,15 @@ const FilterContainer = styled.div`
 `
 export default function CharFilter() {
     const { pageString, charString } = useContext(LanguageContext)
+    const btnsSettingLabels = pageString.enlist.filter.settingModal.labels
 
     const [state, setState] = useState({
         filterBtnValue: [],
         characters: [],
         enlistHour: '9',
+        isHelpModalOpen: false,
+        isSettingModalOpen: false,
+        radioValue: btnsSettingLabels[1],
         isSnackbarOpen: false,
     })
 
@@ -443,19 +530,17 @@ export default function CharFilter() {
                 }
                 // filter by tags
                 let appliedTagsNum = 0
-                Object.entries(tagData).forEach(entry => {
+                tagData.forEach(t => {
                     if (appliedTagsNum === tags.length || survivors.length === 0) {
                         return false
                     }
 
-                    entry[1].forEach(idx => {
-                        if (tags.includes(idx)) {
+                    [...Array(t.range[1]).keys()].slice(t.range[0]).forEach(id => {
+                        if (tags.includes(id)) {
                             appliedTagsNum++
-                            if (idx < 21) {
-                                survivors = survivors.filter(c => c[entry[0]] === idx)
-                            } else {
-                                survivors = survivors.filter(c => c[entry[0]].includes(idx))
-                            }
+                            survivors = id < 21
+                                ? survivors.filter(c => c[t.type] === id)
+                                : survivors.filter(c => c[t.type].includes(id))
                         }
                     })
                 })
@@ -560,12 +645,19 @@ export default function CharFilter() {
         })
     }
 
-    const handleBtnGroupChange = (gropuIdx) => (val) => {
-        const groupValues = Object.keys(tagData)
-            .map(attr => state.filterBtnValue.filter(v => tagData[attr].includes(v)))
-        groupValues[gropuIdx] = val
-        const destructValues = [].concat(...groupValues)
-        if (destructValues.length > 5) {
+    const handleBtnGroupChange = (groupIdx) => (val) => {
+        let newValue
+        if (groupIdx) {
+            const groupValues = tagData.map(t =>
+                state.filterBtnValue.filter(v => v >= t.range[0] && v < t.range[1])
+            )
+            groupValues[groupIdx] = val
+            newValue = [].concat(...groupValues)
+        } else {
+            newValue = val
+        }
+
+        if (newValue.length > 5) {
             setState((state) => ({
                 ...state,
                 isSnackbarOpen: true
@@ -575,7 +667,7 @@ export default function CharFilter() {
 
         setState((state) => ({
             ...state,
-            filterBtnValue: destructValues
+            filterBtnValue: newValue
         }))
     }
 
@@ -586,6 +678,30 @@ export default function CharFilter() {
         }))
     }
 
+    const handelHelpModal = (boolean) => () => {
+        setState((state) => ({
+            ...state,
+            isHelpModalOpen: boolean,
+        }))
+    }
+
+    const handleSettingModal = (boolean) => () => {
+        setState((state) => ({
+            ...state,
+            isSettingModalOpen: boolean,
+        }))
+    }
+
+    const handleRadioChange = (event) => {
+        setState((state) => ({
+            ...state,
+            radioValue: event.target.value,
+            isSettingModalOpen: false,
+        }))
+
+        localStorage.setItem('group-btns-by-class', event.target.value)
+    }
+
     const handleSnackbarClose = () => {
         setState((state) => ({
             ...state,
@@ -593,11 +709,23 @@ export default function CharFilter() {
         }))
     }
 
-    const [modalOpen, setModalOpen] = useState(false)
+    // get local btns layout setting
+    useEffect(() => {
+        const localSetting = localStorage.getItem('group-btns-by-class')
+        setState((state) => ({
+            ...state,
+            radioValue: localSetting
+                ? localSetting
+                : btnsSettingLabels[window.innerWidth < 990 ? 1 : 0],
+        }))
+    }, [])
 
     const tableWidthConfig = {
         default: '100%',
     }
+
+    let groupBtnByClass =
+        state.radioValue === btnsSettingLabels[0]
 
     return (
         <>
@@ -607,21 +735,34 @@ export default function CharFilter() {
                     clearBtnValue={clearBtnValue}
                     handleEnlistHourChange={handleEnlistHourChange}
                     filterBtnValue={state.filterBtnValue}
+                    handleModalOpen={handleSettingModal(true)}
+                    groupBtnByClass={groupBtnByClass}
                 />
                 <ResultTable
                     result={state.characters}
                     sortFunc={sortFunc}
                     defaultSortKey={'rarity'}
-                    modalOpen={modalOpen}
-                    handleModalOpen={() => setModalOpen(true)}
-                    handleModalClose={() => setModalOpen(false)}
-                    modalContent={pageString.enlist.filter.modal}
+                    handleModalOpen={handelHelpModal(true)}
                     widthConfig={tableWidthConfig}
                     striped
                 >
                     <TableContent />
                 </ResultTable>
             </FilterContainer>
+            <SettingModal
+                open={state.isSettingModalOpen}
+                onClose={handleSettingModal(false)}
+                radioValue={state.radioValue}
+                handleRadioChange={handleRadioChange}
+            />
+            <TextModal
+                title={pageString.enlist.filter.helpModal.title}
+                open={state.isHelpModalOpen}
+                onClose={handelHelpModal(false)}
+                content={pageString.enlist.filter.helpModal.content}
+                ariaLabelledby="help-modal-title"
+                ariaDescribedby="help-modal-description"
+            />
             <MySnackbar
                 open={state.isSnackbarOpen}
                 onClose={handleSnackbarClose}

@@ -68,7 +68,7 @@ export const MyModal = ({
     </Modal>
 )
 
-const FitHeightModal = styled(MyModal)`
+export const FitHeightModal = styled(MyModal)`
     > div:nth-child(3) {
         top: 10%;
         bottom: auto;
