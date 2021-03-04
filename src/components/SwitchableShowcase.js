@@ -11,27 +11,30 @@ export default function SwitchableShowcase({
 }) {
     const [state, setState] = useState({
         layout: items[0].layout,
-        hasMounted: false
+        hasMounted: items.map(i => false)
     })
 
-    // set previous layout and flag mounted
+    // set previous layout and not render at SSR time
     useEffect(() => {
         const localConfig = localStorage.getItem(localLayoutConfig)
+        let hasMounted
+        if (localConfig) {
+            hasMounted = state.hasMounted.map((h,i) => items[i].layout === localConfig)
+        } else {
+            hasMounted = [true].concat(state.hasMounted.slice(1))
+        }
         setState({
             layout: localConfig ? localConfig : items[0].layout,
-            hasMounted: true
+            hasMounted: hasMounted
         })
     }, [])
 
-    // not render at SSR time
-    if (!state.hasMounted) {
-        return null
-    }
-
+    // mount on first enter
     const handleLayoutChange = (toLayout) => () => {
         setState((state) => ({
             ...state,
-            layout: toLayout
+            layout: toLayout,
+            hasMounted: state.hasMounted.map((h,i) => h || items[i].layout === toLayout)
         }))
         localStorage.setItem(localLayoutConfig, toLayout)
     }
@@ -47,7 +50,7 @@ export default function SwitchableShowcase({
                     $hidden={state.layout !== item.layout}
                     key={idx}
                 >
-                    {item.content}
+                    {state.hasMounted[idx] && item.content}
                 </ShowcaseContainer>
             ))}
         </>
