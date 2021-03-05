@@ -76,36 +76,36 @@ export default function PageWithTabs({
             enlist: {
                 label: pageString.enlist.tabLabel[0],
                 icon: OverviewIcon,
-                to: '/enlist',
+                to: '/enlist/',
             },
             filter: {
                 label: pageString.enlist.tabLabel[1],
                 icon: FilterIcon,
-                to: '/enlist/filter',
+                to: '/enlist/filter/',
             },
         },
         drop: {
             drop: {
                 label: pageString.items.drop.tabLabel[0],
                 icon: OverviewIcon,
-                to: '/items/drop',
+                to: '/items/drop/',
             },
             filter: {
                 label: pageString.items.drop.tabLabel[1],
                 icon: FilterIcon,
-                to: '/items/drop/filter',
+                to: '/items/drop/filter/',
             },
         },
         characters: {
             potential: {
                 label: pageString.characters.tabLabel[0],
                 icon: PotentialIcon,
-                to: '/characters/potential',
+                to: '/characters/potential/',
             },
             exp: {
                 label: pageString.characters.tabLabel[1],
                 icon: StatusIcon,
-                to: '/characters/stats',
+                to: '/characters/stats/',
             }
         }
     }

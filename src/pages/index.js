@@ -199,7 +199,7 @@ export default () => {
             <Head
                 title={pageString.index.helmet.title}
                 description={pageString.index.helmet.description}
-                path={isDefault ? '/' : ''}
+                path='/'
             />
             <HomeContainer>
                 <Header>

@@ -542,11 +542,11 @@
             "links": [
                 {
                     "description": "潛力計算",
-                    "to": "/characters/potential"
+                    "to": "/characters/potential/"
                 },
                 {
                     "description": "素質計算",
-                    "to": "/characters/stats"
+                    "to": "/characters/stats/"
                 }
             ]
         },
@@ -555,11 +555,11 @@
             "links": [
                 {
                     "description": "總覽",
-                    "to": "/enlist"
+                    "to": "/enlist/"
                 },
                 {
                     "description": "篩選器",
-                    "to": "/enlist/filter"
+                    "to": "/enlist/filter/"
                 }
             ]
         },
@@ -568,11 +568,11 @@
             "links": [
                 {
                     "description": "總覽",
-                    "to": "/items/drop"
+                    "to": "/items/drop/"
                 },
                 {
                     "description": "篩選器",
-                    "to": "/items/drop/filter"
+                    "to": "/items/drop/filter/"
                 }
             ]
         },

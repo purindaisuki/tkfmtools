@@ -11,7 +11,7 @@ export default () => {
             <Head
                 title={pageString.characters.potential.helmet.title}
                 description={pageString.characters.potential.helmet.description}
-                path='/characters/potential'
+                path='/characters/potential/'
             />
             <CharPotential />
         </>

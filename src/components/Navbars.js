@@ -83,7 +83,7 @@ function LanguageSwitcher() {
                 } else {
                     path = '/'
                 }
-                const enPath = path.length === 1 ? '/en' : '/en' + path
+                const enPath = '/en' + path
 
                 return (
                     <StyledLanguageSwitcher
@@ -331,10 +331,10 @@ export function Sidebar(props) {
                         title: pageString.index.name,
                     }
                 ].map(item => (
-                    <LocalizedLink key={item['title']} to={item['to']}>
+                    <LocalizedLink key={item.title} to={item.to}>
                         <SiderbarItem>
-                            {item['icon']}
-                            {item['title']}
+                            {item.icon}
+                            {item.title}
                         </SiderbarItem>
                     </LocalizedLink>
                 ))}

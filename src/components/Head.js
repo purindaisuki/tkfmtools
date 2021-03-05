@@ -4,7 +4,7 @@ import { LanguageContext } from './LanguageProvider';
 
 export default ({ title, description, path }) => {
     const { isDefault, userLanguage } = useContext(LanguageContext)
-    const url = path === '/' ? '' : path.split('/').join('_')
+    const url = path === '/' ? '' : path.split('/').slice(0, -1).join('_')
 
     return (
         <Helmet>

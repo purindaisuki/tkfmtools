@@ -73,7 +73,7 @@ export default () => {
                 <Message>
                     <StyledH1>{pageString[404].h1}</StyledH1>
                     <StyledP>{pageString[404].p}</StyledP>
-                    <StyledLink to="/">{pageString[404].link}</StyledLink>
+                    <StyledLink to='/'>{pageString[404].link}</StyledLink>
                 </Message>
             </NotFoundImg>
         </Wrapper>

@@ -11,7 +11,7 @@ export default () => {
             <Head
                 title={pageString.enlist.filter.helmet.title}
                 description={pageString.enlist.filter.helmet.description}
-                path='/enlist/filter'
+                path='/enlist/filter/'
             />
             <CharFilter />
         </>

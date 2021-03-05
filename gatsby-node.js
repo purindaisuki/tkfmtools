@@ -1,8 +1,4 @@
-const path = require('path')
 const langConfig = require('./src/languangeConfig.json')
-
-const removeTrailingSlash = path =>
-    path === '/' ? path : path.replace(/\/$/, '')
 
 exports.onCreatePage = ({ page, actions }) => {
     const { createPage, deletePage } = actions
@@ -29,7 +25,7 @@ exports.onCreatePage = ({ page, actions }) => {
             // Recreate the modified page
             return createPage({
                 ...page,
-                path: removeTrailingSlash(localizedPath),
+                path: localizedPath,
                 context: {
                     ...page.context,
                     lang: entry[0],
@@ -40,13 +36,13 @@ exports.onCreatePage = ({ page, actions }) => {
         return createPage({
             ...page,
             // remove trailing slash
-            path: removeTrailingSlash(localizedPath),
+            path: localizedPath,
             // Pass in the stringData as context to every page
             context: {
                 ...page.context,
                 lang: entry[0],
                 withTabLayout: tabsPage !== undefined,
-                pagePath: removeTrailingSlash(page.path),
+                pagePath: page.path,
             }
         })
     })

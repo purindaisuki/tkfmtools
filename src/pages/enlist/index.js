@@ -11,7 +11,7 @@ export default () => {
             <Head
                 title={pageString.enlist.index.helmet.title}
                 description={pageString.enlist.index.helmet.description}
-                path='/enlist'
+                path='/enlist/'
             />
             <CharShowcase />
         </>

@@ -530,11 +530,11 @@
             "links": [
                 {
                     "description": "Potential calculator",
-                    "to": "/characters/potential"
+                    "to": "/characters/potential/"
                 },
                 {
                     "description": "Stats calculator",
-                    "to": "/characters/stats"
+                    "to": "/characters/stats/"
                 }
             ]
         },
@@ -543,11 +543,11 @@
             "links": [
                 {
                     "description": "Overview",
-                    "to": "/enlist"
+                    "to": "/enlist/"
                 },
                 {
                     "description": "Filter",
-                    "to": "/enlist/filter"
+                    "to": "/enlist/filter/"
                 }
             ]
         },
@@ -556,11 +556,11 @@
             "links": [
                 {
                     "description": "Overview",
-                    "to": "/items/drop"
+                    "to": "/items/drop/"
                 },
                 {
                     "description": "Filter",
-                    "to": "/items/drop/filter"
+                    "to": "/items/drop/filter/"
                 }
             ]
         },
