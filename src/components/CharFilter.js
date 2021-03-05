@@ -2,15 +2,13 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import { FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import MyHeader from './MyHeader';
 import { HeaderIconButton } from './MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
-import { CharCardHeader } from './CharShowcase';
+import { ResponsiveCharCard } from './CharCard';
 import MyModal, { TextModal } from './MyModal';
 import MyRadioGroup, { MyRadio } from './MyRadioGroup';
-import './tooltip.css';
-import tagData from '../gamedata/tag.json';
-import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import {
     DeleteIcon,
@@ -27,6 +25,9 @@ import {
     AlertIcon,
     SettingIcon
 } from './icon';
+import './tooltip.css';
+import tagData from '../gamedata/tag.json';
+import charData from '../gamedata/character.json';
 
 const StyledToggleButton = styled(MyToggleButton)`
     &&&&& {
@@ -164,8 +165,8 @@ const StyledFilterPanel = styled(FilterPanel)`
         margin-top: .5rem;
     }
 `
-const StyledHeader = styled(ContainerHeader)`
-    padding-bottom: 0;
+const StyledHeader = styled(MyHeader)`
+    padding-bottom: .4rem;
 `
 const IconWrapper = styled.div`
     svg {
@@ -203,17 +204,11 @@ const CharFilterPanel = ({
 
     return (
         <StyledFilterPanel widthConfig={widthConfig}>
-            <StyledHeader
-                title={
-                    <div>
-                        <IconWrapper>
-                            {TagIcon}
-                        </IconWrapper>
-                        {pageString.enlist.filter.tagSelectTitle}
-                    </div>
-                }
+            <MyHeader
+                title={pageString.enlist.filter.tagSelectTitle}
+                titleIcon={TagIcon}
                 end={
-                    <div>
+                    <>
                         <HeaderIconButton
                             onClick={clearBtnValue}
                         >
@@ -224,7 +219,7 @@ const CharFilterPanel = ({
                         >
                             {SettingIcon}
                         </HeaderIconButton>
-                    </div>
+                    </>
                 }
             />
             <TagPanel
@@ -232,15 +227,9 @@ const CharFilterPanel = ({
                 handleBtnGroupChange={handleBtnGroupChange}
                 groupBtnByClass={groupBtnByClass}
             />
-            <ContainerHeader
-                title={
-                    <div>
-                        <IconWrapper>
-                            {ClockIcon}
-                        </IconWrapper>
-                        {pageString.enlist.filter.timeSelectTitle}
-                    </div>
-                }
+            <StyledHeader
+                title={pageString.enlist.filter.timeSelectTitle}
+                titleIcon={ClockIcon}
             />
             <Form inline>
                 <Form.Group>
@@ -354,7 +343,7 @@ function TableContent(props) {
                         <td>
                             <TagTooltip char={char}>
                                 <CharCardWrapper>
-                                    <CharCardHeader
+                                    <ResponsiveCharCard
                                         id={char.id}
                                         $textWrapConfig={
                                             cardTextWrapConfig[userLanguage]

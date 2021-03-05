@@ -1,222 +1,42 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
 import { Badge } from "react-bootstrap"
-import SwitchableShowcase from './SwitchableShowcase';
-import MyMasonry from './MyMasonry';
-import MyAccordion from './MyAccordion';
-import CardTable from './CardTable';
-import { SortableTable, SortableTh } from './FilterComponents';
 import ScrollableContainer from './ScrollableContainer';
-import ImageSupplier from './ImageSupplier';
-import itemDropData from '../gamedata/byStageToItem';
-import stageDropData from '../gamedata/stageDrop.json';
+import { SortableTable, SortableTh } from './FilterComponents';
+import { ImgCard } from './MyCard';
 import { LanguageContext } from './LanguageProvider';
+import stageDropData from '../gamedata/stageDrop.json';
 
-const StyledCardHeader = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+const ItemImg = styled(ImgCard)`
+    > div:first-child {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-right: .4rem;
+        user-select: none;
+    }
 `
-const ItemImg = styled(ImageSupplier)`
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-right: .4rem;
-    user-select: none;
-`
-const StyledHeader = styled.div`
+const TextWrapper = styled.div`
     white-space: nowrap;
     font-size: medium;
     font-weight: normal;
 `
-const ItemCardHeader = ({
+export const ItemCard = ({
     className,
     id
 }) => {
     const { itemString } = useContext(LanguageContext)
 
     return (
-        <StyledCardHeader
+        <ItemImg
             className={className}
+            imgType='item'
+            imgId={id}
+            alt=''
         >
-            <ItemImg
-                name={`item_${id}.png`}
-                alt=''
-            />
-            <StyledHeader>
+            <TextWrapper>
                 {itemString.name[id]}
-            </StyledHeader>
-        </StyledCardHeader>
-    )
-}
-
-const EnergyTd = styled.td`
-    display: flex;
-    align-items: center;
-`
-const EnergyImg = styled(ImageSupplier)`
-    width: 1.2rem;
-    height: 1.2rem;
-`
-const CardBodyContnet = (props) => {
-    const { pageString, itemString } = useContext(LanguageContext)
-
-    if (props.drop.length === 0) {
-        return (
-            <tbody><tr><td>
-                {pageString.items.drop.index.notAvailableMsg}
-            </td></tr></tbody>
-        )
-    }
-
-    return (
-        <tbody>
-            {props.drop.map((drop, idx) => (
-                <tr key={idx}>
-                    <td>
-                        {`${drop.chapter}-${drop.stage}`}
-                    </td>
-                    <td>{itemString.rarity[drop.rarity]}</td>
-                    <EnergyTd>
-                        <EnergyImg
-                            name='energy.png'
-                            alt={pageString.items.drop.filter.tableHead[2]}
-                        />
-                        {drop.energy}
-                    </EnergyTd>
-                </tr>
-            ))}
-        </tbody>
-    )
-}
-
-const ItemAccordion = styled(MyAccordion)`
-    && {
-        && {
-            margin-bottom: 1rem;
-        }
-        border: 1px solid ${props => props.theme.colors.border};
-        border-radius: .25rem;
-        box-shadow: 0 0 .15em lightgray;
-        > .MuiAccordionSummary-root {
-            padding: .75rem 1.25rem;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-            border-bottom: 0px solid ${props => props.theme.colors.border};
-        }
-        > .MuiAccordionSummary-root.Mui-expanded {
-            border-bottom: 1px solid ${props => props.theme.colors.border};
-        }
-        .MuiAccordionSummary-content {
-            display: flex;
-            justify-content: center;
-            margin: 0;
-        }
-        .MuiAccordionDetails-root {
-            margin: 0;
-            padding: 0;
-        }
-    }
-`
-const ItemCard = (props) => {
-    const [isExpanded, setExpanded] = useState(false)
-
-    return (
-        <ItemAccordion
-            expanded={isExpanded}
-            onChange={() => setExpanded(!isExpanded)}
-            title={props.header}
-            content={props.body}
-        />
-    )
-}
-
-const LayoutBtnContainer = styled.div`
-    margin-bottom : 1rem;
-    @media screen and (min-width: 410px) {
-        position: absolute;
-        right: 0;
-        top: -4rem;
-        margin-bottom : 0;
-    }
-    > span:last-child button {
-        margin: 0;
-    }
-`
-const BtnWrapper = styled.span`
-    > button {
-        padding: .4rem .6rem;
-        margin-right: .6rem;
-        background-color: ${props => (
-        props.$active
-            ? props.theme.colors.secondary
-            : 'lightgray'
-    )};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-    > button:hover {
-        background-color: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-`
-const LayoutSwitcher = (props) => {
-    const { pageString } = useContext(LanguageContext)
-    return (
-        <LayoutBtnContainer>
-            <BtnWrapper
-                $active={props.layout === 'Masonry'}
-            >
-                <Button
-                    onClick={props.handleLayoutChange('Masonry')}
-                >
-                    {pageString.items.drop.index.layout.byItem}
-                </Button>
-            </BtnWrapper>
-            <BtnWrapper
-                $active={props.layout === 'Table'}
-            >
-                <Button
-                    onClick={props.handleLayoutChange('Table')}
-                >
-                    {pageString.items.drop.index.layout.byStage}
-                </Button>
-            </BtnWrapper>
-        </LayoutBtnContainer>
-    )
-}
-
-const ItemMasonry = () => {
-    const breakpointColumnsConfig = {
-        default: 6,
-        1360: 5,
-        1200: 4,
-        992: 3,
-        768: 2
-    };
-
-    return (
-        <MyMasonry
-            breakpointCols={breakpointColumnsConfig}
-        >
-            {Object.entries(itemDropData).map((entry, idx) => (
-                <ItemCard
-                    key={idx}
-                    header={
-                        <ItemCardHeader
-                            id={entry[0]}
-                        />
-                    }
-                    body={
-                        <CardTable striped>
-                            <CardBodyContnet
-                                drop={entry[1].drop}
-                            />
-                        </CardTable>
-                    }
-                />
-            ))}
-        </MyMasonry>
+            </TextWrapper>
+        </ItemImg>
     )
 }
 
@@ -298,7 +118,7 @@ const TableContent = (props) => {
                                 ? undefined
                                 : items.map((item, i) => (
                                     <ItemWrapper key={i}>
-                                        <ItemCardHeader id={item.id} />
+                                        <ItemCard id={item.id} />
                                         <StyledBadge pill $rarity={item.rarity}>
                                             {itemString.rarity[item.rarity]}
                                         </StyledBadge>

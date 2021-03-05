@@ -1,19 +1,19 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Col, Form } from 'react-bootstrap';
+import { FilterPanel } from './FilterComponents';
+import MyHeader from './MyHeader';
 import {
     calcPotential,
     CharSelectPanel,
-    HeaderWithHelp,
     NumForm,
     Select,
     TwoStageForm
 } from './CharPotential';
-import { FilterPanel } from './FilterComponents';
 import { TextModal } from './MyModal';
-import charData from '../gamedata/character.json';
 import { LanguageContext } from './LanguageProvider';
 import { AttackIcon, HpIcon } from './icon';
+import charData from '../gamedata/character.json';
 
 const StatusForm = ({
     handleSelect,
@@ -104,9 +104,10 @@ const ResultPanel = ({
 
     return (
         <StyledPanel widthConfig={widthConfig}>
-            <HeaderWithHelp
+            <MyHeader
                 title={pageString.characters.stats.resultTitle}
-                handleModalOpen={() => setModalOpen(true)}
+                withHelp
+                onClickHelp={() => setModalOpen(true)}
             />
             <BodyContainer>
                 <StatusWrapper>

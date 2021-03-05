@@ -1,165 +1,46 @@
-import React, { useContext, useState } from 'react';
+import React, { lazy, useContext, useState } from 'react';
 import styled from 'styled-components';
 import SwitchableShowcase from './SwitchableShowcase';
 import MyIconButton from './MyIconButton';
 import MyMasonry from './MyMasonry';
 import MyAccordion from './MyAccordion';
-import CardTable from './CardTable';
-import { SortableTable, SortableTh } from './FilterComponents';
+import CharCard, { CharCardBody, ResponsiveCharCard } from './CharCard';
 import ScrollableContainer from './ScrollableContainer';
-import ImageSupplier from './ImageSupplier';
-import charData from '../gamedata/character.json';
+import { SortableTable, SortableTh } from './FilterComponents';
 import { LanguageContext } from './LanguageProvider';
 import {
-    AttributeIcon,
-    PositionIcon,
-    RaceIcon,
-    BodysizeIcon,
-    OppaiIcon,
-    RankIcon,
-    ElseIcon,
     MasonryViewIcon,
     TableViewIcon
 } from './icon';
+import charData from '../gamedata/character.json';
 
-const CharImgWrapper = styled(ImageSupplier)`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    width: 100%;
-    min-width: 10rem;
-    height: 3.6rem;
-    background-repeat: no-repeat;
-    background-size: 6rem 6rem;
-    background-position: 0 -1.6rem;
+const LayoutBtnContainer = styled.div`
+    position: absolute;
+    right: 0;
+    top: -4rem;
+    @media screen and (max-width: 410px) {
+        font-size: 0;
+    }
 `
-const TextWrapper = styled.div`
-    margin-left: 0;
-    margin-right: 1rem;
-    transition: all 0.3s ease;
-    text-shadow: 0 0 1px ${props => props.theme.colors.surface},
-    -2px 0 1px  ${props => props.theme.colors.surface},
-    2px 0 1px  ${props => props.theme.colors.surface},
-    0 -2px 1px ${props => props.theme.colors.surface},
-    0 2px 1px  ${props => props.theme.colors.surface},
-    2px 2px 1px ${props => props.theme.colors.surface},
-    2px -2px 1px ${props => props.theme.colors.surface},
-    -2px 2px 1px ${props => props.theme.colors.surface},
-    -2px -2px 1px ${props => props.theme.colors.surface};
-`
-const CardHeader = ({
-    className,
-    id
-}) => {
-    const { charString } = useContext(LanguageContext)
+const LayoutSwitcher = (props) => {
+    const { pageString } = useContext(LanguageContext)
 
     return (
-        <CharImgWrapper
-            className={className}
-            name={`char_small_${id}.png`}
-            isBackground
-            alt=''
-        >
-            <TextWrapper>
-                {charString.name[id].split(' ').slice(0, -1).join(' ')}
-            </TextWrapper>
-            <TextWrapper>
-                {charString.name[id].split(' ').slice(-1)[0]}
-            </TextWrapper>
-        </CharImgWrapper>
-    )
-}
-
-const TagWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-const IconWrapper = styled.div`
-    margin-bottom: .1rem;
-    margin-left: .25rem;
-    margin-right: .4rem;
-    > svg {
-        width: 1.2rem;
-        fill: ${props => props.theme.colors.secondary};
-        color:  ${props => props.theme.colors.secondary};
-    }
-`
-const CardBody = (props) => {
-    const { charString } = useContext(LanguageContext)
-
-    const attrIcons = {
-        attribute: AttributeIcon,
-        position: PositionIcon,
-        race: RaceIcon,
-        body: BodysizeIcon,
-        oppai: OppaiIcon,
-        rank: RankIcon,
-        else: ElseIcon
-    }
-
-    const charTagData = charData.map((char => {
-        const { id, rarity, tags, ...rest } = char
-        return ({ id, rarity, ...tags })
-    }))
-
-    if (!charData[props.idx].tags.available) {
-        return (
-            <CardTable striped>
-                <tbody><tr><td>
-                    {charString.tagWarnMsg}
-                </td></tr></tbody>
-            </CardTable>
-        )
-    }
-
-    return (
-        <CardTable striped>
-            <tbody>
-                {Object.entries(charTagData[props.idx]).map((entry, idx) => {
-                    if (
-                        entry[0] === 'id' ||
-                        entry[0] === 'rarity' ||
-                        entry[0] === 'available'
-                    ) {
-                        return true
-                    }
-                    if (entry[0] === 'else') {
-                        return (
-                            entry[1].map((tag, i) => (
-                                <tr key={idx + i + 1}>
-                                    <td>
-                                        <TagWrapper>
-                                            <IconWrapper>
-                                                {attrIcons[entry[0]]}
-                                            </IconWrapper>
-                                            {charString.tags[tag]}
-                                        </TagWrapper>
-                                    </td>
-                                </tr>
-                            ))
-                        )
-                    }
-
-                    if (entry[1].length !== 0) {
-                        return (
-                            <tr key={idx}>
-                                <td>
-                                    <TagWrapper>
-                                        <IconWrapper>
-                                            {attrIcons[entry[0]]}
-                                        </IconWrapper>
-                                        {charString.tags[entry[1]]}
-                                    </TagWrapper>
-                                </td>
-                            </tr>
-                        )
-                    } else {
-                        return true
-                    }
-                })}
-            </tbody>
-        </CardTable>
+        <LayoutBtnContainer>
+            {pageString.enlist.index.layout}
+            <MyIconButton
+                $active={props.layout === 'Masonry'}
+                onClick={props.handleLayoutChange('Masonry')}
+            >
+                {MasonryViewIcon}
+            </MyIconButton>
+            <MyIconButton
+                $active={props.layout === 'Table'}
+                onClick={props.handleLayoutChange('Table')}
+            >
+                {TableViewIcon}
+            </MyIconButton>
+        </LayoutBtnContainer>
     )
 }
 
@@ -193,46 +74,19 @@ const StyledAccordion = styled(MyAccordion)`
         }
     }
 `
-const CharAccordion = (props) => {
+const CharAccordion = ({
+    title,
+    content
+}) => {
     const [isExpanded, setExpanded] = useState(false)
 
     return (
         <StyledAccordion
             expanded={isExpanded}
             onChange={() => setExpanded(!isExpanded)}
-            title={props.header}
-            content={props.body}
+            title={title}
+            content={content}
         />
-    )
-}
-
-const LayoutBtnContainer = styled.div`
-    position: absolute;
-    right: 0;
-    top: -4rem;
-    @media screen and (max-width: 410px) {
-        font-size: 0;
-    }
-`
-const LayoutSwitcher = (props) => {
-    const { pageString } = useContext(LanguageContext)
-
-    return (
-        <LayoutBtnContainer>
-            {pageString.enlist.index.layout}
-            <MyIconButton
-                $active={props.layout === 'Masonry'}
-                onClick={props.handleLayoutChange('Masonry')}
-            >
-                {MasonryViewIcon}
-            </MyIconButton>
-            <MyIconButton
-                $active={props.layout === 'Table'}
-                onClick={props.handleLayoutChange('Table')}
-            >
-                {TableViewIcon}
-            </MyIconButton>
-        </LayoutBtnContainer>
     )
 }
 
@@ -251,17 +105,15 @@ const CharMasnory = () => {
         <MyMasonry
             breakpointCols={breakpointColumnsConfig}
         >
-            {Object.entries(charString.name).map((entry, idx) => {
-                if (entry[0] === 'nr') return true
-
-                return (
-                    <CharAccordion
-                        header={<CardHeader id={entry[0]} />}
-                        body={<CardBody idx={idx} />}
+            {Object.keys(charString.name).map((key, idx) => (
+                key !== 'nr'
+                    ? <CharAccordion
+                        title={<CharCard id={key} />}
+                        content={<CharCardBody id={key} />}
                         key={idx}
                     />
-                )
-            })}
+                    : null
+            ))}
         </MyMasonry>
     )
 }
@@ -270,21 +122,6 @@ const StyledTh = styled(SortableTh)`
     background-color:  ${props => props.theme.colors.secondary};
     color:  ${props => props.theme.colors.onSecondary};
     white-space: nowrap;
-`
-export const CharCardHeader = styled(CardHeader)`
-    @media screen and (min-width: ${props => (
-        props.$textWrapConfig
-    )}px) {
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        > div {
-            margin-left: 7rem
-        }
-        > div:last-child {
-            margin-left: -.6rem;
-        }
-    }
 `
 const TableContent = (props) => {
     const { userLanguage, charString } = useContext(LanguageContext)
@@ -325,7 +162,7 @@ const TableContent = (props) => {
                     return (
                         <tr key={char.id}>
                             <td>
-                                <CharCardHeader
+                                <ResponsiveCharCard
                                     id={char.id}
                                     $textWrapConfig={
                                         cardTextWrapConfig[userLanguage]
@@ -357,7 +194,7 @@ const TableContent = (props) => {
                             if (entry[0] === 'id') {
                                 return (
                                     <td key={j}>
-                                        <CharCardHeader
+                                        <ResponsiveCharCard
                                             id={char.id}
                                             $textWrapConfig={
                                                 cardTextWrapConfig[userLanguage]

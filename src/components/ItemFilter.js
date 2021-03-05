@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { ContainerHeader, FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import { FilterPanel, ResultTable, SortableTh } from './FilterComponents';
+import MyHeader from './MyHeader';
 import { HeaderIconButton } from './MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import ImageSupplier from './ImageSupplier';
 import { TextModal } from './MyModal';
-import itemDropData from '../gamedata/byStageToItem';
-import stageDropData from '../gamedata/stageDrop.json';
 import { LanguageContext } from './LanguageProvider';
 import { DeleteIcon } from './icon';
+import itemDropData from '../gamedata/byStageToItem';
+import stageDropData from '../gamedata/stageDrop.json';
 
 const StyledToggleButton = styled(MyToggleButton)`
     display: flex;
@@ -53,7 +54,7 @@ const ItemFilterPanel = ({
 
     return (
         <FilterPanel widthConfig={widthConfig}>
-            <ContainerHeader
+            <MyHeader
                 title={pageString.items.drop.filter.itemPanelTitle}
                 end={
                     <HeaderIconButton

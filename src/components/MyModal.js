@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
-import { ContainerHeader } from './FilterComponents';
+import MyHeader from './MyHeader';
 import ScrollableContainer from './ScrollableContainer';
 
 const StyledModal = styled.div`
@@ -25,12 +25,14 @@ const StyledModal = styled.div`
     border-radius: .25rem;
     border: 1px solid ${props => props.theme.colors.border};
 `
-const ModalTitle = styled(ContainerHeader)`
+const ModalHeader = styled(MyHeader)`
     margin: -1rem;
     margin-bottom: 1rem;
     padding: .2rem .5rem;
     background-color: ${props => props.theme.colors.secondary};
-    color: ${props => props.theme.colors.onSecondary};
+    span {
+        color: ${props => props.theme.colors.onSecondary};
+    }
 `
 const CloseWrapper = styled.span`
     cursor: pointer;
@@ -58,7 +60,7 @@ export const MyModal = ({
     >
         <Fade in={open}>
             <StyledModal>
-                <ModalTitle
+                <ModalHeader
                     title={title}
                     end={<CloseWrapper onClick={onClose}>&times;</CloseWrapper>}
                 />
@@ -101,12 +103,6 @@ const ScrollableModal = ({
     </FitHeightModal>
 )
 
-const ModalHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: large;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
-`
 const ModalBody = styled.div`
     margin: 1rem 0;
 `
@@ -115,9 +111,9 @@ const TextModalContent = ({
 }) => (
     content.map((item, idx) => (
         <React.Fragment key={idx}>
-            <ModalHeader>
-                <span>{item.title}</span>
-            </ModalHeader>
+            <MyHeader
+                title={item.title}
+            />
             <ModalBody>
                 {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
             </ModalBody>

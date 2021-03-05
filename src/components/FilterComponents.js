@@ -1,39 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
-import { HeaderIconButton } from './MyIconButton';
+import ScrollableContainer from './ScrollableContainer';
+import MyHeader from './MyHeader';
 import { LanguageContext } from './LanguageProvider';
-import { HelpIcon } from './icon';
-
-const StyledContainerHeader = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: large;
-    font-weight: normal;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    border-bottom: solid 1px ${props => props.theme.colors.border};
-    color: ${props => props.theme.colors.onSurface};
-    > div {
-        display: flex;
-        align-items: center;
-        > span {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: normal;
-        }
-    }
-`
-export const ContainerHeader = ({
-    className,
-    title,
-    end
-}) => (
-    <StyledContainerHeader className={className}>
-        {title}
-        {end}
-    </StyledContainerHeader>
-)
 
 const StyledFilterPanel = styled.div`
     height: 100%;
@@ -199,26 +169,10 @@ const ResultTableContainer = styled.div`
         margin-top: 1rem;
     }
 `
-const TableWrapper = styled.div`
+const TableWrapper = styled(ScrollableContainer)`
     height: calc(100% - 1.4rem - 1.5rem);
     overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-        width: .4rem;
-        height: .4rem;
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-thumb {
-        background: ${props => props.theme.colors.border};
-        border-radius: .25rem;
-    }
-    &::-webkit-scrollbar-track {
-        background: ${props => props.theme.colors.surface};
-    }
-    &::-webkit-scrollbar-corner {
-        background: ${props => props.theme.colors.surface};
-    }
 `
 const StyledSortableTable = styled(SortableTable)`
     img {
@@ -227,10 +181,6 @@ const StyledSortableTable = styled(SortableTable)`
     td {
         padding-left: .75rem;
     }
-`
-const TitleWrapper = styled.div`
-    display: flex;
-    align-items: center;
 `
 export function ResultTable({
     children,
@@ -245,19 +195,10 @@ export function ResultTable({
 
     return (
         <ResultTableContainer widthConfig={widthConfig}>
-            <ContainerHeader
-                title={
-                    <TitleWrapper>
-                        <span>
-                            {pageString.items.drop.filter.resultTitle}
-                        </span>
-                        <HeaderIconButton
-                            onClick={handleModalOpen}
-                        >
-                            {HelpIcon}
-                        </HeaderIconButton>
-                    </TitleWrapper>
-                }
+            <MyHeader
+                title={pageString.items.drop.filter.resultTitle}
+                withHelp
+                onClickHelp={handleModalOpen}
             />
             <TableWrapper>
                 <StyledSortableTable

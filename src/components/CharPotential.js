@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Col, Form } from 'react-bootstrap';
-import { ContainerHeader, FilterPanel } from '../components/FilterComponents';
+import { FilterPanel } from '../components/FilterComponents';
+import MyHeader from './MyHeader';
+import { ItemCard } from './ItemShowcase';
 import ImageSupplier from './ImageSupplier';
 import { TextModal } from './MyModal';
+import { LanguageContext } from './LanguageProvider';
+import { BuffIcon, ItemIcon, RaceIcon } from './icon';
 import charData from '../gamedata/character.json';
 import potentialData from '../gamedata/potential.json';
-import { LanguageContext } from './LanguageProvider';
-import { BuffIcon, ItemIcon, RaceIcon, HelpIcon } from './icon';
 
 export const Select = styled(Form.Control)`
     && {
@@ -119,13 +121,9 @@ export const CharSelectPanel = ({
             widthConfig={widthConfig}
             className={className}
         >
-            <ContainerHeader
-                title={
-                    <IconWrapper>
-                        {RaceIcon}
-                        {pageString.characters.potential.characterPanelTitle}
-                    </IconWrapper>
-                }
+            <MyHeader
+                title={pageString.characters.potential.characterPanelTitle}
+                titleIcon={RaceIcon}
             />
             <ContainerBody>
                 <CharImgWrapper
@@ -166,6 +164,30 @@ export const CharSelectPanel = ({
     )
 }
 
+const UiImg = styled(ImageSupplier)`
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: .4rem;
+`
+const UiImgWrapper = ({
+    children,
+    layoutConfig,
+    name,
+    alt
+}) => (
+    <MaterialWrapper
+        $layoutConfig={layoutConfig}
+    >
+        <div>
+            <UiImg
+                name={name}
+                alt={alt}
+            />
+            {children}
+        </div>
+    </MaterialWrapper>
+)
+
 const MaterialWrapper = styled.span`
     display: inline-flex;
     align-items: center;
@@ -183,10 +205,12 @@ const MaterialWrapper = styled.span`
         align-items: center;
     }
 `
-const MaterialImg = styled(ImageSupplier)`
-    width: 2rem;
-    height: 2rem;
-    margin-right: .4rem;
+const MaterialCard = styled(ItemCard)`
+    > div:first-child {
+        width: 2rem;
+        height: 2rem;
+        margin-right: .4rem;
+    }
 `
 const MaterialBox = ({
     result,
@@ -204,82 +228,24 @@ const MaterialBox = ({
                     $layoutConfig={layoutConfig}
                 >
                     <div>
-                        <MaterialImg
-                            name={`item_${item[0]}.png`}
+                        <MaterialCard
+                            id={item[0]}
                             alt=''
                         />
-                        {itemString.name[item[0]]}
                     </div>
                     {item[1]}
                 </MaterialWrapper>
             ))}
-            <MaterialWrapper
-                $layoutConfig={layoutConfig}
+            <UiImgWrapper
+                name='money.png'
+                alt='money'
+                layoutConfig={layoutConfig}
             >
-                <MaterialImg
-                    name='money.png'
-                    alt='money'
-                />
                 {result.money}
-            </MaterialWrapper>
+            </UiImgWrapper>
         </>
     )
 }
-
-const OtherImg = styled(ImageSupplier)`
-    width: 1.6rem;
-    height: 1.6rem;
-    margin-right: .4rem;
-`
-const PictureSquare = ({
-    children,
-    layoutConfig,
-    name,
-    alt
-}) => (
-    <MaterialWrapper
-        $layoutConfig={layoutConfig}
-    >
-        <div>
-            <OtherImg
-                name={name}
-                alt={alt}
-            />
-            {children}
-        </div>
-    </MaterialWrapper>
-)
-
-const HelpIconWrapper = styled.div`
-    margin-right: auto;
-    svg {
-        fill: ${props => props.theme.colors.secondary};
-        width: 1.4rem;
-        height: 1.4rem;
-        margin-left: .4rem;
-        cursor: pointer;
-        vertical-align: top;
-    }
-`
-export const HeaderWithHelp = ({
-    titleIcon,
-    title,
-    handleModalOpen
-}) => (
-    <ContainerHeader
-        title={
-            <IconWrapper>
-                {titleIcon}
-                {title}
-                <HelpIconWrapper
-                    onClick={handleModalOpen}
-                >
-                    {HelpIcon}
-                </HelpIconWrapper>
-            </IconWrapper>
-        }
-    />
-)
 
 const StyledPanel = styled(FilterPanel)`
     @media screen and (max-width: 992px) {
@@ -322,10 +288,11 @@ const ResultPanel = ({
     return (
         <StyledPanel widthConfig={widthConfig}>
             <div>
-                <HeaderWithHelp
-                    titleIcon={ItemIcon}
+                <MyHeader
                     title={pageString.characters.potential.resultDemandTitle}
-                    handleModalOpen={handleModalOpen}
+                    titleIcon={ItemIcon}
+                    withHelp
+                    onClickHelp={handleModalOpen}
                 />
                 <MaterialContainer>
                     <MaterialBox
@@ -335,30 +302,26 @@ const ResultPanel = ({
                 </MaterialContainer>
             </div>
             <div>
-                <ContainerHeader
-                    title={
-                        <IconWrapper>
-                            {BuffIcon}
-                            {pageString.characters.potential.resultBuffTitle}
-                        </IconWrapper>
-                    }
+                <MyHeader
+                    title={pageString.characters.potential.resultBuffTitle}
+                    titleIcon={BuffIcon}
                 />
                 <div>
-                    <PictureSquare
+                    <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_atk.png'
                         alt='ATK'
                     >
                         {`${result.buff.ATK} %`}
-                    </PictureSquare>
-                    <PictureSquare
+                    </UiImgWrapper>
+                    <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_hp.png'
                         alt='HP'
                     >
                         {`${result.buff.HP} %`}
-                    </PictureSquare>
-                    <PictureSquare
+                    </UiImgWrapper>
+                    <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
                         name='ui_small_potentialPassive.png'
                         alt='Passive'
@@ -368,7 +331,7 @@ const ResultPanel = ({
                                 : result.buff.PASSIVE === 2 ? '2'
                                     : '1 & 2'
                             }`}
-                    </PictureSquare>
+                    </UiImgWrapper>
                 </div>
             </div>
         </StyledPanel>
