@@ -41,6 +41,7 @@ export default function MyAccordion({
             expanded={expanded}
             onChange={onChange}
             square={square}
+            TransitionProps={{ mountOnEnter: true }}
         >
             <AccordionSummary
                 expandIcon={expandIcon}

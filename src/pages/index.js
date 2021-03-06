@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from '../components/Head';
-import { LogMsg } from '../components/SiteAccordionBody';
 import MyAccordion from '../components/MyAccordion';
 import {
+    LogMsg,
     SiteDescription,
     SiteUpdateLog,
     SiteLicense
 } from '../components/SiteAccordionBody';
-import {FitHeightModal} from '../components/MyModal';
+import { FitHeightModal } from '../components/MyModal';
 import { LanguageContext } from '../components/LanguageProvider';
 import { ExpandMoreIcon, NoteIcon } from '../components/icon';
 

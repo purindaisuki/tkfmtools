@@ -24,7 +24,7 @@ const WrappedLink = ({ to, disableLocale, decoration, ...rest }) => {
 
 // pass ref down
 const LocalizedLink = React.forwardRef((props, ref) => (
-    // material-ui use innerRef as prop name
+    // Link use innerRef as ref name
     <WrappedLink {...props} innerRef={ref} />
 ))
 

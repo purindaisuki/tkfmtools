@@ -80,7 +80,7 @@ export const ResponsiveCharCard = styled(CharCard)`
 const TagWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    `
+`
 const IconWrapper = styled.div`
     margin-bottom: .1rem;
     margin-left: .25rem;
@@ -121,7 +121,7 @@ const CharTr = ({
     )
 }
 
-export const CharCardBody = ({ id }) => {
+export const CharAccordionDetail = ({ id }) => {
     const { charString } = useContext(LanguageContext)
 
     const { tags } = charData.find(char => char.id === id)
@@ -149,7 +149,7 @@ export const CharCardBody = ({ id }) => {
                                 tag={tag}
                             />
                         ))
-                        : entry[1].length !== 0
+                        : entry[1] >= 0
                             ? <CharTr
                                 key={idx}
                                 type={entry[0]}
