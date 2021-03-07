@@ -25,9 +25,9 @@ import {
     AlertIcon,
     SettingIcon
 } from './icon';
-import './tooltip.css';
 import tagData from '../gamedata/tag.json';
 import charData from '../gamedata/character.json';
+import './tooltip.css';
 
 const StyledToggleButton = styled(MyToggleButton)`
     &&&&& {

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from "@reach/router"
 import styled from 'styled-components';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { Tab, Tabs } from '@material-ui/core';
 import LocalizedLink from './LocalizedLink'
 import { LanguageContext } from './LanguageProvider';
 import {

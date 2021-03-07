@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Head from '../../components/Head';
-import CharPotential from '../../components/CharPotential';
-import { LanguageContext } from '../../components/LanguageProvider';
+import Head from 'components/Head';
+import CharPotential from 'components/CharPotential';
+import { LanguageContext } from 'components/LanguageProvider';
 
 export default () => {
     const { pageString } = useContext(LanguageContext)

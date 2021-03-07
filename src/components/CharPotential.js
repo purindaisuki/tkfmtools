@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Col, Form } from 'react-bootstrap';
-import { FilterPanel } from '../components/FilterComponents';
+import { FilterPanel } from './FilterComponents';
 import MyHeader from './MyHeader';
 import { ItemCard } from './ItemShowcase';
 import ImageSupplier from './ImageSupplier';
 import { TextModal } from './MyModal';
 import { LanguageContext } from './LanguageProvider';
 import { BuffIcon, ItemIcon, RaceIcon } from './icon';
-import charData from '../gamedata/character.json';
-import potentialData from '../gamedata/potential.json';
+import charData from 'gamedata/character.json';
+import potentialData from 'gamedata/potential.json';
 
 export const Select = styled(Form.Control)`
     && {

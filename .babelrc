@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        [
+            "transform-imports",
+            {
+                "react-bootstrap": {
+                    "transform": "react-bootstrap/esm/${member}",
+                    "preventFullImport": true
+                },
+                "@material-ui/core": {
+                    "transform": "@material-ui/core/esm/${member}",
+                    "preventFullImport": true
+                },
+                "react-virtualized": {
+                    "transform": "react-virtualized/dist/commonjs/${member}",
+                    "preventFullImport": true
+                },
+                "react-virtualized/Table": {
+                    "transform": "react-virtualized/dist/commonjs/Table/${member}",
+                    "preventFullImport": true
+                }
+            }
+        ]
+    ],
+    "presets": [
+        "babel-preset-gatsby"
+    ]
+}

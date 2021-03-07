@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Head from '../../components/Head';
-import MyIconButton from '../../components/MyIconButton';
-import SwitchableShowcase from '../../components/SwitchableShowcase';
-import CharTagMasonry from '../../components/CharTagMasonry';
-import CharTagTable from '../../components/CharTagTable';
-import { LanguageContext } from '../../components/LanguageProvider';
+import Head from 'components/Head';
+import MyIconButton from 'components/MyIconButton';
+import SwitchableShowcase from 'components/SwitchableShowcase';
+import CharTagMasonry from 'components/CharTagMasonry';
+import CharTagTable from 'components/CharTagTable';
+import { LanguageContext } from 'components/LanguageProvider';
 import {
     MasonryViewIcon,
     TableViewIcon
-} from '../../components/icon';
+} from 'components/icon';
 
 const LayoutBtnContainer = styled.div`
     position: absolute;

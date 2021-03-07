@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Head from "../../../components/Head";
-import ItemFilter from '../../../components/ItemFilter';
-import { LanguageContext } from '../../../components/LanguageProvider';
+import Head from "components/Head";
+import ItemFilter from 'components/ItemFilter';
+import { LanguageContext } from 'components/LanguageProvider';
 
 export default () => {
     const { pageString } = useContext(LanguageContext)

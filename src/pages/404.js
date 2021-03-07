@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Link } from 'gatsby';
 import styled from 'styled-components';
-import ImageSupplier from '../components/ImageSupplier';
-import '../components/index.css';
-import { LanguageContext } from '../components/LanguageProvider';
+import ImageSupplier from 'components/ImageSupplier';
+import LocalizedLink from 'components/LocalizedLink'
+import { LanguageContext } from 'components/LanguageProvider';
+import 'components/index.css';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -52,7 +52,7 @@ const StyledP = styled.p`
     max-width: 20rem;
     margin-bottom: 2rem;
 `
-const StyledLink = styled(Link)`
+const StyledLink = styled(LocalizedLink)`
     font-size: x-large;
     color: ${props => props.theme.colors.link};
     &:hover {

@@ -1,4 +1,14 @@
+const path = require('path')
 const langConfig = require('./src/languangeConfig.json')
+
+// Absolute imports
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+    actions.setWebpackConfig({
+        resolve: {
+            modules: [path.resolve(__dirname, "src"), "node_modules"],
+        },
+    })
+}
 
 exports.onCreatePage = ({ page, actions }) => {
     const { createPage, deletePage } = actions

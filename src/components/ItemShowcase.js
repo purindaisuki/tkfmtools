@@ -5,7 +5,7 @@ import WindowTable from './WindowTable';
 import { SortableTh } from './FilterComponents';
 import { ImgCard } from './MyCard';
 import { LanguageContext } from './LanguageProvider';
-import stageDropData from '../gamedata/stageDrop.json';
+import stageDropData from 'gamedata/stageDrop.json';
 
 const ItemImg = styled(ImgCard)`
     > div:first-child {

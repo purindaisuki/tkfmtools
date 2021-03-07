@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { MainNavbar, Sidebar } from './Navbars';
 import ToTopBtn from './ToTopBtn';
 import { LanguageContext } from './LanguageProvider';
-import langConfig from '../languangeConfig.json';
+import langConfig from 'languangeConfig.json';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 

@@ -8,8 +8,8 @@ import ImageSupplier from './ImageSupplier';
 import { TextModal } from './MyModal';
 import { LanguageContext } from './LanguageProvider';
 import { DeleteIcon } from './icon';
-import itemDropData from '../gamedata/byStageToItem';
-import stageDropData from '../gamedata/stageDrop.json';
+import itemDropData from 'gamedata/byStageToItem';
+import stageDropData from 'gamedata/stageDrop.json';
 
 const StyledToggleButton = styled(MyToggleButton)`
     display: flex;

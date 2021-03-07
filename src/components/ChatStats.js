@@ -13,7 +13,7 @@ import {
 import { TextModal } from './MyModal';
 import { LanguageContext } from './LanguageProvider';
 import { AttackIcon, HpIcon } from './icon';
-import charData from '../gamedata/character.json';
+import charData from 'gamedata/character.json';
 
 const StatusForm = ({
     handleSelect,

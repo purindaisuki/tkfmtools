@@ -1,12 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { navigate } from "gatsby";
-import pageString_tr from '../stringdata/pageString_tr.json';
-import charString_tr from '../stringdata/characterString_tr.json';
-import itemString_tr from '../stringdata/itemString_tr.json';
-import pageString_en from '../stringdata/pageString_en.json';
-import charString_en from '../stringdata/characterString_en.json';
-import itemString_en from '../stringdata/itemString_en.json';
-import langConfig from '../languangeConfig.json';
+import pageString_tr from 'stringdata/pageString_tr.json';
+import charString_tr from 'stringdata/characterString_tr.json';
+import itemString_tr from 'stringdata/itemString_tr.json';
+import pageString_en from 'stringdata/pageString_en.json';
+import charString_en from 'stringdata/characterString_en.json';
+import itemString_en from 'stringdata/itemString_en.json';
+import langConfig from 'languangeConfig.json';
 
 const stringData = {
     'zh-TW': {

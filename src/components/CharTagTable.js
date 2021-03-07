@@ -4,7 +4,7 @@ import { ResponsiveCharCard } from './CharCard';
 import WindowTable from './WindowTable';
 import { SortableTh } from './FilterComponents';
 import { LanguageContext } from './LanguageProvider';
-import charData from '../gamedata/character.json';
+import charData from 'gamedata/character.json';
 
 const StyledTh = styled(SortableTh)`
     background-color:  ${props => props.theme.colors.secondary};

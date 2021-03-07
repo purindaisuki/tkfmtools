@@ -1,4 +1,4 @@
-import stageDropData from '../gamedata/stageDrop.json';
+import stageDropData from 'gamedata/stageDrop.json';
 
 let itemDropData = {}
 

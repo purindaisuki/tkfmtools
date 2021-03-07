@@ -19,8 +19,8 @@ import {
     ToolIcon,
     LanguageIcon,
 } from './icon';
-import SunIcon from '../images/sun.svg';
-import MoonIcon from '../images/moon.svg';
+import SunIcon from 'images/sun.svg';
+import MoonIcon from 'images/moon.svg';
 
 const StyledLanguageSwitcher = styled(DropdownButton)`
     padding: 0;
