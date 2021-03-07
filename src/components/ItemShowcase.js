@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useImperativeHandle, useRef } from 'react';
 import styled from 'styled-components';
 import { Badge } from "react-bootstrap"
-import ScrollableContainer from './ScrollableContainer';
-import { SortableTable, SortableTh } from './FilterComponents';
+import WindowTable from './WindowTable';
+import { SortableTh } from './FilterComponents';
 import { ImgCard } from './MyCard';
 import { LanguageContext } from './LanguageProvider';
 import stageDropData from '../gamedata/stageDrop.json';
@@ -46,6 +46,38 @@ const StyledTh = styled(SortableTh)`
     white-space: nowrap;
     ${props => props.$sortable ? true : 'cursor: default;'}
 `
+const TableHead = React.forwardRef((props, ref) => {
+    const { pageString } = useContext(LanguageContext)
+
+    return (
+        <thead ref={ref}>
+            <tr>
+                {Object.entries(pageString.items.drop.index.tableHead)
+                    .map((entry, idx) => {
+                        const sortable = entry[0] === 'stage' || entry[0] === 'energy'
+                        let requestSort
+                        let getSortDirection
+                        if (sortable) {
+                            requestSort = () => props.requestSort(entry[0])
+                            getSortDirection = props.getSortDirection(entry[0])
+                        }
+
+                        return (
+                            <StyledTh
+                                onClick={requestSort}
+                                direction={getSortDirection}
+                                key={idx}
+                                $sortable={sortable}
+                            >
+                                {entry[1]}
+                            </StyledTh>
+                        )
+                    })}
+            </tr>
+        </thead>
+    )
+})
+
 const ItemWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -77,40 +109,23 @@ const StyledBadge = styled(Badge)`
     color: black;
     margin-left: .4rem;
 `
-const TableContent = (props) => {
-    const { pageString, itemString } = useContext(LanguageContext)
+const TableBody = React.forwardRef((props, ref) => {
+    const { itemString } = useContext(LanguageContext)
+    const trRef = useRef()
 
-    const TableHeader = () => (
-        <thead>
-            <tr>
-                {Object.entries(pageString.items.drop.index.tableHead)
-                    .map((entry, idx) => {
-                        const sortable = entry[0] === 'stage' || entry[0] === 'energy'
-                        let requestSort
-                        let getSortDirection
-                        if (sortable) {
-                            requestSort = () => props.requestSort(entry[0])
-                            getSortDirection = props.getSortDirection(entry[0])
-                        }
+    useImperativeHandle(ref, () => ({
+        getY: () => trRef.current.getBoundingClientRect().y,
+        getBottom: () => trRef.current.getBoundingClientRect().bottom,
+        current: trRef.current
+    }))
 
-                        return (
-                            <StyledTh
-                                onClick={requestSort}
-                                direction={getSortDirection}
-                                key={idx}
-                                $sortable={sortable}
-                            >
-                                {entry[1]}
-                            </StyledTh>
-                        )
-                    })}
-            </tr>
-        </thead>
-    )
-
-    const TableBody = () => (
+    return (
         <tbody>
             {props.sortedResult.map((stage, idx) => {
+                if (idx > props.renderTo) {
+                    return null
+                }
+
                 const itemTd = (items) => (
                     <td>
                         <ItemsContainer>
@@ -129,7 +144,7 @@ const TableContent = (props) => {
                 )
 
                 return (
-                    <tr key={idx}>
+                    <tr key={idx} ref={idx === props.renderTo ? trRef : undefined}>
                         <td>
                             {`${stage.chapter}-${stage.stage}`}
                         </td>
@@ -142,25 +157,15 @@ const TableContent = (props) => {
             })}
         </tbody>
     )
+})
 
-    return (
-        <>
-            <TableHeader />
-            <TableBody />
-        </>
-    )
-}
-
-const ItemTableWrapper = styled(ScrollableContainer)`
+const ItemTable = styled(WindowTable)`
     overflow-x: auto;
-    height: calc(100vh - 14.2rem);
+    height: calc(100vh - 10.4rem);
     padding-right: 0;
     margin-right: 0;
-    @media screen and (min-width: 410px) {
-        height: calc(100vh - 10.9rem);
-    }
 `
-const ItemTable = () => {
+const ItemShowcase = () => {
     const sortFunc = (sortableItems, sortConfig) => {
         const toStageKey = key => {
             return (
@@ -192,21 +197,16 @@ const ItemTable = () => {
     }
 
     return (
-        <ItemTableWrapper>
-            <SortableTable
-                sortFunc={sortFunc}
-                defaultSortKey={'stage'}
-                result={stageDropData}
-                border
-            >
-                <TableContent />
-            </SortableTable>
-        </ItemTableWrapper>
+        <ItemTable
+            data={stageDropData}
+            head={<TableHead />}
+            body={<TableBody />}
+            variableSize
+            sortFunc={sortFunc}
+            defaultSortKey={'stage'}
+            border
+        />
     )
 }
 
-export default function ItemShowcase() {
-    return (
-        <ItemTable />
-    )
-}
+export default ItemShowcase

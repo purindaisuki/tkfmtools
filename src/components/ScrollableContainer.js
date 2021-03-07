@@ -9,6 +9,7 @@ const ScrollableContainer = styled.div`
     margin-right: -.5rem;
     &::-webkit-scrollbar {
         width: .4rem;
+        height: .4rem;
         background: ${props => props.theme.colors.surface};
     }
     &::-webkit-scrollbar-thumb {

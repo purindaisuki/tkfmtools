@@ -259,13 +259,31 @@ const CharFilterPanel = ({
     )
 }
 
+const TableHead = ({ requestSort, getSortDirection }) => {
+    const { pageString } = useContext(LanguageContext)
+
+    return (
+        <thead>
+            <tr>
+                {pageString.enlist.filter.tableHead
+                    .map((item, idx) => (
+                        <SortableTh
+                            key={idx}
+                            onClick={() => requestSort(item.attr)}
+                            direction={getSortDirection(item.attr)}
+                        >
+                            {item.title}
+                        </SortableTh>
+                    ))}
+            </tr>
+        </thead>
+    )
+}
+
 const StyledTooltip = styled(Tooltip)`
     right: 0;
 `
-const TagTooltip = ({
-    children,
-    char
-}) => {
+const TagTooltip = ({ children, char }) => {
     const { charString } = useContext(LanguageContext)
 
     const texts = char.distinctTagCombs
@@ -302,12 +320,8 @@ const StarIconWrapper = styled(IconWrapper)`
         margin-left: -.6rem;
     }
 `
-function TableContent(props) {
-    const {
-        userLanguage,
-        pageString,
-        charString
-    } = useContext(LanguageContext)
+function TableBody({ sortedResult }) {
+    const { userLanguage, charString } = useContext(LanguageContext)
 
     const parseRarity = (rarity) => (
         rarity === 0 ? 'N'
@@ -322,52 +336,34 @@ function TableContent(props) {
     }
 
     return (
-        <>
-            <thead>
-                <tr>
-                    {pageString.enlist.filter.tableHead
-                        .map((item, idx) => (
-                            <SortableTh
-                                key={idx}
-                                onClick={() => props.requestSort(item.attr)}
-                                direction={props.getSortDirection(item.attr)}
-                            >
-                                {item.title}
-                            </SortableTh>
-                        ))}
+        <tbody>
+            {sortedResult.map((char, idx) => (
+                <tr key={idx}>
+                    <td>
+                        <TagTooltip char={char}>
+                            <CharCardWrapper>
+                                <ResponsiveCharCard
+                                    id={char.id}
+                                    $textWrapConfig={
+                                        cardTextWrapConfig[userLanguage]
+                                    }
+                                />
+                                <StarIconWrapper
+                                    $hidden={char.distinctTagCombs.length === 0}
+                                >
+                                    {StarIcon}
+                                </StarIconWrapper>
+                            </CharCardWrapper>
+                        </TagTooltip>
+                    </td>
+                    <td>{parseRarity(char.rarity)}</td>
+                    <td>
+                        {char.appliedTags
+                            .map(i => charString.tags[i]).join(', ')}
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                {props.sortedResult.map((char, idx) => (
-                    <tr key={idx}>
-                        <td>
-                            <TagTooltip char={char}>
-                                <CharCardWrapper>
-                                    <ResponsiveCharCard
-                                        id={char.id}
-                                        $textWrapConfig={
-                                            cardTextWrapConfig[userLanguage]
-                                        }
-                                    />
-                                    <StarIconWrapper
-                                        $hidden={char.distinctTagCombs.length === 0}
-                                    >
-                                        {StarIcon}
-                                    </StarIconWrapper>
-                                </CharCardWrapper>
-                            </TagTooltip>
-                        </td>
-                        <td>{parseRarity(char.rarity)}</td>
-                        <td>
-                            {
-                                char.appliedTags
-                                    .map(i => charString.tags[i]).join(', ')
-                            }
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </>
+            ))}
+        </tbody>
     )
 }
 
@@ -728,15 +724,15 @@ export default function CharFilter() {
                     groupBtnByClass={groupBtnByClass}
                 />
                 <ResultTable
-                    result={state.characters}
+                    data={state.characters}
+                    head={<TableHead />}
+                    body={<TableBody />}
                     sortFunc={sortFunc}
                     defaultSortKey={'rarity'}
                     handleModalOpen={handelHelpModal(true)}
                     widthConfig={tableWidthConfig}
                     striped
-                >
-                    <TableContent />
-                </ResultTable>
+                />
             </FilterContainer>
             <SettingModal
                 open={state.isSettingModalOpen}

@@ -34,9 +34,6 @@ export const FilterPanel = ({
 )
 
 export const SortableTh = styled.th`
-    position: sticky;
-    top: 0;
-    z-index: 1;
     cursor: pointer;
     user-select: none;
     background-color: ${props => props.theme.colors.surface};
@@ -54,6 +51,11 @@ export const SortableTh = styled.th`
 const StyledTable = styled(Table)`
     width: 100%;
     margin-bottom: 0;
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
     &, &&& tr {
         color: ${props => props.theme.colors.onSurface};
     }
@@ -76,8 +78,9 @@ const StyledTable = styled(Table)`
 `
 export const SortableTable = ({
     className,
-    children,
-    result,
+    data,
+    head,
+    body,
     sortFunc,
     defaultSortKey,
     striped,
@@ -111,7 +114,7 @@ export const SortableTable = ({
         return { sortedResult: sortedItems, requestSort, sortConfig }
     }
 
-    const { sortedResult, requestSort, sortConfig } = useSortableData(result)
+    const { sortedResult, requestSort, sortConfig } = useSortableData(data)
 
     // apply default key if value assigned after first render
     useEffect(() => {
@@ -120,11 +123,11 @@ export const SortableTable = ({
         }
     }, [defaultSortKey])
 
-    const getSortDirection = (key) => {
-        if (sortedResult.length === 0) return
-
-        return sortConfig.key === key ? sortConfig.direction : undefined
-    }
+    const getSortDirection = (key) => (
+        !data || data.length === 0 || sortConfig.key !== key
+            ? undefined
+            : sortConfig.direction
+    )
 
     return (
         <StyledTable
@@ -135,9 +138,12 @@ export const SortableTable = ({
             $border={border}
             size="sm"
         >
-            {React.cloneElement(children, {
+            {React.cloneElement(head, {
                 requestSort: requestSort,
                 getSortDirection: getSortDirection,
+                sortedResult: sortedResult,
+            })}
+            {React.cloneElement(body, {
                 sortedResult: sortedResult,
             })}
         </StyledTable>
@@ -183,8 +189,9 @@ const StyledSortableTable = styled(SortableTable)`
     }
 `
 export function ResultTable({
-    children,
-    result,
+    data,
+    head,
+    body,
     sortFunc,
     defaultSortKey,
     handleModalOpen,
@@ -202,12 +209,13 @@ export function ResultTable({
             />
             <TableWrapper>
                 <StyledSortableTable
-                    result={result}
+                    data={data}
+                    head={head}
+                    body={body}
                     sortFunc={sortFunc}
                     defaultSortKey={defaultSortKey}
                     striped={striped}
                 >
-                    {children}
                 </StyledSortableTable>
             </TableWrapper>
         </ResultTableContainer>

@@ -102,87 +102,106 @@ const TableImg = styled(ImageSupplier)`
     width: 1.8rem;
     height: 1.8rem;
 `
-const TableContent = (props) => {
+const ItemTh = ({
+    requestSort,
+    getSortDirection,
+    sortedResult
+}) => {
     const { pageString, itemString } = useContext(LanguageContext)
 
-    const ItemTh = () => {
-        if (props.sortedResult.length === 0) {
-            return (
-                <SortableTh>
-                    {pageString.items.drop.filter.tableHead[1]}
-                </SortableTh>
-            )
-        }
-
+    if (sortedResult.length === 0) {
         return (
-            Object.entries(props.sortedResult[0]).map((entry, idx) => {
-                if (entry[0] === 'stage' || entry[0] === 'energy') {
-                    return
-                }
-
-                return (
-                    <ImgTh
-                        key={idx}
-                        onClick={() => props.requestSort(entry[0])}
-                        direction={props.getSortDirection(entry[0])}
-                    >
-                        <TableImg
-                            name={`item_${entry[0]}.png`}
-                            alt={itemString.name[entry[0]]}
-                        />
-                    </ImgTh>
-                )
-            })
+            <SortableTh>
+                {pageString.items.drop.filter.tableHead[1]}
+            </SortableTh>
         )
     }
 
     return (
-        <>
-            <thead>
-                <tr>
-                    <SortableTh
-                        onClick={() => props.requestSort('stage')}
-                        direction={props.getSortDirection('stage')}
-                    >
-                        {pageString.items.drop.filter.tableHead[0]}
-                    </SortableTh>
-                    <ItemTh />
-                    <ImgTh
-                        onClick={() => props.requestSort('energy')}
-                        direction={props.getSortDirection('energy')}
-                    >
-                        <TableImg
-                            name='energy.png'
-                            alt={pageString.items.drop.filter.tableHead[2]}
-                        />
-                    </ImgTh>
-                </tr>
-            </thead>
-            <tbody>
-                {props.sortedResult.map((stage, idx) => {
-                    return (
-                        <tr key={idx}>
-                            <td>{stage.stage}</td>
-                            {Object.entries(stage).map((entry, idx) => {
-                                if (
-                                    entry[0] === 'stage' ||
-                                    entry[0] === 'energy'
-                                ) {
-                                    return
-                                }
+        Object.entries(sortedResult[0]).map((entry, idx) => {
+            if (entry[0] === 'stage' || entry[0] === 'energy') {
+                return
+            }
 
-                                return (
-                                    <td key={idx}>
-                                        {itemString.rarity[entry[1]]}
-                                    </td>
-                                )
-                            })}
-                            <td>{stage.energy}</td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </>
+            return (
+                <ImgTh
+                    key={idx}
+                    onClick={() => requestSort(entry[0])}
+                    direction={getSortDirection(entry[0])}
+                >
+                    <TableImg
+                        name={`item_${entry[0]}.png`}
+                        alt={itemString.name[entry[0]]}
+                    />
+                </ImgTh>
+            )
+        })
+    )
+}
+
+const TableHead = ({
+    requestSort,
+    getSortDirection,
+    sortedResult
+}) => {
+    const { pageString } = useContext(LanguageContext)
+
+    return (
+        <thead>
+            <tr>
+                <SortableTh
+                    onClick={() => requestSort('stage')}
+                    direction={getSortDirection('stage')}
+                >
+                    {pageString.items.drop.filter.tableHead[0]}
+                </SortableTh>
+                <ItemTh
+                    requestSort={requestSort}
+                    getSortDirection={getSortDirection}
+                    sortedResult={sortedResult}
+                />
+                <ImgTh
+                    onClick={() => requestSort('energy')}
+                    direction={getSortDirection('energy')}
+                >
+                    <TableImg
+                        name='energy.png'
+                        alt={pageString.items.drop.filter.tableHead[2]}
+                    />
+                </ImgTh>
+            </tr>
+        </thead>
+    )
+}
+
+const TableBody = ({ sortedResult }) => {
+    const { itemString } = useContext(LanguageContext)
+
+    return (
+        <tbody>
+            {sortedResult.map((stage, idx) => {
+                return (
+                    <tr key={idx}>
+                        <td>{stage.stage}</td>
+                        {Object.entries(stage).map((entry, idx) => {
+                            if (
+                                entry[0] === 'stage' ||
+                                entry[0] === 'energy'
+                            ) {
+                                return
+                            }
+
+                            return (
+                                <td key={idx}>
+                                    {itemString.rarity[entry[1]]}
+                                </td>
+                            )
+                        })}
+                        <td>{stage.energy}</td>
+                    </tr>
+                )
+            })}
+        </tbody>
     )
 }
 
@@ -200,7 +219,7 @@ export default function ItemFilter() {
 
     const [state, setState] = useState({
         filterBtnValue: [],
-        result: [],
+        data: [],
         isHelpModalOpen: false,
     })
 
@@ -209,7 +228,7 @@ export default function ItemFilter() {
             setState((state) => ({
                 ...state,
                 filterBtnValue: val,
-                result: [],
+                data: [],
             }))
             return;
         }
@@ -246,7 +265,7 @@ export default function ItemFilter() {
         setState((state) => ({
             ...state,
             filterBtnValue: val,
-            result: filteredStages,
+            data: filteredStages,
         }))
     }
 
@@ -303,15 +322,15 @@ export default function ItemFilter() {
                 clearBtnValue={() => filterBy([])}
             />
             <ResultTable
-                result={state.result}
+                data={state.data}
+                head={<TableHead />}
+                body={<TableBody />}
                 sortFunc={sortFunc}
                 defaultSortKey={state.filterBtnValue[0]}
                 handleModalOpen={handelHelpModal(true)}
                 widthConfig={tableWidthConfig}
                 striped
-            >
-                <TableContent />
-            </ResultTable>
+            />
             <TextModal
                 title={pageString.items.drop.filter.helpModal.title}
                 open={state.isHelpModalOpen}
