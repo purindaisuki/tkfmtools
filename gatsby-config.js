@@ -17,6 +17,19 @@ module.exports = {
 			},
 		},
 		{
+			resolve: "gatsby-plugin-transform-imports",
+			options: {
+				"react-bootstrap": {
+                    "transform": "react-bootstrap/esm/${member}",
+                    "preventFullImport": true
+                },
+                "@material-ui/core": {
+                    "transform": "@material-ui/core/esm/${member}",
+                    "preventFullImport": true
+                }
+			},
+		},
+		{
 			resolve: "gatsby-plugin-google-tagmanager",
 			options: {
 				id: "GTM-KHV3HZD",
