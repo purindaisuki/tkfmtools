@@ -150,7 +150,7 @@ const DescriptionAccordion = styled(MyAccordion)`
         }
     }
 `
-export default () => {
+const Home = () => {
     const { isDefault, pageString } = useContext(LanguageContext)
     const latestMsg = pageString.index.updateLog.content[0]
 
@@ -246,3 +246,5 @@ export default () => {
         </>
     )
 }
+
+export default Home

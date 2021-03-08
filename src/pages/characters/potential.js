@@ -3,7 +3,7 @@ import Head from 'components/Head';
 import CharPotential from 'components/CharPotential';
 import { LanguageContext } from 'components/LanguageProvider';
 
-export default () => {
+const Potential = () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
@@ -17,3 +17,5 @@ export default () => {
         </>
     )
 }
+
+export default Potential

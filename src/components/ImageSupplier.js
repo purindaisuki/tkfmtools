@@ -1,35 +1,65 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import GatsbyImage from "gatsby-image";
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
 import BackgroundImage from 'gatsby-background-image'
 
-const getImgFluid = (name) => {
+// Helper functions.
+const getBgImageType = imageData => imageData.layout === 'fixed' ? 'fixed' : 'fluid'
+const getAspectRatio = imageData => imageData.width / imageData.height
+const getPlaceholder = imageData => {
+  if (imageData.placeholder) {
+    return imageData.placeholder.fallback.includes(`base64`) ?
+      { base64: imageData.placeholder.fallback }
+      : { tracedSVG: imageData.placeholder.fallback }
+  }
+  return {}
+}
+
+/**
+ * Tries to Backport the new `gatsbyImageData` type to the classic `fluid` / `fixed` form.
+ *
+ * @param imageData   {object}    The image data to convert.
+ * @returns {{}}
+ */
+const convertToBgImage = imageData => {
+  if (imageData && imageData.layout) {
+    const returnBgObject = {}
+    const bgType = getBgImageType(imageData)
+    const aspectRatio = getAspectRatio(imageData)
+    const placeholder = getPlaceholder(imageData)
+    returnBgObject[bgType] = {
+      ...imageData.images.fallback,
+      ...placeholder,
+      aspectRatio,
+    }
+    return returnBgObject
+  }
+  return {}
+}
+
+const getImageData = (name, isBackground) => {
   // query images
-  const { allFile } = useStaticQuery(graphql`
-    {
-      allFile(filter: {
-        extension: {regex: "/(jpg)|(jpeg)|(png)/"},
-        sourceInstanceName: {eq: "images"}
-      }) {
-        edges {
-          node {
-            childImageSharp {
-              fluid {
-                originalName,
-                ...GatsbyImageSharpFluid
-              }
-            }
+  const { allFile } = useStaticQuery(graphql`{
+    allFile(
+      filter: {extension: {regex: "/(jpg)|(jpeg)|(png)/"}, sourceInstanceName: {eq: "images"}}
+    ) {
+      edges {
+        node {
+          childImageSharp {
+            gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
           }
+          name
         }
       }
     }
+  }
   `)
 
-  return (
-    allFile.edges
-      .find(i => i.node.childImageSharp.fluid.originalName === name)
-      .node.childImageSharp.fluid
-  )
+  const image = allFile.edges.find(i => i.node.name === name)
+    .node.childImageSharp.gatsbyImageData
+
+  
+  return isBackground ? convertToBgImage(image) : image
 }
 
 const ImageSupplier = ({
@@ -42,16 +72,11 @@ const ImageSupplier = ({
   isBackground
     ? <BackgroundImage
       className={className}
-      fluid={getImgFluid(name)}
+      {...getImageData(name, isBackground)}
     >
       {children}
     </BackgroundImage>
-
-    : <GatsbyImage
-      className={className}
-      fluid={getImgFluid(name)}
-      alt={alt}
-    />
+    : <GatsbyImage image={getImageData(name, isBackground)} className={className} alt={alt} />
 )
 
 export default ImageSupplier

@@ -41,7 +41,7 @@ const LayoutSwitcher = (props) => {
     )
 }
 
-export default () => {
+const Index = () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
@@ -62,3 +62,5 @@ export default () => {
         </>
     )
 }
+
+export default Index

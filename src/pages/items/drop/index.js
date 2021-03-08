@@ -3,7 +3,7 @@ import Head from "components/Head";
 import ItemShowcase from 'components/ItemShowcase';
 import { LanguageContext } from 'components/LanguageProvider';
 
-export default () => {
+const Index = () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
@@ -17,3 +17,5 @@ export default () => {
         </>
     )
 }
+
+export default Index

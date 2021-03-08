@@ -26,7 +26,7 @@ export const ImgCard = ({
     isBackground
         ? <StyledImg
             className={className}
-            name={`${imgType}_${imgId}.png`}
+            name={`${imgType}_${imgId}`}
             isBackground
             alt={alt}
         >
@@ -34,7 +34,7 @@ export const ImgCard = ({
         </StyledImg>
         : <ImgWrapper className={className}>
             <StyledImg
-                name={`${imgType}_${imgId}.png`}
+                name={`${imgType}_${imgId}`}
                 alt={alt}
             />
             {children}

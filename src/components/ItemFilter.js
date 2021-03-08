@@ -79,7 +79,7 @@ const ItemFilterPanel = ({
                             key={idx}
                         >
                             <ItemImg
-                                name={`item_${entry[0]}.png`}
+                                name={`item_${entry[0]}`}
                                 alt=''
                             />
                             {itemString.name[entry[0]]}
@@ -130,7 +130,7 @@ const ItemTh = ({
                     direction={getSortDirection(entry[0])}
                 >
                     <TableImg
-                        name={`item_${entry[0]}.png`}
+                        name={`item_${entry[0]}`}
                         alt={itemString.name[entry[0]]}
                     />
                 </ImgTh>
@@ -165,7 +165,7 @@ const TableHead = ({
                     direction={getSortDirection('energy')}
                 >
                     <TableImg
-                        name='energy.png'
+                        name='energy'
                         alt={pageString.items.drop.filter.tableHead[2]}
                     />
                 </ImgTh>

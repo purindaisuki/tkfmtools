@@ -1,0 +1,20 @@
+{
+    "plugins": [
+        [
+            "transform-imports",
+            {
+                "react-bootstrap": {
+                    "transform": "react-bootstrap/esm/${member}",
+                    "preventFullImport": true
+                },
+                "@material-ui/core": {
+                    "transform": "@material-ui/core/esm/${member}",
+                    "preventFullImport": true
+                }
+            }
+        ]
+    ],
+    "presets": [
+        "babel-preset-gatsby"
+    ]
+}

@@ -3,7 +3,7 @@ import Head from 'components/Head';
 import CharFilter from 'components/CharFilter';
 import { LanguageContext } from 'components/LanguageProvider';
 
-export default () => {
+const Filter = () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
@@ -17,3 +17,5 @@ export default () => {
         </>
     )
 }
+
+export default Filter

@@ -59,14 +59,14 @@ const StyledLink = styled(LocalizedLink)`
         color: ${props => props.theme.colors.linkHover};
     }
 `
-export default () => {
+const NotFound = () => {
     const { pageString } = useContext(LanguageContext)
 
     return (
         <Wrapper>
             <title>{pageString[404].title}</title>
             <NotFoundImg
-                name='pageNotFound.png'
+                name='pageNotFound'
                 isBackground={true}
                 alt=''
             >
@@ -79,3 +79,5 @@ export default () => {
         </Wrapper>
     )
 }
+
+export default NotFound

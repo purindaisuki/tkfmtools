@@ -6,27 +6,16 @@ module.exports = {
 	plugins: [
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-styled-components`,
+		`gatsby-plugin-postcss`,
 		`gatsby-plugin-material-ui`,
-		`gatsby-transformer-sharp`,
+		`gatsby-plugin-image`,
 		`gatsby-plugin-sharp`,
+		`gatsby-transformer-sharp`,
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
 				path: `${__dirname}/src/images`,
 				name: `images`,
-			},
-		},
-		{
-			resolve: "gatsby-plugin-transform-imports",
-			options: {
-				"react-bootstrap": {
-                    "transform": "react-bootstrap/esm/${member}",
-                    "preventFullImport": true
-                },
-                "@material-ui/core": {
-                    "transform": "@material-ui/core/esm/${member}",
-                    "preventFullImport": true
-                }
 			},
 		},
 		{

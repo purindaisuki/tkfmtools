@@ -94,7 +94,7 @@ const ContainerBody = styled.div`
     }
 `
 const CharImgWrapper = styled(ImageSupplier)`
-    width: 5.2rem;
+    width: 5.1rem;
     margin-right: 1rem;
     border: 2px solid ${props => props.theme.colors.secondary};
     border-radius: .25rem;
@@ -127,7 +127,7 @@ export const CharSelectPanel = ({
             />
             <ContainerBody>
                 <CharImgWrapper
-                    name={`char_${character}.png`}
+                    name={`char_${character}`}
                     alt=''
                 />
                 <Form onSubmit={(event) => event.preventDefault()}>
@@ -237,7 +237,7 @@ const MaterialBox = ({
                 </MaterialWrapper>
             ))}
             <UiImgWrapper
-                name='money.png'
+                name='money'
                 alt='money'
                 layoutConfig={layoutConfig}
             >
@@ -309,21 +309,21 @@ const ResultPanel = ({
                 <div>
                     <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_atk.png'
+                        name='ui_small_atk'
                         alt='ATK'
                     >
                         {`${result.buff.ATK} %`}
                     </UiImgWrapper>
                     <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_hp.png'
+                        name='ui_small_hp'
                         alt='HP'
                     >
                         {`${result.buff.HP} %`}
                     </UiImgWrapper>
                     <UiImgWrapper
                         layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_potentialPassive.png'
+                        name='ui_small_potentialPassive'
                         alt='Passive'
                     >
                         {`${result.buff.PASSIVE === 0 ? '-'
