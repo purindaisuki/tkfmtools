@@ -31,7 +31,6 @@
     "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.2.0",
     "react-scroll-up-button": "^1.6.4",
-    "react-virtualized": "^9.22.3",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },

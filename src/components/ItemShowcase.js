@@ -1,8 +1,8 @@
 import React, { useContext, useImperativeHandle, useRef } from 'react';
 import styled from 'styled-components';
-import { Badge } from "react-bootstrap"
-import WindowTable from './WindowTable';
-import { SortableTh } from './FilterComponents';
+import { Badge } from 'react-bootstrap';
+import ScrollableContainer from './ScrollableContainer';
+import { SortableTh, SortableTable } from './FilterComponents';
 import { ImgCard } from './MyCard';
 import { LanguageContext } from './LanguageProvider';
 import stageDropData from 'gamedata/stageDrop.json';
@@ -41,8 +41,8 @@ export const ItemCard = ({
 }
 
 const StyledTh = styled(SortableTh)`
-    background-color:  ${props => props.theme.colors.secondary};
-    color:  ${props => props.theme.colors.onSecondary};
+    background-color: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.onSecondary};
     white-space: nowrap;
     ${props => props.$sortable ? true : 'cursor: default;'}
 `
@@ -159,7 +159,7 @@ const TableBody = React.forwardRef((props, ref) => {
     )
 })
 
-const ItemTable = styled(WindowTable)`
+const TableWrapper = styled(ScrollableContainer)`
     overflow-x: auto;
     height: calc(100vh - 10.4rem);
     padding-right: 0;
@@ -197,15 +197,16 @@ const ItemShowcase = () => {
     }
 
     return (
-        <ItemTable
-            data={stageDropData}
-            head={<TableHead />}
-            body={<TableBody />}
-            variableSize
-            sortFunc={sortFunc}
-            defaultSortKey={'stage'}
-            border
-        />
+        <TableWrapper>
+            <SortableTable
+                data={stageDropData}
+                head={<TableHead />}
+                body={<TableBody />}
+                sortFunc={sortFunc}
+                defaultSortKey={'stage'}
+                border
+            />
+        </TableWrapper>
     )
 }
 
