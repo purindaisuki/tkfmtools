@@ -35,6 +35,13 @@ export const lightTheme = {
                 strokeWidth: 1
             }
         },
+        colors: [
+            '#ef5350',
+            '#42a5f5',
+            '#66bb6a',
+            '#ffca28',
+            '#ab47bc'
+        ]
     }
 }
 
@@ -75,5 +82,12 @@ export const darkTheme = {
                 strokeWidth: 1
             }
         },
+        colors: [
+            '#ef9a9a',
+            '#90caf9',
+            '#a5d6a7',
+            '#ffe082',
+            '#ce93d8'
+        ]
     }
 }

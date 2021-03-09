@@ -120,14 +120,14 @@ const Index = ({ pageState, handlePageState }) => {
         rarity: c.rarity,
         attribute: c.tags.attribute,
         position: c.tags.position - 5,
-        level: 0,
+        level: Math.floor(Math.random()*60),
         potential: 1,
         potentialSub: 0,
         discipline: 0,
         star: c.rarity,
         ATK: c.stats.initATK,
         HP: c.stats.initHP,
-        exist: false,
+        exist: true,
     })))
 
     // read state when page loaded

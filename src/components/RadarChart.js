@@ -13,7 +13,7 @@ const RadarChart = ({ data }) => {
             indexBy='name'
             keys={Object.keys(rest)}
             maxValue={60}
-            margin={{ top: 60, right: 80, bottom: 70, left: 80 }}
+            margin={{ top: 10, right: 80, bottom: 100, left: 80 }}
             borderWidth={2}
             borderColor={{ from: 'color' }}
             gridLevels={3}
@@ -25,7 +25,7 @@ const RadarChart = ({ data }) => {
             dotBorderColor={{ from: 'color' }}
             dotLabel='value'
             dotLabelYOffset={-12}
-            colors={{ scheme: 'pastel1' }}
+            colors={theme.chart.colors}
             fillOpacity={0.25}
             blendMode='multiply'
             animate
@@ -36,17 +36,16 @@ const RadarChart = ({ data }) => {
                     anchor: 'bottom',
                     direction: 'row',
                     translateX: -60,
-                    translateY: -60,
+                    translateY: -40,
                     itemWidth: 80,
                     itemHeight: 20,
-                    itemTextColor: '#999',
                     symbolSize: 12,
                     symbolShape: 'circle',
                     effects: [
                         {
                             on: 'hover',
                             style: {
-                                itemTextColor: '#000'
+                                itemOpacity: .8
                             }
                         }
                     ]

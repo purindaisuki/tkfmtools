@@ -548,21 +548,35 @@
             },
             "chart": [
                 {
-                    "title": "Character Lv by position",
+                    "title": "Character Lv by Position",
                     "legend": [
-                        "max",
-                        "avg",
-                        "median",
-                        "min"
+                        "Max",
+                        "Avg",
+                        "Median",
+                        "Min"
                     ]
                 },
                 {
-                    "title": "Character Lv by attribute",
+                    "title": "Character Lv by Attribute",
                     "legend": [
-                        "max",
-                        "avg",
-                        "median",
-                        "min"
+                        "Max",
+                        "Avg",
+                        "Median",
+                        "Min"
+                    ]
+                },
+                {
+                    "title": "Character Exp by Position",
+                    "legend": [
+                        "Exp",
+                        "Number"
+                    ]
+                },
+                {
+                    "title": "Character Exp by Attribute",
+                    "legend": [
+                        "Exp",
+                        "Number"
                     ]
                 }
             ]

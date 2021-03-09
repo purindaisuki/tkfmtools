@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Head from 'components/Head';
 import RadarChart from 'components/RadarChart';
+import BarChart from 'components/BarChart';
 import { LanguageContext } from 'components/LanguageProvider';
+import expData from 'gamedata/exp.json'
 
-const calcStats = (names, array) => {
+const calcLvStats = (names, array) => {
     const len = array.length
     const mid = Math.floor(len / 2)
     return ({
@@ -16,31 +18,54 @@ const calcStats = (names, array) => {
     })
 }
 
+const lvToExp = (lv) => expData.slice(0, lv).reduce((a, b) => a + b.exp, 0)
+
 const parseState = (state, tags, chart) => {
     const validChars = state ? state.filter(c => c.exist && c.level !== 0) : []
     validChars.sort((a, b) => a.level - b.level)
 
-    const levelDataByPosition = [...Array(5)].map(i => [])
-    const levelDataByAttribute = [...Array(5)].map(i => [])
+    validChars.forEach(c => c.exp = lvToExp(c.level))
+    const radarDataByPosition = [...Array(5)].map(i => [])
+    const radarDataByAttribute = [...Array(5)].map(i => [])
+    const barDataByPosition = [...Array(12)].map((a, i) => {
+        const data = { exp: i * 50 + 'k~' }
+        tags.slice(5, 10).forEach(t => data[t] = 0)
+        return data
+    })
+    const barDataByAttribute = [...Array(12)].map((a, i) => {
+        const data = { exp: i * 50 + 'k~' }
+        tags.slice(0, 5).forEach(t => data[t] = 0)
+        return data
+    })
     validChars.forEach(c => {
-        levelDataByPosition[c.position].push(c.level)
-        levelDataByAttribute[c.attribute].push(c.level)
+        radarDataByPosition[c.position].push(c.level)
+        radarDataByAttribute[c.attribute].push(c.level)
+        barDataByPosition[Math.floor((c.exp) / 50000)][tags[c.position + 5]]++
+        barDataByAttribute[Math.floor((c.exp) / 50000)][tags[c.attribute]]++
     })
 
     return ({
-        byPosistion: levelDataByPosition
-            .map((group, idx) => calcStats([tags[idx + 5], ...chart[0].legend], group)),
-        byAttribute: levelDataByAttribute
-            .map((group, idx) => calcStats([tags[idx], ...chart[1].legend], group)),
+        radarDataByPosition: radarDataByPosition
+            .map((group, idx) => calcLvStats([tags[idx + 5], ...chart[0].legend], group)),
+        radarDataByAttribute: radarDataByAttribute
+            .map((group, idx) => calcLvStats([tags[idx], ...chart[1].legend], group)),
+        barDataByPosition: barDataByPosition,
+        barDataByAttribute: barDataByAttribute,
     })
 }
 
 const ChartsContainer = styled.div`
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 const ChartWrapper = styled.div`
     height: 400px;
     width: 50%;
+    margin-bottom: 4rem;
+    @media screen and (max-width: 992px) {
+        width: 100%;
+    }
 `
 const ChartHeader = styled.div`
     display: flex;
@@ -59,12 +84,30 @@ const Analysis = ({ pageState }) => {
                 path='/analysis/result/'
             />
             <ChartsContainer>
-                {pageString.analysis.result.chart.map((chart, idx) => (
-                    <ChartWrapper>
-                        <ChartHeader>{chart.title}</ChartHeader>
-                        <RadarChart data={Object.values(data)[idx]} />
-                    </ChartWrapper>
-                ))}
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
+                    <RadarChart data={data.radarDataByPosition} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.chart[1].title}</ChartHeader>
+                    <RadarChart data={data.radarDataByAttribute} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.chart[2].title}</ChartHeader>
+                    <BarChart
+                        yAxisText={pageString.analysis.result.chart[2].legend[0]}
+                        xAxisText={pageString.analysis.result.chart[2].legend[1]}
+                        data={data.barDataByPosition}
+                    />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.chart[3].title}</ChartHeader>
+                    <BarChart
+                        yAxisText={pageString.analysis.result.chart[3].legend[0]}
+                        xAxisText={pageString.analysis.result.chart[3].legend[1]}
+                        data={data.barDataByAttribute}
+                    />
+                </ChartWrapper>
             </ChartsContainer>
         </>
     )
