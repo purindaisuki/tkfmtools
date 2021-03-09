@@ -15,7 +15,7 @@ import { LanguageContext } from './LanguageProvider';
 import { AttackIcon, HpIcon } from './icon';
 import charData from 'gamedata/character.json';
 
-const StatusForm = ({
+const StatsForm = ({
     handleSelect,
     potentialMaxNum,
     potentialSubMinNum,
@@ -85,7 +85,7 @@ const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
 `
-const StatusWrapper = styled.div`
+const StatsWrapper = styled.div`
     margin: 1.5rem .5rem;
     svg {
         width: 1.2rem;
@@ -110,12 +110,12 @@ const ResultPanel = ({
                 onClickHelp={() => setModalOpen(true)}
             />
             <BodyContainer>
-                <StatusWrapper>
+                <StatsWrapper>
                     {AttackIcon}{`ATK: ${result.ATK}`}
-                </StatusWrapper>
-                <StatusWrapper>
+                </StatsWrapper>
+                <StatsWrapper>
                     {HpIcon}{`HP: ${result.HP}`}
-                </StatusWrapper>
+                </StatsWrapper>
             </BodyContainer>
             <TextModal
                 title={pageString.characters.stats.helpModal.title}
@@ -159,7 +159,32 @@ const resultPanelWidthConfig = {
     992: '100%',
 }
 
-export default function CharExp() {
+export const calcStats = (
+    character,
+    level,
+    potential,
+    potentialSub,
+    discipline,
+    star,
+    initATK,
+    initHP
+) => {
+    const levelBuff = 1.1 ** (level - 1)
+    const { buff } = calcPotential(
+        character,
+        [1, 0],
+        [potential, potentialSub]
+    )
+    const disciplineBuff = 1 + discipline * .05
+    const starBuff = (star + 5) / (9 - character[0])
+
+    return ({
+        ATK: Math.floor(initATK * levelBuff * (1 + buff.ATK / 100) * disciplineBuff * starBuff),
+        HP: Math.floor(initHP * levelBuff * (1 + buff.HP / 100) * disciplineBuff * starBuff)
+    })
+}
+
+export default function CharStats() {
     const [state, setState] = useState({
         character: '101',
         level: 1,
@@ -174,9 +199,12 @@ export default function CharExp() {
     })
 
     const handleSelect = (attr) => (event) => {
-        let newState = { ...state }
         const selected = event.target.value
-        newState[attr] = attr === 'character' ? selected : parseInt(selected)
+
+        let newState = { 
+            ...state,
+            [attr] : attr === 'character' ? selected : parseInt(selected)
+         }
 
         if (isNaN(parseInt(newState.level)) || newState.level < 0 || newState.level > 60) {
             setState((state) => ({
@@ -210,19 +238,9 @@ export default function CharExp() {
 
         // calculate status
         const { initATK, initHP } = charData.find(c => c.id === newState.character).stats
-        const levelBuff = 1.1 ** (newState.level - 1)
-        const { buff } = calcPotential(
-            newState.character,
-            [1, 0],
-            [newState.potential, newState.potentialSub]
-        )
-        const disciplineBuff = 1 + newState.discipline * .05
-        const starBuff = (newState.star + 5) / (9 - newState.character[0])
+        const { result, ...rest } = newState
 
-        newState.result = {
-            ATK: Math.floor(initATK * levelBuff * (1 + buff.ATK / 100) * disciplineBuff * starBuff),
-            HP: Math.floor(initHP * levelBuff * (1 + buff.HP / 100) * disciplineBuff * starBuff)
-        }
+        newState.result = calcStats(...Object.values(rest), initATK, initHP)
 
         setState(newState)
     }
@@ -233,7 +251,7 @@ export default function CharExp() {
                 handleSelect={handleSelect}
                 character={state.character}
             >
-                <StatusForm
+                <StatsForm
                     handleSelect={handleSelect}
                     potentialSubMinNum={state.potential === 1 ? 0 : 1}
                     potentialMaxNum={state.character[0] === '4' || state.character[0] === '3'

@@ -524,82 +524,93 @@
             }
         }
     },
-    "navbar": [
-        {
-            "title": "Characters",
-            "links": [
+    "analysis": {
+        "tabLabel": [
+            "Line-up",
+            "Result"
+        ],
+        "index": {
+            "name": "Line-up analysis",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Line-up analysis",
+                "description": "TBD"
+            },
+            "levelTitle": "Level",
+            "potentialTitle": "Potential",
+            "disciplineTitle": "Discipline",
+            "starTitle": "Star"
+        },
+        "result": {
+            "name": "Line-up analysis",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Line-up analysis",
+                "description": "TBD"
+            },
+            "chart": [
                 {
-                    "description": "Potential calculator",
-                    "to": "/characters/potential/"
+                    "title": "Character Lv by position",
+                    "legend": [
+                        "max",
+                        "avg",
+                        "median",
+                        "min"
+                    ]
                 },
                 {
-                    "description": "Stats calculator",
-                    "to": "/characters/stats/"
+                    "title": "Character Lv by attribute",
+                    "legend": [
+                        "max",
+                        "avg",
+                        "median",
+                        "min"
+                    ]
                 }
+            ]
+        }
+    },
+    "navbar": [
+        {
+            "title": "Home"
+        },
+        {
+            "title": "Characters",
+            "descriptions": [
+                "Potential calculator",
+                "Stats calculator"
             ]
         },
         {
             "title": "Recruitment",
-            "links": [
-                {
-                    "description": "Overview",
-                    "to": "/enlist/"
-                },
-                {
-                    "description": "Filter",
-                    "to": "/enlist/filter/"
-                }
+            "descriptions": [
+                "Overview",
+                "Filter"
             ]
         },
         {
             "title": "Item drops",
-            "links": [
-                {
-                    "description": "Overview",
-                    "to": "/items/drop/"
-                },
-                {
-                    "description": "Filter",
-                    "to": "/items/drop/filter/"
-                }
+            "descriptions": [
+                "Overview",
+                "Filter"
             ]
         },
         {
+            "title": "Line-up analysis"
+        },
+        {
             "title": "External Links",
-            "links": [
-                {
-                    "description": "Official website",
-                    "link": "https://www.tenkafuma.com/"
-                },
-                {
-                    "description": "Game data (Chinese)",
-                    "link": "https://reurl.cc/5o5A7z/"
-                },
-                {
-                    "description": "Potential data (Chinese)",
-                    "link": "https://reurl.cc/1gZ5nV/"
-                }
+            "descriptions": [
+                "Official website",
+                "Game data (Chinese)",
+                "Potential data (Chinese)"
             ]
         },
         {
             "title": "Report",
-            "links": [
-                {
-                    "description": "Recruitment (Chinese)",
-                    "link": "https://forms.gle/VYMGibGfs36F9tdQ6"
-                },
-                {
-                    "description": "Potential (Chinese)",
-                    "link": "https://reurl.cc/E22vDa"
-                },
-                {
-                    "description": "Item drop rate (Chinese)",
-                    "link": "https://reurl.cc/jqGAVL"
-                },
-                {
-                    "description": "Feedback",
-                    "link": "https://peing.net/ja/b5295760aebf4c"
-                }
+            "descriptions": [
+                "Recruitment (Chinese)",
+                "Potential (Chinese)",
+                "Item drop rate (Chinese)",
+                "Feedback"
             ]
         }
     ],

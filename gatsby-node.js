@@ -2,7 +2,7 @@ const path = require('path')
 const langConfig = require('./src/languangeConfig.json')
 
 // Absolute imports
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
+exports.onCreateWebpackConfig = ({ actions }) => {
     actions.setWebpackConfig({
         resolve: {
             modules: [path.resolve(__dirname, "src"), "node_modules"],
@@ -27,7 +27,8 @@ exports.onCreatePage = ({ page, actions }) => {
                 ? 'drop'
                 : localizedPath.includes('characters/')
                     ? 'characters'
-                    : undefined
+                    : localizedPath.includes('analysis/')
+                        ? 'analysis' : undefined
 
         // Check if the page is a localized 404
         if (localizedPath.match(/^[a-z]{2}\/404\/$/)) {
@@ -45,7 +46,6 @@ exports.onCreatePage = ({ page, actions }) => {
 
         return createPage({
             ...page,
-            // remove trailing slash
             path: localizedPath,
             // Pass in the stringData as context to every page
             context: {

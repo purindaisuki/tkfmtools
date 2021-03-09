@@ -21,6 +21,20 @@ export const lightTheme = {
     },
     switcher: {
         iconOffest: '1.8rem',
+    },
+    chart: {
+        textColor: '#333',
+        tooltip: {
+            container: {
+                background: '#FAFAFA'
+            }
+        },
+        grid: {
+            line: {
+                stroke: 'lightgray',
+                strokeWidth: 1
+            }
+        },
     }
 }
 
@@ -47,5 +61,19 @@ export const darkTheme = {
     },
     switcher: {
         iconOffest: '6px',
+    },
+    chart: {
+        textColor: '#fff',
+        tooltip: {
+            container: {
+                background: '#484848',
+            }
+        },
+        grid: {
+            line: {
+                stroke: 'gray',
+                strokeWidth: 1
+            }
+        },
     }
 }

@@ -18,6 +18,7 @@ import {
     MenuIcon,
     ToolIcon,
     LanguageIcon,
+    AnalysisIcon,
 } from './icon';
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
@@ -215,7 +216,7 @@ export function MainNavbar({
                 flag = false
                 break
             }
-            
+
             flag = true
         }
 
@@ -254,39 +255,7 @@ export function MainNavbar({
     )
 }
 
-const StyledDrawer = styled(Drawer)`
-    .MuiDrawer-paper {
-        background-color: ${props => props.theme.colors.surface};
-        width: 20rem;
-    }
-`
-const SiderbarList = styled(ListGroup)`
-    border-radius: 0;
-`
-const SidebarHeader = styled.div`
-    display: flex;
-    align-items: center;
-    height: 4rem;
-    padding: .8rem;
-    border-radius: 0;
-    font-size: x-large;
-    @media screen and (max-width: 490px) {
-        font-size: large;
-    }
-    font-weight: bold;
-    background-color: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.onPrimary};
-    svg {
-        fill: ${props => props.theme.colors.onPrimary};
-        margin: .4rem;
-        margin-right: 1.25rem;
-        margin-bottom: .6rem;
-        width: 1.6rem;
-        height 1.6rem;
-        vertical-align: bottom;
-    }
-`
-const SiderbarItem = styled(ListGroup.Item)`
+const StyledListItem = styled(ListGroup.Item)`
     font-size: large;
     border: 0;
     padding: 1rem 1.25rem;
@@ -303,63 +272,6 @@ const SiderbarItem = styled(ListGroup.Item)`
         border-left: .5rem solid ${props => props.theme.colors.secondary};
     }
 `
-export function Sidebar(props) {
-    const { pageString } = useContext(LanguageContext)
-
-    const [expanded, setExpanded] = useState(undefined)
-
-    const handleExpand = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false)
-    }
-
-    return (
-        <StyledDrawer
-            open={props.open}
-            onClose={props.toggleSidebar(false)}
-            onClick={props.toggleSidebar(false)}
-            onKeyDown={props.toggleSidebar(false)}
-        >
-            <SiderbarList>
-                <SidebarHeader>
-                    {ToolIcon}
-                    {pageString.index.helmet.title}
-                </SidebarHeader>
-                {[
-                    {
-                        to: '/',
-                        icon: HomeIcon,
-                        title: pageString.index.name,
-                    }
-                ].map(item => (
-                    <LocalizedLink key={item.title} to={item.to}>
-                        <SiderbarItem>
-                            {item.icon}
-                            {item.title}
-                        </SiderbarItem>
-                    </LocalizedLink>
-                ))}
-                {[
-                    { icon: RaceIcon, linkType: 'internal' },
-                    { icon: EnlistIcon, linkType: 'internal' },
-                    { icon: ChestIcon, linkType: 'internal' },
-                    { icon: LinkIcon, linkType: 'external' },
-                    { icon: FeedbackIcon, linkType: 'external' }
-                ].map((item, idx) => (
-                    <SidebarAccordions
-                        icon={item.icon}
-                        title={pageString.navbar[idx].title}
-                        links={pageString.navbar[idx].links}
-                        linkType={item.linkType}
-                        expanded={expanded === idx}
-                        onChange={handleExpand(idx)}
-                        key={idx}
-                    />
-                ))}
-            </SiderbarList>
-        </StyledDrawer>
-    )
-}
-
 const ListItemAccordion = styled(MyAccordion)`
     && {
         cursor: default;
@@ -392,12 +304,13 @@ const AccordionItem = styled(ListGroup.Item)`
 const SidebarAccordions = ({
     icon,
     title,
-    links,
+    to,
     linkType,
+    descriptions,
     expanded,
     onChange
 }) => (
-    <SiderbarItem>
+    <StyledListItem>
         <ListItemAccordion
             expanded={expanded}
             onChange={onChange}
@@ -411,27 +324,27 @@ const SidebarAccordions = ({
             }
             content={
                 <ListGroup>
-                    {links.map((item, idx) => {
+                    {to.map((item, idx) => {
                         if (linkType === 'internal') {
                             return (
                                 <AccordionItem
                                     as={LocalizedLink}
-                                    to={item.to}
+                                    to={item}
                                     decoration={true}
                                     key={idx}
                                 >
-                                    {item.description}
+                                    {descriptions[idx]}
                                 </AccordionItem>
                             )
                         } else {
                             return (
                                 <AccordionItem
                                     as='a'
-                                    href={item.link}
+                                    href={item}
                                     target='_blank'
                                     key={idx}
                                 >
-                                    {item.description}
+                                    {descriptions[idx]}
                                 </AccordionItem>
                             )
                         }
@@ -439,5 +352,168 @@ const SidebarAccordions = ({
                 </ListGroup>
             }
         />
-    </SiderbarItem>
+    </StyledListItem>
 )
+
+const SidebarItem = ({
+    icon,
+    title,
+    to,
+    expandable,
+    linkType,
+    descriptions,
+    expanded,
+    onChange
+}) => {
+    if (expandable) {
+        return (
+            <SidebarAccordions
+                icon={icon}
+                title={title}
+                to={to}
+                linkType={linkType}
+                descriptions={descriptions}
+                expanded={expanded}
+                onChange={onChange}
+            />
+        )
+    }
+
+    return (
+        <LocalizedLink to={to}>
+            <StyledListItem>
+                {icon}
+                {title}
+            </StyledListItem>
+        </LocalizedLink>
+    )
+}
+
+const StyledDrawer = styled(Drawer)`
+    .MuiDrawer-paper {
+        background-color: ${props => props.theme.colors.surface};
+        width: 20rem;
+    }
+`
+const SiderbaList = styled(ListGroup)`
+    border-radius: 0;
+`
+const SidebarHeader = styled.div`
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    padding: .8rem;
+    border-radius: 0;
+    font-size: x-large;
+    @media screen and (max-width: 490px) {
+        font-size: large;
+    }
+    font-weight: bold;
+    background-color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.onPrimary};
+    svg {
+        fill: ${props => props.theme.colors.onPrimary};
+        margin: .4rem;
+        margin-right: 1.25rem;
+        margin-bottom: .6rem;
+        width: 1.6rem;
+        height 1.6rem;
+        vertical-align: bottom;
+    }
+`
+export function Sidebar(props) {
+    const { pageString } = useContext(LanguageContext)
+
+    const [expanded, setExpanded] = useState(undefined)
+
+    const handleExpand = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false)
+    }
+
+    return (
+        <StyledDrawer
+            open={props.open}
+            onClose={props.toggleSidebar(false)}
+            onClick={props.toggleSidebar(false)}
+            onKeyDown={props.toggleSidebar(false)}
+        >
+            <SiderbaList>
+                <SidebarHeader>
+                    {ToolIcon}
+                    {pageString.index.helmet.title}
+                </SidebarHeader>
+                {[
+                    {
+                        to: '/',
+                        icon: HomeIcon,
+                        expandable: false,
+                    },
+                    {
+                        icon: RaceIcon,
+                        linkType: 'internal',
+                        to: ["/characters/potential/", "/characters/stats/"],
+                        expandable: true,
+                    },
+                    {
+                        icon: EnlistIcon,
+                        linkType: 'internal',
+                        to: [
+                            "/enlist/",
+                            "/enlist/filter/"
+                        ],
+                        expandable: true,
+                    },
+                    {
+                        icon: ChestIcon,
+                        linkType: 'internal',
+                        to: [
+                            "/items/drop/",
+                            "/items/drop/filter/"
+                        ],
+                        expandable: true,
+                    },
+                    {
+                        to: '/analysis/',
+                        icon: AnalysisIcon,
+                        expandable: false,
+                    },
+                    {
+                        icon: LinkIcon,
+                        linkType: 'external',
+                        to: [
+                            "https://www.tenkafuma.com/",
+                            "https://reurl.cc/5o5A7z/",
+                            "https://reurl.cc/1gZ5nV/"
+                        ],
+                        expandable: true,
+                    },
+                    {
+                        icon: FeedbackIcon,
+                        linkType: 'external',
+                        to: [
+                            "https://forms.gle/VYMGibGfs36F9tdQ6",
+                            "https://reurl.cc/E22vDa",
+                            "https://reurl.cc/jqGAVL",
+                            "https://peing.net/ja/b5295760aebf4c"
+                        ],
+                        expandable: true,
+                    }
+                ].map((item, idx) => (
+                    <SidebarItem
+                        {...item}
+                        title={pageString.navbar[idx].title}
+                        expandable={item.expandable}
+                        descriptions={
+                            item.expandable
+                                ? pageString.navbar[idx].descriptions
+                                : undefined
+                        }
+                        expanded={expanded === idx}
+                        onChange={handleExpand(idx)}
+                        key={idx}
+                    />
+                ))}
+            </SiderbaList>
+        </StyledDrawer>
+    )
+}

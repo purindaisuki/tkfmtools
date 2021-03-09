@@ -30,11 +30,13 @@ export const NumForm = ({
     minNum,
     maxNum,
     onChange,
+    defaultValue,
     disabled
 }) => (
     <Form.Group as={as}>
         <Select
             as="select"
+            value={defaultValue}
             onChange={onChange}
             disabled={disabled}
         >
@@ -53,6 +55,7 @@ export const TwoStageForm = ({
     minNum,
     maxNum,
     selectAttrs,
+    defaultValues
 }) => (
     <>
         {title}
@@ -62,6 +65,7 @@ export const TwoStageForm = ({
                 minNum={minNum}
                 maxNum={maxNum}
                 onChange={handleSelect(selectAttrs[0])}
+                defaultValue={defaultValues ? defaultValues[0] : undefined}
             />
             {'–'}
             <NumForm
@@ -69,29 +73,24 @@ export const TwoStageForm = ({
                 minNum={subMinNum}
                 maxNum={6}
                 onChange={handleSelect(selectAttrs[1])}
+                defaultValue={defaultValues ? defaultValues[1] : undefined}
             />
         </Form.Row>
     </>
 )
 
-const IconWrapper = styled.div`
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        margin-right: .4rem;
-        fill: ${props => props.theme.colors.onSurface};
-    }
-`
-const ContainerBody = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+const StyledForm = styled(Form)`
     form {
         width: 13.5rem;
         > div:last-child > div {
         margin-bottom: 0;
         }
     }
+`
+const CharContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 `
 const CharImgWrapper = styled(ImageSupplier)`
     width: 5.1rem;
@@ -125,12 +124,12 @@ export const CharSelectPanel = ({
                 title={pageString.characters.potential.characterPanelTitle}
                 titleIcon={RaceIcon}
             />
-            <ContainerBody>
+            <CharContainer>
                 <CharImgWrapper
                     name={`char_${character}`}
                     alt=''
                 />
-                <Form onSubmit={(event) => event.preventDefault()}>
+                <StyledForm onSubmit={(event) => event.preventDefault()}>
                     {pageString.characters.potential.characterSelectTitle}
                     <Form.Row>
                         <Form.Group as={Col}>
@@ -158,8 +157,8 @@ export const CharSelectPanel = ({
                         </Form.Group>
                     </Form.Row>
                     {children}
-                </Form>
-            </ContainerBody>
+                </StyledForm>
+            </CharContainer>
         </FilterPanel >
     )
 }

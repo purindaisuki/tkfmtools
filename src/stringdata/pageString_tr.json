@@ -536,82 +536,93 @@
             }
         }
     },
-    "navbar": [
-        {
-            "title": "角色",
-            "links": [
+    "analysis": {
+        "tabLabel": [
+            "隊伍",
+            "結果"
+        ],
+        "index": {
+            "name": "隊伍分析",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍分析",
+                "description": "TBD"
+            },
+            "levelTitle": "等級",
+            "potentialTitle": "潛力",
+            "disciplineTitle": "調教",
+            "starTitle": "星數"
+        },
+        "result": {
+            "name": "隊伍分析",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍分析",
+                "description": "TBD"
+            },
+            "chart": [
                 {
-                    "description": "潛力計算",
-                    "to": "/characters/potential/"
+                    "title": "角色等級 依定位",
+                    "legend": [
+                        "最高",
+                        "平均",
+                        "中位數",
+                        "最低"
+                    ]
                 },
                 {
-                    "description": "素質計算",
-                    "to": "/characters/stats/"
+                    "title": "角色等級 依屬性",
+                    "legend": [
+                        "最高",
+                        "平均",
+                        "中位數",
+                        "最低"
+                    ]
                 }
+            ]
+        }
+    },
+    "navbar": [
+        {
+            "title": "首頁"
+        },
+        {
+            "title": "角色",
+            "descriptions": [
+                "潛力計算",
+                "素質計算"
             ]
         },
         {
             "title": "全境徵才",
-            "links": [
-                {
-                    "description": "總覽",
-                    "to": "/enlist/"
-                },
-                {
-                    "description": "篩選器",
-                    "to": "/enlist/filter/"
-                }
+            "descriptions": [
+                "總覽",
+                "篩選器"
             ]
         },
         {
             "title": "道具掉落",
-            "links": [
-                {
-                    "description": "總覽",
-                    "to": "/items/drop/"
-                },
-                {
-                    "description": "篩選器",
-                    "to": "/items/drop/filter/"
-                }
+            "descriptions": [
+                "總覽",
+                "篩選器"
             ]
         },
         {
+            "title": "隊伍分析"
+        },
+        {
             "title": "外部連結",
-            "links": [
-                {
-                    "description": "官方網站",
-                    "link": "https://www.tenkafuma.com/"
-                },
-                {
-                    "description": "資料統整",
-                    "link": "https://reurl.cc/5o5A7z/"
-                },
-                {
-                    "description": "潛力整理＆猜測",
-                    "link": "https://reurl.cc/1gZ5nV/"
-                }
+            "descriptions": [
+                "官方網站",
+                "資料統整",
+                "潛力整理＆猜測"
             ]
         },
         {
             "title": "資訊回報",
-            "links": [
-                {
-                    "description": "全境徵才數據回報",
-                    "link": "https://forms.gle/VYMGibGfs36F9tdQ6"
-                },
-                {
-                    "description": "角色潛力數據回報",
-                    "link": "https://reurl.cc/E22vDa"
-                },
-                {
-                    "description": "主線掉落數據回報",
-                    "link": "https://reurl.cc/jqGAVL"
-                },
-                {
-                    "description": "意見回饋",
-                    "link": "https://peing.net/ja/b5295760aebf4c"
-                }
+            "descriptions": [
+                "全境徵才數據回報",
+                "角色潛力數據回報",
+                "主線掉落數據回報",
+                "意見回饋"
             ]
         }
     ],

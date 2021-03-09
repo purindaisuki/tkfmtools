@@ -16,6 +16,7 @@ const StyledHeader = styled.div`
 `
 const TitleWrapper = styled.div`
     display: flex;
+    flex-direction: row;
     align-items: center;
     > span {
         display: inline-block;

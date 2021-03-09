@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Head from 'components/Head';
-import ChatStats from 'components/ChatStats';
+import CharStats from 'components/CharStats';
 import { LanguageContext } from 'components/LanguageProvider';
 
 const Stats = () => {
@@ -13,7 +13,7 @@ const Stats = () => {
                 description={pageString.characters.stats.helmet.description}
                 path='/characters/stats/'
             />
-            <ChatStats />
+            <CharStats />
         </>
     )
 }

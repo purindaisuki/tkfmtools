@@ -5,10 +5,12 @@ import { Tab, Tabs } from '@material-ui/core';
 import LocalizedLink from './LocalizedLink'
 import { LanguageContext } from './LanguageProvider';
 import {
-    StatusIcon,
+    StatsIcon,
     FilterIcon,
     OverviewIcon,
-    PotentialIcon
+    PotentialIcon,
+    ListIcon,
+    PiechartIcon
 } from './icon';
 
 const StyledTabs = styled(Tabs)`
@@ -103,8 +105,20 @@ export default function PageWithTabs({
             },
             exp: {
                 label: pageString.characters.tabLabel[1],
-                icon: StatusIcon,
+                icon: StatsIcon,
                 to: '/characters/stats/',
+            }
+        },
+        analysis: {
+            analysis: {
+                label: pageString.analysis.tabLabel[0],
+                icon: ListIcon,
+                to: '/analysis/',
+            },
+            result: {
+                label: pageString.analysis.tabLabel[1],
+                icon: PiechartIcon,
+                to: '/analysis/result/',
             }
         }
     }
@@ -114,19 +128,26 @@ export default function PageWithTabs({
     const tabIndex = Object.values(tabsConfig[configKey])
         .findIndex(value => value.to === pagePath)
 
-    const [tab, setTab] = useState(tabIndex)
+    const [state, setState] = useState({
+        tab: tabIndex,
+        pageState: undefined,
+    })
+
+    const handlePageState = (newState) => {
+        setState(state => ({ ...state, pageState: newState }))
+    }
 
     let location = useLocation()
 
     // handle tab change on location change
     useEffect(() => {
-        setTab(tabIndex)
+        setState(state => ({ ...state, tab: tabIndex }))
     }, [location])
 
     return (
         <>
             <StyledTabs
-                value={tab}
+                value={state.tab}
                 $lang={userLanguage}
             >
                 {Object.values(tabsConfig[configKey]).map((item, idx) => (
@@ -141,7 +162,10 @@ export default function PageWithTabs({
                 ))}
             </StyledTabs>
             <TabPanel>
-                {children}
+                {React.cloneElement(children, {
+                    pageState: state.pageState,
+                    handlePageState: handlePageState
+                })}
             </TabPanel>
         </>
     )
