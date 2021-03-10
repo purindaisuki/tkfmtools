@@ -150,7 +150,7 @@ export const CharSelectPanel = ({
                                 })}
                                 {lumpNRChars
                                     ? <option value={'nr'} key={'nr'}>
-                                        {charString.name['nr']}
+                                        {charString.name.nr}
                                     </option>
                                     : null}
                             </Select>
@@ -163,6 +163,23 @@ export const CharSelectPanel = ({
     )
 }
 
+const MaterialWrapper = styled.span`
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .4rem;
+    margin: .2rem 0;
+    ${props => Object.entries(props.$layoutConfig).map(entry => (
+    `@media screen and (min-width: ${entry[0]}px) {
+            width: calc(100% / ${entry[1]});
+        }
+        `
+))}
+    > div {
+        display: flex;
+        align-items: center;
+    }
+`
 const UiImg = styled(ImageSupplier)`
     width: 1.6rem;
     height: 1.6rem;
@@ -187,23 +204,6 @@ const UiImgWrapper = ({
     </MaterialWrapper>
 )
 
-const MaterialWrapper = styled.span`
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 .4rem;
-    margin: .2rem 0;
-    ${props => Object.entries(props.$layoutConfig).map(entry => (
-    `@media screen and (min-width: ${entry[0]}px) {
-            width: calc(100% / ${entry[1]});
-        }
-        `
-))}
-    > div {
-        display: flex;
-        align-items: center;
-    }
-`
 const MaterialCard = styled(ItemCard)`
     > div:first-child {
         width: 2rem;
@@ -215,8 +215,6 @@ const MaterialBox = ({
     result,
     layoutConfig
 }) => {
-    const { itemString } = useContext(LanguageContext)
-
     if (!result.items) return null
 
     return (
