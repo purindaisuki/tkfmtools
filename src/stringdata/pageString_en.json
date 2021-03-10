@@ -558,7 +558,7 @@
             "name": "Line-up analysis",
             "helmet": {
                 "title": "TenkafuMA! toolbox — Line-up analysis",
-                "description": "TBD"
+                "description": "Provide visual representations to help you understand your line-up."
             },
             "levelTitle": "Level",
             "potentialTitle": "Potential",
@@ -569,7 +569,26 @@
             "deleteButton": "Delete",
             "successMsg": "Success",
             "errorMsg": "Failed",
-            "modalTitle": "Load data"
+            "modalTitle": "Load data",
+            "helpModal": {
+                "title": "Line-up analysis - help",
+                "content": [
+                    {
+                        "title": "Introduction",
+                        "content": [
+                            "Provide visual representations to help you understand your line-up."
+                        ]
+                    },
+                    {
+                        "title": "How to",
+                        "content": [
+                            "Select the character states according to your line-up. If you don't own a character, please set its level to be 0.",
+                            "After you finish, the analysis will show at the 'result' page.",
+                            "You can save, load and delete the data by clicking the buttons."
+                        ]
+                    }
+                ]
+            }
         },
         "result": {
             "name": "Line-up analysis",

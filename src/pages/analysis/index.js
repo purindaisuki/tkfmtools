@@ -8,7 +8,7 @@ import { NumForm, Select, TwoStageForm } from 'components/CharPotential';
 import { calcStats } from 'components/CharStats';
 import MyHeader from 'components/MyHeader';
 import MySnackbar from 'components/MySnackbar';
-import { ScrollableModal } from 'components/MyModal';
+import { ScrollableModal, TextModal } from 'components/MyModal';
 import { LanguageContext } from 'components/LanguageProvider';
 import charsData from 'gamedata/character.json';
 
@@ -16,6 +16,30 @@ const charByPositionData = [...Array(5)].map(i => [])
 charsData.forEach((c, idx) => {
     charByPositionData[c.tags.position - 5].push({ id: c.id, idx: idx })
 })
+
+const minifyData = (data) => data.map(c => Object.values(c))
+
+const hydrateData = (data) => {
+    const keys = [
+        'id',
+        'attribute',
+        'position',
+        'level',
+        'potential',
+        'potentialSub',
+        'discipline',
+        'star',
+        'ATK',
+        'HP',
+        'owned'
+    ]
+    return data.map(c => (
+        c.reduce((newData, v, i) => {
+            newData[keys[i]] = v
+            return newData
+        }, {})
+    ))
+}
 
 const StyledForm = styled(Form)`
     width: 12rem;
@@ -163,7 +187,7 @@ const DataModal = ({ handleData }) => {
     return (
         data.map((d, idx) => (
             <ModalItemContainer
-                title={d.time}
+                title={d.date}
                 end={
                     <>
                         <StyledButton type='load' onClick={handleData('load', idx)} >
@@ -182,7 +206,7 @@ const DataModal = ({ handleData }) => {
 
 const CharGroupsContainer = styled.div`
     width: 100%;
-    > div:nth-child(even) > div > span {
+    > div:nth-child(even) > div span {
         display: flex;
         align-items: center;
         margin-bottom: .4rem;
@@ -214,7 +238,8 @@ const Index = ({ pageState, handlePageState }) => {
             HP: c.stats.initHP,
             owned: true,
         })),
-        isModalOpen: false,
+        isDataModalOpen: false,
+        isHelpModalOpen: false,
         isSuccessSnackbarOpen: false,
         isErrorSnackbarOpen: false
     })
@@ -254,47 +279,58 @@ const Index = ({ pageState, handlePageState }) => {
         const localData = localStorage.getItem('analysis-data')
 
         if (action === 'save' && pageState) {
+            const tzoffset = (new Date()).getTimezoneOffset() * 60000
+            const localDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             if (localData) {
                 let data = JSON.parse(localData)
                 data.push({
-                    time: new Date().toISOString().slice(0, 10),
-                    data: state.data
+                    date: localDate,
+                    data: minifyData(state.data)
                 })
                 localStorage.setItem('analysis-data', JSON.stringify(data))
                 setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
-                return
             } else {
                 localStorage.setItem('analysis-data', JSON.stringify([{
-                    time: new Date().toISOString().slice(0, 10),
-                    data: state.data
+                    date: localDate,
+                    data: minifyData(state.data)
                 }]))
                 setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
-                return
             }
+
+            // push data to GA
+            if (dataLayer) {
+                dataLayer.push({
+                    'event': 'line_up_analysis',
+                    'line_up': minifyData(state.data)
+                })
+            }
+            return
         } else if (action === 'load') {
             if (localData) {
                 const data = JSON.parse(localData)
-                if (data[idx] && data[idx].data[0].id === '101') {
+                if (data[idx] && data[idx].data[0][0] === '101') {
+                    const hydratedData = hydrateData(data[idx].data)
                     setState(state => ({
                         ...state,
-                        data: data[idx].data,
+                        data: hydratedData,
                         isSuccessSnackbarOpen: true,
-                        isModalOpen: false
+                        isDataModalOpen: false
                     }))
-                    handlePageState(data[idx].data)
+                    handlePageState(hydratedData)
                     return
                 }
             }
         } else if (action === 'delete') {
             if (localData) {
                 const data = JSON.parse(localData)
-                if (data[idx] && data[idx].data[0].id === '101') {
+
+                if (data[idx] && data[idx].data[0][0] === '101') {
                     data.splice(idx, 1)
                     localStorage.setItem('analysis-data', JSON.stringify(data))
                     // re-render modal
                     setState(state => ({
                         ...state,
-                        isModalOpen: true,
+                        isDataModalOpen: true,
                     }))
                     return
                 }
@@ -306,7 +342,7 @@ const Index = ({ pageState, handlePageState }) => {
         }))
     }
 
-    const handleSuccessSnackbarClose = () => {
+    const handleSuccessSnackbarClose = () => () => {
         setState((state) => ({ ...state, isSuccessSnackbarOpen: false }))
     }
 
@@ -314,12 +350,12 @@ const Index = ({ pageState, handlePageState }) => {
         setState((state) => ({ ...state, isErrorSnackbarOpen: false }))
     }
 
-    const handleModalOpen = () => {
-        setState(state => ({ ...state, isModalOpen: true }))
+    const handleDataModal = (boolean) => () => {
+        setState(state => ({ ...state, isDataModalOpen: boolean }))
     }
 
-    const handleModalClose = () => {
-        setState((state) => ({ ...state, isModalOpen: false }))
+    const handleHelpModal = (boolean) => () => {
+        setState(state => ({ ...state, isHelpModalOpen: boolean }))
     }
 
     const positionImg = [
@@ -337,7 +373,7 @@ const Index = ({ pageState, handlePageState }) => {
                 description={pageString.analysis.index.helmet.description}
                 path='/analysis/'
             />
-            <DataManageButton handleData={handleData} handleModalOpen={handleModalOpen} />
+            <DataManageButton handleData={handleData} handleModalOpen={handleDataModal(true)} />
             {charByPositionData.map((group, idx) => (
                 <React.Fragment key={idx}>
                     <MyHeader
@@ -348,6 +384,8 @@ const Index = ({ pageState, handlePageState }) => {
                                 alt=''
                             />
                         }
+                        withHelp={idx === 0}
+                        onClickHelp={handleHelpModal(true)}
                     />
                     <CharsContainer>
                         {group.map((c, i) => (
@@ -375,8 +413,8 @@ const Index = ({ pageState, handlePageState }) => {
             />
             <ScrollableModal
                 title={pageString.analysis.index.modalTitle}
-                open={state.isModalOpen}
-                onClose={handleModalClose}
+                open={state.isDataModalOpen}
+                onClose={handleDataModal(false)}
                 ariaLabelledby='load-data-modal-title'
                 ariaDescribedby='load-data-modal-description'
             >
@@ -384,6 +422,14 @@ const Index = ({ pageState, handlePageState }) => {
                     handleData={handleData}
                 />
             </ScrollableModal>
+            <TextModal
+                title={pageString.analysis.index.helpModal.title}
+                content={pageString.analysis.index.helpModal.content}
+                open={state.isHelpModalOpen}
+                onClose={handleHelpModal(false)}
+                ariaLabelledby='help-modal-title'
+                ariaDescribedby='help-modal-description'
+            />
         </CharGroupsContainer>
     )
 }

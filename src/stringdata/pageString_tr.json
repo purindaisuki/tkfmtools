@@ -570,7 +570,7 @@
             "name": "隊伍分析",
             "helmet": {
                 "title": "天下布魔工具箱 — 隊伍分析",
-                "description": "TBD"
+                "description": "提供圖表以分析、檢視隊伍狀態。"
             },
             "levelTitle": "等級",
             "potentialTitle": "潛力",
@@ -581,7 +581,26 @@
             "deleteButton": "刪除",
             "successMsg": "成功",
             "errorMsg": "失敗",
-            "modalTitle": "讀取資料"
+            "modalTitle": "讀取資料",
+            "helpModal": {
+                "title": "隊伍分析 幫助",
+                "content": [
+                    {
+                        "title": "介紹",
+                        "content": [
+                            "提供圖表以分析、檢視隊伍狀態。"
+                        ]
+                    },
+                    {
+                        "title": "如何使用",
+                        "content": [
+                            "根據自身隊伍選擇頁面上相對應角色的狀態。若尚未得到該角色請將該角色等級設為 0 。",
+                            "完成後點擊結果標籤頁即可看到分析結果。",
+                            "右上角可以保存或讀取隊伍狀態，點擊讀取可以操作本地資料。"
+                        ]
+                    }
+                ]
+            }
         },
         "result": {
             "name": "隊伍分析",
