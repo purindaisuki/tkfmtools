@@ -117,25 +117,22 @@ const Index = ({ pageState, handlePageState }) => {
 
     const [state, setState] = useState(charsData.map(c => ({
         id: c.id,
-        rarity: c.rarity,
         attribute: c.tags.attribute,
         position: c.tags.position - 5,
-        level: Math.floor(Math.random()*60),
+        level: 1,
         potential: 1,
         potentialSub: 0,
         discipline: 0,
         star: c.rarity,
         ATK: c.stats.initATK,
         HP: c.stats.initHP,
-        exist: true,
+        owned: true,
     })))
 
     // read state when page loaded
     useEffect(() => {
         if (pageState) {
             setState(pageState)
-        } else {
-            
         }
     }, [])
 
@@ -154,11 +151,11 @@ const Index = ({ pageState, handlePageState }) => {
         }
 
         const { stats } = charsData[idx]
-        const { rarity, attribute, position, ATK, HP, exist, ...rest } = charState
+        const { rarity, attribute, position, ATK, HP, owned, ...rest } = charState
         const result = calcStats(...Object.values(rest), ...Object.values(stats))
 
         let newState = state.slice()
-        newState[idx] = { ...charState, ...result, exist: true }
+        newState[idx] = { ...charState, ...result, owned: true }
         setState(newState)
         handlePageState(newState)
     }

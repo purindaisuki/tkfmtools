@@ -548,6 +548,12 @@
             },
             "chart": [
                 {
+                    "title": "Character Collection"
+                },
+                {
+                    "title": "Character Combat Power"
+                },
+                {
                     "title": "Character Lv by Position",
                     "legend": [
                         "Max",

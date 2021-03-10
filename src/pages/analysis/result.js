@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Head from 'components/Head';
+import ImageSupplier from 'components/ImageSupplier';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
+import TreeMap from 'components/TreeMap';
 import { LanguageContext } from 'components/LanguageProvider';
 import expData from 'gamedata/exp.json'
+import charData from 'gamedata/character.json'
 
 const calcLvStats = (names, array) => {
     const len = array.length
@@ -20,38 +23,86 @@ const calcLvStats = (names, array) => {
 
 const lvToExp = (lv) => expData.slice(0, lv).reduce((a, b) => a + b.exp, 0)
 
-const parseState = (state, tags, chart) => {
-    const validChars = state ? state.filter(c => c.exist && c.level !== 0) : []
+const parseState = (state, string, chart) => {
+    const validChars = state ? state.filter(c => c.owned && c.level !== 0) : []
     validChars.sort((a, b) => a.level - b.level)
-
     validChars.forEach(c => c.exp = lvToExp(c.level))
+
+    // initialize data
     const radarDataByPosition = [...Array(5)].map(i => [])
     const radarDataByAttribute = [...Array(5)].map(i => [])
     const barDataByPosition = [...Array(12)].map((a, i) => {
         const data = { exp: i * 50 + 'k~' }
-        tags.slice(5, 10).forEach(t => data[t] = 0)
+        string.tags.slice(5, 10).forEach(t => data[t] = 0)
         return data
     })
     const barDataByAttribute = [...Array(12)].map((a, i) => {
         const data = { exp: i * 50 + 'k~' }
-        tags.slice(0, 5).forEach(t => data[t] = 0)
+        string.tags.slice(0, 5).forEach(t => data[t] = 0)
         return data
     })
+    const treeMapDataByAttribute = { name: 'root', children: [] }
+    string.tags.slice(0, 5).forEach(t => treeMapDataByAttribute.children.push({
+        name: t,
+        children: []
+    }))
+
     validChars.forEach(c => {
         radarDataByPosition[c.position].push(c.level)
         radarDataByAttribute[c.attribute].push(c.level)
-        barDataByPosition[Math.floor((c.exp) / 50000)][tags[c.position + 5]]++
-        barDataByAttribute[Math.floor((c.exp) / 50000)][tags[c.attribute]]++
+        barDataByPosition[Math.floor((c.exp) / 50000)][string.tags[c.position + 5]]++
+        barDataByAttribute[Math.floor((c.exp) / 50000)][string.tags[c.attribute]]++
+        treeMapDataByAttribute.children[c.attribute].children.push({
+            name: string.name[c.id],
+            cp: c.ATK * c.HP
+        })
     })
 
     return ({
         radarDataByPosition: radarDataByPosition
-            .map((group, idx) => calcLvStats([tags[idx + 5], ...chart[0].legend], group)),
+            .map((group, idx) => calcLvStats([string.tags[idx + 5], ...chart[2].legend], group)),
         radarDataByAttribute: radarDataByAttribute
-            .map((group, idx) => calcLvStats([tags[idx], ...chart[1].legend], group)),
+            .map((group, idx) => calcLvStats([string.tags[idx], ...chart[3].legend], group)),
         barDataByPosition: barDataByPosition,
         barDataByAttribute: barDataByAttribute,
+        treeMapDataByAttribute: treeMapDataByAttribute
     })
+}
+
+const CharContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`
+const CharImgWrapper = styled(ImageSupplier)`
+    width: 4rem;
+    margin-right: .4rem;
+    margin-bottom: .4rem;
+    border-radius: 100%;
+    border: 2px solid ${props => props.$owned
+        ? props.theme.colors.secondary
+        : props.theme.colors.dropdownHover};
+    ${props => props.$owned
+        ? null
+        : `img {
+            filter: grayscale(100%);
+        }`}
+`
+const CharCollectionBox = ({ state }) => {
+    const { charString } = useContext(LanguageContext)
+
+    return (
+        <CharContainer>
+            {charData.map((c, idx) => (
+                <CharImgWrapper
+                    key={idx}
+                    name={`char_small_${c.id}`}
+                    alt={charString.name[c.id]}
+                    $owned={state && state[idx].owned && state[idx].level !== 0}
+                />
+            ))}
+        </CharContainer>
+    )
 }
 
 const ChartsContainer = styled.div`
@@ -74,42 +125,54 @@ const ChartHeader = styled.div`
 const Analysis = ({ pageState }) => {
     const { pageString, charString } = useContext(LanguageContext)
 
-    const data = parseState(pageState, charString.tags, pageString.analysis.result.chart)
+    const data = parseState(
+        pageState,
+        charString,
+        pageString.analysis.result.chart
+    )
 
     return (
-        <>
+        <ChartsContainer>
             <Head
                 title={pageString.analysis.result.helmet.title}
                 description={pageString.analysis.result.helmet.description}
                 path='/analysis/result/'
             />
-            <ChartsContainer>
-                <ChartWrapper>
-                    <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
-                    <RadarChart data={data.radarDataByPosition} />
-                </ChartWrapper>
-                <ChartWrapper>
-                    <ChartHeader>{pageString.analysis.result.chart[1].title}</ChartHeader>
-                    <RadarChart data={data.radarDataByAttribute} />
-                </ChartWrapper>
-                <ChartWrapper>
-                    <ChartHeader>{pageString.analysis.result.chart[2].title}</ChartHeader>
-                    <BarChart
-                        yAxisText={pageString.analysis.result.chart[2].legend[0]}
-                        xAxisText={pageString.analysis.result.chart[2].legend[1]}
-                        data={data.barDataByPosition}
-                    />
-                </ChartWrapper>
-                <ChartWrapper>
-                    <ChartHeader>{pageString.analysis.result.chart[3].title}</ChartHeader>
-                    <BarChart
-                        yAxisText={pageString.analysis.result.chart[3].legend[0]}
-                        xAxisText={pageString.analysis.result.chart[3].legend[1]}
-                        data={data.barDataByAttribute}
-                    />
-                </ChartWrapper>
-            </ChartsContainer>
-        </>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
+                <CharCollectionBox state={pageState} />
+            </ChartWrapper>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[1].title}</ChartHeader>
+                <TreeMap
+                    data={data.treeMapDataByAttribute}
+                />
+            </ChartWrapper>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[2].title}</ChartHeader>
+                <RadarChart data={data.radarDataByPosition} />
+            </ChartWrapper>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[3].title}</ChartHeader>
+                <RadarChart data={data.radarDataByAttribute} />
+            </ChartWrapper>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[4].title}</ChartHeader>
+                <BarChart
+                    yAxisText={pageString.analysis.result.chart[4].legend[0]}
+                    xAxisText={pageString.analysis.result.chart[4].legend[1]}
+                    data={data.barDataByPosition}
+                />
+            </ChartWrapper>
+            <ChartWrapper>
+                <ChartHeader>{pageString.analysis.result.chart[5].title}</ChartHeader>
+                <BarChart
+                    yAxisText={pageString.analysis.result.chart[5].legend[0]}
+                    xAxisText={pageString.analysis.result.chart[5].legend[1]}
+                    data={data.barDataByAttribute}
+                />
+            </ChartWrapper>
+        </ChartsContainer>
     )
 }
 
