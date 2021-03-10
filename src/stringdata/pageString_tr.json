@@ -67,6 +67,31 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.4.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍分析",
+                            "description": "新增隊伍分析圖，以檢視陣容狀態。"
+                        },
+                        {
+                            "type": "New",
+                            "title": "3/10 遊戲更新",
+                            "description": "新增梅絲米奈雅、娜芙菈菈、安娜、布蘭、諾諾可、試作機三號，及 12 章掉落。KS-Ⅷ 加入全境徵才。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "角色潛力",
+                            "description": "修正於N/R角與其他選項切換時角色圖片未載入問題。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "角色素質",
+                            "description": "修正選擇索拉卡時頁面崩潰。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.3.2",
                     "content": [
                         {
@@ -562,7 +587,7 @@
             "name": "隊伍分析",
             "helmet": {
                 "title": "天下布魔工具箱 — 隊伍分析",
-                "description": "TBD"
+                "description": "提供圖表以分析、檢視隊伍狀態。"
             },
             "chart": [
                 {
@@ -604,6 +629,23 @@
                     ]
                 }
             ]
+            ,"helpModal": {
+                "title": "角色戰力",
+                "content": [
+                    {
+                        "title": "定義",
+                        "content": [
+                            "角色戰力為角色攻擊力 × 血量。"
+                        ]
+                    },
+                    {
+                        "title": "備註",
+                        "content": [
+                            "角色戰力未考慮角色技能、絆數，故可能無法充分代表角色強度。"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "navbar": [

@@ -10,6 +10,7 @@
         "117": "Festive Ba'al",
         "125": "Idol Iblis",
         "126": "Idol Noel",
+        "137": "Snake Queen Mesmiia",
         "209": "Demon Servant Aiko",
         "210": "Holy Knight Capt. Leona",
         "211": "High Priestess Fiora",
@@ -18,6 +19,7 @@
         "214": "Fox Spirit Shizuka",
         "215": "General Juneau",
         "216": "Genius Tactician Britney",
+        "236": "Slime Queen Nafrala",
         "301": "Head Nurse Irene",
         "302": "Bakeneko Nana",
         "303": "Dragoon Iris",
@@ -41,6 +43,10 @@
         "413": "Cow-Girl Minnow",
         "414": "Snake-Girl Lamia",
         "415": "Bird-Girl Harpy",
+        "416": "Phasi Guard Anna",
+        "417": "Phasi Soldier Blaire",
+        "418": "Phasi Wizard Natashaa",
+        "422": "Prototype #3",
         "nr": "N/R characters"
     },
     "tags": [

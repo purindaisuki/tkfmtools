@@ -60,6 +60,31 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.4.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Line-up analysis",
+                            "description": "Add line-up analysis for checking your line-up."
+                        },
+                        {
+                            "type": "New",
+                            "title": "3/10 game update",
+                            "description": "Add Mesmiia, Nafrala, Anna, Blaire, Natashaa, Prototype #3 and item drops of chapter 12. KS-Ⅷ is available in recruitment now."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Character potential",
+                            "description": "Fix the character image is not loaded when switching option between N/R characters and the others."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Character stats",
+                            "description": "Fix page crash when Shiraka is selected."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.3.2",
                     "content": [
                         {
@@ -550,7 +575,7 @@
             "name": "Line-up analysis",
             "helmet": {
                 "title": "TenkafuMA! toolbox — Line-up analysis",
-                "description": "TBD"
+                "description": "Provide visual representations to help you understand your line-up."
             },
             "chart": [
                 {
@@ -591,7 +616,24 @@
                         "Number"
                     ]
                 }
-            ]
+            ],
+            "helpModal": {
+                "title": "Character combat power",
+                "content": [
+                    {
+                        "title": "Definition",
+                        "content": [
+                            "Character combat power is the product of the character ATK and HP."
+                        ]
+                    },
+                    {
+                        "title": "Note",
+                        "content": [
+                            "Character skills and bond is not considered and thus it may not provide enough insights into the characters."
+                        ]
+                    }
+                ]
+            }
         }
     },
     "navbar": [
