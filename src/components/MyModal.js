@@ -80,7 +80,7 @@ export const FitHeightModal = styled(MyModal)`
         }
     }
 `
-const ScrollableModal = ({
+export const ScrollableModal = ({
     children,
     className,
     title,

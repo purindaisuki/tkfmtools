@@ -550,7 +550,13 @@
             "levelTitle": "等級",
             "potentialTitle": "潛力",
             "disciplineTitle": "調教",
-            "starTitle": "星數"
+            "starTitle": "星數",
+            "saveButton": "保存",
+            "loadButton": "讀取",
+            "deleteButton": "刪除",
+            "successMsg": "成功",
+            "errorMsg": "失敗",
+            "modalTitle": "讀取資料"
         },
         "result": {
             "name": "隊伍分析",

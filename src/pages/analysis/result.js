@@ -75,7 +75,8 @@ const CharContainer = styled.div`
     flex-wrap: wrap;
 `
 const CharImgWrapper = styled(ImageSupplier)`
-    width: 4rem;
+    width: 12.5%;
+    max-width: 4rem;
     margin-right: .4rem;
     margin-bottom: .4rem;
     border-radius: 100%;
@@ -113,7 +114,7 @@ const ChartsContainer = styled.div`
 const ChartWrapper = styled.div`
     height: 400px;
     width: 50%;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
     @media screen and (max-width: 992px) {
         width: 100%;
     }
@@ -125,6 +126,7 @@ const ChartHeader = styled.div`
 const Analysis = ({ pageState }) => {
     const { pageString, charString } = useContext(LanguageContext)
 
+    console.log(pageState)
     const data = parseState(
         pageState,
         charString,
@@ -140,6 +142,11 @@ const Analysis = ({ pageState }) => {
             />
             <ChartWrapper>
                 <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
+                <ChartHeader>
+                    {`${pageState
+                        ? pageState.filter(c => c.owned && c.level !== 0).length
+                        : 0}/${charData.length}`}
+                </ChartHeader>
                 <CharCollectionBox state={pageState} />
             </ChartWrapper>
             <ChartWrapper>

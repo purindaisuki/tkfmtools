@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Snackbar, Tooltip, Zoom } from '@material-ui/core';
+import { Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
 import { FilterPanel, ResultTable, SortableTh } from './FilterComponents';
 import MyHeader from './MyHeader';
@@ -9,6 +9,7 @@ import MyToggleButtonGroup, { MyToggleButton } from './MyToggleButtonGroup';
 import { ResponsiveCharCard } from './CharCard';
 import MyModal, { TextModal } from './MyModal';
 import MyRadioGroup, { MyRadio } from './MyRadioGroup';
+import MySnackbar from './MySnackbar';
 import { LanguageContext } from './LanguageProvider';
 import {
     DeleteIcon,
@@ -22,7 +23,6 @@ import {
     RankIcon,
     ElseIcon,
     StarIcon,
-    AlertIcon,
     SettingIcon
 } from './icon';
 import tagData from '../gamedata/tag.json';
@@ -407,43 +407,6 @@ const SettingModal = ({
     )
 }
 
-const StyledSnackbar = styled(Snackbar)`
-    > div {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        background-color: #ff9800;
-        font-size: medium;
-    }
-    .MuiSnackbarContent-action {
-        margin: 0;
-        padding: 0;
-    }
-    svg {
-        width: 1.4rem;
-        height: 1.4rem;
-        margin-right: .4rem;
-        fill: #fff;
-    }
-`
-const MySnackbar = ({
-    open,
-    onClose,
-    message
-}) => (
-    <StyledSnackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={onClose}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-        }}
-        message={message}
-        action={AlertIcon}
-    />
-)
-
 const FilterContainer = styled.div`
     display: block;
     > div:first-child,
@@ -752,6 +715,7 @@ export default function CharFilter() {
                 open={state.isSnackbarOpen}
                 onClose={handleSnackbarClose}
                 message={pageString.enlist.filter.snackbarMsg}
+                type='warn'
             />
         </>
     )

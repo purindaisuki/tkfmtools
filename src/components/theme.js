@@ -5,19 +5,25 @@ export const lightTheme = {
         surface: '#fff',
         primary: '#e92390',
         secondary: '#b20063',
-        error: '#B00020',
+        success: '#4caf50',
+        warn: '#ff9800',
+        error: '#b71c1c',
+        blue: '#1976d2',
         onBackground: '#000',
         onSurface: '#000',
         onPrimary: '#fff',
         onSecondary: '#fff',
+        onSuccess: '#fff',
+        onWarn: '#fff',
         onError: '#fff',
+        onBlue: '#fff',
         slider: '#fff',
         border: '#b20063',
         secondaryBorder: '#b20063',
         shadow: 'gray',
         link: '#007bff',
         linkHover: '#0056b3',
-        dropdownHover: 'lightgray'
+        dropdownHover: 'lightgray',
     },
     switcher: {
         iconOffest: '1.8rem',
@@ -41,7 +47,8 @@ export const lightTheme = {
             '#66bb6a',
             '#ffca28',
             '#ab47bc'
-        ]
+        ],
+        treeMapText: 'darker'
     }
 }
 
@@ -52,12 +59,18 @@ export const darkTheme = {
         surface: '#424242',
         primary: '#212121',
         secondary: '#F48FB1',
-        error: '#F48FB1',
+        success: '#4caf50',
+        warn: '#ff9800',
+        error: '#b71c1c',
+        blue: '#1976d2',
         onBackground: '#fff',
         onSurface: '#fff',
         onPrimary: '#fff',
         onSecondary: '#000',
+        onSuccess: '#fff',
+        onWarn: '#fff',
         onError: '#fff',
+        onBlue: '#fff',
         slider: '#01579B',
         border: '#F48FB1',
         secondaryBorder: '#424242',
@@ -88,6 +101,7 @@ export const darkTheme = {
             '#a5d6a7',
             '#ffe082',
             '#ce93d8'
-        ]
+        ],
+        treeMapText: 'brighter'
     }
 }

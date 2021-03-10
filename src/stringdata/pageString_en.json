@@ -538,7 +538,13 @@
             "levelTitle": "Level",
             "potentialTitle": "Potential",
             "disciplineTitle": "Discipline",
-            "starTitle": "Star"
+            "starTitle": "Star",
+            "saveButton": "Save",
+            "loadButton": "Load",
+            "deleteButton": "Delete",
+            "successMsg": "Success",
+            "errorMsg": "Failed",
+            "modalTitle": "Load data"
         },
         "result": {
             "name": "Line-up analysis",
