@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import Head from 'components/Head';
-import ImageSupplier from 'components/ImageSupplier';
+import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
-import TreeMap from 'components/TreeMap';
+import Head from 'components/Head';
+import ImageSupplier from 'components/ImageSupplier';
+import MyHeader from 'components/MyHeader';
+import { TextModal } from 'components/MyModal';
 import { LanguageContext } from 'components/LanguageProvider';
 import expData from 'gamedata/exp.json'
 import charData from 'gamedata/character.json'
@@ -119,14 +121,25 @@ const ChartWrapper = styled.div`
         width: 100%;
     }
 `
+const CollectionWrapper = styled(ChartWrapper)`
+    height: 100%;
+`
 const ChartHeader = styled.div`
     display: flex;
     justify-content: center;
+    font-size: large;
+`
+const TreeMapHeader = styled(MyHeader)`
+    justify-content: center;
+    border: none;
 `
 const Analysis = ({ pageState }) => {
     const { pageString, charString } = useContext(LanguageContext)
 
-    console.log(pageState)
+    const [isModalOpen, setModalOpen] = useState(false)
+
+    const handleModal = (boolean) => () => setModalOpen(boolean)
+
     const data = parseState(
         pageState,
         charString,
@@ -140,7 +153,7 @@ const Analysis = ({ pageState }) => {
                 description={pageString.analysis.result.helmet.description}
                 path='/analysis/result/'
             />
-            <ChartWrapper>
+            <CollectionWrapper>
                 <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
                 <ChartHeader>
                     {`${pageState
@@ -148,9 +161,13 @@ const Analysis = ({ pageState }) => {
                         : 0}/${charData.length}`}
                 </ChartHeader>
                 <CharCollectionBox state={pageState} />
-            </ChartWrapper>
+            </CollectionWrapper>
             <ChartWrapper>
-                <ChartHeader>{pageString.analysis.result.chart[1].title}</ChartHeader>
+                <TreeMapHeader
+                    title={pageString.analysis.result.chart[1].title}
+                    withHelp
+                    onClickHelp={handleModal(true)}
+                />
                 <TreeMap
                     data={data.treeMapDataByAttribute}
                 />
@@ -179,6 +196,14 @@ const Analysis = ({ pageState }) => {
                     data={data.barDataByAttribute}
                 />
             </ChartWrapper>
+            <TextModal
+                title={pageString.analysis.result.helpModal.title}
+                content={pageString.analysis.result.helpModal.content}
+                open={isModalOpen}
+                onClose={handleModal(false)}
+                ariaLabelledby='treemap-modal-title'
+                ariaDescribedby='treemap-modal-description'
+            />
         </ChartsContainer>
     )
 }

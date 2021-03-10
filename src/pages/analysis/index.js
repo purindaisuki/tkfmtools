@@ -291,6 +291,7 @@ const Index = ({ pageState, handlePageState }) => {
                 if (data[idx] && data[idx].data[0].id === '101') {
                     data.splice(idx, 1)
                     localStorage.setItem('analysis-data', JSON.stringify(data))
+                    // re-render modal
                     setState(state => ({
                         ...state,
                         isModalOpen: true,
