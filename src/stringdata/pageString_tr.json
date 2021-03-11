@@ -618,6 +618,7 @@
                 "title": "天下布魔工具箱 — 隊伍分析",
                 "description": "提供圖表以分析、檢視隊伍狀態。"
             },
+            "exportButton": "匯出成圖片",
             "chart": [
                 {
                     "title": "收集進度"

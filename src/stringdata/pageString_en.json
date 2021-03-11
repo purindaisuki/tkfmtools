@@ -606,6 +606,7 @@
                 "title": "TenkafuMA! toolbox — Line-up analysis",
                 "description": "Provide visual representations to help you understand your line-up."
             },
+            "exportButton": "Export as image",
             "chart": [
                 {
                     "title": "Character Collection"
