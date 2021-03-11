@@ -60,11 +60,31 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.4.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Result exporting in line-up analysis",
+                            "description": "Now you can export the result of line-up analysis as an image."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Line-up analysis charts display",
+                            "description": "Fix some labels are out of page on small screen devices."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Input problem of line-up analysis",
+                            "description": "Fix the number of level input can't be deleted."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.4.1",
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Recruitment filter",
+                            "title": "Recruitment filter problem",
                             "description": "Fix when attribute tags are selected, the other tags are cleared."
                         }
                     ]
@@ -84,12 +104,12 @@
                         },
                         {
                             "type": "Fix",
-                            "title": "Character potential",
+                            "title": "Display of images in character potential",
                             "description": "Fix the character image is not loaded when switching option between N/R characters and the others."
                         },
                         {
                             "type": "Fix",
-                            "title": "Character stats",
+                            "title": "Page crash in character stats",
                             "description": "Fix page crash when Shiraka is selected."
                         }
                     ]
@@ -606,7 +626,7 @@
                 "title": "TenkafuMA! toolbox — Line-up analysis",
                 "description": "Provide visual representations to help you understand your line-up."
             },
-            "exportButton": "Export as image",
+            "exportButton": "Export",
             "chart": [
                 {
                     "title": "Character Collection"

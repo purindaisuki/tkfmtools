@@ -67,11 +67,31 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.4.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍分析匯出功能",
+                            "description": "新增隊伍分析結果匯出成圖片之功能。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析圖表呈現",
+                            "description": "修正小螢幕上有些標籤會超出頁面。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析選擇表格問題",
+                            "description": "修正等級數字無法刪除。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.4.1",
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "角色篩選器",
+                            "title": "角色篩選器按鈕問題",
                             "description": "修正按鈕分組時選擇屬性會清掉其他標籤。"
                         }
                     ]
@@ -91,12 +111,12 @@
                         },
                         {
                             "type": "Fix",
-                            "title": "角色潛力",
+                            "title": "角色潛力圖片未顯示",
                             "description": "修正於N/R角與其他選項切換時角色圖片未載入問題。"
                         },
                         {
                             "type": "Fix",
-                            "title": "角色素質",
+                            "title": "角色素質頁面崩潰",
                             "description": "修正選擇索拉卡時頁面崩潰。"
                         }
                     ]
