@@ -257,6 +257,12 @@ export const SiteLicense = () => {
                         licenseLink: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
                         license: 'MIT License',
                     },
+                    {
+                        titleLink: 'https://github.com/plouc/nivo',
+                        title: 'nivo',
+                        licenseLink: 'https://github.com/plouc/nivo/blob/master/LICENSE.md',
+                        license: 'MIT License',
+                    },
                 ].map((item, idx) => (
                     <li key={idx}>
                         <LicenseItemTitle>
