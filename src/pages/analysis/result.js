@@ -87,7 +87,7 @@ const CharImgWrapper = styled(ImageSupplier)`
         : props.theme.colors.dropdownHover};
     ${props => props.$owned
         ? null
-        : `img {
+        : `&& img {
             filter: grayscale(100%);
         }`}
 `
