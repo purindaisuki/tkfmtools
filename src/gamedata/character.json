@@ -140,7 +140,7 @@
             "oppai": -1,
             "rank": 20,
             "else": [],
-            "available": true
+            "available": false
         },
         "stats": {
             "initATK": 944,
