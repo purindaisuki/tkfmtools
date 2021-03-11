@@ -89,6 +89,8 @@ const CharContainer = ({ character, state, handleSelect }) => {
                             min='0'
                             max='60'
                             onChange={handleSelect('level')}
+                            onFocus={e => e.target.value = ""}
+                            onBlur={e => e.target.value = state.level} 
                             placeholder='-'
                         />
                     </Col>
