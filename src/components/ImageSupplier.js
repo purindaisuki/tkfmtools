@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import BackgroundImage from 'gatsby-background-image'
 
 // Helper functions.
