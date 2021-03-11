@@ -272,7 +272,7 @@ const Index = ({ pageState, handlePageState }) => {
         const result = calcStats(...Object.values(rest), ...Object.values(stats))
 
         let newState = state.data.slice()
-        newState[idx] = { ...charState, ...result, owned: true }
+        newState[idx] = { ...charState, ...result, owned: rest.level !== 0 }
         setState(state => ({ ...state, data: newState }))
         handlePageState(newState)
     }
