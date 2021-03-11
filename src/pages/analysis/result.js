@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
@@ -9,8 +9,9 @@ import FixedImageSupplier from 'components/FixedImageSupplier';
 import MyHeader from 'components/MyHeader';
 import { TextModal } from 'components/MyModal';
 import { LanguageContext } from 'components/LanguageProvider';
-import expData from 'gamedata/exp.json'
-import charData from 'gamedata/character.json'
+import { ExportIcon } from 'components/icon';
+import expData from 'gamedata/exp.json';
+import charData from 'gamedata/character.json';
 
 // helper functions
 const calcLvStats = (names, array) => {
@@ -79,18 +80,45 @@ const BtnWrapper = styled.span`
     top: -4rem;
     && > button {
         padding: .4rem .6rem;
-        background-color: ${props => props.theme.colors.blue};
-        color: ${props => props.theme.colors.onBlue};
+        background-color: ${props => props.theme.colors[
+        props.$isLoading ? 'dropdownHover' : 'blue'
+    ]};
+        color: ${props => props.theme.colors[
+        props.$isLoading ? 'shadow' : 'onBlue'
+    ]};
+        svg {
+            margin-top: .1rem;
+            margin-right: -.4rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: ${props => props.theme.colors[
+        props.$isLoading ? 'shadow' : 'onBlue'
+    ]};
+        }
     }
     > button:hover {
         box-shadow: inset 0 0 10rem 10rem rgba(255, 255, 255, 0.25);
     }
+    > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        color: ${props => props.theme.colors.blue};
+    }
 `
-const StyledButton = ({ children, onClick }) => (
-    <BtnWrapper>
-        <Button onClick={onClick}>
+const StyledButton = ({ children, onClick, isLoading }) => (
+    <BtnWrapper $isLoading={isLoading}>
+        <Button
+            startIcon={ExportIcon}
+            onClick={onClick}
+            disableFocusRipple
+        >
             {children}
         </Button>
+        {isLoading && <CircularProgress size={24} thickness={6} />}
     </BtnWrapper>
 )
 
@@ -110,18 +138,21 @@ const CharImgWrapper = styled(FixedImageSupplier)`
 `
 const CharCollectionBox = ({ state }) => {
     const { charString } = useContext(LanguageContext)
-    const owned = state && state[idx].owned && state[idx].level !== 0
 
     return (
         <CharContainer>
-            {charData.map((c, idx) => (
-                <CharImgWrapper
-                    key={idx}
-                    name={`char_xsmall_${c.id}${owned ? '' : '_gs'}`}
-                    alt={charString.name[c.id]}
-                    $owned={owned}
-                />
-            ))}
+            {charData.map((c, idx) => {
+                const owned = state && state[idx].owned && state[idx].level !== 0
+
+                return (
+                    <CharImgWrapper
+                        key={idx}
+                        name={`char_xsmall_${c.id}${owned ? '' : '_gs'}`}
+                        alt={charString.name[c.id]}
+                        $owned={owned}
+                    />
+                )
+            })}
         </CharContainer>
     )
 }
@@ -165,7 +196,10 @@ const TreeMapHeader = styled(MyHeader)`
 const Analysis = ({ pageState }) => {
     const { pageString, charString } = useContext(LanguageContext)
 
-    const [isModalOpen, setModalOpen] = useState(false)
+    const [state, setState] = useState({
+        isExportLoading: false,
+        isModalOpen: false,
+    })
 
     const theme = useTheme()
 
@@ -177,15 +211,25 @@ const Analysis = ({ pageState }) => {
             .then(module => exporterRef.current = module.exportAsJPG))
     }, [])
 
-    const handleModal = (boolean) => () => setModalOpen(boolean)
+    const handleModal = (boolean) => () => setState(state => ({
+        ...state,
+        isModalOpen: boolean
+    }))
 
     const handleExport = () => {
         if (exporterRef.current) {
+            setState(state => ({
+                ...state,
+                isExportLoading: true
+            }))
             exporterRef.current(
                 componentRef,
                 'tenkafuma-line-up-analysis-result',
                 theme.colors.background
-            )
+            ).then(() => setState(state => ({
+                ...state,
+                isExportLoading: false
+            })))
         }
     }
 
@@ -205,7 +249,7 @@ const Analysis = ({ pageState }) => {
                 description={pageString.analysis.result.helmet.description}
                 path='/analysis/result/'
             />
-            <StyledButton onClick={handleExport}>
+            <StyledButton onClick={handleExport} isLoading={state.isExportLoading}>
                 {pageString.analysis.result.exportButton}
             </StyledButton>
             <ChartsContainer ref={componentRef}>
@@ -258,7 +302,7 @@ const Analysis = ({ pageState }) => {
             <TextModal
                 title={pageString.analysis.result.helpModal.title}
                 content={pageString.analysis.result.helpModal.content}
-                open={isModalOpen}
+                open={state.isModalOpen}
                 onClose={handleModal(false)}
                 ariaLabelledby='treemap-modal-title'
                 ariaDescribedby='treemap-modal-description'
