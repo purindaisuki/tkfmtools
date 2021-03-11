@@ -67,6 +67,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.4.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "角色篩選器",
+                            "description": "修正按鈕分組時選擇屬性會清掉其他標籤。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.4.0",
                     "content": [
                         {

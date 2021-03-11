@@ -595,7 +595,7 @@ export default function CharFilter() {
 
     const handleBtnGroupChange = (groupIdx) => (val) => {
         let newValue
-        if (groupIdx) {
+        if (typeof(groupIdx) !== 'undefined') {
             const groupValues = tagData.map(t =>
                 state.filterBtnValue.filter(v => v >= t.range[0] && v < t.range[1])
             )

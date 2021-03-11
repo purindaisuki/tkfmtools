@@ -60,6 +60,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.4.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Recruitment filter",
+                            "description": "Fix when attribute tags are selected, the other tags are cleared."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.4.0",
                     "content": [
                         {
