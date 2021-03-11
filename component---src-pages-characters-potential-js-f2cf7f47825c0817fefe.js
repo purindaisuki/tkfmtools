@@ -1,0 +1,2 @@
+(self.webpackChunktkfmtools=self.webpackChunktkfmtools||[]).push([[34],{20904:function(t,e,a){"use strict";a.r(e);var n=a(67294),l=a(47378),r=a(47478),c=a(93670);e.default=function(){var t=(0,n.useContext)(c.A).pageString;return n.createElement(n.Fragment,null,n.createElement(l.Z,{title:t.characters.potential.helmet.title,description:t.characters.potential.helmet.description,path:"/characters/potential/"}),n.createElement(r.ZP,null))}}}]);
+//# sourceMappingURL=component---src-pages-characters-potential-js-f2cf7f47825c0817fefe.js.map
