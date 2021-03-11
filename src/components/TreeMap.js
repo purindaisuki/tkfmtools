@@ -18,6 +18,7 @@ const TreeMap = ({ data }) => {
             labelSkipSize={12}
             labelTextColor={{ from: 'color', modifiers: [[theme.chart.treeMapText, 1.2]] }}
             borderColor={{ from: 'color', modifiers: [['darker', 0.1]] }}
+            animate
         />
     )
 }

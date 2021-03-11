@@ -8,6 +8,7 @@
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
     "@nivo/radar": "^0.67.0",
+    "@nivo/tooltip": "^0.67.0",
     "@nivo/treemap": "^0.67.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
@@ -16,7 +17,6 @@
     "bootstrap": "^4.6.0",
     "gatsby": "^3.0.3",
     "gatsby-background-image": "^1.4.1",
-    "gatsby-image": "^3.0.0",
     "gatsby-plugin-google-gtag": "^3.0.0",
     "gatsby-plugin-google-tagmanager": "^3.0.0",
     "gatsby-plugin-image": "^1.0.0",
@@ -29,6 +29,7 @@
     "gatsby-transformer-sharp": "^3.0.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.1",
     "react-dom": "^17.0.1",
@@ -42,10 +43,12 @@
   "scripts": {
     "develop": "gatsby develop -o",
     "start": "gatsby develop -o",
+    "prebuild": "npm run patch-react-spring",
     "build": "gatsby build --prefix-paths",
     "serve": "gatsby serve --prefix-paths -o",
     "clean": "gatsby clean",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "patch-react-spring": "node patch-react-spring.js"
   },
   "eslintConfig": {
     "extends": [
