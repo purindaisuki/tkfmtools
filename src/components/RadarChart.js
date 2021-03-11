@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
 
-const RadarChart = ({ data }) => {
+const RadarChart = ({ data, sm }) => {
     const theme = useTheme()
     const { name, ...rest } = data[0]
 
@@ -13,12 +13,12 @@ const RadarChart = ({ data }) => {
             indexBy='name'
             keys={Object.keys(rest)}
             maxValue={60}
-            margin={{ top: 10, right: 80, bottom: 100, left: 80 }}
+            margin={{ top: 60, right: sm ? 80 : 100, bottom: 60, left: sm ? 80 : 100 }}
             borderWidth={2}
             borderColor={{ from: 'color' }}
             gridLevels={3}
             gridShape='linear'
-            gridLabelOffset={36}
+            gridLabelOffset={sm ? 12 : 36}
             enableDots
             dotSize={8}
             dotBorderWidth={2}
@@ -36,7 +36,7 @@ const RadarChart = ({ data }) => {
                     anchor: 'bottom',
                     direction: 'row',
                     translateX: -60,
-                    translateY: -40,
+                    translateY: -60,
                     itemWidth: 80,
                     itemHeight: 20,
                     symbolSize: 12,

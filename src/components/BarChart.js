@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { ResponsiveBar } from '@nivo/bar';
 
-const BarChart = ({ title, xAxisText, yAxisText, data }) => {
+const BarChart = ({ xAxisText, yAxisText, data, sm }) => {
     const theme = useTheme()
     const { exp, ...rest } = data[0]
 
@@ -12,9 +12,9 @@ const BarChart = ({ title, xAxisText, yAxisText, data }) => {
             data={data}
             indexBy='exp'
             keys={Object.keys(rest)}
-            margin={{ top: 10, right: 40, bottom: 100, left: 80 }}
+            margin={{ top: 10, right: 40, bottom: sm ? 60 : 100, left: sm ? 60 : 90 }}
             padding={0.3}
-            layout='horizontal'
+            layout={sm ? 'vertical' : 'horizontal'}
             valueScale={{ type: 'linear' }}
             indexScale={{ type: 'band', round: true }}
             colors={theme.chart.colors}
@@ -22,10 +22,10 @@ const BarChart = ({ title, xAxisText, yAxisText, data }) => {
             axisBottom={{
                 tickSize: 5,
                 tickPadding: 5,
-                tickRotation: 0,
+                tickRotation: sm ? 45 : 0,
                 legend: xAxisText,
                 legendPosition: 'middle',
-                legendOffset: 32
+                legendOffset: 44
             }}
             axisLeft={{
                 tickSize: 5,
@@ -33,7 +33,7 @@ const BarChart = ({ title, xAxisText, yAxisText, data }) => {
                 tickRotation: 0,
                 legend: yAxisText,
                 legendPosition: 'middle',
-                legendOffset: -60
+                legendOffset: sm ? -40 : -80
             }}
             labelSkipWidth={12}
             labelSkipHeight={12}
@@ -41,11 +41,11 @@ const BarChart = ({ title, xAxisText, yAxisText, data }) => {
             legends={[
                 {
                     dataFrom: 'keys',
-                    anchor: 'bottom',
-                    direction: 'row',
+                    anchor: sm ? 'top-right' : 'bottom',
+                    direction: sm ? 'column' : 'row',
                     justify: false,
-                    translateX: 0,
-                    translateY: 80,
+                    translateX: sm ? 40 : 0,
+                    translateY: sm ? 0 :80,
                     itemsSpacing: 2,
                     itemWidth: 100,
                     itemHeight: 20,

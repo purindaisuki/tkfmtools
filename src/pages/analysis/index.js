@@ -156,7 +156,7 @@ const StyledButton = ({ children, type, onClick }) => (
 const DataButtonContainer = styled.div`
     position: absolute;
     right: 0;
-    top: -.6rem;
+    top: -4rem;
     margin-bottom : 0;
     > span:last-child button {
         margin: 0;
