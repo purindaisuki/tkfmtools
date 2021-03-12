@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Head from 'components/Head';
 import MyIconButton from 'components/MyIconButton';
 import SwitchableShowcase from 'components/SwitchableShowcase';
 import CharTagMasonry from 'components/CharTagMasonry';
 import CharTagTable from 'components/CharTagTable';
-import { LanguageContext } from 'components/LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 import {
     MasonryViewIcon,
     TableViewIcon
@@ -20,7 +20,7 @@ const LayoutBtnContainer = styled.div`
     }
 `
 const LayoutSwitcher = (props) => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <LayoutBtnContainer>
@@ -42,7 +42,7 @@ const LayoutSwitcher = (props) => {
 }
 
 const Index = () => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <>

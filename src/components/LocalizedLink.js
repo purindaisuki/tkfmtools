@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { Link } from "gatsby";
-import { LanguageContext } from './LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 
 const StyledLink = styled(Link)`
     &:hover {
@@ -9,7 +9,7 @@ const StyledLink = styled(Link)`
     }
 `
 const WrappedLink = ({ to, disableLocale, decoration, ...rest }) => {
-    const { userLanguage, isDefault } = useContext(LanguageContext)
+    const { userLanguage, isDefault } = useLanguage()
 
     const isIndex = to === '/'
 

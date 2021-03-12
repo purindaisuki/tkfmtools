@@ -15,6 +15,7 @@ const RadioGroupWrapper = styled.div`
         label {
             margin-left: .8rem;
             margin-right: 0;
+            margin-bottom: 0;
             padding-right: .8rem;
             span:first-child.Mui-checked span {
                 color: ${props => props.theme.colors.secondary};

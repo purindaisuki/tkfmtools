@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
-import styled from 'styled-components';
-import { MainNavbar, Sidebar } from './Navbars';
-import ToTopBtn from './ToTopBtn';
-import { LanguageContext } from './LanguageProvider';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from 'components/theme';
+import { MainNavbar, Sidebar } from 'components/Navbars';
+import ToTopBtn from 'components/ToTopBtn';
+import { useLanguage } from 'components/LanguageProvider';
 import langConfig from 'languangeConfig.json';
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import 'components/index.css';
 
 const Body = styled.div`
     min-height: 100vh;
@@ -18,23 +19,63 @@ const Main = styled.main`
     padding: 1rem;
 `
 export default function Layout({ children }) {
-    const { userLanguage, isDefault, pageString } = useContext(LanguageContext)
+    const { userLanguage, isDefault, pageString } = useLanguage()
 
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [state, setState] = useState({
+        theme: 'light',
+        isSidebarOpen: false,
+    })
 
-    const toggleSidebar = (toOpen) => (event) => {
+    // get user theme
+    useEffect(() => {
+        const localSetting = localStorage.getItem('color-theme')
+        if (localSetting) {
+            setState(state => ({
+                ...state,
+                theme: localSetting
+            }))
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setState(state => ({
+                ...state,
+                theme: 'dark'
+            }))
+        }
+    }, [])
+
+    const toggleTheme = (event) => {
+        // ignore tab and shift key
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return
+        }
+
+        const toTheme = state.theme === 'light' ? 'dark' : 'light'
+        setState(state => ({
+            ...state,
+            theme: toTheme
+        }))
+
+        localStorage.setItem('color-theme', toTheme)
+    }
+
+    const toggleSidebar = (boolean) => (event) => {
         if (
             (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) ||
             event.target.closest('.MuiAccordion-root') !== null &&
             event.target.closest('a') === null
-        ) {
-            return
-        }
-        setSidebarOpen(toOpen)
+        ) return
+
+        setState(state => ({
+            ...state,
+            isSidebarOpen: boolean
+        }))
     }
 
     return (
-        <>
+        <ThemeProvider
+            theme={state.theme === 'light'
+                ? { ...lightTheme, toggleTheme: toggleTheme }
+                : { ...darkTheme, toggleTheme: toggleTheme }}
+        >
             <Helmet
                 htmlAttributes={{
                     lang: userLanguage,
@@ -101,7 +142,7 @@ export default function Layout({ children }) {
                     toggleSidebar={toggleSidebar}
                 />
                 <Sidebar
-                    open={sidebarOpen}
+                    open={state.isSidebarOpen}
                     toggleSidebar={toggleSidebar}
                 />
                 <Main>
@@ -109,6 +150,6 @@ export default function Layout({ children }) {
                 </Main>
                 <ToTopBtn />
             </Body>
-        </>
+        </ThemeProvider>
     )
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
-import MyHeader from './MyHeader';
-import ScrollableContainer from './ScrollableContainer';
+import MyHeader from 'components/MyHeader';
+import ScrollableContainer from 'components/ScrollableContainer';
 
 const StyledModal = styled.div`
     background-color: ${props => props.theme.colors.surface};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from 'components/Head';
 import MyAccordion from 'components/MyAccordion';
@@ -9,7 +9,7 @@ import {
     SiteLicense
 } from 'components/SiteAccordionBody';
 import { FitHeightModal } from 'components/MyModal';
-import { LanguageContext } from 'components/LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 import { ExpandMoreIcon, NoteIcon } from 'components/icon';
 
 const MsgModal = styled(FitHeightModal)`
@@ -32,7 +32,7 @@ const UpdateModal = ({
     modalOpen,
     onClose
 }) => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
     const latestMsg = pageString.index.updateLog.content[0]
 
     return (
@@ -151,7 +151,7 @@ const DescriptionAccordion = styled(MyAccordion)`
     }
 `
 const Home = () => {
-    const { isDefault, pageString } = useContext(LanguageContext)
+    const { isDefault, pageString } = useLanguage()
     const latestMsg = pageString.index.updateLog.content[0]
 
     const [state, setState] = useState({

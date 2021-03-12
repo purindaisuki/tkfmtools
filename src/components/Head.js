@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Helmet } from "react-helmet";
-import { LanguageContext } from './LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 
 export default ({ title, description, path }) => {
-    const { isDefault, userLanguage } = useContext(LanguageContext)
+    const { isDefault, userLanguage } = useLanguage()
     const url = path === '/' ? '' : path.split('/').slice(0, -1).join('_')
 
     return (

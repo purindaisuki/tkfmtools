@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from "@reach/router"
 import styled from 'styled-components';
 import { Tab, Tabs } from '@material-ui/core';
-import LocalizedLink from './LocalizedLink'
-import { LanguageContext } from './LanguageProvider';
+import LocalizedLink from 'components/LocalizedLink'
+import { useLanguage } from 'components/LanguageProvider';
 import {
     StatsIcon,
     FilterIcon,
@@ -11,7 +11,7 @@ import {
     PotentialIcon,
     ListIcon,
     PiechartIcon
-} from './icon';
+} from 'components/icon';
 
 const StyledTabs = styled(Tabs)`
     && {
@@ -70,7 +70,7 @@ export default function PageWithTabs({
     children,
     pagePath,
 }) {
-    const { userLanguage, pageString } = useContext(LanguageContext)
+    const { userLanguage, pageString } = useLanguage()
 
     const tabsConfig = {
         enlist: {

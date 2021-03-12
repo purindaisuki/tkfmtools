@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
-const ShowcaseContainer = styled.div`
-    display: ${props => props.$hidden ? 'none' : 'block'}
-`
 export default function SwitchableShowcase({
     layoutSwitcher,
     localLayoutConfig,
@@ -46,12 +42,12 @@ export default function SwitchableShowcase({
                 handleLayoutChange: handleLayoutChange,
             })}
             {items.map((item, idx) => (
-                <ShowcaseContainer
-                    $hidden={state.layout !== item.layout}
+                <div
+                    hidden={state.layout !== item.layout}
                     key={idx}
                 >
                     {state.hasMounted[idx] && item.content}
-                </ShowcaseContainer>
+                </div>
             ))}
         </>
     )

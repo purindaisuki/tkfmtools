@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import MyAccordion from './MyAccordion';
-import { LanguageContext } from './LanguageProvider';
-import { ChangeBadge, FixBadge, NewBadge } from './icon';
+import MyAccordion from 'components/MyAccordion';
+import { useLanguage } from 'components/LanguageProvider';
+import { ChangeBadge, FixBadge, NewBadge } from 'components/icon';
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -45,7 +45,7 @@ const DescriptionBody = styled.div`
     }
 `
 export const SiteDescription = () => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <BodyContainer>
@@ -168,7 +168,7 @@ const MsgBox = styled.div`
     }
 `
 export function SiteUpdateLog() {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <BodyContainer>
@@ -195,7 +195,7 @@ const LicenseItemContent = styled.div`
     padding-bottom: .5rem;
 `
 export const SiteLicense = () => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <BodyContainer>

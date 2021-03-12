@@ -3,12 +3,12 @@ import { useTheme } from 'styled-components';
 import { ResponsiveBar } from '@nivo/bar';
 
 const BarChart = ({ xAxisText, yAxisText, data, sm }) => {
-    const theme = useTheme()
+    const { chart } = useTheme()
     const { exp, ...rest } = data[0]
 
     return (
         <ResponsiveBar
-            theme={theme.chart}
+            theme={chart}
             data={data}
             indexBy='exp'
             keys={Object.keys(rest)}
@@ -17,7 +17,7 @@ const BarChart = ({ xAxisText, yAxisText, data, sm }) => {
             layout={sm ? 'vertical' : 'horizontal'}
             valueScale={{ type: 'linear' }}
             indexScale={{ type: 'band', round: true }}
-            colors={theme.chart.colors}
+            colors={chart.colors}
             borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
             axisBottom={{
                 tickSize: 5,
@@ -45,7 +45,7 @@ const BarChart = ({ xAxisText, yAxisText, data, sm }) => {
                     direction: sm ? 'column' : 'row',
                     justify: false,
                     translateX: sm ? 40 : 0,
-                    translateY: sm ? 0 :80,
+                    translateY: sm ? 0 : 80,
                     itemsSpacing: 2,
                     itemWidth: 100,
                     itemHeight: 20,

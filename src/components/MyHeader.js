@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HeaderIconButton } from './MyIconButton';
-import { HelpIcon } from './icon';
+import { HeaderIconButton } from 'components/MyIconButton';
+import { HelpIcon } from 'components/icon';
 
 const StyledHeader = styled.div`
     display: flex;
@@ -42,16 +42,14 @@ const MyHeader = ({
     <StyledHeader className={className}>
         <TitleWrapper>
             <span>{titleIcon}{title}</span>
-            {withHelp && onClickHelp ?
+            {withHelp && onClickHelp &&
                 <HeaderIconButton
                     onClick={onClickHelp}
                 >
                     {HelpIcon}
-                </HeaderIconButton> : null}
+                </HeaderIconButton>}
         </TitleWrapper>
-        <div>
-            {end}
-        </div>
+        {end && <div>{end}</div>}
     </StyledHeader>
 )
 

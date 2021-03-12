@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import pageString_tr from 'stringdata/pageString_tr.json';
 import charString_tr from 'stringdata/characterString_tr.json';
 import itemString_tr from 'stringdata/itemString_tr.json';
@@ -26,6 +26,8 @@ export const LanguageContext = createContext({
     userLanguage: defaultLanguage,
     isDefault: true,
 })
+
+export const useLanguage = () => useContext(LanguageContext)
 
 export default function LanguageProvider({ children, pageContext }) {
     const [userLanguage, setUserLanguage] = useState(defaultLanguage)

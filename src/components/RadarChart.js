@@ -3,12 +3,12 @@ import { useTheme } from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
 
 const RadarChart = ({ data, sm }) => {
-    const theme = useTheme()
+    const { chart } = useTheme()
     const { name, ...rest } = data[0]
 
     return (
         <ResponsiveRadar
-            theme={theme.chart}
+            theme={chart}
             data={data}
             indexBy='name'
             keys={Object.keys(rest)}
@@ -25,7 +25,7 @@ const RadarChart = ({ data, sm }) => {
             dotBorderColor={{ from: 'color' }}
             dotLabel='value'
             dotLabelYOffset={-12}
-            colors={theme.chart.colors}
+            colors={chart.colors}
             fillOpacity={0.25}
             blendMode='multiply'
             animate

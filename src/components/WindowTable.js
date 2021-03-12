@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import ScrollableContainer from './ScrollableContainer';
-import { SortableTable } from './FilterComponents';
+import ScrollableContainer from 'components/ScrollableContainer';
+import { SortableTable } from 'components/FilterComponents';
 
 const Sizer = styled.div`
     height: ${props => props.$height}px;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@material-ui/core';
 
-export const MyIconButton = styled(IconButton)`
+const MyIconButton = styled(IconButton)`
     padding: .75rem .5rem;
     svg {
         width: 1.6rem;

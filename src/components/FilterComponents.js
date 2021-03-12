@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
-import ScrollableContainer from './ScrollableContainer';
-import MyHeader from './MyHeader';
-import { LanguageContext } from './LanguageProvider';
+import ScrollableContainer from 'components/ScrollableContainer';
+import MyHeader from 'components/MyHeader';
+import { useLanguage } from 'components/LanguageProvider';
 
 const StyledFilterPanel = styled.div`
     height: 100%;
@@ -51,7 +51,7 @@ export const SortableTh = styled.th`
 const StyledTable = styled(Table)`
     width: 100%;
     margin-bottom: 0;
-    thead {
+    th {
         position: sticky;
         top: 0;
         z-index: 1;
@@ -198,7 +198,7 @@ export function ResultTable({
     widthConfig,
     striped,
 }) {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <ResultTableContainer widthConfig={widthConfig}>

@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ImgCard, CardTable } from './MyCard';
-import { LanguageContext } from './LanguageProvider';
+import { ImgCard, CardTable } from 'components/MyCard';
+import { useLanguage } from 'components/LanguageProvider';
 import {
     AttributeIcon,
     PositionIcon,
@@ -10,7 +10,7 @@ import {
     OppaiIcon,
     RankIcon,
     ElseIcon,
-} from './icon';
+} from 'components/icon';
 import charData from 'gamedata/character.json';
 
 const StyledCard = styled(ImgCard)`
@@ -41,7 +41,7 @@ const CharCard = ({
     className,
     id
 }) => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     return (
         <StyledCard
@@ -95,7 +95,7 @@ const CharTr = ({
     type,
     tag
 }) => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     const attrIcons = {
         attribute: AttributeIcon,
@@ -122,7 +122,7 @@ const CharTr = ({
 }
 
 export const CharAccordionDetail = ({ id }) => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     const { tags } = charData.find(char => char.id === id)
     const { available, ...rest } = tags

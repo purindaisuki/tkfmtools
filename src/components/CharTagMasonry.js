@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import MyMasonry from './MyMasonry';
-import MyAccordion from './MyAccordion';
-import CharCard, { CharAccordionDetail } from './CharCard';
-import { LanguageContext } from './LanguageProvider';
+import MyMasonry from 'components/MyMasonry';
+import MyAccordion from 'components/MyAccordion';
+import CharCard, { CharAccordionDetail } from 'components/CharCard';
+import { useLanguage } from 'components/LanguageProvider';
 
 const StyledAccordion = styled(MyAccordion)`
     && {
@@ -52,7 +52,7 @@ const CharAccordion = ({
 }
 
 const CharTagMasnory = () => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     const breakpointColumnsConfig = {
         default: 6,
@@ -67,13 +67,12 @@ const CharTagMasnory = () => {
             breakpointCols={breakpointColumnsConfig}
         >
             {Object.keys(charString.name).map((key, idx) => (
-                key !== 'nr'
-                    ? <CharAccordion
-                        title={<CharCard id={key} />}
-                        content={<CharAccordionDetail id={key} />}
-                        key={idx}
-                    />
-                    : null
+                key !== 'nr' &&
+                <CharAccordion
+                    title={<CharCard id={key} />}
+                    content={<CharAccordionDetail id={key} />}
+                    key={idx}
+                />
             ))}
         </MyMasonry>
     )

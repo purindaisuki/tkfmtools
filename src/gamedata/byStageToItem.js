@@ -3,22 +3,24 @@ import stageDropData from 'gamedata/stageDrop.json';
 let itemDropData = {}
 
 // from stages
-stageDropData.forEach(stage => {
-    const { materials, trainItems, expPotions, ...rest } = stage
+stageDropData.forEach(chapter => {
+    chapter.stages.forEach(stage => {
+        const { materials, trainItems, expPotions, ...rest } = stage
 
-    const dropItems = [materials, trainItems, expPotions]
+        const dropItems = [materials, trainItems, expPotions]
 
-    dropItems.forEach(items => {
-        items.forEach(item => {
-            const newDrop = { rarity: item.rarity, ...rest }
+        dropItems.forEach(items => {
+            items.forEach(item => {
+                const newDrop = { chapter: chapter.chapter, rarity: item.rarity, ...rest }
 
-            if (itemDropData[item.id]) {
-                itemDropData[item.id].drop.push(newDrop)
-            } else {
-                itemDropData[item.id] = {
-                    drop: [newDrop]
+                if (itemDropData[item.id]) {
+                    itemDropData[item.id].drop.push(newDrop)
+                } else {
+                    itemDropData[item.id] = {
+                        drop: [newDrop]
+                    }
                 }
-            }
+            })
         })
     })
 })

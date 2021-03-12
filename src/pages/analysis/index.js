@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
 import Head from 'components/Head';
 import ImageSupplier from 'components/ImageSupplier';
-import { NumForm, Select, TwoStageForm } from 'components/CharPotential';
-import { calcStats } from 'components/CharStats';
+import { NumForm, Select, TwoStageForm } from 'components/MyForm';
 import MyHeader from 'components/MyHeader';
 import MySnackbar from 'components/MySnackbar';
 import { ScrollableModal, TextModal } from 'components/MyModal';
-import { LanguageContext } from 'components/LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
+import calcCharStats from 'gamedata/calcCharStats';
 import charsData from 'gamedata/character.json';
 
 const charByPositionData = [...Array(5)].map(i => [])
@@ -61,7 +61,7 @@ const CharImgWrapper = styled(ImageSupplier)`
     margin-right: .6rem;
 `
 const CharContainer = ({ character, state, handleSelect }) => {
-    const { pageString, charString } = useContext(LanguageContext)
+    const { pageString, charString } = useLanguage()
 
     return (
         <StyledCharContainer>
@@ -163,7 +163,7 @@ const DataButtonContainer = styled.div`
     }
 `
 const DataManageButton = ({ handleData, handleModalOpen }) => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <DataButtonContainer>
@@ -181,7 +181,7 @@ const ModalItemContainer = styled(MyHeader)`
     border: none;
 `
 const DataModal = ({ handleData }) => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     const localData = localStorage.getItem('analysis-data')
     const data = localData ? JSON.parse(localData) : []
@@ -213,6 +213,10 @@ const CharGroupsContainer = styled.div`
         align-items: center;
         margin-bottom: .4rem;
     }
+    > div:nth-child(2) > div {
+        width: 100%;
+        justify-content: space-between;
+    }
 `
 const UiImgWrapper = styled(ImageSupplier)`
     width: 2rem;
@@ -224,7 +228,7 @@ const CharsContainer = styled.div`
     flex-wrap: wrap;
 `
 const Index = ({ pageState, handlePageState }) => {
-    const { pageString, charString } = useContext(LanguageContext)
+    const { pageString, charString } = useLanguage()
 
     const [state, setState] = useState({
         data: charsData.map(c => ({
@@ -269,7 +273,7 @@ const Index = ({ pageState, handlePageState }) => {
 
         const { stats } = charsData[idx]
         const { rarity, attribute, position, ATK, HP, owned, ...rest } = charState
-        const result = calcStats(...Object.values(rest), ...Object.values(stats))
+        const result = calcCharStats(...Object.values(rest), ...Object.values(stats))
 
         let newState = state.data.slice()
         newState[idx] = { ...charState, ...result, owned: rest.level !== 0 }

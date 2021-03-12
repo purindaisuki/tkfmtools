@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
-import ImageSupplier from './ImageSupplier';
+import ImageSupplier from 'components/ImageSupplier';
+import { useLanguage } from 'components/LanguageProvider';
 
 const StyledImg = styled(ImageSupplier)`
     display: flex;
@@ -40,6 +41,39 @@ export const ImgCard = ({
             {children}
         </ImgWrapper>
 )
+
+const ItemImg = styled(ImgCard)`
+    > div:first-child {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-right: .4rem;
+        user-select: none;
+    }
+`
+const TextWrapper = styled.div`
+    white-space: nowrap;
+    font-size: medium;
+    font-weight: normal;
+`
+export const ItemCard = ({
+    className,
+    id
+}) => {
+    const { itemString } = useLanguage()
+
+    return (
+        <ItemImg
+            className={className}
+            imgType='item'
+            imgId={id}
+            alt=''
+        >
+            <TextWrapper>
+                {itemString.name[id]}
+            </TextWrapper>
+        </ItemImg>
+    )
+}
 
 const StyledTable = styled(Table)`
     font-size: .9rem;

@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Location } from "@reach/router"
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { Drawer } from '@material-ui/core';
 import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
-import LocalizedLink from './LocalizedLink'
-import MyAccordion from './MyAccordion';
-import { LanguageContext } from './LanguageProvider';
-import { ThemeContext } from './MyThemeProvider';
+import LocalizedLink from 'components/LocalizedLink'
+import MyAccordion from 'components/MyAccordion';
+import { useLanguage } from 'components/LanguageProvider';
 import {
     RaceIcon,
     ChestIcon,
@@ -19,7 +18,7 @@ import {
     ToolIcon,
     LanguageIcon,
     AnalysisIcon,
-} from './icon';
+} from 'components/icon';
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
 
@@ -62,7 +61,7 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
     }
 `
 function LanguageSwitcher() {
-    const { userLanguage, isDefault, setUserLanguage } = useContext(LanguageContext)
+    const { userLanguage, isDefault, setUserLanguage } = useLanguage()
 
     const handleUserLanguage = (key, event) => setUserLanguage(key)
 
@@ -115,36 +114,6 @@ function LanguageSwitcher() {
     )
 }
 
-const StyledMainNavBar = styled(Navbar)`
-    background-color: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.onPrimary};
-    transition: all 355ms ease;
-    padding: .6rem 1.25rem;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    a:nth-of-type(1) {
-        padding: 0;
-    }
-`
-const MenuBtn = styled(Navbar.Brand)`
-    cursor: pointer;
-    svg {
-        width: 1.6rem;
-        height: 1.6rem;
-        fill: ${props => props.theme.colors.onPrimary};
-        margin: .4rem;
-        margin-top: .2rem;
-    }
-`
-const Text = styled.div`
-    font-size: x-large;
-    @media screen and (max-width: 490px) {
-        font-size: 1.2rem;
-    }
-    font-weight: bold;
-    color: inherit;
-`
 const ThemeSwitcherLabel = styled.label`
     position: relative;
     display: inline-block;
@@ -177,7 +146,7 @@ const Slider = styled.div`
         transition: .4s;
     }
 `
-const ThemeSwitcherSwither = styled.input`
+const ThemeSwitcherInput = styled.input`
     opacity: 0;
     width: 0;
     height: 0;
@@ -189,12 +158,59 @@ const ThemeSwitcherSwither = styled.input`
         }
     }
 `
+const ThemeSwitcher = () => {
+    const { switcher, toggleTheme } = useTheme()
+
+    return (
+        <ThemeSwitcherLabel>
+            <ThemeSwitcherInput
+                type='checkbox'
+                checked={switcher.checked}
+                onChange={toggleTheme}
+                onKeyDown={toggleTheme}
+            />
+            <Slider
+                $icon={switcher.checked ? MoonIcon : SunIcon}
+            />
+        </ThemeSwitcherLabel>
+    )
+}
+
+const StyledMainNavBar = styled(Navbar)`
+    background-color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.onPrimary};
+    transition: all 355ms ease;
+    padding: .6rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    a:nth-of-type(1) {
+        padding: 0;
+    }
+`
+const MenuBtn = styled(Navbar.Brand)`
+    cursor: pointer;
+    svg {
+        width: 1.6rem;
+        height: 1.6rem;
+        fill: ${props => props.theme.colors.onPrimary};
+        margin: .4rem;
+        margin-top: .2rem;
+    }
+`
+const Text = styled.div`
+    font-size: x-large;
+    @media screen and (max-width: 490px) {
+        font-size: 1.2rem;
+    }
+    font-weight: bold;
+    color: inherit;
+`
 export function MainNavbar({
     toggleSidebar,
     handleLanguage,
 }) {
-    const { userLanguage, pageString } = useContext(LanguageContext)
-    const { theme, toggleTheme } = useContext(ThemeContext)
+    const { userLanguage, pageString } = useLanguage()
 
     // update mainbar title
     let title = pageString.index.helmet.title
@@ -239,17 +255,7 @@ export function MainNavbar({
                 <LanguageSwitcher
                     handleLanguage={handleLanguage}
                 />
-                <ThemeSwitcherLabel>
-                    <ThemeSwitcherSwither
-                        type='checkbox'
-                        checked={theme === 'dark'}
-                        onChange={toggleTheme}
-                        onKeyDown={toggleTheme}
-                    />
-                    <Slider
-                        $icon={theme === 'dark' ? MoonIcon : SunIcon}
-                    />
-                </ThemeSwitcherLabel>
+                <ThemeSwitcher />
             </Nav>
         </StyledMainNavBar>
     )
@@ -422,7 +428,7 @@ const SidebarHeader = styled.div`
     }
 `
 export function Sidebar(props) {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     const [expanded, setExpanded] = useState(undefined)
 

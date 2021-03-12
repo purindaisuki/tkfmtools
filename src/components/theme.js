@@ -27,6 +27,7 @@ export const lightTheme = {
     },
     switcher: {
         iconOffest: '1.8rem',
+        checked: false
     },
     chart: {
         textColor: '#333',
@@ -81,6 +82,7 @@ export const darkTheme = {
     },
     switcher: {
         iconOffest: '6px',
+        checked: true
     },
     chart: {
         textColor: '#fff',

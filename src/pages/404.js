@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ImageSupplier from 'components/ImageSupplier';
 import LocalizedLink from 'components/LocalizedLink'
-import { LanguageContext } from 'components/LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 import 'components/index.css';
 
 const Wrapper = styled.div`
@@ -60,7 +60,7 @@ const StyledLink = styled(LocalizedLink)`
     }
 `
 const NotFound = () => {
-    const { pageString } = useContext(LanguageContext)
+    const { pageString } = useLanguage()
 
     return (
         <Wrapper>

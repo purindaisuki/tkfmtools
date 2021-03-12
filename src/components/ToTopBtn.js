@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ScrollUpButton from 'react-scroll-up-button';
-import { ToTopIcon } from './icon';
+import { ToTopIcon } from 'components/icon';
 
 const StyledBtn = styled.div`
     .Container {

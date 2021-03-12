@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Button, CircularProgress } from '@material-ui/core';
+import Head from 'components/Head';
+import MyHeader from 'components/MyHeader';
+import FixedImageSupplier from 'components/FixedImageSupplier';
 import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
-import Head from 'components/Head';
-import FixedImageSupplier from 'components/FixedImageSupplier';
-import MyHeader from 'components/MyHeader';
 import { TextModal } from 'components/MyModal';
-import { LanguageContext } from 'components/LanguageProvider';
+import { useLanguage } from 'components/LanguageProvider';
 import { ExportIcon } from 'components/icon';
 import expData from 'gamedata/exp.json';
 import charData from 'gamedata/character.json';
@@ -137,7 +137,7 @@ const CharImgWrapper = styled(FixedImageSupplier)`
         : props.theme.colors.dropdownHover};
 `
 const CharCollectionBox = ({ state }) => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     return (
         <CharContainer>
@@ -194,14 +194,14 @@ const TreeMapHeader = styled(MyHeader)`
     border: none;
 `
 const Analysis = ({ pageState }) => {
-    const { pageString, charString } = useContext(LanguageContext)
+    const { pageString, charString } = useLanguage()
 
     const [state, setState] = useState({
         isExportLoading: false,
         isModalOpen: false,
     })
 
-    const theme = useTheme()
+    const { colors } = useTheme()
 
     const componentRef = useRef()
     const exporterRef = useRef()
@@ -225,7 +225,7 @@ const Analysis = ({ pageState }) => {
             exporterRef.current(
                 componentRef,
                 'tenkafuma-line-up-analysis-result',
-                theme.colors.background
+                colors.background
             ).then(() => setState(state => ({
                 ...state,
                 isExportLoading: false

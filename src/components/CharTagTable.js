@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ResponsiveCharCard } from './CharCard';
-import WindowTable from './WindowTable';
-import { SortableTh } from './FilterComponents';
-import { LanguageContext } from './LanguageProvider';
+import { ResponsiveCharCard } from 'components/CharCard';
+import WindowTable from 'components/WindowTable';
+import { SortableTh } from 'components/FilterComponents';
+import { useLanguage } from 'components/LanguageProvider';
 import charData from 'gamedata/character.json';
 
 const StyledTh = styled(SortableTh)`
@@ -12,7 +12,7 @@ const StyledTh = styled(SortableTh)`
     white-space: nowrap;
 `
 const TableHead = React.forwardRef((props, ref) => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     return (
         <thead ref={ref}>
@@ -33,7 +33,7 @@ const TableHead = React.forwardRef((props, ref) => {
 })
 
 const TableBody = React.forwardRef((props, ref) => {
-    const { userLanguage, charString } = useContext(LanguageContext)
+    const { userLanguage, charString } = useLanguage()
 
     const cardTextWrapConfig = {
         'zh-TW': 900,
@@ -138,7 +138,7 @@ const CharTable = styled(WindowTable)`
     margin-right: 0;
 `
 const CharTagTable = () => {
-    const { charString } = useContext(LanguageContext)
+    const { charString } = useLanguage()
 
     const charTagData = charData.map((char => {
         const { id, rarity, tags } = char
