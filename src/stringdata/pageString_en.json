@@ -60,6 +60,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.4.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item overview display setting",
+                            "description": "Add display setting for item overview."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.4.2",
                     "content": [
                         {
@@ -536,13 +546,45 @@
                     "trainItems": "Toys",
                     "expPotions": "Exp. potion",
                     "energy": "Energy"
+                },
+                "settingModal": {
+                    "title": "Display setting",
+                    "content": [
+                        {
+                            "title": "Column",
+                            "button": [
+                                "Potential materials",
+                                "Toys",
+                                "Exp. potion",
+                                "Energy"
+                            ]
+                        },
+                        {
+                            "title": "Potential materials rank",
+                            "button": [
+                                "General basic",
+                                "General intermediate",
+                                "General advanced",
+                                "Advanced"
+                            ]
+                        },
+                        {
+                            "title": "Rarity",
+                            "button": [
+                                "Epic",
+                                "Rare",
+                                "Com.",
+                                "Required"
+                            ]
+                        }
+                    ]
                 }
             },
             "filter": {
                 "name": "Item drops filter",
                 "helmet": {
                     "title": "TenkafuMA! toolbox — Item drops filter",
-                    "description": "Filter stages by items to find promising ones."
+                    "description": "Filter stages by target items."
                 },
                 "itemPanelTitle": "Item Selection",
                 "resultTitle": "Result",
@@ -557,7 +599,7 @@
                         {
                             "title": "Introduction",
                             "content": [
-                                "This page is to find the stages that includes target items."
+                                "This page is to find the stages that includes all target items."
                             ]
                         },
                         {

@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Badge } from 'react-bootstrap';
 import Head from "components/Head";
+import MyIconButton from 'components/MyIconButton';
 import ScrollableContainer from 'components/ScrollableContainer';
 import { SortableTh, SortableTable } from 'components/FilterComponents';
 import { ItemCard } from 'components/MyCard';
+import { FitHeightModal } from 'components/MyModal';
+import MyHeader from 'components/MyHeader';
+import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
 import { useLanguage } from 'components/LanguageProvider';
+import { SettingIcon } from 'components/icon';
 import stageDropData from 'gamedata/stageDrop.json';
+import itemData from 'gamedata/item.json';
 
 const StyledTh = styled(SortableTh)`
     background-color: ${props => props.theme.colors.secondary};
     color: ${props => props.theme.colors.onSecondary};
     white-space: nowrap;
-    ${props => props.$sortable ? true : 'cursor: default;'}
+    ${props => props.$sortable ? null : 'cursor: default;'}
 `
-const TableHead = (props) => {
+const TableHead = ({
+    column,
+    columnHasMounted,
+    requestSort,
+    getSortDirection
+}) => {
     const { pageString } = useLanguage()
 
     return (
@@ -23,19 +34,15 @@ const TableHead = (props) => {
                 {Object.entries(pageString.items.drop.index.tableHead)
                     .map((entry, idx) => {
                         const sortable = entry[0] === 'stage' || entry[0] === 'energy'
-                        let requestSort
-                        let getSortDirection
-                        if (sortable) {
-                            requestSort = () => props.requestSort(entry[0])
-                            getSortDirection = props.getSortDirection(entry[0])
-                        }
 
                         return (
+                            (idx === 0 || columnHasMounted[idx - 1]) &&
                             <StyledTh
-                                onClick={requestSort}
-                                direction={getSortDirection}
+                                onClick={sortable ? () => requestSort(entry[0]) : undefined}
+                                direction={sortable ? getSortDirection(entry[0]) : undefined}
                                 key={idx}
                                 $sortable={sortable}
+                                hidden={idx !== 0 && !column.includes(idx - 1)}
                             >
                                 {entry[1]}
                             </StyledTh>
@@ -46,6 +53,15 @@ const TableHead = (props) => {
     )
 }
 
+const ItemsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    > div:last-child {
+        margin: 0;
+    }
+`
 const ItemWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -61,15 +77,6 @@ const ItemWrapper = styled.div`
         height: 2rem;
     }
 `
-const ItemsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    > div:last-child {
-        margin: 0;
-    }
-`
 const StyledBadge = styled(Badge)`
     background-color: ${props => props.$rarity === 0 ? 'lightgray'
         : props.$rarity === 1 ? '#90CAF9'
@@ -77,16 +84,16 @@ const StyledBadge = styled(Badge)`
     color: black;
     margin-left: .4rem;
 `
-const TableBody = (props) => {
+const ItemTd = ({ items, rarity, rank, hidden }) => {
     const { itemString } = useLanguage()
 
-    const itemTd = (items) => (
-        <td>
+    return (
+        <td hidden={hidden}>
             <ItemsContainer>
-                {items.length === 0
-                    ? undefined
-                    : items.map((item, i) => (
-                        <ItemWrapper key={i}>
+                {items.length !== 0 &&
+                    items.map((item, i) => (
+                        <ItemWrapper key={i} hidden={!rarity.includes(item.rarity) ||
+                            (itemData[item.id].category === 0 && !rank.includes(itemData[item.id].rank))}>
                             <ItemCard id={item.id} />
                             <StyledBadge pill $rarity={item.rarity}>
                                 {itemString.rarity[item.rarity]}
@@ -96,21 +103,122 @@ const TableBody = (props) => {
             </ItemsContainer>
         </td>
     )
+}
+
+const TableBody = ({
+    column,
+    rarity,
+    rank,
+    columnHasMounted,
+    sortedResult
+}) => (
+    <tbody>
+        {sortedResult.map((s, idx) => {
+            const { chapter, stage, energy, ...rest } = s
+
+            return (
+                <tr
+                    key={idx}
+                    hidden={Object.values(rest)
+                        .filter((v, i) => column.includes(i))
+                        .every(v =>
+                            !v.some(i => rarity.includes(i.rarity) &&
+                                (itemData[i.id].category !== 0 ||
+                                    rank.includes(itemData[i.id].rank)))
+                        )}
+                >
+                    <td>
+                        {`${chapter}-${stage}`}
+                    </td>
+                    {Object.values(rest).map((v, idx) => (
+                        columnHasMounted[idx] &&
+                        <ItemTd
+                            items={v}
+                            rarity={rarity}
+                            rank={rank}
+                            hidden={!column.includes(idx)}
+                            key={idx}
+                        />
+                    ))}
+                    <td hidden={!column.includes(3)}>
+                        {columnHasMounted[3] && energy}
+                    </td>
+                </tr>
+            )
+        })}
+    </tbody>
+)
+
+const btnLayoutConfig = {
+    'en': { 0: 2, 990: 4 },
+    'zh-TW': { 0: 4 }
+}
+
+const StyledHeader = styled(MyHeader)`
+    margin-top: 1rem;
+`
+const ButtonGroupContainer = ({
+    filterBtnValue,
+    filterBy,
+    groupValues,
+    strings
+}) => {
+    const { userLanguage } = useLanguage()
 
     return (
-        <tbody>
-            {props.sortedResult.map((stage, idx) => (
-                <tr key={idx}>
-                    <td>
-                        {`${stage.chapter}-${stage.stage}`}
-                    </td>
-                    {itemTd(stage.materials)}
-                    {itemTd(stage.trainItems)}
-                    {itemTd(stage.expPotions)}
-                    <td>{stage.energy}</td>
-                </tr>
+        <div>
+            <StyledHeader
+                title={strings.title}
+            />
+            <MyToggleButtonGroup
+                type='checkbox'
+                value={filterBtnValue}
+                onChange={filterBy}
+                layoutConfig={btnLayoutConfig[userLanguage]}
+            >
+                {groupValues.map((v, idx) => (
+                    <MyToggleButton value={v} key={idx}>
+                        {strings.button[idx]}
+                    </MyToggleButton>
+                ))}
+            </MyToggleButtonGroup>
+        </div>
+    )
+}
+
+const StyledModal = styled(FitHeightModal)`
+    > div:nth-child(3) {
+        top: 25%;
+        width: 30%;
+        min-width: max-content;
+    }
+`
+const SettingModal = ({
+    isModalOpen,
+    onClose,
+    filterBy,
+    ...props
+}) => {
+    const { pageString } = useLanguage()
+
+    return (
+        <StyledModal
+            title={pageString.items.drop.index.settingModal.title}
+            open={isModalOpen}
+            onClose={onClose}
+            ariaLabelledby='setting-modal-title'
+            ariaDescribedby='setting-modal-description'
+        >
+            {Object.entries(BtnGroupsValues).map((entry, idx) => (
+                <ButtonGroupContainer
+                    groupValues={entry[1]}
+                    filterBtnValue={props[entry[0]]}
+                    filterBy={filterBy(entry[0])}
+                    strings={pageString.items.drop.index.settingModal.content[idx]}
+                    key={idx}
+                />
             ))}
-        </tbody>
+        </StyledModal>
     )
 }
 
@@ -144,14 +252,57 @@ const sortFunc = (sortableItems, sortConfig) => {
     })
 }
 
+const BtnGroupsValues = {
+    column: [0, 1, 2, 3],
+    rank: [1, 2, 3, 4],
+    rarity: [0, 1, 2, 3]
+}
+
+const stageDrop = [].concat(...stageDropData.map(chapter => (
+    chapter.stages.map(stage => ({
+        chapter: chapter.chapter,
+        ...stage
+    }))
+)))
+
 const TableWrapper = styled(ScrollableContainer)`
     overflow-x: auto;
     height: calc(100vh - 10.4rem);
     padding-right: 0;
     margin-right: 0;
+    table {
+        text-align: center;
+    }
+`
+const SettingButtonWrapper = styled.div`
+    position absolute;
+    right: 0;
+    top: -4rem;
 `
 const Index = () => {
     const { pageString } = useLanguage()
+
+    const [state, setState] = useState({
+        ...BtnGroupsValues,
+        column: typeof (window) !== 'undefined' && window.innerWidth < 600 ? [0] : BtnGroupsValues.column,
+        isModalOpen: false,
+        columnHasMounted: typeof (window) !== 'undefined' && window.innerWidth < 600
+            ? [...Array(4).keys()].map((b, i) => i === 0)
+            : Array(4).fill(true)
+    })
+
+    const filterBy = (key) => (val) => setState(state => ({
+        ...state,
+        [key]: val,
+        columnHasMounted: key === 'column'
+            ? state.columnHasMounted.map((b, i) => b || val.includes(i))
+            : state.columnHasMounted
+    }))
+
+    const handleModal = (boolean) => () => setState(state => ({
+        ...state,
+        isModalOpen: boolean
+    }))
 
     return (
         <>
@@ -160,16 +311,35 @@ const Index = () => {
                 description={pageString.items.drop.index.helmet.description}
                 path='/items/drop/'
             />
+            <SettingButtonWrapper>
+                <MyIconButton onClick={handleModal(true)}>
+                    {SettingIcon}
+                </MyIconButton>
+            </SettingButtonWrapper>
             <TableWrapper>
                 <SortableTable
-                    data={stageDropData}
-                    head={<TableHead />}
-                    body={<TableBody />}
+                    data={stageDrop}
+                    head={<TableHead
+                        column={state.column}
+                        columnHasMounted={state.columnHasMounted}
+                    />}
+                    body={<TableBody
+                        column={state.column}
+                        rarity={state.rarity}
+                        rank={state.rank}
+                        columnHasMounted={state.columnHasMounted}
+                    />}
                     sortFunc={sortFunc}
                     defaultSortKey={'stage'}
                     border
                 />
             </TableWrapper>
+            <SettingModal
+                {...state}
+                isModalOpen={state.isModalOpen}
+                onClose={handleModal(false)}
+                filterBy={filterBy}
+            />
         </>
     )
 }
