@@ -340,12 +340,20 @@ const Index = ({ pageState, handlePageState }) => {
                 setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
             }
 
-            // push data to GA
-            if (dataLayer) {
-                dataLayer.push({
-                    'event': 'line_up_analysis',
-                    'line_up': minifyData(state.data)
+            // send data to GTM
+            if (typeof window !== 'undefined' && window.gtag) {
+                const minData = minifyData(state.data)
+                minData.forEach(c => {
+                    c[10] = c[10] ? 1 : 0
+                    c.splice(8, 2)
+                    c.splice(1, 2)
                 })
+                const gtagData = {}
+                // separate data due to 100 characters limit of GA4
+                for (let i = 0; i < Math.ceil(minData.length / 5); i++) {
+                    gtagData['line-up' + i] = minData.slice(i * 5, (i + 1) * 5)
+                }
+                window.gtag('event', 'line_up_analysis', { ...gtagData })
             }
             return
         } else if (action === 'load') {
