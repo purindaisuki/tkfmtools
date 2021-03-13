@@ -9,11 +9,11 @@ const StyledModal = styled.div`
     color: ${props => props.theme.colors.onSurface};
     position: absolute;
     width: 70%;
-    height: 80%;
+    height: auto;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
+    top: 10%;
+    bottom: auto;
     margin: auto;
     @media screen and (max-width: 992px) {
         width: 80%;
@@ -70,14 +70,9 @@ export const MyModal = ({
     </Modal>
 )
 
-export const FitHeightModal = styled(MyModal)`
-    > div:nth-child(3) {
-        top: 10%;
-        bottom: auto;
-        height: min-content;
-        > div {
-            max-height: calc(80vh - 2rem);
-        }
+const FitHeightModal = styled(MyModal)`
+    > div:nth-child(3) > div {
+        max-height: calc(80vh - 2rem);
     }
 `
 export const ScrollableModal = ({

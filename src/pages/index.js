@@ -8,16 +8,20 @@ import {
     SiteUpdateLog,
     SiteLicense
 } from 'components/SiteAccordionBody';
-import { FitHeightModal } from 'components/MyModal';
+import MyModal from 'components/MyModal';
 import { useLanguage } from 'components/LanguageProvider';
 import { ExpandMoreIcon, NoteIcon } from 'components/icon';
 
-const MsgModal = styled(FitHeightModal)`
+const MsgModal = styled(MyModal)`
     > div:nth-child(3) {
         width: 40%;
+        @media screen and (max-width: 992px) {
+            width: 80%;
+        }
+        @media screen and (max-width: 768px) {
+            width: 90%;
+        }
         top: 20%;
-        min-height: max-content;
-        min-width: max-content;
     }
 `
 const ModalBody = styled.div`

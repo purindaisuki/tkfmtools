@@ -81,6 +81,11 @@
                             "type": "Fix",
                             "title": "Snackbar won't disappear",
                             "description": "Fix operation success snackbar won't disappear."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Modals display improperly",
+                            "description": "Fix modals display on Safari and Chromium."
                         }
                     ]
                 },

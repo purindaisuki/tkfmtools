@@ -6,7 +6,7 @@ import MyIconButton from 'components/MyIconButton';
 import ScrollableContainer from 'components/ScrollableContainer';
 import { SortableTh, SortableTable } from 'components/FilterComponents';
 import { ItemCard } from 'components/MyCard';
-import { FitHeightModal } from 'components/MyModal';
+import { ScrollableModal } from 'components/MyModal';
 import MyHeader from 'components/MyHeader';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
 import { useLanguage } from 'components/LanguageProvider';
@@ -154,8 +154,14 @@ const btnLayoutConfig = {
     'zh-TW': { 0: 4 }
 }
 
+const StyledContainer = styled.div`
+    padding: .2rem;
+`
 const StyledHeader = styled(MyHeader)`
     margin-top: 1rem;
+`
+const StyledToggleButton = styled(MyToggleButton)`
+    &&&& {padding: .25rem .15rem;}
 `
 const ButtonGroupContainer = ({
     filterBtnValue,
@@ -166,7 +172,7 @@ const ButtonGroupContainer = ({
     const { userLanguage } = useLanguage()
 
     return (
-        <div>
+        <StyledContainer>
             <StyledHeader
                 title={strings.title}
             />
@@ -177,20 +183,31 @@ const ButtonGroupContainer = ({
                 layoutConfig={btnLayoutConfig[userLanguage]}
             >
                 {groupValues.map((v, idx) => (
-                    <MyToggleButton value={v} key={idx}>
+                    <StyledToggleButton value={v} key={idx}>
                         {strings.button[idx]}
-                    </MyToggleButton>
+                    </StyledToggleButton>
                 ))}
             </MyToggleButtonGroup>
-        </div>
+        </StyledContainer>
     )
 }
 
-const StyledModal = styled(FitHeightModal)`
+const StyledModal = styled(ScrollableModal)`
     > div:nth-child(3) {
-        top: 25%;
+        top: 20%;
         width: 30%;
-        min-width: max-content;
+        @media screen and (max-width: 1300px) {
+            width: 40%;
+        }
+        @media screen and (max-width: 992px) {
+            width: 60%;
+        }
+        @media screen and (max-width: 768px) {
+            width: 90%;
+        }
+        > div:last-child > div:first-child > div {
+            margin-top: 0;
+        }
     }
 `
 const SettingModal = ({

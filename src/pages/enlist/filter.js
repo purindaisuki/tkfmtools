@@ -8,7 +8,7 @@ import MyHeader from 'components/MyHeader';
 import { HeaderIconButton } from 'components/MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
 import { ResponsiveCharCard } from 'components/CharCard';
-import { FitHeightModal, TextModal } from 'components/MyModal';
+import { ScrollableModal, TextModal } from 'components/MyModal';
 import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
 import MySnackbar from 'components/MySnackbar';
 import { useLanguage } from 'components/LanguageProvider';
@@ -368,7 +368,7 @@ function TableBody({ sortedResult }) {
     )
 }
 
-const StyledModal = styled(FitHeightModal)`
+const StyledModal = styled(ScrollableModal)`
     > div:nth-child(3) {
         top: 25%;
         width: 30%;

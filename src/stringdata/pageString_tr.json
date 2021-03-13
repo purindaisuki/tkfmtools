@@ -88,6 +88,11 @@
                             "type": "Fix",
                             "title": "訊息條不會消失",
                             "description": "修正操作成功的訊息條不會消失。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "互動視窗顯示問題",
+                            "description": "修正 Safari 和 Chromium 上互動視窗高度過小問題。"
                         }
                     ]
                 },
