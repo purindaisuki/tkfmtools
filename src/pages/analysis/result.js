@@ -29,7 +29,9 @@ const calcLvStats = (names, array) => {
 const lvToExp = (lv) => expData.slice(0, lv).reduce((a, b) => a + b.exp, 0)
 
 const parseState = (state, string, chart) => {
-    const validChars = state ? state.filter(c => c.owned && c.level !== 0) : []
+    const validChars = state
+        ? JSON.parse(JSON.stringify(state)).filter(c => c.owned && c.level !== 0)
+        : []
     validChars.sort((a, b) => a.level - b.level)
     validChars.forEach(c => c.exp = lvToExp(c.level))
 
