@@ -66,6 +66,21 @@
                             "type": "New",
                             "title": "Item overview display setting",
                             "description": "Add display setting for item overview."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Line-up analysis characters selection",
+                            "description": "Now you can toggle the character ownership by tapping the image of the character."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Treemap result of line-up analysis",
+                            "description": "Fix sometimes some characters are not included in the treemap."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Snackbar won't disappear",
+                            "description": "Fix operation success snackbar won't disappear."
                         }
                     ]
                 },
@@ -654,7 +669,7 @@
                     {
                         "title": "How to",
                         "content": [
-                            "Select the character states according to your line-up. If you don't own a character, please set its level to be 0.",
+                            "Select the character states according to your line-up and toggle the character ownership by tapping the image of the character.",
                             "After you finish, the analysis will show at the 'result' page.",
                             "You can save, load and delete the data by clicking the buttons."
                         ]

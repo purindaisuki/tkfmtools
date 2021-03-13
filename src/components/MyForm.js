@@ -55,7 +55,8 @@ export const TwoStageForm = ({
     minNum,
     maxNum,
     selectAttrs,
-    defaultValues
+    defaultValues,
+    disabled
 }) => (
     <>
         {title}
@@ -66,6 +67,7 @@ export const TwoStageForm = ({
                 maxNum={maxNum}
                 onChange={handleSelect(selectAttrs[0])}
                 defaultValue={defaultValues ? defaultValues[0] : undefined}
+                disabled={disabled}
             />
             {'–'}
             <NumForm
@@ -74,6 +76,7 @@ export const TwoStageForm = ({
                 maxNum={6}
                 onChange={handleSelect(selectAttrs[1])}
                 defaultValue={defaultValues ? defaultValues[1] : undefined}
+                disabled={disabled}
             />
         </Form.Row>
     </>

@@ -12,10 +12,10 @@ import { useLanguage } from 'components/LanguageProvider';
 import calcCharStats from 'gamedata/calcCharStats';
 import charsData from 'gamedata/character.json';
 
-const charByPositionData = [...Array(5)].map(i => [])
-charsData.forEach((c, idx) => {
-    charByPositionData[c.tags.position - 5].push({ id: c.id, idx: idx })
-})
+const charByPositionData = charsData.reduce((newData, c, i) => {
+    newData[c.tags.position - 5].push({ id: c.id, idx: i })
+    return newData
+}, [...Array(5)].map(i => []))
 
 const minifyData = (data) => data.map(c => Object.values(c))
 
@@ -41,35 +41,52 @@ const hydrateData = (data) => {
     ))
 }
 
-const StyledForm = styled(Form)`
-    width: 12rem;
-    div {
-        margin-bottom: .2rem;
-    }
-    > div:last-child > div {
-    margin-bottom: 0;
-    }
-`
 const StyledCharContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin-bottom: 2rem;
     margin-right: 2rem;
 `
-const CharImgWrapper = styled(ImageSupplier)`
-    width: 7rem;
-    margin-right: .6rem;
+const CharImgWrapper = styled(Button)`
+    ${props => props.$owned ? null : 'filter: grayscale(100%);'}
+    && {transition: filter 0.1s ease;}
 `
-const CharContainer = ({ character, state, handleSelect }) => {
+const CharImg = styled(ImageSupplier)`
+    width: 7rem;
+`
+const StyledForm = styled(Form)`
+    width: 12rem;
+    div {
+        margin-bottom: .2rem;
+    }
+    > div:last-child > div {
+        margin-bottom: 0;
+    }
+    && input, && select {
+        transition: all 0.3s ease;
+        ${props => props.$owned ? null : `border: 1px solid ${props.theme.colors.dropdownHover};`}
+    }
+`
+const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
     const { pageString, charString } = useLanguage()
 
     return (
         <StyledCharContainer>
             <CharImgWrapper
-                name={`char_small_${character.id}`}
-                alt={charString.name[character.id]}
-            />
-            <StyledForm onSubmit={(event) => event.preventDefault()}>
+                onClick={handleBtnClick}
+                $owned={state.owned}
+                disableRipple
+                disableFocusRipple
+            >
+                <CharImg
+                    name={`char_small_${character.id}`}
+                    alt={charString.name[character.id]}
+                />
+            </CharImgWrapper>
+            <StyledForm
+                $owned={state.owned}
+                onSubmit={(event) => event.preventDefault()}
+            >
                 <Form.Row>
                     <Col>
                         {pageString.analysis.index.levelTitle}
@@ -85,13 +102,18 @@ const CharContainer = ({ character, state, handleSelect }) => {
                     <Col>
                         <Select
                             type='number'
-                            value={state.level}
+                            pattern='[0-9]*'
+                            inputMode='numeric'
+                            value={
+                                state.owned ? state.level : ''
+                            }
                             min='0'
-                            max='60'
+                            max='61'
                             onChange={handleSelect('level')}
-                            onFocus={e => e.target.value = ""}
-                            onBlur={e => e.target.value = state.level} 
+                            onFocus={e => e.target.value = ''}
+                            onBlur={e => e.target.value = state.level}
                             placeholder='-'
+                            disabled={!state.owned}
                         />
                     </Col>
                     <NumForm
@@ -100,6 +122,7 @@ const CharContainer = ({ character, state, handleSelect }) => {
                         minNum={4 - character.id[0]}
                         maxNum={5}
                         onChange={handleSelect('star')}
+                        disabled={!state.owned}
                     />
                     <NumForm
                         as={Col}
@@ -108,6 +131,7 @@ const CharContainer = ({ character, state, handleSelect }) => {
                         maxNum={3}
                         disabled={character.id[0] === '4'}
                         onChange={handleSelect('discipline')}
+                        disabled={!state.owned}
                     />
                 </Form.Row>
                 <TwoStageForm
@@ -118,6 +142,7 @@ const CharContainer = ({ character, state, handleSelect }) => {
                     maxNum={character.id[0] === '4' || character.id[0] === '3' ? 6 : 12}
                     selectAttrs={['potential', 'potentialSub']}
                     handleSelect={handleSelect}
+                    disabled={!state.owned}
                 />
             </StyledForm>
         </StyledCharContainer>
@@ -262,10 +287,14 @@ const Index = ({ pageState, handlePageState }) => {
 
         let charState = { ...state.data[idx], [attr]: parseInt(selected) }
 
-        if (isNaN(parseInt(charState.level)) || charState.level < 0 || charState.level > 60) {
+        if (isNaN(parseInt(charState.level)) || charState.level < 0 || charState.level > 61) {
             // not valid
             return
         }
+
+        charState.level = charState.level === 0
+            ? 60 : charState.level === 61
+                ? 1 : charState.level
 
         if (charState.potential !== 1 && state.data[idx].potentialSub === 0) {
             charState.potentialSub = 1
@@ -273,10 +302,18 @@ const Index = ({ pageState, handlePageState }) => {
 
         const { stats } = charsData[idx]
         const { rarity, attribute, position, ATK, HP, owned, ...rest } = charState
+
         const result = calcCharStats(...Object.values(rest), ...Object.values(stats))
 
-        let newState = state.data.slice()
+        let newState = JSON.parse(JSON.stringify(state.data))
         newState[idx] = { ...charState, ...result, owned: rest.level !== 0 }
+        setState(state => ({ ...state, data: newState }))
+        handlePageState(newState)
+    }
+
+    const handleBtnClick = (idx) => () => {
+        let newState = JSON.parse(JSON.stringify(state.data))
+        newState[idx].owned = !newState[idx].owned
         setState(state => ({ ...state, data: newState }))
         handlePageState(newState)
     }
@@ -316,6 +353,12 @@ const Index = ({ pageState, handlePageState }) => {
                 const data = JSON.parse(localData)
                 if (data[idx] && data[idx].data[0][0] === '101') {
                     const hydratedData = hydrateData(data[idx].data)
+                    hydratedData.forEach(c => {
+                        if (c.level === 0) {
+                            c.level = 1
+                            c.owned = false
+                        }
+                    })
                     setState(state => ({
                         ...state,
                         data: hydratedData,
@@ -348,7 +391,7 @@ const Index = ({ pageState, handlePageState }) => {
         }))
     }
 
-    const handleSuccessSnackbarClose = () => () => {
+    const handleSuccessSnackbarClose = () => {
         setState((state) => ({ ...state, isSuccessSnackbarOpen: false }))
     }
 
@@ -399,6 +442,7 @@ const Index = ({ pageState, handlePageState }) => {
                                 character={c}
                                 state={state.data[c.idx]}
                                 handleSelect={handleSelect(c.idx)}
+                                handleBtnClick={handleBtnClick(c.idx)}
                                 key={i}
                             />
                         ))}
