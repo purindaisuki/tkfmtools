@@ -343,17 +343,20 @@ const Index = ({ pageState, handlePageState }) => {
             // send data to GTM
             if (typeof window !== 'undefined' && window.gtag) {
                 const minData = minifyData(state.data)
-                minData.forEach(c => {
+                const compressedData = minData.reduce((data, c) => {
+                    c[3] = ('00' + c[3]).slice(-2)
+                    c[4] = ('00' + c[4]).slice(-2)
                     c[10] = c[10] ? 1 : 0
                     c.splice(8, 2)
                     c.splice(1, 2)
-                })
+                    return data + c.reduce((a, b) => a + b, '')
+                }, '')
                 const gtagData = {}
                 // separate data due to 100 characters limit of GA4
-                for (let i = 0; i < Math.ceil(minData.length / 5); i++) {
-                    gtagData['line-up' + i] = minData.slice(i * 5, (i + 1) * 5)
+                for (let i = 0; i < Math.ceil(compressedData.length / 100); i++) {
+                    gtagData['line_up_' + i] = compressedData.slice(i * 100, (i + 1) * 100)
                 }
-                window.gtag('event', 'line_up_analysis', { ...gtagData })
+                window.gtag('event', 'line_up_save', { ...gtagData })
             }
             return
         } else if (action === 'load') {
