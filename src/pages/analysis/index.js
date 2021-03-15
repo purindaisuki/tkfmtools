@@ -353,8 +353,8 @@ const Index = ({ pageState, handlePageState }) => {
                 }, '')
                 const gtagData = {}
                 // separate data due to 100 characters limit of GA4
-                for (let i = 0; i < Math.ceil(compressedData.length / 100); i++) {
-                    gtagData['line_up_' + i] = compressedData.slice(i * 100, (i + 1) * 100)
+                for (let i = 0; i < Math.ceil(compressedData.length / 99); i++) {
+                    gtagData['line_up_' + i] = 'a'+compressedData.slice(i * 99, (i + 1) * 99)
                 }
                 window.gtag('event', 'line_up_save', { ...gtagData })
             }
