@@ -25,7 +25,7 @@ const Message = styled.div`
     top: 25%;
     left: max(calc(35% - 20rem), 1rem);
     width: max-content;
-    background: rgba(${props => props.theme.colors.backgroundRGB}, 75%);
+    background: ${props => props.theme.colors.background + 'BF'};
     box-shadow: 0 0 1rem ${props => props.theme.colors.background};
     @media screen and (max-width: 992px) {
         top: 30%;

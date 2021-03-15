@@ -1,7 +1,6 @@
 export const lightTheme = {
     colors: {
         background: '#FAFAFA',
-        backgroundRGB: '250, 250, 250',
         surface: '#fff',
         primary: '#e92390',
         secondary: '#b20063',
@@ -24,6 +23,7 @@ export const lightTheme = {
         link: '#007bff',
         linkHover: '#0056b3',
         dropdownHover: 'lightgray',
+        rank: { high: '#1976d2', low: '#d32f2f' },
     },
     switcher: {
         iconOffest: '1.8rem',
@@ -56,7 +56,6 @@ export const lightTheme = {
 export const darkTheme = {
     colors: {
         background: '#424242',
-        backgroundRGB: '66, 66, 66',
         surface: '#424242',
         primary: '#212121',
         secondary: '#F48FB1',
@@ -78,7 +77,8 @@ export const darkTheme = {
         shadow: 'lightgray',
         link: '#b3e5fc',
         linkHover: '#e1f5fe',
-        dropdownHover: 'gray'
+        dropdownHover: 'gray',
+        rank: { high: '#90caf9', low: '#ef9a9a' },
     },
     switcher: {
         iconOffest: '6px',
