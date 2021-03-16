@@ -15,6 +15,7 @@ const getImageData = (name) => {
               layout: FIXED
               width: 60
               height: 60
+              transformOptions: {grayscale: true}
             )
           }
           name
@@ -29,7 +30,7 @@ const getImageData = (name) => {
   return image
 }
 
-const FixedImageSupplier = ({
+const FixedGrayImageSupplier = ({
   className,
   name,
   alt,
@@ -41,4 +42,4 @@ const FixedImageSupplier = ({
   />
 )
 
-export default FixedImageSupplier
+export default FixedGrayImageSupplier

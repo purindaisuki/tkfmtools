@@ -2,6 +2,8 @@ import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import BackgroundImage from 'gatsby-background-image'
+import FixedGrayImageSupplier from 'components/FixedGrayImageSupplier';
+import FixedImageSupplier from 'components/FixedImageSupplier';
 
 // Helper functions.
 const getBgImageType = imageData => imageData.layout === 'fixed' ? 'fixed' : 'fluid'
@@ -58,7 +60,7 @@ const getImageData = (name, isBackground) => {
   const image = allFile.edges.find(i => i.node.name === name)
     .node.childImageSharp.gatsbyImageData
 
-  
+
   return isBackground ? convertToBgImage(image) : image
 }
 
@@ -66,17 +68,23 @@ const ImageSupplier = ({
   className,
   children,
   name,
+  fixed,
+  grayscale,
   isBackground,
   alt,
 }) => (
-  isBackground
-    ? <BackgroundImage
-      className={className}
-      {...getImageData(name, isBackground)}
-    >
-      {children}
-    </BackgroundImage>
-    : <GatsbyImage image={getImageData(name, isBackground)} className={className} alt={alt} />
+  fixed
+    ? grayscale
+      ? <FixedGrayImageSupplier className={className} name={name} alt={alt} />
+      : <FixedImageSupplier className={className} name={name} alt={alt} />
+    : isBackground
+      ? <BackgroundImage
+        className={className}
+        {...getImageData(name, isBackground)}
+      >
+        {children}
+      </BackgroundImage>
+      : <GatsbyImage image={getImageData(name, isBackground)} className={className} alt={alt} />
 )
 
 export default ImageSupplier
