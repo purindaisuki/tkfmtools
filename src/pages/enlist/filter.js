@@ -212,11 +212,13 @@ const CharFilterPanel = ({
                     <>
                         <HeaderIconButton
                             onClick={clearBtnValue}
+                            tooltipText={pageString.enlist.filter.deleteTooltip}
                         >
                             {DeleteIcon}
                         </HeaderIconButton>
                         <HeaderIconButton
                             onClick={handleModalOpen}
+                            tooltipText={pageString.enlist.filter.settingTooltip}
                         >
                             {SettingIcon}
                         </HeaderIconButton>

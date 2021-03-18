@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from 'components/Head';
+import MyIconButton from 'components/MyIconButton';
 import MyAccordion from 'components/MyAccordion';
 import {
     LogMsg,
@@ -102,9 +103,12 @@ const unreadAnimation = keyframes`
         transform: scale(.9,1.2) translate(0,-20%);
     }
 `
-const NoteIconWrapper = styled.span`
+const NoteButton = styled(MyIconButton)`
     position: relative;
     cursor: pointer;
+    && {
+        padding: 0;
+    }
     svg {
         width: 1.2rem;
         height: 1.2rem;
@@ -114,7 +118,7 @@ const NoteIconWrapper = styled.span`
         position: absolute;
         content: '';
         right: -.3rem;
-        top: .1rem;
+        top: -.3rem;
         background-color: red;
         border-radius: 100%;
         animation: ${unreadAnimation} 1.5s ease-in-out infinite;
@@ -208,12 +212,13 @@ const Home = () => {
                 <Header>
                     <span>{pageString.index.helmet.title}</span>
                     <span>{latestMsg.version}</span>
-                    <NoteIconWrapper
+                    <NoteButton
                         onClick={handleModalOpen}
+                        tooltipText={pageString.index.noteButtonTooltip}
                         $unread={state.unread}
                     >
                         {NoteIcon}
-                    </NoteIconWrapper>
+                    </NoteButton>
                 </Header>
                 {[
                     {

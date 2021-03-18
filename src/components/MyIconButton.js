@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 
-const MyIconButton = styled(IconButton)`
+const TextWrapper = styled.span`
+    font-size: small;
+`
+const StyledIconButton = styled(IconButton)`
     padding: .75rem .5rem;
     svg {
         width: 1.6rem;
@@ -17,8 +20,15 @@ const MyIconButton = styled(IconButton)`
         fill: ${props => props.theme.colors.secondary};
     }
 `
+const MyIconButton = ({ children, className, tooltipText, onClick }) => (
+    <Tooltip title={<TextWrapper>{tooltipText}</TextWrapper>}>
+        <StyledIconButton aria-label={tooltipText} onClick={onClick} className={className}>
+            {children}
+        </StyledIconButton>
+    </Tooltip>
+)
 
-export const HeaderIconButton = styled(MyIconButton)`
+export const StyledHeaderIconButton = styled(MyIconButton)`
     && {
         padding: .4rem;
         svg {
@@ -27,5 +37,11 @@ export const HeaderIconButton = styled(MyIconButton)`
         }
     }
 `
+
+export const HeaderIconButton = ({ children, className, tooltipText, onClick }) => (
+    <StyledHeaderIconButton tooltipText={tooltipText} onClick={onClick} className={className}>
+        {children}
+    </StyledHeaderIconButton>
+)
 
 export default MyIconButton

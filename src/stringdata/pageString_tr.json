@@ -5,6 +5,7 @@
             "title": "天下布魔工具箱",
             "description": "提供天下布魔中資料查詢、處理，減輕娜娜負擔。"
         },
+        "noteButtonTooltip": "更新訊息",
         "about": {
             "header": "關於本站",
             "content": [
@@ -472,7 +473,9 @@
                 "title": "天下布魔工具箱 — 全境徵才",
                 "description": "呈現天下布魔中全境徵才可得角色及相對應之標籤。"
             },
-            "layout": "佈局"
+            "layout": "佈局",
+            "masonryTooltip": "磚形",
+            "tableTooltip": "表格"
         },
         "filter": {
             "name": "全境徵才篩選器",
@@ -480,6 +483,8 @@
                 "title": "天下布魔工具箱 — 全境徵才篩選器",
                 "description": "以天下布魔中全境徵才隨機得到的五個標籤為條件，篩選出可能邂逅的人選，再也不用對標籤大眼瞪小眼。"
             },
+            "deleteTooltip": "取消全部選擇",
+            "settingTooltip":"顯示設定",
             "tagSelectTitle": "標籤選擇",
             "timeSelectTitle": "招募時間",
             "tableHead": [
@@ -565,6 +570,7 @@
                     "title": "天下布魔工具箱 — 掉落道具",
                     "description": "提供道具掉落一覽。"
                 },
+                "settingTooltip": "設定",
                 "layout": {
                     "byItem": "依道具",
                     "byStage": "依地圖"
@@ -616,6 +622,7 @@
                     "title": "天下布魔工具箱 — 掉落道具篩選",
                     "description": "提供道具掉落篩選功能。"
                 },
+                "deleteTooltip": "取消全部選擇",
                 "itemPanelTitle": "道具選擇",
                 "resultTitle": "篩選結果",
                 "tableHead": [
@@ -741,6 +748,13 @@
                     ]
                 }
             ],
+            "rank": {
+                "title": "您的隊伍戰力 PR 值為 ",
+                "high": "高 PR 值 TOP5",
+                "low": "低 PR 值 TOP5",
+                "cp": "角色戰力",
+                "PR": "PR 值"
+            },
             "helpModal": {
                 "title": "角色戰力",
                 "content": [
@@ -757,6 +771,9 @@
                         ]
                     }
                 ]
+            },
+            "rankModal": {
+                "content": "PR 值為隊伍相對本網站收集之數據所計算而得。"
             }
         }
     },

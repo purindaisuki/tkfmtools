@@ -328,7 +328,10 @@ const Index = () => {
                 path='/items/drop/'
             />
             <SettingButtonWrapper>
-                <MyIconButton onClick={handleModal(true)}>
+                <MyIconButton
+                    onClick={handleModal(true)}
+                    tooltipText={pageString.items.drop.index.settingTooltip}
+                >
                     {SettingIcon}
                 </MyIconButton>
             </SettingButtonWrapper>

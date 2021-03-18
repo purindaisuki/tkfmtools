@@ -46,6 +46,7 @@ const MyHeader = ({
             {withHelp && onClickHelp &&
                 <HeaderIconButton
                     onClick={onClickHelp}
+                    tooltipText='Help'
                 >
                     {HelpIcon}
                 </HeaderIconButton>}

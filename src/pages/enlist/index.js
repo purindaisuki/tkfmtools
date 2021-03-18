@@ -28,12 +28,14 @@ const LayoutSwitcher = (props) => {
             <MyIconButton
                 $active={props.layout === 'Masonry'}
                 onClick={props.handleLayoutChange('Masonry')}
+                tooltipText={pageString.enlist.index.masonryTooltip}
             >
                 {MasonryViewIcon}
             </MyIconButton>
             <MyIconButton
                 $active={props.layout === 'Table'}
                 onClick={props.handleLayoutChange('Table')}
+                tooltipText={pageString.enlist.index.tableTooltip}
             >
                 {TableViewIcon}
             </MyIconButton>

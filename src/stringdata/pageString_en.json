@@ -5,6 +5,7 @@
             "title": "TenkafuMA! toolbox",
             "description": "Collect data and provide useful tools for TenkafuMA! to pick up Caesar's slack."
         },
+        "noteButtonTooltip": "Update message",
         "about": {
             "header": "About",
             "content": [
@@ -466,7 +467,9 @@
                 "title": "TenkafuMA! toolbox — Recruitment",
                 "description": "Present character tags for recruitment in TenkafuMA!."
             },
-            "layout": "Layout"
+            "layout": "Layout",
+            "masonryTooltip": "Masonry",
+            "tableTooltip": "Table"
         },
         "filter": {
             "name": "Recruitment filter",
@@ -474,6 +477,8 @@
                 "title": "TenkafuMA! toolbox — Recruitment filter",
                 "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
             },
+            "deleteTooltip": "Cancel all selections",
+            "settingTooltip":"Display setting",
             "tagSelectTitle": "Tag Selection",
             "timeSelectTitle": "Recruitment time",
             "tableHead": [
@@ -555,6 +560,7 @@
                     "title": "TenkafuMA! toolbox — Item drops",
                     "description": "Show item drops of main stages."
                 },
+                "settingTooltip": "Setting",
                 "layout": {
                     "byItem": "by Item",
                     "byStage": "by Stage"
@@ -606,6 +612,7 @@
                     "title": "TenkafuMA! toolbox — Item drops filter",
                     "description": "Filter stages by target items."
                 },
+                "deleteTooltip": "Cancel all selections",
                 "itemPanelTitle": "Item Selection",
                 "resultTitle": "Result",
                 "tableHead": [
@@ -729,6 +736,13 @@
                     ]
                 }
             ],
+            "rank": {
+                "title": "PR of your line-up is",
+                "high": "High PR TOP5",
+                "low": "Low PR TOP5",
+                "cp": " combat power",
+                "PR": "PR"
+            },
             "helpModal": {
                 "title": "Character combat power",
                 "content": [
@@ -745,6 +759,9 @@
                         ]
                     }
                 ]
+            },
+            "rankModal": {
+                "content": "PR is the percentile rank and is calculated by the data collected in this website."
             }
         }
     },

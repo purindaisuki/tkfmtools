@@ -60,6 +60,7 @@ const ItemFilterPanel = ({
                 end={
                     <HeaderIconButton
                         onClick={clearBtnValue}
+                        tooltipText={pageString.items.drop.filter.deleteTooltip}
                     >
                         {DeleteIcon}
                     </HeaderIconButton>
