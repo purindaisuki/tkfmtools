@@ -6,7 +6,12 @@ import Layout from './src/components/Layout';
 import PageWithTabs from './src/components/PageWithTabs';
 
 const theme = createMuiTheme({
-    typography: { fontFamily: fontFamily }
+    typography: { fontFamily: fontFamily },
+    palette: {
+        secondary: {
+            main: '#F48FB1',
+        },
+    },
 })
 
 export const wrapPageElement = ({ element, props }) => (
