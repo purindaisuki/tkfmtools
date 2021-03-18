@@ -62,6 +62,7 @@ export const MyModal = ({
             <StyledModal>
                 <ModalHeader
                     title={title}
+                    id={ariaLabelledby}
                     end={<CloseWrapper onClick={onClose}>&times;</CloseWrapper>}
                 />
                 {children}
@@ -70,7 +71,7 @@ export const MyModal = ({
     </Modal>
 )
 
-const FitHeightModal = styled(MyModal)`
+const StyledScrollableModal = styled(MyModal)`
     > div:nth-child(3) > div {
         max-height: calc(80vh - 2rem);
     }
@@ -84,7 +85,7 @@ export const ScrollableModal = ({
     ariaLabelledby,
     ariaDescribedby,
 }) => (
-    <FitHeightModal
+    <StyledScrollableModal
         className={className}
         title={title}
         open={open}
@@ -95,14 +96,15 @@ export const ScrollableModal = ({
         <ScrollableContainer>
             {children}
         </ScrollableContainer>
-    </FitHeightModal>
+    </StyledScrollableModal>
 )
 
 const ModalBody = styled.div`
     margin: 1rem 0;
 `
 const TextModalContent = ({
-    content
+    content,
+    ariaDescribedby
 }) => (
     content.map((item, idx) => (
         <React.Fragment key={idx}>
@@ -110,7 +112,9 @@ const TextModalContent = ({
                 title={item.title}
             />
             <ModalBody>
-                {item.content.map((text, idx) => <p key={idx}>{text}</p>)}
+                {item.content.map((text, idx) => (
+                    <p key={idx} id={ariaDescribedby + '_' + idx}>{text}</p>
+                ))}
             </ModalBody>
         </React.Fragment>
     ))
@@ -129,10 +133,11 @@ export const TextModal = ({
         open={open}
         onClose={onClose}
         ariaLabelledby={ariaLabelledby}
-        ariaDescribedby={ariaDescribedby}
+        ariaDescribedby={[...Array(content.length).keys()].map(i => ariaDescribedby + '_' + i).join(' ')}
     >
         <TextModalContent
             content={content}
+            ariaDescribedby={ariaDescribedby}
         />
     </ScrollableModal>
 )

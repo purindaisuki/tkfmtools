@@ -45,7 +45,6 @@ const UpdateModal = ({
             open={modalOpen}
             onClose={onClose}
             ariaLabelledby="update-modal-title"
-            ariaDescribedby="update-modal-description"
         >
             <ModalBody>
                 {latestMsg.content.map((msg, idx) => (
@@ -155,7 +154,7 @@ const DescriptionAccordion = styled(MyAccordion)`
     }
 `
 const Home = () => {
-    const { isDefault, pageString } = useLanguage()
+    const { pageString } = useLanguage()
     const latestMsg = pageString.index.updateLog.content[0]
 
     const [state, setState] = useState({
@@ -244,8 +243,6 @@ const Home = () => {
             <UpdateModal
                 modalOpen={state.modalOpen}
                 onClose={handleModalClose}
-                ariaLabelledby="latest-update-modal-title"
-                ariaDescribedby="latest-update-modal-description"
             />
         </>
     )

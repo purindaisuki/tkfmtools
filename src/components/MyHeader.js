@@ -37,11 +37,12 @@ const MyHeader = ({
     titleIcon,
     withHelp,
     onClickHelp,
-    end
+    end,
+    id
 }) => (
     <StyledHeader className={className}>
         <TitleWrapper>
-            <span>{titleIcon}{title}</span>
+            <span id={id}>{titleIcon}{title}</span>
             {withHelp && onClickHelp &&
                 <HeaderIconButton
                     onClick={onClickHelp}

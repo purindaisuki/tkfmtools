@@ -224,7 +224,6 @@ const SettingModal = ({
             open={isModalOpen}
             onClose={onClose}
             ariaLabelledby='setting-modal-title'
-            ariaDescribedby='setting-modal-description'
         >
             {Object.entries(BtnGroupsValues).map((entry, idx) => (
                 <ButtonGroupContainer
