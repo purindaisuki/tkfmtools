@@ -1,28 +1,28 @@
 export const lightTheme = {
     colors: {
         background: '#FAFAFA',
-        surface: '#fff',
+        surface: '#ffffff',
         primary: '#e92390',
         secondary: '#b20063',
         success: '#4caf50',
         warn: '#ff9800',
         error: '#b71c1c',
         blue: '#1976d2',
-        onBackground: '#000',
-        onSurface: '#000',
-        onPrimary: '#fff',
-        onSecondary: '#fff',
-        onSuccess: '#fff',
-        onWarn: '#fff',
-        onError: '#fff',
-        onBlue: '#fff',
-        slider: '#fff',
+        onBackground: '#000000',
+        onSurface: '#000000',
+        onPrimary: '#ffffff',
+        onSecondary: '#ffffff',
+        onSuccess: '#ffffff',
+        onWarn: '#ffffff',
+        onError: '#ffffff',
+        onBlue: '#ffffff',
+        slider: '#ffffff',
         border: '#b20063',
         secondaryBorder: '#b20063',
-        shadow: 'gray',
+        shadow: '#757575',
         link: '#007bff',
         linkHover: '#0056b3',
-        dropdownHover: 'lightgray',
+        dropdownHover: '#bdbdbd',
         rank: { high: '#1976d2', low: '#d32f2f' },
     },
     switcher: {
@@ -38,7 +38,7 @@ export const lightTheme = {
         },
         grid: {
             line: {
-                stroke: 'lightgray',
+                stroke: '#bdbdbd',
                 strokeWidth: 1
             }
         },
@@ -46,7 +46,7 @@ export const lightTheme = {
             '#ef5350',
             '#42a5f5',
             '#66bb6a',
-            '#ffca28',
+            '#ffb300',
             '#ab47bc'
         ],
         treeMapText: 'darker'
@@ -63,21 +63,21 @@ export const darkTheme = {
         warn: '#ff9800',
         error: '#b71c1c',
         blue: '#1976d2',
-        onBackground: '#fff',
-        onSurface: '#fff',
-        onPrimary: '#fff',
-        onSecondary: '#000',
-        onSuccess: '#fff',
-        onWarn: '#fff',
-        onError: '#fff',
-        onBlue: '#fff',
+        onBackground: '#ffffff',
+        onSurface: '#ffffff',
+        onPrimary: '#ffffff',
+        onSecondary: '#000000',
+        onSuccess: '#ffffff',
+        onWarn: '#ffffff',
+        onError: '#ffffff',
+        onBlue: '#ffffff',
         slider: '#01579B',
         border: '#F48FB1',
         secondaryBorder: '#424242',
-        shadow: 'lightgray',
+        shadow: '#bdbdbd',
         link: '#b3e5fc',
         linkHover: '#e1f5fe',
-        dropdownHover: 'gray',
+        dropdownHover: '#757575',
         rank: { high: '#90caf9', low: '#ef9a9a' },
     },
     switcher: {
@@ -85,7 +85,7 @@ export const darkTheme = {
         checked: true
     },
     chart: {
-        textColor: '#fff',
+        textColor: '#ffffff',
         tooltip: {
             container: {
                 background: '#484848',
@@ -93,7 +93,7 @@ export const darkTheme = {
         },
         grid: {
             line: {
-                stroke: 'gray',
+                stroke: '#757575',
                 strokeWidth: 1
             }
         },
@@ -107,3 +107,10 @@ export const darkTheme = {
         treeMapText: 'brighter'
     }
 }
+
+export const fontFamily = `
+    'Helvetica', 'Arial', 'LiHei Pro', '黑體-繁', '微軟正黑體',
+    '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif
+`

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ImageSupplier from 'components/ImageSupplier';
 import LocalizedLink from 'components/LocalizedLink'
 import { useLanguage } from 'components/LanguageProvider';
-import 'components/index.css';
 
 const Wrapper = styled.div`
     width: 100%;
