@@ -24,3 +24,6 @@ yarn-error.log*
 /.vscode
 /public
 .eslintcache
+Quickstart-0bc3821a5a70.json
+/src/gamedata/line_up_data.json
+google-api.js

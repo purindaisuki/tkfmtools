@@ -744,7 +744,7 @@
                 ]
             },
             "rankModal": {
-                "content": "PR is the percentile rank and is calculated by the data collected in this website."
+                "content": "PR is the percentile rank of total combat power of your line-up and is calculated by the data collected in this website."
             }
         }
     },

@@ -13,7 +13,7 @@ import MyModal, { TextModal } from 'components/MyModal';
 import { useLanguage } from 'components/LanguageProvider';
 import expData from 'gamedata/exp.json';
 import charData from 'gamedata/character.json';
-import userData from 'gamedata/fakedata.json';
+import userData from 'gamedata/line_up_data.json';
 
 // helper functions
 const calcLvStats = (names, array) => {
@@ -65,7 +65,7 @@ const calcPR = (chars) => {
             cp: c.cp
         })
     })
-    PRArray.sort((a, b) => a.PR - b.PR | a.cp / 1000000 - b.cp / 1000000)
+    PRArray.sort((a, b) => (a.PR - b.PR) !== 0 ? a.PR - b.PR : a.cp / 1000000 - b.cp / 1000000)
     // only need top 5 and bottom 5
     PRArray.splice(5, PRArray.length - 10)
     PRArray.forEach(c => { c.cp = formatNumber(c.cp) })

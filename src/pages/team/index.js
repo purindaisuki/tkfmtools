@@ -18,8 +18,17 @@ import { useLanguage } from 'components/LanguageProvider';
 import { NewIcon, CopyIcon, DeleteIcon, SettingIcon } from 'components/icon';
 
 const StyledMenu = styled(Menu)`
+    .MuiPaper-root {
+        background-color: ${props => props.theme.colors.surface};
+        color: ${props => props.theme.colors.onSurface};
+    }
 `
 const StyledMenuItem = styled(MenuItem)`
+    && {
+        svg {
+            fill: ${props => props.theme.colors.secondary};
+        }
+    }
 `
 const SettingDropDown = () => {
     const { pageString } = useLanguage()

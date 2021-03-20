@@ -21,7 +21,7 @@ const TeamDataProvider = ({ children }) => {
     // currentIndex is the index of current team in localTeams, -1 means detached
     const [state, setState] = useState({
         localTeams: localTeams,
-        currentTeam: localTeams[lastIndex] ? localTeams[lastIndex] : initTeam(),
+        currentTeam: (localTeams && localTeams[lastIndex]) ? localTeams[lastIndex] : initTeam(),
         currentIndex: lastIndex ? lastIndex : -1,
         importLineupData: importLineupData
     })
