@@ -52,7 +52,10 @@ const SettingDropDown = () => {
 
     const handleToggle = () => {
         if (!toggleImportLineupData()) {
-            handleSnackbar(true)
+            setState(state => ({
+                ...state,
+                isSnackbarOpen: true
+            }))
         }
     }
 

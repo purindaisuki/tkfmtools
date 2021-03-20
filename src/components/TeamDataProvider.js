@@ -132,7 +132,7 @@ const TeamDataProvider = ({ children }) => {
     }
 
     const toggleImportLineupData = () => {
-        if (!state.importLineupData && !localLineups) {
+        if (!state.importLineupData && (!localLineups || localLineups.length === 0)) {
             return 0
         }
 

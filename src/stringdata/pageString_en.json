@@ -71,6 +71,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Character select not working in team composition page",
+                            "description": "Fix character select button not working under some circumstances."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.0",
                     "content": [
                         {

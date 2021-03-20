@@ -48,7 +48,8 @@ const LineupDataProvider = ({ children }) => {
 
     const [state, setState] = useState({
         localLineups: localLineups,
-        currentLineup: localLineups ? hydrate(localLineups.slice(-1)[0].data) : initLineup
+        currentLineup: (localLineups && localLineups.slice(-1)[0])
+            ? hydrate(localLineups.slice(-1)[0].data) : initLineup
     })
 
     const pushLineup = (lineup, setting) => {

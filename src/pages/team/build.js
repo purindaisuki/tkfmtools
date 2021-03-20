@@ -675,7 +675,7 @@ const DraggableCharsList = () => {
     const getCharInitState = (char) => {
         const lineup = getLatestLineup()
 
-        if (importLineupData) {
+        if (importLineupData && lineup) {
             const localChar = lineup.find(c => c.id === char)
 
             if (localChar !== undefined && localChar.owned) {
