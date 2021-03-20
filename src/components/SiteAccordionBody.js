@@ -52,12 +52,12 @@ export const SiteDescription = () => {
             <ul>
                 {pageString.index.about.content.map((item, idx) => {
                     let Body
-                    if (item.name === 'feedback') {
+                    if (item.name === 'feedback' || item.name === 'policy') {
                         Body = () => (
                             <p>
                                 {item.content[0]}
                                 <a
-                                    href='https://peing.net/ja/b5295760aebf4c'
+                                    href={item.link}
                                     target='_blank'
                                     rel='noreferrer'
                                 >
@@ -228,21 +228,9 @@ export const SiteLicense = () => {
                         license: 'MIT License',
                     },
                     {
-                        titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
-                        title: 'react-bootstrap',
-                        licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
-                        license: 'MIT License',
-                    },
-                    {
-                        titleLink: 'https://github.com/paulcollett/react-masonry-css',
-                        title: 'react-masonry-css',
-                        licenseLink: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
-                        license: 'MIT License',
-                    },
-                    {
-                        titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
-                        title: 'react-scroll-up-button',
-                        licenseLink: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
+                        titleLink: 'https://github.com/styled-components/styled-components',
+                        title: 'styled-components',
+                        licenseLink: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
                         license: 'MIT License',
                     },
                     {
@@ -252,9 +240,9 @@ export const SiteLicense = () => {
                         license: 'MIT License',
                     },
                     {
-                        titleLink: 'https://github.com/styled-components/styled-components',
-                        title: 'styled-components',
-                        licenseLink: 'https://github.com/styled-components/styled-components/blob/master/LICENSE',
+                        titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
+                        title: 'react-bootstrap',
+                        licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
                         license: 'MIT License',
                     },
                     {
@@ -263,6 +251,30 @@ export const SiteLicense = () => {
                         licenseLink: 'https://github.com/plouc/nivo/blob/master/LICENSE.md',
                         license: 'MIT License',
                     },
+                    {
+                        titleLink: 'https://github.com/atlassian/react-beautiful-dnd',
+                        title: 'react-beautiful-dnd',
+                        licenseLink: 'https://github.com/atlassian/react-beautiful-dnd/blob/master/LICENSE',
+                        license: 'Apache License 2.0',
+                    },
+                    {
+                        titleLink: 'https://github.com/niklasvh/html2canvas',
+                        title: 'html2canvas',
+                        licenseLink: 'https://github.com/niklasvh/html2canvas/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
+                        title: 'react-scroll-up-button',
+                        licenseLink: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
+                        license: 'MIT License',
+                    },
+                    {
+                        titleLink: 'https://github.com/paulcollett/react-masonry-css',
+                        title: 'react-masonry-css',
+                        licenseLink: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
+                        license: 'MIT License',
+                    }
                 ].map((item, idx) => (
                     <li key={idx}>
                         <LicenseItemTitle>

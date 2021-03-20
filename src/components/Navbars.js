@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Location } from "@reach/router"
+import { Location } from '@reach/router'
 import styled, { useTheme } from 'styled-components';
 import { Drawer } from '@material-ui/core';
 import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
@@ -18,6 +18,7 @@ import {
     ToolIcon,
     LanguageIcon,
     AnalysisIcon,
+    TeamIcon
 } from 'components/icon';
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
@@ -457,15 +458,15 @@ export function Sidebar(props) {
                     {
                         icon: RaceIcon,
                         linkType: 'internal',
-                        to: ["/characters/potential/", "/characters/stats/"],
+                        to: ['/characters/potential/'],
                         expandable: true,
                     },
                     {
                         icon: EnlistIcon,
                         linkType: 'internal',
                         to: [
-                            "/enlist/",
-                            "/enlist/filter/"
+                            '/enlist/',
+                            '/enlist/filter/'
                         ],
                         expandable: true,
                     },
@@ -473,8 +474,8 @@ export function Sidebar(props) {
                         icon: ChestIcon,
                         linkType: 'internal',
                         to: [
-                            "/items/drop/",
-                            "/items/drop/filter/"
+                            '/items/drop/',
+                            '/items/drop/filter/'
                         ],
                         expandable: true,
                     },
@@ -484,12 +485,17 @@ export function Sidebar(props) {
                         expandable: false,
                     },
                     {
+                        to: '/team/',
+                        icon: TeamIcon,
+                        expandable: false,
+                    },
+                    {
                         icon: LinkIcon,
                         linkType: 'external',
                         to: [
-                            "https://www.tenkafuma.com/",
-                            "https://reurl.cc/5o5A7z/",
-                            "https://reurl.cc/1gZ5nV/"
+                            'https://www.tenkafuma.com/',
+                            'https://reurl.cc/5o5A7z/',
+                            'https://reurl.cc/1gZ5nV/'
                         ],
                         expandable: true,
                     },
@@ -497,10 +503,10 @@ export function Sidebar(props) {
                         icon: FeedbackIcon,
                         linkType: 'external',
                         to: [
-                            "https://forms.gle/VYMGibGfs36F9tdQ6",
-                            "https://reurl.cc/E22vDa",
-                            "https://reurl.cc/jqGAVL",
-                            "https://peing.net/ja/b5295760aebf4c"
+                            'https://forms.gle/VYMGibGfs36F9tdQ6',
+                            'https://reurl.cc/E22vDa',
+                            'https://reurl.cc/jqGAVL',
+                            'https://peing.net/ja/b5295760aebf4c'
                         ],
                         expandable: true,
                     }

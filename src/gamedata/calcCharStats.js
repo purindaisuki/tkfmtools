@@ -1,7 +1,7 @@
-import charData from 'gamedata/character.json';
-import potentialData from 'gamedata/potential.json';
+const charData = require('./character.json');
+const potentialData = require('./potential.json');
 
-export const calcCharPotential = (char, from, to) => {
+const calcCharPotential = function (char, from, to) {
     const result = {
         items: {},
         money: 0,
@@ -57,7 +57,7 @@ export const calcCharPotential = (char, from, to) => {
     return result
 }
 
-export const calcCharStats = (
+const calcCharStats = function (
     character,
     level,
     potential,
@@ -66,7 +66,11 @@ export const calcCharStats = (
     star,
     initATK,
     initHP
-) => {
+) {
+    if (!character) {
+        return
+    }
+    
     const levelBuff = 1.1 ** (level - 1)
     const { buff } = calcCharPotential(
         character,
@@ -82,4 +86,5 @@ export const calcCharStats = (
     })
 }
 
-export default calcCharStats
+module.exports = calcCharStats
+module.exports.calcCharPotential = calcCharPotential

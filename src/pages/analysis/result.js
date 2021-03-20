@@ -1,17 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { Button, CircularProgress } from '@material-ui/core';
+import React, { useMemo, useRef, useState } from 'react';
+import styled from 'styled-components';
 import Head from 'components/Head';
 import MyHeader from 'components/MyHeader';
-import FixedImageSupplier from 'components/FixedImageSupplier';
+import { useLineupData } from 'components/LineupDataProvider';
+import useExport from 'components/useExport';
+import { ExportButton } from 'components/MyIconButton';
+import ImageSupplier from 'components/ImageSupplier';
 import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
-import { TextModal } from 'components/MyModal';
+import MyModal, { TextModal } from 'components/MyModal';
 import { useLanguage } from 'components/LanguageProvider';
-import { ExportIcon } from 'components/icon';
 import expData from 'gamedata/exp.json';
 import charData from 'gamedata/character.json';
+import userData from 'gamedata/fakedata.json';
 
 // helper functions
 const calcLvStats = (names, array) => {
@@ -28,23 +30,78 @@ const calcLvStats = (names, array) => {
 
 const lvToExp = (lv) => expData.slice(0, lv).reduce((a, b) => a + b.exp, 0)
 
-const parseState = (state, string, chart) => {
+const findIndex = (array, value) => {
+    let low = 0, high = array.length
+    while (low < high) {
+        let mid = (low + high) >>> 1
+        if (array[mid] <= value) low = mid + 1
+        else high = mid
+    }
+    return low
+}
+
+const SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
+
+const formatNumber = (num) => {
+    // if num is 0 return 0
+    const tier = Math.log10(Math.abs(num)) / 3 | 0;
+    if (tier == 0) return num;
+
+    const scaled = num / Math.pow(10, tier * 3);
+
+    return scaled.toFixed(1) + SI_SYMBOL[tier];
+}
+
+const calcPR = (chars) => {
+    if (chars.length === 0) return []
+
+    const PRArray = chars.map(c => {
+        const array = userData[c.id]
+        return ({
+            id: c.id,
+            PR: Math.floor(
+                (1 - (array.length - findIndex(array, c.cp) + .5) / (array.length + 1)) * 1000
+            ) / 10,
+            cp: c.cp
+        })
+    })
+    PRArray.sort((a, b) => a.PR - b.PR | a.cp / 1000000 - b.cp / 1000000)
+    // only need top 5 and bottom 5
+    PRArray.splice(5, PRArray.length - 10)
+    PRArray.forEach(c => { c.cp = formatNumber(c.cp) })
+    // total PR
+    const array = userData.total
+    const totalCp = chars.reduce((a, c) => a + c.cp, 0)
+    PRArray.push({
+        id: 'total',
+        PR: Math.floor(
+            (1 - (array.length - findIndex(array, totalCp) + .5) / (array.length + 1)) * 1000
+        ) / 10
+    })
+
+    return PRArray
+}
+
+const calcLineupStats = (state, string, chart) => {
     const validChars = state
         ? JSON.parse(JSON.stringify(state)).filter(c => c.owned && c.level !== 0)
         : []
     validChars.sort((a, b) => a.level - b.level)
-    validChars.forEach(c => c.exp = lvToExp(c.level))
+    validChars.forEach(c => {
+        c.exp = lvToExp(c.level)
+        c.cp = c.ATK * c.HP
+    })
 
     // initialize data
     const radarDataByPosition = [...Array(5)].map(i => [])
     const radarDataByAttribute = [...Array(5)].map(i => [])
     const barDataByPosition = [...Array(12)].map((a, i) => {
-        const data = { exp: i * 50 + 'k~' }
+        const data = { exp: i * 50 + 'k-' }
         string.tags.slice(5, 10).forEach(t => data[t] = 0)
         return data
     })
     const barDataByAttribute = [...Array(12)].map((a, i) => {
-        const data = { exp: i * 50 + 'k~' }
+        const data = { exp: i * 50 + 'k-' }
         string.tags.slice(0, 5).forEach(t => data[t] = 0)
         return data
     })
@@ -61,7 +118,7 @@ const parseState = (state, string, chart) => {
         barDataByAttribute[Math.floor((c.exp) / 50000)][string.tags[c.attribute]]++
         treeMapDataByAttribute.children[c.attribute].children.push({
             name: string.name[c.id],
-            cp: c.ATK * c.HP
+            cp: c.cp
         })
     })
 
@@ -72,65 +129,23 @@ const parseState = (state, string, chart) => {
             .map((group, idx) => calcLvStats([string.tags[idx], ...chart[3].legend], group)),
         barDataByPosition: barDataByPosition,
         barDataByAttribute: barDataByAttribute,
-        treeMapDataByAttribute: treeMapDataByAttribute
+        treeMapDataByAttribute: treeMapDataByAttribute,
+        PRArray: calcPR(validChars)
     })
 }
-
-const BtnWrapper = styled.span`
-    position: absolute;
-    right: 0;
-    top: -4rem;
-    && > button {
-        padding: .4rem .6rem;
-        background-color: ${props => props.theme.colors[
-        props.$isLoading ? 'dropdownHover' : 'blue'
-    ]};
-        color: ${props => props.theme.colors[
-        props.$isLoading ? 'shadow' : 'onBlue'
-    ]};
-        svg {
-            margin-top: .1rem;
-            margin-right: -.4rem;
-            width: 1.2rem;
-            height: 1.2rem;
-            fill: ${props => props.theme.colors[
-        props.$isLoading ? 'shadow' : 'onBlue'
-    ]};
-        }
-    }
-    > button:hover {
-        box-shadow: inset 0 0 10rem 10rem rgba(255, 255, 255, 0.25);
-    }
-    > div {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        color: ${props => props.theme.colors.blue};
-    }
-`
-const StyledButton = ({ children, onClick, isLoading }) => (
-    <BtnWrapper $isLoading={isLoading}>
-        <Button
-            startIcon={ExportIcon}
-            onClick={onClick}
-            disableFocusRipple
-        >
-            {children}
-        </Button>
-        {isLoading && <CircularProgress size={24} thickness={6} />}
-    </BtnWrapper>
-)
 
 const CharContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 `
-const CharImgWrapper = styled(FixedImageSupplier)`
-    width: 4rem;
+const CharImg = styled(ImageSupplier)`
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 60px 60px;
+    background-position: 0 0;
     margin-right: .4rem;
     margin-bottom: .4rem;
     border-radius: 100%;
@@ -138,18 +153,20 @@ const CharImgWrapper = styled(FixedImageSupplier)`
         ? props.theme.colors.secondary
         : props.theme.colors.dropdownHover};
 `
-const CharCollectionBox = ({ state }) => {
+const CharCollectionBox = ({ lineup }) => {
     const { charString } = useLanguage()
 
     return (
         <CharContainer>
             {charData.map((c, idx) => {
-                const owned = state && state[idx].owned && state[idx].level !== 0
+                const owned = lineup && lineup[idx].owned && lineup[idx].level !== 0
 
                 return (
-                    <CharImgWrapper
+                    <CharImg
                         key={idx}
-                        name={`char_xsmall_${c.id}${owned ? '' : '_gs'}`}
+                        name={`char_small_${c.id}`}
+                        isBackground
+                        grayscale={!owned}
                         alt={charString.name[c.id]}
                         $owned={owned}
                     />
@@ -159,17 +176,82 @@ const CharCollectionBox = ({ state }) => {
     )
 }
 
+const StyledRankContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
+const RankCharWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    height: 60px;
+    width: 70%;
+    @media screen and (max-width: 600px) {
+        width: 80%;
+    }
+    @media screen and (max-width: 400px) {
+        width: 90%;
+    }
+    margin-top: .6rem;
+    padding: 0 1rem;
+    border-radius: 4rem;
+    border: 2px solid ${props => props.theme.colors.rank[props.$rank]};
+    > span {
+        padding: .6rem;
+        white-space: pre;
+    }
+    &:hover {
+        box-shadow: inset 0 0 10rem 10rem 
+            ${props => props.theme.colors.rank[props.$rank] + '1A'};
+    }
+`
+const RankCharImg = styled(CharImg)`
+    margin: 0;
+    border-radius: 0;
+    border: none;
+`
+const RankContainer = ({ rank, chars }) => {
+    const { pageString, charString } = useLanguage()
+
+    return (
+        <StyledRankContainer>
+            {chars.map((c, idx) => (
+                <RankCharWrapper $rank={rank} key={idx}>
+                    <RankCharImg
+                        name={`char_small_${c.id}`}
+                        isBackground
+                        alt={charString.name[c.id]}
+                        $owned
+                        $rank={rank}
+                    />
+                    <span>{`${pageString.analysis.result.rank.cp}  ${c.cp}`}</span>
+                    <span>{`${pageString.analysis.result.rank.PR}  ${c.PR}`}</span>
+                </RankCharWrapper>
+            ))}
+        </StyledRankContainer>
+    )
+}
+
+const StyledExportButton = styled(ExportButton)`
+    &&{
+        position: absolute;
+        top: -4.4rem;
+        right: 0;
+    }
+`
 const ChartsContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 1rem;
-    > div:nth-child(5), 
+    > div:nth-child(8), 
     > div:last-child {
         margin-bottom: 2rem;
     }
     @media screen and (max-width: 992px) {
-        > div:nth-child(5) {
+        > div:nth-child(8) {
             margin-bottom: 4rem;
         }
         width: 100%;
@@ -195,53 +277,54 @@ const TreeMapHeader = styled(MyHeader)`
     justify-content: center;
     border: none;
 `
-const Analysis = ({ pageState }) => {
-    const { pageString, charString } = useLanguage()
-
-    const [state, setState] = useState({
-        isExportLoading: false,
-        isModalOpen: false,
-    })
-
-    const { colors } = useTheme()
-
-    const componentRef = useRef()
-    const exporterRef = useRef()
-
-    useEffect(() => {
-        React.lazy(import('components/ImageExporter')
-            .then(module => exporterRef.current = module.exportAsJPG))
-    }, [])
-
-    const handleModal = (boolean) => () => setState(state => ({
-        ...state,
-        isModalOpen: boolean
-    }))
-
-    const handleExport = () => {
-        if (exporterRef.current) {
-            setState(state => ({
-                ...state,
-                isExportLoading: true
-            }))
-            exporterRef.current(
-                componentRef,
-                'tenkafuma-line-up-analysis-result',
-                colors.background
-            ).then(() => setState(state => ({
-                ...state,
-                isExportLoading: false
-            })))
+const RankHeader = styled(TreeMapHeader)`
+    width: 100%;
+`
+const RankModal = styled(MyModal)`
+    > div:nth-child(3) {
+        top: 20%;
+        width: 40%;
+        @media screen and (max-width: 600px) {
+            width: 80%;
         }
     }
+`
+const Analysis = () => {
+    const { pageString, charString } = useLanguage()
 
-    const data = parseState(
-        pageState,
+    const { currentLineup } = useLineupData()
+
+    const { isExporting, exportImage } = useExport()
+
+    const [state, setState] = useState({
+        isTreemapModalOpen: false,
+        isRankModalOpen: false,
+    })
+
+    const componentRef = useRef()
+
+    const handleTreemapModal = (boolean) => () => setState(state => ({
+        ...state,
+        isTreemapModalOpen: boolean
+    }))
+
+    const handleRankModal = (boolean) => () => setState(state => ({
+        ...state,
+        isRankModalOpen: boolean
+    }))
+
+    const handleExport = () => exportImage({
+        componentRef: componentRef,
+        fileName: 'tenkafuma-line-up-analysis-result'
+    })
+
+    const lineupStats = useMemo(() => calcLineupStats(
+        currentLineup,
         charString,
         pageString.analysis.result.chart
-    )
+    ), [currentLineup])
 
-    const isSm = typeof (window) !== 'undefined'
+    const isSm = typeof window !== 'undefined'
         ? window.innerWidth < 600 : false
 
     return (
@@ -251,43 +334,41 @@ const Analysis = ({ pageState }) => {
                 description={pageString.analysis.result.helmet.description}
                 path='/analysis/result/'
             />
-            <StyledButton onClick={handleExport} isLoading={state.isExportLoading}>
-                {pageString.analysis.result.exportButton}
-            </StyledButton>
+            <StyledExportButton onClick={handleExport} isLoading={isExporting} />
             <ChartsContainer ref={componentRef}>
                 <CollectionWrapper>
                     <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
                     <ChartHeader>
-                        {`${pageState
-                            ? pageState.filter(c => c.owned && c.level !== 0).length
+                        {`${currentLineup
+                            ? currentLineup.filter(c => c.owned && c.level !== 0).length
                             : 0}/${charData.length}`}
                     </ChartHeader>
-                    <CharCollectionBox state={pageState} />
+                    <CharCollectionBox lineup={currentLineup} />
                 </CollectionWrapper>
                 <ChartWrapper>
                     <TreeMapHeader
                         title={pageString.analysis.result.chart[1].title}
                         withHelp
-                        onClickHelp={handleModal(true)}
+                        onClickHelp={handleTreemapModal(true)}
                     />
                     <TreeMap
-                        data={data.treeMapDataByAttribute}
+                        data={lineupStats.treeMapDataByAttribute}
                     />
                 </ChartWrapper>
                 <ChartWrapper>
                     <ChartHeader>{pageString.analysis.result.chart[2].title}</ChartHeader>
-                    <RadarChart data={data.radarDataByPosition} sm={isSm} />
+                    <RadarChart data={lineupStats.radarDataByPosition} sm={isSm} />
                 </ChartWrapper>
                 <ChartWrapper>
                     <ChartHeader>{pageString.analysis.result.chart[3].title}</ChartHeader>
-                    <RadarChart data={data.radarDataByAttribute} sm={isSm} />
+                    <RadarChart data={lineupStats.radarDataByAttribute} sm={isSm} />
                 </ChartWrapper>
                 <ChartWrapper>
                     <ChartHeader>{pageString.analysis.result.chart[4].title}</ChartHeader>
                     <BarChart
                         yAxisText={pageString.analysis.result.chart[4].legend[0]}
                         xAxisText={pageString.analysis.result.chart[4].legend[1]}
-                        data={data.barDataByPosition}
+                        data={lineupStats.barDataByPosition}
                         sm={isSm}
                     />
                 </ChartWrapper>
@@ -296,19 +377,40 @@ const Analysis = ({ pageState }) => {
                     <BarChart
                         yAxisText={pageString.analysis.result.chart[5].legend[0]}
                         xAxisText={pageString.analysis.result.chart[5].legend[1]}
-                        data={data.barDataByAttribute}
+                        data={lineupStats.barDataByAttribute}
                         sm={isSm}
                     />
+                </ChartWrapper>
+                <RankHeader
+                    title={`${pageString.analysis.result.rank.title} ${lineupStats.PRArray[10]
+                        ? lineupStats.PRArray[10].PR : '-'}`}
+                    withHelp
+                    onClickHelp={handleRankModal(true)}
+                />
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.rank.high}</ChartHeader>
+                    <RankContainer rank='high' chars={lineupStats.PRArray.slice(5, 10).reverse()} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <ChartHeader>{pageString.analysis.result.rank.low}</ChartHeader>
+                    <RankContainer rank='low' chars={lineupStats.PRArray.slice(0, 5)} />
                 </ChartWrapper>
             </ChartsContainer>
             <TextModal
                 title={pageString.analysis.result.helpModal.title}
                 content={pageString.analysis.result.helpModal.content}
-                open={state.isModalOpen}
-                onClose={handleModal(false)}
+                open={state.isTreemapModalOpen}
+                onClose={handleTreemapModal(false)}
                 ariaLabelledby='treemap-modal-title'
                 ariaDescribedby='treemap-modal-description'
             />
+            <RankModal
+                title={pageString.analysis.result.rank.PR}
+                open={state.isRankModalOpen}
+                onClose={handleRankModal(false)}
+            >
+                {pageString.analysis.result.rankModal.content}
+            </RankModal>
         </>
     )
 }

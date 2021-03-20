@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  @media screen and (max-width: 490px) {
+    html {
+        font-size: .9em;
+    }
+  }
 `
 const Body = styled.div`
   min-height: 100vh;

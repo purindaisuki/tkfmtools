@@ -1,9 +1,10 @@
 {
   "homepage": "https://purindaisuki.github.io/tkfmtools",
   "name": "tkfmtools",
-  "version": "0.1.0",
+  "version": "1.5.0",
   "private": true,
   "dependencies": {
+    "@google-analytics/data": "^2.3.0",
     "@material-ui/core": "^4.11.3",
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
@@ -15,6 +16,7 @@
     "@testing-library/user-event": "^12.6.2",
     "babel-plugin-styled-components": "^1.12.0",
     "bootstrap": "^4.6.0",
+    "dom-to-image": "^2.6.0",
     "gatsby": "^3.0.3",
     "gatsby-background-image": "^1.4.1",
     "gatsby-plugin-google-gtag": "^3.0.0",
@@ -32,6 +34,7 @@
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-bootstrap": "^1.5.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
@@ -49,7 +52,8 @@
     "serve": "gatsby serve --prefix-paths -o",
     "clean": "gatsby clean",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "patch-react-spring": "node patch-react-spring.js"
+    "patch-react-spring": "node patch-react-spring.js",
+    "googleapi": "set GOOGLE_APPLICATION_CREDENTIALS=D:/coding/tkfmtools/Quickstart-0bc3821a5a70.json&& node google-api.js"
   },
   "eslintConfig": {
     "extends": [

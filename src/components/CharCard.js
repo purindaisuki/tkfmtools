@@ -16,6 +16,7 @@ import charData from 'gamedata/character.json';
 const StyledCard = styled(ImgCard)`
     flex-direction: column;
     align-items: flex-end;
+    justify-content: space-around;
     width: 100%;
     min-width: 10rem;
     height: 3.6rem;
@@ -27,6 +28,7 @@ const TextWrapper = styled.div`
     margin-left: 0;
     margin-right: 1rem;
     transition: all 0.3s ease;
+    text-transform: none;
     text-shadow: 0 0 1px ${props => props.theme.colors.surface},
     -2px 0 1px  ${props => props.theme.colors.surface},
     2px 0 1px  ${props => props.theme.colors.surface},
@@ -36,6 +38,9 @@ const TextWrapper = styled.div`
     2px -2px 1px ${props => props.theme.colors.surface},
     -2px 2px 1px ${props => props.theme.colors.surface},
     -2px -2px 1px ${props => props.theme.colors.surface};
+`
+const TitleText = styled(TextWrapper)`
+    font-size: small;
 `
 const CharCard = ({
     className,
@@ -51,9 +56,9 @@ const CharCard = ({
             alt=''
             isBackground
         >
-            <TextWrapper>
+            <TitleText>
                 {charString.name[id].split(' ').slice(0, -1).join(' ')}
-            </TextWrapper>
+            </TitleText>
             <TextWrapper>
                 {charString.name[id].split(' ').slice(-1)[0]}
             </TextWrapper>

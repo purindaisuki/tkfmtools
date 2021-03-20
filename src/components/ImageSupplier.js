@@ -1,9 +1,8 @@
 import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import BackgroundImage from 'gatsby-background-image'
-import FixedGrayImageSupplier from 'components/FixedGrayImageSupplier';
-import FixedImageSupplier from 'components/FixedImageSupplier';
+import QueryImage from 'components/QueryImage';
+import QueryGrayImage from 'components/QueryGrayImage';
 
 // Helper functions.
 const getBgImageType = imageData => imageData.layout === 'fixed' ? 'fixed' : 'fluid'
@@ -39,52 +38,31 @@ const convertToBgImage = imageData => {
   return {}
 }
 
-const getImageData = (name, isBackground) => {
-  // query images
-  const { allFile } = useStaticQuery(graphql`{
-    allFile(
-      filter: {extension: {regex: "/(jpg)|(jpeg)|(png)/"}, sourceInstanceName: {eq: "images"}}
-    ) {
-      edges {
-        node {
-          childImageSharp {
-            gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
-          }
-          name
-        }
-      }
-    }
-  }
-  `)
-
-  const image = allFile.edges.find(i => i.node.name === name)
-    .node.childImageSharp.gatsbyImageData
-
-
-  return isBackground ? convertToBgImage(image) : image
-}
-
 const ImageSupplier = ({
   className,
   children,
   name,
-  fixed,
-  grayscale,
   isBackground,
+  grayscale,
   alt,
 }) => (
-  fixed
+  isBackground
     ? grayscale
-      ? <FixedGrayImageSupplier className={className} name={name} alt={alt} />
-      : <FixedImageSupplier className={className} name={name} alt={alt} />
-    : isBackground
       ? <BackgroundImage
         className={className}
-        {...getImageData(name, isBackground)}
+        {...convertToBgImage(QueryGrayImage(name))}
+        alt={alt}
       >
         {children}
       </BackgroundImage>
-      : <GatsbyImage image={getImageData(name, isBackground)} className={className} alt={alt} />
+      : <BackgroundImage
+        className={className}
+        {...convertToBgImage(QueryImage(name))}
+        alt={alt}
+      >
+        {children}
+      </BackgroundImage>
+    : <GatsbyImage image={QueryImage(name)} className={className} alt={alt} />
 )
 
 export default ImageSupplier

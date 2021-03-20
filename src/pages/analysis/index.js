@@ -1,45 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
 import Head from 'components/Head';
+import { useLineupData } from 'components/LineupDataProvider';
 import ImageSupplier from 'components/ImageSupplier';
 import { NumForm, Select, TwoStageForm } from 'components/MyForm';
 import MyHeader from 'components/MyHeader';
+import MyIconButton from 'components/MyIconButton';
+import { SaveIcon, LoadIcon, DeleteIcon } from 'components/icon';
 import MySnackbar from 'components/MySnackbar';
 import { ScrollableModal, TextModal } from 'components/MyModal';
 import { useLanguage } from 'components/LanguageProvider';
 import calcCharStats from 'gamedata/calcCharStats';
+import charByPositionData from 'gamedata/charByPosition'
 import charsData from 'gamedata/character.json';
-
-const charByPositionData = charsData.reduce((newData, c, i) => {
-    newData[c.tags.position - 5].push({ id: c.id, idx: i })
-    return newData
-}, [...Array(5)].map(i => []))
-
-const minifyData = (data) => data.map(c => Object.values(c))
-
-const hydrateData = (data) => {
-    const keys = [
-        'id',
-        'attribute',
-        'position',
-        'level',
-        'potential',
-        'potentialSub',
-        'discipline',
-        'star',
-        'ATK',
-        'HP',
-        'owned'
-    ]
-    return data.map(c => (
-        c.reduce((newData, v, i) => {
-            newData[keys[i]] = v
-            return newData
-        }, {})
-    ))
-}
 
 const StyledCharContainer = styled.div`
     display: flex;
@@ -74,7 +49,7 @@ const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
         <StyledCharContainer>
             <CharImgWrapper
                 onClick={handleBtnClick}
-                $owned={state.owned}
+                $owned={state?.owned}
                 disableRipple
                 disableFocusRipple
             >
@@ -84,7 +59,7 @@ const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
                 />
             </CharImgWrapper>
             <StyledForm
-                $owned={state.owned}
+                $owned={state?.owned}
                 onSubmit={(event) => event.preventDefault()}
             >
                 <Form.Row>
@@ -105,78 +80,49 @@ const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
                             pattern='[0-9]*'
                             inputMode='numeric'
                             value={
-                                state.owned ? state.level : ''
+                                state?.owned ? state?.level : ''
                             }
                             min='0'
                             max='61'
                             onChange={handleSelect('level')}
                             onFocus={e => e.target.value = ''}
-                            onBlur={e => e.target.value = state.level}
+                            onBlur={e => e.target.value = state?.level}
                             placeholder='-'
-                            disabled={!state.owned}
+                            disabled={!state?.owned}
                         />
                     </Col>
                     <NumForm
                         as={Col}
-                        defaultValue={state.star}
+                        defaultValue={state?.star}
                         minNum={4 - character.id[0]}
                         maxNum={5}
                         onChange={handleSelect('star')}
-                        disabled={!state.owned}
+                        disabled={!state?.owned}
                     />
                     <NumForm
                         as={Col}
-                        defaultValue={state.discipline}
+                        defaultValue={state?.discipline}
                         minNum={0}
                         maxNum={3}
                         disabled={character.id[0] === '4'}
                         onChange={handleSelect('discipline')}
-                        disabled={!state.owned}
+                        disabled={!state?.owned}
                     />
                 </Form.Row>
                 <TwoStageForm
                     title={pageString.analysis.index.potentialTitle}
-                    defaultValues={[state.potential, state.potentialSub]}
-                    subMinNum={state.potential === 1 ? 0 : 1}
+                    defaultValues={[state?.potential, state?.potentialSub]}
+                    subMinNum={state?.potential === 1 ? 0 : 1}
                     minNum={1}
                     maxNum={character.id[0] === '4' || character.id[0] === '3' ? 6 : 12}
                     selectAttrs={['potential', 'potentialSub']}
                     handleSelect={handleSelect}
-                    disabled={!state.owned}
+                    disabled={!state?.owned}
                 />
             </StyledForm>
         </StyledCharContainer>
     )
 }
-
-const BtnWrapper = styled.span`
-    && > button {
-        padding: .4rem .6rem;
-        margin-right: .6rem;
-        background-color: ${props => props.$type === 'save'
-        ? props.theme.colors.success
-        : props.$type === 'load'
-            ? props.theme.colors.blue
-            : props.theme.colors.error
-    };
-        color: ${props => props.$type === 'save'
-        ? props.theme.colors.onSuccess
-        : props.$type === 'load'
-            ? props.theme.colors.onBlue
-            : props.theme.colors.onError
-    };
-    }
-    > button:hover {
-        box-shadow: inset 0 0 10rem 10rem rgba(255, 255, 255, 0.25);
-    }
-`
-const StyledButton = ({ children, type, onClick }) => (
-    <BtnWrapper $type={type}>
-        <Button onClick={onClick}>
-            {children}
-        </Button>
-    </BtnWrapper>
-)
 
 const DataButtonContainer = styled.div`
     position: absolute;
@@ -192,12 +138,18 @@ const DataManageButton = ({ handleData, handleModalOpen }) => {
 
     return (
         <DataButtonContainer>
-            <StyledButton type='save' onClick={handleData('save')} >
-                {pageString.analysis.index.saveButton}
-            </StyledButton>
-            <StyledButton type='load' onClick={handleModalOpen} >
-                {pageString.analysis.index.loadButton}
-            </StyledButton>
+            <MyIconButton
+                onClick={handleData('save')}
+                tooltipText={pageString.analysis.index.saveButton}
+            >
+                {SaveIcon}
+            </MyIconButton>
+            <MyIconButton
+                onClick={handleModalOpen}
+                tooltipText={pageString.analysis.index.loadButton}
+            >
+                {LoadIcon}
+            </MyIconButton>
         </DataButtonContainer>
     )
 }
@@ -208,23 +160,30 @@ const ModalItemContainer = styled(MyHeader)`
 const DataModal = ({ handleData }) => {
     const { pageString } = useLanguage()
 
-    const localData = localStorage.getItem('analysis-data')
-    const data = localData ? JSON.parse(localData) : []
+    const { localLineups } = useLineupData()
+
+    if (!localLineups) {
+        return null
+    }
 
     return (
-        data.map((d, idx) => (
+        localLineups.map((d, idx) => (
             <ModalItemContainer
                 title={d.date}
-                end={
-                    <>
-                        <StyledButton type='load' onClick={handleData('load', idx)} >
-                            {pageString.analysis.index.loadButton}
-                        </StyledButton>
-                        <StyledButton type='delete' onClick={handleData('delete', idx)} >
-                            {pageString.analysis.index.deleteButton}
-                        </StyledButton>
-                    </>
-                }
+                end={<>
+                    <MyIconButton
+                        onClick={handleData('load', idx)}
+                        tooltipText={pageString.analysis.index.loadButton}
+                    >
+                        {LoadIcon}
+                    </MyIconButton>
+                    <MyIconButton
+                        onClick={handleData('delete', idx)}
+                        tooltipText={pageString.analysis.index.deleteButton}
+                    >
+                        {DeleteIcon}
+                    </MyIconButton>
+                </>}
                 key={idx}
             />
         ))
@@ -243,7 +202,7 @@ const CharGroupsContainer = styled.div`
         justify-content: space-between;
     }
 `
-const UiImgWrapper = styled(ImageSupplier)`
+const PositionImgWrapper = styled(ImageSupplier)`
     width: 2rem;
     margin-right: .2rem;
 `
@@ -252,40 +211,24 @@ const CharsContainer = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
 `
-const Index = ({ pageState, handlePageState }) => {
+const Index = () => {
     const { pageString, charString } = useLanguage()
 
+    const { currentLineup, actions } = useLineupData()
+    const { pushLineup, getLineup, deleteLineup, setCurrentLineup } = actions
+
     const [state, setState] = useState({
-        data: charsData.map(c => ({
-            id: c.id,
-            attribute: c.tags.attribute,
-            position: c.tags.position - 5,
-            level: 1,
-            potential: 1,
-            potentialSub: 0,
-            discipline: 0,
-            star: c.rarity,
-            ATK: c.stats.initATK,
-            HP: c.stats.initHP,
-            owned: true,
-        })),
         isDataModalOpen: false,
         isHelpModalOpen: false,
         isSuccessSnackbarOpen: false,
         isErrorSnackbarOpen: false
     })
 
-    // read state when page loaded
-    useEffect(() => {
-        if (pageState) {
-            setState(state => ({ ...state, data: pageState }))
-        }
-    }, [])
-
     const handleSelect = (idx) => (attr) => (event) => {
         const selected = parseInt(event.target.value)
 
-        let charState = { ...state.data[idx], [attr]: parseInt(selected) }
+        const newLineup = JSON.parse(JSON.stringify(currentLineup))
+        let charState = { ...newLineup[idx], [attr]: parseInt(selected) }
 
         if (isNaN(parseInt(charState.level)) || charState.level < 0 || charState.level > 61) {
             // not valid
@@ -296,7 +239,7 @@ const Index = ({ pageState, handlePageState }) => {
             ? 60 : charState.level === 61
                 ? 1 : charState.level
 
-        if (charState.potential !== 1 && state.data[idx].potentialSub === 0) {
+        if (charState.potential !== 1 && newLineup[idx].potentialSub === 0) {
             charState.potentialSub = 1
         }
 
@@ -305,97 +248,53 @@ const Index = ({ pageState, handlePageState }) => {
 
         const result = calcCharStats(...Object.values(rest), ...Object.values(stats))
 
-        let newState = JSON.parse(JSON.stringify(state.data))
-        newState[idx] = { ...charState, ...result, owned: rest.level !== 0 }
-        setState(state => ({ ...state, data: newState }))
-        handlePageState(newState)
+        newLineup[idx] = { ...charState, ...result, owned: rest.level !== 0 }
+        setCurrentLineup(newLineup)
     }
 
     const handleBtnClick = (idx) => () => {
-        let newState = JSON.parse(JSON.stringify(state.data))
-        newState[idx].owned = !newState[idx].owned
-        setState(state => ({ ...state, data: newState }))
-        handlePageState(newState)
+        const newLineup = JSON.parse(JSON.stringify(currentLineup))
+        newLineup[idx].owned = !newLineup[idx].owned
+        setCurrentLineup(newLineup)
     }
 
     const handleData = (action, idx) => () => {
-        const localData = localStorage.getItem('analysis-data')
+        switch (action) {
+            case 'save':
+                if (pushLineup(currentLineup, { gtag: true })) {
+                    setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
 
-        if (action === 'save' && pageState) {
-            const tzoffset = (new Date()).getTimezoneOffset() * 60000
-            const localDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
-            if (localData) {
-                let data = JSON.parse(localData)
-                data.push({
-                    date: localDate,
-                    data: minifyData(state.data)
-                })
-                localStorage.setItem('analysis-data', JSON.stringify(data))
-                setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
-            } else {
-                localStorage.setItem('analysis-data', JSON.stringify([{
-                    date: localDate,
-                    data: minifyData(state.data)
-                }]))
-                setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
-            }
-
-            // send data to GTM
-            if (typeof window !== 'undefined' && window.gtag) {
-                const minData = minifyData(state.data)
-                const compressedData = minData.reduce((data, c) => {
-                    c[3] = ('00' + c[3]).slice(-2)
-                    c[4] = ('00' + c[4]).slice(-2)
-                    c[10] = c[10] ? 1 : 0
-                    c.splice(8, 2)
-                    c.splice(1, 2)
-                    return data + c.reduce((a, b) => a + b, '')
-                }, '')
-                const gtagData = {}
-                // separate data due to 100 characters limit of GA4
-                for (let i = 0; i < Math.ceil(compressedData.length / 99); i++) {
-                    gtagData['line_up_' + i] = 'a'+compressedData.slice(i * 99, (i + 1) * 99)
+                    return
                 }
-                window.gtag('event', 'line_up_save', { ...gtagData })
-            }
-            return
-        } else if (action === 'load') {
-            if (localData) {
-                const data = JSON.parse(localData)
-                if (data[idx] && data[idx].data[0][0] === '101') {
-                    const hydratedData = hydrateData(data[idx].data)
-                    hydratedData.forEach(c => {
-                        if (c.level === 0) {
-                            c.level = 1
-                            c.owned = false
-                        }
-                    })
+
+            case 'load':
+                const loadedData = getLineup(idx)
+                if (loadedData) {
                     setState(state => ({
                         ...state,
-                        data: hydratedData,
+                        lineup: loadedData,
                         isSuccessSnackbarOpen: true,
                         isDataModalOpen: false
                     }))
-                    handlePageState(hydratedData)
+
+                    setCurrentLineup(loadedData)
+
                     return
                 }
-            }
-        } else if (action === 'delete') {
-            if (localData) {
-                const data = JSON.parse(localData)
 
-                if (data[idx] && data[idx].data[0][0] === '101') {
-                    data.splice(idx, 1)
-                    localStorage.setItem('analysis-data', JSON.stringify(data))
-                    // re-render modal
+            case 'delete':
+                if (deleteLineup(idx)) {
                     setState(state => ({
                         ...state,
                         isDataModalOpen: true,
                     }))
+
                     return
                 }
-            }
+
+            default: break
         }
+
         setState(state => ({
             ...state,
             isErrorSnackbarOpen: true,
@@ -439,7 +338,7 @@ const Index = ({ pageState, handlePageState }) => {
                     <MyHeader
                         title={charString.tags[idx + 5]}
                         titleIcon={
-                            <UiImgWrapper
+                            <PositionImgWrapper
                                 name={`ui_${positionImg[idx]}`}
                                 alt=''
                             />
@@ -451,7 +350,7 @@ const Index = ({ pageState, handlePageState }) => {
                         {group.map((c, i) => (
                             <CharContainer
                                 character={c}
-                                state={state.data[c.idx]}
+                                state={currentLineup ? currentLineup[c.idx] : undefined}
                                 handleSelect={handleSelect(c.idx)}
                                 handleBtnClick={handleBtnClick(c.idx)}
                                 key={i}
@@ -476,8 +375,8 @@ const Index = ({ pageState, handlePageState }) => {
                 title={pageString.analysis.index.modalTitle}
                 open={state.isDataModalOpen}
                 onClose={handleDataModal(false)}
-                ariaLabelledby='load-data-modal-title'
-                ariaDescribedby='load-data-modal-description'
+                ariaLabelledby='data-operation-modal-title'
+                ariaDescribedby='data-operation-modal-description'
             >
                 <DataModal
                     handleData={handleData}

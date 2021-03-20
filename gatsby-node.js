@@ -25,10 +25,12 @@ exports.onCreatePage = ({ page, actions }) => {
             ? 'enlist'
             : localizedPath.includes('drop')
                 ? 'drop'
-                : localizedPath.includes('characters/')
-                    ? 'characters'
-                    : localizedPath.includes('analysis/')
-                        ? 'analysis' : undefined
+                : localizedPath.includes('analysis/')
+                    ? 'analysis' : undefined
+
+
+        const withLineupData = localizedPath.includes('analysis/') || localizedPath.includes('team/')
+        const withTeamData = localizedPath.includes('team/')
 
         // Check if the page is a localized 404
         if (localizedPath.match(/^[a-z]{2}\/404\/$/)) {
@@ -52,6 +54,8 @@ exports.onCreatePage = ({ page, actions }) => {
                 ...page.context,
                 lang: entry[0],
                 withTabLayout: tabsPage !== undefined,
+                withLineupData: withLineupData,
+                withTeamData: withTeamData,
                 pagePath: page.path,
             }
         })

@@ -66,10 +66,7 @@ const TabPanel = styled.div`
     position: relative;
     margin-top: 1rem;
 `
-export default function PageWithTabs({
-    children,
-    pagePath,
-}) {
+export default function PageWithTabs({ children, pagePath }) {
     const { userLanguage, pageString } = useLanguage()
 
     const tabsConfig = {
@@ -97,18 +94,6 @@ export default function PageWithTabs({
                 to: '/items/drop/filter/',
             },
         },
-        characters: {
-            potential: {
-                label: pageString.characters.tabLabel[0],
-                icon: PotentialIcon,
-                to: '/characters/potential/',
-            },
-            exp: {
-                label: pageString.characters.tabLabel[1],
-                icon: StatsIcon,
-                to: '/characters/stats/',
-            }
-        },
         analysis: {
             analysis: {
                 label: pageString.analysis.tabLabel[0],
@@ -128,14 +113,7 @@ export default function PageWithTabs({
     const tabIndex = Object.values(tabsConfig[configKey])
         .findIndex(value => value.to === pagePath)
 
-    const [state, setState] = useState({
-        tab: tabIndex,
-        pageState: undefined,
-    })
-
-    const handlePageState = (newState) => {
-        setState(state => ({ ...state, pageState: newState }))
-    }
+    const [state, setState] = useState({ tab: tabIndex })
 
     let location = useLocation()
 
@@ -144,29 +122,22 @@ export default function PageWithTabs({
         setState(state => ({ ...state, tab: tabIndex }))
     }, [location])
 
-    return (
-        <>
-            <StyledTabs
-                value={state.tab}
-                $lang={userLanguage}
-            >
-                {Object.values(tabsConfig[configKey]).map((item, idx) => (
-                    <Tab
-                        value={idx}
-                        label={item.label}
-                        icon={item.icon}
-                        component={LocalizedLink}
-                        to={item.to}
-                        key={item.label}
-                    />
-                ))}
-            </StyledTabs>
-            <TabPanel>
-                {React.cloneElement(children, {
-                    pageState: state.pageState,
-                    handlePageState: handlePageState
-                })}
-            </TabPanel>
-        </>
-    )
+    return (<>
+        <StyledTabs
+            value={state.tab}
+            $lang={userLanguage}
+        >
+            {Object.values(tabsConfig[configKey]).map((item, idx) => (
+                <Tab
+                    value={idx}
+                    label={item.label}
+                    icon={item.icon}
+                    component={LocalizedLink}
+                    to={item.to}
+                    key={item.label}
+                />
+            ))}
+        </StyledTabs>
+        <TabPanel>{children}</TabPanel>
+    </>)
 }

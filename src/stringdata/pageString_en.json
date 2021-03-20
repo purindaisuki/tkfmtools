@@ -14,7 +14,7 @@
                     "header": "Introduction",
                     "content": [
                         "The goal of this website is to collect, organize and present the data in Tenkafu MA!.",
-                        "This website currently includes recruitment filter, item drops filter and character potential material calculator."
+                        "This website includes recruitment filter, item drops filter, character potential material calculator, line-up analysis and team composition tool."
                     ]
                 },
                 {
@@ -23,6 +23,16 @@
                     "content": [
                         "All materials and information on this website are collected from players and may not reflect the actual situation. The actual gameplay shall prevail."
                     ]
+                },
+                {
+                    "name": "policy",
+                    "header": "Privacy policy",
+                    "content": [
+                        "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
+                        "Google Privacy & Terms",
+                        ". And some browser extensions such as Adblock will block the data collection. If you are willing to help the imporvement of this website, please add this website to whitelist."
+                    ],
+                    "link": "https://policies.google.com/technologies/partner-sites"
                 },
                 {
                     "name": "feedback",
@@ -60,6 +70,31 @@
             "fix": "Fix",
             "change": "Change",
             "content": [
+                {
+                    "version": "v1.5.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Team compositions",
+                            "description": "Add team compositions for recording and sharing team compositions for stages."
+                        },
+                        {
+                            "type": "New",
+                            "title": "Percentile rank of line-up",
+                            "description": "Add percentile rank in line-up analysis."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Remove character stats page",
+                            "description": "Remove character stats calculator. The feature still can find in the team compositions tool."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Tooltips missing for icon buttons",
+                            "description": "Add tooltips for icon buttons."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.4.3",
                     "content": [
@@ -366,17 +401,6 @@
         }
     },
     "characters": {
-        "index": {
-            "name": "Characters",
-            "helmet": {
-                "title": "TenkafuMA! toolbox — Characters",
-                "description": "Harem of Caesar in TenkafuMA!."
-            }
-        },
-        "tabLabel": [
-            "Potential",
-            "Stats"
-        ],
         "potential": {
             "name": "Characters potential",
             "helmet": {
@@ -414,46 +438,6 @@
                     }
                 ]
             }
-        },
-        "stats": {
-            "name": "Characters stats",
-            "helmet": {
-                "title": "TenkafuMA! toolbox — Characters stats.",
-                "description": "Calculate the stats of characters in TenkafuMA!."
-            },
-            "levelTitle": "Level",
-            "potentialTitle": "Potential stage",
-            "disciplineTitle": "Discipline stage",
-            "starTitle": "Star",
-            "resultTitle": "Result",
-            "helpModal": {
-                "title": "Character stats - Help",
-                "content": [
-                    {
-                        "title": "Introduction",
-                        "content": [
-                            "Calculate the attack and hp values of characters."
-                        ]
-                    },
-                    {
-                        "title": "How To",
-                        "content": [
-                            "Select character states to calculate the attack and hp values."
-                        ]
-                    },
-                    {
-                        "title": "Notes",
-                        "content": [
-                            "There are five things affect the character attack and hp, which are their initial values, level, potential stage, discipline stage and star. And the formula of character attack and hp is",
-                            "(Initial value) × 1.1^(Level - 1) × (1 + Potential buff) × (1 + Discipline buff) × (Star buff).",
-                            "　　where　Potential buff = depends on character potential type and stage, you can find it at potential calculator",
-                            "　　　　　　Discipline buff = 5% × stage",
-                            "　　　　　　Star buff = (Star + 5) / (Original star + 5)",
-                            "*Bond only affect the skill effect."
-                        ]
-                    }
-                ]
-            }
         }
     },
     "enlist": {
@@ -478,7 +462,7 @@
                 "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
             },
             "deleteTooltip": "Cancel all selections",
-            "settingTooltip":"Display setting",
+            "settingTooltip": "Display setting",
             "tagSelectTitle": "Tag Selection",
             "timeSelectTitle": "Recruitment time",
             "tableHead": [
@@ -695,7 +679,6 @@
                 "title": "TenkafuMA! toolbox — Line-up analysis",
                 "description": "Provide visual representations to help you understand your line-up."
             },
-            "exportButton": "Export",
             "chart": [
                 {
                     "title": "Character Collection"
@@ -765,6 +748,35 @@
             }
         }
     },
+    "team": {
+        "index": {
+            "name": "Team compositions",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Team compositions",
+                "description": "Record and share your team compositions in TenkafuMA."
+            },
+            "newComposition": "New",
+            "deleteTooltip": "Delete",
+            "copyTooltip": "Duplicate",
+            "settingTooltip": "Setting",
+            "settingDescription": "Import the latest line-up analysis data as default",
+            "errorSnackbar": "Local data not found"
+        },
+        "build": {
+            "name": "Team compositions",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Team compositions",
+                "description": "Record and share your team compositions in TenkafuMA."
+            },
+            "changeTooltip": "Change",
+            "deleteTooltip": "Remove",
+            "backTooltip": "Back to team compositions list",
+            "selectModalTitle": "Character selection",
+            "emptySlotText": "Select character",
+            "nameInputLabel": "Team name",
+            "nameInputPlaceholder": "Type team name"
+        }
+    },
     "navbar": [
         {
             "title": "Home"
@@ -772,8 +784,7 @@
         {
             "title": "Characters",
             "descriptions": [
-                "Potential calculator",
-                "Stats calculator"
+                "Potential calculator"
             ]
         },
         {
@@ -792,6 +803,9 @@
         },
         {
             "title": "Line-up analysis"
+        },
+        {
+            "title": "Team compositions"
         },
         {
             "title": "External Links",

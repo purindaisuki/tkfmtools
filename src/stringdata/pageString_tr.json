@@ -14,7 +14,7 @@
                     "header": "介紹",
                     "content": [
                         "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。",
-                        "網站目前包含全境徵才篩選器、主線地圖道具掉落整理及篩選。"
+                        "本站包含全境徵才、主線地圖道具掉落整理及篩選，角色潛力計算、隊伍編成及分析。"
                     ]
                 },
                 {
@@ -32,13 +32,24 @@
                     ]
                 },
                 {
+                    "name": "policy",
+                    "header": "隱私權聲明",
+                    "content": [
+                        "本站使用 Google Analytics 收集使用者數據，其使用 cookies 追蹤使用者行為，然收集之數據皆為匿名且非針對個人，只用於改進本站。關於 Google Analytics 如何收集數據請見 ",
+                        "Google 隱私權與條款",
+                        " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單（本站目前也沒廣告）。"
+                    ],
+                    "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
+                },
+                {
                     "name": "feedback",
                     "header": "意見回饋",
                     "content": [
                         "Bug、建議、使用心得等請至 ",
                         "這裡",
                         " 。"
-                    ]
+                    ],
+                    "link": "https://peing.net/ja/b5295760aebf4c"
                 },
                 {
                     "name": "reference",
@@ -67,6 +78,31 @@
             "fix": "修正",
             "change": "變更",
             "content": [
+                {
+                    "version": "v1.5.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍編成",
+                            "description": "新增隊伍編成，以紀錄、分享關卡攻略編成。"
+                        },
+                        {
+                            "type": "New",
+                            "title": "隊伍 PR 值",
+                            "description": "隊伍分析新增 PR 值。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "移除角色素質頁面",
+                            "description": "移除角色素質計算，功能遷移至隊伍編成。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "圖示按鈕沒有提示訊息",
+                            "description": "新增圖示按鈕之提示訊息。"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.4.3",
                     "content": [
@@ -373,17 +409,6 @@
         }
     },
     "characters": {
-        "index": {
-            "name": "角色",
-            "helmet": {
-                "title": "天下布魔工具箱 — 角色",
-                "description": "天下布魔中凱薩的後宮。"
-            }
-        },
-        "tabLabel": [
-            "潛力",
-            "素質"
-        ],
         "potential": {
             "name": "角色潛力",
             "helmet": {
@@ -420,46 +445,6 @@
                     }
                 ]
             }
-        },
-        "stats": {
-            "name": "角色素質",
-            "helmet": {
-                "title": "天下布魔工具箱 — 角色素質",
-                "description": "計算天下布魔角色之攻擊與血量。"
-            },
-            "levelTitle": "等級",
-            "potentialTitle": "潛力階段",
-            "disciplineTitle": "調教階段",
-            "starTitle": "星數",
-            "resultTitle": "計算結果",
-            "helpModal": {
-                "title": "角色素質計算 幫助",
-                "content": [
-                    {
-                        "title": "介紹",
-                        "content": [
-                            "計算角色攻擊與血量。"
-                        ]
-                    },
-                    {
-                        "title": "使用方法",
-                        "content": [
-                            "選擇角色狀態以計算結果。"
-                        ]
-                    },
-                    {
-                        "title": "說明",
-                        "content": [
-                            "角色初始值、等級、潛力階段、調教階段與星數都會影響角色素質，其公式如下：",
-                            "（初始值） × 1.1^（等級 - 1） × （1 + 潛力加成） × （1 + 調教加成） × （星數加成）",
-                            "　　其中　潛力加成 = 依角色及潛力階段而定，由潛力計算機可得",
-                            "　　　　　調教加成 = 5% × 階段",
-                            "　　　　　星數加成 = （星數 + 5） / （原生星數 + 5）",
-                            "*絆數只影響必殺技能倍率"
-                        ]
-                    }
-                ]
-            }
         }
     },
     "enlist": {
@@ -484,7 +469,7 @@
                 "description": "以天下布魔中全境徵才隨機得到的五個標籤為條件，篩選出可能邂逅的人選，再也不用對標籤大眼瞪小眼。"
             },
             "deleteTooltip": "取消全部選擇",
-            "settingTooltip":"顯示設定",
+            "settingTooltip": "顯示設定",
             "tagSelectTitle": "標籤選擇",
             "timeSelectTitle": "招募時間",
             "tableHead": [
@@ -707,7 +692,6 @@
                 "title": "天下布魔工具箱 — 隊伍分析",
                 "description": "提供圖表以分析、檢視隊伍狀態。"
             },
-            "exportButton": "匯出成圖片",
             "chart": [
                 {
                     "title": "收集進度"
@@ -777,6 +761,35 @@
             }
         }
     },
+    "team": {
+        "index": {
+            "name": "隊伍編成",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍編成",
+                "description": "提供天下布魔隊伍編成、輸出功能。"
+            },
+            "newComposition": "新增編成",
+            "deleteTooltip": "刪除編成",
+            "copyTooltip": "複製編成",
+            "settingTooltip": "設定",
+            "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
+            "errorSnackbar": "本地無資料"
+        },
+        "build": {
+            "name": "隊伍編成",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍編成",
+                "description": "提供天下布魔隊伍編成、輸出功能。"
+            },
+            "changeTooltip": "更換",
+            "deleteTooltip": "刪除",
+            "backTooltip": "返回編成一覽",
+            "selectModalTitle": "角色選擇",
+            "emptySlotText": "選擇角色",
+            "nameInputLabel": "編成名",
+            "nameInputPlaceholder": "輸入隊伍編成名"
+        }
+    },
     "navbar": [
         {
             "title": "首頁"
@@ -784,8 +797,7 @@
         {
             "title": "角色",
             "descriptions": [
-                "潛力計算",
-                "素質計算"
+                "潛力計算"
             ]
         },
         {
@@ -804,6 +816,9 @@
         },
         {
             "title": "隊伍分析"
+        },
+        {
+            "title": "隊伍編成"
         },
         {
             "title": "外部連結",
