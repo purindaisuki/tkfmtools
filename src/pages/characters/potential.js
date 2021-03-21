@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
 import CharSelectPanel from 'components/CharSelectPanel';
 import { FilterPanel } from 'components/FilterComponents';
@@ -8,9 +11,9 @@ import { ItemCard } from 'components/MyCard';
 import ImageSupplier from 'components/ImageSupplier';
 import { TwoStageForm } from 'components/MyForm';
 import { TextModal } from 'components/MyModal';
-import { useLanguage } from 'components/LanguageProvider';
 import { BuffIcon, ItemIcon } from 'components/icon';
-import { calcCharPotential } from 'gamedata/calcCharStats';
+
+import { calcCharPotential } from 'utils/calcCharStats';
 
 const MaterialWrapper = styled.span`
     display: inline-flex;

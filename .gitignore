@@ -8,6 +8,7 @@
 
 # production
 /build
+/public
 
 # misc
 .DS_Store
@@ -22,8 +23,7 @@ yarn-error.log*
 
 /.cache
 /.vscode
-/public
 .eslintcache
-Quickstart-0bc3821a5a70.json
+google_app_credentials.json
+fetch-line-up-data.js
 /src/gamedata/line_up_data.json
-google-api.js

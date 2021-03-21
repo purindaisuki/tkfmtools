@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
-import useLocalStorage from 'components/useLocalStorage';
-import charsData from 'gamedata/character.json';
+
+import useLocalStorage from 'hooks/useLocalStorage';
+
+import charsData from 'data/character.json';
 
 const dehydrate = (lineup) => lineup.map(c => Object.values(c))
 

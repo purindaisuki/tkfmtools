@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const ScrollableContainer = styled.div`
+const Scrollable = styled.div`
     overflow: auto;
     height: 100%;
     scrollbar-width: thin;
@@ -24,4 +23,4 @@ const ScrollableContainer = styled.div`
     }
 `
 
-export default ScrollableContainer
+export default Scrollable

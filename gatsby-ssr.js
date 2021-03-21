@@ -1,25 +1,23 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { fontFamily } from 'components/theme';
-import LanguageProvider from 'components/LanguageProvider';
-import LineupDataProvider from 'components/LineupDataProvider'
-import TeamDataProvider from 'components/TeamDataProvider';
-import Layout from 'components/Layout';
-import PageWithTabs from 'components/PageWithTabs';
 
-const theme = createMuiTheme({
-    typography: { fontFamily: fontFamily }
-})
+import LineupDataProvider from 'containers/LineupDataProvider'
+import TeamDataProvider from 'containers/TeamDataProvider';
+import Layout from 'containers/Layout';
+import WithTabs from 'containers/withTabs';
+import LanguageProvider from 'containers/LanguageProvider';
+
+import { fontFamily } from 'components/theme';
 
 const PageWithLayout = ({ children, withTabLayout, pagePath }) => (
     <Layout>
         {withTabLayout
-            ? <PageWithTabs pagePath={pagePath} >{children}</PageWithTabs>
+            ? <WithTabs pagePath={pagePath} >{children}</WithTabs>
             : children}
     </Layout>
 )
 
-const PageWithData = ({ children, withLineupData, withTeamData }) => (
+const WithData = ({ children, withLineupData, withTeamData }) => (
     withLineupData
         ? <LineupDataProvider>
             {withTeamData ? <TeamDataProvider>{children}</TeamDataProvider> : children}
@@ -29,19 +27,26 @@ const PageWithData = ({ children, withLineupData, withTeamData }) => (
 
 export const wrapPageElement = ({ element, props }) => (
     <LanguageProvider pageContext={props.pageContext}>
-        <ThemeProvider theme={theme}>
-            <PageWithLayout
-                withTabLayout={props.pageContext.withTabLayout}
-                pagePath={props.pageContext.pagePath}
+        <PageWithLayout
+            withTabLayout={props.pageContext.withTabLayout}
+            pagePath={props.pageContext.pagePath}
+        >
+            <WithData
+                withLineupData={props.pageContext.withLineupData}
+                withTeamData={props.pageContext.withTeamData}
             >
-                <PageWithData
-                    withLineupData={props.pageContext.withLineupData}
-                    withTeamData={props.pageContext.withTeamData}
-                >
-                    {element}
-                </PageWithData>
-
-            </PageWithLayout>
-        </ThemeProvider>
+                {element}
+            </WithData>
+        </PageWithLayout>
     </LanguageProvider>
+)
+
+const theme = createMuiTheme({
+    typography: { fontFamily: fontFamily }
+})
+
+export const wrapRootElement = ({ element }) => (
+    <ThemeProvider theme={theme}>
+        {element}
+    </ThemeProvider>
 )

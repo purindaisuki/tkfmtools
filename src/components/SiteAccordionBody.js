@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import MyAccordion from 'components/MyAccordion';
-import { useLanguage } from 'components/LanguageProvider';
 import { ChangeBadge, FixBadge, NewBadge } from 'components/icon';
 
 const BodyContainer = styled.div`

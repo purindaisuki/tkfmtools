@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function SwitchableShowcase({
+export default function Switchable({
     layoutSwitcher,
     localLayoutConfig,
     items

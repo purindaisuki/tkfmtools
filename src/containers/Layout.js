@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import { lightTheme, darkTheme, fontFamily } from 'components/theme';
 import { MainNavbar, Sidebar } from 'components/Navbars';
 import ToTopBtn from 'components/ToTopBtn';
-import { useLanguage } from 'components/LanguageProvider';
+
 import langConfig from 'languangeConfig.json';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -52,31 +55,6 @@ export default function Layout({ children }) {
         ...state,
         theme: 'dark'
       }))
-    }
-    // get analysis data and send to GA
-    const localData = localStorage.getItem('analysis-data')
-    const localDataSent = localStorage.getItem('analysis-data-sent')
-    if (localData && window.gtag && !localDataSent) {
-      const data = JSON.parse(localData)
-      const charCp = data.map(i => i.data.reduce((cp, c) => cp + c[8] * c[9], 0))
-      const iMax = charCp.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0)
-      const compressedData = data[iMax].data.reduce((data, c) => {
-        c[3] = ('00' + c[3]).slice(-2)
-        c[4] = ('00' + c[4]).slice(-2)
-        c[10] = c[10] && c[3] !== '00' ? 1 : 0
-        if (c[11]) c.pop()
-        c.splice(8, 2)
-        c.splice(1, 2)
-        return data + c.reduce((a, b) => a + b, '')
-      }, '')
-      const gtagData = {}
-      // separate data due to 100 characters limit of GA4
-      for (let i = 0; i < Math.ceil(compressedData.length / 99); i++) {
-        gtagData['line_up_' + i] = 'a' + compressedData.slice(i * 99, (i + 1) * 99)
-      }
-      window.gtag('event', 'line_up_save', { ...gtagData })
-      //set sent
-      localStorage.setItem('analysis-data-sent', true)
     }
   }, [])
 

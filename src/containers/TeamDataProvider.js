@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
-import useLocalStorage from 'components/useLocalStorage';
-import { useLineupData } from 'components/LineupDataProvider';
+
+import useLocalStorage from 'hooks/useLocalStorage';
+
+import { useLineupData } from 'containers/LineupDataProvider';
 
 const initTeam = () => ({
     name: '',

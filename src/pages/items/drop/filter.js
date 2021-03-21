@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from "components/Head";
 import { FilterPanel, ResultTable, SortableTh } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
@@ -7,10 +10,10 @@ import { HeaderIconButton } from 'components/MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
 import ImageSupplier from 'components/ImageSupplier';
 import { TextModal } from 'components/MyModal';
-import { useLanguage } from 'components/LanguageProvider';
 import { DeleteIcon } from 'components/icon';
-import itemDropData from 'gamedata/byStageToItem';
-import stageDropData from 'gamedata/stageDrop.json';
+
+import itemDropData from 'data/byStageToItem';
+import stageDropData from 'data/stageDrop.json';
 
 const FilterWidthConfig = {
     default: '60%',

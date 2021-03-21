@@ -1,5 +1,5 @@
-const charData = require('./character.json');
-const potentialData = require('./potential.json');
+const charData = require('../data/character.json');
+const potentialData = require('../data/potential.json');
 
 const calcCharPotential = function (char, from, to) {
     const result = {

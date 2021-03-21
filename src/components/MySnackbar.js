@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Snackbar } from '@material-ui/core';
+
 import { AlertIcon, ErrorIcon, SuccessIcon } from 'components/icon';
 
 const StyledSnackbar = styled(Snackbar)`

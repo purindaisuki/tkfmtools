@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import MyMasonry from 'components/MyMasonry';
 import MyAccordion from 'components/MyAccordion';
 import CharCard, { CharAccordionDetail } from 'components/CharCard';
-import { useLanguage } from 'components/LanguageProvider';
 
 const StyledAccordion = styled(MyAccordion)`
     && {

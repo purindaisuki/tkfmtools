@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
 import { FilterPanel, ResultTable, SortableTh } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
@@ -11,7 +14,6 @@ import { ResponsiveCharCard } from 'components/CharCard';
 import { ScrollableModal, TextModal } from 'components/MyModal';
 import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
 import MySnackbar from 'components/MySnackbar';
-import { useLanguage } from 'components/LanguageProvider';
 import {
     DeleteIcon,
     TagIcon,
@@ -26,8 +28,9 @@ import {
     StarIcon,
     SettingIcon
 } from 'components/icon';
-import tagData from 'gamedata/tag.json';
-import charData from 'gamedata/character.json';
+
+import tagData from 'data/tag.json';
+import charData from 'data/character.json';
 import 'components/tooltip.css';
 
 const StyledToggleButton = styled(MyToggleButton)`

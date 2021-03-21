@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import Switchable from 'containers/Switchable';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
 import MyIconButton from 'components/MyIconButton';
-import SwitchableShowcase from 'components/SwitchableShowcase';
 import CharTagMasonry from 'components/CharTagMasonry';
 import CharTagTable from 'components/CharTagTable';
-import { useLanguage } from 'components/LanguageProvider';
 import {
     MasonryViewIcon,
     TableViewIcon
@@ -53,7 +55,7 @@ const Index = () => {
                 description={pageString.enlist.index.helmet.description}
                 path='/enlist/'
             />
-            <SwitchableShowcase
+            <Switchable
                 localLayoutConfig='enlist-character-layout'
                 layoutSwitcher={<LayoutSwitcher />}
                 items={[

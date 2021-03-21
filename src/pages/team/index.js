@@ -7,14 +7,16 @@ import {
     List, ListItem, ListItemSecondaryAction,
     Menu, MenuItem
 } from '@material-ui/core';
+
+import { useTeamData } from 'containers/TeamDataProvider';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
-import { useTeamData } from 'components/TeamDataProvider';
 import MyHeader from 'components/MyHeader';
 import LocalizedLink from 'components/LocalizedLink';
 import ImageSupplier from 'components/ImageSupplier';
 import MyIconButton from 'components/MyIconButton';
 import MySnackbar from 'components/MySnackbar';
-import { useLanguage } from 'components/LanguageProvider';
 import { NewIcon, CopyIcon, DeleteIcon, SettingIcon } from 'components/icon';
 
 const StyledMenu = styled(Menu)`

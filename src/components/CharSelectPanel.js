@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Form } from 'react-bootstrap';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import { FilterPanel } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
 import ImageSupplier from 'components/ImageSupplier';
 import { Select, StyledForm } from 'components/MyForm';
-import { useLanguage } from 'components/LanguageProvider';
 import { RaceIcon } from 'components/icon';
-import charData from 'gamedata/character.json';
+
+import charData from 'data/character.json';
 
 const CharForm = styled(StyledForm)`
     form {

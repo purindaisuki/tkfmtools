@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import { ResponsiveCharCard } from 'components/CharCard';
 import WindowTable from 'components/WindowTable';
 import { SortableTh } from 'components/FilterComponents';
-import { useLanguage } from 'components/LanguageProvider';
-import charData from 'gamedata/character.json';
+
+import charData from 'data/character.json';
 
 const StyledTh = styled(SortableTh)`
     background-color:  ${props => props.theme.colors.secondary};

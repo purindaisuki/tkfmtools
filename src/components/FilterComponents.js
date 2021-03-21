@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
-import ScrollableContainer from 'components/ScrollableContainer';
+
+import Scrollable from 'containers/Scrollable';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import MyHeader from 'components/MyHeader';
-import { useLanguage } from 'components/LanguageProvider';
 
 const StyledFilterPanel = styled.div`
     height: 100%;
@@ -175,7 +177,7 @@ const ResultTableContainer = styled.div`
         margin-top: 1rem;
     }
 `
-const TableWrapper = styled(ScrollableContainer)`
+const TableWrapper = styled(Scrollable)`
     height: calc(100% - 1.4rem - 1.5rem);
     overflow-x: hidden;
     overflow-y: auto;

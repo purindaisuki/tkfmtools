@@ -3,9 +3,11 @@ import { Location } from '@reach/router'
 import styled, { useTheme } from 'styled-components';
 import { Drawer } from '@material-ui/core';
 import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstrap';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import LocalizedLink from 'components/LocalizedLink'
 import MyAccordion from 'components/MyAccordion';
-import { useLanguage } from 'components/LanguageProvider';
 import {
     RaceIcon,
     ChestIcon,
@@ -20,6 +22,7 @@ import {
     AnalysisIcon,
     TeamIcon
 } from 'components/icon';
+
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
 

@@ -1,7 +1,8 @@
 {
   "homepage": "https://purindaisuki.github.io/tkfmtools",
   "name": "tkfmtools",
-  "version": "1.5.0",
+  "version": "1.5.2",
+  "author": "purindaisuki (https://github.com/purindaisuki)",
   "private": true,
   "dependencies": {
     "@google-analytics/data": "^2.3.0",
@@ -51,8 +52,8 @@
     "serve": "gatsby serve --prefix-paths -o",
     "clean": "gatsby clean",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "patch-react-spring": "node patch-react-spring.js",
-    "googleapi": "set GOOGLE_APPLICATION_CREDENTIALS=D:/coding/tkfmtools/Quickstart-0bc3821a5a70.json&& node google-api.js"
+    "patch-react-spring": "node ./scripts/patch-react-spring.js",
+    "fetch-line-up-data": "set GOOGLE_APPLICATION_CREDENTIALS=./scripts/google_app_credentials.json&& node ./scripts/fetch-line-up-data.js"
   },
   "eslintConfig": {
     "extends": [

@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import ImageSupplier from 'components/ImageSupplier';
 import LocalizedLink from 'components/LocalizedLink'
-import { useLanguage } from 'components/LanguageProvider';
 
 const Wrapper = styled.div`
     width: 100%;

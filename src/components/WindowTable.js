@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import ScrollableContainer from 'components/ScrollableContainer';
+
+import Scrollable from 'containers/Scrollable';
+
 import { SortableTable } from 'components/FilterComponents';
 
 const Sizer = styled.div`
@@ -54,7 +56,7 @@ export default function WindowTable({
     }
 
     return (
-        <ScrollableContainer
+        <Scrollable
             className={className}
             onScroll={handleScroll}
             ref={wrapperRef}
@@ -72,6 +74,6 @@ export default function WindowTable({
                     border={border}
                 />
             </Sizer>
-        </ScrollableContainer>
+        </Scrollable>
     )
 }

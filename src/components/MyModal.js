@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Backdrop, Fade, Modal } from '@material-ui/core';
+
+import Scrollable from 'containers/Scrollable';
+
 import MyHeader from 'components/MyHeader';
-import ScrollableContainer from 'components/ScrollableContainer';
 
 const StyledModal = styled.div`
     background-color: ${props => props.theme.colors.surface};
@@ -93,9 +95,9 @@ export const ScrollableModal = ({
         ariaLabelledby={ariaLabelledby}
         ariaDescribedby={ariaDescribedby}
     >
-        <ScrollableContainer>
+        <Scrollable>
             {children}
-        </ScrollableContainer>
+        </Scrollable>
     </StyledScrollableModal>
 )
 

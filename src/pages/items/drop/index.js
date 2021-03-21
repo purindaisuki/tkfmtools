@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Badge } from 'react-bootstrap';
+
+import Scrollable from 'containers/Scrollable';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from "components/Head";
 import MyIconButton from 'components/MyIconButton';
-import ScrollableContainer from 'components/ScrollableContainer';
 import { SortableTh, SortableTable } from 'components/FilterComponents';
 import { ItemCard } from 'components/MyCard';
 import { ScrollableModal } from 'components/MyModal';
 import MyHeader from 'components/MyHeader';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
-import { useLanguage } from 'components/LanguageProvider';
 import { SettingIcon } from 'components/icon';
-import stageDropData from 'gamedata/stageDrop.json';
-import itemData from 'gamedata/item.json';
+
+import stageDropData from 'data/stageDrop.json';
+import itemData from 'data/item.json';
 
 const StyledTh = styled(SortableTh)`
     background-color: ${props => props.theme.colors.secondary};
@@ -281,7 +284,7 @@ const stageDrop = [].concat(...stageDropData.map(chapter => (
     }))
 )))
 
-const TableWrapper = styled(ScrollableContainer)`
+const TableWrapper = styled(Scrollable)`
     overflow-x: auto;
     height: calc(100vh - 10.4rem);
     padding-right: 0;

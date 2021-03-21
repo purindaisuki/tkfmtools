@@ -1,6 +1,7 @@
 import React from "react";
 import { GatsbyImage } from "gatsby-plugin-image";
 import BackgroundImage from 'gatsby-background-image'
+
 import QueryImage from 'components/QueryImage';
 import QueryGrayImage from 'components/QueryGrayImage';
 

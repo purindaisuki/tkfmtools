@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CircularProgress, IconButton, Tooltip } from '@material-ui/core';
-import { useLanguage } from 'components/LanguageProvider';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import { ExportIcon } from 'components/icon';
 
 const TextWrapper = styled.span`

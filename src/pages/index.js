@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
 import MyIconButton from 'components/MyIconButton';
 import MyAccordion from 'components/MyAccordion';
@@ -10,7 +13,6 @@ import {
     SiteLicense
 } from 'components/SiteAccordionBody';
 import MyModal from 'components/MyModal';
-import { useLanguage } from 'components/LanguageProvider';
 import { ExpandMoreIcon, NoteIcon } from 'components/icon';
 
 const MsgModal = styled(MyModal)`

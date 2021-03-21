@@ -1,19 +1,23 @@
 import React, { useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
+
+import useExport from 'hooks/useExport';
+
+import { useLineupData } from 'containers/LineupDataProvider';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
 import MyHeader from 'components/MyHeader';
-import { useLineupData } from 'components/LineupDataProvider';
-import useExport from 'components/useExport';
 import { ExportButton } from 'components/MyIconButton';
 import ImageSupplier from 'components/ImageSupplier';
 import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
 import MyModal, { TextModal } from 'components/MyModal';
-import { useLanguage } from 'components/LanguageProvider';
-import expData from 'gamedata/exp.json';
-import charData from 'gamedata/character.json';
-import userData from 'gamedata/line_up_data.json';
+
+import expData from 'data/exp.json';
+import charData from 'data/character.json';
+import userData from 'data/line_up_data.json';
 
 // helper functions
 const calcLvStats = (names, array) => {

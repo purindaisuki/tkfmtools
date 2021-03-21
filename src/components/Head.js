@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
-import { useLanguage } from 'components/LanguageProvider';
+
+import { useLanguage } from 'containers/LanguageProvider';
 
 export default ({ title, description, path }) => {
     const { isDefault, userLanguage } = useLanguage()

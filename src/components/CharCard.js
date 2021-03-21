@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import { ImgCard, CardTable } from 'components/MyCard';
-import { useLanguage } from 'components/LanguageProvider';
 import {
     AttributeIcon,
     PositionIcon,
@@ -11,7 +13,8 @@ import {
     RankIcon,
     ElseIcon,
 } from 'components/icon';
-import charData from 'gamedata/character.json';
+
+import charData from 'data/character.json';
 
 const StyledCard = styled(ImgCard)`
     flex-direction: column;

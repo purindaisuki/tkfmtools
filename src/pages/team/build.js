@@ -2,21 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
+
+import useExport from 'hooks/useExport';
+
+import { useLineupData } from 'containers/LineupDataProvider';
+import { useTeamData } from 'containers/TeamDataProvider';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
-import { useLineupData } from 'components/LineupDataProvider';
-import { useTeamData } from 'components/TeamDataProvider';
-import useExport from 'components/useExport';
 import MyIconButton, { ExportButton } from 'components/MyIconButton';
 import LocalizedLink from 'components/LocalizedLink';
 import MyHeader from 'components/MyHeader';
 import ImageSupplier from 'components/ImageSupplier';
 import { ScrollableModal } from 'components/MyModal';
 import CharCard from 'components/CharCard';
-import { useLanguage } from 'components/LanguageProvider';
 import { HpIcon, AttackIcon, ChangeIcon, DeleteIcon, BackIcon } from 'components/icon';
-import charMap from 'gamedata/charMap';
-import calcCharStats from 'gamedata/calcCharStats';
-import charData from 'gamedata/character.json';
+
+import calcCharStats from 'utils/calcCharStats';
+import charMap from 'data/charMap';
+import charData from 'data/character.json';
 
 const StyledButton = styled(MyIconButton)`
     && {

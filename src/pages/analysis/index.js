@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
+
+import { useLineupData } from 'containers/LineupDataProvider';
+import { useLanguage } from 'containers/LanguageProvider';
+
 import Head from 'components/Head';
-import { useLineupData } from 'components/LineupDataProvider';
 import ImageSupplier from 'components/ImageSupplier';
 import { NumForm, Select, TwoStageForm } from 'components/MyForm';
 import MyHeader from 'components/MyHeader';
@@ -11,10 +14,10 @@ import MyIconButton from 'components/MyIconButton';
 import { SaveIcon, LoadIcon, DeleteIcon } from 'components/icon';
 import MySnackbar from 'components/MySnackbar';
 import { ScrollableModal, TextModal } from 'components/MyModal';
-import { useLanguage } from 'components/LanguageProvider';
-import calcCharStats from 'gamedata/calcCharStats';
-import charByPositionData from 'gamedata/charByPosition'
-import charsData from 'gamedata/character.json';
+
+import calcCharStats from 'utils/calcCharStats';
+import charByPositionData from 'data/charByPosition'
+import charsData from 'data/character.json';
 
 const StyledCharContainer = styled.div`
     display: flex;

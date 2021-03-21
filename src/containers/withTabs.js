@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from "@reach/router"
 import styled from 'styled-components';
 import { Tab, Tabs } from '@material-ui/core';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import LocalizedLink from 'components/LocalizedLink'
-import { useLanguage } from 'components/LanguageProvider';
 import {
-    StatsIcon,
     FilterIcon,
     OverviewIcon,
-    PotentialIcon,
     ListIcon,
     PiechartIcon
 } from 'components/icon';
@@ -66,7 +66,7 @@ const TabPanel = styled.div`
     position: relative;
     margin-top: 1rem;
 `
-export default function PageWithTabs({ children, pagePath }) {
+export default function withTabs({ children, pagePath }) {
     const { userLanguage, pageString } = useLanguage()
 
     const tabsConfig = {

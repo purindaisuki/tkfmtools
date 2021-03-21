@@ -1,7 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 import { Link } from "gatsby";
-import { useLanguage } from 'components/LanguageProvider';
+
+import { useLanguage } from 'containers/LanguageProvider';
 
 const StyledLink = styled(Link)`
     &:hover {

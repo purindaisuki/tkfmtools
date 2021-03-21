@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
+
+import { useLanguage } from 'containers/LanguageProvider';
+
 import ImageSupplier from 'components/ImageSupplier';
-import { useLanguage } from 'components/LanguageProvider';
 
 const StyledImg = styled(ImageSupplier)`
     display: flex;
