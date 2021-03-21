@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
@@ -691,7 +691,15 @@ const DraggableCharsList = () => {
     const [state, setState] = useState({
         isSelectModalOpen: false,
         selectedIndex: undefined,
+        canRender: false
     })
+
+    useEffect(() => {
+        setState(state => ({
+            ...state,
+            canRender: true,
+        }))
+    }, [])
 
     const onDragEnd = (result) => {
         const { destination, source } = result
@@ -769,7 +777,7 @@ const DraggableCharsList = () => {
     }
 
     return (<>
-        <DragDropContext onDragEnd={onDragEnd}>
+        {state.canRender && <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId='character-list'>
                 {(provided) => (
                     <div
@@ -799,7 +807,7 @@ const DraggableCharsList = () => {
                     </div>
                 )}
             </Droppable>
-        </DragDropContext>
+        </DragDropContext>}
         <CharSelectModal
             open={state.isSelectModalOpen}
             onClose={handleSelectModalClose}
