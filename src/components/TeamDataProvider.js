@@ -4,7 +4,7 @@ import { useLineupData } from 'components/LineupDataProvider';
 
 const initTeam = () => ({
     name: '',
-    characters: Array(5).fill(undefined)
+    characters: [...Array(5).keys()].map(i => ({ key: 'key' + i }))
 })
 
 const TeamsContext = createContext()
@@ -17,6 +17,19 @@ const TeamDataProvider = ({ children }) => {
     const [importLineupData, setImportLineupData] = useLocalStorage('import-line-up-data')
 
     const { localLineups } = useLineupData()
+
+    // add key to legacy local data
+    if (localTeams) {
+        localTeams.forEach(i => {
+            i.characters.forEach((c, idx) => {
+                if (!c) {
+                    i.characters[idx] = { key: 'key' + idx }
+                } else if (!c.key) {
+                    c.key = 'key' + idx
+                }
+            })
+        })
+    }
 
     // currentIndex is the index of current team in localTeams, -1 means detached
     const [state, setState] = useState({

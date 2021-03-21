@@ -778,9 +778,9 @@ const DraggableCharsList = () => {
                     >
                         {currentTeam.characters.map((c, index) => (
                             <Draggable
-                                draggableId={`character-${index}`}
+                                draggableId={c.key}
                                 index={index}
-                                key={`character-${index}`}
+                                key={c.key}
                             >
                                 {(provided, snapshot) => (
                                     <CharSlot
