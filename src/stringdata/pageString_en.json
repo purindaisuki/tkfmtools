@@ -71,11 +71,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.2",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Strange behavior at team compositions page",
+                            "description": "Fix dragging behavior, characters position after reordering and bugs in character selection."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.1",
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Character select not working in team composition page",
+                            "title": "Character select not working at team composition page",
                             "description": "Fix character select button not working under some circumstances."
                         }
                     ]

@@ -115,7 +115,7 @@ const LineupDataProvider = ({ children }) => {
     }
 
     const getLatestLineup = () => (
-        getLineup(state.localLineups.length - 1)
+        state.localLineups ? getLineup(state.localLineups.length - 1) : undefined
     )
 
     const deleteLineup = (index) => {

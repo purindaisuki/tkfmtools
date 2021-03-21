@@ -79,6 +79,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.2",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "隊伍編成中角色拖曳與操作問題",
+                            "description": "修正重新載入頁面後，角色拖曳時目標和位置錯誤以及本地無隊伍時在編成頁操作會新增隊伍。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.1",
                     "content": [
                         {

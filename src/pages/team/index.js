@@ -174,14 +174,14 @@ const EmptySlot = styled.div`
 const CharsBox = ({ chars }) => {
     const { charString } = useLanguage()
 
-    if (chars.every(c => c.id === undefined)) {
+    if (chars.every(c => c?.id === undefined)) {
         return <CharContainer><EmptySlot /></CharContainer>
     }
 
     return (
         <CharContainer>
             {chars.map((c, idx) => (
-                c.id && <CharImg
+                c?.id && <CharImg
                     key={idx}
                     name={`char_small_${c.id}`}
                     alt={charString.name[c.id]}

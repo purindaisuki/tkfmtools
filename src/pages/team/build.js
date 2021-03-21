@@ -26,7 +26,7 @@ const StyledButton = styled(MyIconButton)`
         margin: 0 .4rem;
     }
 `
-const SlotOperationButtons = ({ children, onClick, tooltipText }) => (
+const SlotOperationButton = ({ children, onClick, tooltipText }) => (
     <StyledButton onClick={onClick} tooltipText={tooltipText}>
         {children}
     </StyledButton>
@@ -50,23 +50,23 @@ const BtnsWrapper = styled.div`
         height: auto;
     }
 `
-const SlotOptionTip = ({ handleChange, handleDelete }) => {
+const SlotOperationButtons = ({ handleChange, handleDelete }) => {
     const { pageString } = useLanguage()
 
     return (
         <BtnsWrapper>
-            <SlotOperationButtons
+            <SlotOperationButton
                 onClick={handleChange}
                 tooltipText={pageString.team.build.changeTooltip}
             >
                 {ChangeIcon}
-            </SlotOperationButtons>
-            <SlotOperationButtons
+            </SlotOperationButton>
+            <SlotOperationButton
                 onClick={handleDelete}
                 tooltipText={pageString.team.build.deleteTooltip}
             >
                 {DeleteIcon}
-            </SlotOperationButtons>
+            </SlotOperationButton>
         </BtnsWrapper>
     )
 }
@@ -90,10 +90,12 @@ const StyledTextField = styled(TextField)`
             border-color: rgba(0,0,0,0);
         }
     }
-    && .Mui-focused +.MuiInputBase-root {
-        border-color: rgba(0,0,0,0);
+    && .Mui-focused {
         fieldset {
             border: 2px solid ${props => props.theme.colors.secondary};
+        }
+        &.MuiInputBase-root, +.MuiInputBase-root {
+            border-color: rgba(0,0,0,0);
         }
     }
 `
@@ -135,7 +137,7 @@ const ImgSelect = ({ type, value, values, onChange, disabled }) => (
     </ImgInput>
 )
 
-const EmptySlot = styled(Button)`
+const EmptySlotContent = styled(Button)`
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -251,100 +253,6 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
     )
 }
 
-const charSelectValues = (char, potential, key) => {
-    if (!char) {
-        return []
-    }
-
-    switch (key) {
-        case 'star':
-            return [...Array(6).keys()].slice(4 - char[0])
-        case 'bond':
-            return [...Array(6).keys()].slice(1)
-        case 'discipline':
-            return char[0] === '4' ? ['-'] : [...Array(4).keys()]
-        case 'potential':
-            return [...Array(parseInt(char[0]) > 3 ? 7 : 13).keys()].slice(1)
-        case 'potentialSub':
-            return [...Array(7).keys()].slice(potential === 1 ? 0 : 1)
-        default:
-            return []
-    }
-}
-
-const StyledSlot = styled.div`
-    position: relative;
-    z-index: 1;
-    left: .6rem;
-    right: 0;
-    width: calc(100% - .5rem);
-    height: 5rem;
-    margin: 1rem 0 .6rem;
-    span {
-        white-space: pre;
-        text-shadow: 0 0 2px ${props => props.theme.colors.surface},
-        -2px 0 2px  ${props => props.theme.colors.surface},
-        2px 0 2px  ${props => props.theme.colors.surface},
-        0 -2px 2px ${props => props.theme.colors.surface},
-        0 2px 2px  ${props => props.theme.colors.surface},
-        2px 2px 2px ${props => props.theme.colors.surface},
-        2px -2px 2px ${props => props.theme.colors.surface},
-        -2px 2px 2px ${props => props.theme.colors.surface},
-        -2px -2px 2px ${props => props.theme.colors.surface};
-    }
-    &:before {
-        content: "";
-        position: absolute;
-        left: -.6rem;
-        height: 100%;
-        width: 0;
-        border: .25rem solid transparent;
-        border-right: .4rem solid ${props => props.$colorNumber !== undefined
-        ? props.theme.chart.colors[props.$colorNumber] : props.theme.colors.dropdownHover};
-        border-left: 0;
-    }
-    &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        border: 1px solid ${props => props.theme.colors.shadow + '80'};
-        border-left: none;
-        border-right: none;
-        background: linear-gradient(
-            180deg,
-            ${props => props.$isDragging ? props.theme.colors.surface
-        : props.theme.colors.shadow + '0D'},
-            ${props => props.$isDragging ? props.theme.colors.shadow
-        : props.theme.colors.shadow + '66'}
-        );
-        background-size: 100% 200%;
-        clip-path: ${props => props.$isEmpty ? 'none'
-        : `polygon(
-            0 0,
-            100% 0,
-            100% calc(100% - 1.6rem),
-            calc(14rem + 5%) calc(100% - 1.6rem),
-            calc(12.6rem + 5%) 100%,0 100%
-        )
-        `};
-    }
-    &:hover:after {
-        background-size: 100% 100%;
-    }
-    @media screen and (max-width: 768px) {
-        margin: 0 0 2.2rem;
-        &:after {
-            clip-path: none;
-        }
-        &:hover > div:last-child:after {
-            background: ${props => props.theme.colors.shadow + '4D'};
-        }
-    }
-
-`
 const SlotCharAvatar = styled(ImageSupplier)`
     position: relative;
     z-index: 1;
@@ -485,25 +393,43 @@ const CharStats = styled.div`
         }
     }
 `
-const SlotCharCard = React.forwardRef(({
+const charSelectValues = (char, potential, key) => {
+    if (!char) {
+        return []
+    }
+
+    switch (key) {
+        case 'star':
+            return [...Array(6).keys()].slice(4 - char[0])
+        case 'bond':
+            return [...Array(6).keys()].slice(1)
+        case 'discipline':
+            return char[0] === '4' ? ['-'] : [...Array(4).keys()]
+        case 'potential':
+            return [...Array(parseInt(char[0]) > 3 ? 7 : 13).keys()].slice(1)
+        case 'potentialSub':
+            return [...Array(7).keys()].slice(potential === 1 ? 0 : 1)
+        default:
+            return []
+    }
+}
+
+const CharSlotContent = ({
     char,
-    provided,
-    isDragging,
     index,
     handleSelectModal,
     handleCharDelete
-}, ref) => {
-    const { charString, pageString } = useLanguage()
+}) => {
+    const { charString } = useLanguage()
 
     const { currentTeam, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
     const selectItems = {
         star: {
-            imgNames: !char.id ? undefined
-                : 'ui_star_' + (char.id[0] === '1' ? 'ssr'
-                    : char.id[0] === '2' ? 'sr'
-                        : char.id[0] === '3' ? 'r' : 'n'),
+            imgNames: 'ui_star_' + (char.id[0] === '1' ? 'ssr'
+                : char.id[0] === '2' ? 'sr'
+                    : char.id[0] === '3' ? 'r' : 'n'),
             disabled: false,
         },
         bond: {
@@ -512,7 +438,7 @@ const SlotCharCard = React.forwardRef(({
         },
         discipline: {
             imgNames: 'ui_discipline',
-            disabled: !char.id || char.id[0] === '4',
+            disabled: char.id[0] === '4',
         },
         potential: {
             imgNames: 'ui_potentialPassive',
@@ -524,130 +450,225 @@ const SlotCharCard = React.forwardRef(({
         }
     }
 
-    const statsValue = calcCharStats(
+    const charStatsValue = calcCharStats(
         char.id,
         char.level === '' ? '-' : char.level,
         char.potential,
         char.potentialSub,
         char.discipline === '-' ? 0 : char.discipline,
         char.star,
-        charMap[char.id]?.stats.initATK,
-        charMap[char.id]?.stats.initHP
+        charMap[char.id].stats.initATK,
+        charMap[char.id].stats.initHP
     )
 
     const handleSelectChange = (key) => (event) => {
         const newTeam = JSON.parse(JSON.stringify(currentTeam))
-        const newChar = newTeam.characters[index]
+        const newCharState = newTeam.characters[index]
 
-        let value = key === 'char' ? event.target.value : parseInt(event.target.value)
+        let value = parseInt(event.target.value)
+
+        // validate state values
         if (key === 'level') {
             value = isNaN(value) ? ''
                 : value < 1 ? 1
                     : value > 60 ? 60 : value
         }
-        newChar[key] = value
+        newCharState[key] = value
 
         Object.entries(selectItems).forEach(entry => {
-            const values = charSelectValues(char, newChar.potential, entry[0])
-            if (!values.includes(newChar[entry[0]])) {
-                newChar[entry[0]] = values[0]
+            const values = charSelectValues(char, newCharState.potential, entry[0])
+            if (!values.includes(newCharState[entry[0]])) {
+                newCharState[entry[0]] = values[0]
             }
         })
 
         setCurrentTeam(newTeam)
     }
 
+    return (<>
+        <SlotCharAvatar
+            name={`char_small_${char.id}`}
+            isBackground
+            alt=''
+        />
+        <CharName>
+            <span>{charString.name[char.id].split(' ').slice(0, -1).join(' ')}</span>
+            <span>{charString.name[char.id].split(' ').slice(-1)[0]}</span>
+        </CharName>
+        <CharPositionText>{charString.tags[charMap[char.id].tags.position]}</CharPositionText>
+        <CharStatsSelect>
+            <div>
+                <label htmlFor={`level-input-${index}`}>Lv</label>
+                <LevelInput
+                    id={`level-input-${index}`}
+                    value={char.level}
+                    onChange={handleSelectChange('level')}
+                    variant='outlined'
+                    size='small'
+                    inputProps={{ 'aria-label': 'level' }}
+                />
+            </div>
+            {Object.entries(selectItems).map((entry, idx) => (
+                entry[0] === 'potential'
+                    ? <PotentialInput key={idx}>
+                        <UiImg
+                            name={entry[1].imgNames}
+                            isBackground
+                            alt={entry[0]}
+                        >
+                            <ImgSelect
+                                type={entry[0]}
+                                value={char[entry[0]]}
+                                values={charSelectValues(char.id, char.potential, entry[0])}
+                                onChange={handleSelectChange(entry[0])}
+                                disabled={entry[1].disabled}
+                            />
+                        </UiImg>
+                        <span>{' - '}</span>
+                        <ImgSelect
+                            type='potentialSub'
+                            value={char.potentialSub}
+                            values={charSelectValues(char.id, char.potential, 'potentialSub')}
+                            onChange={handleSelectChange('potentialSub')}
+                            disabled={selectItems.potentialSub.disabled}
+                        />
+                    </PotentialInput>
+                    : entry[0] !== 'potentialSub' &&
+                    <UiImg
+                        name={entry[1].imgNames}
+                        isBackground
+                        alt={entry[0]}
+                        key={idx}
+                    >
+                        <ImgSelect
+                            type={entry[0]}
+                            value={char[entry[0]]}
+                            values={charSelectValues(char.id, char.potential, entry[0])}
+                            onChange={handleSelectChange(entry[0])}
+                            disabled={entry[1].disabled}
+                        />
+                    </UiImg>
+            ))}
+        </CharStatsSelect>
+        <SlotOperationButtons
+            handleChange={handleSelectModal(true)}
+            handleDelete={handleCharDelete}
+        />
+        <CharStats>
+            <div>
+                {AttackIcon}
+                <span>{isNaN(charStatsValue.ATK) ? '-' : charStatsValue.ATK}</span>
+            </div>
+            <div>
+                {HpIcon}
+                <span>{isNaN(charStatsValue.HP) ? '-' : charStatsValue.HP}</span>
+            </div>
+        </CharStats>
+    </>)
+}
+
+const StyledSlot = styled.div`
+    position: relative;
+    z-index: 1;
+    left: .6rem;
+    right: 0;
+    width: calc(100% - .5rem);
+    height: 5rem;
+    margin: 0 0 .6rem;
+    span {
+        white-space: pre;
+        text-shadow: 0 0 2px ${props => props.theme.colors.surface},
+        -2px 0 2px  ${props => props.theme.colors.surface},
+        2px 0 2px  ${props => props.theme.colors.surface},
+        0 -2px 2px ${props => props.theme.colors.surface},
+        0 2px 2px  ${props => props.theme.colors.surface},
+        2px 2px 2px ${props => props.theme.colors.surface},
+        2px -2px 2px ${props => props.theme.colors.surface},
+        -2px 2px 2px ${props => props.theme.colors.surface},
+        -2px -2px 2px ${props => props.theme.colors.surface};
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        left: -.6rem;
+        height: 100%;
+        width: 0;
+        border: .25rem solid transparent;
+        border-right: .4rem solid ${props => props.$colorNumber !== undefined
+        ? props.theme.chart.colors[props.$colorNumber] : props.theme.colors.dropdownHover};
+        border-left: 0;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 1px solid ${props => props.theme.colors.shadow + '80'};
+        border-left: none;
+        border-right: none;
+        background: linear-gradient(
+            180deg,
+            ${props => props.$isDragging ? props.theme.colors.surface
+        : props.theme.colors.shadow + '0D'},
+            ${props => props.$isDragging ? props.theme.colors.shadow
+        : props.theme.colors.shadow + '66'}
+        );
+        background-size: 100% 200%;
+        clip-path: ${props => props.$isEmpty ? 'none'
+        : `polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 1.6rem),
+            calc(14rem + 5%) calc(100% - 1.6rem),
+            calc(12.6rem + 5%) 100%,0 100%
+        )
+        `};
+    }
+    &:hover:after {
+        background-size: 100% 100%;
+    }
+    @media screen and (max-width: 768px) {
+        margin: 0 0 ${props => props.$isEmpty ? '.6' : '2.2'}rem;
+        &:after {
+            clip-path: none;
+        }
+        &:hover > div:last-child:after {
+            background: ${props => props.theme.colors.shadow + '4D'};
+        }
+    }
+
+`
+const CharSlot = React.forwardRef(({
+    char,
+    provided,
+    isDragging,
+    index,
+    handleSelectModal,
+    handleCharDelete
+}, ref) => {
+    const { pageString } = useLanguage()
+
     return (
         <StyledSlot
-            $colorNumber={charMap[char.id]?.tags.attribute}
+            $colorNumber={charMap[char?.id]?.tags.attribute}
             $isDragging={isDragging}
-            $isEmpty={char.id === undefined}
+            $isEmpty={char?.id === undefined}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={ref}
         >
-            {char.id ? <>
-                <SlotCharAvatar
-                    name={`char_small_${char.id}`}
-                    isBackground
-                    alt=''
+            {char?.id
+                ? <CharSlotContent
+                    char={char}
+                    index={index}
+                    handleSelectModal={handleSelectModal}
+                    handleCharDelete={handleCharDelete}
                 />
-                <CharName>
-                    <span>{charString.name[char.id].split(' ').slice(0, -1).join(' ')}</span>
-                    <span>{charString.name[char.id].split(' ').slice(-1)[0]}</span>
-                </CharName>
-                <CharPositionText>{charString.tags[charMap[char.id].tags.position]}</CharPositionText>
-                <CharStatsSelect>
-                    <div>
-                        <label htmlFor={`level-input-${index}`}>Lv</label>
-                        <LevelInput
-                            id={`level-input-${index}`}
-                            value={char.level}
-                            onChange={handleSelectChange('level')}
-                            variant='outlined'
-                            size='small'
-                            inputProps={{ 'aria-label': 'level' }}
-                        />
-                    </div>
-                    {Object.entries(selectItems).map((entry, idx) => (
-                        entry[0] === 'potential'
-                            ? <PotentialInput key={idx}>
-                                <UiImg
-                                    name={entry[1].imgNames}
-                                    isBackground
-                                    alt={entry[0]}
-                                >
-                                    <ImgSelect
-                                        type={entry[0]}
-                                        value={char[entry[0]]}
-                                        values={charSelectValues(char.id, char.potential, entry[0])}
-                                        onChange={handleSelectChange(entry[0])}
-                                        disabled={entry[1].disabled}
-                                    />
-                                </UiImg>
-                                <span>{' - '}</span>
-                                <ImgSelect
-                                    type='potentialSub'
-                                    value={char.potentialSub}
-                                    values={charSelectValues(char.id, char.potential, 'potentialSub')}
-                                    onChange={handleSelectChange('potentialSub')}
-                                    disabled={selectItems.potentialSub.disabled}
-                                />
-                            </PotentialInput>
-                            : entry[0] !== 'potentialSub' &&
-                            <UiImg
-                                name={entry[1].imgNames}
-                                isBackground
-                                alt={entry[0]}
-                                key={idx}
-                            >
-                                <ImgSelect
-                                    type={entry[0]}
-                                    value={char[entry[0]]}
-                                    values={charSelectValues(char.id, char.potential, entry[0])}
-                                    onChange={handleSelectChange(entry[0])}
-                                    disabled={entry[1].disabled}
-                                />
-                            </UiImg>
-                    ))}
-                </CharStatsSelect>
-                <SlotOptionTip
-                    handleChange={handleSelectModal(true)}
-                    handleDelete={handleCharDelete}
-                />
-                <CharStats>
-                    <div>
-                        {AttackIcon}
-                        <span>{isNaN(statsValue.ATK) ? '-' : statsValue.ATK}</span>
-                    </div>
-                    <div>
-                        {HpIcon}
-                        <span>{isNaN(statsValue.HP) ? '-' : statsValue.HP}</span>
-                    </div>
-                </CharStats>
-            </> : <EmptySlot onClick={handleSelectModal(true)}>
-                {pageString.team.build.emptySlotText}
-            </EmptySlot>
+                : <EmptySlotContent onClick={handleSelectModal(true)}>
+                    {pageString.team.build.emptySlotText}
+                </EmptySlotContent>
             }
         </StyledSlot>
     )
@@ -672,6 +693,26 @@ const DraggableCharsList = () => {
         selectedIndex: undefined,
     })
 
+    const onDragEnd = (result) => {
+        const { destination, source } = result
+
+        if (!destination) {
+            return
+        }
+
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return
+        }
+
+        setCurrentTeam({
+            ...currentTeam,
+            characters: reorder(currentTeam.characters, source.index, destination.index)
+        })
+    }
+
     const getCharInitState = (char) => {
         const lineup = getLatestLineup()
 
@@ -692,26 +733,6 @@ const DraggableCharsList = () => {
             discipline: char === undefined ? '' : (char[0] === '4' ? '-' : 0),
             potential: 1,
             potentialSub: 0,
-        })
-    }
-
-    const onDragEnd = (result) => {
-        const { destination, source } = result
-
-        if (!destination) {
-            return
-        }
-
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
-            return
-        }
-
-        setCurrentTeam({
-            ...currentTeam,
-            characters: reorder(currentTeam.characters, source.index, destination.index)
         })
     }
 
@@ -757,12 +778,12 @@ const DraggableCharsList = () => {
                     >
                         {currentTeam.characters.map((c, index) => (
                             <Draggable
-                                draggableId={`character-${c.index}`}
+                                draggableId={`character-${index}`}
                                 index={index}
-                                key={`character-${c.index}`}
+                                key={`character-${index}`}
                             >
                                 {(provided, snapshot) => (
-                                    <SlotCharCard
+                                    <CharSlot
                                         char={c}
                                         index={index}
                                         ref={provided.innerRef}
@@ -793,7 +814,7 @@ const TeamHeader = styled(MyHeader)`
     width: calc(100% + 2rem);
     height: auto;
     margin: 0;
-    padding: 0 0 .5rem 1rem;
+    padding: 0 0 0 1rem;
     border: none;
     label {
         margin-right: .6rem;
@@ -859,6 +880,7 @@ const ExportWrapper = styled.div`
 `
 const StyledDivider = styled(Divider)`
     && {
+        margin: .5rem 0;
         background-color: ${props => props.theme.colors.dropdownHover};
     }
 `

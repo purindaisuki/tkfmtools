@@ -4,7 +4,7 @@ import { useLineupData } from 'components/LineupDataProvider';
 
 const initTeam = () => ({
     name: '',
-    characters: [...Array(5).keys()].map(i => ({ index: i }))
+    characters: Array(5).fill(undefined)
 })
 
 const TeamsContext = createContext()
@@ -77,12 +77,13 @@ const TeamDataProvider = ({ children }) => {
     }
 
     const setCurrentTeam = (team) => {
+        let newTeams
         if (!state.localTeams || state.currentIndex < 0) {
-            return newTeam()
+            newTeams = [team]
+        } else {
+            newTeams = Array.from(state.localTeams)
+            newTeams.splice(state.currentIndex, 1, team)
         }
-
-        const newTeams = Array.from(state.localTeams)
-        newTeams.splice(state.currentIndex, 1, team)
 
         if (!setLocalTeams(newTeams)) {
             return 0
