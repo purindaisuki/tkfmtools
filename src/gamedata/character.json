@@ -54,7 +54,8 @@
             "oppai": -1,
             "rank": 20,
             "else": [
-                21
+                21,
+                29
             ],
             "available": true
         },
