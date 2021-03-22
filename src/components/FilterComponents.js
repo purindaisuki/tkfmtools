@@ -7,34 +7,6 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import MyHeader from 'components/MyHeader';
 
-const StyledFilterPanel = styled.div`
-    height: 100%;
-    width: ${props => props.widthConfig.default};
-    padding: 1rem;
-    border-radius: .25rem;
-    background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.border};
-    box-shadow: 0 0 .15em lightgray;
-    @media screen and (max-width: 1360px) {
-        width: ${props => props.widthConfig[1360]};
-    }
-    @media screen and (max-width: 992px) {
-        width: ${props => props.widthConfig[992]};
-    }
-`
-export const FilterPanel = ({
-    className,
-    children,
-    widthConfig
-}) => (
-    <StyledFilterPanel
-        className={className}
-        widthConfig={widthConfig}
-    >
-        {children}
-    </StyledFilterPanel>
-)
-
 export const SortableTh = styled.th`
     cursor: pointer;
     user-select: none;
@@ -152,33 +124,8 @@ export const SortableTable = ({
     )
 }
 
-const ResultTableContainer = styled.div`
-    vertical-align: top;
-    position: absolute;
-    width: ${props => props.widthConfig.default};
-    margin-left: calc(100% - ${props => props.widthConfig.default});
-    padding: 1rem;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: .25rem;
-    background-color: ${props => props.theme.colors.surface};
-    border: 1px solid ${props => props.theme.colors.border};
-    box-shadow: 0 0 .15em lightgray;
-    @media screen and (max-width: 1360px) {
-        width: ${props => props.widthConfig[1360]};
-        margin-left: calc(100% - ${props => props.widthConfig[1360]});
-    }
-    @media screen and (max-width: 992px) {
-        width: ${props => props.widthConfig[992]};
-        margin-left: calc(100% - ${props => props.widthConfig[992]});
-        position: relative;
-        margin-top: 1rem;
-    }
-`
 const TableWrapper = styled(Scrollable)`
-    height: calc(100% - 1.4rem - 1.5rem);
+    height: ${props => props.$height};
     overflow-x: hidden;
     overflow-y: auto;
 `
@@ -190,36 +137,34 @@ const StyledSortableTable = styled(SortableTable)`
         padding-left: .75rem;
     }
 `
-export function ResultTable({
+export function ResultPanel({
     data,
     head,
     body,
     sortFunc,
     defaultSortKey,
     handleModalOpen,
-    widthConfig,
+    height,
     striped,
 }) {
     const { pageString } = useLanguage()
 
-    return (
-        <ResultTableContainer widthConfig={widthConfig}>
-            <MyHeader
-                title={pageString.items.drop.filter.resultTitle}
-                withHelp
-                onClickHelp={handleModalOpen}
+    return (<>
+        <MyHeader
+            title={pageString.items.drop.filter.resultTitle}
+            withHelp
+            onClickHelp={handleModalOpen}
+            border
+        />
+        <TableWrapper $height={height}>
+            <StyledSortableTable
+                data={data}
+                head={head}
+                body={body}
+                sortFunc={sortFunc}
+                defaultSortKey={defaultSortKey}
+                striped={striped}
             />
-            <TableWrapper>
-                <StyledSortableTable
-                    data={data}
-                    head={head}
-                    body={body}
-                    sortFunc={sortFunc}
-                    defaultSortKey={defaultSortKey}
-                    striped={striped}
-                >
-                </StyledSortableTable>
-            </TableWrapper>
-        </ResultTableContainer>
-    )
+        </TableWrapper>
+    </>)
 }

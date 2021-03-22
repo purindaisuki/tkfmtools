@@ -129,14 +129,14 @@ const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
 
 const DataButtonContainer = styled.div`
     position: absolute;
-    right: 0;
+    right: 1rem;
     top: -4rem;
     margin-bottom : 0;
     > span:last-child button {
         margin: 0;
     }
 `
-const DataManageButton = ({ handleData, handleModalOpen }) => {
+const DataManageButtons = ({ handleData, handleModalOpen }) => {
     const { pageString } = useLanguage()
 
     return (
@@ -157,9 +157,6 @@ const DataManageButton = ({ handleData, handleModalOpen }) => {
     )
 }
 
-const ModalItemContainer = styled(MyHeader)`
-    border: none;
-`
 const DataModal = ({ handleData }) => {
     const { pageString } = useLanguage()
 
@@ -171,7 +168,7 @@ const DataModal = ({ handleData }) => {
 
     return (
         localLineups.map((d, idx) => (
-            <ModalItemContainer
+            <MyHeader
                 title={d.date}
                 end={<>
                     <MyIconButton
@@ -335,7 +332,7 @@ const Index = () => {
                 description={pageString.analysis.index.helmet.description}
                 path='/analysis/'
             />
-            <DataManageButton handleData={handleData} handleModalOpen={handleDataModal(true)} />
+            <DataManageButtons handleData={handleData} handleModalOpen={handleDataModal(true)} />
             {charByPositionData.map((group, idx) => (
                 <React.Fragment key={idx}>
                     <MyHeader
@@ -348,6 +345,7 @@ const Index = () => {
                         }
                         withHelp={idx === 0}
                         onClickHelp={handleHelpModal(true)}
+                        border
                     />
                     <CharsContainer>
                         {group.map((c, i) => (

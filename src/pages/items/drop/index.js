@@ -178,6 +178,7 @@ const ButtonGroupContainer = ({
         <StyledContainer>
             <StyledHeader
                 title={strings.title}
+                border
             />
             <MyToggleButtonGroup
                 type='checkbox'
@@ -286,7 +287,7 @@ const stageDrop = [].concat(...stageDropData.map(chapter => (
 
 const TableWrapper = styled(Scrollable)`
     overflow-x: auto;
-    height: calc(100vh - 10.4rem);
+    height: calc(100vh - 11rem);
     padding-right: 0;
     margin-right: 0;
     table {
@@ -295,7 +296,7 @@ const TableWrapper = styled(Scrollable)`
 `
 const SettingButtonWrapper = styled.div`
     position absolute;
-    right: 0;
+    right: 1rem;
     top: -4rem;
 `
 const Index = () => {

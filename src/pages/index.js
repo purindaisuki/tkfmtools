@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+
+import useLocalStorage from 'hooks/useLocalStorage';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -8,7 +10,8 @@ import MyIconButton from 'components/MyIconButton';
 import MyAccordion from 'components/MyAccordion';
 import {
     LogMsg,
-    SiteDescription,
+    SiteDescriptions,
+    SiteSetting,
     SiteUpdateLog,
     SiteLicense
 } from 'components/SiteAccordionBody';
@@ -71,14 +74,12 @@ const HomeContainer = styled.div`
     }
 `
 const Header = styled.div`
-    width: 60%;
-    @media screen and (max-width: 992px) {
-        width: 80%;
+    width: 90%;
+    max-width: 1000px;
+    @media screen and (max-width: 600px) {
+        width: 100%;
     }
-    @media screen and (max-width: 624px) {
-        width: 90%;
-    }
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
     font-size: x-large;
     font-weight: bold;
@@ -124,19 +125,15 @@ const NoteButton = styled(MyIconButton)`
         background-color: red;
         border-radius: 100%;
         animation: ${unreadAnimation} 1.5s ease-in-out infinite;
-        ${props => props.$unread
-        ? 'width: .6rem; height: .6rem;'
-        : null}
+        ${props => props.$unread ? 'width: .6rem; height: .6rem;' : ''}
     }
 `
 const DescriptionAccordion = styled(MyAccordion)`
     && {
-        width: 60%;
-        @media screen and (max-width: 992px) {
-            width: 80%;
-        }
-        @media screen and (max-width: 624px) {
-            width: 90%;
+        width: 90%;
+        max-width: 1000px;
+        @media screen and (max-width: 600px) {
+            width: 100%;
         }
         border: 1px solid ${props => props.theme.colors.border};
         border-radius: .25rem;
@@ -160,25 +157,15 @@ const DescriptionAccordion = styled(MyAccordion)`
     }
 `
 const Home = () => {
-    const { pageString } = useLanguage()
-    const latestMsg = pageString.index.updateLog.content[0]
-
     const [state, setState] = useState({
         expanded: 0,
         modalOpen: false,
-        unread: true
     })
 
-    // get whether read latest update
-    useEffect(() => {
-        const localSetting = localStorage.getItem('last-read-version')
-        if (localSetting) {
-            setState((state) => ({
-                ...state,
-                unread: localSetting !== latestMsg.version
-            }))
-        }
-    }, [])
+    const [localVersion, setVersion] = useLocalStorage('last-read-version')
+
+    const { pageString } = useLanguage()
+    const latestMsg = pageString.index.updateLog.content[0]
 
     const handleExpand = (panel) => (event, isExpanded) => {
         setState((state) => ({
@@ -187,71 +174,67 @@ const Home = () => {
         }))
     }
 
-    const handleModalOpen = () => {
+    const handleModal = (boolean) => () => {
         setState((state) => ({
             ...state,
-            modalOpen: true,
-            unread: false,
+            modalOpen: boolean,
         }))
-        localStorage.setItem('last-read-version', latestMsg.version)
-    }
 
-    const handleModalClose = () => {
-        setState((state) => ({
-            ...state,
-            modalOpen: false,
-        }))
+        if (boolean && localVersion !== latestMsg.version) {
+            setVersion(latestMsg.version)
+        }
     }
 
     return (
-        <>
+        <HomeContainer>
             <Head
                 title={pageString.index.helmet.title}
                 description={pageString.index.helmet.description}
                 path='/'
             />
-            <HomeContainer>
-                <Header>
-                    <span>{pageString.index.helmet.title}</span>
-                    <span>{latestMsg.version}</span>
-                    <NoteButton
-                        onClick={handleModalOpen}
-                        tooltipText={pageString.index.noteButtonTooltip}
-                        $unread={state.unread}
-                    >
-                        {NoteIcon}
-                    </NoteButton>
-                </Header>
-                {[
-                    {
-                        header: pageString.index.about.header,
-                        body: <SiteDescription />,
-                    },
-                    {
-                        header: pageString.index.updateLog.header,
-                        body: <SiteUpdateLog />,
-                    },
-                    {
-                        header: pageString.index.license.header,
-                        body: <SiteLicense />,
-                    },
-                ].map((item, idx) => (
-                    <DescriptionAccordion
-                        expanded={state.expanded === idx}
-                        onChange={handleExpand(idx)}
-                        square={false}
-                        expandIcon={ExpandMoreIcon}
-                        title={item.header}
-                        content={item.body}
-                        key={idx}
-                    />
-                ))}
-            </HomeContainer>
+            <Header>
+                <span>{pageString.index.helmet.title}</span>
+                <span>{latestMsg.version}</span>
+                <NoteButton
+                    onClick={handleModal(true)}
+                    tooltipText={pageString.index.noteButtonTooltip}
+                    $unread={localVersion !== latestMsg.version}
+                >
+                    {NoteIcon}
+                </NoteButton>
+            </Header>
+            {[
+                {
+                    header: pageString.index.about.header,
+                    body: <SiteDescriptions />,
+                },
+                {
+                    header: pageString.index.setting.header,
+                    body: <SiteSetting />,
+                },
+                {
+                    header: pageString.index.updateLog.header,
+                    body: <SiteUpdateLog />,
+                },
+                {
+                    header: pageString.index.license.header,
+                    body: <SiteLicense />,
+                },
+            ].map((item, idx) => (
+                <DescriptionAccordion
+                    expanded={state.expanded === idx}
+                    onChange={handleExpand(idx)}
+                    expandIcon={ExpandMoreIcon}
+                    title={item.header}
+                    content={item.body}
+                    key={idx}
+                />
+            ))}
             <UpdateModal
                 modalOpen={state.modalOpen}
-                onClose={handleModalClose}
+                onClose={handleModal(false)}
             />
-        </>
+        </HomeContainer>
     )
 }
 

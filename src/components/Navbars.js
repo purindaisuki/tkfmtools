@@ -65,9 +65,7 @@ const StyledLanguageSwitcher = styled(DropdownButton)`
     }
 `
 function LanguageSwitcher() {
-    const { userLanguage, isDefault, setUserLanguage } = useLanguage()
-
-    const handleUserLanguage = (key, event) => setUserLanguage(key)
+    const { userLanguage, isDefault } = useLanguage()
 
     return (
         <Location>
@@ -92,13 +90,12 @@ function LanguageSwitcher() {
                 return (
                     <StyledLanguageSwitcher
                         title={LanguageIcon}
-                        onSelect={handleUserLanguage}
                         menuAlign='right'
                     >
                         <Dropdown.Item
                             as={LocalizedLink}
                             to={path}
-                            disableLocale={true}
+                            disableLocale
                             eventKey='zh-TW'
                         >
                             {'繁體中文'}
@@ -106,7 +103,7 @@ function LanguageSwitcher() {
                         <Dropdown.Item
                             as={LocalizedLink}
                             to={enPath}
-                            disableLocale={true}
+                            disableLocale
                             eventKey='en'
                         >
                             {'English'}

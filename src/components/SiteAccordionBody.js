@@ -1,10 +1,54 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { useLayoutConfig } from 'containers/Layout';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import MyAccordion from 'components/MyAccordion';
+import MyHeader from 'components/MyHeader';
+import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
 import { ChangeBadge, FixBadge, NewBadge } from 'components/icon';
+
+const SiteDescription = ({ name, content, link }) => {
+    if (name === 'feedback' || name === 'policy') {
+        return (
+            <p>
+                {content[0]}
+                <a
+                    href={link}
+                    target='_blank'
+                    rel='noreferrer'
+                >
+                    {content[1]}
+                </a>
+                {content[2]}
+            </p>
+        )
+    }
+
+    if (name === 'reference') {
+        return (
+            content.map((refItem, idx) => {
+                if (idx === 3) {
+                    return <p key={idx}>{refItem}</p>
+                }
+                return (
+                    <p key={idx}>
+                        <a
+                            href={refItem.link}
+                            target='_blank'
+                            rel='noreferrer'
+                        >
+                            {refItem.title}
+                        </a>
+                    </p>
+                )
+            })
+        )
+    }
+
+    return content.map((text, idx) => <p key={idx}>{text}</p>)
+}
 
 const BodyContainer = styled.div`
     width: 100%;
@@ -36,72 +80,50 @@ const DescriptionContainer = styled.li`
         margin-bottom : 0;
     }
 `
-const DescriptionHeader = styled.div`
-    font-size: large;
+const DescriptionHeader = styled(MyHeader)`
     margin-bottom: .5rem;
 `
 const DescriptionBody = styled.div`
-    margin: 0;
     p {
         margin: .3rem .5rem;
     }
 `
-export const SiteDescription = () => {
+export const SiteDescriptions = () => {
     const { pageString } = useLanguage()
 
     return (
         <BodyContainer>
             <ul>
-                {pageString.index.about.content.map((item, idx) => {
-                    let Body
-                    if (item.name === 'feedback' || item.name === 'policy') {
-                        Body = () => (
-                            <p>
-                                {item.content[0]}
-                                <a
-                                    href={item.link}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                >
-                                    {item.content[1]}
-                                </a>
-                                {item.content[2]}
-                            </p>
-                        )
-                    } else if (item.name === 'reference') {
-                        Body = () => (
-                            item.content.map((refItem, idx) => {
-                                if (idx === 3) {
-                                    return <p key={idx}>{refItem}</p>
-                                }
-                                return (
-                                    <p key={idx}>
-                                        <a
-                                            href={refItem.link}
-                                            target='_blank'
-                                            rel='noreferrer'
-                                        >
-                                            {refItem.title}
-                                        </a>
-                                    </p>
-                                )
-                            })
-                        )
-                    } else {
-                        Body = () => item.content
-                            .map((text, idx) => <p key={idx}>{text}</p>)
-                    }
-
-                    return (
-                        <DescriptionContainer key={idx}>
-                            <DescriptionHeader>{item.header}</DescriptionHeader>
-                            <DescriptionBody>
-                                <Body />
-                            </DescriptionBody>
-                        </DescriptionContainer>
-                    )
-                })}
+                {pageString.index.about.content.map((item, idx) => (
+                    <DescriptionContainer key={idx}>
+                        <DescriptionHeader title={item.header} />
+                        <DescriptionBody>
+                            <SiteDescription {...item} />
+                        </DescriptionBody>
+                    </DescriptionContainer>
+                ))}
             </ul>
+        </BodyContainer>
+    )
+}
+
+
+export const SiteSetting = () => {
+    const { layout, setLayout } = useLayoutConfig()
+
+    const { pageString } = useLanguage()
+
+    return (
+        <BodyContainer>
+            <MyRadioGroup
+                label={pageString.index.setting.groupLabel}
+                value={layout}
+                handleChange={(event) => setLayout(event.target.value)}
+            >
+                {pageString.index.setting.labels.map(label => (
+                    <MyRadio label={label} value={label} key={label} />
+                ))}
+            </MyRadioGroup>
         </BodyContainer>
     )
 }
@@ -149,13 +171,11 @@ export function LogMsg({ msg, alwaysOpen }) {
         <MsgAccordion
             expanded={isExpanded}
             onChange={handleChange}
-            square={true}
-            title={
-                <>
-                    <Badge />
-                    {title}
-                </>
-            }
+            square
+            title={<>
+                <Badge />
+                {title}
+            </>}
             content={description}
         />
     )
@@ -174,8 +194,8 @@ export function SiteUpdateLog() {
 
     return (
         <BodyContainer>
-            {pageString.index.updateLog.content.map((version, idx) => (
-                <MsgBox key={idx}>
+            {pageString.index.updateLog.content.map(version => (
+                <MsgBox key={version.version}>
                     <div>{version.version}</div>
                     {version.content.map((msg, idx) => (
                         <LogMsg key={idx} msg={msg} />
@@ -189,8 +209,9 @@ export function SiteUpdateLog() {
 const LicenseList = styled.ul`
     margin-bottom: -.5rem;
 `
-const LicenseItemTitle = styled.div`
-    font-weight: bold;
+const LicenseItemHeader = styled(DescriptionHeader)`
+    margin-bottom: 0;
+    font-size: medium;
 `
 const LicenseItemContent = styled.div`
     padding-left: .5rem;
@@ -202,10 +223,10 @@ export const SiteLicense = () => {
     return (
         <BodyContainer>
             <LicenseList>
-                <li key={'text'}>
-                    <LicenseItemTitle>
-                        <span>{pageString.index.license.content.title}</span>
-                    </LicenseItemTitle>
+                <li key='text'>
+                    <LicenseItemHeader
+                        title={pageString.index.license.content.title}
+                    />
                     <LicenseItemContent>
                         <span>{pageString.index.license.content.content}</span>
                     </LicenseItemContent>
@@ -279,15 +300,17 @@ export const SiteLicense = () => {
                     }
                 ].map((item, idx) => (
                     <li key={idx}>
-                        <LicenseItemTitle>
-                            <a
-                                href={item.titleLink}
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                {item.title}
-                            </a>
-                        </LicenseItemTitle>
+                        <LicenseItemHeader
+                            title={
+                                <a
+                                    href={item.titleLink}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                >
+                                    {item.title}
+                                </a>
+                            }
+                        />
                         <LicenseItemContent>
                             <a
                                 href={item.licenseLink}

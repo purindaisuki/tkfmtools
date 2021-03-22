@@ -15,28 +15,28 @@ import {
 
 const LayoutBtnContainer = styled.div`
     position: absolute;
-    right: 0;
+    right: 1rem;
     top: -4rem;
     @media screen and (max-width: 410px) {
         font-size: 0;
     }
 `
-const LayoutSwitcher = (props) => {
+const LayoutSwitcher = ({ layout, setLayout }) => {
     const { pageString } = useLanguage()
 
     return (
         <LayoutBtnContainer>
             {pageString.enlist.index.layout}
             <MyIconButton
-                $active={props.layout === 'Masonry'}
-                onClick={props.handleLayoutChange('Masonry')}
+                $active={layout === 'Masonry'}
+                onClick={() => setLayout('Masonry')}
                 tooltipText={pageString.enlist.index.masonryTooltip}
             >
                 {MasonryViewIcon}
             </MyIconButton>
             <MyIconButton
-                $active={props.layout === 'Table'}
-                onClick={props.handleLayoutChange('Table')}
+                $active={layout === 'Table'}
+                onClick={() => setLayout('Table')}
                 tooltipText={pageString.enlist.index.tableTooltip}
             >
                 {TableViewIcon}
@@ -48,23 +48,21 @@ const LayoutSwitcher = (props) => {
 const Index = () => {
     const { pageString } = useLanguage()
 
-    return (
-        <>
-            <Head
-                title={pageString.enlist.index.helmet.title}
-                description={pageString.enlist.index.helmet.description}
-                path='/enlist/'
-            />
-            <Switchable
-                localLayoutConfig='enlist-character-layout'
-                layoutSwitcher={<LayoutSwitcher />}
-                items={[
-                    { layout: 'Masonry', content: <CharTagMasonry /> },
-                    { layout: 'Table', content: <CharTagTable /> },
-                ]}
-            />
-        </>
-    )
+    return (<>
+        <Head
+            title={pageString.enlist.index.helmet.title}
+            description={pageString.enlist.index.helmet.description}
+            path='/enlist/'
+        />
+        <Switchable
+            localStorageKey='enlist-character-layout'
+            layoutSwitcher={<LayoutSwitcher />}
+            items={[
+                { layout: 'Masonry', content: <CharTagMasonry /> },
+                { layout: 'Table', content: <CharTagTable /> },
+            ]}
+        />
+    </>)
 }
 
 export default Index

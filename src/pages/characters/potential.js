@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
 import CharSelectPanel from 'components/CharSelectPanel';
-import { FilterPanel } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
 import { ItemCard } from 'components/MyCard';
 import ImageSupplier from 'components/ImageSupplier';
@@ -66,42 +66,32 @@ const MaterialCard = styled(ItemCard)`
 const MaterialBox = ({
     result,
     layoutConfig
-}) => (
-    <>
-        {result.items &&
-            Object.entries(result.items).map((item, idx) => (
-                <MaterialWrapper
-                    key={idx}
-                    $layoutConfig={layoutConfig}
-                >
-                    <div>
-                        <MaterialCard
-                            id={item[0]}
-                            alt=''
-                        />
-                    </div>
-                    {item[1]}
-                </MaterialWrapper>
-            ))}
-        {result.items && result.money &&
-            <UiImgWrapper
-                name='money'
-                alt='money'
-                layoutConfig={layoutConfig}
+}) => (<>
+    {result.items &&
+        Object.entries(result.items).map((item, idx) => (
+            <MaterialWrapper
+                key={idx}
+                $layoutConfig={layoutConfig}
             >
-                {result.money}
-            </UiImgWrapper>}
-    </>
-)
+                <div>
+                    <MaterialCard
+                        id={item[0]}
+                        alt=''
+                    />
+                </div>
+                {item[1]}
+            </MaterialWrapper>
+        ))}
+    {result.items && result.money &&
+        <UiImgWrapper
+            name='money'
+            alt='money'
+            layoutConfig={layoutConfig}
+        >
+            {result.money}
+        </UiImgWrapper>}
+</>)
 
-const StyledPanel = styled(FilterPanel)`
-    @media screen and (max-width: 992px) {
-        width: ${props => props.widthConfig[992]};
-        margin-left: calc(100% - ${props => props.widthConfig[992]});
-        position: relative;
-        margin-top: 1rem;
-    }
-`
 const MaterialContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -126,92 +116,62 @@ const resultLayoutConfig = {
 }
 
 const ResultPanel = ({
-    widthConfig,
     result,
     handleModalOpen
 }) => {
     const { userLanguage, pageString } = useLanguage()
 
-    return (
-        <StyledPanel widthConfig={widthConfig}>
-            <div>
-                <MyHeader
-                    title={pageString.characters.potential.resultDemandTitle}
-                    titleIcon={ItemIcon}
-                    withHelp
-                    onClickHelp={handleModalOpen}
-                />
-                <MaterialContainer>
-                    <MaterialBox
-                        result={result}
-                        layoutConfig={resultLayoutConfig[userLanguage]}
-                    />
-                </MaterialContainer>
-            </div>
-            <div>
-                <MyHeader
-                    title={pageString.characters.potential.resultBuffTitle}
-                    titleIcon={BuffIcon}
-                />
-                <div>
-                    <UiImgWrapper
-                        layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_atk'
-                        alt='ATK'
-                    >
-                        {`${result.buff.ATK} %`}
-                    </UiImgWrapper>
-                    <UiImgWrapper
-                        layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_hp'
-                        alt='HP'
-                    >
-                        {`${result.buff.HP} %`}
-                    </UiImgWrapper>
-                    <UiImgWrapper
-                        layoutConfig={resultLayoutConfig[userLanguage]}
-                        name='ui_small_potentialPassive'
-                        alt='Passive'
-                    >
-                        {`${result.buff.PASSIVE === 0 ? '-'
-                            : result.buff.PASSIVE === 1 ? '1'
-                                : result.buff.PASSIVE === 2 ? '2'
-                                    : '1 & 2'
-                            }`}
-                    </UiImgWrapper>
-                </div>
-            </div>
-        </StyledPanel>
-    )
+    return (<>
+        <MyHeader
+            title={pageString.characters.potential.resultDemandTitle}
+            titleIcon={ItemIcon}
+            withHelp
+            onClickHelp={handleModalOpen}
+            border
+        />
+        <MaterialContainer>
+            <MaterialBox
+                result={result}
+                layoutConfig={resultLayoutConfig[userLanguage]}
+            />
+        </MaterialContainer>
+        <MyHeader
+            title={pageString.characters.potential.resultBuffTitle}
+            titleIcon={BuffIcon}
+            border
+        />
+        <UiImgWrapper
+            layoutConfig={resultLayoutConfig[userLanguage]}
+            name='ui_small_atk'
+            alt='ATK'
+        >
+            {`${result.buff.ATK} %`}
+        </UiImgWrapper>
+        <UiImgWrapper
+            layoutConfig={resultLayoutConfig[userLanguage]}
+            name='ui_small_hp'
+            alt='HP'
+        >
+            {`${result.buff.HP} %`}
+        </UiImgWrapper>
+        <UiImgWrapper
+            layoutConfig={resultLayoutConfig[userLanguage]}
+            name='ui_small_potentialPassive'
+            alt='Passive'
+        >
+            {`${result.buff.PASSIVE === 0 ? '-'
+                : result.buff.PASSIVE === 1 ? '1'
+                    : result.buff.PASSIVE === 2 ? '2'
+                        : '1 & 2'
+                }`}
+        </UiImgWrapper>
+    </>)
 }
 
-const CalculatorContainer = styled.div`
-    display: table;
-    width: 100%;
-    > div {
-        display: table-cell;
-    }
-    @media screen and (max-width: 992px) {
-        display: block;
-        > div {
-            display: block; 
-        }
-    }
-`
-const TableGutter = styled.div`
-    width: 1rem;
-    @media screen and (max-width: 992px) {
-        display: hidden;
-    }
-`
 const FormGutter = styled.div`
     margin-top: 4rem;
 `
-const resultPanelWidthConfig = {
-    default: 'calc(75% - 1rem)',
-    992: '100%',
-}
-const CharPotential = () => {
+const Potential = () => {
     const { pageString } = useLanguage()
 
     const [state, setState] = useState({
@@ -273,66 +233,50 @@ const CharPotential = () => {
         }))
     }
 
-    return (
-        <>
-            <CalculatorContainer
-                resultPanelWidthConfig={resultPanelWidthConfig}
+    return (<>
+        <Head
+            title={pageString.characters.potential.helmet.title}
+            description={pageString.characters.potential.helmet.description}
+            path='/characters/potential/'
+        />
+        <Panels panelsWidth={['30%', '70%']}>
+            <CharSelectPanel
+                handleSelect={handleSelect}
+                character={state.character}
+                lumpNRChars
             >
-                <CharSelectPanel
+                <FormGutter />
+                <TwoStageForm
+                    title={pageString.characters.potential.currentSelectTitle}
+                    subMinNum={1}
+                    minNum={1}
+                    maxNum={maxStage}
+                    selectAttrs={['currStage', 'currSub']}
                     handleSelect={handleSelect}
-                    character={state.character}
-                    lumpNRChars
-                >
-                    <FormGutter />
-                    <TwoStageForm
-                        title={pageString.characters.potential.currentSelectTitle}
-                        subMinNum={1}
-                        minNum={1}
-                        maxNum={maxStage}
-                        selectAttrs={['currStage', 'currSub']}
-                        handleSelect={handleSelect}
-                    />
-                    <TwoStageForm
-                        title={pageString.characters.potential.targetSelectTitle}
-                        subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
-                        minNum={state.currStage}
-                        maxNum={maxStage}
-                        selectAttrs={['targetStage', 'targetSub']}
-                        handleSelect={handleSelect}
-                    />
-                </CharSelectPanel>
-                <TableGutter />
-                <ResultPanel
-                    widthConfig={resultPanelWidthConfig}
-                    result={state.result}
-                    handleModalOpen={handelHelpModal(true)}
                 />
-            </CalculatorContainer>
-            <TextModal
-                title={pageString.characters.potential.helpModal.title}
-                open={state.isHelpModalOpen}
-                onClose={handelHelpModal(false)}
-                content={pageString.characters.potential.helpModal.content}
-                ariaLabelledby="help-modal-title"
-                ariaDescribedby="help-modal-description"
+                <TwoStageForm
+                    title={pageString.characters.potential.targetSelectTitle}
+                    subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
+                    minNum={state.currStage}
+                    maxNum={maxStage}
+                    selectAttrs={['targetStage', 'targetSub']}
+                    handleSelect={handleSelect}
+                />
+            </CharSelectPanel>
+            <ResultPanel
+                result={state.result}
+                handleModalOpen={handelHelpModal(true)}
             />
-        </>
-    )
-}
-
-const Potential = () => {
-    const { pageString } = useLanguage()
-
-    return (
-        <>
-            <Head
-                title={pageString.characters.potential.helmet.title}
-                description={pageString.characters.potential.helmet.description}
-                path='/characters/potential/'
-            />
-            <CharPotential />
-        </>
-    )
+        </Panels>
+        <TextModal
+            title={pageString.characters.potential.helpModal.title}
+            open={state.isHelpModalOpen}
+            onClose={handelHelpModal(false)}
+            content={pageString.characters.potential.helpModal.content}
+            ariaLabelledby="help-modal-title"
+            ariaDescribedby="help-modal-description"
+        />
+    </>)
 }
 
 export default Potential

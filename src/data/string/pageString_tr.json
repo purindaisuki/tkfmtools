@@ -72,6 +72,11 @@
                 }
             ]
         },
+        "setting": {
+            "header": "全域設定",
+            "groupLabel": "版面配置",
+            "labels": ["直式", "橫式"]
+        },
         "updateLog": {
             "header": "更新日誌",
             "new": "新增",
@@ -556,8 +561,8 @@
                 "title": "顯示設定",
                 "groupLabel": "按鈕依類別分組",
                 "labels": [
-                    "是",
-                    "否"
+                    "否",
+                    "是"
                 ]
             },
             "snackbarMsg": "最多 5 個標籤"

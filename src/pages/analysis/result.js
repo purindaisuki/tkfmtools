@@ -279,7 +279,6 @@ const ChartHeader = styled.div`
 `
 const TreeMapHeader = styled(MyHeader)`
     justify-content: center;
-    border: none;
 `
 const RankHeader = styled(TreeMapHeader)`
     width: 100%;

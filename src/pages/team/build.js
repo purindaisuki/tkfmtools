@@ -243,6 +243,7 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
                                 alt={rarity[idx]}
                             />
                         }
+                        border
                     />
                     <RarityChars>
                         {group.map(c => (

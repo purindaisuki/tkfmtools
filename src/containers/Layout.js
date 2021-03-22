@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+import useLayoutSwitch from 'hooks/useLayoutSwitch';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -11,10 +13,18 @@ import ToTopBtn from 'components/ToTopBtn';
 import langConfig from 'languangeConfig.json';
 import 'bootstrap/dist/css/bootstrap.css';
 
+const LayoutContext = createContext()
+
+export const useLayoutConfig = () => useContext(LayoutContext)
+
 const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
+    min-height: 100vh;
     margin: 0;
+    transition: background-color 0.3s ease;
+    background-color: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.onSurface};
     font-family:${props => props.fontFamily};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -25,17 +35,18 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `
-const Body = styled.div`
-  min-height: 100vh;
-  transition: background-color 0.3s ease;
-  background-color: ${props => props.theme.colors.background};
-  color: ${props => props.theme.colors.onSurface};
-`
 const Main = styled.main`
   padding: 1rem;
 `
 export default function Layout({ children }) {
   const { userLanguage, isDefault, pageString } = useLanguage()
+  const layouts = pageString.index.setting.labels
+
+  const layoutConfig = useLayoutSwitch(
+    'global-layout',
+    layouts,
+    (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
+  )
 
   const [state, setState] = useState({
     theme: 'light',
@@ -154,19 +165,22 @@ export default function Layout({ children }) {
         <link rel="manifest" href="/tkfmtools/manifest.json" />
       </Helmet>
       <GlobalStyle fontFamily={fontFamily} />
-      <Body>
-        <MainNavbar
-          toggleSidebar={toggleSidebar}
-        />
-        <Sidebar
-          open={state.isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-        />
+      <MainNavbar
+        toggleSidebar={toggleSidebar}
+      />
+      <Sidebar
+        open={state.isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+      />
+      <LayoutContext.Provider value={{
+        ...layoutConfig,
+        isLandscape: layoutConfig.layout === pageString.index.setting.labels[1]
+      }}>
         <Main>
           {children}
         </Main>
-        <ToTopBtn />
-      </Body>
+      </LayoutContext.Provider>
+      <ToTopBtn />
     </ThemeProvider>
   )
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from "components/Head";
-import { FilterPanel, ResultTable, SortableTh } from 'components/FilterComponents';
+import { ResultPanel, SortableTh } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
 import { HeaderIconButton } from 'components/MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
@@ -14,12 +15,6 @@ import { DeleteIcon } from 'components/icon';
 
 import itemDropData from 'data/byStageToItem';
 import stageDropData from 'data/stageDrop.json';
-
-const FilterWidthConfig = {
-    default: '60%',
-    1360: '62%',
-    992: '100%',
-}
 
 const btnLayoutConfig = {
     'en': {
@@ -56,44 +51,43 @@ const ItemFilterPanel = ({
 }) => {
     const { userLanguage, pageString, itemString } = useLanguage()
 
-    return (
-        <FilterPanel widthConfig={FilterWidthConfig}>
-            <MyHeader
-                title={pageString.items.drop.filter.itemPanelTitle}
-                end={
-                    <HeaderIconButton
-                        onClick={clearBtnValue}
-                        tooltipText={pageString.items.drop.filter.deleteTooltip}
-                    >
-                        {DeleteIcon}
-                    </HeaderIconButton>
-                }
-            />
-            <MyToggleButtonGroup
-                type='checkbox'
-                value={filterBtnValue}
-                onChange={filterBy}
-                layoutConfig={btnLayoutConfig[userLanguage]}
-            >
-                {Object.entries(itemDropData).map((entry, idx) => {
-                    if (entry[1].drop.length === 0) return true
+    return (<>
+        <MyHeader
+            title={pageString.items.drop.filter.itemPanelTitle}
+            end={
+                <HeaderIconButton
+                    onClick={clearBtnValue}
+                    tooltipText={pageString.items.drop.filter.deleteTooltip}
+                >
+                    {DeleteIcon}
+                </HeaderIconButton>
+            }
+            border
+        />
+        <MyToggleButtonGroup
+            type='checkbox'
+            value={filterBtnValue}
+            onChange={filterBy}
+            layoutConfig={btnLayoutConfig[userLanguage]}
+        >
+            {Object.entries(itemDropData).map((entry, idx) => {
+                if (entry[1].drop.length === 0) return true
 
-                    return (
-                        <StyledToggleButton
-                            value={entry[0]}
-                            key={idx}
-                        >
-                            <ItemImg
-                                name={`item_${entry[0]}`}
-                                alt=''
-                            />
-                            {itemString.name[entry[0]]}
-                        </StyledToggleButton>
-                    )
-                })}
-            </MyToggleButtonGroup>
-        </FilterPanel>
-    )
+                return (
+                    <StyledToggleButton
+                        value={entry[0]}
+                        key={idx}
+                    >
+                        <ItemImg
+                            name={`item_${entry[0]}`}
+                            alt=''
+                        />
+                        {itemString.name[entry[0]]}
+                    </StyledToggleButton>
+                )
+            })}
+        </MyToggleButtonGroup>
+    </>)
 }
 
 const ImgTh = styled(SortableTh)`
@@ -242,22 +236,7 @@ const sortFunc = (sortableItems, sortConfig) => {
     })
 }
 
-const FilterContainer = styled.div`
-    display: flex;
-    @media screen and (max-width: 992px) {
-        display: block;
-    }
-    > div:last-child > div:first-child {
-        justify-content: start;
-    }
-`
-const tableWidthConfig = {
-    default: 'calc(40% - 1rem)',
-    1360: 'calc(38% - 1rem)',
-    992: '100%',
-}
-
-const ItemFilter = () => {
+const Filter = () => {
     const { pageString } = useLanguage()
 
     const [state, setState] = useState({
@@ -325,48 +304,38 @@ const ItemFilter = () => {
         }))
     }
 
-    return (
-        <FilterContainer>
+    return (<>
+        <Head
+            title={pageString.items.drop.filter.helmet.title}
+            description={pageString.items.drop.filter.helmet.description}
+            path='/items/drop/filter/'
+        />
+        <Panels panelsWidth={['62%', '38%']}>
             <ItemFilterPanel
                 filterBtnValue={state.filterBtnValue}
                 filterBy={filterBy}
                 clearBtnValue={() => filterBy([])}
             />
-            <ResultTable
+            <ResultPanel
                 data={state.data}
                 head={<TableHead />}
                 body={<TableBody />}
                 sortFunc={sortFunc}
                 defaultSortKey={state.filterBtnValue[0]}
                 handleModalOpen={handelHelpModal(true)}
-                widthConfig={tableWidthConfig}
+                height='calc(100vh - 16rem)'
                 striped
             />
-            <TextModal
-                title={pageString.items.drop.filter.helpModal.title}
-                open={state.isHelpModalOpen}
-                onClose={handelHelpModal(false)}
-                content={pageString.items.drop.filter.helpModal.content}
-                ariaLabelledby="help-modal-title"
-                ariaDescribedby="help-modal-description"
-            />
-        </FilterContainer>
-    )
-}
-
-const Filter = () => {
-    const { pageString } = useLanguage()
-
-    return (
-        <>
-            <Head
-                title={pageString.items.drop.filter.helmet.title}
-                description={pageString.items.drop.filter.helmet.description}
-                path='/items/drop/filter/'
-            />
-            <ItemFilter />
-        </>
-    )
+        </Panels>
+        <TextModal
+            title={pageString.items.drop.filter.helpModal.title}
+            open={state.isHelpModalOpen}
+            onClose={handelHelpModal(false)}
+            content={pageString.items.drop.filter.helpModal.content}
+            ariaLabelledby="help-modal-title"
+            ariaDescribedby="help-modal-description"
+        />
+    </>)
 }
 
 export default Filter

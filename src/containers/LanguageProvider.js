@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 
 import pageString_tr from 'data/string/pageString_tr.json';
 import charString_tr from 'data/string/characterString_tr.json';
@@ -23,7 +23,7 @@ const stringData = {
 
 const defaultLanguage = Object.keys(langConfig).filter(key => langConfig[key].default)[0]
 
-export const LanguageContext = createContext({
+const LanguageContext = createContext({
     userLanguage: defaultLanguage,
     isDefault: true,
 })
@@ -31,32 +31,10 @@ export const LanguageContext = createContext({
 export const useLanguage = () => useContext(LanguageContext)
 
 export default function LanguageProvider({ children, pageContext }) {
-    const [userLanguage, setUserLanguage] = useState(defaultLanguage)
-
-    // get user language
-    // use useEffect to solve rehydration issue between react and gatsby
-    useEffect(() => {
-        // only run at first render
-        const localSetting = localStorage.getItem('language')
-        if (localSetting) {
-            setUserLanguage(localSetting)
-            return
-        }
-
-        const lang = navigator.language || navigator.userLanguage
-        if (/en*/.test(lang)) {
-            setUserLanguage('en')
-        }
-    }, [])
-
     const provider = {
         userLanguage: pageContext.lang,
         isDefault: pageContext.lang === defaultLanguage,
         ...stringData[pageContext.lang],
-        setUserLanguage: (toLanguage) => {
-            setUserLanguage(toLanguage)
-            localStorage.setItem('language', toLanguage)
-        }
     }
 
     return (

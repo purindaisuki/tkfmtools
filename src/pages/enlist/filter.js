@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
 
+import useLayoutSwitch from 'hooks/useLayoutSwitch';
+
+import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import { FilterPanel, ResultTable, SortableTh } from 'components/FilterComponents';
+import { ResultPanel, SortableTh } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
 import { HeaderIconButton } from 'components/MyIconButton';
 import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
@@ -109,29 +112,32 @@ const StyledBadge = styled(Badge)`
     background-color: brown;
     color: white;
 `
+const btnLayoutConfig = {
+    'en': {
+        1400: 5,
+        1160: 4,
+        1000: 3,
+        768: 4,
+        580: 3,
+        0: 2
+    },
+    'zh-TW': {
+        1260: 6,
+        1080: 5,
+        1000: 4,
+        768: 5,
+        550: 4,
+        355: 3,
+        0: 2
+    }
+}
+
 const TagPanel = ({
     filterBtnValue,
     handleBtnGroupChange,
     groupBtnByClass
 }) => {
     const { userLanguage, charString } = useLanguage()
-
-    const btnLayoutConfig = {
-        'en': {
-            1200: 6,
-            990: 5,
-            800: 4,
-            550: 3,
-            0: 2
-        },
-        'zh-TW': {
-            800: 6,
-            680: 5,
-            550: 4,
-            355: 3,
-            0: 2
-        }
-    }
 
     return (
         <div>
@@ -161,14 +167,6 @@ const TagPanel = ({
     )
 }
 
-const StyledFilterPanel = styled(FilterPanel)`
-    > div:nth-child(2) {
-        margin-top: 0;
-    }
-    > div:nth-child(3) {
-        margin-top: .5rem;
-    }
-`
 const StyledHeader = styled(MyHeader)`
     padding-bottom: .4rem;
 `
@@ -202,67 +200,63 @@ const CharFilterPanel = ({
 }) => {
     const { pageString } = useLanguage()
 
-    const widthConfig = {
-        default: '100%',
-    }
-
-    return (
-        <StyledFilterPanel widthConfig={widthConfig}>
-            <MyHeader
-                title={pageString.enlist.filter.tagSelectTitle}
-                titleIcon={TagIcon}
-                end={
-                    <>
-                        <HeaderIconButton
-                            onClick={clearBtnValue}
-                            tooltipText={pageString.enlist.filter.deleteTooltip}
-                        >
-                            {DeleteIcon}
-                        </HeaderIconButton>
-                        <HeaderIconButton
-                            onClick={handleModalOpen}
-                            tooltipText={pageString.enlist.filter.settingTooltip}
-                        >
-                            {SettingIcon}
-                        </HeaderIconButton>
-                    </>
-                }
-            />
-            <TagPanel
-                filterBtnValue={filterBtnValue}
-                handleBtnGroupChange={handleBtnGroupChange}
-                groupBtnByClass={groupBtnByClass}
-            />
-            <StyledHeader
-                title={pageString.enlist.filter.timeSelectTitle}
-                titleIcon={ClockIcon}
-            />
-            <Form inline>
-                <Form.Group>
-                    <Select
-                        as="select"
-                        custom
-                        size="sm"
-                        defaultValue='9'
-                        onChange={handleEnlistHourChange}
+    return (<>
+        <MyHeader
+            title={pageString.enlist.filter.tagSelectTitle}
+            titleIcon={TagIcon}
+            end={
+                <>
+                    <HeaderIconButton
+                        onClick={clearBtnValue}
+                        tooltipText={pageString.enlist.filter.deleteTooltip}
                     >
-                        {[...Array(10).keys()].slice(1)
-                            .map(i => <option key={i}>{i}</option>)}
-                    </Select>
-                    {'：'}
-                    <Select
-                        as="select"
-                        custom
-                        size="sm"
-                        defaultValue='00'
+                        {DeleteIcon}
+                    </HeaderIconButton>
+                    <HeaderIconButton
+                        onClick={handleModalOpen}
+                        tooltipText={pageString.enlist.filter.settingTooltip}
                     >
-                        {['00', '10', '20', '30', '40', '50']
-                            .map(i => <option key={i}>{i}</option>)}
-                    </Select>
-                </Form.Group>
-            </Form>
-        </StyledFilterPanel>
-    )
+                        {SettingIcon}
+                    </HeaderIconButton>
+                </>
+            }
+            border
+        />
+        <TagPanel
+            filterBtnValue={filterBtnValue}
+            handleBtnGroupChange={handleBtnGroupChange}
+            groupBtnByClass={groupBtnByClass}
+        />
+        <StyledHeader
+            title={pageString.enlist.filter.timeSelectTitle}
+            titleIcon={ClockIcon}
+            border
+        />
+        <Form inline>
+            <Form.Group>
+                <Select
+                    as="select"
+                    custom
+                    size="sm"
+                    defaultValue='9'
+                    onChange={handleEnlistHourChange}
+                >
+                    {[...Array(10).keys()].slice(1)
+                        .map(i => <option key={i}>{i}</option>)}
+                </Select>
+                {'：'}
+                <Select
+                    as="select"
+                    custom
+                    size="sm"
+                    defaultValue='00'
+                >
+                    {['00', '10', '20', '30', '40', '50']
+                        .map(i => <option key={i}>{i}</option>)}
+                </Select>
+            </Form.Group>
+        </Form>
+    </>)
 }
 
 const TableHead = ({ requestSort, getSortDirection }) => {
@@ -402,8 +396,8 @@ const SettingModal = ({
                 handleChange={handleRadioChange}
             >
                 {pageString.enlist.filter.settingModal
-                    .labels.map((label, idx) => (
-                        <MyRadio label={label} value={label} key={idx} />
+                    .labels.map(label => (
+                        <MyRadio label={label} value={label} key={label} />
                     ))}
             </MyRadioGroup>
         </StyledModal>
@@ -425,36 +419,52 @@ function* combinations(elements, num) {
     }
 }
 
-const FilterContainer = styled.div`
-    display: block;
-    > div:first-child,
-    > div:nth-child(2) {
-        display: block;
-        position: relative;
-        margin: auto;
-        margin-top: 1rem;
-    }
-`
-const CharFilter = () => {
-    const { pageString, charString } = useLanguage()
-    const btnsSettingLabels = pageString.enlist.filter.settingModal.labels
-
+const Filter = () => {
     const [state, setState] = useState({
         filterBtnValue: [],
         characters: [],
         enlistHour: '9',
         isHelpModalOpen: false,
         isSettingModalOpen: false,
-        radioValue: btnsSettingLabels[1],
         isSnackbarOpen: false,
     })
 
-    const handleEnlistHourChange = (event) => {
-        setState((state) => ({
-            ...state,
-            enlistHour: event.target.value
-        }))
+    const { pageString, charString } = useLanguage()
+
+    const btnsSettingLabels = pageString.enlist.filter.settingModal.labels
+
+    const { layout, setLayout } = useLayoutSwitch(
+        'group-btns-by-class',
+        btnsSettingLabels,
+        (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
+    )
+
+    const groupBtnByClass = layout === btnsSettingLabels[1]
+
+    const sortFunc = (sortableItems, sortConfig) => {
+        sortableItems.sort((a, b) => {
+            let aKey
+            let bKey
+            if (sortConfig.key === 'appliedTags') {
+                aKey = a[sortConfig.key].join('')
+                bKey = b[sortConfig.key].join('')
+            } else if (sortConfig.key === 'name') {
+                aKey = charString.name[a.id]
+                bKey = charString.name[b.id]
+            } else {
+                aKey = a[sortConfig.key]
+                bKey = b[sortConfig.key]
+            }
+            if (aKey < bKey) {
+                return sortConfig.direction === 'asc' ? -1 : 1
+            }
+            if (aKey > bKey) {
+                return sortConfig.direction === 'asc' ? 1 : -1
+            }
+            return 0
+        })
     }
+
     useEffect(() => {
         const val = state.filterBtnValue.slice()
         if (val.length === 0) {
@@ -569,28 +579,11 @@ const CharFilter = () => {
         }
     }, [state.filterBtnValue, state.enlistHour])
 
-    const sortFunc = (sortableItems, sortConfig) => {
-        sortableItems.sort((a, b) => {
-            let aKey
-            let bKey
-            if (sortConfig.key === 'appliedTags') {
-                aKey = a[sortConfig.key].join('')
-                bKey = b[sortConfig.key].join('')
-            } else if (sortConfig.key === 'name') {
-                aKey = charString.name[a.id]
-                bKey = charString.name[b.id]
-            } else {
-                aKey = a[sortConfig.key]
-                bKey = b[sortConfig.key]
-            }
-            if (aKey < bKey) {
-                return sortConfig.direction === 'asc' ? -1 : 1
-            }
-            if (aKey > bKey) {
-                return sortConfig.direction === 'asc' ? 1 : -1
-            }
-            return 0
-        })
+    const handleEnlistHourChange = (event) => {
+        setState((state) => ({
+            ...state,
+            enlistHour: event.target.value
+        }))
     }
 
     const handleBtnGroupChange = (groupIdx) => (val) => {
@@ -643,11 +636,10 @@ const CharFilter = () => {
     const handleRadioChange = (event) => {
         setState((state) => ({
             ...state,
-            radioValue: event.target.value,
             isSettingModalOpen: false,
         }))
 
-        localStorage.setItem('group-btns-by-class', event.target.value)
+        setLayout(event.target.value)
     }
 
     const handleSnackbarClose = () => {
@@ -657,83 +649,53 @@ const CharFilter = () => {
         }))
     }
 
-    // get local btns layout setting
-    useEffect(() => {
-        const localSetting = localStorage.getItem('group-btns-by-class')
-        setState((state) => ({
-            ...state,
-            radioValue: localSetting
-                ? localSetting
-                : btnsSettingLabels[window.innerWidth < 990 ? 1 : 0],
-        }))
-    }, [])
-
-    const tableWidthConfig = {
-        default: '100%',
-    }
-
-    let groupBtnByClass =
-        state.radioValue === btnsSettingLabels[0]
-
-    return (
-        <>
-            <FilterContainer>
-                <CharFilterPanel
-                    handleBtnGroupChange={handleBtnGroupChange}
-                    clearBtnValue={clearBtnValue}
-                    handleEnlistHourChange={handleEnlistHourChange}
-                    filterBtnValue={state.filterBtnValue}
-                    handleModalOpen={handleSettingModal(true)}
-                    groupBtnByClass={groupBtnByClass}
-                />
-                <ResultTable
-                    data={state.characters}
-                    head={<TableHead />}
-                    body={<TableBody />}
-                    sortFunc={sortFunc}
-                    defaultSortKey={'rarity'}
-                    handleModalOpen={handelHelpModal(true)}
-                    widthConfig={tableWidthConfig}
-                    striped
-                />
-            </FilterContainer>
-            <SettingModal
-                open={state.isSettingModalOpen}
-                onClose={handleSettingModal(false)}
-                radioValue={state.radioValue}
-                handleRadioChange={handleRadioChange}
+    return (<>
+        <Head
+            title={pageString.enlist.filter.helmet.title}
+            description={pageString.enlist.filter.helmet.description}
+            path='/enlist/filter/'
+        />
+        <Panels panelsWidth={['60%', '40%']}>
+            <CharFilterPanel
+                handleBtnGroupChange={handleBtnGroupChange}
+                clearBtnValue={clearBtnValue}
+                handleEnlistHourChange={handleEnlistHourChange}
+                filterBtnValue={state.filterBtnValue}
+                handleModalOpen={handleSettingModal(true)}
+                groupBtnByClass={groupBtnByClass}
             />
-            <TextModal
-                title={pageString.enlist.filter.helpModal.title}
-                open={state.isHelpModalOpen}
-                onClose={handelHelpModal(false)}
-                content={pageString.enlist.filter.helpModal.content}
-                ariaLabelledby="help-modal-title"
-                ariaDescribedby="help-modal-description"
+            <ResultPanel
+                data={state.characters}
+                head={<TableHead />}
+                body={<TableBody />}
+                sortFunc={sortFunc}
+                defaultSortKey={'rarity'}
+                handleModalOpen={handelHelpModal(true)}
+                height={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
+                striped
             />
-            <MySnackbar
-                open={state.isSnackbarOpen}
-                onClose={handleSnackbarClose}
-                message={pageString.enlist.filter.snackbarMsg}
-                type='warn'
-            />
-        </>
-    )
-}
-
-const Filter = () => {
-    const { pageString } = useLanguage()
-
-    return (
-        <>
-            <Head
-                title={pageString.enlist.filter.helmet.title}
-                description={pageString.enlist.filter.helmet.description}
-                path='/enlist/filter/'
-            />
-            <CharFilter />
-        </>
-    )
+        </Panels>
+        <SettingModal
+            open={state.isSettingModalOpen}
+            onClose={handleSettingModal(false)}
+            radioValue={layout}
+            handleRadioChange={handleRadioChange}
+        />
+        <TextModal
+            title={pageString.enlist.filter.helpModal.title}
+            open={state.isHelpModalOpen}
+            onClose={handelHelpModal(false)}
+            content={pageString.enlist.filter.helpModal.content}
+            ariaLabelledby="help-modal-title"
+            ariaDescribedby="help-modal-description"
+        />
+        <MySnackbar
+            open={state.isSnackbarOpen}
+            onClose={handleSnackbarClose}
+            message={pageString.enlist.filter.snackbarMsg}
+            type='warn'
+        />
+    </>)
 }
 
 export default Filter

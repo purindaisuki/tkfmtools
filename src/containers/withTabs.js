@@ -15,56 +15,43 @@ import {
 
 const StyledTabs = styled(Tabs)`
     && {
-        transition: all 0.3s ease;
-        border-bottom: 1px solid ${props => props.theme.colors.border};
+        margin: -1rem;
+        margin-bottom: 1rem;
+        background-color:  ${props => props.theme.colors.shadow + '1A'};
         .MuiTabs-indicator {
             background-color:  ${props => props.theme.colors.secondary};
-            height: 100%;
-            border-radius: .25rem;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
         }
         .MuiTab-root {
             min-width: 0;
             min-height: 0;
-            padding: 0 1rem;
+            padding: 0 1.2rem;
             padding-top: .6rem;
             z-index: 1;
             > span {
-                display: ${props => {
-        if (props.$lang === 'en') return 'flex'
-        else return 'inline'
-    }};
-                font-size: ${props => {
-        if (props.$lang === 'en') return '1rem'
-        else return 'medium'
-    }};
-                color: ${props => props.theme.colors.onSurface}
+                display: ${props => props.$lang === 'en' ? 'flex' : 'inline'}};
+                font-size: ${props => props.$lang === 'en' ? '1rem' : 'medium'}};
             }
         }
-        .MuiTab-root.MuiTab-labelIcon {
-            min-height: 0;
+        .MuiTab-wrapper {
+            color: ${props => props.theme.colors.onSurface}
         }
-        && svg {
+        svg {
             width: 1.4rem;
             height: 1.4rem;
             margin: 0rem .2rem;
             margin-left: 0;
-        }
-        svg {
             fill: ${props => props.theme.colors.onSurface};
         }
         .Mui-selected > span {
-            color: ${props => props.theme.colors.onSecondary};
+            color: ${props => props.theme.colors.secondary};
             svg {
-                fill: ${props => props.theme.colors.onSecondary};
+                fill: ${props => props.theme.colors.secondary};
             }
         }
     }
 `
 const TabPanel = styled.div`
     position: relative;
-    margin-top: 1rem;
 `
 export default function withTabs({ children, pagePath }) {
     const { userLanguage, pageString } = useLanguage()

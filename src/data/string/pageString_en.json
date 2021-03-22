@@ -64,6 +64,11 @@
                 }
             ]
         },
+        "setting": {
+            "header": "Global Settings",
+            "groupLabel": "Layout",
+            "labels": ["Portrait", "Landscape"]
+        },
         "updateLog": {
             "header": "Update Logs",
             "new": "New",
@@ -545,8 +550,8 @@
                 "title": "Display setting",
                 "groupLabel": "Group tags by class",
                 "labels": [
-                    "Yes",
-                    "No"
+                    "No",
+                    "Yes"
                 ]
             },
             "snackbarMsg": "At most 5 tags"

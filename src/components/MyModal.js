@@ -112,6 +112,7 @@ const TextModalContent = ({
         <React.Fragment key={idx}>
             <MyHeader
                 title={item.title}
+                border
             />
             <ModalBody>
                 {item.content.map((text, idx) => (

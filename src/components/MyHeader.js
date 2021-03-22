@@ -10,7 +10,7 @@ const StyledHeader = styled.div`
     justify-content: space-between;
     margin-bottom: 1rem;
     height: 2.2rem;
-    border-bottom: solid 1px ${props => props.theme.colors.border};
+    ${props => props.$border ? `border-bottom: solid 1px ${props.theme.colors.border};` : ''}
     color: ${props => props.theme.colors.onSurface};
     font-size: large;
     font-weight: normal;
@@ -39,9 +39,10 @@ const MyHeader = ({
     withHelp,
     onClickHelp,
     end,
-    id
+    id,
+    border
 }) => (
-    <StyledHeader className={className}>
+    <StyledHeader className={className} $border={border}>
         <TitleWrapper>
             <span id={id}>{titleIcon}{title}</span>
             {withHelp && onClickHelp &&

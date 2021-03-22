@@ -4,7 +4,6 @@ import { Col, Form } from 'react-bootstrap';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
-import { FilterPanel } from 'components/FilterComponents';
 import MyHeader from 'components/MyHeader';
 import ImageSupplier from 'components/ImageSupplier';
 import { Select, StyledForm } from 'components/MyForm';
@@ -30,63 +29,53 @@ const CharImgWrapper = styled(ImageSupplier)`
 `
 const CharSelectPanel = ({
     children,
-    className,
     character,
     handleSelect,
     lumpNRChars,
 }) => {
     const { pageString, charString } = useLanguage()
 
-    const widthConfig = {
-        default: '25%',
-        992: '100%',
-    }
-
-    return (
-        <FilterPanel
-            widthConfig={widthConfig}
-            className={className}
-        >
-            <MyHeader
-                title={pageString.characters.potential.characterPanelTitle}
-                titleIcon={RaceIcon}
+    return (<>
+        <MyHeader
+            title={pageString.characters.potential.characterPanelTitle}
+            titleIcon={RaceIcon}
+            border
+        />
+        <CharContainer>
+            <CharImgWrapper
+                name={`char_${character}`}
+                alt=''
             />
-            <CharContainer>
-                <CharImgWrapper
-                    name={`char_${character}`}
-                    alt=''
-                />
-                <CharForm onSubmit={(event) => event.preventDefault()}>
-                    {pageString.characters.potential.characterSelectTitle}
-                    <Form.Row>
-                        <Form.Group as={Col}>
-                            <Select
-                                as="select"
-                                onChange={handleSelect('character')}
-                            >
-                                {charData.map((char, idx) => {
-                                    if (char.rarity < 2 && lumpNRChars) {
-                                        return false
-                                    }
+            <CharForm onSubmit={(event) => event.preventDefault()}>
+                {pageString.characters.potential.characterSelectTitle}
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <Select
+                            as="select"
+                            onChange={handleSelect('character')}
+                        >
+                            {charData.map((char, idx) => {
+                                if (char.rarity < 2 && lumpNRChars) {
+                                    return false
+                                }
 
-                                    return (
-                                        <option value={char.id} key={idx}>
-                                            {charString.name[char.id]}
-                                        </option>
-                                    )
-                                })}
-                                {lumpNRChars &&
-                                    <option value={'nr'} key={'nr'}>
-                                        {charString.name.nr}
-                                    </option>}
-                            </Select>
-                        </Form.Group>
-                    </Form.Row>
-                    {children}
-                </CharForm>
-            </CharContainer>
-        </FilterPanel >
-    )
+                                return (
+                                    <option value={char.id} key={idx}>
+                                        {charString.name[char.id]}
+                                    </option>
+                                )
+                            })}
+                            {lumpNRChars &&
+                                <option value={'nr'} key={'nr'}>
+                                    {charString.name.nr}
+                                </option>}
+                        </Select>
+                    </Form.Group>
+                </Form.Row>
+                {children}
+            </CharForm>
+        </CharContainer>
+    </>)
 }
 
 export default CharSelectPanel
