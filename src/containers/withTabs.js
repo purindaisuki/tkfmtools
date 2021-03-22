@@ -24,8 +24,7 @@ const StyledTabs = styled(Tabs)`
         .MuiTab-root {
             min-width: 0;
             min-height: 0;
-            padding: 0 1.2rem;
-            padding-top: .6rem;
+            padding: .6rem 1.2rem;
             z-index: 1;
             > span {
                 display: ${props => props.$lang === 'en' ? 'flex' : 'inline'}};
