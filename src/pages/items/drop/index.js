@@ -296,7 +296,7 @@ const TableWrapper = styled(Scrollable)`
 `
 const SettingButtonWrapper = styled.div`
     position absolute;
-    right: 1rem;
+    right: 0;
     top: -4rem;
 `
 const Index = () => {

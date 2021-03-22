@@ -17,7 +17,7 @@ const StyledModal = styled.div`
     top: 10%;
     bottom: auto;
     margin: auto;
-    @media screen and (max-width: 992px) {
+    @media screen and (max-width: 1000px) {
         width: 80%;
     }
     @media screen and (max-width: 768px) {

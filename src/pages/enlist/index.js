@@ -15,7 +15,7 @@ import {
 
 const LayoutBtnContainer = styled.div`
     position: absolute;
-    right: 1rem;
+    right: 0;
     top: -4rem;
     @media screen and (max-width: 410px) {
         font-size: 0;

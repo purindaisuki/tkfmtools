@@ -129,7 +129,7 @@ const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
 
 const DataButtonContainer = styled.div`
     position: absolute;
-    right: 1rem;
+    right: 0;
     top: -4rem;
     margin-bottom : 0;
     > span:last-child button {
