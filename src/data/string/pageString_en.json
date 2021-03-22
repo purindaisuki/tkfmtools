@@ -67,7 +67,16 @@
         "setting": {
             "header": "Global Settings",
             "groupLabel": "Layout",
-            "labels": ["Portrait", "Landscape"]
+            "labels": [
+                "Portrait",
+                "Landscape"
+            ],
+            "clearTitle": "Clear all data stored in localStorage",
+            "clearButton": "Clear",
+            "clearModalTitle": "Are you sure?",
+            "clearModalContent": "All data recorded in this website including team compositions, analysis, etc. will be cleared and the process is irreversible. Do you want to clear data?",
+            "clear": "Clear",
+            "cancel": "Cancel"
         },
         "updateLog": {
             "header": "Update Logs",
@@ -75,6 +84,21 @@
             "fix": "Fix",
             "change": "Change",
             "content": [
+                {
+                    "version": "v1.5.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Global settings",
+                            "description": "Add global layout setting (Only works for some pages and desktop) and local data setting at home page ."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Adjust tabs style",
+                            "description": "Adjust tabs style."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.5.2",
                     "content": [

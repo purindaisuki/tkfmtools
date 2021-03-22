@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { Button } from '@material-ui/core';
 import { useLayoutConfig } from 'containers/Layout';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import MyAccordion from 'components/MyAccordion';
 import MyHeader from 'components/MyHeader';
 import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
-import { ChangeBadge, FixBadge, NewBadge } from 'components/icon';
+import MyIconButton from 'components/MyIconButton';
+import MyModal from 'components/MyModal';
+import { DeleteIcon, ChangeBadge, FixBadge, NewBadge } from 'components/icon';
 
 const SiteDescription = ({ name, content, link }) => {
     if (name === 'feedback' || name === 'policy') {
@@ -107,11 +109,57 @@ export const SiteDescriptions = () => {
     )
 }
 
-
+const StyledModal = styled(MyModal)`
+    > div:nth-child(3) {
+        position: relative;
+        top: 20%;
+        width: 40%;
+        height: 30%;
+        @media screen and (max-width: 1000px) {
+            width: 60%;
+        }
+        @media screen and (max-width: 600px) {
+            width: 80%;
+        }
+    }
+`
+const ClearHeader = styled(MyHeader)`
+    margin-bottom: 0;
+    font-size: medium;
+`
+const StyledButton = styled(MyIconButton)`
+    &&{
+        padding: .5rem;
+    }
+`
+const ButtonsWrapper = styled.div`
+    position: absolute;
+    bottom: 1rem;
+    right: 0rem;
+`
+const TextButton = styled(Button)`
+    &&& {
+        margin: 0 1rem;
+        background-color: ${props => props.$clear ? props.theme.colors.error : 'gray'};
+        span {
+            color: ${props => props.theme.colors.onError};
+        }
+    }
+`
 export const SiteSetting = () => {
     const { layout, setLayout } = useLayoutConfig()
 
     const { pageString } = useLanguage()
+
+    const [isModalOpen, setModal] = useState(false)
+
+    const handleModal = (boolean) => () => setModal(boolean)
+
+    const clearLocalStorage = () => {
+        if (typeof window !== 'undefined') {
+            localStorage.clear()
+        }
+    }
 
     return (
         <BodyContainer>
@@ -124,6 +172,27 @@ export const SiteSetting = () => {
                     <MyRadio label={label} value={label} key={label} />
                 ))}
             </MyRadioGroup>
+            <ClearHeader title={pageString.index.setting.clearTitle} />
+            <StyledButton onClick={handleModal(true)} tooltipText={pageString.index.setting.clearButton}>
+                {DeleteIcon}
+            </StyledButton>
+            <StyledModal
+                title={pageString.index.setting.clearModalTitle}
+                open={isModalOpen}
+                onClose={handleModal(false)}
+                ariaLabelledby='clear-modal'
+                aria-describedby='clear-modal-description'
+            >
+                <p id='clear-modal-description'>{pageString.index.setting.clearModalContent}</p>
+                <ButtonsWrapper>
+                    <TextButton $clear onClick={clearLocalStorage}>
+                        {pageString.index.setting.clear}
+                    </TextButton>
+                    <TextButton onClick={handleModal(false)}>
+                        {pageString.index.setting.cancel}
+                    </TextButton>
+                </ButtonsWrapper>
+            </StyledModal>
         </BodyContainer>
     )
 }

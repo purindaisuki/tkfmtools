@@ -1,7 +1,6 @@
 {
   "homepage": "https://purindaisuki.github.io/tkfmtools",
   "name": "tkfmtools",
-  "version": "1.5.2",
   "author": "purindaisuki (https://github.com/purindaisuki)",
   "private": true,
   "dependencies": {

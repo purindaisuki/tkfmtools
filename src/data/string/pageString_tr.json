@@ -75,7 +75,16 @@
         "setting": {
             "header": "全域設定",
             "groupLabel": "版面配置",
-            "labels": ["直式", "橫式"]
+            "labels": [
+                "直式",
+                "橫式"
+            ],
+            "clearTitle": "清除本地所有資料",
+            "clearButton": "清除",
+            "clearModalTitle": "確認清除？",
+            "clearModalContent": "紀錄在本網站的所有資料，包含隊伍分析、編成等各種詳細設定皆會被清除，且無法再回復。確定要清除？",
+            "clear": "清除",
+            "cancel": "取消"
         },
         "updateLog": {
             "header": "更新日誌",
@@ -83,6 +92,21 @@
             "fix": "修正",
             "change": "變更",
             "content": [
+                {
+                    "version": "v1.5.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全局設定",
+                            "description": "於首頁新增全局版面配置（部分頁面及裝置有效）及本地資料設定。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "微調標籤樣式",
+                            "description": "微調標籤樣式。"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.5.2",
                     "content": [
