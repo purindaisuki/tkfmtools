@@ -3,24 +3,15 @@ import { useEffect, useState } from 'react';
 import useLocalStorage from 'hooks/useLocalStorage';
 
 const useLayoutSwitch = (localStorageKey, layouts, initLayoutIndex, unmountOnLeave) => {
+    const [localConfig, setLocalConfig] = useLocalStorage(
+        localStorageKey,
+        layouts[initLayoutIndex | 0]
+    )
+
     const [state, setState] = useState({
-        layout: layouts[initLayoutIndex | 0],
-        canRender: Array(layouts.length).fill(false)
+        layout: localConfig,
+        canRender: layouts.map(i => i === localConfig)
     })
-    
-    const [localConfig, setLocalConfig] = useLocalStorage(localStorageKey, layouts[0])
-
-    // set previous layout and not render at SSR time
-    useEffect(() => {
-        const canRender = localConfig
-            ? state.canRender.map((h, i) => layouts[i] === localConfig)
-            : [true].concat(state.canRender.slice(1))
-
-        setState({
-            layout: localConfig,
-            canRender: canRender
-        })
-    }, [])
 
     const setLayout = (toLayout) => {
         setState((state) => ({

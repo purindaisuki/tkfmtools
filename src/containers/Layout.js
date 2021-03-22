@@ -43,7 +43,7 @@ export default function Layout({ children }) {
   const layouts = pageString.index.setting.labels
 
   const layoutConfig = useLayoutSwitch(
-    'global-layout',
+    'global-layout-' + userLanguage,
     layouts,
     (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
   )
