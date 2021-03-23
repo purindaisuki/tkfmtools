@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tooltip, Zoom } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import { Badge, Form } from 'react-bootstrap';
 
 import useSwitch from 'hooks/useSwitch';
@@ -34,7 +35,6 @@ import {
 
 import tagData from 'data/tag.json';
 import charData from 'data/character.json';
-import 'components/tooltip.css';
 
 const StyledToggleButton = styled(MyToggleButton)`
     &&&&& {
@@ -280,9 +280,14 @@ const TableHead = ({ requestSort, getSortDirection }) => {
     )
 }
 
-const StyledTooltip = styled(Tooltip)`
-    right: 0;
-`
+const DistinctCharacterTooltip = withStyles({
+    tooltip: {
+        right: "0",
+        fontSize: "1rem",
+        whiteSpace: "pre"
+    }
+})(Tooltip)
+
 const TagTooltip = ({ children, char }) => {
     const { charString } = useLanguage()
 
@@ -291,14 +296,14 @@ const TagTooltip = ({ children, char }) => {
         .join('\n')
 
     return (
-        <StyledTooltip
+        <DistinctCharacterTooltip
             title={texts}
             TransitionComponent={Zoom}
             placement='bottom'
             arrow
         >
             {children}
-        </StyledTooltip >
+        </DistinctCharacterTooltip >
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
 
@@ -106,6 +106,7 @@ const StyledTextField = styled(TextField)`
 const ImgInput = styled(StyledTextField)`
     position: absolute;
     left: 1.8rem;
+    background-color: ${props => props.theme.colors.surface};
     && > div {
         width: 100%;
         > div {
@@ -122,24 +123,43 @@ const ImgInput = styled(StyledTextField)`
         }
     }
 `
-const ImgSelect = ({ type, value, values, onChange, disabled }) => (
-    <ImgInput
-        id={`select-${type}`}
-        select
-        value={value}
-        onChange={onChange}
-        variant='outlined'
-        size='small'
-        inputProps={{ 'aria-label': type }}
-        disabled={disabled}
-    >
-        {values.map((v, idx) => (
-            <MenuItem key={idx} value={v}>
-                {v}
-            </MenuItem>
-        ))}
-    </ImgInput>
-)
+const ImgSelect = ({
+    type,
+    values, value,
+    onChange,
+    disabled
+}) => {
+    const { colors } = useTheme()
+
+    return (
+        <ImgInput
+            id={`select-${type}`}
+            select
+            value={value}
+            onChange={onChange}
+            variant='outlined'
+            size='small'
+            inputProps={{ 'aria-label': type }}
+            SelectProps={{
+                MenuProps: {
+                    MenuListProps: {
+                        style: {
+                            backgroundColor: colors.surface,
+                            color: colors.onSurface
+                        }
+                    }
+                }
+            }}
+            disabled={disabled}
+        >
+            {values.map((v, idx) => (
+                <MenuItem key={idx} value={v}>
+                    {v}
+                </MenuItem>
+            ))}
+        </ImgInput>
+    )
+}
 
 const EmptySlotContent = styled(Button)`
     position: absolute;
@@ -835,8 +855,6 @@ const TeamHeader = styled(MyHeader)`
         text-transform: none;
     }
 `
-const HeaderButton = styled(MyIconButton)`
-`
 const Header = ({ isExporting, handleExport }) => {
     const { pageString } = useLanguage()
 
@@ -869,12 +887,12 @@ const Header = ({ isExporting, handleExport }) => {
             }
             end={<>
                 <LocalizedLink to='/team/' >
-                    <HeaderButton
+                    <MyIconButton
                         tooltipText={pageString.team.build.backTooltip}
                         dataHtml2canvasIgnore
                     >
                         {BackIcon}
-                    </HeaderButton>
+                    </MyIconButton>
                 </LocalizedLink>
                 <ExportButton
                     onClick={handleExport}
