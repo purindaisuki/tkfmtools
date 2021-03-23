@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -33,18 +33,10 @@ const TeamDataProvider = ({ children }) => {
         })
     }
 
-    // currentIndex is the index of current team in localTeams, -1 means detached
-    const [state, setState] = useState({
-        localTeams: localTeams,
-        currentTeam: (localTeams && localTeams[lastIndex]) ? localTeams[lastIndex] : initTeam(),
-        currentIndex: lastIndex ? lastIndex : -1,
-        importLineupData: importLineupData
-    })
-
     const pushTeam = (team) => {
         let newTeams
-        if (state.localTeams) {
-            newTeams = Array.from(state.localTeams)
+        if (localTeams) {
+            newTeams = Array.from(localTeams)
             newTeams.push(team)
         } else {
             newTeams = [team]
@@ -54,61 +46,44 @@ const TeamDataProvider = ({ children }) => {
             return 0
         }
 
-        setState(state => ({
-            ...state,
-            localTeams: newTeams
-        }))
-
         return newTeams.length
     }
 
     const getTeam = (index) => {
-        if (!state.localTeams || !state.localTeams[index]) {
+        if (!localTeams || !localTeams[index]) {
             return
         }
 
-        return state.localTeams[index]
+        return localTeams[index]
     }
 
     const deleteTeam = (index) => {
-        if (!state.localTeams || !state.localTeams[index]) {
+        if (!localTeams || !localTeams[index]) {
             return 0
         }
 
-        const newTeams = Array.from(state.localTeams)
+        const newTeams = Array.from(localTeams)
         newTeams.splice(index, 1)
 
         if (!setLocalTeams(newTeams) || !setLastIndex(-1)) {
             return 0
         }
 
-        setState(state => ({
-            ...state,
-            localTeams: newTeams,
-            currentIndex: -1
-        }))
-
         return 1
     }
 
     const setCurrentTeam = (team) => {
         let newTeams
-        if (!state.localTeams || state.currentIndex < 0) {
+        if (!localTeams || lastIndex === undefined || lastIndex < 0) {
             newTeams = [team]
         } else {
-            newTeams = Array.from(state.localTeams)
-            newTeams.splice(state.currentIndex, 1, team)
+            newTeams = Array.from(localTeams)
+            newTeams.splice(lastIndex, 1, team)
         }
 
         if (!setLocalTeams(newTeams)) {
             return 0
         }
-
-        setState(state => ({
-            ...state,
-            localTeams: newTeams,
-            currentTeam: team,
-        }))
 
         return 1
     }
@@ -123,12 +98,6 @@ const TeamDataProvider = ({ children }) => {
         if (!setLastIndex(index)) {
             return 0
         }
-
-        setState(state => ({
-            ...state,
-            currentTeam: team,
-            currentIndex: index
-        }))
     }
 
     const newTeam = () => {
@@ -138,36 +107,25 @@ const TeamDataProvider = ({ children }) => {
             return 0
         }
 
-        setState(state => ({
-            ...state,
-            currentTeam: newTeam,
-            currentIndex: newIndex
-        }))
-
         return pushTeam(newTeam)
     }
 
     const toggleImportLineupData = () => {
-        if (!state.importLineupData && (!localLineups || localLineups.length === 0)) {
+        if (!importLineupData && (!localLineups || localLineups.length === 0)) {
             return 0
         }
 
-        if (!setImportLineupData(!state.importLineupData)) {
+        if (!setImportLineupData(!importLineupData)) {
             return 0
         }
-
-        setState(state => ({
-            ...state,
-            importLineupData: !state.importLineupData,
-        }))
 
         return 1
     }
 
     const provider = {
-        localTeams: state.localTeams,
-        currentTeam: state.currentTeam,
-        importLineupData: state.importLineupData,
+        localTeams: localTeams,
+        currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
+        importLineupData: importLineupData ? importLineupData : false,
         actions: {
             newTeam: newTeam,
             getTeam: getTeam,

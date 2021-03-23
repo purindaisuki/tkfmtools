@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -47,12 +47,15 @@ export const useLineupData = () => useContext(LineupsContext)
 
 const LineupDataProvider = ({ children }) => {
     const [localLineups, setLocalLineups] = useLocalStorage('analysis-data')
+    const [tempLineup, setTempLineup] = useLocalStorage('temp-analysis-data')
+    const [importLineupData, setImportLineupData] = useLocalStorage('import-line-up-data')
 
-    const [state, setState] = useState({
-        localLineups: localLineups,
-        currentLineup: (localLineups && localLineups.slice(-1)[0])
-            ? hydrate(localLineups.slice(-1)[0].data) : initLineup
-    })
+    // if no local lineup data, cancel export to team data provider
+    useEffect(() => setImportLineupData(
+        (importLineupData ? importLineupData : false) &&
+        (localLineups ? localLineups : false) &&
+        localLineups.length !== 0
+    ), [localLineups])
 
     const pushLineup = (lineup, setting) => {
         let newLineups
@@ -60,8 +63,8 @@ const LineupDataProvider = ({ children }) => {
         const localDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
         const dehydratedLineup = dehydrate(lineup)
 
-        if (state.localLineups) {
-            newLineups = Array.from(state.localLineups)
+        if (localLineups) {
+            newLineups = Array.from(localLineups)
             newLineups.push({ date: localDate, data: dehydratedLineup })
         } else {
             newLineups = [{ date: localDate, data: dehydratedLineup }]
@@ -71,15 +74,10 @@ const LineupDataProvider = ({ children }) => {
             return 0
         }
 
-        setState(state => ({
-            ...state,
-            localLineups: newLineups
-        }))
-
         // send data to GTM
         if (setting?.gtag && typeof window !== 'undefined' && window.gtag) {
             // minimize data 
-            const minLineup = dehydratedLineup.reduce((newLineup, c) => {
+            const minLineup = JSON.parse(JSON.stringify(dehydratedLineup)).reduce((newLineup, c) => {
                 c[3] = ('00' + c[3]).slice(-2)
                 c[4] = ('00' + c[4]).slice(-2)
                 c[10] = c[10] ? 1 : 0
@@ -100,11 +98,11 @@ const LineupDataProvider = ({ children }) => {
     }
 
     const getLineup = (index) => {
-        if (!state.localLineups || !state.localLineups[index]) {
+        if (!localLineups || !localLineups[index]) {
             return
         }
 
-        const hydratedLineup = hydrate(state.localLineups[index].data)
+        const hydratedLineup = hydrate(JSON.parse(JSON.stringify(localLineups[index].data)))
         // deal with legacy data
         hydratedLineup.forEach(c => {
             if (c.level === 0) {
@@ -117,37 +115,29 @@ const LineupDataProvider = ({ children }) => {
     }
 
     const getLatestLineup = () => (
-        state.localLineups ? getLineup(state.localLineups.length - 1) : undefined
+        localLineups ? getLineup(localLineups.length - 1) : undefined
     )
 
     const deleteLineup = (index) => {
-        if (!state.localLineups || !state.localLineups[index]) {
+        if (!localLineups || !localLineups[index]) {
             return 0
         }
 
-        const newLineups = Array.from(state.localLineups)
+        const newLineups = Array.from(localLineups)
         newLineups.splice(index, 1)
 
         if (!setLocalLineups(newLineups)) {
             return 0
         }
 
-        setState(state => ({
-            ...state,
-            localLineups: newLineups
-        }))
-
         return 1
     }
 
-    const setCurrentLineup = (lineup) => setState(state => ({
-        ...state,
-        currentLineup: lineup
-    }))
+    const setCurrentLineup = (lineup) => setTempLineup(lineup)
 
     const provider = {
-        localLineups: state.localLineups,
-        currentLineup: state.currentLineup,
+        localLineups: localLineups,
+        currentLineup: tempLineup ? tempLineup : initLineup,
         actions: {
             pushLineup: pushLineup,
             getLineup: getLineup,

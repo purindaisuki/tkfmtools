@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Tooltip, Zoom } from '@material-ui/core';
 import { Badge, Form } from 'react-bootstrap';
 
-import useLayoutSwitch from 'hooks/useLayoutSwitch';
+import useSwitch from 'hooks/useSwitch';
 
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
@@ -433,13 +433,13 @@ const Filter = () => {
 
     const btnsSettingLabels = pageString.enlist.filter.settingModal.labels
 
-    const { layout, setLayout } = useLayoutSwitch(
+    const { layout, setLayout } = useSwitch(
         'group-btns-by-class',
         btnsSettingLabels,
-        (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
+        (typeof window === 'undefined' || window.innerWidth <= 1000) ? 1 : 0
     )
 
-    const groupBtnByClass = layout === btnsSettingLabels[1]
+    const groupBtnByClass = layout === btnsSettingLabels[0]
 
     const sortFunc = (sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {

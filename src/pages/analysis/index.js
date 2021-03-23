@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';
@@ -272,7 +272,6 @@ const Index = () => {
                 if (loadedData) {
                     setState(state => ({
                         ...state,
-                        lineup: loadedData,
                         isSuccessSnackbarOpen: true,
                         isDataModalOpen: false
                     }))

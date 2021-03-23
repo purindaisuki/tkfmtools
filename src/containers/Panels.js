@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useLayoutConfig } from 'containers/Layout';
+import { useLanguage } from 'containers/LanguageProvider';
 
 const Container = styled.div`
     display: table;
@@ -36,7 +37,14 @@ const OutlinedPanel = styled.div`
     box-shadow: 0 0 .15em ${props => props.theme.colors.shadow};
 `
 const HorizontalPanels = ({ children, maxWidth, panelsWidth, horizontal }) => {
-    const { isLandscape } = useLayoutConfig()
+    const { layout } = useLayoutConfig()
+    const { pageString } = useLanguage()
+
+    const [isLandscape, setOrentation] = useState(false)
+
+    useEffect(() => {
+        setOrentation(layout === pageString.index.setting.labels[1])
+    }, [layout])
 
     return (
         <Container

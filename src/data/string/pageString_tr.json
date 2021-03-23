@@ -93,6 +93,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.4",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "頁面未正常顯示",
+                            "description": "修正部分頁面重新載入後未正常顯示或維持原來狀態。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.3",
                     "content": [
                         {
@@ -585,8 +595,8 @@
                 "title": "顯示設定",
                 "groupLabel": "按鈕依類別分組",
                 "labels": [
-                    "否",
-                    "是"
+                    "是",
+                    "否"
                 ]
             },
             "snackbarMsg": "最多 5 個標籤"

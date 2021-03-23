@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useLayoutSwitch from 'hooks/useLayoutSwitch';
+import useSwitch from 'hooks/useSwitch';
 
 export default function Switchable({
     layoutSwitcher,
@@ -9,7 +9,7 @@ export default function Switchable({
     initLayoutIndex,
     unmountOnLeave
 }) {
-    const { layout, canRender, setLayout } = useLayoutSwitch(
+    const { layout, canRender, setLayout } = useSwitch(
         localStorageKey,
         items.map(i => i.layout),
         initLayoutIndex,

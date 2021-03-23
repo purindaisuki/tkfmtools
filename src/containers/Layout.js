@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import useLayoutSwitch from 'hooks/useLayoutSwitch';
+import useSwitch from 'hooks/useSwitch';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -42,7 +42,7 @@ export default function Layout({ children }) {
   const { userLanguage, isDefault, pageString } = useLanguage()
   const layouts = pageString.index.setting.labels
 
-  const layoutConfig = useLayoutSwitch(
+  const { layout, setLayout } = useSwitch(
     'global-layout-' + userLanguage,
     layouts,
     (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
@@ -173,8 +173,8 @@ export default function Layout({ children }) {
         toggleSidebar={toggleSidebar}
       />
       <LayoutContext.Provider value={{
-        ...layoutConfig,
-        isLandscape: layoutConfig.layout === pageString.index.setting.labels[1]
+        layout: layout,
+        setLayout: setLayout
       }}>
         <Main>
           {children}

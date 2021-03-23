@@ -85,6 +85,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.4",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Page states can't preserve",
+                            "description": "Fix some page states can't preserve after refreshing."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.3",
                     "content": [
                         {
@@ -574,8 +584,8 @@
                 "title": "Display setting",
                 "groupLabel": "Group tags by class",
                 "labels": [
-                    "No",
-                    "Yes"
+                    "Yes",
+                    "No"
                 ]
             },
             "snackbarMsg": "At most 5 tags"
