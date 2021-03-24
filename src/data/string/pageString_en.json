@@ -85,6 +85,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/24 game update",
+                            "description": "Add item drops of chapter 13."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Page flash on dark mode.",
+                            "description": "Fix page flash on dark mode."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.4",
                     "content": [
                         {

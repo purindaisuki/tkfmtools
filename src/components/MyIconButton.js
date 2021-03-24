@@ -10,7 +10,7 @@ const TextWrapper = styled.span`
     font-size: small;
 `
 const StyledIconButton = styled(IconButton)`
-    padding: .75rem .5rem;
+    padding: .5rem .5rem;
     svg {
         width: 1.6rem;
         height: 1.6rem;

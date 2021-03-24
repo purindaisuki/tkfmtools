@@ -1,72 +1,72 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import useSwitch from 'hooks/useSwitch';
 
+import WithTabs from 'containers/withTabs';
+import { panelsStyle } from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
-import { lightTheme, darkTheme, fontFamily } from 'components/theme';
+import { lightTheme, darkTheme } from 'components/theme';
 import { MainNavbar, Sidebar } from 'components/Navbars';
 import ToTopBtn from 'components/ToTopBtn';
 
 import langConfig from 'languangeConfig.json';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'components/global.css';
+
+const transformTheme = (theme) => {
+  const newTheme = {}
+  Object.keys(theme).forEach((key) => {
+    const value = theme[key]
+    if (typeof value === 'object' && !!value) {
+      newTheme[key] = transformTheme(value)
+    } else {
+      newTheme[key] = `var(--${key})`
+    }
+  })
+
+  return newTheme
+}
 
 const LayoutContext = createContext()
 
 export const useLayoutConfig = () => useContext(LayoutContext)
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    height: 100%;
-    min-height: 100vh;
-    margin: 0;
-    transition: background-color 0.3s ease;
-    background-color: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.onSurface};
-    font-family:${props => props.fontFamily};
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  @media screen and (max-width: 490px) {
-    html {
-        font-size: .9em;
-    }
-  }
-`
 const Main = styled.main`
   padding: 1rem;
+  height: 100%;
+  min-height: 100vh;
+  background-color: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.onSurface};
 `
-export default function Layout({ children }) {
+export default function Layout({ children, withTabs, pagePath }) {
   const { userLanguage, isDefault, pageString } = useLanguage()
-  const layouts = pageString.index.setting.labels
 
-  const { layout, setLayout } = useSwitch(
-    'global-layout-' + userLanguage,
-    layouts,
-    (typeof window === 'undefined' || window.innerWidth <= 1000) ? 0 : 1
-  )
+  const { layout, setLayout } = useSwitch('global-layout', [0, 1])
 
   const [state, setState] = useState({
-    theme: 'light',
+    isDark: false,
+    layoutIndex: 1,
+    didLoad: false,
     isSidebarOpen: false,
   })
 
   // get user theme
   useEffect(() => {
-    const localSetting = localStorage.getItem('color-theme')
-    if (localSetting) {
-      setState(state => ({
-        ...state,
-        theme: localSetting
-      }))
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setState(state => ({
-        ...state,
-        theme: 'dark'
-      }))
-    }
+    const root = window.document.documentElement
+    const initialTheme = root.style.getPropertyValue('--initial-color-mode')
+    const initLayout = root.style.getPropertyValue('--initial-layout')
+
+    root.removeAttribute('style')
+
+    setState(state => ({
+      ...state,
+      isDark: initialTheme === 'dark',
+      layoutIndex: parseInt(initLayout),
+      didLoad: true
+    }))
   }, [])
 
   const toggleTheme = (event) => {
@@ -75,13 +75,12 @@ export default function Layout({ children }) {
       return
     }
 
-    const toTheme = state.theme === 'light' ? 'dark' : 'light'
     setState(state => ({
       ...state,
-      theme: toTheme
+      isDark: !state.isDark
     }))
 
-    localStorage.setItem('color-theme', toTheme)
+    localStorage.setItem('color-theme', !state.isDark ? 'dark' : 'light')
   }
 
   const toggleSidebar = (boolean) => (event) => {
@@ -97,11 +96,15 @@ export default function Layout({ children }) {
     }))
   }
 
+  const currentTheme = state.isDark ? darkTheme : lightTheme
+  const theme = state.didLoad ? currentTheme : transformTheme(currentTheme)
+
+  const panelLayout = !state.didLoad ? transformTheme(panelsStyle[state.layoutIndex])
+    : panelsStyle[layout !== undefined ? layout : 0]
+
   return (
     <ThemeProvider
-      theme={state.theme === 'light'
-        ? { ...lightTheme, toggleTheme: toggleTheme }
-        : { ...darkTheme, toggleTheme: toggleTheme }}
+      theme={{ ...theme, toggleTheme: toggleTheme, isDark: state.isDark, panelLayout: panelLayout }}
     >
       <Helmet
         htmlAttributes={{
@@ -164,7 +167,6 @@ export default function Layout({ children }) {
         <link rel="icon" type="image/png" href="/tkfmtools/favicon-128.png" sizes="128x128" />
         <link rel="manifest" href="/tkfmtools/manifest.json" />
       </Helmet>
-      <GlobalStyle fontFamily={fontFamily} />
       <MainNavbar
         toggleSidebar={toggleSidebar}
       />
@@ -177,7 +179,9 @@ export default function Layout({ children }) {
         setLayout: setLayout
       }}>
         <Main>
-          {children}
+          {withTabs
+            ? <WithTabs pagePath={pagePath} >{children}</WithTabs>
+            : children}
         </Main>
       </LayoutContext.Provider>
       <ToTopBtn />

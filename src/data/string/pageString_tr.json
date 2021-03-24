@@ -93,6 +93,21 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/24 遊戲更新",
+                            "description": "新增 13 章掉落。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "深色模式下載入頁面時閃爍",
+                            "description": "修正深色模式下載入頁面時閃爍問題。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.4",
                     "content": [
                         {

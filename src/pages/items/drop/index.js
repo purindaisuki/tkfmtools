@@ -164,7 +164,9 @@ const StyledHeader = styled(MyHeader)`
     margin-top: 1rem;
 `
 const StyledToggleButton = styled(MyToggleButton)`
-    &&&& {padding: .25rem .15rem;}
+    &&&& {
+        padding: .25rem .15rem;
+    }
 `
 const ButtonGroupContainer = ({
     filterBtnValue,

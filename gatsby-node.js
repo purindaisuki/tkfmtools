@@ -21,12 +21,9 @@ exports.onCreatePage = ({ page, actions }) => {
             ? page.path
             : `${entry[1].path}${page.path}`
 
-        const tabsPage = localizedPath.includes('enlist')
-            ? 'enlist'
-            : localizedPath.includes('drop')
-                ? 'drop'
-                : localizedPath.includes('analysis/')
-                    ? 'analysis' : undefined
+        const withTabs = localizedPath.includes('enlist/') ||
+            localizedPath.includes('drop/') ||
+            localizedPath.includes('analysis/')
 
 
         const withLineupData = localizedPath.includes('analysis/') || localizedPath.includes('team/')
@@ -53,7 +50,7 @@ exports.onCreatePage = ({ page, actions }) => {
             context: {
                 ...page.context,
                 lang: entry[0],
-                withTabLayout: tabsPage !== undefined,
+                withTabs: withTabs,
                 withLineupData: withLineupData,
                 withTeamData: withTeamData,
                 pagePath: page.path,

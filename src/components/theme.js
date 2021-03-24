@@ -25,10 +25,6 @@ export const lightTheme = {
         dropdownHover: '#bdbdbd',
         rank: { high: '#1976d2', low: '#d32f2f' },
     },
-    switcher: {
-        iconOffest: '1.8rem',
-        checked: false
-    },
     chart: {
         textColor: '#333',
         tooltip: {
@@ -79,10 +75,6 @@ export const darkTheme = {
         linkHover: '#e1f5fe',
         dropdownHover: '#757575',
         rank: { high: '#90caf9', low: '#ef9a9a' },
-    },
-    switcher: {
-        iconOffest: '6px',
-        checked: true
     },
     chart: {
         textColor: '#ffffff',

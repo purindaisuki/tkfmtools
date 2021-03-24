@@ -330,7 +330,7 @@ const CharStatsSelect = styled.div`
     flex-wrap: wrap;
     top: .6rem;
     left: calc(14rem + 5%);
-    width: calc(95% - 16.6rem);
+    width: calc(95% - 16rem);
     > div {
         display: flex;
         margin-right: calc(2% - .2rem);
@@ -339,6 +339,9 @@ const CharStatsSelect = styled.div`
         left: calc(7rem + 5%);
         width: calc(95% - 7rem);
     }
+`
+const StyledLabel = styled.label`
+    margin-top: .05rem;
 `
 const LevelInput = styled(StyledTextField)`
     width: 100%;
@@ -361,11 +364,21 @@ const UiImg = styled(ImageSupplier)`
     background-position: 0 0;
 `
 const PotentialInput = styled.div`
+    position: relative;
+    && {
+        margin-right: 0;
+    }
+    > span {
+        margin-left: .3rem;
+        margin-right: .1rem;
+    }
     > div:first-child .MuiSelect-root {
         padding-right: 1.2rem;
     }
     > div:last-child {
-        left: 0;
+        position: relative;
+        left: auto;
+        height: 1.6rem
     }
 `
 const CharStats = styled.div`
@@ -523,7 +536,7 @@ const CharSlotContent = ({
         <CharPositionText>{charString.tags[charMap[char.id].tags.position]}</CharPositionText>
         <CharStatsSelect>
             <div>
-                <label htmlFor={`level-input-${index}`}>Lv</label>
+                <StyledLabel htmlFor={`level-input-${index}`}>Lv</StyledLabel>
                 <LevelInput
                     id={`level-input-${index}`}
                     value={char.level}
@@ -854,6 +867,9 @@ const TeamHeader = styled(MyHeader)`
         font-size: large;
         text-transform: none;
     }
+    > div {
+        margin-right: 1rem;
+    }
 `
 const Header = ({ isExporting, handleExport }) => {
     const { pageString } = useLanguage()
@@ -904,7 +920,8 @@ const Header = ({ isExporting, handleExport }) => {
 }
 
 const ExportWrapper = styled.div`
-    max-width: 1000px;
+    max-width: calc(1000px + 2rem);
+    width: calc(100% + 2rem);
     margin: -1.5rem auto;
     padding: 1rem;
     padding-top: 1.5rem;

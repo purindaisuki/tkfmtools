@@ -150,6 +150,7 @@ export const SiteSetting = () => {
     const { layout, setLayout } = useLayoutConfig()
 
     const { pageString } = useLanguage()
+    const layouts = pageString.index.setting.labels
 
     const [isModalOpen, setModal] = useState(false)
 
@@ -165,8 +166,8 @@ export const SiteSetting = () => {
         <BodyContainer>
             <MyRadioGroup
                 label={pageString.index.setting.groupLabel}
-                value={layout}
-                handleChange={(event) => setLayout(event.target.value)}
+                value={layouts[layout]}
+                handleChange={(event) => setLayout(layouts.indexOf(event.target.value))}
             >
                 {pageString.index.setting.labels.map(label => (
                     <MyRadio label={label} value={label} key={label} />

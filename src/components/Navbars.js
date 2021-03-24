@@ -127,7 +127,7 @@ const Slider = styled.div`
     cursor: pointer;
     top: 0; bottom: 0; left: 0; right: 0;
     background-color: ${props => props.theme.colors.slider};
-    background-position: ${props => props.theme.switcher.iconOffest};
+    background-position: ${props => props.$offset};
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
     -webkit-transition: .4s;
@@ -160,18 +160,19 @@ const ThemeSwitcherInput = styled.input`
     }
 `
 const ThemeSwitcher = () => {
-    const { switcher, toggleTheme } = useTheme()
+    const { isDark, toggleTheme } = useTheme()
 
     return (
         <ThemeSwitcherLabel>
             <ThemeSwitcherInput
                 type='checkbox'
-                checked={switcher.checked}
+                checked={isDark}
                 onChange={toggleTheme}
                 onKeyDown={toggleTheme}
             />
             <Slider
-                $icon={switcher.checked ? MoonIcon : SunIcon}
+                $icon={isDark ? MoonIcon : SunIcon}
+                $offset={isDark ? '.4rem' : '1.8rem'}
             />
         </ThemeSwitcherLabel>
     )

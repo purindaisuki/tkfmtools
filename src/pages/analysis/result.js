@@ -241,7 +241,7 @@ const RankContainer = ({ rank, chars }) => {
 const StyledExportButton = styled(ExportButton)`
     &&{
         position: absolute;
-        top: -4.4rem;
+        top: -4rem;
         right: 0;
     }
 `

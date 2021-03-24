@@ -2,15 +2,46 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useLayoutConfig } from 'containers/Layout';
-import { useLanguage } from 'containers/LanguageProvider';
+
+export const panelsStyle = [
+    {
+        display: "block",
+        width: "100%",
+        maxWidth: "1000px",
+        margin: "auto",
+        divDisplay: "block",
+        divWidth: "100%",
+        divMargin: "1rem 0",
+        divDivHeight: "100%"
+    },
+    {
+        display: "table",
+        width: "calc(100% + 2rem)",
+        maxWidth: "none",
+        margin: "-1rem",
+        divDisplay: "table-cell",
+        divWidth: "60%",
+        divMargin: "auto",
+        divDivHeight: "auto",
+        marginBottom: "0",
+        borderSpacing: "1rem",
+    }
+]
 
 const Container = styled.div`
-    display: table;
-    width: calc(100% + 2rem);
-    max-width: ${props => props.$maxWidth};
-    margin: -1rem;
-    margin-bottom: 0;
-    border-spacing: 1rem;
+    display: ${props => props.theme.panelLayout.display};
+    width: ${props => props.theme.panelLayout.width};
+    max-width: ${props => props.theme.panelLayout.maxWidth};
+    margin: ${props => props.theme.panelLayout.margin};
+    margin-bottom: ${props => props.theme.panelLayout.marginBottom};
+    border-spacing: ${props => props.theme.panelLayout.borderSpacing};
+    > div {
+        display: ${props => props.theme.panelLayout.divDisplay};
+        margin: ${props => props.theme.panelLayout.divMargin};
+        > div {
+            height: ${props => props.theme.panelLayout.divDivHeight};
+        }
+    }
     @media screen and (max-width: 1000px)
         ${props => props.$horizontal ? '' : ',(min-width: 0px)'} {
         display: block;
@@ -29,26 +60,25 @@ const Container = styled.div`
 `
 const OutlinedPanel = styled.div`
     display: table-cell;
-    width: ${props => props.$width};
+    width: ${props => props.theme.panelLayout.divWidth === 'var(--divWidth)'
+        ? props.theme.panelLayout.divWidth : props.$width};
     padding: 1rem;
     border-radius: .25rem;
     border: 1px solid ${props => props.theme.colors.border};
     background-color: ${props => props.theme.colors.surface};
     box-shadow: 0 0 .15em ${props => props.theme.colors.shadow};
 `
-const HorizontalPanels = ({ children, maxWidth, panelsWidth, horizontal }) => {
+const HorizontalPanels = ({ children, panelsWidth, horizontal }) => {
     const { layout } = useLayoutConfig()
-    const { pageString } = useLanguage()
 
-    const [isLandscape, setOrentation] = useState(false)
+    const [isLandscape, setLandscape] = useState(true)
 
     useEffect(() => {
-        setOrentation(layout === pageString.index.setting.labels[1])
+        setLandscape(layout === 1)
     }, [layout])
 
     return (
         <Container
-            $maxWidth={maxWidth}
             $horizontal={horizontal || isLandscape}
         >
             {children.map((child, i) => (

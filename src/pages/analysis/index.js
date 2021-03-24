@@ -27,7 +27,9 @@ const StyledCharContainer = styled.div`
 `
 const CharImgWrapper = styled(Button)`
     ${props => props.$owned ? null : 'filter: grayscale(100%);'}
-    && {transition: filter 0.1s ease;}
+    && {
+        transition: filter 0.1s ease;
+    }
 `
 const CharImg = styled(ImageSupplier)`
     width: 7rem;
@@ -192,7 +194,7 @@ const DataModal = ({ handleData }) => {
 
 const CharGroupsContainer = styled.div`
     width: 100%;
-    > div:nth-child(even) > div span {
+    > div:nth-child(even) > div > span {
         display: flex;
         align-items: center;
         margin-bottom: .4rem;

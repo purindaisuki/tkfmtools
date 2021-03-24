@@ -120,6 +120,9 @@ const TeamHeader = styled(MyHeader)`
         margin-right: .6rem;
         font-size: large;
     }
+    > div {
+        margin-right: 1rem;
+    }
 `
 const StyledButton = styled(Button)`
     && {
