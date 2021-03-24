@@ -6,7 +6,13 @@
 
 The goal of this project is to collect, organize and present the data in Tenkafu MA!.
 
-This website currently includes recruitment filter, item drops filter and character potential material calculator.
+# Feature
+* Recruitment filter for finding promising tags combinations
+* Item drops filter for screening out stages by target items
+* Calculator for computing potential materials requirement for characters
+* Line up analysis for checking soundness of one's line up by visualizing data
+* Team compositions recorder for managing teams for passing stages
+* Overview of character recruitment tags and items drops
 
 ## Feedback
 * Suggestion and thoughts are welcome. Please check [here](https://peing.net/ja/b5295760aebf4c).
