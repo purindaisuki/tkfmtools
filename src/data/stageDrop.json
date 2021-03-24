@@ -4181,5 +4181,463 @@
                 ]
             }
         ]
+    },
+    {
+        "chapter": "12",
+        "stages": [
+            {
+                "stage": "2",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "101",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "702",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "3",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "102",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "704",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "4",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "103",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "703",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "5",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "104",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "701",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "6",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "105",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "705",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "7",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "201",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "601",
+                        "rarity": 2
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "7 free",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "401",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "201",
+                        "rarity": 1
+                    },
+                    {
+                        "id": "103",
+                        "rarity": 3
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": []
+            },
+            {
+                "stage": "8",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "202",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "605",
+                        "rarity": 2
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "9",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "203",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "603",
+                        "rarity": 2
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "10",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "204",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "604",
+                        "rarity": 2
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "11",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "205",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "602",
+                        "rarity": 2
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "12",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "101",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "702",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "13",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "102",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "704",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "13 free",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "402",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "202",
+                        "rarity": 1
+                    },
+                    {
+                        "id": "104",
+                        "rarity": 3
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": []
+            },
+            {
+                "stage": "14",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "103",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "703",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "15",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "104",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "701",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "16",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "105",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [
+                    {
+                        "id": "705",
+                        "rarity": 1
+                    }
+                ],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "17",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "407",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "201",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "17 free",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "403",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "203",
+                        "rarity": 1
+                    },
+                    {
+                        "id": "102",
+                        "rarity": 3
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": []
+            },
+            {
+                "stage": "18",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "409",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "202",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            },
+            {
+                "stage": "19",
+                "energy": 20,
+                "materials": [
+                    {
+                        "id": "410",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "203",
+                        "rarity": 1
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": [
+                    {
+                        "id": "803",
+                        "rarity": 2
+                    }
+                ]
+            }
+        ]
     }
 ]
