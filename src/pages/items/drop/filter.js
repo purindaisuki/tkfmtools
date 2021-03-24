@@ -323,7 +323,7 @@ const Filter = () => {
                 sortFunc={sortFunc}
                 defaultSortKey={state.filterBtnValue[0]}
                 handleModalOpen={handelHelpModal(true)}
-                height='calc(100vh - 16rem)'
+                maxHeight='calc(100vh - 16rem)'
                 striped
             />
         </Panels>

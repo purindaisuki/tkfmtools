@@ -37,7 +37,7 @@ export const useLayoutConfig = () => useContext(LayoutContext)
 const Main = styled.main`
   padding: 1rem;
   height: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
   background-color: ${props => props.theme.colors.background};
   color: ${props => props.theme.colors.onSurface};
 `

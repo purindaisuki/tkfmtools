@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
+
+import useSortable from 'hooks/useSortable';
 
 import Scrollable from 'containers/Scrollable';
 import { useLanguage } from 'containers/LanguageProvider';
@@ -60,47 +62,8 @@ export const SortableTable = ({
     striped,
     border
 }) => {
-    const useSortableData = (
-        items, config = {
-            key: defaultSortKey,
-            direction: 'desc'
-        }
-    ) => {
-        const [sortConfig, setSortConfig] = useState(config)
-
-        const sortedItems = useMemo(() => {
-            let sortableItems = [...items]
-            if (sortConfig.key) {
-                sortFunc(sortableItems, sortConfig)
-            }
-
-            return sortableItems
-        }, [items, sortConfig])
-
-        const requestSort = (key) => {
-            let direction = (
-                sortConfig.key === key &&
-                sortConfig.direction === 'desc'
-            ) ? 'asc' : 'desc'
-            setSortConfig({ key, direction })
-        }
-
-        return { sortedResult: sortedItems, requestSort, sortConfig }
-    }
-
-    const { sortedResult, requestSort, sortConfig } = useSortableData(data)
-
-    // apply default key if value assigned after first render
-    useEffect(() => {
-        if (sortConfig.key !== defaultSortKey) {
-            requestSort(defaultSortKey)
-        }
-    }, [defaultSortKey])
-
-    const getSortDirection = (key) => (
-        !data || data.length === 0 || sortConfig.key !== key
-            ? undefined
-            : sortConfig.direction
+    const { sortedData, requestSort, getSortDirection } = useSortable(
+        data, sortFunc, { key: defaultSortKey, direction: 'desc' }
     )
 
     return (
@@ -113,19 +76,19 @@ export const SortableTable = ({
             size="sm"
         >
             {React.cloneElement(head, {
+                sortedResult: sortedData,
                 requestSort: requestSort,
                 getSortDirection: getSortDirection,
-                sortedResult: sortedResult,
             })}
             {React.cloneElement(body, {
-                sortedResult: sortedResult,
+                sortedResult: sortedData,
             })}
         </StyledTable>
     )
 }
 
 const TableWrapper = styled(Scrollable)`
-    height: ${props => props.$height};
+    max-height: ${props => props.$maxHeight};
     overflow-x: hidden;
     overflow-y: auto;
 `
@@ -144,7 +107,7 @@ export function ResultPanel({
     sortFunc,
     defaultSortKey,
     handleModalOpen,
-    height,
+    maxHeight,
     striped,
 }) {
     const { pageString } = useLanguage()
@@ -156,7 +119,7 @@ export function ResultPanel({
             onClickHelp={handleModalOpen}
             border
         />
-        <TableWrapper $height={height}>
+        <TableWrapper $maxHeight={maxHeight}>
             <StyledSortableTable
                 data={data}
                 head={head}

@@ -676,7 +676,7 @@ const Filter = () => {
                 sortFunc={sortFunc}
                 defaultSortKey={'rarity'}
                 handleModalOpen={handelHelpModal(true)}
-                height={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
+                maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
                 striped
             />
         </Panels>
