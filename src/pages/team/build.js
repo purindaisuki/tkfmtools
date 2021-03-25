@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
 
 import useExport from 'hooks/useExport';
@@ -8,6 +7,7 @@ import useExport from 'hooks/useExport';
 import { useLineupData } from 'containers/LineupDataProvider';
 import { useTeamData } from 'containers/TeamDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
+import Swappable from 'containers/Swappable';
 
 import Head from 'components/Head';
 import IconButton, { ExportButton } from 'components/IconButton';
@@ -712,14 +712,6 @@ const CharSlot = React.forwardRef(({
     )
 })
 
-const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result
-}
-
 const DraggableCharsList = () => {
     const { currentTeam, importLineupData, actions } = useTeamData()
     const { setCurrentTeam } = actions
@@ -738,26 +730,6 @@ const DraggableCharsList = () => {
             canRender: true,
         }))
     }, [])
-
-    const onDragEnd = (result) => {
-        const { destination, source } = result
-
-        if (!destination) {
-            return
-        }
-
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
-            return
-        }
-
-        setCurrentTeam({
-            ...currentTeam,
-            characters: reorder(currentTeam.characters, source.index, destination.index)
-        })
-    }
 
     const getCharInitState = (char) => {
         const lineup = getLatestLineup()
@@ -815,37 +787,25 @@ const DraggableCharsList = () => {
     }
 
     return (<>
-        {state.canRender && <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId='character-list'>
-                {(provided) => (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                    >
-                        {currentTeam.characters.map((c, index) => (
-                            <Draggable
-                                draggableId={c.key}
-                                index={index}
-                                key={c.key}
-                            >
-                                {(provided, snapshot) => (
-                                    <CharSlot
-                                        char={c}
-                                        index={index}
-                                        ref={provided.innerRef}
-                                        provided={provided}
-                                        isDragging={snapshot.isDragging}
-                                        handleSelectModal={handleSelectModal(index)}
-                                        handleCharDelete={handleCharSelect(undefined, index)}
-                                    />
-                                )}
-                            </Draggable>
-                        ))}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>}
+        {state.canRender && <Swappable
+            items={currentTeam.characters}
+            renderItem={(character, index, provided, isDragging) => (
+                <CharSlot
+                    char={character}
+                    index={index}
+                    provided={provided}
+                    isDragging={isDragging}
+                    ref={provided.innerRef}
+                    handleSelectModal={handleSelectModal(index)}
+                    handleCharDelete={handleCharSelect(undefined, index)}
+                />
+            )}
+            onUpdate={(newCharacters) => setCurrentTeam({
+                ...currentTeam,
+                characters: newCharacters
+            })}
+            droppableId='character-list'
+        />}
         <CharSelectModal
             open={state.isSelectModalOpen}
             onClose={handleSelectModalClose}
