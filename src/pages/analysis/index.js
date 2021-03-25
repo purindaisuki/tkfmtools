@@ -248,7 +248,7 @@ const Index = () => {
         const { stats } = charsData[idx]
         const { rarity, attribute, position, ATK, HP, owned, ...rest } = charState
 
-        const result = calcCharStats(...Object.values(rest), ...Object.values(stats))
+        const result = calcCharStats({ ...rest, ...stats })
 
         newLineup[idx] = { ...charState, ...result, owned: rest.level !== 0 }
         setCurrentLineup(newLineup)

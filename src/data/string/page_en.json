@@ -5,12 +5,11 @@
             "title": "TenkafuMA! toolbox",
             "description": "Collect data and provide useful tools for TenkafuMA! to pick up Caesar's slack."
         },
-        "noteButtonTooltip": "Update message",
+        "noteButtonTooltip": "Latest update message",
         "about": {
             "header": "About",
             "content": [
                 {
-                    "name": "introduction",
                     "header": "Introduction",
                     "content": [
                         "The goal of this website is to collect, organize and present the data in Tenkafu MA!.",
@@ -18,14 +17,12 @@
                     ]
                 },
                 {
-                    "name": "disclaimer",
                     "header": "Disclaimer",
                     "content": [
                         "All materials and information on this website are collected from players and may not reflect the actual situation. The actual gameplay shall prevail."
                     ]
                 },
                 {
-                    "name": "policy",
                     "header": "Privacy policy",
                     "content": [
                         "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
@@ -35,31 +32,32 @@
                     "link": "https://policies.google.com/technologies/partner-sites"
                 },
                 {
-                    "name": "feedback",
                     "header": "Feedback",
                     "content": [
                         "Suggestion and thoughts are welcome. Please check ",
                         "here",
                         "."
-                    ]
+                    ],
+                    "link": "https://peing.net/ja/b5295760aebf4c"
                 },
                 {
-                    "name": "reference",
                     "header": "Reference",
                     "content": [
                         {
                             "link": "https://reurl.cc/5o5A7z/",
-                            "title": "資料統整 - 凱薩沒在用的腦"
+                            "text": "資料統整 - 凱薩沒在用的腦"
                         },
                         {
                             "link": "https://reurl.cc/1gZ5nV/",
-                            "title": "潛力整理&猜測"
+                            "text": "潛力整理＆猜測"
                         },
                         {
                             "link": "https://reurl.cc/8ypXzM",
-                            "title": "Discord天下布魔場外群資料整理(舊)"
+                            "text": "Discord 天下布魔場外群資料整理（舊）"
                         },
-                        "And data provided from kind people."
+                        {
+                            "text": "And data provided from kind people."
+                        }
                     ]
                 }
             ]
@@ -497,7 +495,7 @@
                         ]
                     },
                     {
-                        "title": "How To",
+                        "title": "How-to",
                         "content": [
                             "Select character and current and target stages (both included) to calculate the material requirement.",
                             "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
@@ -563,7 +561,7 @@
                         ]
                     },
                     {
-                        "title": "How To",
+                        "title": "How-to",
                         "content": [
                             "Select tags to filter out characters.",
                             "Sort result by clicking the table header.",
@@ -688,7 +686,7 @@
                             ]
                         },
                         {
-                            "title": "How To",
+                            "title": "How-to",
                             "content": [
                                 "Select items to filter out stages.",
                                 "Sort result by clicking the table header."
@@ -737,7 +735,7 @@
                         ]
                     },
                     {
-                        "title": "How to",
+                        "title": "How-to",
                         "content": [
                             "Select the character states according to your line-up and toggle the character ownership by tapping the image of the character.",
                             "After you finish, the analysis will show at the 'result' page.",
@@ -753,6 +751,7 @@
                 "title": "TenkafuMA! toolbox — Line-up analysis",
                 "description": "Provide visual representations to help you understand your line-up."
             },
+            "exportButtonTooltip": "Export as an image",
             "chart": [
                 {
                     "title": "Character Collection"

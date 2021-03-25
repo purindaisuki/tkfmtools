@@ -56,12 +56,7 @@ export const HeaderIconButton = ({ children, className, tooltipText, onClick }) 
     </StyledHeaderIconButton>
 )
 
-const tooltipText = {
-    'zh-TW': "匯出成圖片",
-    "en": "Export as an image"
-}
-
-const StyledExportIcon = styled(IconButton)`
+const StyledExportButton = styled(IconButton)`
     &&& {
         ${props => props.$isLoading
         ? `background-color: ${props.theme.colors.dropdownHover};` : ''}
@@ -81,20 +76,20 @@ const StyledSpinner = styled(CircularProgress)`
     color: ${props => props.theme.colors.blue};  
 `
 export const ExportButton = ({ className, onClick, isLoading }) => {
-    const { userLanguage } = useLanguage()
+    const { pageString } = useLanguage()
 
     return (
-        <StyledExportIcon
+        <StyledExportButton
             className={className}
             onClick={onClick}
             disableFocusRipple
-            tooltipText={tooltipText[userLanguage]}
+            tooltipText={pageString.analysis.result.exportButtonTooltip}
             $isLoading={isLoading}
             dataHtml2canvasIgnore
         >
             {ExportIcon}
             {isLoading && <StyledSpinner size={24} thickness={6} />}
-        </StyledExportIcon>
+        </StyledExportButton>
     )
 }
 

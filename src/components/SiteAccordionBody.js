@@ -13,7 +13,7 @@ import { ChangeBadge, FixBadge, NewBadge } from 'components/Badge';
 import { DeleteIcon } from 'components/icon';
 
 const SiteDescription = ({ name, content, link }) => {
-    if (name === 'feedback' || name === 'policy') {
+    if (typeof link === 'string') {
         return (
             <p>
                 {content[0]}
@@ -29,24 +29,21 @@ const SiteDescription = ({ name, content, link }) => {
         )
     }
 
-    if (name === 'reference') {
+    if (typeof content[0].link === 'string') {
         return (
-            content.map((refItem, idx) => {
-                if (idx === 3) {
-                    return <p key={idx}>{refItem}</p>
-                }
-                return (
-                    <p key={idx}>
-                        <a
-                            href={refItem.link}
+            content.map((item, idx) => (
+                <p key={idx}>{
+                    item.link
+                        ? <a
+                            href={item.link}
                             target='_blank'
                             rel='noreferrer'
                         >
-                            {refItem.title}
+                            {item.text}
                         </a>
-                    </p>
-                )
-            })
+                        : item.text
+                }</p>
+            ))
         )
     }
 

@@ -10,7 +10,6 @@
             "header": "關於本站",
             "content": [
                 {
-                    "name": "introduction",
                     "header": "介紹",
                     "content": [
                         "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。",
@@ -18,31 +17,21 @@
                     ]
                 },
                 {
-                    "name": "notes",
-                    "header": "注意事項",
-                    "content": [
-                        "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主。"
-                    ]
-                },
-                {
-                    "name": "disclaimer",
                     "header": "免責聲明",
                     "content": [
-                        "本站工具結果僅供參考，所致利害一概不負責。"
+                        "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主，因本站資料所致利害一概不負責。"
                     ]
                 },
                 {
-                    "name": "policy",
                     "header": "隱私權聲明",
                     "content": [
                         "本站使用 Google Analytics 收集使用者數據，其使用 cookies 追蹤使用者行為，然收集之數據皆為匿名且非針對個人，只用於改進本站。關於 Google Analytics 如何收集數據請見 ",
                         "Google 隱私權與條款",
-                        " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單（本站目前也沒廣告）。"
+                        " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。"
                     ],
                     "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
                 },
                 {
-                    "name": "feedback",
                     "header": "意見回饋",
                     "content": [
                         "Bug、建議、使用心得等請至 ",
@@ -52,22 +41,23 @@
                     "link": "https://peing.net/ja/b5295760aebf4c"
                 },
                 {
-                    "name": "reference",
                     "header": "參考",
                     "content": [
                         {
                             "link": "https://reurl.cc/5o5A7z/",
-                            "title": "資料統整 - 凱薩沒在用的腦"
+                            "text": "資料統整 - 凱薩沒在用的腦"
                         },
                         {
                             "link": "https://reurl.cc/1gZ5nV/",
-                            "title": "潛力整理＆猜測"
+                            "text": "潛力整理＆猜測"
                         },
                         {
                             "link": "https://reurl.cc/8ypXzM",
-                            "title": "Discord 天下布魔場外群資料整理（舊）"
+                            "text": "Discord 天下布魔場外群資料整理（舊）"
                         },
-                        "其他 Discord 天下布魔場外討論群善心人士提供之資料"
+                        {
+                            "text": "其他 Discord 天下布魔場外討論群善心人士提供之資料"
+                        }
                     ]
                 }
             ]
@@ -347,8 +337,8 @@
                         },
                         {
                             "type": "New",
-                            "title": "第11章掉落道具",
-                            "description": "新增第11章掉落道具。"
+                            "title": "第 11 章掉落道具",
+                            "description": "新增第 11 章掉落道具。"
                         },
                         {
                             "type": "Change",
@@ -710,8 +700,7 @@
                             "title": "注意事項",
                             "content": [
                                 "只包含主線之掉落物。",
-                                "即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同。",
-                                "目前掉落率尚不明，願意的話可以點左邊資訊回報中 主線掉落數據回報，或許未來資料足夠可新增刷圖計算功能。"
+                                "即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同。"
                             ]
                         }
                     ]
@@ -766,6 +755,7 @@
                 "title": "天下布魔工具箱 — 隊伍分析",
                 "description": "提供圖表以分析、檢視隊伍狀態。"
             },
+            "exportButtonTooltip": "匯出成圖片",
             "chart": [
                 {
                     "title": "收集進度"
@@ -913,7 +903,7 @@
         }
     ],
     "404": {
-        "title": "Not found",
+        "title": "查無此頁",
         "h1": "查無此頁",
         "p": "很抱歉，艾可找不到您訪問的頁面。",
         "link": "回首頁"

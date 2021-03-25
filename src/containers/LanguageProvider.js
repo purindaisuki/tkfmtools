@@ -1,23 +1,23 @@
 import React, { createContext, useContext } from 'react';
 
-import pageString_tr from 'data/string/pageString_tr.json';
-import charString_tr from 'data/string/characterString_tr.json';
-import itemString_tr from 'data/string/itemString_tr.json';
-import pageString_en from 'data/string/pageString_en.json';
-import charString_en from 'data/string/characterString_en.json';
-import itemString_en from 'data/string/itemString_en.json';
+import page_tr from 'data/string/page_zh-TW.json';
+import char_tr from 'data/string/character_zh-TW.json';
+import item_tr from 'data/string/item_zh-TW.json';
+import page_en from 'data/string/page_en.json';
+import char_en from 'data/string/character_en.json';
+import item_en from 'data/string/item_en.json';
 import langConfig from 'languangeConfig.json';
 
 const stringData = {
     'zh-TW': {
-        pageString: pageString_tr,
-        charString: charString_tr,
-        itemString: itemString_tr,
+        pageString: page_tr,
+        charString: char_tr,
+        itemString: item_tr,
     }
     , 'en': {
-        pageString: pageString_en,
-        charString: charString_en,
-        itemString: itemString_en,
+        pageString: page_en,
+        charString: char_en,
+        itemString: item_en,
     }
 }
 
