@@ -104,11 +104,11 @@ const TableImg = styled(ImageSupplier)`
 const ItemTh = ({
     requestSort,
     getSortDirection,
-    sortedResult
+    data
 }) => {
     const { pageString, itemString } = useLanguage()
 
-    if (sortedResult.length === 0) {
+    if (data.length === 0) {
         return (
             <SortableTh>
                 {pageString.items.drop.filter.tableHead[1]}
@@ -117,7 +117,7 @@ const ItemTh = ({
     }
 
     return (
-        Object.entries(sortedResult[0]).map((entry, idx) => {
+        Object.entries(data[0]).map((entry, idx) => {
             if (entry[0] === 'stage' || entry[0] === 'energy') {
                 return
             }
@@ -141,7 +141,7 @@ const ItemTh = ({
 const TableHead = ({
     requestSort,
     getSortDirection,
-    sortedResult
+    sortedData
 }) => {
     const { pageString } = useLanguage()
 
@@ -157,7 +157,7 @@ const TableHead = ({
                 <ItemTh
                     requestSort={requestSort}
                     getSortDirection={getSortDirection}
-                    sortedResult={sortedResult}
+                    data={sortedData}
                 />
                 <ImgTh
                     onClick={() => requestSort('energy')}
@@ -173,12 +173,12 @@ const TableHead = ({
     )
 }
 
-const TableBody = ({ sortedResult }) => {
+const TableBody = ({ sortedData }) => {
     const { itemString } = useLanguage()
 
     return (
         <tbody>
-            {sortedResult.map((stage, idx) => {
+            {sortedData.map((stage, idx) => {
                 return (
                     <tr key={idx}>
                         <td>{stage.stage}</td>

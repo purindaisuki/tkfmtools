@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Table } from 'react-bootstrap';
 
@@ -62,9 +62,16 @@ export const SortableTable = ({
     striped,
     border
 }) => {
-    const { sortedData, requestSort, getSortDirection } = useSortable(
+    const { sortedData, sortConfig, requestSort, getSortDirection } = useSortable(
         data, sortFunc, { key: defaultSortKey, direction: 'desc' }
     )
+
+    // apply default key if value assigned after first render
+    useEffect(() => {
+        if (sortConfig.key !== defaultSortKey) {
+            requestSort(defaultSortKey)
+        }
+    }, [defaultSortKey])
 
     return (
         <StyledTable
@@ -76,12 +83,12 @@ export const SortableTable = ({
             size="sm"
         >
             {React.cloneElement(head, {
-                sortedResult: sortedData,
+                sortedData: sortedData,
                 requestSort: requestSort,
                 getSortDirection: getSortDirection,
             })}
             {React.cloneElement(body, {
-                sortedResult: sortedData,
+                sortedData: sortedData,
             })}
         </StyledTable>
     )

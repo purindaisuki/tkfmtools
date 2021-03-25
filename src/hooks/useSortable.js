@@ -30,6 +30,7 @@ const useSortable = (data, sortFunction, config) => {
 
     return {
         sortedData: sortedData,
+        sortConfig: sortConfig,
         requestSort: requestSort,
         getSortDirection: getSortDirection
     }
