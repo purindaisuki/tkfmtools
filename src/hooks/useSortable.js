@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react';
 
-const useSortable = (data, sortFunction, config) => {
+const useSortable = (data, sortData, config) => {
     const [sortConfig, setSortConfig] = useState(config)
 
     const sortedData = useMemo(() => {
         const sortableData = Array.from(data)
 
         if (sortConfig.key) {
-            sortFunction(sortableData, sortConfig)
+            sortData(sortableData, sortConfig)
         }
 
         return sortableData
