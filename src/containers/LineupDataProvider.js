@@ -48,14 +48,20 @@ export const useLineupData = () => useContext(LineupsContext)
 const LineupDataProvider = ({ children }) => {
     const [localLineups, setLocalLineups] = useLocalStorage('analysis-data')
     const [tempLineup, setTempLineup] = useLocalStorage('temp-analysis-data')
-    const [importLineupData, setImportLineupData] = useLocalStorage('import-line-up-data')
+    const [isImportingLineup, setIsImportingLineup] = useLocalStorage('import-line-up-data')
 
     // if no local lineup data, cancel export to team data provider
-    useEffect(() => setImportLineupData(
-        (importLineupData ? importLineupData : false) &&
-        (localLineups ? localLineups : false) &&
-        localLineups.length !== 0
-    ), [localLineups])
+    useEffect(() => {
+        if (isImportingLineup === undefined || localLineups === undefined) {
+            return
+        }
+
+        setIsImportingLineup(
+            (isImportingLineup || false) &&
+            (localLineups || false) &&
+            localLineups.length !== 0
+        )
+    }, [isImportingLineup, localLineups])
 
     const pushLineup = (lineup, setting) => {
         let newLineups

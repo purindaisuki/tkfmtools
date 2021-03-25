@@ -35,7 +35,7 @@ const StyledMenuItem = styled(MenuItem)`
 const SettingDropDown = () => {
     const { pageString } = useLanguage()
 
-    const { importLineupData, actions } = useTeamData()
+    const { isImportingLineup, actions } = useTeamData()
     const { toggleImportLineupData } = actions
     const [state, setState] = useState({
         anchorElement: false,
@@ -90,7 +90,7 @@ const SettingDropDown = () => {
             >
                 <Checkbox
                     edge='start'
-                    checked={importLineupData}
+                    checked={isImportingLineup}
                     disableRipple
                     inputProps={{ 'aria-labelledby': 'setting-description' }}
                 />

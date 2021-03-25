@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
 
+import useSlotsSelect from 'hooks/useSlotsSelect';
 import useExport from 'hooks/useExport';
 
 import { useLineupData } from 'containers/LineupDataProvider';
@@ -713,14 +714,14 @@ const CharSlot = React.forwardRef(({
 })
 
 const DraggableCharsList = () => {
-    const { currentTeam, importLineupData, actions } = useTeamData()
+    const { actions } = useTeamData()
     const { setCurrentTeam } = actions
 
-    const { getLatestLineup } = useLineupData().actions
+    const [currentTeam, setSlots] = useSlotsSelect()
 
     const [state, setState] = useState({
         isSelectModalOpen: false,
-        selectedIndex: undefined,
+        slotIndex: undefined,
         canRender: false
     })
 
@@ -731,58 +732,25 @@ const DraggableCharsList = () => {
         }))
     }, [])
 
-    const getCharInitState = (char) => {
-        const lineup = getLatestLineup()
-
-        if (importLineupData && lineup) {
-            const localChar = lineup.find(c => c.id === char)
-
-            if (localChar !== undefined && localChar.owned) {
-                const { attribute, position, ATK, HP, owned, ...rest } = localChar
-                return ({ ...rest, bond: 1 })
-            }
-        }
-
-        return ({
-            id: char,
-            level: '',
-            star: char === undefined ? '' : 4 - parseInt(char[0]),
-            bond: 1,
-            discipline: char === undefined ? '' : (char[0] === '4' ? '-' : 0),
-            potential: 1,
-            potentialSub: 0,
-        })
-    }
-
-    const handleSelectModal = (selectedIndex) => (boolean) => () => setState(state => ({
+    const handleSelectModal = (slotIndex) => (boolean) => () => setState(state => ({
         ...state,
         isSelectModalOpen: boolean,
-        selectedIndex: selectedIndex
+        slotIndex: slotIndex
     }))
 
     const handleSelectModalClose = () => setState(state => ({
         ...state,
         isSelectModalOpen: false,
-        selectedIndex: undefined
+        slotIndex: undefined
     }))
 
-    const handleCharSelect = (charId, selectedIndex) => () => {
-        const newCharacters = Array.from(currentTeam.characters)
-        const index = selectedIndex !== undefined ? selectedIndex : state.selectedIndex
-        newCharacters[index] = {
-            ...newCharacters[index],
-            ...getCharInitState(charId)
-        }
-
-        setCurrentTeam({
-            ...currentTeam,
-            characters: newCharacters
-        })
+    const handleCharSelect = (charId, index) => () => {
+        setSlots(charId, index === undefined ? state.slotIndex : index)
 
         setState(state => ({
             ...state,
             isSelectModalOpen: false,
-            selectedIndex: undefined
+            slotIndex: undefined
         }))
     }
 

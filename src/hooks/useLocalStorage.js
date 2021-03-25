@@ -6,9 +6,9 @@ const useLocalStorage = (key, initialValue) => {
     useEffect(() => {
         try {
             const item = localStorage.getItem(key)
-            
-            if (item === undefined || item === null) {
-                return
+
+            if (item === null) {
+                return item
             }
 
             try {

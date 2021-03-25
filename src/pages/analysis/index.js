@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { Col, Form } from 'react-bootstrap';

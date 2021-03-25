@@ -16,7 +16,7 @@ export const useTeamData = () => useContext(TeamsContext)
 const TeamDataProvider = ({ children }) => {
     const [localTeams, setLocalTeams] = useLocalStorage('team-data')
     const [lastIndex, setLastIndex] = useLocalStorage('last-team-index')
-    const [importLineupData, setImportLineupData] = useLocalStorage('import-line-up-data')
+    const [isImportingLineup, setIsImportingLineup] = useLocalStorage('import-line-up-data')
 
     const { localLineups } = useLineupData()
 
@@ -111,11 +111,11 @@ const TeamDataProvider = ({ children }) => {
     }
 
     const toggleImportLineupData = () => {
-        if (!importLineupData && (!localLineups || localLineups.length === 0)) {
+        if (!isImportingLineup && (!localLineups || localLineups.length === 0)) {
             return 0
         }
 
-        if (!setImportLineupData(!importLineupData)) {
+        if (!setIsImportingLineup(!isImportingLineup)) {
             return 0
         }
 
@@ -125,7 +125,7 @@ const TeamDataProvider = ({ children }) => {
     const provider = {
         localTeams: localTeams,
         currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
-        importLineupData: importLineupData ? importLineupData : false,
+        isImportingLineup: isImportingLineup || false,
         actions: {
             newTeam,
             getTeam,
