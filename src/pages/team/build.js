@@ -10,11 +10,11 @@ import { useTeamData } from 'containers/TeamDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import MyIconButton, { ExportButton } from 'components/MyIconButton';
+import IconButton, { ExportButton } from 'components/IconButton';
 import LocalizedLink from 'components/LocalizedLink';
-import MyHeader from 'components/MyHeader';
+import Header from 'components/Header';
 import ImageSupplier from 'components/ImageSupplier';
-import { ScrollableModal } from 'components/MyModal';
+import { ScrollableModal } from 'components/Modal';
 import CharCard from 'components/CharCard';
 import { HpIcon, AttackIcon, ChangeIcon, DeleteIcon, BackIcon } from 'components/icon';
 
@@ -22,7 +22,7 @@ import calcCharStats from 'utils/calcCharStats';
 import charMap from 'data/charMap';
 import charData from 'data/character.json';
 
-const StyledButton = styled(MyIconButton)`
+const StyledButton = styled(IconButton)`
     && {
         width: 1.2rem;
         height: 1.2rem;
@@ -216,7 +216,7 @@ const StyledModal = styled(ScrollableModal)`
         width: 90%;
     }
 `
-const RarityHeader = styled(MyHeader)`
+const RarityHeader = styled(Header)`
     margin-bottom: .4rem;
     span {
         display: flex;
@@ -854,7 +854,7 @@ const DraggableCharsList = () => {
     </>)
 }
 
-const TeamHeader = styled(MyHeader)`
+const StyledHeader = styled(Header)`
     position: relative;
     left: -1rem;
     width: calc(100% + 2rem);
@@ -871,7 +871,7 @@ const TeamHeader = styled(MyHeader)`
         margin-right: 1rem;
     }
 `
-const Header = ({ isExporting, handleExport }) => {
+const TeamHeader = ({ isExporting, handleExport }) => {
     const { pageString } = useLanguage()
 
     const { currentTeam, actions } = useTeamData()
@@ -884,7 +884,7 @@ const Header = ({ isExporting, handleExport }) => {
     }
 
     return (
-        <TeamHeader
+        <StyledHeader
             title={
                 <div>
                     <StyledTextField
@@ -903,12 +903,12 @@ const Header = ({ isExporting, handleExport }) => {
             }
             end={<>
                 <LocalizedLink to='/team/' >
-                    <MyIconButton
+                    <IconButton
                         tooltipText={pageString.team.build.backTooltip}
                         dataHtml2canvasIgnore
                     >
                         {BackIcon}
-                    </MyIconButton>
+                    </IconButton>
                 </LocalizedLink>
                 <ExportButton
                     onClick={handleExport}
@@ -953,7 +953,7 @@ const TeamBuild = () => {
             path='/team/build/'
         />
         <ExportWrapper ref={componentRef}>
-            <Header isExporting={isExporting} handleExport={handleExport} />
+            <TeamHeader isExporting={isExporting} handleExport={handleExport} />
             <StyledDivider />
             <DraggableCharsList />
         </ExportWrapper>

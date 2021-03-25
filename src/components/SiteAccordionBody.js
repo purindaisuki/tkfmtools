@@ -4,12 +4,13 @@ import { Button } from '@material-ui/core';
 import { useLayoutConfig } from 'containers/Layout';
 import { useLanguage } from 'containers/LanguageProvider';
 
-import MyAccordion from 'components/MyAccordion';
-import MyHeader from 'components/MyHeader';
-import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
-import MyIconButton from 'components/MyIconButton';
-import MyModal from 'components/MyModal';
-import { DeleteIcon, ChangeBadge, FixBadge, NewBadge } from 'components/icon';
+import Accordion from 'components/Accordion';
+import Header from 'components/Header';
+import RadioGroup, { Radio } from 'components/RadioGroup';
+import IconButton from 'components/IconButton';
+import Modal from 'components/Modal';
+import { ChangeBadge, FixBadge, NewBadge } from 'components/Badge';
+import { DeleteIcon } from 'components/icon';
 
 const SiteDescription = ({ name, content, link }) => {
     if (name === 'feedback' || name === 'policy') {
@@ -82,7 +83,7 @@ const DescriptionContainer = styled.li`
         margin-bottom : 0;
     }
 `
-const DescriptionHeader = styled(MyHeader)`
+const DescriptionHeader = styled(Header)`
     margin-bottom: .5rem;
 `
 const DescriptionBody = styled.div`
@@ -109,7 +110,7 @@ export const SiteDescriptions = () => {
     )
 }
 
-const StyledModal = styled(MyModal)`
+const StyledModal = styled(Modal)`
     > div:nth-child(3) {
         position: relative;
         top: 20%;
@@ -123,11 +124,11 @@ const StyledModal = styled(MyModal)`
         }
     }
 `
-const ClearHeader = styled(MyHeader)`
+const ClearHeader = styled(Header)`
     margin-bottom: 0;
     font-size: medium;
 `
-const StyledButton = styled(MyIconButton)`
+const StyledButton = styled(IconButton)`
     &&{
         padding: .5rem;
     }
@@ -164,15 +165,15 @@ export const SiteSetting = () => {
 
     return (
         <BodyContainer>
-            <MyRadioGroup
+            <RadioGroup
                 label={pageString.index.setting.groupLabel}
                 value={layouts[layout]}
                 handleChange={(event) => setLayout(layouts.indexOf(event.target.value))}
             >
                 {pageString.index.setting.labels.map(label => (
-                    <MyRadio label={label} value={label} key={label} />
+                    <Radio label={label} value={label} key={label} />
                 ))}
-            </MyRadioGroup>
+            </RadioGroup>
             <ClearHeader title={pageString.index.setting.clearTitle} />
             <StyledButton onClick={handleModal(true)} tooltipText={pageString.index.setting.clearButton}>
                 {DeleteIcon}
@@ -198,7 +199,7 @@ export const SiteSetting = () => {
     )
 }
 
-const MsgAccordion = styled(MyAccordion)`
+const MsgAccordion = styled(Accordion)`
     && {
         border-bottom: 1px solid lightgray;
         > .MuiAccordionSummary-root {

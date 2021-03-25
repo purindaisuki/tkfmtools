@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
-import MyMasonry from 'components/MyMasonry';
-import MyAccordion from 'components/MyAccordion';
+import Masonry from 'components/Masonry';
+import Accordion from 'components/Accordion';
 import CharCard, { CharAccordionDetail } from 'components/CharCard';
 
-const StyledAccordion = styled(MyAccordion)`
+const StyledAccordion = styled(Accordion)`
     && {
         && {
             margin-bottom: 1rem;
@@ -65,7 +65,7 @@ const CharTagMasnory = () => {
     }
 
     return (
-        <MyMasonry
+        <Masonry
             breakpointCols={breakpointColumnsConfig}
         >
             {Object.keys(charString.name).map((key, idx) => (
@@ -76,7 +76,7 @@ const CharTagMasnory = () => {
                     key={idx}
                 />
             ))}
-        </MyMasonry>
+        </Masonry>
     )
 }
 

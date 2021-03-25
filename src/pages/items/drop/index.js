@@ -6,12 +6,12 @@ import Scrollable from 'containers/Scrollable';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from "components/Head";
-import MyIconButton from 'components/MyIconButton';
-import { SortableTh, SortableTable } from 'components/FilterComponents';
-import { ItemCard } from 'components/MyCard';
-import { ScrollableModal } from 'components/MyModal';
-import MyHeader from 'components/MyHeader';
-import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
+import IconButton from 'components/IconButton';
+import SortableTable, { SortableTh } from 'components/SortableTable';
+import { ItemCard } from 'components/Card';
+import { ScrollableModal } from 'components/Modal';
+import Header from 'components/Header';
+import ToggleButtonGroup, { ToggleButton } from 'components/ToggleButtonGroup';
 import { SettingIcon } from 'components/icon';
 
 import stageDropData from 'data/stageDrop.json';
@@ -113,10 +113,10 @@ const TableBody = ({
     rarity,
     rank,
     columnHasMounted,
-    sortedResult
+    sortedData
 }) => (
     <tbody>
-        {sortedResult.map((s, idx) => {
+        {sortedData.map((s, idx) => {
             const { chapter, stage, energy, ...rest } = s
 
             return (
@@ -160,10 +160,10 @@ const btnLayoutConfig = {
 const StyledContainer = styled.div`
     padding: .2rem;
 `
-const StyledHeader = styled(MyHeader)`
+const StyledHeader = styled(Header)`
     margin-top: 1rem;
 `
-const StyledToggleButton = styled(MyToggleButton)`
+const StyledToggleButton = styled(ToggleButton)`
     &&&& {
         padding: .25rem .15rem;
     }
@@ -182,7 +182,7 @@ const ButtonGroupContainer = ({
                 title={strings.title}
                 border
             />
-            <MyToggleButtonGroup
+            <ToggleButtonGroup
                 type='checkbox'
                 value={filterBtnValue}
                 onChange={filterBy}
@@ -193,7 +193,7 @@ const ButtonGroupContainer = ({
                         {strings.button[idx]}
                     </StyledToggleButton>
                 ))}
-            </MyToggleButtonGroup>
+            </ToggleButtonGroup>
         </StyledContainer>
     )
 }
@@ -334,12 +334,12 @@ const Index = () => {
                 path='/items/drop/'
             />
             <SettingButtonWrapper>
-                <MyIconButton
+                <IconButton
                     onClick={handleModal(true)}
                     tooltipText={pageString.items.drop.index.settingTooltip}
                 >
                     {SettingIcon}
-                </MyIconButton>
+                </IconButton>
             </SettingButtonWrapper>
             <TableWrapper>
                 <SortableTable

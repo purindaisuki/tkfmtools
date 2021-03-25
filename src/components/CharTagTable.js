@@ -5,7 +5,7 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import { ResponsiveCharCard } from 'components/CharCard';
 import WindowTable from 'components/WindowTable';
-import { SortableTh } from 'components/FilterComponents';
+import { SortableTh } from 'components/SortableTable';
 
 import charData from 'data/character.json';
 
@@ -35,25 +35,25 @@ const TableHead = React.forwardRef((props, ref) => {
     )
 })
 
-const TableBody = React.forwardRef((props, ref) => {
+const cardTextWrapConfig = {
+    'zh-TW': 900,
+    'en': 1300,
+}
+
+const parseRarity = (rarity) => (
+    rarity === 0 ? 'N'
+        : rarity === 1 ? 'R'
+            : rarity === 2 ? 'SR'
+                : 'SSR'
+)
+
+const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
     const { userLanguage, charString } = useLanguage()
-
-    const cardTextWrapConfig = {
-        'zh-TW': 900,
-        'en': 1300,
-    }
-
-    const parseRarity = (rarity) => (
-        rarity === 0 ? 'N'
-            : rarity === 1 ? 'R'
-                : rarity === 2 ? 'SR'
-                    : 'SSR'
-    )
 
     return (
         <tbody>
-            {props.sortedResult.map((char, idx) => {
-                if (idx > props.renderTo) {
+            {sortedData.map((char, idx) => {
+                if (idx > renderTo) {
                     return null
                 }
 

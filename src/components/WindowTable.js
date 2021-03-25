@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Scrollable from 'containers/Scrollable';
 
-import { SortableTable } from 'components/FilterComponents';
+import SortableTable from 'components/SortableTable';
 
 const Sizer = styled.div`
     height: ${props => props.$height}px;

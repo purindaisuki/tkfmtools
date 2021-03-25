@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CircularProgress, IconButton, Tooltip } from '@material-ui/core';
+import { CircularProgress, IconButton as MuiIconButton, Tooltip } from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -9,7 +9,7 @@ import { ExportIcon } from 'components/icon';
 const TextWrapper = styled.span`
     font-size: small;
 `
-const StyledIconButton = styled(IconButton)`
+const StyledIconButton = styled(MuiIconButton)`
     padding: .5rem .5rem;
     svg {
         width: 1.6rem;
@@ -27,7 +27,7 @@ const StyledIconButton = styled(IconButton)`
         }
     }
 `
-const MyIconButton = ({ children, className, tooltipText, onClick, dataHtml2canvasIgnore }) => (
+const IconButton = ({ children, className, tooltipText, onClick, dataHtml2canvasIgnore }) => (
     <Tooltip title={<TextWrapper>{tooltipText}</TextWrapper>}>
         <StyledIconButton
             aria-label={tooltipText}
@@ -40,7 +40,7 @@ const MyIconButton = ({ children, className, tooltipText, onClick, dataHtml2canv
     </Tooltip>
 )
 
-export const StyledHeaderIconButton = styled(MyIconButton)`
+export const StyledHeaderIconButton = styled(IconButton)`
     && {
         padding: .4rem;
         svg {
@@ -61,7 +61,7 @@ const tooltipText = {
     "en": "Export as an image"
 }
 
-const StyledExportIcon = styled(MyIconButton)`
+const StyledExportIcon = styled(IconButton)`
     &&& {
         ${props => props.$isLoading
         ? `background-color: ${props.theme.colors.dropdownHover};` : ''}
@@ -98,4 +98,4 @@ export const ExportButton = ({ className, onClick, isLoading }) => {
     )
 }
 
-export default MyIconButton
+export default IconButton

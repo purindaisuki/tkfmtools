@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
-import { ImgCard, CardTable } from 'components/MyCard';
+import { ImgCard, CardTable } from 'components/Card';
 import {
     AttributeIcon,
     PositionIcon,

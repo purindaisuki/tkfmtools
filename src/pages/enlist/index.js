@@ -5,7 +5,7 @@ import Switchable from 'containers/Switchable';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import MyIconButton from 'components/MyIconButton';
+import IconButton from 'components/IconButton';
 import CharTagMasonry from 'components/CharTagMasonry';
 import CharTagTable from 'components/CharTagTable';
 import {
@@ -27,20 +27,20 @@ const LayoutSwitcher = ({ layout, setLayout }) => {
     return (
         <LayoutBtnContainer>
             {pageString.enlist.index.layout}
-            <MyIconButton
+            <IconButton
                 $active={layout === 'Masonry'}
                 onClick={() => setLayout('Masonry')}
                 tooltipText={pageString.enlist.index.masonryTooltip}
             >
                 {MasonryViewIcon}
-            </MyIconButton>
-            <MyIconButton
+            </IconButton>
+            <IconButton
                 $active={layout === 'Table'}
                 onClick={() => setLayout('Table')}
                 tooltipText={pageString.enlist.index.tableTooltip}
             >
                 {TableViewIcon}
-            </MyIconButton>
+            </IconButton>
         </LayoutBtnContainer>
     )
 }

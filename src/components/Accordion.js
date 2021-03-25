@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import {
+    Accordion as MuiAccordion,
+    AccordionSummary as MuiAccordionSummary,
+    AccordionDetails as MuiAccordionDetails
+} from '@material-ui/core';
 
-const StyledAccordion = styled(Accordion)`
+const StyledAccordion = styled(MuiAccordion)`
     && {
         box-shadow: none;
         background-color: ${props => props.theme.colors.surface};
@@ -26,7 +30,7 @@ const StyledAccordion = styled(Accordion)`
         }
     }
 `
-export default function MyAccordion({
+export default function Accordion({
     className,
     expanded,
     onChange,
@@ -43,14 +47,14 @@ export default function MyAccordion({
             square={square}
             TransitionProps={{ mountOnEnter: true }}
         >
-            <AccordionSummary
+            <MuiAccordionSummary
                 expandIcon={expandIcon}
             >
                 {title}
-            </AccordionSummary>
-            <AccordionDetails>
+            </MuiAccordionSummary>
+            <MuiAccordionDetails>
                 {content}
-            </AccordionDetails>
+            </MuiAccordionDetails>
         </StyledAccordion>
     )
 }

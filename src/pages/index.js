@@ -6,8 +6,8 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import MyIconButton from 'components/MyIconButton';
-import MyAccordion from 'components/MyAccordion';
+import IconButton from 'components/IconButton';
+import Accordion from 'components/Accordion';
 import {
     LogMsg,
     SiteDescriptions,
@@ -15,10 +15,10 @@ import {
     SiteUpdateLog,
     SiteLicense
 } from 'components/SiteAccordionBody';
-import MyModal from 'components/MyModal';
+import Modal from 'components/Modal';
 import { ExpandMoreIcon, NoteIcon } from 'components/icon';
 
-const MsgModal = styled(MyModal)`
+const MsgModal = styled(Modal)`
     > div:nth-child(3) {
         width: 40%;
         @media screen and (max-width: 992px) {
@@ -106,7 +106,7 @@ const unreadAnimation = keyframes`
         transform: scale(.9,1.2) translate(0,-20%);
     }
 `
-const NoteButton = styled(MyIconButton)`
+const NoteButton = styled(IconButton)`
     position: relative;
     cursor: pointer;
     && {
@@ -128,7 +128,7 @@ const NoteButton = styled(MyIconButton)`
         ${props => props.$unread ? 'width: .6rem; height: .6rem;' : ''}
     }
 `
-const DescriptionAccordion = styled(MyAccordion)`
+const DescriptionAccordion = styled(Accordion)`
     && {
         width: 90%;
         max-width: 1000px;

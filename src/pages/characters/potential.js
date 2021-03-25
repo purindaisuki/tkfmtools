@@ -6,11 +6,11 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
 import CharSelectPanel from 'components/CharSelectPanel';
-import MyHeader from 'components/MyHeader';
-import { ItemCard } from 'components/MyCard';
+import Header from 'components/Header';
+import { ItemCard } from 'components/Card';
 import ImageSupplier from 'components/ImageSupplier';
-import { TwoStageForm } from 'components/MyForm';
-import { TextModal } from 'components/MyModal';
+import { TwoStageForm } from 'components/Form';
+import { TextModal } from 'components/Modal';
 import { BuffIcon, ItemIcon } from 'components/icon';
 
 import { calcCharPotential } from 'utils/calcCharStats';
@@ -122,7 +122,7 @@ const ResultPanel = ({
     const { userLanguage, pageString } = useLanguage()
 
     return (<>
-        <MyHeader
+        <Header
             title={pageString.characters.potential.resultDemandTitle}
             titleIcon={ItemIcon}
             withHelp
@@ -135,7 +135,7 @@ const ResultPanel = ({
                 layoutConfig={resultLayoutConfig[userLanguage]}
             />
         </MaterialContainer>
-        <MyHeader
+        <Header
             title={pageString.characters.potential.resultBuffTitle}
             titleIcon={BuffIcon}
             border

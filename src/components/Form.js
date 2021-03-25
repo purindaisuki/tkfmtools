@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Col, Form } from 'react-bootstrap';
+import { Col, Form as BootstrapForm } from 'react-bootstrap';
 
-export const StyledForm = styled(Form)`
+export const StyledForm = styled(BootstrapForm)`
     form {
         > div:last-child > div {
             margin-bottom: 0;
@@ -10,7 +10,7 @@ export const StyledForm = styled(Form)`
     }
 `
 
-export const Select = styled(Form.Control)`
+export const Select = styled(BootstrapForm.Control)`
     && {
         background-color: ${props => props.theme.colors.surface};
         color: ${props => props.theme.colors.onSurface};
@@ -33,7 +33,7 @@ export const NumForm = ({
     defaultValue,
     disabled
 }) => (
-    <Form.Group as={as}>
+    <BootstrapForm.Group as={as}>
         <Select
             as="select"
             value={defaultValue}
@@ -45,7 +45,7 @@ export const NumForm = ({
                 : [...Array(maxNum + 1).keys()].slice(minNum)
                     .map(i => <option value={i} key={i}>{i}</option>)}
         </Select>
-    </Form.Group>
+    </BootstrapForm.Group>
 )
 
 export const TwoStageForm = ({
@@ -60,7 +60,7 @@ export const TwoStageForm = ({
 }) => (
     <>
         {title}
-        <Form.Row>
+        <BootstrapForm.Row>
             <NumForm
                 as={Col}
                 minNum={minNum}
@@ -78,6 +78,6 @@ export const TwoStageForm = ({
                 defaultValue={defaultValues ? defaultValues[1] : undefined}
                 disabled={disabled}
             />
-        </Form.Row>
+        </BootstrapForm.Row>
     </>
 )

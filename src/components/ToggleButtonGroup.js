@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import {
+    ToggleButton as BootstrapToggleButton,
+    ToggleButtonGroup as BootstrapToggleButtonGroup
+} from 'react-bootstrap';
 
-const StyledToggleButton = styled(ToggleButton)`
+const StyledToggleButton = styled(BootstrapToggleButton)`
     &&&& {
         padding: .15rem .15rem;
         border-radius: .25rem;
@@ -25,7 +28,7 @@ const StyledToggleButton = styled(ToggleButton)`
         }
     }
 `
-export const MyToggleButton = ({
+export const ToggleButton = ({
     className,
     children,
     type,
@@ -46,17 +49,17 @@ export const MyToggleButton = ({
     )
 }
 
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+const StyledToggleButtonGroup = styled(BootstrapToggleButtonGroup)`
     display: grid;
     gap: .5rem;
     ${props => Object.entries(props.$layoutConfig).map(entry => (
-        `@media screen and (min-width: ${entry[0]}px) {
+    `@media screen and (min-width: ${entry[0]}px) {
             grid-template-columns: repeat(${entry[1]}, 1fr);
         }
         `
-    ))}
+))}
 `
-export default function MyToggleButtonGroup({
+export default function ToggleButtonGroup({
     children,
     className,
     type,

@@ -7,7 +7,7 @@ import { Dropdown, DropdownButton, ListGroup, Nav, Navbar } from 'react-bootstra
 import { useLanguage } from 'containers/LanguageProvider';
 
 import LocalizedLink from 'components/LocalizedLink'
-import MyAccordion from 'components/MyAccordion';
+import Accordion from 'components/Accordion';
 import {
     RaceIcon,
     ChestIcon,
@@ -280,7 +280,7 @@ const StyledListItem = styled(ListGroup.Item)`
         border-left: .5rem solid ${props => props.theme.colors.secondary};
     }
 `
-const ListItemAccordion = styled(MyAccordion)`
+const ListItemAccordion = styled(Accordion)`
     && {
         cursor: default;
         && {

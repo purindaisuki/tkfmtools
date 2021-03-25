@@ -4,9 +4,9 @@ import { Col, Form } from 'react-bootstrap';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
-import MyHeader from 'components/MyHeader';
+import Header from 'components/Header';
 import ImageSupplier from 'components/ImageSupplier';
-import { Select, StyledForm } from 'components/MyForm';
+import { Select, StyledForm } from 'components/Form';
 import { RaceIcon } from 'components/icon';
 
 import charData from 'data/character.json';
@@ -36,7 +36,7 @@ const CharSelectPanel = ({
     const { pageString, charString } = useLanguage()
 
     return (<>
-        <MyHeader
+        <Header
             title={pageString.characters.potential.characterPanelTitle}
             titleIcon={RaceIcon}
             border

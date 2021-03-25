@@ -4,11 +4,6 @@ import { Table } from 'react-bootstrap';
 
 import useSortable from 'hooks/useSortable';
 
-import Scrollable from 'containers/Scrollable';
-import { useLanguage } from 'containers/LanguageProvider';
-
-import MyHeader from 'components/MyHeader';
-
 export const SortableTh = styled.th`
     cursor: pointer;
     user-select: none;
@@ -94,47 +89,4 @@ export const SortableTable = ({
     )
 }
 
-const TableWrapper = styled(Scrollable)`
-    max-height: ${props => props.$maxHeight};
-    overflow-x: hidden;
-    overflow-y: auto;
-`
-const StyledSortableTable = styled(SortableTable)`
-    img {
-        width: 1.8rem; height: 1.8rem;
-    }
-    td {
-        padding-left: .75rem;
-    }
-`
-export function ResultPanel({
-    data,
-    head,
-    body,
-    sortFunc,
-    defaultSortKey,
-    handleModalOpen,
-    maxHeight,
-    striped,
-}) {
-    const { pageString } = useLanguage()
-
-    return (<>
-        <MyHeader
-            title={pageString.items.drop.filter.resultTitle}
-            withHelp
-            onClickHelp={handleModalOpen}
-            border
-        />
-        <TableWrapper $maxHeight={maxHeight}>
-            <StyledSortableTable
-                data={data}
-                head={head}
-                body={body}
-                sortFunc={sortFunc}
-                defaultSortKey={defaultSortKey}
-                striped={striped}
-            />
-        </TableWrapper>
-    </>)
-}
+export default SortableTable

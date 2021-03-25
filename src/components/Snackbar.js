@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Snackbar } from '@material-ui/core';
+import { Snackbar as MuiSnackbar } from '@material-ui/core';
 
 import { AlertIcon, ErrorIcon, SuccessIcon } from 'components/icon';
 
-const StyledSnackbar = styled(Snackbar)`
+const StyledSnackbar = styled(MuiSnackbar)`
     > div {
         display: flex;
         flex-direction: row-reverse;
@@ -33,7 +33,7 @@ const StyledSnackbar = styled(Snackbar)`
     };
     }
 `
-const MySnackbar = ({
+const Snackbar = ({
     open,
     onClose,
     message,
@@ -58,4 +58,4 @@ const MySnackbar = ({
     )
 }
 
-export default MySnackbar
+export default Snackbar

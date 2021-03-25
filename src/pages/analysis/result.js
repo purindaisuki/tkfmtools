@@ -7,13 +7,13 @@ import { useLineupData } from 'containers/LineupDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import MyHeader from 'components/MyHeader';
-import { ExportButton } from 'components/MyIconButton';
+import Header from 'components/Header';
+import { ExportButton } from 'components/IconButton';
 import ImageSupplier from 'components/ImageSupplier';
 import TreeMap from 'components/TreeMap';
 import RadarChart from 'components/RadarChart';
 import BarChart from 'components/BarChart';
-import MyModal, { TextModal } from 'components/MyModal';
+import Modal, { TextModal } from 'components/Modal';
 
 import expData from 'data/exp.json';
 import charData from 'data/character.json';
@@ -277,13 +277,13 @@ const ChartHeader = styled.div`
     justify-content: center;
     font-size: large;
 `
-const TreeMapHeader = styled(MyHeader)`
+const TreeMapHeader = styled(Header)`
     justify-content: center;
 `
 const RankHeader = styled(TreeMapHeader)`
     width: 100%;
 `
-const RankModal = styled(MyModal)`
+const RankModal = styled(Modal)`
     > div:nth-child(3) {
         top: 20%;
         width: 40%;

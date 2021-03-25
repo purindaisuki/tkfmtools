@@ -10,14 +10,15 @@ import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import { ResultPanel, SortableTh } from 'components/FilterComponents';
-import MyHeader from 'components/MyHeader';
-import { HeaderIconButton } from 'components/MyIconButton';
-import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
+import ResultTablePanel from 'components/ResultTablePanel';
+import { SortableTh } from 'components/SortableTable';
+import Header from 'components/Header';
+import { HeaderIconButton } from 'components/IconButton';
+import ToggleButtonGroup, { ToggleButton } from 'components/ToggleButtonGroup';
 import { ResponsiveCharCard } from 'components/CharCard';
-import { ScrollableModal, TextModal } from 'components/MyModal';
-import MyRadioGroup, { MyRadio } from 'components/MyRadioGroup';
-import MySnackbar from 'components/MySnackbar';
+import { ScrollableModal, TextModal } from 'components/Modal';
+import RadioGroup, { Radio } from 'components/RadioGroup';
+import Snackbar from 'components/Snackbar';
 import {
     DeleteIcon,
     TagIcon,
@@ -36,7 +37,7 @@ import {
 import tagData from 'data/tag.json';
 import charData from 'data/character.json';
 
-const StyledToggleButton = styled(MyToggleButton)`
+const StyledToggleButton = styled(ToggleButton)`
     &&&&& {
         border: none;
         padding: .5rem 0;
@@ -74,7 +75,7 @@ const TagButtonGroup = ({
     }
 
     return (
-        <MyToggleButtonGroup
+        <ToggleButtonGroup
             type='checkbox'
             value={value}
             onChange={onChange}
@@ -91,7 +92,7 @@ const TagButtonGroup = ({
                     </StyledToggleButton>
                 ))
             )}
-        </MyToggleButtonGroup>
+        </ToggleButtonGroup>
     )
 }
 
@@ -167,7 +168,7 @@ const TagPanel = ({
     )
 }
 
-const StyledHeader = styled(MyHeader)`
+const StyledHeader = styled(Header)`
     padding-bottom: .4rem;
 `
 const IconWrapper = styled.div`
@@ -201,7 +202,7 @@ const CharFilterPanel = ({
     const { pageString } = useLanguage()
 
     return (<>
-        <MyHeader
+        <Header
             title={pageString.enlist.filter.tagSelectTitle}
             titleIcon={TagIcon}
             end={
@@ -325,7 +326,7 @@ const StarIconWrapper = styled(IconWrapper)`
         margin-left: -.6rem;
     }
 `
-function TableBody({ sortedResult }) {
+function TableBody({ sortedData }) {
     const { userLanguage, charString } = useLanguage()
 
     const parseRarity = (rarity) => (
@@ -342,7 +343,7 @@ function TableBody({ sortedResult }) {
 
     return (
         <tbody>
-            {sortedResult.map((char, idx) => (
+            {sortedData.map((char, idx) => (
                 <tr key={idx}>
                     <td>
                         <TagTooltip char={char}>
@@ -395,16 +396,16 @@ const SettingModal = ({
             ariaLabelledby='setting-modal-title'
             ariaDescribedby='setting-modal-description'
         >
-            <MyRadioGroup
+            <RadioGroup
                 label={pageString.enlist.filter.settingModal.groupLabel}
                 value={radioValue}
                 handleChange={handleRadioChange}
             >
                 {pageString.enlist.filter.settingModal
                     .labels.map(label => (
-                        <MyRadio label={label} value={label} key={label} />
+                        <Radio label={label} value={label} key={label} />
                     ))}
-            </MyRadioGroup>
+            </RadioGroup>
         </StyledModal>
     )
 }
@@ -669,7 +670,7 @@ const Filter = () => {
                 handleModalOpen={handleSettingModal(true)}
                 groupBtnByClass={groupBtnByClass}
             />
-            <ResultPanel
+            <ResultTablePanel
                 data={state.characters}
                 head={<TableHead />}
                 body={<TableBody />}
@@ -694,7 +695,7 @@ const Filter = () => {
             ariaLabelledby="help-modal-title"
             ariaDescribedby="help-modal-description"
         />
-        <MySnackbar
+        <Snackbar
             open={state.isSnackbarOpen}
             onClose={handleSnackbarClose}
             message={pageString.enlist.filter.snackbarMsg}

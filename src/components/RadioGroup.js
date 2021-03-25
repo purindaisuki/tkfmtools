@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
+import {
+    FormControl, FormControlLabel, FormLabel,
+    Radio as MuiRadio,
+    RadioGroup as MuiRadioGroup
+} from '@material-ui/core';
 
 const RadioGroupWrapper = styled.div`
     && label {
@@ -26,7 +30,7 @@ const RadioGroupWrapper = styled.div`
         }
     }
 `
-const MyRadioGroup = ({
+const RadioGroup = ({
     children,
     className,
     label,
@@ -36,23 +40,23 @@ const MyRadioGroup = ({
     <RadioGroupWrapper>
         <FormControl className={className}>
             <FormLabel>{label}</FormLabel>
-            <RadioGroup
+            <MuiRadioGroup
                 value={value}
                 onChange={handleChange}
                 aria-label={label}
                 row
             >
                 {children}
-            </RadioGroup>
+            </MuiRadioGroup>
         </FormControl>
     </RadioGroupWrapper>
 )
 
-export const MyRadio = ({
+export const Radio = ({
     label,
     value,
 }) => (
-    <FormControlLabel value={value} control={<Radio />} label={label} />
+    <FormControlLabel value={value} control={<MuiRadio />} label={label} />
 )
 
-export default MyRadioGroup
+export default RadioGroup

@@ -12,11 +12,11 @@ import { useTeamData } from 'containers/TeamDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import MyHeader from 'components/MyHeader';
+import Header from 'components/Header';
 import LocalizedLink from 'components/LocalizedLink';
 import ImageSupplier from 'components/ImageSupplier';
-import MyIconButton from 'components/MyIconButton';
-import MySnackbar from 'components/MySnackbar';
+import IconButton from 'components/IconButton';
+import Snackbar from 'components/Snackbar';
 import { NewIcon, CopyIcon, DeleteIcon, SettingIcon } from 'components/icon';
 
 const StyledMenu = styled(Menu)`
@@ -67,14 +67,14 @@ const SettingDropDown = () => {
     }))
 
     return (<>
-        <MyIconButton
+        <IconButton
             aria-controls='setting-menu'
             aria-haspopup='true'
             onClick={handleSettingButtonClick}
             tooltipText={pageString.team.index.settingTooltip}
         >
             {SettingIcon}
-        </MyIconButton>
+        </IconButton>
         <List
             component={StyledMenu}
             id='setting-menu'
@@ -99,7 +99,7 @@ const SettingDropDown = () => {
                 </span>
             </ListItem>
         </List>
-        <MySnackbar
+        <Snackbar
             open={state.isSnackbarOpen}
             onClose={handleSnackbar(false)}
             message={pageString.team.index.errorSnackbar}
@@ -108,7 +108,7 @@ const SettingDropDown = () => {
     </>)
 }
 
-const TeamHeader = styled(MyHeader)`
+const StyledHeader = styled(Header)`
     position: relative;
     left: -1rem;
     width: calc(100% + 2rem);
@@ -138,14 +138,14 @@ const StyledButton = styled(Button)`
         }
     }
 `
-const Header = () => {
+const TeamHeader = () => {
     const { pageString } = useLanguage()
 
     const { actions } = useTeamData()
     const { newTeam } = actions
 
     return (<>
-        <TeamHeader
+        <StyledHeader
             title={
                 <LocalizedLink to='/team/build/'>
                     <StyledButton startIcon={NewIcon} onClick={() => newTeam()}>
@@ -216,7 +216,7 @@ const TitleText = styled.span`
     overflow: hidden;
     text-overflow: ellipsis;
 `
-const OperationButton = styled(MyIconButton)`
+const OperationButton = styled(IconButton)`
     svg {
         width: 1.4rem;
         height: 1.4rem;
@@ -283,7 +283,7 @@ const Team = () => {
                 description={pageString.team.index.helmet.description}
                 path='/team/'
             />
-            <Header />
+            <TeamHeader />
             <StyledDivider />
             <DataList />
         </PageWrapper>

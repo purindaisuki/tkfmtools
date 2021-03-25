@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Masonry from 'react-masonry-css';
+import CssMasonry from 'react-masonry-css';
 
-const StyledMasonry = styled(Masonry)`
+const StyledMasonry = styled(CssMasonry)`
     display: flex;
     width: auto;
     margin-left: -1rem;
@@ -10,13 +10,13 @@ const StyledMasonry = styled(Masonry)`
         padding-left: 1rem;
     }
 `
-export default function MyMasonry(props) {
+export default function Masonry({ children, breakpointCols }) {
     return (
         <StyledMasonry
-            breakpointCols={props.breakpointCols}
+            breakpointCols={breakpointCols}
             columnClassName=''
         >
-            {props.children}
+            {children}
         </StyledMasonry>
     )
 }

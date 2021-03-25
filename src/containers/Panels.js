@@ -12,7 +12,7 @@ export const panelsStyle = [
         divDisplay: "block",
         divWidth: "100%",
         divMargin: "1rem 0",
-        divDivHeight: "100%"
+        divDivMaxHeight: "none"
     },
     {
         display: "table",
@@ -22,7 +22,7 @@ export const panelsStyle = [
         divDisplay: "table-cell",
         divWidth: "60%",
         divMargin: "auto",
-        divDivHeight: "auto",
+        divDivMaxHeight: "none",
         marginBottom: "0",
         borderSpacing: "1rem",
     }
@@ -39,7 +39,8 @@ const Container = styled.div`
         display: ${props => props.theme.panelLayout.divDisplay};
         margin: ${props => props.theme.panelLayout.divMargin};
         > div {
-            height: ${props => props.theme.panelLayout.divDivHeight};
+            ${props => props.theme.panelLayout.divDivMaxHeight === 'var(--divDivMaxHeight)'
+        ? `max-height: ${props.theme.panelLayout.divDivMaxHeight};` : ''};
         }
     }
     @media screen and (max-width: 1000px)
@@ -53,7 +54,7 @@ const Container = styled.div`
             width: 100%;
             margin: 1rem 0;
             > div {
-                height: 100%;
+                max-height: none;
             }
         }
     }

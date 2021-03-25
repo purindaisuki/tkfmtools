@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Backdrop, Fade, Modal } from '@material-ui/core';
+import { Backdrop, Fade, Modal as MuiModal } from '@material-ui/core';
 
 import Scrollable from 'containers/Scrollable';
 
-import MyHeader from 'components/MyHeader';
+import Header from 'components/Header';
 
-const StyledModal = styled.div`
+const ModalContentWrapper = styled.div`
     background-color: ${props => props.theme.colors.surface};
     color: ${props => props.theme.colors.onSurface};
     position: absolute;
@@ -27,7 +27,7 @@ const StyledModal = styled.div`
     border-radius: .25rem;
     border: 1px solid ${props => props.theme.colors.border};
 `
-const ModalHeader = styled(MyHeader)`
+const ModalHeader = styled(Header)`
     margin: -1rem;
     margin-bottom: 1rem;
     padding: .2rem .5rem;
@@ -40,7 +40,7 @@ const CloseWrapper = styled.span`
     cursor: pointer;
     font-size: x-large;
 `
-export const MyModal = ({
+export const Modal = ({
     children,
     className,
     title,
@@ -49,7 +49,7 @@ export const MyModal = ({
     ariaLabelledby,
     ariaDescribedby
 }) => (
-    <Modal
+    <MuiModal
         className={className}
         open={open}
         onClose={onClose}
@@ -61,19 +61,19 @@ export const MyModal = ({
         aria-describedby={ariaDescribedby}
     >
         <Fade in={open}>
-            <StyledModal>
+            <ModalContentWrapper>
                 <ModalHeader
                     title={title}
                     id={ariaLabelledby}
                     end={<CloseWrapper onClick={onClose}>&times;</CloseWrapper>}
                 />
                 {children}
-            </StyledModal>
+            </ModalContentWrapper>
         </Fade>
-    </Modal>
+    </MuiModal>
 )
 
-const StyledScrollableModal = styled(MyModal)`
+const StyledScrollableModal = styled(Modal)`
     > div:nth-child(3) > div {
         max-height: calc(80vh - 2rem);
     }
@@ -110,7 +110,7 @@ const TextModalContent = ({
 }) => (
     content.map((item, idx) => (
         <React.Fragment key={idx}>
-            <MyHeader
+            <Header
                 title={item.title}
                 border
             />
@@ -145,4 +145,4 @@ export const TextModal = ({
     </ScrollableModal>
 )
 
-export default MyModal
+export default Modal

@@ -5,12 +5,13 @@ import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from "components/Head";
-import { ResultPanel, SortableTh } from 'components/FilterComponents';
-import MyHeader from 'components/MyHeader';
-import { HeaderIconButton } from 'components/MyIconButton';
-import MyToggleButtonGroup, { MyToggleButton } from 'components/MyToggleButtonGroup';
+import ResultTablePanel from 'components/ResultTablePanel';
+import { SortableTh } from 'components/SortableTable';
+import Header from 'components/Header';
+import { HeaderIconButton } from 'components/IconButton';
+import ToggleButtonGroup, { ToggleButton } from 'components/ToggleButtonGroup';
 import ImageSupplier from 'components/ImageSupplier';
-import { TextModal } from 'components/MyModal';
+import { TextModal } from 'components/Modal';
 import { DeleteIcon } from 'components/icon';
 
 import itemDropData from 'data/byStageToItem';
@@ -34,7 +35,7 @@ const btnLayoutConfig = {
     }
 }
 
-const StyledToggleButton = styled(MyToggleButton)`
+const StyledToggleButton = styled(ToggleButton)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +53,7 @@ const ItemFilterPanel = ({
     const { userLanguage, pageString, itemString } = useLanguage()
 
     return (<>
-        <MyHeader
+        <Header
             title={pageString.items.drop.filter.itemPanelTitle}
             end={
                 <HeaderIconButton
@@ -64,7 +65,7 @@ const ItemFilterPanel = ({
             }
             border
         />
-        <MyToggleButtonGroup
+        <ToggleButtonGroup
             type='checkbox'
             value={filterBtnValue}
             onChange={filterBy}
@@ -86,7 +87,7 @@ const ItemFilterPanel = ({
                     </StyledToggleButton>
                 )
             })}
-        </MyToggleButtonGroup>
+        </ToggleButtonGroup>
     </>)
 }
 
@@ -316,7 +317,7 @@ const Filter = () => {
                 filterBy={filterBy}
                 clearBtnValue={() => filterBy([])}
             />
-            <ResultPanel
+            <ResultTablePanel
                 data={state.data}
                 head={<TableHead />}
                 body={<TableBody />}

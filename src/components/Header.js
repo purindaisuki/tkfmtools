@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { HeaderIconButton } from 'components/MyIconButton';
+import { HeaderIconButton } from 'components/IconButton';
 import { HelpIcon } from 'components/icon';
 
 const StyledHeader = styled.div`
@@ -32,7 +32,7 @@ const TitleWrapper = styled.div`
         }
     }
 `
-const MyHeader = ({
+const Header = ({
     className,
     title,
     titleIcon,
@@ -57,4 +57,4 @@ const MyHeader = ({
     </StyledHeader>
 )
 
-export default MyHeader
+export default Header

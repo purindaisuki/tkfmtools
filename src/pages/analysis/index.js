@@ -8,12 +8,12 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
 import ImageSupplier from 'components/ImageSupplier';
-import { NumForm, Select, TwoStageForm } from 'components/MyForm';
-import MyHeader from 'components/MyHeader';
-import MyIconButton from 'components/MyIconButton';
+import { NumForm, Select, TwoStageForm } from 'components/Form';
+import Header from 'components/Header';
+import IconButton from 'components/IconButton';
 import { SaveIcon, LoadIcon, DeleteIcon } from 'components/icon';
-import MySnackbar from 'components/MySnackbar';
-import { ScrollableModal, TextModal } from 'components/MyModal';
+import Snackbar from 'components/Snackbar';
+import { ScrollableModal, TextModal } from 'components/Modal';
 
 import calcCharStats from 'utils/calcCharStats';
 import charByPositionData from 'data/charByPosition'
@@ -143,18 +143,18 @@ const DataManageButtons = ({ handleData, handleModalOpen }) => {
 
     return (
         <DataButtonContainer>
-            <MyIconButton
+            <IconButton
                 onClick={handleData('save')}
                 tooltipText={pageString.analysis.index.saveButton}
             >
                 {SaveIcon}
-            </MyIconButton>
-            <MyIconButton
+            </IconButton>
+            <IconButton
                 onClick={handleModalOpen}
                 tooltipText={pageString.analysis.index.loadButton}
             >
                 {LoadIcon}
-            </MyIconButton>
+            </IconButton>
         </DataButtonContainer>
     )
 }
@@ -170,21 +170,21 @@ const DataModal = ({ handleData }) => {
 
     return (
         localLineups.map((d, idx) => (
-            <MyHeader
+            <Header
                 title={d.date}
                 end={<>
-                    <MyIconButton
+                    <IconButton
                         onClick={handleData('load', idx)}
                         tooltipText={pageString.analysis.index.loadButton}
                     >
                         {LoadIcon}
-                    </MyIconButton>
-                    <MyIconButton
+                    </IconButton>
+                    <IconButton
                         onClick={handleData('delete', idx)}
                         tooltipText={pageString.analysis.index.deleteButton}
                     >
                         {DeleteIcon}
-                    </MyIconButton>
+                    </IconButton>
                 </>}
                 key={idx}
             />
@@ -336,7 +336,7 @@ const Index = () => {
             <DataManageButtons handleData={handleData} handleModalOpen={handleDataModal(true)} />
             {charByPositionData.map((group, idx) => (
                 <React.Fragment key={idx}>
-                    <MyHeader
+                    <Header
                         title={charString.tags[idx + 5]}
                         titleIcon={
                             <PositionImgWrapper
@@ -361,13 +361,13 @@ const Index = () => {
                     </CharsContainer>
                 </React.Fragment>
             ))}
-            <MySnackbar
+            <Snackbar
                 open={state.isSuccessSnackbarOpen}
                 onClose={handleSuccessSnackbarClose}
                 message={pageString.analysis.index.successMsg}
                 type='success'
             />
-            <MySnackbar
+            <Snackbar
                 open={state.isErrorSnackbarOpen}
                 onClose={handleErrorSnackbarClose}
                 message={pageString.analysis.index.errorMsg}
