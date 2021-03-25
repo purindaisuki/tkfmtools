@@ -139,11 +139,11 @@ const LineupDataProvider = ({ children }) => {
         localLineups: localLineups,
         currentLineup: tempLineup ? tempLineup : initLineup,
         actions: {
-            pushLineup: pushLineup,
-            getLineup: getLineup,
-            getLatestLineup: getLatestLineup,
-            deleteLineup: deleteLineup,
-            setCurrentLineup: setCurrentLineup
+            pushLineup,
+            getLineup,
+            getLatestLineup,
+            deleteLineup,
+            setCurrentLineup
         }
     }
 

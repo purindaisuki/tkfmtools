@@ -127,13 +127,13 @@ const TeamDataProvider = ({ children }) => {
         currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
         importLineupData: importLineupData ? importLineupData : false,
         actions: {
-            newTeam: newTeam,
-            getTeam: getTeam,
-            selectTeam: selectTeam,
-            pushTeam: pushTeam,
-            deleteTeam: deleteTeam,
-            setCurrentTeam: setCurrentTeam,
-            toggleImportLineupData: toggleImportLineupData
+            newTeam,
+            getTeam,
+            selectTeam,
+            pushTeam,
+            deleteTeam,
+            setCurrentTeam,
+            toggleImportLineupData
         }
     }
 

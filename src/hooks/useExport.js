@@ -50,7 +50,7 @@ const useExport = () => {
         }
     }
 
-    return ({ isExporting: isExporting, exportImage: exportImage })
+    return ({ isExporting, exportImage })
 }
 
 export default useExport
