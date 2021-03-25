@@ -46,6 +46,7 @@ export const Modal = ({
     title,
     open,
     onClose,
+    keepMounted,
     ariaLabelledby,
     ariaDescribedby
 }) => (
@@ -57,6 +58,7 @@ export const Modal = ({
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
         disableEnforceFocus
+        keepMounted={keepMounted}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
     >
@@ -84,6 +86,7 @@ export const ScrollableModal = ({
     title,
     open,
     onClose,
+    keepMounted,
     ariaLabelledby,
     ariaDescribedby,
 }) => (
@@ -92,6 +95,7 @@ export const ScrollableModal = ({
         title={title}
         open={open}
         onClose={onClose}
+        keepMounted={keepMounted}
         ariaLabelledby={ariaLabelledby}
         ariaDescribedby={ariaDescribedby}
     >

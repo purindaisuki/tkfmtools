@@ -253,6 +253,7 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
             title={pageString.team.build.selectModalTitle}
             open={open}
             onClose={onClose}
+            keepMounted
             ariaLabelledby='character-select-modal'
         >
             {charByRarityData.map((group, idx) => (
