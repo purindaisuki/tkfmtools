@@ -45,16 +45,16 @@
         "703": "Wind (int.)",
         "704": "Light (int.)",
         "705": "Dark (int.)",
-        "801": "Small EXP Potion",
-        "802": "Medium EXP Potion",
-        "803": "Large EXP Potion",
+        "801": "Small Exp. Potion",
+        "802": "Medium Exp. Potion",
+        "803": "Large Exp. Potion",
         "901": "Skill Fragment",
         "902": "Skill Stone"
     },
     "category": [
         "Material",
         "Discipline",
-        "EXP Potion"
+        "Exp. Potion"
     ],
     "rarity": [
         "Epic",

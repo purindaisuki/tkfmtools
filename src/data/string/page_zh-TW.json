@@ -798,8 +798,8 @@
             ],
             "rank": {
                 "title": "您的隊伍戰力 PR 值為 ",
-                "high": "高 PR 值 TOP5",
-                "low": "低 PR 值 TOP5",
+                "high": "高 PR 值前 5",
+                "low": "低 PR 值前 5",
                 "cp": "角色戰力",
                 "PR": "PR 值"
             },

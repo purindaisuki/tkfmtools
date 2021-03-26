@@ -739,7 +739,7 @@
                         "content": [
                             "Select the character states according to your line-up and toggle the character ownership by tapping the image of the character.",
                             "After you finish, the analysis will show at the 'result' page.",
-                            "You can save, load and delete the data by clicking the buttons."
+                            "You can save, load and delete the data by clicking the buttons on the upper right side."
                         ]
                     }
                 ]
@@ -763,7 +763,7 @@
                     "title": "Character Lv by Position",
                     "legend": [
                         "Max",
-                        "Avg",
+                        "Avg.",
                         "Median",
                         "Min"
                     ]
@@ -772,7 +772,7 @@
                     "title": "Character Lv by Attribute",
                     "legend": [
                         "Max",
-                        "Avg",
+                        "Avg.",
                         "Median",
                         "Min"
                     ]
