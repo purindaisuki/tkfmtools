@@ -111,7 +111,7 @@ const SettingDropDown = () => {
 const StyledHeader = styled(Header)`
     position: relative;
     left: -1rem;
-    width: calc(100% + 2rem);
+    width: 100%;
     height: auto;
     margin: 0;
     padding: 0 0 .5rem 1rem;
@@ -120,8 +120,10 @@ const StyledHeader = styled(Header)`
         margin-right: .6rem;
         font-size: large;
     }
-    > div {
-        margin-right: 1rem;
+    > div:last-child {
+        position: relative;
+        bottom: -.4rem;
+        right: -1rem;
     }
 `
 const StyledButton = styled(Button)`

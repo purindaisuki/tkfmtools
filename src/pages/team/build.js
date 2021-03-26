@@ -19,7 +19,6 @@ import { ScrollableModal } from 'components/Modal';
 import CharCard from 'components/CharCard';
 import { HpIcon, AttackIcon, ChangeIcon, DeleteIcon, BackIcon } from 'components/icon';
 
-import calcCharStats from 'utils/calcCharStats';
 import charMap from 'data/charMap';
 import charData from 'data/character.json';
 
@@ -572,6 +571,10 @@ const StyledSlot = styled.div`
         border-right: .4rem solid ${props => props.$colorNumber !== undefined
         ? props.theme.chart.colors[props.$colorNumber] : props.theme.colors.dropdownHover};
         border-left: 0;
+        ${props => props.$isDragging ?
+        `border-top: none;
+        border-bottom: none;` : ''}
+        transition: border 0.3s ease;
     }
     &:after {
         content: "";
@@ -601,8 +604,14 @@ const StyledSlot = styled.div`
         )
         `};
     }
-    &:hover:after {
-        background-size: 100% 100%;
+    &:hover {
+        :before {
+            border-top: none;
+            border-bottom: none;
+        }
+        :after {
+            background-size: 100% 100%;
+        }
     }
     @media screen and (max-width: 768px) {
         margin: 0 0 ${props => props.$isEmpty ? '.6' : '2.2'}rem;
@@ -723,7 +732,7 @@ const DraggableCharsList = () => {
 const StyledHeader = styled(Header)`
     position: relative;
     left: -1rem;
-    width: calc(100% + 2rem);
+    width: 100%;
     height: auto;
     margin: 0;
     padding: 0 0 0 1rem;
@@ -733,8 +742,10 @@ const StyledHeader = styled(Header)`
         font-size: large;
         text-transform: none;
     }
-    > div {
-        margin-right: 1rem;
+    > div:last-child {
+        position: relative;
+        bottom: -.4rem;
+        right: -1rem;
     }
 `
 const TeamHeader = ({ isExporting, handleExport }) => {
@@ -788,9 +799,12 @@ const TeamHeader = ({ isExporting, handleExport }) => {
 const ExportWrapper = styled.div`
     max-width: calc(1000px + 2rem);
     width: calc(100% + 2rem);
-    margin: -1.5rem auto;
+    margin: -1.5rem calc(50% - 500px - 1rem);
     padding: 1rem;
     padding-top: 1.5rem;
+    @media screen and (max-width: 1032px) {
+        margin: -1.5rem -1rem;
+    }
 `
 const StyledDivider = styled(Divider)`
     && {
