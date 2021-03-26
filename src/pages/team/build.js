@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
+import styled from 'styled-components';
+import { Button, Divider } from '@material-ui/core';
 
 import useTeamSlots from 'hooks/useTeamSlots';
-import useCharacterSelect from 'hooks/useCharacterSelect';
+import useCharacterStats from 'hooks/useCharacterStats';
 import useExport from 'hooks/useExport';
 
 import { useTeamData } from 'containers/TeamDataProvider';
@@ -15,6 +15,8 @@ import IconButton, { ExportButton } from 'components/IconButton';
 import LocalizedLink from 'components/LocalizedLink';
 import Header from 'components/Header';
 import ImageSupplier from 'components/ImageSupplier';
+import Input from 'components/Input';
+import CharStatsSelect from 'components/CharStatsSelect';
 import { ScrollableModal } from 'components/Modal';
 import CharCard from 'components/CharCard';
 import { HpIcon, AttackIcon, ChangeIcon, DeleteIcon, BackIcon } from 'components/icon';
@@ -75,135 +77,7 @@ const SlotOperationButtons = ({ handleChange, handleDelete }) => {
     )
 }
 
-const StyledTextField = styled(TextField)`
-    .MuiInputBase-root, && label {
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
-    .MuiInputBase-root {
-        border: 1px solid ${props => props.theme.colors.dropdownHover};
-    }
-    && fieldset {
-        border-color: rgba(0,0,0,0);
-    }
-    &&:hover {
-        .MuiInputBase-root {
-            border: 1px solid ${props => props.theme.colors.shadow};
-        }
-        fieldset {
-            border-color: rgba(0,0,0,0);
-        }
-    }
-    && .Mui-focused {
-        fieldset {
-            border: 2px solid ${props => props.theme.colors.secondary};
-        }
-        &.MuiInputBase-root, +.MuiInputBase-root {
-            border-color: rgba(0,0,0,0);
-        }
-    }
-`
-const ImgInput = styled(StyledTextField)`
-    position: absolute;
-    left: 1.8rem;
-    background-color: ${props => props.theme.colors.surface};
-    && > div {
-        width: 100%;
-        > div {
-            padding: .2rem;
-            padding-left: .4rem;
-            padding-right: 1rem;
-            color: ${props => props.disabled ? props.theme.colors.dropdownHover
-        : 'inherit'};
-        }
-        svg {
-            right: 0;
-            fill: ${props => props.disabled ? props.theme.colors.dropdownHover
-        : props.theme.colors.onSurface};
-        }
-    }
-`
-const ImgSelect = ({
-    type,
-    values, value,
-    onChange,
-    disabled
-}) => {
-    const { colors } = useTheme()
-
-    return (
-        <ImgInput
-            id={`select-${type}`}
-            select
-            value={value}
-            onChange={onChange}
-            variant='outlined'
-            size='small'
-            inputProps={{ 'aria-label': type }}
-            SelectProps={{
-                MenuProps: {
-                    MenuListProps: {
-                        style: {
-                            backgroundColor: colors.surface,
-                            color: colors.onSurface
-                        }
-                    }
-                }
-            }}
-            disabled={disabled}
-        >
-            {values.map((v, idx) => (
-                <MenuItem key={idx} value={v}>
-                    {v}
-                </MenuItem>
-            ))}
-        </ImgInput>
-    )
-}
-
-const EmptySlotContent = styled(Button)`
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    && .MuiButton-label {
-        position: absolute;
-        top: 50%;
-        left: calc(5rem + 4%);
-        width: auto;
-        height: 0;
-        font-size: x-large;
-        color: ${props => props.theme.colors.shadow};
-        @media screen and (max-width: 768px) {
-            left: calc(3.2rem + 3%);
-            font-size: large;
-        }
-    }
-    &:before {
-        position: absolute;
-        z-index: 1;
-        top: 50%;
-        left: calc(.2rem + 2%);
-        content: "+";
-        color: ${props => props.theme.colors.shadow};
-        font-size: 4rem;
-        line-height: 0;
-        text-align: center;
-        text-shadow: none;
-    }
-    &:after {
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 8rem;
-        height: 100%;
-        background: linear-gradient(90deg,rgba(255,255,255,.25) 25%,transparent)
-    }
-`
-
-const charByRarityData = charData.reduce((newData, c, i) => {
+const charByRarityData = charData.reduce((newData, c) => {
     newData[3 - c.rarity].push({ id: c.id })
     return newData
 }, [...Array(4)].map(i => []))
@@ -279,6 +153,48 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
     )
 }
 
+const EmptySlotContent = styled(Button)`
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    && .MuiButton-label {
+        position: absolute;
+        top: 50%;
+        left: calc(5rem + 4%);
+        width: auto;
+        height: 0;
+        font-size: x-large;
+        color: ${props => props.theme.colors.shadow};
+        @media screen and (max-width: 768px) {
+            left: calc(3.2rem + 3%);
+            font-size: large;
+        }
+    }
+    &:before {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: calc(.2rem + 2%);
+        content: "+";
+        color: ${props => props.theme.colors.shadow};
+        font-size: 4rem;
+        line-height: 0;
+        text-align: center;
+        text-shadow: none;
+    }
+    &:after {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        content: "";
+        width: 8rem;
+        height: 100%;
+        background: linear-gradient(90deg,rgba(255,255,255,.25) 25%,transparent)
+    }
+`
+
 const SlotCharAvatar = styled(ImageSupplier)`
     position: relative;
     z-index: 1;
@@ -322,64 +238,6 @@ const CharPositionText = styled.span`
     @media screen and (max-width: 768px) {
         left: auto;
         right: calc(96% - 6.5rem);
-    }
-`
-const CharStatsSelect = styled.div`
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    flex-wrap: wrap;
-    top: .6rem;
-    left: calc(14rem + 5%);
-    width: calc(95% - 16rem);
-    > div {
-        display: flex;
-        margin-right: calc(2% - .2rem);
-    }
-    @media screen and (max-width: 768px) {
-        left: calc(7rem + 5%);
-        width: calc(95% - 7rem);
-    }
-`
-const StyledLabel = styled.label`
-    margin-top: .05rem;
-`
-const LevelInput = styled(StyledTextField)`
-    width: 100%;
-    height: 1.6rem;
-    > div {
-        width: 2rem;
-        margin-left: .2rem;
-        > input {
-            padding: .2rem;
-            text-align: center;
-        }
-    }
-`
-const UiImg = styled(ImageSupplier)`
-    position: relative;
-    width: 4.2rem;
-    height: 1.6rem;
-    background-repeat: no-repeat;
-    background-size: 1.6rem 1.6rem;
-    background-position: 0 0;
-`
-const PotentialInput = styled.div`
-    position: relative;
-    && {
-        margin-right: 0;
-    }
-    > span {
-        margin-left: .3rem;
-        margin-right: .1rem;
-    }
-    > div:first-child .MuiSelect-root {
-        padding-right: 1.2rem;
-    }
-    > div:last-child {
-        position: relative;
-        left: auto;
-        height: 1.6rem
     }
 `
 const CharStats = styled.div`
@@ -438,26 +296,21 @@ const CharSlotContent = ({
     handleSelectModalOpen,
     handleCharDelete
 }) => {
-    const { charString } = useLanguage()
-
     const { currentTeam, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
-    const {
-        selectItems, charStatsValue,
-        setSelect, setCharState
-    } = useCharacterSelect(char, (newCharState) => {
+    const [charStats, setCharStats] = useCharacterStats(char)
+
+    const { charString } = useLanguage()
+
+    const onSelect = (newCharState) => {
+        setCharStats(newCharState)
+
         const newTeam = JSON.parse(JSON.stringify(currentTeam))
         newTeam.characters[index] = newCharState
 
         setCurrentTeam(newTeam)
-    })
-
-    useEffect(() => {
-        setCharState(char)
-    }, [char])
-
-    const handleSelectChange = (key) => (event) => setSelect(key, parseInt(event.target.value))
+    }
 
     return (<>
         <SlotCharAvatar
@@ -470,60 +323,11 @@ const CharSlotContent = ({
             <span>{charString.name[char.id].split(' ').slice(-1)[0]}</span>
         </CharName>
         <CharPositionText>{charString.tags[charMap[char.id].tags.position]}</CharPositionText>
-        <CharStatsSelect>
-            <div>
-                <StyledLabel htmlFor={`level-input-${index}`}>Lv</StyledLabel>
-                <LevelInput
-                    id={`level-input-${index}`}
-                    value={char.level}
-                    onChange={handleSelectChange('level')}
-                    variant='outlined'
-                    size='small'
-                    inputProps={{ 'aria-label': 'level' }}
-                />
-            </div>
-            {Object.entries(selectItems).map((entry, idx) => (
-                entry[0] === 'potential'
-                    ? <PotentialInput key={idx}>
-                        <UiImg
-                            name={entry[1].imgNames}
-                            isBackground
-                            alt={entry[0]}
-                        >
-                            <ImgSelect
-                                type={entry[0]}
-                                value={char[entry[0]]}
-                                values={entry[1].values}
-                                disabled={entry[1].disabled}
-                                onChange={handleSelectChange(entry[0])}
-                            />
-                        </UiImg>
-                        <span>{' - '}</span>
-                        <ImgSelect
-                            type='potentialSub'
-                            value={char.potentialSub}
-                            values={selectItems.potentialSub.values}
-                            disabled={selectItems.potentialSub.disabled}
-                            onChange={handleSelectChange('potentialSub')}
-                        />
-                    </PotentialInput>
-                    : entry[0] !== 'potentialSub' &&
-                    <UiImg
-                        name={entry[1].imgNames}
-                        isBackground
-                        alt={entry[0]}
-                        key={idx}
-                    >
-                        <ImgSelect
-                            type={entry[0]}
-                            value={char[entry[0]]}
-                            values={entry[1].values}
-                            disabled={entry[1].disabled}
-                            onChange={handleSelectChange(entry[0])}
-                        />
-                    </UiImg>
-            ))}
-        </CharStatsSelect>
+        <CharStatsSelect
+            char={char}
+            levelInputId={`level-input-${index}`}
+            onSelect={onSelect}
+        />
         <SlotOperationButtons
             handleChange={handleSelectModalOpen}
             handleDelete={handleCharDelete}
@@ -531,11 +335,11 @@ const CharSlotContent = ({
         <CharStats>
             <div>
                 {AttackIcon}
-                <span>{isNaN(charStatsValue.ATK) ? '-' : charStatsValue.ATK}</span>
+                <span>{isNaN(charStats.ATK) ? '-' : charStats.ATK}</span>
             </div>
             <div>
                 {HpIcon}
-                <span>{isNaN(charStatsValue.HP) ? '-' : charStatsValue.HP}</span>
+                <span>{isNaN(charStats.HP) ? '-' : charStats.HP}</span>
             </div>
         </CharStats>
     </>)
@@ -764,7 +568,7 @@ const TeamHeader = ({ isExporting, handleExport }) => {
         <StyledHeader
             title={
                 <div>
-                    <StyledTextField
+                    <Input
                         id='team-name-input'
                         value={currentTeam.name}
                         onChange={handleNameChange}

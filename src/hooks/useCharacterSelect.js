@@ -1,7 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-
-import calcCharStats from 'utils/calcCharStats';
-import charMap from 'data/charMap';
+import { useCallback, useState } from 'react';
 
 const getCharSelects = (charState) => ({
     star: {
@@ -33,21 +30,11 @@ const getCharSelects = (charState) => ({
     }
 })
 
-const getCharStatsValue = (charState) => calcCharStats({
-    ...charState,
-    level: charState.level === '' ? '-' : charState.level,
-    discipline: charState.discipline === '-' ? 0 : charState.discipline,
-    ...charMap[charState.id].stats
-})
-
-const getSelectState = (charState) => ({
-    charState: charState,
-    selectItems: getCharSelects(charState),
-    charStatsValue: getCharStatsValue(charState)
-})
-
 const useCharacterSelect = (initCharState, onSelect) => {
-    const [state, setState] = useState(getSelectState(initCharState))
+    const [state, setState] = useState({
+        charState: initCharState,
+        selectItems: getCharSelects(initCharState),
+    })
 
     const setSelect = (key, value) => {
         const newCharState = { ...state.charState }
@@ -73,13 +60,15 @@ const useCharacterSelect = (initCharState, onSelect) => {
         setState({
             charState: newCharState,
             selectItems: newCharSelects,
-            charStatsValue: getCharStatsValue(newCharState)
         })
 
         onSelect(newCharState)
     }
 
-    const setCharState = useCallback((charState) => setState(getSelectState(charState)), [])
+    const setCharState = useCallback((charState) => setState({
+        charState: charState,
+        selectItems: getCharSelects(charState),
+    }), [])
 
     return { ...state, setSelect, setCharState }
 }
