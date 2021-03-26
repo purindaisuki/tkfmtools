@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Button, Divider, MenuItem, TextField } from '@material-ui/core';
 
-import useSlotsSelect from 'hooks/useSlotsSelect';
+import useTeamSlots from 'hooks/useTeamSlots';
+import useCharacterSelect from 'hooks/useCharacterSelect';
 import useExport from 'hooks/useExport';
 
-import { useLineupData } from 'containers/LineupDataProvider';
 import { useTeamData } from 'containers/TeamDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
 import Swappable from 'containers/Swappable';
@@ -433,31 +433,10 @@ const CharStats = styled.div`
         }
     }
 `
-const charSelectValues = (char, potential, key) => {
-    if (!char) {
-        return []
-    }
-
-    switch (key) {
-        case 'star':
-            return [...Array(6).keys()].slice(4 - char[0])
-        case 'bond':
-            return [...Array(6).keys()].slice(1)
-        case 'discipline':
-            return char[0] === '4' ? ['-'] : [...Array(4).keys()]
-        case 'potential':
-            return [...Array(parseInt(char[0]) > 3 ? 7 : 13).keys()].slice(1)
-        case 'potentialSub':
-            return [...Array(7).keys()].slice(potential === 1 ? 0 : 1)
-        default:
-            return []
-    }
-}
-
 const CharSlotContent = ({
     char,
     index,
-    handleSelectModal,
+    handleSelectModalOpen,
     handleCharDelete
 }) => {
     const { charString } = useLanguage()
@@ -465,65 +444,21 @@ const CharSlotContent = ({
     const { currentTeam, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
-    const selectItems = {
-        star: {
-            imgNames: 'ui_star_' + (char.id[0] === '1' ? 'ssr'
-                : char.id[0] === '2' ? 'sr'
-                    : char.id[0] === '3' ? 'r' : 'n'),
-            disabled: false,
-        },
-        bond: {
-            imgNames: 'ui_bond_' + char.bond,
-            disabled: false,
-        },
-        discipline: {
-            imgNames: 'ui_discipline',
-            disabled: char.id[0] === '4',
-        },
-        potential: {
-            imgNames: 'ui_potentialPassive',
-            disabled: false,
-        },
-        potentialSub: {
-            imgNames: undefined,
-            disabled: false,
-        }
-    }
-
-    const charStatsValue = calcCharStats(
-        char.id,
-        char.level === '' ? '-' : char.level,
-        char.potential,
-        char.potentialSub,
-        char.discipline === '-' ? 0 : char.discipline,
-        char.star,
-        charMap[char.id].stats.initATK,
-        charMap[char.id].stats.initHP
-    )
-
-    const handleSelectChange = (key) => (event) => {
+    const {
+        selectItems, charStatsValue,
+        setSelect, setCharState
+    } = useCharacterSelect(char, (newCharState) => {
         const newTeam = JSON.parse(JSON.stringify(currentTeam))
-        const newCharState = newTeam.characters[index]
-
-        let value = parseInt(event.target.value)
-
-        // validate state values
-        if (key === 'level') {
-            value = isNaN(value) ? ''
-                : value < 1 ? 1
-                    : value > 60 ? 60 : value
-        }
-        newCharState[key] = value
-
-        Object.entries(selectItems).forEach(entry => {
-            const values = charSelectValues(char, newCharState.potential, entry[0])
-            if (!values.includes(newCharState[entry[0]])) {
-                newCharState[entry[0]] = values[0]
-            }
-        })
+        newTeam.characters[index] = newCharState
 
         setCurrentTeam(newTeam)
-    }
+    })
+
+    useEffect(() => {
+        setCharState(char)
+    }, [char])
+
+    const handleSelectChange = (key) => (event) => setSelect(key, parseInt(event.target.value))
 
     return (<>
         <SlotCharAvatar
@@ -559,18 +494,18 @@ const CharSlotContent = ({
                             <ImgSelect
                                 type={entry[0]}
                                 value={char[entry[0]]}
-                                values={charSelectValues(char.id, char.potential, entry[0])}
-                                onChange={handleSelectChange(entry[0])}
+                                values={entry[1].values}
                                 disabled={entry[1].disabled}
+                                onChange={handleSelectChange(entry[0])}
                             />
                         </UiImg>
                         <span>{' - '}</span>
                         <ImgSelect
                             type='potentialSub'
                             value={char.potentialSub}
-                            values={charSelectValues(char.id, char.potential, 'potentialSub')}
-                            onChange={handleSelectChange('potentialSub')}
+                            values={selectItems.potentialSub.values}
                             disabled={selectItems.potentialSub.disabled}
+                            onChange={handleSelectChange('potentialSub')}
                         />
                     </PotentialInput>
                     : entry[0] !== 'potentialSub' &&
@@ -583,15 +518,15 @@ const CharSlotContent = ({
                         <ImgSelect
                             type={entry[0]}
                             value={char[entry[0]]}
-                            values={charSelectValues(char.id, char.potential, entry[0])}
-                            onChange={handleSelectChange(entry[0])}
+                            values={entry[1].values}
                             disabled={entry[1].disabled}
+                            onChange={handleSelectChange(entry[0])}
                         />
                     </UiImg>
             ))}
         </CharStatsSelect>
         <SlotOperationButtons
-            handleChange={handleSelectModal(true)}
+            handleChange={handleSelectModalOpen}
             handleDelete={handleCharDelete}
         />
         <CharStats>
@@ -685,7 +620,7 @@ const CharSlot = React.forwardRef(({
     provided,
     isDragging,
     index,
-    handleSelectModal,
+    handleSelectModalOpen,
     handleCharDelete
 }, ref) => {
     const { pageString } = useLanguage()
@@ -703,10 +638,10 @@ const CharSlot = React.forwardRef(({
                 ? <CharSlotContent
                     char={char}
                     index={index}
-                    handleSelectModal={handleSelectModal}
+                    handleSelectModalOpen={handleSelectModalOpen}
                     handleCharDelete={handleCharDelete}
                 />
-                : <EmptySlotContent onClick={handleSelectModal(true)}>
+                : <EmptySlotContent onClick={handleSelectModalOpen}>
                     {pageString.team.build.emptySlotText}
                 </EmptySlotContent>
             }
@@ -718,9 +653,10 @@ const DraggableCharsList = () => {
     const { actions } = useTeamData()
     const { setCurrentTeam } = actions
 
-    const [currentTeam, setSlots] = useSlotsSelect()
+    const [currentTeam, setTeamSlots] = useTeamSlots()
 
     const [state, setState] = useState({
+        didModalMounted: false,
         isSelectModalOpen: false,
         slotIndex: undefined,
         canRender: false
@@ -733,9 +669,10 @@ const DraggableCharsList = () => {
         }))
     }, [])
 
-    const handleSelectModal = (slotIndex) => (boolean) => () => setState(state => ({
+    const handleSelectModalOpen = (slotIndex) => () => setState(state => ({
         ...state,
-        isSelectModalOpen: boolean,
+        didModalMounted: true,
+        isSelectModalOpen: true,
         slotIndex: slotIndex
     }))
 
@@ -746,7 +683,7 @@ const DraggableCharsList = () => {
     }))
 
     const handleCharSelect = (charId, index) => () => {
-        setSlots(charId, index === undefined ? state.slotIndex : index)
+        setTeamSlots(charId, index === undefined ? state.slotIndex : index)
 
         setState(state => ({
             ...state,
@@ -765,7 +702,7 @@ const DraggableCharsList = () => {
                     provided={provided}
                     isDragging={isDragging}
                     ref={provided.innerRef}
-                    handleSelectModal={handleSelectModal(index)}
+                    handleSelectModalOpen={handleSelectModalOpen(index)}
                     handleCharDelete={handleCharSelect(undefined, index)}
                 />
             )}
@@ -775,11 +712,11 @@ const DraggableCharsList = () => {
             })}
             droppableId='character-list'
         />}
-        <CharSelectModal
+        {state.didModalMounted && <CharSelectModal
             open={state.isSelectModalOpen}
             onClose={handleSelectModalClose}
             handleSelect={handleCharSelect}
-        />
+        />}
     </>)
 }
 

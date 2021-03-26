@@ -1,7 +1,7 @@
 const charData = require('../data/character.json');
 const potentialData = require('../data/potential.json');
 
-const calcCharPotential = function (char, from, to) {
+const calcCharPotential = function (id, from, to) {
     const result = {
         items: {},
         money: 0,
@@ -11,9 +11,9 @@ const calcCharPotential = function (char, from, to) {
             PASSIVE: 0
         },
     }
-    const type = (char === 'nr' || char[0] === '4' || char[0] === '3')
+    const type = (id === 'nr' || id[0] === '4' || id[0] === '3')
         ? 3
-        : charData.find(c => c.id === char).potentialType
+        : charData.find(c => c.id === id).potentialType
 
     const stages = potentialData.type[type]
     for (let i = from[0] - 1; i < to[0] - 1 + 1; i++) {
@@ -57,8 +57,8 @@ const calcCharPotential = function (char, from, to) {
     return result
 }
 
-const calcCharStats = function (
-    character,
+const calcCharStats = function ({
+    id,
     level,
     potential,
     potentialSub,
@@ -66,19 +66,19 @@ const calcCharStats = function (
     star,
     initATK,
     initHP
-) {
-    if (!character) {
+}) {
+    if (!id) {
         return
     }
-    
+
     const levelBuff = 1.1 ** (level - 1)
     const { buff } = calcCharPotential(
-        character,
+        id,
         [1, 0],
         [potential, potentialSub]
     )
     const disciplineBuff = 1 + discipline * .05
-    const starBuff = (star + 5) / (9 - character[0])
+    const starBuff = (star + 5) / (9 - id[0])
 
     return ({
         ATK: Math.floor(initATK * levelBuff * (1 + buff.ATK / 100) * disciplineBuff * starBuff),

@@ -3,7 +3,9 @@ import { useCallback } from 'react';
 import { useLineupData } from 'containers/LineupDataProvider';
 import { useTeamData } from 'containers/TeamDataProvider';
 
-const useSlotsSelect = () => {
+import getInitCharState from 'utils/getInitCharState';
+
+const useTeamSlots = () => {
     const { currentTeam, isImportingLineup, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
@@ -11,7 +13,7 @@ const useSlotsSelect = () => {
 
     const lineup = getLatestLineup()
 
-    const getCharInitState = useCallback((charId) => {
+    const getInitSlotState = useCallback((charId) => {
         if (isImportingLineup && lineup) {
             const localChar = lineup.find(c => c.id === charId)
 
@@ -21,23 +23,15 @@ const useSlotsSelect = () => {
             }
         }
 
-        return {
-            id: charId,
-            level: '',
-            star: charId === undefined ? '' : 4 - parseInt(charId[0]),
-            bond: 1,
-            discipline: charId === undefined ? '' : (charId[0] === '4' ? '-' : 0),
-            potential: 1,
-            potentialSub: 0,
-        }
+        return getInitCharState(charId)
     }, [isImportingLineup, lineup])
 
-    const setSlots = (charId, index) => {
+    const setTeamSlots = (charId, index) => {
         const newCharacters = Array.from(currentTeam.characters)
 
         newCharacters[index] = {
             ...newCharacters[index],
-            ...getCharInitState(charId)
+            ...getInitSlotState(charId)
         }
 
         setCurrentTeam({
@@ -46,7 +40,7 @@ const useSlotsSelect = () => {
         })
     }
 
-    return [currentTeam, setSlots]
+    return [currentTeam, setTeamSlots]
 }
 
-export default useSlotsSelect
+export default useTeamSlots
