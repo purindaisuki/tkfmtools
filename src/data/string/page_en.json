@@ -63,8 +63,8 @@
             ]
         },
         "setting": {
-            "header": "Global Settings (Only works for some pages and devices) ",
-            "groupLabel": "Layout",
+            "header": "Global Settings",
+            "groupLabel": "Layout (Only works for some pages and devices)",
             "labels": [
                 "Portrait",
                 "Landscape"
