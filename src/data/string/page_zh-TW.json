@@ -873,7 +873,7 @@
     },
     "navbar": {
         "menuButton": "選單",
-        "languageSwitchTooltip": "Language",
+        "languageSwitchTooltip": "語言",
         "sidebar": [
             {
                 "title": "首頁"
