@@ -31,28 +31,49 @@ const Input = styled(TextField)`
     }
 `
 
-export const Select = ({ children, values, ...rest }) => {
+const StyledSelect = styled(Input)`
+    && > div {
+        width: 100%;
+        > div {
+            padding: .2rem;
+            padding-left: .4rem;
+            padding-right: 1rem;
+            color: ${props => props.disabled ? props.theme.colors.dropdownHover
+        : 'inherit'};
+        }
+        svg {
+            right: 0;
+            fill: ${props => props.disabled ? props.theme.colors.dropdownHover
+        : props.theme.colors.onSurface};
+        }
+    }
+`
+export const Select = ({ className, children, values, renderValues, ...rest }) => {
     const { colors } = useTheme()
 
     return (
-        <Input
+        <StyledSelect
+            className={className}
             select
             SelectProps={{
                 MenuProps: {
                     MenuListProps: {
                         style: {
                             backgroundColor: colors.surface,
-                            color: colors.onSurface
-                        }
+                            color: colors.onSurface,
+                        },
+                        dense: true,
                     }
                 }
             }}
+            variant='outlined'
+            size='small'
             {...rest}
         >
-            {values.map(value => (
-                <MenuItem key={value} value={value}>{value}</MenuItem>
+            {values.map((value, i) => (
+                <MenuItem key={value} value={value}>{renderValues ? renderValues[i] : value}</MenuItem>
             ))}
-        </Input>
+        </StyledSelect>
     )
 }
 

@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { 
+    TableHead as MuiTableHead,
+    TableBody as MuiTableBody,
+    TableRow as MuiTableRow,
+    TableCell as MuiTableCell
+ } from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -10,16 +16,19 @@ import { SortableTh } from 'components/SortableTable';
 import charData from 'data/character.json';
 
 const StyledTh = styled(SortableTh)`
-    background-color:  ${props => props.theme.colors.secondary};
-    color:  ${props => props.theme.colors.onSecondary};
-    white-space: nowrap;
+    && {
+        background-color:  ${props => props.theme.colors.secondary};
+        color:  ${props => props.theme.colors.onSecondary};
+        text-align: start;
+        white-space: nowrap;
+    }
 `
 const TableHead = React.forwardRef((props, ref) => {
     const { charString } = useLanguage()
 
     return (
-        <thead ref={ref}>
-            <tr>
+        <MuiTableHead ref={ref}>
+            <MuiTableRow hover>
                 {Object.entries(charString.tagAttributes)
                     .map((entry, idx) => (
                         <StyledTh
@@ -30,8 +39,8 @@ const TableHead = React.forwardRef((props, ref) => {
                             {entry[1]}
                         </StyledTh>
                     ))}
-            </tr>
-        </thead>
+            </MuiTableRow>
+        </MuiTableHead>
     )
 })
 
@@ -51,7 +60,7 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
     const { userLanguage, charString } = useLanguage()
 
     return (
-        <tbody>
+        <MuiTableBody>
             {sortedData.map((char, idx) => {
                 if (idx > renderTo) {
                     return null
@@ -59,63 +68,63 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
 
                 if (!char.available) {
                     return (
-                        <tr key={char.id}>
-                            <td>
+                        <MuiTableRow hover key={char.id}>
+                            <MuiTableCell>
                                 <ResponsiveCharCard
                                     id={char.id}
                                     $textWrapConfig={
                                         cardTextWrapConfig[userLanguage]
                                     }
                                 />
-                            </td>
-                            <td>
+                            </MuiTableCell>
+                            <MuiTableCell>
                                 {parseRarity(char.rarity)}
-                            </td>
-                            <td>
+                            </MuiTableCell>
+                            <MuiTableCell>
                                 {charString.tags[char.attribute]}
-                            </td>
-                            <td>
+                            </MuiTableCell>
+                            <MuiTableCell>
                                 {charString.tags[char.position]}
-                            </td>
-                            <td colSpan='5'>
+                            </MuiTableCell>
+                            <MuiTableCell colSpan='5'>
                                 {charString.tagWarnMsg}
-                            </td>
-                        </tr>
+                            </MuiTableCell>
+                        </MuiTableRow>
                     )
                 }
 
                 return (
-                    <tr key={char.id} ref={idx === 0 ? ref : undefined}>
+                    <MuiTableRow hover key={char.id} ref={idx === 0 ? ref : undefined}>
                         {Object.entries(char).map((entry, j) => {
                             if (entry[0] === 'available') {
                                 return true
                             }
                             if (entry[0] === 'id') {
                                 return (
-                                    <td key={j}>
+                                    <MuiTableCell key={j}>
                                         <ResponsiveCharCard
                                             id={char.id}
                                             $textWrapConfig={
                                                 cardTextWrapConfig[userLanguage]
                                             }
                                         />
-                                    </td>
+                                    </MuiTableCell>
                                 )
                             }
                             if (entry[0] === 'rarity') {
                                 return (
-                                    <td key={j}>
+                                    <MuiTableCell key={j}>
                                         {parseRarity(entry[1])}
-                                    </td>
+                                    </MuiTableCell>
                                 )
                             }
                             if (entry[0] === 'else') {
                                 return (
-                                    <td key={j}>
+                                    <MuiTableCell key={j}>
                                         {entry[1].map(tag => (
                                             charString.tags[tag]
                                         )).join(', ')}
-                                    </td>
+                                    </MuiTableCell>
                                 )
                             }
 
@@ -125,18 +134,18 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
                             } else {
                                 tag = charString.tags[entry[1]]
                             }
-                            return <td key={j}>{tag}</td>
+                            return <MuiTableCell key={j}>{tag}</MuiTableCell>
                         })}
-                    </tr>
+                    </MuiTableRow>
                 )
             })}
-        </tbody>
+        </MuiTableBody>
     )
 })
 
 const CharTable = styled(WindowTable)`
     overflow-x: auto;
-    height: calc(100vh - 12rem);
+    height: calc(100vh - 11rem);
     padding-right: 0;
     margin-right: 0;
 `

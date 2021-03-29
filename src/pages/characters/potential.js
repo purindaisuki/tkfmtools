@@ -1,19 +1,99 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Grid } from '@material-ui/core';
 
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
-import CharSelectPanel from 'components/CharSelectPanel';
 import Header from 'components/Header';
 import { ItemCard } from 'components/Card';
 import ImageSupplier from 'components/ImageSupplier';
-import { TwoStageForm } from 'components/Form';
+import { Select } from 'components/Input';
 import { TextModal } from 'components/Modal';
-import { BuffIcon, ItemIcon } from 'components/icon';
+import { BuffIcon, ItemIcon, RaceIcon } from 'components/icon';
 
 import { calcCharPotential } from 'utils/calcCharStats';
+
+const getSelectValues = (selected) => ({
+    character: '',
+    currStage: [...Array(selected.character === 'nr' ? 7 : 13).keys()].slice(1),
+    currSub: [...Array(7).keys()].slice(1),
+    targetStage: [...Array(selected.character === 'nr' ? 7 : 13).keys()].slice(selected.currStage),
+    targetSub: [...Array(7).keys()]
+        .slice(selected.currStage === selected.targetStage ? selected.currSub : 1)
+})
+
+const StyledSelect = styled(Select)`
+    && > div > div {
+        padding: .6rem;
+    }
+`
+const CharImgWrapper = styled(ImageSupplier)`
+    && {
+        max-width: 5.2rem;
+    }
+    margin-right: 1rem;
+    border: 2px solid ${props => props.theme.colors.secondary};
+    border-radius: .25rem;
+`
+const CharSelectPanel = ({
+    selected,
+    handleSelect,
+}) => {
+    const { pageString, charString } = useLanguage()
+
+    const characterList = Object.keys(charString.name).filter(key => !(parseInt(key[0]) > 3))
+
+    const selectValues = getSelectValues(selected)
+
+    const labels = {
+        character: pageString.characters.potential.characterSelectTitle,
+        currStage: pageString.characters.potential.currentSelectTitle,
+        currSub: '',
+        targetStage: pageString.characters.potential.targetSelectTitle,
+        targetSub: ''
+    }
+
+    return (<>
+        <Header
+            title={pageString.characters.potential.characterPanelTitle}
+            titleIcon={RaceIcon}
+            border
+        />
+        <Grid container spacing={1} justify='space-around'>
+            <Grid
+                item
+                xs={4}
+                component={CharImgWrapper}
+                name={`char_${selected.character}`}
+                alt=''
+            />
+            <Grid
+                item
+                xs={8}
+                container
+                spacing={1}
+                alignContent='space-around'
+            >
+                {Object.entries(selectValues).map(entry => (
+                    <Grid
+                        item
+                        xs={entry[0] === 'character' ? 12 : 6}
+                        component={StyledSelect}
+                        label={labels[entry[0]]}
+                        values={entry[0] === 'character' ? characterList : entry[1]}
+                        renderValues={entry[0] === 'character'
+                            ? characterList.map(key => charString.name[key]) : entry[1]}
+                        value={selected[entry[0]]}
+                        onChange={handleSelect(entry[0])}
+                        key={entry[0]}
+                    />
+                ))}
+            </Grid>
+        </Grid>
+    </>)
+}
 
 const MaterialWrapper = styled.span`
     display: inline-flex;
@@ -168,9 +248,6 @@ const ResultPanel = ({
     </>)
 }
 
-const FormGutter = styled.div`
-    margin-top: 4rem;
-`
 const Potential = () => {
     const { pageString } = useLanguage()
 
@@ -224,8 +301,6 @@ const Potential = () => {
         setState(newState)
     }
 
-    const maxStage = state.character === 'nr' ? 6 : 12
-
     const handelHelpModal = (boolean) => () => {
         setState((state) => ({
             ...state,
@@ -241,28 +316,15 @@ const Potential = () => {
         />
         <Panels panelsWidth={['30%', '70%']}>
             <CharSelectPanel
+                selected={{
+                    character: state.character,
+                    currStage: state.currStage,
+                    currSub: state.currSub,
+                    targetStage: state.targetStage,
+                    targetSub: state.targetSub
+                }}
                 handleSelect={handleSelect}
-                character={state.character}
-                lumpNRChars
-            >
-                <FormGutter />
-                <TwoStageForm
-                    title={pageString.characters.potential.currentSelectTitle}
-                    subMinNum={1}
-                    minNum={1}
-                    maxNum={maxStage}
-                    selectAttrs={['currStage', 'currSub']}
-                    handleSelect={handleSelect}
-                />
-                <TwoStageForm
-                    title={pageString.characters.potential.targetSelectTitle}
-                    subMinNum={state.currStage === state.targetStage ? state.currSub : 1}
-                    minNum={state.currStage}
-                    maxNum={maxStage}
-                    selectAttrs={['targetStage', 'targetSub']}
-                    handleSelect={handleSelect}
-                />
-            </CharSelectPanel>
+            />
             <ResultPanel
                 result={state.result}
                 handleModalOpen={handelHelpModal(true)}

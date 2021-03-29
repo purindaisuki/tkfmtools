@@ -9,11 +9,11 @@ import { panelsStyle } from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import { lightTheme, darkTheme } from 'components/theme';
-import { MainNavbar, Sidebar } from 'components/Navbars';
-import ToTopBtn from 'components/ToTopBtn';
+import Navbar from 'components/Navbar';
+import Sidebar from 'components/Sidebar';
+import BackToTop from 'components/BackToTop';
 
 import langConfig from 'languangeConfig.json';
-import 'bootstrap/dist/css/bootstrap.css';
 import 'components/global.css';
 
 const transformTheme = (theme) => {
@@ -37,7 +37,7 @@ export const useLayoutConfig = () => useContext(LayoutContext)
 const Main = styled.main`
   padding: 1rem;
   height: 100%;
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 56px);
   background-color: ${props => props.theme.colors.background};
   color: ${props => props.theme.colors.onSurface};
 `
@@ -86,9 +86,11 @@ export default function Layout({ children, withTabs, pagePath }) {
   const toggleSidebar = (boolean) => (event) => {
     if (
       (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) ||
-      event.target.closest('.MuiAccordion-root') !== null &&
+      event.target.closest('.MuiListItem-root') !== null &&
       event.target.closest('a') === null
-    ) return
+    ) {
+      return
+    }
 
     setState(state => ({
       ...state,
@@ -167,9 +169,10 @@ export default function Layout({ children, withTabs, pagePath }) {
         <link rel="icon" type="image/png" href="/tkfmtools/favicon-128.png" sizes="128x128" />
         <link rel="manifest" href="/tkfmtools/manifest.json" />
       </Helmet>
-      <MainNavbar
+      <Navbar
         toggleSidebar={toggleSidebar}
       />
+      <div id='back-to-top-anchor' />
       <Sidebar
         open={state.isSidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -184,7 +187,7 @@ export default function Layout({ children, withTabs, pagePath }) {
             : children}
         </Main>
       </LayoutContext.Provider>
-      <ToTopBtn />
+      <BackToTop />
     </ThemeProvider>
   )
 }

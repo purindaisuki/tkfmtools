@@ -1,7 +1,7 @@
 const charData = require('../data/character.json');
 const potentialData = require('../data/potential.json');
 
-const calcCharPotential = function (id, from, to) {
+const calcCharPotential = function (id, from, to, potentialType) {
     const result = {
         items: {},
         money: 0,
@@ -11,9 +11,16 @@ const calcCharPotential = function (id, from, to) {
             PASSIVE: 0
         },
     }
+
+    if (from[0] > to[0]) {
+        return result
+    }
+
     const type = (id === 'nr' || id[0] === '4' || id[0] === '3')
         ? 3
-        : charData.find(c => c.id === id).potentialType
+        : potentialType !== undefined
+            ? potentialType
+            : charData.find(c => c.id === id).potentialType
 
     const stages = potentialData.type[type]
     for (let i = from[0] - 1; i < to[0] - 1 + 1; i++) {
@@ -64,19 +71,24 @@ const calcCharStats = function ({
     potentialSub,
     discipline,
     star,
-    initATK,
-    initHP
 }) {
     if (!id) {
         return
     }
 
+    const { initATK, initHP } = charData.find(c => c.id === id).stats
+
     const levelBuff = 1.1 ** (level - 1)
-    const { buff } = calcCharPotential(
-        id,
-        [1, 0],
-        [potential, potentialSub]
-    )
+
+    const buff = potentialSub.reduce((res, boolean, i) => {
+        if (boolean) {
+            const newRes = calcCharPotential(id, [potential, i + 1], [potential, i + 1]).buff
+            res.ATK += newRes.ATK
+            res.HP += newRes.HP
+        }
+        return res
+    }, calcCharPotential(id, [1, 0], [potential - 1, 0]).buff)
+
     const disciplineBuff = 1 + discipline * .05
     const starBuff = (star + 5) / (9 - id[0])
 

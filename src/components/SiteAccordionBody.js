@@ -9,7 +9,7 @@ import Header from 'components/Header';
 import RadioGroup, { Radio } from 'components/RadioGroup';
 import IconButton from 'components/IconButton';
 import Modal from 'components/Modal';
-import { ChangeBadge, FixBadge, NewBadge } from 'components/Badge';
+import { ChangeChip, FixChip, NewChip } from 'components/Chip';
 import { DeleteIcon } from 'components/icon';
 
 const SiteDescription = ({ name, content, link }) => {
@@ -225,9 +225,9 @@ const MsgAccordion = styled(Accordion)`
 export function LogMsg({ msg, alwaysOpen }) {
     const [isExpanded, setExpanded] = useState(alwaysOpen ? true : false)
     const { type, title, description } = msg
-    const Badge = type === 'New' ? NewBadge
-        : type === 'Fix' ? FixBadge
-            : ChangeBadge
+    const Chip = type === 'New' ? NewChip
+        : type === 'Fix' ? FixChip
+            : ChangeChip
 
     const handleChange = () => {
         if (!alwaysOpen) {
@@ -241,7 +241,7 @@ export function LogMsg({ msg, alwaysOpen }) {
             onChange={handleChange}
             square
             title={<>
-                <Badge />
+                <Chip />
                 {title}
             </>}
             content={description}
@@ -331,12 +331,6 @@ export const SiteLicense = () => {
                         license: 'MIT License',
                     },
                     {
-                        titleLink: 'https://github.com/react-bootstrap/react-bootstrap',
-                        title: 'react-bootstrap',
-                        licenseLink: 'https://github.com/react-bootstrap/react-bootstrap/blob/master/LICENSE',
-                        license: 'MIT License',
-                    },
-                    {
                         titleLink: 'https://github.com/plouc/nivo',
                         title: 'nivo',
                         licenseLink: 'https://github.com/plouc/nivo/blob/master/LICENSE.md',
@@ -352,12 +346,6 @@ export const SiteLicense = () => {
                         titleLink: 'https://github.com/niklasvh/html2canvas',
                         title: 'html2canvas',
                         licenseLink: 'https://github.com/niklasvh/html2canvas/blob/master/LICENSE',
-                        license: 'MIT License',
-                    },
-                    {
-                        titleLink: 'https://github.com/dirtyredz/react-scroll-up-button',
-                        title: 'react-scroll-up-button',
-                        licenseLink: 'https://github.com/dirtyredz/react-scroll-up-button/blob/master/LICENSE',
                         license: 'MIT License',
                     },
                     {

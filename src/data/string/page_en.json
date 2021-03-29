@@ -717,6 +717,8 @@
             },
             "levelTitle": "Level",
             "potentialTitle": "Potential",
+            "primaryPotentialTitle": "Primary potential stage",
+            "secondaryPotentialTitle": "Secondary potential stage",
             "disciplineTitle": "Discipline",
             "starTitle": "Star",
             "saveButton": "Save",
@@ -850,54 +852,58 @@
             "nameInputPlaceholder": "Type team name"
         }
     },
-    "navbar": [
-        {
-            "title": "Home"
-        },
-        {
-            "title": "Characters",
-            "descriptions": [
-                "Potential calculator"
-            ]
-        },
-        {
-            "title": "Recruitment",
-            "descriptions": [
-                "Overview",
-                "Filter"
-            ]
-        },
-        {
-            "title": "Item drops",
-            "descriptions": [
-                "Overview",
-                "Filter"
-            ]
-        },
-        {
-            "title": "Line-up analysis"
-        },
-        {
-            "title": "Team compositions"
-        },
-        {
-            "title": "External Links",
-            "descriptions": [
-                "Official website",
-                "Game data (Chinese)",
-                "Potential data (Chinese)"
-            ]
-        },
-        {
-            "title": "Report",
-            "descriptions": [
-                "Recruitment (Chinese)",
-                "Potential (Chinese)",
-                "Item drop rate (Chinese)",
-                "Feedback"
-            ]
-        }
-    ],
+    "navbar": {
+        "menuButton": "Menu",
+        "languageSwitchTooltip": "Language",
+        "sidebar": [
+            {
+                "title": "Home"
+            },
+            {
+                "title": "Characters",
+                "descriptions": [
+                    "Potential calculator"
+                ]
+            },
+            {
+                "title": "Recruitment",
+                "descriptions": [
+                    "Overview",
+                    "Filter"
+                ]
+            },
+            {
+                "title": "Item drops",
+                "descriptions": [
+                    "Overview",
+                    "Filter"
+                ]
+            },
+            {
+                "title": "Line-up analysis"
+            },
+            {
+                "title": "Team compositions"
+            },
+            {
+                "title": "External Links",
+                "descriptions": [
+                    "Official website",
+                    "Game data (Chinese)",
+                    "Potential data (Chinese)"
+                ]
+            },
+            {
+                "title": "Report",
+                "descriptions": [
+                    "Recruitment (Chinese)",
+                    "Potential (Chinese)",
+                    "Item drop rate (Chinese)",
+                    "Feedback"
+                ]
+            }
+        ]
+    },
     "404": {
         "title": "Not found",
         "h1": "Page not found",

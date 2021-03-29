@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+    TableBody as MuiTableBody,
+    TableRow as MuiTableRow,
+    TableCell as MuiTableCell
+} from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -116,16 +121,16 @@ const CharTr = ({
     }
 
     return (
-        <tr>
-            <td>
+        <MuiTableRow>
+            <MuiTableCell>
                 <TagWrapper>
                     <IconWrapper>
                         {attrIcons[type]}
                     </IconWrapper>
                     {charString.tags[tag]}
                 </TagWrapper>
-            </td>
-        </tr>
+            </MuiTableCell>
+        </MuiTableRow>
     )
 }
 
@@ -138,16 +143,20 @@ export const CharAccordionDetail = ({ id }) => {
     if (!available) {
         return (
             <CardTable striped>
-                <tbody><tr><td>
-                    {charString.tagWarnMsg}
-                </td></tr></tbody>
+                <MuiTableBody>
+                    <MuiTableRow>
+                        <MuiTableCell>
+                            {charString.tagWarnMsg}
+                        </MuiTableCell>
+                    </MuiTableRow>
+                </MuiTableBody>
             </CardTable>
         )
     }
 
     return (
         <CardTable striped>
-            <tbody>
+            <MuiTableBody>
                 {Object.entries(rest).map((entry, idx) => (
                     entry[0] === 'else'
                         ? entry[1].map((tag, i) => (
@@ -165,7 +174,7 @@ export const CharAccordionDetail = ({ id }) => {
                             />
                             : null
                 ))}
-            </tbody>
+            </MuiTableBody>
         </CardTable>
     )
 }

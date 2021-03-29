@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useCallback, useEffect } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -33,7 +33,7 @@ const initLineup = charsData.map(c => ({
     position: c.tags.position - 5,
     level: 1,
     potential: 1,
-    potentialSub: 0,
+    potentialSub: Array(6).fill(false),
     discipline: 0,
     star: c.rarity,
     ATK: c.stats.initATK,
@@ -63,7 +63,7 @@ const LineupDataProvider = ({ children }) => {
         )
     }, [isImportingLineup, localLineups])
 
-    const pushLineup = (lineup, setting) => {
+    const pushLineup = useCallback((lineup, setting) => {
         let newLineups
         const tzoffset = (new Date()).getTimezoneOffset() * 60000
         const localDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10)
@@ -86,6 +86,7 @@ const LineupDataProvider = ({ children }) => {
             const minLineup = JSON.parse(JSON.stringify(dehydratedLineup)).reduce((newLineup, c) => {
                 c[3] = ('00' + c[3]).slice(-2)
                 c[4] = ('00' + c[4]).slice(-2)
+                c[5] = c[5].reduce((a, b) => a + (b ? 1 : 0), '')
                 c[10] = c[10] ? 1 : 0
                 c.splice(8, 2)
                 c.splice(1, 2)
@@ -95,15 +96,15 @@ const LineupDataProvider = ({ children }) => {
             // separate data due to 100 characters limit of GA4
             for (let i = 0; i < Math.ceil(minLineup.length / 99); i++) {
                 // add prefix 'a' to prevent it from being parsed as number
-                gtagData['line_up_' + i] = 'a' + minLineup.slice(i * 99, (i + 1) * 99)
+                gtagData['line_up_' + i] = 'b' + minLineup.slice(i * 99, (i + 1) * 99)
             }
             window.gtag('event', 'line_up_save', { ...gtagData })
         }
 
         return newLineups.length
-    }
+    }, [localLineups, setLocalLineups])
 
-    const getLineup = (index) => {
+    const getLineup = useCallback((index) => {
         if (!localLineups || !localLineups[index]) {
             return
         }
@@ -118,13 +119,13 @@ const LineupDataProvider = ({ children }) => {
         })
 
         return hydratedLineup
-    }
+    }, [localLineups])
 
-    const getLatestLineup = () => (
+    const getLatestLineup = useCallback(() => (
         localLineups ? getLineup(localLineups.length - 1) : undefined
-    )
+    ), [localLineups])
 
-    const deleteLineup = (index) => {
+    const deleteLineup = useCallback((index) => {
         if (!localLineups || !localLineups[index]) {
             return 0
         }
@@ -137,9 +138,9 @@ const LineupDataProvider = ({ children }) => {
         }
 
         return 1
-    }
+    }, [localLineups, setLocalLineups])
 
-    const setCurrentLineup = (lineup) => setTempLineup(lineup)
+    const setCurrentLineup = useCallback((lineup) => setTempLineup(lineup), [setTempLineup])
 
     const provider = {
         localLineups: localLineups,

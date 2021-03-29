@@ -1,50 +1,26 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Table } from 'react-bootstrap';
+import { TableCell } from '@material-ui/core';
 
 import useSortable from 'hooks/useSortable';
 
-export const SortableTh = styled.th`
-    cursor: pointer;
-    user-select: none;
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    &:after {
-        content: '${props => (
+import Table from 'components/Table';
+
+export const SortableTh = styled(TableCell)`
+    && {
+        background-color: ${props => props.theme.colors.surface};
+        color: ${props => props.theme.colors.onSurface};
+        cursor: pointer;
+        user-select: none;
+        &:after {
+            content: '${props => (
         props.direction
             ? props.direction === 'asc'
                 ? ' \\25B2'
                 : ' \\25BC'
             : undefined
     )}';
-    }
-`
-const StyledTable = styled(Table)`
-    width: 100%;
-    margin-bottom: 0;
-    th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-    &, &&& tr {
-        color: ${props => props.theme.colors.onSurface};
-    }
-    th {
-        padding: .75rem .25rem;
-    }
-    th:first-child {
-        padding-left: .75rem;
-    }
-    td {
-        vertical-align: middle;
-    }
-    tr {
-        border-bottom: ${props => (
-        props.$border
-            ? '1px solid ' + props.theme.colors.secondary
-            : 'none'
-    )};
+        }
     }
 `
 export const SortableTable = ({
@@ -69,13 +45,12 @@ export const SortableTable = ({
     }, [defaultSortKey])
 
     return (
-        <StyledTable
+        <Table
             className={className}
-            striped={striped}
-            borderless
-            hover
+            stickyHeader
+            $striped={striped}
             $border={border}
-            size="sm"
+            size='small'
         >
             {React.cloneElement(head, {
                 sortedData: sortedData,
@@ -85,7 +60,7 @@ export const SortableTable = ({
             {React.cloneElement(body, {
                 sortedData: sortedData,
             })}
-        </StyledTable>
+        </Table>
     )
 }
 

@@ -721,6 +721,8 @@
             },
             "levelTitle": "等級",
             "potentialTitle": "潛力",
+            "primaryPotentialTitle": "主要潛力階段",
+            "secondaryPotentialTitle": "次要潛力階段",
             "disciplineTitle": "調教",
             "starTitle": "星數",
             "saveButton": "保存",
@@ -854,54 +856,58 @@
             "nameInputPlaceholder": "輸入隊伍編成名"
         }
     },
-    "navbar": [
-        {
-            "title": "首頁"
-        },
-        {
-            "title": "角色",
-            "descriptions": [
-                "潛力計算"
-            ]
-        },
-        {
-            "title": "全境徵才",
-            "descriptions": [
-                "總覽",
-                "篩選器"
-            ]
-        },
-        {
-            "title": "道具掉落",
-            "descriptions": [
-                "總覽",
-                "篩選器"
-            ]
-        },
-        {
-            "title": "隊伍分析"
-        },
-        {
-            "title": "隊伍編成"
-        },
-        {
-            "title": "外部連結",
-            "descriptions": [
-                "官方網站",
-                "資料統整",
-                "潛力整理＆猜測"
-            ]
-        },
-        {
-            "title": "資訊回報",
-            "descriptions": [
-                "全境徵才數據回報",
-                "角色潛力數據回報",
-                "主線掉落數據回報",
-                "意見回饋"
-            ]
-        }
-    ],
+    "navbar": {
+        "menuButton": "選單",
+        "languageSwitchTooltip": "Language",
+        "sidebar": [
+            {
+                "title": "首頁"
+            },
+            {
+                "title": "角色",
+                "descriptions": [
+                    "潛力計算"
+                ]
+            },
+            {
+                "title": "全境徵才",
+                "descriptions": [
+                    "總覽",
+                    "篩選器"
+                ]
+            },
+            {
+                "title": "道具掉落",
+                "descriptions": [
+                    "總覽",
+                    "篩選器"
+                ]
+            },
+            {
+                "title": "隊伍分析"
+            },
+            {
+                "title": "隊伍編成"
+            },
+            {
+                "title": "外部連結",
+                "descriptions": [
+                    "官方網站",
+                    "資料統整",
+                    "潛力整理＆猜測"
+                ]
+            },
+            {
+                "title": "資訊回報",
+                "descriptions": [
+                    "全境徵才數據回報",
+                    "角色潛力數據回報",
+                    "主線掉落數據回報",
+                    "意見回饋"
+                ]
+            }
+        ]
+    },
     "404": {
         "title": "查無此頁",
         "h1": "查無此頁",

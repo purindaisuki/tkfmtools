@@ -25,18 +25,27 @@ const getCharSelects = (charState) => ({
     },
     potentialSub: {
         imgNames: undefined,
-        values: [...Array(7).keys()].slice(charState.potential === 1 ? 0 : 1),
+        values: Array(6).fill(false),
         disabled: false,
     }
 })
 
+const convertLegacyData = (charState) => {
+    if (typeof charState.potentialSub !== 'object') {
+        const newPotentialSub = [...Array(6).keys()].map(i => i < charState.potentialSub)
+        charState.potentialSub = newPotentialSub
+    }
+
+    return charState
+}
+
 const useCharacterSelect = (initCharState, onSelect) => {
     const [state, setState] = useState({
-        charState: initCharState,
+        charState: convertLegacyData(initCharState),
         selectItems: getCharSelects(initCharState),
     })
 
-    const setSelect = (key, value) => {
+    const setSelect = useCallback((key, value) => {
         const newCharState = { ...state.charState }
 
         let validatedValue = value
@@ -45,12 +54,21 @@ const useCharacterSelect = (initCharState, onSelect) => {
             validatedValue = isNaN(value) ? ''
                 : value < 1 ? 1
                     : value > 60 ? 60 : value
+        } else if (key === 'potentialSub') {
+            validatedValue = Array.from(newCharState.potentialSub)
+            // value as index
+            validatedValue[value] = !validatedValue[value]
         }
+
         newCharState[key] = validatedValue
 
         const newCharSelects = getCharSelects(newCharState)
 
         Object.entries(newCharSelects).forEach(entry => {
+            if (entry[0] === 'potentialSub') {
+                return true
+            }
+
             const values = entry[1].values
             if (!values.includes(newCharState[entry[0]])) {
                 newCharState[entry[0]] = values[0]
@@ -63,10 +81,10 @@ const useCharacterSelect = (initCharState, onSelect) => {
         })
 
         onSelect(newCharState)
-    }
+    }, [state, onSelect])
 
     const setCharState = useCallback((charState) => setState({
-        charState: charState,
+        charState: convertLegacyData(charState),
         selectItems: getCharSelects(charState),
     }), [])
 

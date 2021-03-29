@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Tooltip, Zoom } from '@material-ui/core';
+import {
+    TableHead as MuiTableHead,
+    TableBody as MuiTableBody,
+    TableRow as MuiTableRow,
+    TableCell as MuiTableCell,
+    Tooltip, Zoom
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { Badge, Form } from 'react-bootstrap';
 
 import useSwitch from 'hooks/useSwitch';
 
@@ -14,7 +19,9 @@ import ResultTablePanel from 'components/ResultTablePanel';
 import { SortableTh } from 'components/SortableTable';
 import Header from 'components/Header';
 import { HeaderIconButton } from 'components/IconButton';
+import { StyledChip } from 'components/Chip';
 import ToggleButtonGroup, { ToggleButton } from 'components/ToggleButtonGroup';
+import { Select } from 'components/Input';
 import { ResponsiveCharCard } from 'components/CharCard';
 import { ScrollableModal, TextModal } from 'components/Modal';
 import RadioGroup, { Radio } from 'components/RadioGroup';
@@ -37,25 +44,6 @@ import {
 import tagData from 'data/tag.json';
 import charData from 'data/character.json';
 
-const StyledToggleButton = styled(ToggleButton)`
-    &&&&& {
-        border: none;
-        padding: .5rem 0;
-        white-space: nowrap;
-    }
-    svg {
-        width: 1.6rem;
-        height: 1.4rem;
-        margin-right: 1rem;
-        vertical-align: middle;
-        fill: ${props => props.theme.colors.secondary};
-        color: ${props => props.theme.colors.secondary};
-    }
-    &.active > svg {
-        fill: ${props => props.theme.colors.onSecondary};
-        color: ${props => props.theme.colors.onSecondary};
-    }
-`
 const TagButtonGroup = ({
     value,
     onChange,
@@ -76,20 +64,19 @@ const TagButtonGroup = ({
 
     return (
         <ToggleButtonGroup
-            type='checkbox'
             value={value}
             onChange={onChange}
             layoutConfig={layoutConfig}
         >
             {tagData.slice(groupRange[0], groupRange[1]).map(t =>
                 [...Array(t.range[1]).keys()].slice(t.range[0]).map(id => (
-                    <StyledToggleButton
+                    <ToggleButton
                         value={id}
                         key={id}
                     >
                         {attrIcons[t.type]}
                         {charString.tags[id]}
-                    </StyledToggleButton>
+                    </ToggleButton>
                 ))
             )}
         </ToggleButtonGroup>
@@ -105,13 +92,15 @@ const BtnGroupWrapper = styled.div`
     border: 1px solid ${props => props.theme.colors.secondary};
     background-color: ${props => props.theme.colors.surface};
 `
-const StyledBadge = styled(Badge)`
-    position: absolute;
-    top: -.6rem;
-    z-index: 1;
-    font-size: small;
-    background-color: brown;
-    color: white;
+const AttributeChip = styled(StyledChip)`
+    && {
+        position: absolute;
+        z-index: 1;
+        top: -.6rem;
+        width: ${props => props.$lang === 'en' ? '4.5rem' : 'auto'};
+        background-color: brown;
+        color: white;
+    }
 `
 const btnLayoutConfig = {
     'en': {
@@ -145,9 +134,7 @@ const TagPanel = ({
             {groupBtnByClass
                 ? tagData.map((t, idx) => (
                     <BtnGroupWrapper key={idx}>
-                        <StyledBadge pill variant='danger'>
-                            {charString.tagAttributes[t.type]}
-                        </StyledBadge>
+                        <AttributeChip label={charString.tagAttributes[t.type]} $lang={userLanguage} />
                         <TagButtonGroup
                             value={filterBtnValue.filter(v => v >= t.range[0] && v < t.range[1])}
                             onChange={handleBtnGroupChange(idx)}
@@ -181,25 +168,23 @@ const IconWrapper = styled.div`
         color: ${props => props.theme.colors.onSurface};
     }
 `
-const Select = styled(Form.Control)`
-    background-color: ${props => props.theme.colors.surface};
-    color: ${props => props.theme.colors.onSurface};
-    border-radius: .25rem;
-    padding: .1rem;
-    border: 1px solid ${props => props.theme.colors.secondary};
-    &:focus {
-        box-shadow: 0 0 .4rem ${props => props.theme.colors.secondary};
+const StyledSelect = styled(Select)`
+    && > div > div {
+        padding-right: 1.4rem;
     }
 `
 const CharFilterPanel = ({
     clearBtnValue,
     filterBtnValue,
+    enlistHour,
     handleBtnGroupChange,
     handleEnlistHourChange,
     handleModalOpen,
     groupBtnByClass
 }) => {
     const { pageString } = useLanguage()
+
+    const [minute, setMinute] = useState('00')
 
     return (<>
         <Header
@@ -233,30 +218,23 @@ const CharFilterPanel = ({
             titleIcon={ClockIcon}
             border
         />
-        <Form inline>
-            <Form.Group>
-                <Select
-                    as="select"
-                    custom
-                    size="sm"
-                    defaultValue='9'
-                    onChange={handleEnlistHourChange}
-                >
-                    {[...Array(10).keys()].slice(1)
-                        .map(i => <option key={i}>{i}</option>)}
-                </Select>
-                {'：'}
-                <Select
-                    as="select"
-                    custom
-                    size="sm"
-                    defaultValue='00'
-                >
-                    {['00', '10', '20', '30', '40', '50']
-                        .map(i => <option key={i}>{i}</option>)}
-                </Select>
-            </Form.Group>
-        </Form>
+        <StyledSelect
+            values={[...Array(10).keys()].slice(1)}
+            value={enlistHour}
+            variant='outlined'
+            size='small'
+            inputProps={{ 'aria-label': 'recruitment-hour' }}
+            onChange={handleEnlistHourChange}
+        />
+        {'：'}
+        <StyledSelect
+            values={['00', '10', '20', '30', '40', '50']}
+            value={minute}
+            variant='outlined'
+            size='small'
+            inputProps={{ 'aria-label': 'recruitment-minute' }}
+            onChange={e => setMinute(e.target.value)}
+        />
     </>)
 }
 
@@ -264,8 +242,8 @@ const TableHead = ({ requestSort, getSortDirection }) => {
     const { pageString } = useLanguage()
 
     return (
-        <thead>
-            <tr>
+        <MuiTableHead>
+            <MuiTableRow>
                 {pageString.enlist.filter.tableHead
                     .map((item, idx) => (
                         <SortableTh
@@ -276,8 +254,8 @@ const TableHead = ({ requestSort, getSortDirection }) => {
                             {item.title}
                         </SortableTh>
                     ))}
-            </tr>
-        </thead>
+            </MuiTableRow>
+        </MuiTableHead>
     )
 }
 
@@ -326,26 +304,26 @@ const StarIconWrapper = styled(IconWrapper)`
         margin-left: -.6rem;
     }
 `
+const parseRarity = (rarity) => (
+    rarity === 0 ? 'N'
+        : rarity === 1 ? 'R'
+            : rarity === 2 ? 'SR'
+                : 'SSR'
+)
+
+const cardTextWrapConfig = {
+    'zh-TW': 1360,
+    'en': 1360,
+}
+
 function TableBody({ sortedData }) {
     const { userLanguage, charString } = useLanguage()
 
-    const parseRarity = (rarity) => (
-        rarity === 0 ? 'N'
-            : rarity === 1 ? 'R'
-                : rarity === 2 ? 'SR'
-                    : 'SSR'
-    )
-
-    const cardTextWrapConfig = {
-        'zh-TW': 1360,
-        'en': 1360,
-    }
-
     return (
-        <tbody>
+        <MuiTableBody>
             {sortedData.map((char, idx) => (
-                <tr key={idx}>
-                    <td>
+                <MuiTableRow key={idx}>
+                    <MuiTableCell>
                         <TagTooltip char={char}>
                             <CharCardWrapper>
                                 <ResponsiveCharCard
@@ -361,15 +339,15 @@ function TableBody({ sortedData }) {
                                 </StarIconWrapper>
                             </CharCardWrapper>
                         </TagTooltip>
-                    </td>
-                    <td>{parseRarity(char.rarity)}</td>
-                    <td>
+                    </MuiTableCell>
+                    <MuiTableCell>{parseRarity(char.rarity)}</MuiTableCell>
+                    <MuiTableCell>
                         {char.appliedTags
                             .map(i => charString.tags[i]).join(', ')}
-                    </td>
-                </tr>
+                    </MuiTableCell>
+                </MuiTableRow>
             ))}
-        </tbody>
+        </MuiTableBody>
     )
 }
 
@@ -592,7 +570,7 @@ const Filter = () => {
         }))
     }
 
-    const handleBtnGroupChange = (groupIdx) => (val) => {
+    const handleBtnGroupChange = (groupIdx) => (event, val) => {
         let newValue
         if (typeof (groupIdx) !== 'undefined') {
             const groupValues = tagData.map(t =>
@@ -665,6 +643,7 @@ const Filter = () => {
             <CharFilterPanel
                 handleBtnGroupChange={handleBtnGroupChange}
                 clearBtnValue={clearBtnValue}
+                enlistHour={state.enlistHour}
                 handleEnlistHourChange={handleEnlistHourChange}
                 filterBtnValue={state.filterBtnValue}
                 handleModalOpen={handleSettingModal(true)}

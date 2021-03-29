@@ -15,12 +15,12 @@ import { HpIcon, AttackIcon, ChangeIcon, DeleteIcon } from 'components/icon';
 import charMap from 'data/charMap';
 
 const StyledButton = styled(IconButton)`
-&& {
-    width: 1.2rem;
-    height: 1.2rem;
-    padding: 0;
-    margin: 0 .4rem;
-}
+    && {
+        width: 1.2rem;
+        height: 1.2rem;
+        padding: 0;
+        margin: 0 .4rem;
+    }
 `
 const SlotOperationButton = ({ children, onClick, tooltipText }) => (
     <StyledButton onClick={onClick} tooltipText={tooltipText}>
@@ -29,22 +29,22 @@ const SlotOperationButton = ({ children, onClick, tooltipText }) => (
 )
 
 const BtnsWrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-position: absolute;
-z-index: 1;
-top: 0;
-right: 1rem;
-height: calc(100% - 1.6rem);
-@media screen and (max-width: 768px) {
-    flex-direction: row;
-    z-index: 2;
-    top: auto;
-    bottom: -1.4rem;
-    right: .4rem;
-    height: auto;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 1rem;
+    height: calc(100% - 1.6rem);
+    @media screen and (max-width: 768px) {
+        flex-direction: row;
+        z-index: 2;
+        top: auto;
+        bottom: -1.4rem;
+        right: .4rem;
+        height: auto;
+    }
 `
 const SlotOperationButtons = ({ handleChange, handleDelete }) => {
     const { pageString } = useLanguage()

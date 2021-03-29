@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-import { Col, Form } from 'react-bootstrap';
+import { Button, Grid } from '@material-ui/core';
+
+import useCharacterSelect from 'hooks/useCharacterSelect';
 
 import { useLineupData } from 'containers/LineupDataProvider';
 import { useLanguage } from 'containers/LanguageProvider';
 
 import Head from 'components/Head';
 import ImageSupplier from 'components/ImageSupplier';
-import { NumForm, Select, TwoStageForm } from 'components/Form';
+import Input, { Select } from 'components/Input';
+import PotentialInput from 'components/PotentialInput';
 import Header from 'components/Header';
 import IconButton from 'components/IconButton';
 import { SaveIcon, LoadIcon, DeleteIcon } from 'components/icon';
@@ -17,13 +19,15 @@ import { ScrollableModal, TextModal } from 'components/Modal';
 
 import calcCharStats from 'utils/calcCharStats';
 import charByPositionData from 'data/charByPosition'
-import charsData from 'data/character.json';
 
-const StyledCharContainer = styled.div`
+const StyledCharContainer = styled(Grid)`
     display: flex;
     flex-direction: row;
     margin-bottom: 2rem;
     margin-right: 2rem;
+    && {
+        max-width: 30rem;
+    }
 `
 const CharImgWrapper = styled(Button)`
     ${props => props.$owned ? null : 'filter: grayscale(100%);'}
@@ -33,98 +37,134 @@ const CharImgWrapper = styled(Button)`
 `
 const CharImg = styled(ImageSupplier)`
     width: 7rem;
+    height: 7rem;
 `
-const StyledForm = styled(Form)`
-    width: 12rem;
-    div {
-        margin-bottom: .2rem;
-    }
-    > div:last-child > div {
-        margin-bottom: 0;
-    }
-    && input, && select {
-        transition: all 0.3s ease;
-        ${props => props.$owned ? null : `border: 1px solid ${props.theme.colors.dropdownHover};`}
+const LevelInput = styled(Input)`
+    && {
+        input {
+            padding: .6rem 1rem;
+        }
+        color: ${props => props.disabled ? props.theme.colors.dropdownHover
+        : 'inherit'};
     }
 `
-const CharContainer = ({ character, state, handleSelect, handleBtnClick }) => {
+const StyledSelect = styled(Select)`
+    && {
+        width: 100%;
+        > div > div {
+            padding: .6rem 1rem;
+            padding-right: 2rem;
+            color: ${props => props.disabled ? props.theme.colors.dropdownHover
+        : 'inherit'};
+        }
+        svg {
+            fill: ${props => props.disabled ? props.theme.colors.dropdownHover
+        : props.theme.colors.onSurface};
+        }
+    }
+`
+const SelectGrid = styled(Grid)`
+    align-content: center;
+`
+const SelectWrapper = styled(Grid)`
+    height: 40%;
+`
+const CharContainer = ({ index }) => {
     const { pageString, charString } = useLanguage()
 
+    const { currentLineup, actions } = useLineupData()
+    const { setCurrentLineup } = actions
+
+    const charState = currentLineup[index]
+
+    const onSelect = useCallback((newCharState) => {
+        const newLineup = Array.from(currentLineup)
+
+        newLineup[index] = {
+            ...newCharState,
+            ...calcCharStats(newCharState),
+            owned: newCharState.level !== 0
+        }
+
+        setCurrentLineup(newLineup)
+    }, [currentLineup[index], setCurrentLineup])
+
+    const { selectItems, setSelect } = useCharacterSelect(charState, onSelect)
+
+    const handleBtnClick = useCallback(() => {
+        const newLineup = Array.from(currentLineup)
+
+        newLineup[index].owned = !newLineup[index].owned
+
+        setCurrentLineup(newLineup)
+    }, [currentLineup[index], setCurrentLineup])
+
+    const handleSelectChange = useCallback((key) => (event) => {
+        setSelect(key, parseInt(event.target.value))
+    }, [setSelect])
+
+    const handleSubChange = useCallback((index) => () => {
+        setSelect('potentialSub', index)
+    }, [setSelect])
+
     return (
-        <StyledCharContainer>
+        <StyledCharContainer item xs={10} sm={6} md={5} lg={4}>
             <CharImgWrapper
                 onClick={handleBtnClick}
-                $owned={state?.owned}
+                $owned={charState.owned}
                 disableRipple
                 disableFocusRipple
             >
                 <CharImg
-                    name={`char_small_${character.id}`}
-                    alt={charString.name[character.id]}
+                    name={`char_small_${charState.id}`}
+                    alt={charString.name[charState.id]}
                 />
             </CharImgWrapper>
-            <StyledForm
-                $owned={state?.owned}
-                onSubmit={(event) => event.preventDefault()}
-            >
-                <Form.Row>
-                    <Col>
-                        {pageString.analysis.index.levelTitle}
-                    </Col>
-                    <Col>
-                        {pageString.analysis.index.starTitle}
-                    </Col>
-                    <Col>
-                        {pageString.analysis.index.disciplineTitle}
-                    </Col>
-                </Form.Row>
-                <Form.Row>
-                    <Col>
-                        <Select
-                            type='number'
-                            pattern='[0-9]*'
-                            inputMode='numeric'
-                            value={
-                                state?.owned ? state?.level : ''
-                            }
-                            min='0'
-                            max='61'
-                            onChange={handleSelect('level')}
-                            onFocus={e => e.target.value = ''}
-                            onBlur={e => e.target.value = state?.level}
-                            placeholder='-'
-                            disabled={!state?.owned}
-                        />
-                    </Col>
-                    <NumForm
-                        as={Col}
-                        defaultValue={state?.star}
-                        minNum={4 - character.id[0]}
-                        maxNum={5}
-                        onChange={handleSelect('star')}
-                        disabled={!state?.owned}
+            <SelectGrid container spacing={1}>
+                <SelectWrapper item xs={6}>
+                    <LevelInput
+                        label={pageString.analysis.index.levelTitle}
+                        value={charState.level}
+                        onChange={handleSelectChange('level')}
+                        disabled={!charState.owned}
+                        variant='outlined'
+                        size='small'
+                        margin='dense'
                     />
-                    <NumForm
-                        as={Col}
-                        defaultValue={state?.discipline}
-                        minNum={0}
-                        maxNum={3}
-                        disabled={character.id[0] === '4'}
-                        onChange={handleSelect('discipline')}
-                        disabled={!state?.owned}
+                </SelectWrapper>
+                <SelectWrapper item xs={6}>
+                    <StyledSelect
+                        label={pageString.analysis.index.disciplineTitle}
+                        values={selectItems.discipline.values}
+                        value={charState.id[0] === '4' ? '-' : charState.discipline}
+                        onChange={handleSelectChange('discipline')}
+                        disabled={!charState.owned || charState.id[0] === '4'}
+                        margin='dense'
                     />
-                </Form.Row>
-                <TwoStageForm
-                    title={pageString.analysis.index.potentialTitle}
-                    defaultValues={[state?.potential, state?.potentialSub]}
-                    subMinNum={state?.potential === 1 ? 0 : 1}
-                    minNum={1}
-                    maxNum={character.id[0] === '4' || character.id[0] === '3' ? 6 : 12}
-                    selectAttrs={['potential', 'potentialSub']}
-                    handleSelect={handleSelect}
-                    disabled={!state?.owned}
-                />
-            </StyledForm>
+                </SelectWrapper>
+                <SelectWrapper item xs={6}>
+                    <StyledSelect
+                        label={pageString.analysis.index.starTitle}
+                        values={selectItems.star.values}
+                        value={charState.star}
+                        onChange={handleSelectChange('star')}
+                        disabled={!charState.owned}
+                        margin='dense'
+                    />
+                </SelectWrapper>
+                <SelectWrapper item xs={6}>
+                    <PotentialInput
+                        label={pageString.analysis.index.potentialTitle}
+                        values={selectItems.potential.values}
+                        mainValue={charState.potential}
+                        subValue={charState.potentialSub}
+                        onMainChange={handleSelectChange('potential')}
+                        onSubChange={handleSubChange}
+                        disabled={!charState.owned}
+                        margin='dense'
+                    />
+                </SelectWrapper>
+            </SelectGrid>
         </StyledCharContainer>
     )
 }
@@ -208,11 +248,6 @@ const PositionImgWrapper = styled(ImageSupplier)`
     width: 2rem;
     margin-right: .2rem;
 `
-const CharsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-`
 const Index = () => {
     const { pageString, charString } = useLanguage()
 
@@ -225,40 +260,6 @@ const Index = () => {
         isSuccessSnackbarOpen: false,
         isErrorSnackbarOpen: false
     })
-
-    const handleSelect = (idx) => (attr) => (event) => {
-        const selected = parseInt(event.target.value)
-
-        const newLineup = JSON.parse(JSON.stringify(currentLineup))
-        let charState = { ...newLineup[idx], [attr]: parseInt(selected) }
-
-        if (isNaN(parseInt(charState.level)) || charState.level < 0 || charState.level > 61) {
-            // not valid
-            return
-        }
-
-        charState.level = charState.level === 0
-            ? 60 : charState.level === 61
-                ? 1 : charState.level
-
-        if (charState.potential !== 1 && newLineup[idx].potentialSub === 0) {
-            charState.potentialSub = 1
-        }
-
-        const { stats } = charsData[idx]
-        const { rarity, attribute, position, ATK, HP, owned, ...rest } = charState
-
-        const result = calcCharStats({ ...rest, ...stats })
-
-        newLineup[idx] = { ...charState, ...result, owned: rest.level !== 0 }
-        setCurrentLineup(newLineup)
-    }
-
-    const handleBtnClick = (idx) => () => {
-        const newLineup = JSON.parse(JSON.stringify(currentLineup))
-        newLineup[idx].owned = !newLineup[idx].owned
-        setCurrentLineup(newLineup)
-    }
 
     const handleData = (action, idx) => () => {
         switch (action) {
@@ -348,17 +349,14 @@ const Index = () => {
                         onClickHelp={handleHelpModal(true)}
                         border
                     />
-                    <CharsContainer>
-                        {group.map((c, i) => (
+                    <Grid container spacing={2}>
+                        {group.map(c => (
                             <CharContainer
-                                character={c}
-                                state={currentLineup ? currentLineup[c.idx] : undefined}
-                                handleSelect={handleSelect(c.idx)}
-                                handleBtnClick={handleBtnClick(c.idx)}
-                                key={i}
+                                index={c.idx}
+                                key={c.id}
                             />
                         ))}
-                    </CharsContainer>
+                    </Grid>
                 </React.Fragment>
             ))}
             <Snackbar

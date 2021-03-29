@@ -5,7 +5,6 @@ import {
     Checkbox,
     Divider,
     List, ListItem, ListItemSecondaryAction,
-    Menu, MenuItem
 } from '@material-ui/core';
 
 import { useTeamData } from 'containers/TeamDataProvider';
@@ -15,92 +14,53 @@ import Head from 'components/Head';
 import Header from 'components/Header';
 import LocalizedLink from 'components/LocalizedLink';
 import ImageSupplier from 'components/ImageSupplier';
+import DropDown from 'components/DropDown';
 import IconButton from 'components/IconButton';
 import Snackbar from 'components/Snackbar';
 import { NewIcon, CopyIcon, DeleteIcon, SettingIcon } from 'components/icon';
 
-const StyledMenu = styled(Menu)`
-    .MuiPaper-root {
-        background-color: ${props => props.theme.colors.surface};
-        color: ${props => props.theme.colors.onSurface};
-    }
-`
-const StyledMenuItem = styled(MenuItem)`
-    && {
-        svg {
-            fill: ${props => props.theme.colors.secondary};
-        }
-    }
-`
 const SettingDropDown = () => {
     const { pageString } = useLanguage()
 
     const { isImportingLineup, actions } = useTeamData()
     const { toggleImportLineupData } = actions
-    const [state, setState] = useState({
-        anchorElement: false,
-        isSnackbarOpen: false
-    })
 
-    const handleSettingButtonClick = (event) => setState(state => ({
-        ...state,
-        anchorElement: event.currentTarget
-    }))
-
-    const handleMenuClose = () => setState(state => ({
-        ...state,
-        anchorElement: null
-    }))
+    const [isSnackbarOpen, setSnackbarOpen] = useState(false)
 
     const handleToggle = () => {
         if (!toggleImportLineupData()) {
-            setState(state => ({
-                ...state,
-                isSnackbarOpen: true
-            }))
+            setSnackbarOpen(true)
         }
     }
 
-    const handleSnackbar = (boolean) => () => setState(state => ({
-        ...state,
-        isSnackbarOpen: boolean
-    }))
+    const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean)
 
     return (<>
-        <IconButton
-            aria-controls='setting-menu'
-            aria-haspopup='true'
-            onClick={handleSettingButtonClick}
-            tooltipText={pageString.team.index.settingTooltip}
-        >
-            {SettingIcon}
-        </IconButton>
-        <List
-            component={StyledMenu}
-            id='setting-menu'
-            anchorEl={state.anchorElement}
-            open={Boolean(state.anchorElement)}
-            onClose={handleMenuClose}
-        >
-            <ListItem
-                component={StyledMenuItem}
-                dense
-                button
-                onClick={handleToggle}
-            >
+        <DropDown
+            button={
+                <IconButton
+                    tooltipText={pageString.team.index.settingTooltip}
+                >
+                    {SettingIcon}
+                </IconButton>
+            }
+            items={[{ id: 'setting-description' }]}
+            renderItem={(item) => (<>
                 <Checkbox
                     edge='start'
                     checked={isImportingLineup}
                     disableRipple
-                    inputProps={{ 'aria-labelledby': 'setting-description' }}
+                    inputProps={{ 'aria-labelledby': item.id }}
                 />
-                <span id='setting-description'>
+                <span id={item.id}>
                     {pageString.team.index.settingDescription}
                 </span>
-            </ListItem>
-        </List>
+            </>)}
+            itemOnClick={handleToggle}
+            ariaId='setting-menu'
+        />
         <Snackbar
-            open={state.isSnackbarOpen}
+            open={isSnackbarOpen}
             onClose={handleSnackbar(false)}
             message={pageString.team.index.errorSnackbar}
             type='error'
@@ -157,7 +117,6 @@ const TeamHeader = () => {
             }
             end={<SettingDropDown />}
         />
-
     </>)
 }
 
@@ -202,6 +161,7 @@ const DataItem = styled(ListItem)`
     && {
         margin-bottom: .6rem;
         padding-right: 6.8rem;
+        color: ${props => props.theme.colors.onSurface};
     }
     background: linear-gradient(
         90deg,

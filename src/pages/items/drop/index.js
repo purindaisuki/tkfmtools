@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Badge } from 'react-bootstrap';
+import {
+    TableHead as MuiTableHead,
+    TableBody as MuiTableBody,
+    TableRow as MuiTableRow,
+    TableCell as MuiTableCell
+} from '@material-ui/core';
 
 import Scrollable from 'containers/Scrollable';
 import { useLanguage } from 'containers/LanguageProvider';
@@ -9,6 +14,7 @@ import Head from "components/Head";
 import IconButton from 'components/IconButton';
 import SortableTable, { SortableTh } from 'components/SortableTable';
 import { ItemCard } from 'components/Card';
+import { StyledChip as Chip } from 'components/Chip'
 import { ScrollableModal } from 'components/Modal';
 import Header from 'components/Header';
 import ToggleButtonGroup, { ToggleButton } from 'components/ToggleButtonGroup';
@@ -18,10 +24,24 @@ import stageDropData from 'data/stageDrop.json';
 import itemData from 'data/item.json';
 
 const StyledTh = styled(SortableTh)`
-    background-color: ${props => props.theme.colors.secondary};
-    color: ${props => props.theme.colors.onSecondary};
+    && {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+        ${props => props.$hidden ? 'display: none;' : ''}
+    }
     white-space: nowrap;
-    ${props => props.$sortable ? null : 'cursor: default;'}
+    ${props => props.$sortable ? '' : 'cursor: default;'}
+`
+const StyledTableRow = styled(MuiTableRow)`
+    && {
+        ${props => props.$hidden ? 'display: none;' : ''}
+    }
+`
+const StyledTableHeadRow = styled(StyledTableRow)`
+    && {
+        background-color: ${props => props.theme.colors.secondary};
+        color: ${props => props.theme.colors.onSecondary};
+    }
 `
 const TableHead = ({
     column,
@@ -32,8 +52,8 @@ const TableHead = ({
     const { pageString } = useLanguage()
 
     return (
-        <thead>
-            <tr>
+        <MuiTableHead>
+            <StyledTableHeadRow>
                 {Object.entries(pageString.items.drop.index.tableHead)
                     .map((entry, idx) => {
                         const sortable = entry[0] === 'stage' || entry[0] === 'energy'
@@ -45,17 +65,22 @@ const TableHead = ({
                                 direction={sortable ? getSortDirection(entry[0]) : undefined}
                                 key={idx}
                                 $sortable={sortable}
-                                hidden={idx !== 0 && !column.includes(idx - 1)}
+                                $hidden={idx !== 0 && !column.includes(idx - 1)}
                             >
                                 {entry[1]}
                             </StyledTh>
                         )
                     })}
-            </tr>
-        </thead>
+            </StyledTableHeadRow>
+        </MuiTableHead>
     )
 }
 
+const StyledTableCell = styled(MuiTableCell)`
+    && {
+        ${props => props.$hidden ? 'display: none;' : ''}
+    }
+`
 const ItemsContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -66,7 +91,7 @@ const ItemsContainer = styled.div`
     }
 `
 const ItemWrapper = styled.div`
-    display: flex;
+    display: ${props => props.$hidden ? 'none' : 'flex'};
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
@@ -80,31 +105,31 @@ const ItemWrapper = styled.div`
         height: 2rem;
     }
 `
-const StyledBadge = styled(Badge)`
-    background-color: ${props => props.$rarity === 0 ? 'lightgray'
+const StyledChip = styled(Chip)`
+    && {
+        background-color: ${props => props.$rarity === 0 ? 'lightgray'
         : props.$rarity === 1 ? '#90CAF9'
             : props.$rarity === 2 ? '#A5D6A7' : '#FFAB91'};
-    color: black;
+        color: black;
+    }
     margin-left: .4rem;
 `
 const ItemTd = ({ items, rarity, rank, hidden }) => {
     const { itemString } = useLanguage()
 
     return (
-        <td hidden={hidden}>
+        <StyledTableCell $hidden={hidden}>
             <ItemsContainer>
                 {items.length !== 0 &&
                     items.map((item, i) => (
-                        <ItemWrapper key={i} hidden={!rarity.includes(item.rarity) ||
+                        <ItemWrapper key={i} $hidden={!rarity.includes(item.rarity) ||
                             (itemData[item.id].category === 0 && !rank.includes(itemData[item.id].rank))}>
                             <ItemCard id={item.id} />
-                            <StyledBadge pill $rarity={item.rarity}>
-                                {itemString.rarity[item.rarity]}
-                            </StyledBadge>
+                            <StyledChip $rarity={item.rarity} label={itemString.rarity[item.rarity]} />
                         </ItemWrapper>
                     ))}
             </ItemsContainer>
-        </td>
+        </StyledTableCell>
     )
 }
 
@@ -115,14 +140,14 @@ const TableBody = ({
     columnHasMounted,
     sortedData
 }) => (
-    <tbody>
+    <MuiTableBody>
         {sortedData.map((s, idx) => {
             const { chapter, stage, energy, ...rest } = s
 
             return (
-                <tr
+                <StyledTableRow
                     key={idx}
-                    hidden={Object.values(rest)
+                    $hidden={Object.values(rest)
                         .filter((v, i) => column.includes(i))
                         .every(v =>
                             !v.some(i => rarity.includes(i.rarity) &&
@@ -130,9 +155,7 @@ const TableBody = ({
                                     rank.includes(itemData[i.id].rank)))
                         )}
                 >
-                    <td>
-                        {`${chapter}-${stage}`}
-                    </td>
+                    <MuiTableCell>{`${chapter}-${stage}`}</MuiTableCell>
                     {Object.values(rest).map((v, idx) => (
                         columnHasMounted[idx] &&
                         <ItemTd
@@ -143,13 +166,13 @@ const TableBody = ({
                             key={idx}
                         />
                     ))}
-                    <td hidden={!column.includes(3)}>
+                    <StyledTableCell $hidden={!column.includes(3)}>
                         {columnHasMounted[3] && energy}
-                    </td>
-                </tr>
+                    </StyledTableCell>
+                </StyledTableRow>
             )
         })}
-    </tbody>
+    </MuiTableBody>
 )
 
 const btnLayoutConfig = {
@@ -164,7 +187,7 @@ const StyledHeader = styled(Header)`
     margin-top: 1rem;
 `
 const StyledToggleButton = styled(ToggleButton)`
-    &&&& {
+    &&& {
         padding: .25rem .15rem;
     }
 `
@@ -183,7 +206,6 @@ const ButtonGroupContainer = ({
                 border
             />
             <ToggleButtonGroup
-                type='checkbox'
                 value={filterBtnValue}
                 onChange={filterBy}
                 layoutConfig={btnLayoutConfig[userLanguage]}
@@ -313,60 +335,60 @@ const Index = () => {
             : Array(4).fill(true)
     })
 
-    const filterBy = (key) => (val) => setState(state => ({
-        ...state,
-        [key]: val,
-        columnHasMounted: key === 'column'
-            ? state.columnHasMounted.map((b, i) => b || val.includes(i))
-            : state.columnHasMounted
-    }))
+    const filterBy = (key) => (event, val) => {
+        setState(state => ({
+            ...state,
+            [key]: val,
+            columnHasMounted: key === 'column'
+                ? state.columnHasMounted.map((b, i) => b || val.includes(i))
+                : state.columnHasMounted
+        }))
+    }
 
     const handleModal = (boolean) => () => setState(state => ({
         ...state,
         isModalOpen: boolean
     }))
 
-    return (
-        <>
-            <Head
-                title={pageString.items.drop.index.helmet.title}
-                description={pageString.items.drop.index.helmet.description}
-                path='/items/drop/'
+    return (<>
+        <Head
+            title={pageString.items.drop.index.helmet.title}
+            description={pageString.items.drop.index.helmet.description}
+            path='/items/drop/'
+        />
+        <SettingButtonWrapper>
+            <IconButton
+                onClick={handleModal(true)}
+                tooltipText={pageString.items.drop.index.settingTooltip}
+            >
+                {SettingIcon}
+            </IconButton>
+        </SettingButtonWrapper>
+        <TableWrapper>
+            <SortableTable
+                data={stageDrop}
+                head={<TableHead
+                    column={state.column}
+                    columnHasMounted={state.columnHasMounted}
+                />}
+                body={<TableBody
+                    column={state.column}
+                    rarity={state.rarity}
+                    rank={state.rank}
+                    columnHasMounted={state.columnHasMounted}
+                />}
+                sortFunc={sortFunc}
+                defaultSortKey={'stage'}
+                border
             />
-            <SettingButtonWrapper>
-                <IconButton
-                    onClick={handleModal(true)}
-                    tooltipText={pageString.items.drop.index.settingTooltip}
-                >
-                    {SettingIcon}
-                </IconButton>
-            </SettingButtonWrapper>
-            <TableWrapper>
-                <SortableTable
-                    data={stageDrop}
-                    head={<TableHead
-                        column={state.column}
-                        columnHasMounted={state.columnHasMounted}
-                    />}
-                    body={<TableBody
-                        column={state.column}
-                        rarity={state.rarity}
-                        rank={state.rank}
-                        columnHasMounted={state.columnHasMounted}
-                    />}
-                    sortFunc={sortFunc}
-                    defaultSortKey={'stage'}
-                    border
-                />
-            </TableWrapper>
-            <SettingModal
-                {...state}
-                isModalOpen={state.isModalOpen}
-                onClose={handleModal(false)}
-                filterBy={filterBy}
-            />
-        </>
-    )
+        </TableWrapper>
+        <SettingModal
+            {...state}
+            isModalOpen={state.isModalOpen}
+            onClose={handleModal(false)}
+            filterBy={filterBy}
+        />
+    </>)
 }
 
 export default Index

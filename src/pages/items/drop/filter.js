@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { 
+    TableHead as MuiTableHead,
+    TableBody as MuiTableBody,
+    TableRow as MuiTableRow,
+    TableCell as MuiTableCell
+ } from '@material-ui/core';
 
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
@@ -66,7 +72,6 @@ const ItemFilterPanel = ({
             border
         />
         <ToggleButtonGroup
-            type='checkbox'
             value={filterBtnValue}
             onChange={filterBy}
             layoutConfig={btnLayoutConfig[userLanguage]}
@@ -147,8 +152,8 @@ const TableHead = ({
     const { pageString } = useLanguage()
 
     return (
-        <thead>
-            <tr>
+        <MuiTableHead>
+            <MuiTableRow>
                 <SortableTh
                     onClick={() => requestSort('stage')}
                     direction={getSortDirection('stage')}
@@ -169,8 +174,8 @@ const TableHead = ({
                         alt={pageString.items.drop.filter.tableHead[2]}
                     />
                 </ImgTh>
-            </tr>
-        </thead>
+            </MuiTableRow>
+        </MuiTableHead>
     )
 }
 
@@ -178,11 +183,11 @@ const TableBody = ({ sortedData }) => {
     const { itemString } = useLanguage()
 
     return (
-        <tbody>
+        <MuiTableBody>
             {sortedData.map((stage, idx) => {
                 return (
-                    <tr key={idx}>
-                        <td>{stage.stage}</td>
+                    <MuiTableRow hover key={idx}>
+                        <MuiTableCell>{stage.stage}</MuiTableCell>
                         {Object.entries(stage).map((entry, idx) => {
                             if (
                                 entry[0] === 'stage' ||
@@ -192,16 +197,16 @@ const TableBody = ({ sortedData }) => {
                             }
 
                             return (
-                                <td key={idx}>
+                                <MuiTableCell key={idx}>
                                     {itemString.rarity[entry[1]]}
-                                </td>
+                                </MuiTableCell>
                             )
                         })}
-                        <td>{stage.energy}</td>
-                    </tr>
+                        <MuiTableCell>{stage.energy}</MuiTableCell>
+                    </MuiTableRow>
                 )
             })}
-        </tbody>
+        </MuiTableBody>
     )
 }
 
@@ -246,7 +251,7 @@ const Filter = () => {
         isHelpModalOpen: false,
     })
 
-    const filterBy = (val) => {
+    const filterBy = (event, val) => {
         if (val.length === 0) {
             setState((state) => ({
                 ...state,
@@ -315,7 +320,7 @@ const Filter = () => {
             <ItemFilterPanel
                 filterBtnValue={state.filterBtnValue}
                 filterBy={filterBy}
-                clearBtnValue={() => filterBy([])}
+                clearBtnValue={(e) => filterBy(e, [])}
             />
             <ResultTablePanel
                 data={state.data}

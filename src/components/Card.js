@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Table } from 'react-bootstrap';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
 import ImageSupplier from 'components/ImageSupplier';
+import Table from 'components/Table';
 
 const StyledImg = styled(ImageSupplier)`
     display: flex;
@@ -78,13 +78,10 @@ export const ItemCard = ({
 }
 
 const StyledTable = styled(Table)`
-    font-size: .9rem;
-    color: ${props => props.theme.colors.onSurface};
-    margin: 0;
-    > tbody > tr > {
-        td:first-child {
-            padding-left: .75rem;
-        }
+    && .MuiTableCell-root  {
+        font-size: .9rem;
+        padding: .3rem;
+        padding-left: .75rem;
     }
 `
 export const CardTable = ({
@@ -94,9 +91,7 @@ export const CardTable = ({
 }) => (
     <StyledTable
         className={className}
-        striped={striped}
-        borderless
-        size="sm"
+        $striped={striped}
     >
         {children}
     </StyledTable>

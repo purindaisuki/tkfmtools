@@ -237,13 +237,12 @@ const TeamHeader = ({ isExporting, handleExport }) => {
 }
 
 const ExportWrapper = styled.div`
-    max-width: calc(1000px + 2rem);
-    width: calc(100% + 2rem);
+    max-width: 1000px;
     margin: -1.5rem calc(50% - 500px - 1rem);
     padding: 1rem;
     padding-top: 1.5rem;
-    @media screen and (max-width: 1032px) {
-        margin: -1.5rem -1rem;
+    @media screen and (max-width: 1064px) {
+        margin: -1.5rem -.8rem;
     }
 `
 const StyledDivider = styled(Divider)`
