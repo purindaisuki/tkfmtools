@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Grid } from '@material-ui/core';
 
@@ -89,7 +89,11 @@ const CharContainer = ({ index }) => {
         setCurrentLineup(newLineup)
     }, [currentLineup[index], setCurrentLineup])
 
-    const { selectItems, setSelect } = useCharacterSelect(charState, onSelect)
+    const { selectItems, setSelect, setCharState } = useCharacterSelect(charState, onSelect)
+
+    useEffect(() => {
+        setCharState(charState)
+    }, [charState])
 
     const handleBtnClick = useCallback(() => {
         const newLineup = Array.from(currentLineup)
@@ -154,6 +158,7 @@ const CharContainer = ({ index }) => {
                 </SelectWrapper>
                 <SelectWrapper item xs={6}>
                     <PotentialInput
+                        charId={charState.id}
                         label={pageString.analysis.index.potentialTitle}
                         values={selectItems.potential.values}
                         mainValue={charState.potential}
