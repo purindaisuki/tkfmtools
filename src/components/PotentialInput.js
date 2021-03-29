@@ -41,7 +41,9 @@ const Title = styled.span`
 `
 const CheckboxGrid = styled(Grid)` 
     &&.Mui-checked svg {
-        fill: ${props => props.theme.colors.secondary};
+        fill: ${props => props.theme.chart.colors[
+            props.$type === 'ATK' ? 0 : props.$type === 'HP' ? 2 : 4
+        ]};
     }
 `
 const StyledCheckbox = styled(Checkbox)`
@@ -136,6 +138,7 @@ const PotentialInput = ({
                             onChange={onSubChange(ind)}
                             disableRipple
                             inputProps={{ 'aria-label': 'potential-substage' + ind }}
+                            $type={buffs[ind]}
                         />
                     ))}
                 </Grid>
