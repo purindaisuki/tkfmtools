@@ -64,7 +64,7 @@
         },
         "setting": {
             "header": "全域設定",
-            "groupLabel": "版面配置",
+            "groupLabel": "版面配置（部分頁面及裝置有效）",
             "labels": [
                 "直式",
                 "橫式"
@@ -82,6 +82,21 @@
             "fix": "修正",
             "change": "變更",
             "content": [
+                {
+                    "version": "v1.5.6",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "次要潛力階段",
+                            "description": "次要潛力階段更改為可跳著選擇。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "表格樣式",
+                            "description": "更改表格樣式"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.5.5",
                     "content": [
