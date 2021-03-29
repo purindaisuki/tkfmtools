@@ -157,18 +157,18 @@ export const CharAccordionDetail = ({ id }) => {
     return (
         <CardTable striped>
             <MuiTableBody>
-                {Object.entries(rest).map((entry, idx) => (
+                {Object.entries(rest).map((entry, ind) => (
                     entry[0] === 'else'
-                        ? entry[1].map((tag, i) => (
+                        ? entry[1].map(tag => (
                             <CharTr
-                                key={idx + i}
+                                key={tag}
                                 type='else'
                                 tag={tag}
                             />
                         ))
                         : entry[1] >= 0
                             ? <CharTr
-                                key={idx}
+                                key={entry[1]}
                                 type={entry[0]}
                                 tag={entry[1]}
                             />

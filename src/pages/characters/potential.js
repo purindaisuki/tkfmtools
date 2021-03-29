@@ -148,9 +148,9 @@ const MaterialBox = ({
     layoutConfig
 }) => (<>
     {result.items &&
-        Object.entries(result.items).map((item, idx) => (
+        Object.entries(result.items).map(item => (
             <MaterialWrapper
-                key={idx}
+                key={item[0]}
                 $layoutConfig={layoutConfig}
             >
                 <div>

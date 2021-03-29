@@ -76,13 +76,13 @@ const ItemFilterPanel = ({
             onChange={filterBy}
             layoutConfig={btnLayoutConfig[userLanguage]}
         >
-            {Object.entries(itemDropData).map((entry, idx) => {
+            {Object.entries(itemDropData).map((entry, ind) => {
                 if (entry[1].drop.length === 0) return true
 
                 return (
                     <StyledToggleButton
                         value={entry[0]}
-                        key={idx}
+                        key={ind}
                     >
                         <ItemImg
                             name={`item_${entry[0]}`}
@@ -123,14 +123,14 @@ const ItemTh = ({
     }
 
     return (
-        Object.entries(data[0]).map((entry, idx) => {
+        Object.entries(data[0]).map((entry, ind) => {
             if (entry[0] === 'stage' || entry[0] === 'energy') {
                 return
             }
 
             return (
                 <ImgTh
-                    key={idx}
+                    key={entry[0]}
                     onClick={() => requestSort(entry[0])}
                     direction={getSortDirection(entry[0])}
                 >
@@ -184,11 +184,11 @@ const TableBody = ({ sortedData }) => {
 
     return (
         <MuiTableBody>
-            {sortedData.map((stage, idx) => {
+            {sortedData.map((stage, ind) => {
                 return (
-                    <MuiTableRow hover key={idx}>
+                    <MuiTableRow hover key={stage.stage}>
                         <MuiTableCell>{stage.stage}</MuiTableCell>
-                        {Object.entries(stage).map((entry, idx) => {
+                        {Object.entries(stage).map((entry, ind) => {
                             if (
                                 entry[0] === 'stage' ||
                                 entry[0] === 'energy'
@@ -197,7 +197,7 @@ const TableBody = ({ sortedData }) => {
                             }
 
                             return (
-                                <MuiTableCell key={idx}>
+                                <MuiTableCell key={ind}>
                                     {itemString.rarity[entry[1]]}
                                 </MuiTableCell>
                             )

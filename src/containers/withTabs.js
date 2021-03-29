@@ -113,9 +113,9 @@ export default function withTabs({ children, pagePath }) {
             value={state.tab}
             $lang={userLanguage}
         >
-            {Object.values(tabsConfig[configKey]).map((item, idx) => (
+            {Object.values(tabsConfig[configKey]).map((item, ind) => (
                 <Tab
-                    value={idx}
+                    value={ind}
                     label={item.label}
                     icon={item.icon}
                     component={LocalizedLink}

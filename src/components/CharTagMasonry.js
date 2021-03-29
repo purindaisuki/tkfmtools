@@ -53,27 +53,27 @@ const CharAccordion = ({
     )
 }
 
+const breakpointColumnsConfig = {
+    default: 6,
+    1360: 5,
+    1200: 4,
+    992: 3,
+    600: 2
+}
+
 const CharTagMasnory = () => {
     const { charString } = useLanguage()
-
-    const breakpointColumnsConfig = {
-        default: 6,
-        1360: 5,
-        1200: 4,
-        992: 3,
-        600: 2
-    }
 
     return (
         <Masonry
             breakpointCols={breakpointColumnsConfig}
         >
-            {Object.keys(charString.name).map((key, idx) => (
+            {Object.keys(charString.name).map(key => (
                 key !== 'nr' &&
                 <CharAccordion
                     title={<CharCard id={key} />}
                     content={<CharAccordionDetail id={key} />}
-                    key={idx}
+                    key={key}
                 />
             ))}
         </Masonry>

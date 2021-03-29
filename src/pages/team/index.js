@@ -146,9 +146,9 @@ const CharsBox = ({ chars }) => {
 
     return (
         <CharContainer>
-            {chars.map((c, idx) => (
+            {chars.map((c, ind) => (
                 c?.id && <CharImg
-                    key={idx}
+                    key={c.id}
                     name={`char_small_${c.id}`}
                     alt={charString.name[c.id]}
                 />
@@ -192,19 +192,19 @@ const DataList = () => {
 
     return (
         <List>
-            {localTeams?.map((t, idx) => (
+            {localTeams?.map((t, ind) => (
                 <DataItem
                     component={LocalizedLink}
                     to='/team/build/'
                     button
-                    key={idx}
-                    onClick={() => selectTeam(idx)}
+                    key={ind}
+                    onClick={() => selectTeam(ind)}
                 >
                     <TitleText>{t.name}</TitleText>
                     <CharsBox chars={t.characters} />
                     <ListItemSecondaryAction>
                         <OperationButton
-                            onClick={() => pushTeam(getTeam(idx))}
+                            onClick={() => pushTeam(getTeam(ind))}
                             tooltipText={pageString.team.index.copyTooltip}
                             edge='end'
                             aria-label='copy-team'
@@ -212,7 +212,7 @@ const DataList = () => {
                             {CopyIcon}
                         </OperationButton>
                         <OperationButton
-                            onClick={() => deleteTeam(idx)}
+                            onClick={() => deleteTeam(ind)}
                             tooltipText={pageString.team.index.deleteTooltip}
                             edge='end'
                             aria-label='delete-team'

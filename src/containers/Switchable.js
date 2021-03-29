@@ -21,12 +21,12 @@ export default function Switchable({
             layout: layout,
             setLayout: setLayout,
         })}
-        {items.map((item, idx) => (
+        {items.map((item, ind) => (
             <div
                 hidden={layout !== item.layout}
                 key={item.layout}
             >
-                {canRender[idx] && item.content}
+                {canRender[ind] && item.content}
             </div>
         ))}
     </>)

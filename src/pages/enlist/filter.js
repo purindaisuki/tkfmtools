@@ -132,14 +132,14 @@ const TagPanel = ({
     return (
         <div>
             {groupBtnByClass
-                ? tagData.map((t, idx) => (
-                    <BtnGroupWrapper key={idx}>
+                ? tagData.map((t, ind) => (
+                    <BtnGroupWrapper key={ind}>
                         <AttributeChip label={charString.tagAttributes[t.type]} $lang={userLanguage} />
                         <TagButtonGroup
                             value={filterBtnValue.filter(v => v >= t.range[0] && v < t.range[1])}
-                            onChange={handleBtnGroupChange(idx)}
+                            onChange={handleBtnGroupChange(ind)}
                             layoutConfig={btnLayoutConfig[userLanguage]}
-                            groupRange={[idx, idx + 1]}
+                            groupRange={[ind, ind + 1]}
                         />
                     </BtnGroupWrapper>
                 ))
@@ -245,9 +245,9 @@ const TableHead = ({ requestSort, getSortDirection }) => {
         <MuiTableHead>
             <MuiTableRow>
                 {pageString.enlist.filter.tableHead
-                    .map((item, idx) => (
+                    .map((item, ind) => (
                         <SortableTh
-                            key={idx}
+                            key={ind}
                             onClick={() => requestSort(item.attr)}
                             direction={getSortDirection(item.attr)}
                         >
@@ -321,8 +321,8 @@ function TableBody({ sortedData }) {
 
     return (
         <MuiTableBody>
-            {sortedData.map((char, idx) => (
-                <MuiTableRow key={idx}>
+            {sortedData.map(char => (
+                <MuiTableRow key={char.id}>
                     <MuiTableCell>
                         <TagTooltip char={char}>
                             <CharCardWrapper>

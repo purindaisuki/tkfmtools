@@ -125,7 +125,7 @@ const CharStatsSelect = ({ className, char, levelInputId, onSelect }) => {
                     inputProps={{ 'aria-label': 'level' }}
                 />
             </Grid>
-            {Object.entries(selectItems).map((entry, idx) => (
+            {Object.entries(selectItems).map(entry => (
                 entry[0] === 'potential'
                     ? <Grid
                         item
@@ -135,7 +135,7 @@ const CharStatsSelect = ({ className, char, levelInputId, onSelect }) => {
                         name={entry[1].imgNames}
                         isBackground
                         alt={entry[0]}
-                        key={idx}
+                        key={entry[0]}
                     >
                         <StyledPotentialInput
                             values={entry[1].values}
@@ -154,7 +154,7 @@ const CharStatsSelect = ({ className, char, levelInputId, onSelect }) => {
                         name={entry[1].imgNames}
                         isBackground
                         alt={entry[0]}
-                        key={idx}
+                        key={entry[0]}
                     >
                         <ImgSelect
                             type={entry[0]}

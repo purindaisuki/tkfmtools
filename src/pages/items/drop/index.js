@@ -55,17 +55,17 @@ const TableHead = ({
         <MuiTableHead>
             <StyledTableHeadRow>
                 {Object.entries(pageString.items.drop.index.tableHead)
-                    .map((entry, idx) => {
+                    .map((entry, ind) => {
                         const sortable = entry[0] === 'stage' || entry[0] === 'energy'
 
                         return (
-                            (idx === 0 || columnHasMounted[idx - 1]) &&
+                            (ind === 0 || columnHasMounted[ind - 1]) &&
                             <StyledTh
                                 onClick={sortable ? () => requestSort(entry[0]) : undefined}
                                 direction={sortable ? getSortDirection(entry[0]) : undefined}
-                                key={idx}
+                                key={entry[1]}
                                 $sortable={sortable}
-                                $hidden={idx !== 0 && !column.includes(idx - 1)}
+                                $hidden={ind !== 0 && !column.includes(ind - 1)}
                             >
                                 {entry[1]}
                             </StyledTh>
@@ -121,8 +121,8 @@ const ItemTd = ({ items, rarity, rank, hidden }) => {
         <StyledTableCell $hidden={hidden}>
             <ItemsContainer>
                 {items.length !== 0 &&
-                    items.map((item, i) => (
-                        <ItemWrapper key={i} $hidden={!rarity.includes(item.rarity) ||
+                    items.map(item => (
+                        <ItemWrapper key={item.id} $hidden={!rarity.includes(item.rarity) ||
                             (itemData[item.id].category === 0 && !rank.includes(itemData[item.id].rank))}>
                             <ItemCard id={item.id} />
                             <StyledChip $rarity={item.rarity} label={itemString.rarity[item.rarity]} />
@@ -141,12 +141,12 @@ const TableBody = ({
     sortedData
 }) => (
     <MuiTableBody>
-        {sortedData.map((s, idx) => {
+        {sortedData.map(s => {
             const { chapter, stage, energy, ...rest } = s
 
             return (
                 <StyledTableRow
-                    key={idx}
+                    key={`${chapter}-${stage}`}
                     $hidden={Object.values(rest)
                         .filter((v, i) => column.includes(i))
                         .every(v =>
@@ -156,14 +156,14 @@ const TableBody = ({
                         )}
                 >
                     <MuiTableCell>{`${chapter}-${stage}`}</MuiTableCell>
-                    {Object.values(rest).map((v, idx) => (
-                        columnHasMounted[idx] &&
+                    {Object.values(rest).map((v, ind) => (
+                        columnHasMounted[ind] &&
                         <ItemTd
                             items={v}
                             rarity={rarity}
                             rank={rank}
-                            hidden={!column.includes(idx)}
-                            key={idx}
+                            hidden={!column.includes(ind)}
+                            key={ind}
                         />
                     ))}
                     <StyledTableCell $hidden={!column.includes(3)}>
@@ -210,9 +210,9 @@ const ButtonGroupContainer = ({
                 onChange={filterBy}
                 layoutConfig={btnLayoutConfig[userLanguage]}
             >
-                {groupValues.map((v, idx) => (
-                    <StyledToggleButton value={v} key={idx}>
-                        {strings.button[idx]}
+                {groupValues.map((v, ind) => (
+                    <StyledToggleButton value={v} key={ind}>
+                        {strings.button[ind]}
                     </StyledToggleButton>
                 ))}
             </ToggleButtonGroup>
@@ -253,13 +253,13 @@ const SettingModal = ({
             onClose={onClose}
             ariaLabelledby='setting-modal-title'
         >
-            {Object.entries(BtnGroupsValues).map((entry, idx) => (
+            {Object.entries(BtnGroupsValues).map((entry, ind) => (
                 <ButtonGroupContainer
                     groupValues={entry[1]}
                     filterBtnValue={props[entry[0]]}
                     filterBy={filterBy(entry[0])}
-                    strings={pageString.items.drop.index.settingModal.content[idx]}
-                    key={idx}
+                    strings={pageString.items.drop.index.settingModal.content[ind]}
+                    key={ind}
                 />
             ))}
         </StyledModal>

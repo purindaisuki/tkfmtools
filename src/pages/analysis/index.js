@@ -209,24 +209,24 @@ const DataModal = ({ handleData }) => {
     }
 
     return (
-        localLineups.map((d, idx) => (
+        localLineups.map((d, ind) => (
             <Header
                 title={d.date}
                 end={<>
                     <IconButton
-                        onClick={handleData('load', idx)}
+                        onClick={handleData('load', ind)}
                         tooltipText={pageString.analysis.index.loadButton}
                     >
                         {LoadIcon}
                     </IconButton>
                     <IconButton
-                        onClick={handleData('delete', idx)}
+                        onClick={handleData('delete', ind)}
                         tooltipText={pageString.analysis.index.deleteButton}
                     >
                         {DeleteIcon}
                     </IconButton>
                 </>}
-                key={idx}
+                key={ind}
             />
         ))
     )
@@ -261,7 +261,7 @@ const Index = () => {
         isErrorSnackbarOpen: false
     })
 
-    const handleData = (action, idx) => () => {
+    const handleData = (action, ind) => () => {
         switch (action) {
             case 'save':
                 if (pushLineup(currentLineup, { gtag: true })) {
@@ -271,7 +271,7 @@ const Index = () => {
                 }
 
             case 'load':
-                const loadedData = getLineup(idx)
+                const loadedData = getLineup(ind)
                 if (loadedData) {
                     setState(state => ({
                         ...state,
@@ -285,7 +285,7 @@ const Index = () => {
                 }
 
             case 'delete':
-                if (deleteLineup(idx)) {
+                if (deleteLineup(ind)) {
                     setState(state => ({
                         ...state,
                         isDataModalOpen: true,
@@ -335,24 +335,24 @@ const Index = () => {
                 path='/analysis/'
             />
             <DataManageButtons handleData={handleData} handleModalOpen={handleDataModal(true)} />
-            {charByPositionData.map((group, idx) => (
-                <React.Fragment key={idx}>
+            {charByPositionData.map((group, ind) => (
+                <React.Fragment key={ind}>
                     <Header
-                        title={charString.tags[idx + 5]}
+                        title={charString.tags[ind + 5]}
                         titleIcon={
                             <PositionImgWrapper
-                                name={`ui_${positionImg[idx]}`}
+                                name={`ui_${positionImg[ind]}`}
                                 alt=''
                             />
                         }
-                        withHelp={idx === 0}
+                        withHelp={ind === 0}
                         onClickHelp={handleHelpModal(true)}
                         border
                     />
                     <Grid container spacing={2}>
                         {group.map(c => (
                             <CharContainer
-                                index={c.idx}
+                                index={c.ind}
                                 key={c.id}
                             />
                         ))}

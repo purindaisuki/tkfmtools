@@ -23,11 +23,11 @@ const TeamDataProvider = ({ children }) => {
     // add key to legacy local data
     if (localTeams) {
         localTeams.forEach(i => {
-            i.characters.forEach((c, idx) => {
+            i.characters.forEach((c, ind) => {
                 if (!c) {
-                    i.characters[idx] = { key: 'key' + idx }
+                    i.characters[ind] = { key: 'key' + ind }
                 } else if (!c.key) {
-                    c.key = 'key' + idx
+                    c.key = 'key' + ind
                 }
             })
         })

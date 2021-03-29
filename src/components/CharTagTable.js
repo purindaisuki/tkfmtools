@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { 
+import {
     TableHead as MuiTableHead,
     TableBody as MuiTableBody,
     TableRow as MuiTableRow,
     TableCell as MuiTableCell
- } from '@material-ui/core';
+} from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -30,11 +30,11 @@ const TableHead = React.forwardRef((props, ref) => {
         <MuiTableHead ref={ref}>
             <MuiTableRow hover>
                 {Object.entries(charString.tagAttributes)
-                    .map((entry, idx) => (
+                    .map((entry, ind) => (
                         <StyledTh
                             onClick={() => props.requestSort(entry[0])}
                             direction={props.getSortDirection(entry[0])}
-                            key={idx}
+                            key={entry[0]}
                         >
                             {entry[1]}
                         </StyledTh>
@@ -61,8 +61,8 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
 
     return (
         <MuiTableBody>
-            {sortedData.map((char, idx) => {
-                if (idx > renderTo) {
+            {sortedData.map((char, ind) => {
+                if (ind > renderTo) {
                     return null
                 }
 
@@ -94,14 +94,14 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
                 }
 
                 return (
-                    <MuiTableRow hover key={char.id} ref={idx === 0 ? ref : undefined}>
-                        {Object.entries(char).map((entry, j) => {
+                    <MuiTableRow hover key={char.id} ref={ind === 0 ? ref : undefined}>
+                        {Object.entries(char).map(entry => {
                             if (entry[0] === 'available') {
-                                return true
+                                return null
                             }
                             if (entry[0] === 'id') {
                                 return (
-                                    <MuiTableCell key={j}>
+                                    <MuiTableCell key={entry[0]}>
                                         <ResponsiveCharCard
                                             id={char.id}
                                             $textWrapConfig={
@@ -113,14 +113,14 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
                             }
                             if (entry[0] === 'rarity') {
                                 return (
-                                    <MuiTableCell key={j}>
+                                    <MuiTableCell key={entry[0]}>
                                         {parseRarity(entry[1])}
                                     </MuiTableCell>
                                 )
                             }
                             if (entry[0] === 'else') {
                                 return (
-                                    <MuiTableCell key={j}>
+                                    <MuiTableCell key={entry[0]}>
                                         {entry[1].map(tag => (
                                             charString.tags[tag]
                                         )).join(', ')}
@@ -128,13 +128,11 @@ const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
                                 )
                             }
 
-                            let tag
-                            if (entry[1] < 0) {
-                                tag = '-'
-                            } else {
-                                tag = charString.tags[entry[1]]
-                            }
-                            return <MuiTableCell key={j}>{tag}</MuiTableCell>
+                            return (
+                                <MuiTableCell key={entry[0]}>
+                                    {entry[1] < 0 ? '-' : charString.tags[entry[1]]}
+                                </MuiTableCell>
+                            )
                         })}
                     </MuiTableRow>
                 )

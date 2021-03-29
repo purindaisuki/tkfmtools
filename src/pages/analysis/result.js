@@ -128,9 +128,9 @@ const calcLineupStats = (state, string, chart) => {
 
     return ({
         radarDataByPosition: radarDataByPosition
-            .map((group, idx) => calcLvStats([string.tags[idx + 5], ...chart[2].legend], group)),
+            .map((group, ind) => calcLvStats([string.tags[ind + 5], ...chart[2].legend], group)),
         radarDataByAttribute: radarDataByAttribute
-            .map((group, idx) => calcLvStats([string.tags[idx], ...chart[3].legend], group)),
+            .map((group, ind) => calcLvStats([string.tags[ind], ...chart[3].legend], group)),
         barDataByPosition: barDataByPosition,
         barDataByAttribute: barDataByAttribute,
         treeMapDataByAttribute: treeMapDataByAttribute,
@@ -162,12 +162,12 @@ const CharCollectionBox = ({ lineup }) => {
 
     return (
         <CharContainer>
-            {charData.map((c, idx) => {
-                const owned = lineup && lineup[idx].owned && lineup[idx].level !== 0
+            {charData.map((c, ind) => {
+                const owned = lineup && lineup[ind].owned && lineup[ind].level !== 0
 
                 return (
                     <CharImg
-                        key={idx}
+                        key={c.id}
                         name={`char_small_${c.id}`}
                         isBackground
                         grayscale={!owned}
@@ -221,8 +221,8 @@ const RankContainer = ({ rank, chars }) => {
 
     return (
         <StyledRankContainer>
-            {chars.map((c, idx) => (
-                <RankCharWrapper $rank={rank} key={idx}>
+            {chars.map(c => (
+                <RankCharWrapper $rank={rank} key={c.id}>
                     <RankCharImg
                         name={`char_small_${c.id}`}
                         isBackground

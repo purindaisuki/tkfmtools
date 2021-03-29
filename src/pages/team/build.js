@@ -74,13 +74,13 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
             keepMounted
             ariaLabelledby='character-select-modal'
         >
-            {charByRarityData.map((group, idx) => (
-                <React.Fragment key={idx}>
+            {charByRarityData.map((group, ind) => (
+                <React.Fragment key={ind}>
                     <RarityHeader
                         titleIcon={
                             <RarityImgWrapper
-                                name={`ui_rarity_${rarity[idx]}`}
-                                alt={rarity[idx]}
+                                name={`ui_rarity_${rarity[ind]}`}
+                                alt={rarity[ind]}
                             />
                         }
                         border

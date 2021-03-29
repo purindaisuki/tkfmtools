@@ -62,12 +62,12 @@ const ListItemAccordion = styled(Accordion)`
         .MuiList-root {
             padding-top: .5rem;
         }
-        .MuiListItem-root {
-            padding: .25rem .5rem;
-        }
     }
 `
 const AccordionItem = styled(ListItem)`
+    && {
+        padding: .5rem;
+    }
     color: ${props => props.theme.colors.link};
     &:hover {
         color: ${props => props.theme.colors.linkHover};
@@ -94,16 +94,16 @@ const SidebarAccordions = ({
             </>}
             content={
                 <StyledList>
-                    {to.map((item, idx) => {
+                    {to.map((item, ind) => {
                         if (linkType === 'internal') {
                             return (
                                 <AccordionItem
                                     component={LocalizedLink}
                                     to={item}
                                     decoration
-                                    key={idx}
+                                    key={ind}
                                 >
-                                    {descriptions[idx]}
+                                    {descriptions[ind]}
                                 </AccordionItem>
                             )
                         }
@@ -113,9 +113,9 @@ const SidebarAccordions = ({
                                 component='a'
                                 href={item}
                                 target='_blank'
-                                key={idx}
+                                key={ind}
                             >
-                                {descriptions[idx]}
+                                {descriptions[ind]}
                             </AccordionItem>
                         )
                     })}
@@ -275,19 +275,19 @@ const Sidebar = ({ open, toggleSidebar }) => {
                         ],
                         expandable: true,
                     }
-                ].map((item, idx) => (
+                ].map((item, ind) => (
                     <SidebarItem
                         {...item}
-                        title={pageString.navbar.sidebar[idx].title}
+                        title={pageString.navbar.sidebar[ind].title}
                         expandable={item.expandable}
                         descriptions={
                             item.expandable
-                                ? pageString.navbar.sidebar[idx].descriptions
+                                ? pageString.navbar.sidebar[ind].descriptions
                                 : undefined
                         }
-                        expanded={expanded === idx}
-                        onChange={handleExpand(idx)}
-                        key={idx}
+                        expanded={expanded === ind}
+                        onChange={handleExpand(ind)}
+                        key={ind}
                     />
                 ))}
             </StyledList>

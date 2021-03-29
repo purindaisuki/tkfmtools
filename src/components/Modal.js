@@ -112,15 +112,15 @@ const TextModalContent = ({
     content,
     ariaDescribedby
 }) => (
-    content.map((item, idx) => (
-        <React.Fragment key={idx}>
+    content.map((item, ind) => (
+        <React.Fragment key={ind}>
             <Header
                 title={item.title}
                 border
             />
             <ModalBody>
-                {item.content.map((text, idx) => (
-                    <p key={idx} id={ariaDescribedby + '_' + idx}>{text}</p>
+                {item.content.map((text, ind) => (
+                    <p key={ind} id={ariaDescribedby + '_' + ind}>{text}</p>
                 ))}
             </ModalBody>
         </React.Fragment>

@@ -53,11 +53,11 @@ const UpdateModal = ({
             ariaLabelledby="update-modal-title"
         >
             <ModalBody>
-                {latestMsg.content.map((msg, idx) => (
+                {latestMsg.content.map((msg, ind) => (
                     <LogMsg
                         msg={msg}
                         alwaysOpen={true}
-                        key={idx}
+                        key={ind}
                     />
                 ))}
             </ModalBody>
@@ -220,14 +220,14 @@ const Home = () => {
                     header: pageString.index.license.header,
                     body: <SiteLicense />,
                 },
-            ].map((item, idx) => (
+            ].map((item, ind) => (
                 <DescriptionAccordion
-                    expanded={state.expanded === idx}
-                    onChange={handleExpand(idx)}
+                    expanded={state.expanded === ind}
+                    onChange={handleExpand(ind)}
                     expandIcon={ExpandMoreIcon}
                     title={item.header}
                     content={item.body}
-                    key={idx}
+                    key={ind}
                 />
             ))}
             <UpdateModal

@@ -31,8 +31,8 @@ const SiteDescription = ({ name, content, link }) => {
 
     if (typeof content[0].link === 'string') {
         return (
-            content.map((item, idx) => (
-                <p key={idx}>{
+            content.map((item, ind) => (
+                <p key={ind}>{
                     item.link
                         ? <a
                             href={item.link}
@@ -47,7 +47,7 @@ const SiteDescription = ({ name, content, link }) => {
         )
     }
 
-    return content.map((text, idx) => <p key={idx}>{text}</p>)
+    return content.map((text, ind) => <p key={ind}>{text}</p>)
 }
 
 const BodyContainer = styled.div`
@@ -94,8 +94,8 @@ export const SiteDescriptions = () => {
     return (
         <BodyContainer>
             <ul>
-                {pageString.index.about.content.map((item, idx) => (
-                    <DescriptionContainer key={idx}>
+                {pageString.index.about.content.map((item, ind) => (
+                    <DescriptionContainer key={ind}>
                         <DescriptionHeader title={item.header} />
                         <DescriptionBody>
                             <SiteDescription {...item} />
@@ -265,8 +265,8 @@ export function SiteUpdateLog() {
             {pageString.index.updateLog.content.map(version => (
                 <MsgBox key={version.version}>
                     <div>{version.version}</div>
-                    {version.content.map((msg, idx) => (
-                        <LogMsg key={idx} msg={msg} />
+                    {version.content.map((msg, ind) => (
+                        <LogMsg key={ind} msg={msg} />
                     ))}
                 </MsgBox>
             ))}
@@ -354,8 +354,8 @@ export const SiteLicense = () => {
                         licenseLink: 'https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE',
                         license: 'MIT License',
                     }
-                ].map((item, idx) => (
-                    <li key={idx}>
+                ].map((item, ind) => (
+                    <li key={ind}>
                         <LicenseItemHeader
                             title={
                                 <a
