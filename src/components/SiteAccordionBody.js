@@ -87,6 +87,9 @@ const DescriptionBody = styled.div`
     p {
         margin: .3rem .5rem;
     }
+    a {
+        text-decoration: none;
+    }
 `
 export const SiteDescriptions = () => {
     const { pageString } = useLanguage()
@@ -280,10 +283,16 @@ const LicenseList = styled.ul`
 const LicenseItemHeader = styled(DescriptionHeader)`
     margin-bottom: 0;
     font-size: medium;
+    && a {
+        text-decoration: none;
+    }
 `
 const LicenseItemContent = styled.div`
     padding-left: .5rem;
     padding-bottom: .5rem;
+    && a {
+        text-decoration: none;
+    }
 `
 export const SiteLicense = () => {
     const { pageString } = useLanguage()
