@@ -86,6 +86,11 @@ const PotentialInput = ({
                     value: subValue,
                     renderValue: () => mainValue,
                     MenuProps: {
+                        PaperProps: {
+                            style: {
+                                backgroundColor: colors.surface,
+                            }
+                        },
                         MenuListProps: {
                             style: {
                                 width: '12rem',

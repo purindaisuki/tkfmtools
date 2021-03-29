@@ -57,6 +57,11 @@ export const Select = ({ className, children, values, renderValues, ...rest }) =
             select
             SelectProps={{
                 MenuProps: {
+                    PaperProps: {
+                        style: {
+                            backgroundColor: colors.surface,
+                        }
+                    },
                     MenuListProps: {
                         style: {
                             backgroundColor: colors.surface,
