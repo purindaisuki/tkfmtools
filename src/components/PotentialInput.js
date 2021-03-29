@@ -6,6 +6,9 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import Input, { Select } from 'components/Input';
 
+import charMap from 'data/charMap';
+import potentialData from 'data/potential.json';
+
 const Wrapper = styled.div`
     position: relative;
 `
@@ -56,16 +59,23 @@ const Indicator = styled.span`
     width: calc(100%/6 - 4px);
     height: 4px;
     margin: 0 2px;
-    background-color: ${props => props.theme.colors[props.$checked ? 'secondary' : 'dropdownHover']};
+    background-color: ${props => !props.$checked ? props.theme.colors.dropdownHover :
+        props.theme.chart.colors[props.$type === 'ATK' ? 0 : props.$type === 'HP' ? 2 : 4]};
 `
 const PotentialInput = ({
     className,
+    charId,
     values, mainValue, subValue,
     onMainChange, onSubChange,
     ...rest
 }) => {
     const { colors } = useTheme()
     const { pageString } = useLanguage()
+
+    const { potentialType } = charMap[charId]
+
+    const buffs = potentialData.type[potentialType][mainValue - 1].pattern
+        .map(p => potentialData.itemMap[p].type)
 
     return (
         <Wrapper className={className}>
@@ -111,21 +121,23 @@ const PotentialInput = ({
                     >
                         <Title>{pageString.analysis.index.secondaryPotentialTitle}</Title>
                     </Grid>
-                    {subValue.map((boolean, index) => (
+                    {subValue.map((boolean, ind) => (
                         <CheckboxGrid
                             item
-                            key={index}
+                            key={ind}
                             xs={2}
                             component={StyledCheckbox}
                             checked={boolean}
-                            onChange={onSubChange(index)}
+                            onChange={onSubChange(ind)}
                             disableRipple
-                            inputProps={{ 'aria-label': 'potential-substage' + index }}
+                            inputProps={{ 'aria-label': 'potential-substage' + ind }}
                         />
                     ))}
                 </Grid>
             </StyledInput>
-            {subValue.map((boolean, index) => <Indicator $checked={boolean} key={index} />)}
+            {subValue.map((boolean, ind) => (
+                <Indicator $checked={boolean} key={ind} $type={buffs[ind]} />
+            ))}
         </Wrapper>
     )
 }

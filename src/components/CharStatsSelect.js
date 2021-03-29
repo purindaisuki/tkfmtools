@@ -138,6 +138,7 @@ const CharStatsSelect = ({ className, char, levelInputId, onSelect }) => {
                         key={entry[0]}
                     >
                         <StyledPotentialInput
+                            charId={char.id}
                             values={entry[1].values}
                             mainValue={charState.potential}
                             subValue={charState.potentialSub}
