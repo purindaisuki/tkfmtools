@@ -30,12 +30,12 @@ const hydrate = (lineup) => {
 const validatedLineup = (lineup) => {
     const validatedLineup = lineup ? lineup : []
 
-    charsData.forEach(c => {
+    charsData.forEach((c, ind) => {
         if (validatedLineup.findIndex(i => i.id === c.id) !== -1) {
             return true
         }
 
-        validatedLineup.push({
+        validatedLineup.splice(ind, 0, {
             id: c.id,
             attribute: c.tags.attribute,
             position: c.tags.position - 5,
