@@ -83,6 +83,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.7",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/31 遊戲更新",
+                            "description": "角色新增復活節 撒旦；全境徵才新增 KS-Ⅷ、梅絲米奈雅、娜芙菈菈、安娜、布蘭、諾諾可和試作機三號。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.6",
                     "content": [
                         {

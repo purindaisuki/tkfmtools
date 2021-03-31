@@ -83,6 +83,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.7",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/31 game update",
+                            "description": "Add Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.6",
                     "content": [
                         {

@@ -141,7 +141,7 @@
             "oppai": -1,
             "rank": 20,
             "else": [],
-            "available": false
+            "available": true
         },
         "stats": {
             "initATK": 944,
@@ -207,6 +207,25 @@
         "potentialType": 2
     },
     {
+        "id": "127",
+        "rarity": 3,
+        "tags": {
+            "attribute": 3,
+            "position": 6,
+            "race": -1,
+            "body": -1,
+            "oppai": -1,
+            "rank": -1,
+            "else": [],
+            "available": false
+        },
+        "stats": {
+            "initATK": 580.8,
+            "initHP": 5499.2
+        },
+        "potentialType": 1
+    },
+    {
         "id": "137",
         "rarity": 3,
         "tags": {
@@ -215,9 +234,9 @@
             "race": -1,
             "body": -1,
             "oppai": -1,
-            "rank": -1,
+            "rank": 20,
             "else": [],
-            "available": false
+            "available": true
         },
         "stats": {
             "initATK": 904,
@@ -408,12 +427,15 @@
         "tags": {
             "attribute": 2,
             "position": 6,
-            "race": -1,
+            "race": 11,
             "body": -1,
             "oppai": -1,
-            "rank": -1,
-            "else": [],
-            "available": false
+            "rank": 19,
+            "else": [
+                23,
+                24
+            ],
+            "available": true
         },
         "stats": {
             "initATK": 534.8,
@@ -927,12 +949,14 @@
         "tags": {
             "attribute": 0,
             "position": 6,
-            "race": -1,
+            "race": 10,
             "body": -1,
             "oppai": -1,
             "rank": -1,
-            "else": [],
-            "available": false
+            "else": [
+                23
+            ],
+            "available": true
         },
         "stats": {
             "initATK": 375,
@@ -947,11 +971,14 @@
             "attribute": 2,
             "position": 5,
             "race": -1,
-            "body": -1,
-            "oppai": -1,
-            "rank": -1,
-            "else": [],
-            "available": false
+            "body": 14,
+            "oppai": 16,
+            "rank": 18,
+            "else": [
+                21,
+                23
+            ],
+            "available": true
         },
         "stats": {
             "initATK": 506,
@@ -965,12 +992,14 @@
         "tags": {
             "attribute": 1,
             "position": 5,
-            "race": -1,
-            "body": -1,
-            "oppai": -1,
+            "race": 10,
+            "body": 14,
+            "oppai": 16,
             "rank": -1,
-            "else": [],
-            "available": false
+            "else": [
+                21
+            ],
+            "available": true
         },
         "stats": {
             "initATK": 546,
@@ -985,11 +1014,11 @@
             "attribute": 3,
             "position": 5,
             "race": -1,
-            "body": -1,
+            "body": 13,
             "oppai": -1,
             "rank": -1,
             "else": [],
-            "available": false
+            "available": true
         },
         "stats": {
             "initATK": 522,
