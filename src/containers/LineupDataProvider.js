@@ -27,19 +27,31 @@ const hydrate = (lineup) => {
     }, {}))
 }
 
-const initLineup = charsData.map(c => ({
-    id: c.id,
-    attribute: c.tags.attribute,
-    position: c.tags.position - 5,
-    level: 1,
-    potential: 1,
-    potentialSub: Array(6).fill(false),
-    discipline: 0,
-    star: c.rarity,
-    ATK: c.stats.initATK,
-    HP: c.stats.initHP,
-    owned: true,
-}))
+const validatedLineup = (lineup) => {
+    const validatedLineup = lineup ? lineup : []
+
+    charsData.forEach(c => {
+        if (validatedLineup.findIndex(i => i.id === c.id) !== -1) {
+            return true
+        }
+
+        validatedLineup.push({
+            id: c.id,
+            attribute: c.tags.attribute,
+            position: c.tags.position - 5,
+            level: 1,
+            potential: 1,
+            potentialSub: Array(6).fill(false),
+            discipline: 0,
+            star: c.rarity,
+            ATK: c.stats.initATK,
+            HP: c.stats.initHP,
+            owned: false,
+        })
+    })
+
+    return validatedLineup
+}
 
 const LineupsContext = createContext()
 
@@ -118,7 +130,7 @@ const LineupDataProvider = ({ children }) => {
             }
         })
 
-        return hydratedLineup
+        return validatedLineup(hydratedLineup)
     }, [localLineups])
 
     const getLatestLineup = useCallback(() => (
@@ -144,7 +156,7 @@ const LineupDataProvider = ({ children }) => {
 
     const provider = {
         localLineups: localLineups,
-        currentLineup: tempLineup ? tempLineup : initLineup,
+        currentLineup: validatedLineup(tempLineup),
         actions: {
             pushLineup,
             getLineup,

@@ -5,7 +5,7 @@ const getInitCharState = (charId) => ({
     bond: 1,
     discipline: charId === undefined ? '' : (charId[0] === '4' ? '-' : 0),
     potential: 1,
-    potentialSub: 0,
+    potentialSub: Array(6).fill(false),
 })
 
 export default getInitCharState 
