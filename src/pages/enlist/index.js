@@ -61,6 +61,7 @@ const Index = () => {
                 { layout: 'Masonry', content: <CharTagMasonry /> },
                 { layout: 'Table', content: <CharTagTable /> },
             ]}
+            initLayoutIndex={0}
         />
     </>)
 }

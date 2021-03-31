@@ -8,7 +8,7 @@ const useLocalStorage = (key, initialValue) => {
             const item = localStorage.getItem(key)
 
             if (item === null) {
-                return item
+                return setLocalValue(null)
             }
 
             try {

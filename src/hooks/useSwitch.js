@@ -5,7 +5,6 @@ import useLocalStorage from 'hooks/useLocalStorage';
 const useSwitch = (localStorageKey, layouts, initLayoutIndex, unmountOnLeave) => {
     const [localLayout, setLocalLayout] = useLocalStorage(
         localStorageKey,
-        layouts[initLayoutIndex]
     )
 
     const [state, setState] = useState({
@@ -13,7 +12,12 @@ const useSwitch = (localStorageKey, layouts, initLayoutIndex, unmountOnLeave) =>
     })
 
     useEffect(() => {
-        if (!localLayout) {
+        if (localLayout === undefined) {
+            return
+        }
+
+        if (localLayout === null) {
+            setLocalLayout(layouts[initLayoutIndex])
             return
         }
 
