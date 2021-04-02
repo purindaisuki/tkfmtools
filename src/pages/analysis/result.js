@@ -385,18 +385,18 @@ const Analysis = () => {
                     />
                 </ChartWrapper>
                 <RankHeader
-                    title={`${pageString.analysis.result.rank.title} ${lineupStats.PRArray[10]
-                        ? lineupStats.PRArray[10].PR : '-'}`}
+                    title={`${pageString.analysis.result.rank.title} ${lineupStats.PRArray.slice(-1)[0]
+                        ? lineupStats.PRArray.slice(-1)[0].PR : '-'}`}
                     withHelp
                     onClickHelp={handleRankModal(true)}
                 />
                 <ChartWrapper>
                     <ChartHeader>{pageString.analysis.result.rank.high}</ChartHeader>
-                    <RankContainer rank='high' chars={lineupStats.PRArray.slice(5, 10).reverse()} />
+                    <RankContainer rank='high' chars={lineupStats.PRArray.slice(-6, -1).reverse()} />
                 </ChartWrapper>
                 <ChartWrapper>
                     <ChartHeader>{pageString.analysis.result.rank.low}</ChartHeader>
-                    <RankContainer rank='low' chars={lineupStats.PRArray.slice(0, 5)} />
+                    <RankContainer rank='low' chars={lineupStats.PRArray.slice(0, -1).slice(0, 5)} />
                 </ChartWrapper>
             </ChartsContainer>
             <TextModal
