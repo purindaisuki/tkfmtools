@@ -1002,7 +1002,8 @@
             "oppai": 16,
             "rank": -1,
             "else": [
-                21
+                21,
+                28
             ],
             "available": true
         },
