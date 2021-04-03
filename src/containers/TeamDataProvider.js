@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -20,6 +20,8 @@ const TeamDataProvider = ({ children }) => {
 
     const { localLineups } = useLineupData()
 
+    const [didLoad, setDidLoad] = useState(false)
+
     // add key to legacy local data
     if (localTeams) {
         localTeams.forEach(i => {
@@ -32,6 +34,28 @@ const TeamDataProvider = ({ children }) => {
             })
         })
     }
+
+    useEffect(() => {
+        const loadTeamFromUrl = async () => {
+            const url = new URL(window.location.href)
+            const team = JSON.parse(url.searchParams.get('team'))
+
+            if (team && localTeams) {
+                url.search = ''
+                window.history.replaceState('', '', url.href)
+
+                const length = pushTeam(team)
+
+                setLastIndex(length - 1)
+            }
+
+            setDidLoad(true)
+        }
+
+        if (!didLoad && localTeams !== undefined) {
+            loadTeamFromUrl()
+        }
+    }, [localTeams])
 
     const pushTeam = (team) => {
         let newTeams

@@ -18,10 +18,25 @@ const StyledMenuItem = styled(MenuItem)`
         }
     }
 `
-const DropDown = ({ button, items, renderItem, itemOnClick, closeOnclick, ariaId }) => {
+const DropDown = ({
+    button,
+    buttonOnClick,
+    items,
+    renderItem,
+    itemOnClick,
+    itemProps,
+    disableItemButton,
+    closeOnclick,
+    ariaId
+}) => {
     const [anchorEl, setAnchorEl] = useState(false)
 
-    const handleButtonClick = (event) => setAnchorEl(event.currentTarget)
+    const handleButtonClick = (event) => {
+        if (buttonOnClick) {
+            buttonOnClick()
+        }
+        setAnchorEl(event.currentTarget)
+    }
 
     const handleMenuClose = () => setAnchorEl(null)
 
@@ -50,10 +65,11 @@ const DropDown = ({ button, items, renderItem, itemOnClick, closeOnclick, ariaId
         >
             {items.map(item => (
                 <ListItem
-                    component={StyledMenuItem}
+                    component={disableItemButton ? 'li' : StyledMenuItem}
                     dense
-                    button
+                    button={!disableItemButton}
                     onClick={handleItemClick}
+                    {...itemProps}
                     key={item.id}
                 >
                     {renderItem(item)}

@@ -83,6 +83,21 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.8",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍編成分享功能",
+                            "description": "可用連結分享隊伍編成。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析結果頁面崩潰",
+                            "description": "修正隊伍分析選中角色少於 10 個時結果頁面崩潰。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.7",
                     "content": [
                         {
@@ -875,6 +890,8 @@
             "changeTooltip": "更換",
             "deleteTooltip": "刪除",
             "backTooltip": "返回編成一覽",
+            "shareTooltip": "分享編成",
+            "copyTooltip": "複製連結",
             "selectModalTitle": "角色選擇",
             "emptySlotText": "選擇角色",
             "nameInputLabel": "編成名",

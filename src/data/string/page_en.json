@@ -83,6 +83,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.8",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Share link for team composition",
+                            "description": "Allows team compositions to be shareable."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Line-up analysis result page crash",
+                            "description": "Fix line-up analysis result page crash if the number of selected characters is less than 10."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.7",
                     "content": [
                         {
@@ -871,6 +886,8 @@
             "changeTooltip": "Change",
             "deleteTooltip": "Remove",
             "backTooltip": "Back to team compositions list",
+            "shareTooltip": "Share team composition",
+            "copyTooltip": "Copy link",
             "selectModalTitle": "Character selection",
             "emptySlotText": "Select character",
             "nameInputLabel": "Team name",

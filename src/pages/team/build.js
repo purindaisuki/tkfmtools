@@ -13,12 +13,13 @@ import Head from 'components/Head';
 import IconButton, { ExportButton } from 'components/IconButton';
 import LocalizedLink from 'components/LocalizedLink';
 import Header from 'components/Header';
+import DropDown from 'components/DropDown';
 import Input from 'components/Input';
 import CharSlot from 'components/CharSlot';
 import { ScrollableModal } from 'components/Modal';
 import CharCard from 'components/CharCard';
 import ImageSupplier from 'components/ImageSupplier';
-import { BackIcon } from 'components/icon';
+import { BackIcon, CopyIcon, ShareIcon } from 'components/icon';
 
 import charData from 'data/character.json';
 
@@ -188,17 +189,48 @@ const StyledHeader = styled(Header)`
         right: -1rem;
     }
 `
+const StyledA = styled.a`
+    margin-right: .4rem;
+    color: ${props => props.theme.colors.link};
+    text-decoration: none;
+    &:hover {
+        color: ${props => props.theme.colors.linkHover};
+    }
+`
 const TeamHeader = ({ isExporting, handleExport }) => {
     const { pageString } = useLanguage()
 
     const { currentTeam, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
+    const [shareLink, setShareLink] = useState('https://tkfmtools.page.link/____')
+
+    const firebaseRef = useRef()
+
+    useEffect(() => {
+        React.lazy(import('../../utils/firebase')
+            .then(module => firebaseRef.current = module))
+    }, [])
+
     const handleNameChange = (event) => {
         const newTeam = JSON.parse(JSON.stringify(currentTeam))
         newTeam.name = event.target.value
         setCurrentTeam(newTeam)
     }
+
+    const handleShare = async () => {
+        if (firebaseRef?.current) {
+            const url = new URL(window.location.href)
+
+            url.searchParams.set('team', JSON.stringify(currentTeam))
+
+            const shortLink = await firebaseRef.current.getShortLink(url.href)
+
+            setShareLink(shortLink)
+        }
+    }
+
+    const handleCopy = () => navigator.clipboard.writeText(shareLink)
 
     return (
         <StyledHeader
@@ -227,6 +259,35 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                         {BackIcon}
                     </IconButton>
                 </LocalizedLink>
+                <DropDown
+                    button={
+                        <IconButton
+                            tooltipText={pageString.team.build.shareTooltip}
+                            dataHtml2canvasIgnore
+                        >
+                            {ShareIcon}
+                        </IconButton>
+                    }
+                    buttonOnClick={handleShare}
+                    items={[{ id: 'share-button' }]}
+                    renderItem={() => (<>
+                        <StyledA
+                            href={shareLink}
+                            target='_blank'
+                            rel='noreferrer'
+                        >
+                            {shareLink}
+                        </StyledA>
+                        <IconButton
+                            onClick={handleCopy}
+                            tooltipText={pageString.team.build.copyTooltip}
+                        >
+                            {CopyIcon}
+                        </IconButton>
+                    </>)}
+                    disableItemButton
+                    ariaId='share-menu'
+                />
                 <ExportButton
                     onClick={handleExport}
                     isLoading={isExporting}

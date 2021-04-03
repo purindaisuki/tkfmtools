@@ -13,6 +13,7 @@
     "@nivo/tooltip": "^0.67.0",
     "@nivo/treemap": "^0.67.0",
     "babel-plugin-styled-components": "^1.12.0",
+    "firebase": "^8.3.2",
     "gatsby": "^3.0.3",
     "gatsby-background-image": "^1.4.1",
     "gatsby-plugin-google-gtag": "^3.0.0",
