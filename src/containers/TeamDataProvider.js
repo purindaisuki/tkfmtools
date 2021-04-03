@@ -40,7 +40,7 @@ const TeamDataProvider = ({ children }) => {
             const url = new URL(window.location.href)
             const team = JSON.parse(url.searchParams.get('team'))
 
-            if (team && localTeams) {
+            if (team) {
                 url.search = ''
                 window.history.replaceState('', '', url.href)
 
