@@ -888,6 +888,7 @@
             "backTooltip": "Back to team compositions list",
             "shareTooltip": "Share team composition",
             "copyTooltip": "Copy link",
+            "snackbarMsg": "Copied",
             "selectModalTitle": "Character selection",
             "emptySlotText": "Select character",
             "nameInputLabel": "Team name",

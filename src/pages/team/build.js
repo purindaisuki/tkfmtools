@@ -14,6 +14,7 @@ import IconButton, { ExportButton } from 'components/IconButton';
 import LocalizedLink from 'components/LocalizedLink';
 import Header from 'components/Header';
 import DropDown from 'components/DropDown';
+import Snackbar from 'components/Snackbar';
 import Input from 'components/Input';
 import CharSlot from 'components/CharSlot';
 import { ScrollableModal } from 'components/Modal';
@@ -203,7 +204,10 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     const { currentTeam, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
-    const [shareLink, setShareLink] = useState('https://tkfmtools.page.link/____')
+    const [state, setState] = useState({
+        isSnackbarOpen: false,
+        shareLink: 'https://tkfmtools.page.link/____'
+    })
 
     const firebaseRef = useRef()
 
@@ -226,11 +230,25 @@ const TeamHeader = ({ isExporting, handleExport }) => {
 
             const shortLink = await firebaseRef.current.getShortLink(url.href)
 
-            setShareLink(shortLink)
+            setState(state => ({
+                ...state,
+                shareLink: shortLink
+            }))
         }
     }
 
-    const handleCopy = () => navigator.clipboard.writeText(shareLink)
+    const handleCopy = () => {
+        navigator.clipboard.writeText(state.shareLink)
+        setState(state => ({
+            ...state,
+            isSnackbarOpen: true
+        }))
+    }
+
+    const handleSnackbarClose = () => setState(state => ({
+        ...state,
+        isSnackbarOpen: false
+    }))
 
     return (
         <StyledHeader
@@ -272,11 +290,11 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                     items={[{ id: 'share-button' }]}
                     renderItem={() => (<>
                         <StyledA
-                            href={shareLink}
+                            href={state.shareLink}
                             target='_blank'
                             rel='noreferrer'
                         >
-                            {shareLink}
+                            {state.shareLink}
                         </StyledA>
                         <IconButton
                             onClick={handleCopy}
@@ -291,6 +309,12 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                 <ExportButton
                     onClick={handleExport}
                     isLoading={isExporting}
+                />
+                <Snackbar
+                    open={state.isSnackbarOpen}
+                    onClose={handleSnackbarClose}
+                    message={pageString.team.build.snackbarMsg}
+                    type='success'
                 />
             </>}
         />

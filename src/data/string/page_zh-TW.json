@@ -892,6 +892,7 @@
             "backTooltip": "返回編成一覽",
             "shareTooltip": "分享編成",
             "copyTooltip": "複製連結",
+            "snackbarMsg": "已複製",
             "selectModalTitle": "角色選擇",
             "emptySlotText": "選擇角色",
             "nameInputLabel": "編成名",
