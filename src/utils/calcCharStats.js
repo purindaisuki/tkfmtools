@@ -87,9 +87,9 @@ const calcCharStats = function ({
             res.HP += newRes.HP
         }
         return res
-    }, calcCharPotential(id, [1, 0], [potential - 1, 0]).buff)
+    }, calcCharPotential(id, [1, 0], [potential - 1, 6]).buff)
 
-    const disciplineBuff = 1 + discipline * .05
+    const disciplineBuff = 1 + (isNaN(parseInt(discipline)) ? 0 : + discipline * .05)
     const starBuff = (star + 5) / (9 - id[0])
 
     return ({
