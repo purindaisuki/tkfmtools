@@ -80,7 +80,13 @@ const calcCharStats = function ({
 
     const levelBuff = 1.1 ** (level - 1)
 
-    const buff = potentialSub.reduce((res, boolean, i) => {
+    // deal with legacy data
+    let validPotentialSub = potentialSub
+    if (typeof potentialSub !== 'object') {
+        validPotentialSub = [...Array(6).keys()].map(i => i < potentialSub)
+    }
+
+    const buff = validPotentialSub.reduce((res, boolean, i) => {
         if (boolean) {
             const newRes = calcCharPotential(id, [potential, i + 1], [potential, i + 1]).buff
             res.ATK += newRes.ATK

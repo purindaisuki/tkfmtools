@@ -25,4 +25,7 @@ yarn-error.log*
 /.vscode
 .eslintcache
 google_app_credentials.json
+lineup_raw_data.json
+line_up_data_gtag.json
 fetch-line-up-data.js
+parseLineupData.js
