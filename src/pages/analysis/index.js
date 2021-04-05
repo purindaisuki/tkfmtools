@@ -269,7 +269,7 @@ const Index = () => {
     const handleData = (action, ind) => () => {
         switch (action) {
             case 'save':
-                if (pushLineup(currentLineup, { gtag: true })) {
+                if (pushLineup(currentLineup, { firebase: true })) {
                     setState(state => ({ ...state, isSuccessSnackbarOpen: true }))
 
                     return

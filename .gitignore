@@ -24,8 +24,5 @@ yarn-error.log*
 /.cache
 /.vscode
 .eslintcache
-.firebase
 google_app_credentials.json
 fetch-line-up-data.js
-/src/data/line_up_data.json
-/src/utils/firebase.js

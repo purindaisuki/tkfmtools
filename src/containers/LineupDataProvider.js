@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useCallback, useEffect, useRef } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -75,6 +75,13 @@ const LineupDataProvider = ({ children }) => {
         )
     }, [isImportingLineup, localLineups])
 
+    const firebaseRef = useRef()
+
+    useEffect(() => {
+        React.lazy(import('../utils/firebase')
+            .then(module => firebaseRef.current = module))
+    }, [])
+
     const pushLineup = useCallback((lineup, setting) => {
         let newLineups
         const tzoffset = (new Date()).getTimezoneOffset() * 60000
@@ -88,29 +95,16 @@ const LineupDataProvider = ({ children }) => {
             newLineups = [{ date: localDate, data: dehydratedLineup }]
         }
 
+        if (setting?.firebase && firebaseRef.current) {
+            firebaseRef.current.uploadLineup({ date: localDate, data: lineup })
+        }
+
         if (!setLocalLineups(newLineups)) {
             return 0
         }
 
-        // send data to GTM
-        if (setting?.gtag && typeof window !== 'undefined' && window.gtag) {
-            // minimize data 
-            const minLineup = JSON.parse(JSON.stringify(dehydratedLineup)).reduce((newLineup, c) => {
-                c[3] = ('00' + c[3]).slice(-2)
-                c[4] = ('00' + c[4]).slice(-2)
-                c[5] = c[5].reduce((a, b) => a + (b ? 1 : 0), '')
-                c[10] = c[10] ? 1 : 0
-                c.splice(8, 2)
-                c.splice(1, 2)
-                return newLineup + c.reduce((a, b) => a + b, '')
-            }, '')
-            const gtagData = {}
-            // separate data due to 100 characters limit of GA4
-            for (let i = 0; i < Math.ceil(minLineup.length / 99); i++) {
-                // add prefix 'a' to prevent it from being parsed as number
-                gtagData['line_up_' + i] = 'b' + minLineup.slice(i * 99, (i + 1) * 99)
-            }
-            window.gtag('event', 'line_up_save', { ...gtagData })
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'line_up_save')
         }
 
         return newLineups.length
