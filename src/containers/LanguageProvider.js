@@ -6,6 +6,9 @@ import item_tr from 'data/string/item_zh-TW.json';
 import page_en from 'data/string/page_en.json';
 import char_en from 'data/string/character_en.json';
 import item_en from 'data/string/item_en.json';
+import page_kr from 'data/string/page_kr.json';
+import char_kr from 'data/string/character_kr.json';
+import item_kr from 'data/string/item_kr.json';
 import langConfig from 'languangeConfig.json';
 
 const stringData = {
@@ -18,6 +21,11 @@ const stringData = {
         pageString: page_en,
         charString: char_en,
         itemString: item_en,
+    }
+    , 'kr': {
+        pageString: page_kr,
+        charString: char_kr,
+        itemString: item_kr,
     }
 }
 

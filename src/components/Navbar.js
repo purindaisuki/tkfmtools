@@ -47,6 +47,7 @@ function LanguageSwitcher() {
                     path = '/'
                 }
                 const enPath = '/en' + path
+                const krPath = '/kr' + path
 
                 return (
                     <DropDown
@@ -59,7 +60,8 @@ function LanguageSwitcher() {
                         }
                         items={[
                             { id: 'zh-TW', text: '繁體中文', path: path },
-                            { id: 'en', text: 'English', path: enPath }
+                            { id: 'en', text: 'English', path: enPath },
+                            { id: 'kr', text: '한국어', path: krPath }
                         ]}
                         renderItem={(item) => (
                             <StyledLink
