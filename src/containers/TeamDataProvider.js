@@ -150,6 +150,7 @@ const TeamDataProvider = ({ children }) => {
         localTeams: localTeams,
         currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
         isImportingLineup: isImportingLineup || false,
+        didLoad: didLoad,
         actions: {
             newTeam,
             getTeam,

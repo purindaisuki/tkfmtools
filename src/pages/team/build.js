@@ -101,7 +101,7 @@ const CharSelectModal = ({ open, onClose, handleSelect }) => {
 }
 
 const DraggableCharsList = () => {
-    const { actions } = useTeamData()
+    const { didLoad, actions } = useTeamData()
     const { setCurrentTeam } = actions
 
     const [currentTeam, setTeamSlots] = useTeamSlots()
@@ -116,9 +116,9 @@ const DraggableCharsList = () => {
     useEffect(() => {
         setState(state => ({
             ...state,
-            canRender: true,
+            canRender: didLoad,
         }))
-    }, [])
+    }, [didLoad])
 
     const handleSelectModalOpen = (slotIndex) => () => setState(state => ({
         ...state,
@@ -256,7 +256,7 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                 <div>
                     <Input
                         id='team-name-input'
-                        value={currentTeam.name}
+                        value={currentTeam ? currentTeam.name : ''}
                         onChange={handleNameChange}
                         label={<span data-html2canvas-ignore='true'>
                             {pageString.team.build.nameInputLabel}
