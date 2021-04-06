@@ -11,5 +11,11 @@
         "locale": "en",
         "siteLanguage": "en",
         "ogLocale": "en_US"
+    },
+    "kr": {
+        "path": "kr",
+        "locale": "kr",
+        "siteLanguage": "kr",
+        "ogLocale": "ko_KR"
     }
 }

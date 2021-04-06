@@ -1,0 +1,953 @@
+{
+    "index": {
+        "name": "Home",
+        "helmet": {
+            "title": "텐카푸마! toolbox",
+            "description": "Collect data and provide useful tools for TenkafuMA! to pick up Caesar's slack."
+        },
+        "noteButtonTooltip": "Latest update message",
+        "about": {
+            "header": "About",
+            "content": [
+                {
+                    "header": "Introduction",
+                    "content": [
+                        "The goal of this website is to collect, organize and present the data in Tenkafu MA!.",
+                        "This website includes recruitment filter, item drops filter, character potential material calculator, line-up analysis and team composition tool."
+                    ]
+                },
+                {
+                    "header": "Disclaimer",
+                    "content": [
+                        "All materials and information on this website are collected from players and may not reflect the actual situation. The actual gameplay shall prevail."
+                    ]
+                },
+                {
+                    "header": "Privacy policy",
+                    "content": [
+                        "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
+                        "Google Privacy & Terms",
+                        ". And some browser extensions such as Adblock will block the data collection. If you are willing to help the imporvement of this website, please add this website to whitelist."
+                    ],
+                    "link": "https://policies.google.com/technologies/partner-sites"
+                },
+                {
+                    "header": "Feedback",
+                    "content": [
+                        "Suggestion and thoughts are welcome. Please check ",
+                        "here",
+                        "."
+                    ],
+                    "link": "https://peing.net/ja/b5295760aebf4c"
+                },
+                {
+                    "header": "Reference",
+                    "content": [
+                        {
+                            "link": "https://reurl.cc/5o5A7z/",
+                            "text": "資料統整 - 凱薩沒在用的腦"
+                        },
+                        {
+                            "link": "https://reurl.cc/1gZ5nV/",
+                            "text": "潛力整理＆猜測"
+                        },
+                        {
+                            "link": "https://reurl.cc/8ypXzM",
+                            "text": "Discord 天下布魔場外群資料整理（舊）"
+                        },
+                        {
+                            "text": "And data provided from kind people."
+                        }
+                    ]
+                }
+            ]
+        },
+        "setting": {
+            "header": "Global Settings",
+            "groupLabel": "Layout (Only works for some pages and devices)",
+            "labels": [
+                "Portrait",
+                "Landscape"
+            ],
+            "clearTitle": "Clear all data stored in localStorage",
+            "clearButton": "Clear",
+            "clearModalTitle": "Are you sure?",
+            "clearModalContent": "All data recorded in this website including team compositions, analysis, etc. will be cleared and the process is irreversible. Do you want to clear data?",
+            "clear": "Clear",
+            "cancel": "Cancel"
+        },
+        "updateLog": {
+            "header": "Update Logs",
+            "new": "New",
+            "fix": "Fix",
+            "change": "Change",
+            "content": [
+                {
+                    "version": "v1.5.8",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Share link for team composition",
+                            "description": "Allows team compositions to be shareable."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Line-up analysis result page crash",
+                            "description": "Fix line-up analysis result page crash if the number of selected characters is less than 10."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.7",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/31 game update",
+                            "description": "Add Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.6",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "Secondary potential stages",
+                            "description": "Allows secondary potential stages to be customizable."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Form style",
+                            "description": "Change style of forms."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/24 game update",
+                            "description": "Add item drops of chapter 13."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Page flash on dark mode.",
+                            "description": "Fix page flash on dark mode."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.4",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Page states can't preserve",
+                            "description": "Fix some page states can't preserve after refreshing."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Global settings",
+                            "description": "Add global layout setting (Only works for some pages and devices) and local data setting at home page ."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Adjust tabs style",
+                            "description": "Adjust tabs style."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.2",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Strange behavior at team compositions page",
+                            "description": "Fix dragging behavior, characters position after reordering and bugs in character selection."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Character select not working at team composition page",
+                            "description": "Fix character select button not working under some circumstances."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Team compositions",
+                            "description": "Add team compositions for recording and sharing team compositions for stages."
+                        },
+                        {
+                            "type": "New",
+                            "title": "Percentile rank of line-up",
+                            "description": "Add percentile rank in line-up analysis."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Remove character stats page",
+                            "description": "Remove character stats calculator. The feature still can find in the team compositions tool."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Tooltips missing for icon buttons",
+                            "description": "Add tooltips for icon buttons."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item overview display setting",
+                            "description": "Add display setting for item overview."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Line-up analysis characters selection",
+                            "description": "Now you can toggle the character ownership by tapping the image of the character."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Treemap result of line-up analysis",
+                            "description": "Fix sometimes some characters are not included in the treemap."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Snackbar won't disappear",
+                            "description": "Fix operation success snackbar won't disappear."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Modals display improperly",
+                            "description": "Fix modals display on Safari and Chromium."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Result exporting in line-up analysis",
+                            "description": "Now you can export the result of line-up analysis as an image."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Line-up analysis charts display",
+                            "description": "Fix some labels are out of page on small screen devices."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Input problem of line-up analysis",
+                            "description": "Fix the number of level input can't be deleted."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "Recruitment filter problem",
+                            "description": "Fix when attribute tags are selected, the other tags are cleared."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Line-up analysis",
+                            "description": "Add line-up analysis for checking your line-up."
+                        },
+                        {
+                            "type": "New",
+                            "title": "3/10 game update",
+                            "description": "Add Mesmiia, Nafrala, Anna, Blaire, Natashaa, Prototype #3 and item drops of chapter 12."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Display of images in character potential",
+                            "description": "Fix the character image is not loaded when switching option between N/R characters and the others."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Page crash in character stats",
+                            "description": "Fix page crash when Shiraka is selected."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Recruitment filter layout setting",
+                            "description": "Add a button for changing tag classes display setting."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Modals layout",
+                            "description": "Change modal title color and close button position."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Character tags",
+                            "description": "Add Soldier tag to Manuella and Charlene."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Character stats calculator",
+                            "description": "Add character attack and hp calculator."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Rarity badge of item drops",
+                            "description": "Color badges accroding to their rarity."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Recruitment result tooltip",
+                            "description": "Expand hover area of the result tooltip."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Navbar not working at 404 page",
+                            "description": "Fix navbar functionality."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.0",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "Website structure",
+                            "description": "Restructure website and localize urls."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Recruitment filter layout",
+                            "description": "Adjust layout, group tags by their attributes and remove position column."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Item drops layout",
+                            "description": "Remove mansory layout for item drops."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Help info of recruitment filter",
+                            "description": "Add notes about leader and elite tags."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Character tags",
+                            "description": "Add Support tag to Britney."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Magic Automaton KS-Ⅷ",
+                            "description": "Add data of Magic Automaton KS-Ⅷ."
+                        },
+                        {
+                            "type": "New",
+                            "title": "Chapter 11 item drop",
+                            "description": "Add hapter 11 item drop."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Some pictures",
+                            "description": "Change potential picture."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Result of position column in recruitment result table",
+                            "description": "Correct content of position column in recruitment result table."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item drops table",
+                            "description": "Add table of item drops in main stages."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Result presentation of character filter",
+                            "description": "Add character pictures."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Some minor changes in layout",
+                            "description": "Change alignment of character texts and language switcher dropdwon, height of main navigation bar and button effects."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Layout of character tags overview",
+                            "description": "Add table view."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix layout",
+                            "description": "Fix text align of character names in character tags overview on small screen."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Overview of character tags",
+                            "description": "Show tags characters have."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix layout",
+                            "description": "Fix layout of material overview on small screen in English version."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "English version",
+                            "description": "Add English version."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Character tags",
+                            "description": "Correct tags of Satan, Iblis and Lana."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Character potential material calculator",
+                            "description": "Add character potential material calculator"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Fix item drops",
+                            "description": "Correct item drops of stage 6-6 and 6-11."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Recruitment filter",
+                            "description": "Add recruitment filter."
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Item drops",
+                            "description": "Add overview and filter of item drops."
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Website published",
+                            "description": "Website published"
+                        }
+                    ]
+                }
+            ]
+        },
+        "license": {
+            "header": "License",
+            "content": {
+                "title": "Game art",
+                "content": "Used under R.O.C. Copyright Act §65, all rights are reserved for the copyright owner."
+            }
+        }
+    },
+    "characters": {
+        "potential": {
+            "name": "Characters potential",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Characters potential",
+                "description": "Calculate the requirement of potential material and buff of characters in TenkafuMA!."
+            },
+            "characterPanelTitle": "Character Selection",
+            "characterSelectTitle": "Character",
+            "currentSelectTitle": "Current",
+            "targetSelectTitle": "Target",
+            "resultDemandTitle": "Material",
+            "resultBuffTitle": "Buff",
+            "helpModal": {
+                "title": "Character potential - Help",
+                "content": [
+                    {
+                        "title": "Introduction",
+                        "content": [
+                            "This page is to calculate the requirement of potential material and buff of characters."
+                        ]
+                    },
+                    {
+                        "title": "How-to",
+                        "content": [
+                            "Select character and current and target stages (both included) to calculate the material requirement.",
+                            "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
+                        ]
+                    },
+                    {
+                        "title": "Notes",
+                        "content": [
+                            "There are four types of potential patterns which are attacker type, defender type, supporter type and N/R type, a type shared by N/R characters. Note that the attacker, defender and supporter here are not identical to character positions. (e.g. Juneau is an attacker in character position but a support in potential type.)",
+                            "Most results are inferred from patterns of character potential, not from actual data."
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "enlist": {
+        "tabLabel": [
+            "Overview",
+            "Filter"
+        ],
+        "index": {
+            "name": "전 지역 모집",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Recruitment",
+                "description": "Present character tags for recruitment in TenkafuMA!."
+            },
+            "layout": "Layout",
+            "masonryTooltip": "Masonry",
+            "tableTooltip": "Table"
+        },
+        "filter": {
+            "name": "모집 조건",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Recruitment filter",
+                "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
+            },
+            "deleteTooltip": "Cancel all selections",
+            "settingTooltip": "Display setting",
+            "tagSelectTitle": "Tag Selection",
+            "timeSelectTitle": "Recruitment time",
+            "tableHead": [
+                {
+                    "title": "Name",
+                    "attr": "name"
+                },
+                {
+                    "title": "Rarity",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "Applied Tags",
+                    "attr": "appliedTags"
+                }
+            ],
+            "helpModal": {
+                "title": "Recruitment filter - Help",
+                "content": [
+                    {
+                        "title": "Introduction",
+                        "content": [
+                            "Apply the tags you get to find possible characters."
+                        ]
+                    },
+                    {
+                        "title": "How-to",
+                        "content": [
+                            "Select tags to filter out characters.",
+                            "Sort result by clicking the table header.",
+                            "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie) the character to show the combinations."
+                        ]
+                    },
+                    {
+                        "title": "Common scenario",
+                        "content": [
+                            "Target at SR (or higher) characters:",
+                            "Select five tags you get from the recruitment.",
+                            "If there is a star icon after SR characters, then it's worth a shot."
+                        ]
+                    },
+                    {
+                        "title": "Notes",
+                        "content": [
+                            "Only the leader tag can give you SSR.",
+                            "Leader and elite tag don't guarantee SSR and SR respectively unless recruitment time is set to be 9 hours.",
+                            "The probability of leader and elite tag is roughly 0.4% and 1.2% respectively."
+                        ]
+                    },
+                    {
+                        "title": "Limitations",
+                        "content": [
+                            "Deletion of tags is not considered.",
+                            "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
+                        ]
+                    }
+                ]
+            },
+            "settingModal": {
+                "title": "Display setting",
+                "groupLabel": "Group tags by class",
+                "labels": [
+                    "Yes",
+                    "No"
+                ]
+            },
+            "snackbarMsg": "At most 5 tags"
+        }
+    },
+    "items": {
+        "drop": {
+            "tabLabel": [
+                "Overview",
+                "Filter"
+            ],
+            "index": {
+                "name": "Item drops",
+                "helmet": {
+                    "title": "TenkafuMA! toolbox — Item drops",
+                    "description": "Show item drops of main stages."
+                },
+                "settingTooltip": "Setting",
+                "layout": {
+                    "byItem": "by Item",
+                    "byStage": "by Stage"
+                },
+                "notAvailableMsg": "Not available from stage drops",
+                "tableHead": {
+                    "stage": "Stage",
+                    "materials": "소재",
+                    "trainItems": "조련",
+                    "expPotions": "경험치 포션",
+                    "energy": "Energy"
+                },
+                "settingModal": {
+                    "title": "Display setting",
+                    "content": [
+                        {
+                            "title": "Column",
+                            "button": [
+                                "소재",
+                                "조련",
+                                "경험치 포션",
+                                "Energy"
+                            ]
+                        },
+                        {
+                            "title": "Potential materials rank",
+                            "button": [
+                                "General basic",
+                                "General intermediate",
+                                "General advanced",
+                                "Advanced"
+                            ]
+                        },
+                        {
+                            "title": "Rarity",
+                            "button": [
+                                "Epic",
+                                "Rare",
+                                "Com.",
+                                "Required"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "filter": {
+                "name": "Item drops filter",
+                "helmet": {
+                    "title": "TenkafuMA! toolbox — Item drops filter",
+                    "description": "Filter stages by target items."
+                },
+                "deleteTooltip": "Cancel all selections",
+                "itemPanelTitle": "Item Selection",
+                "resultTitle": "Result",
+                "tableHead": [
+                    "Stage",
+                    "Rarity",
+                    "Energy"
+                ],
+                "helpModal": {
+                    "title": "Item drop filter - Help",
+                    "content": [
+                        {
+                            "title": "Introduction",
+                            "content": [
+                                "This page is to find the stages that includes all target items."
+                            ]
+                        },
+                        {
+                            "title": "How-to",
+                            "content": [
+                                "Select items to filter out stages.",
+                                "Sort result by clicking the table header."
+                            ]
+                        },
+                        {
+                            "title": "Notes",
+                            "content": [
+                                "Only includes items that drops in 'World' instance.",
+                                "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "analysis": {
+        "tabLabel": [
+            "Line-up",
+            "Result"
+        ],
+        "index": {
+            "name": "Line-up analysis",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Line-up analysis",
+                "description": "Provide visual representations to help you understand your line-up."
+            },
+            "levelTitle": "Level",
+            "potentialTitle": "Potential",
+            "primaryPotentialTitle": "Primary potential stage",
+            "secondaryPotentialTitle": "Secondary potential stage",
+            "disciplineTitle": "Discipline",
+            "starTitle": "Star",
+            "saveButton": "Save",
+            "loadButton": "Load",
+            "deleteButton": "Delete",
+            "successMsg": "Success",
+            "errorMsg": "Failed",
+            "modalTitle": "Load data",
+            "helpModal": {
+                "title": "Line-up analysis - help",
+                "content": [
+                    {
+                        "title": "Introduction",
+                        "content": [
+                            "Provide visual representations to help you understand your line-up."
+                        ]
+                    },
+                    {
+                        "title": "How-to",
+                        "content": [
+                            "Select the character states according to your line-up and toggle the character ownership by tapping the image of the character.",
+                            "After you finish, the analysis will show at the 'result' page.",
+                            "You can save, load and delete the data by clicking the buttons on the upper right side."
+                        ]
+                    }
+                ]
+            }
+        },
+        "result": {
+            "name": "Line-up analysis",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Line-up analysis",
+                "description": "Provide visual representations to help you understand your line-up."
+            },
+            "exportButtonTooltip": "Export as an image",
+            "chart": [
+                {
+                    "title": "Character Collection"
+                },
+                {
+                    "title": "Character Combat Power"
+                },
+                {
+                    "title": "Character Lv by Position",
+                    "legend": [
+                        "Max",
+                        "Avg.",
+                        "Median",
+                        "Min"
+                    ]
+                },
+                {
+                    "title": "Character Lv by Attribute",
+                    "legend": [
+                        "Max",
+                        "Avg.",
+                        "Median",
+                        "Min"
+                    ]
+                },
+                {
+                    "title": "Character Exp by Position",
+                    "legend": [
+                        "Exp",
+                        "Number"
+                    ]
+                },
+                {
+                    "title": "Character Exp by Attribute",
+                    "legend": [
+                        "Exp",
+                        "Number"
+                    ]
+                }
+            ],
+            "rank": {
+                "title": "PR of your line-up is",
+                "high": "High PR TOP5",
+                "low": "Low PR TOP5",
+                "cp": " combat power",
+                "PR": "PR"
+            },
+            "helpModal": {
+                "title": "Character combat power",
+                "content": [
+                    {
+                        "title": "Definition",
+                        "content": [
+                            "Character combat power is the product of the character ATK and HP."
+                        ]
+                    },
+                    {
+                        "title": "Note",
+                        "content": [
+                            "Character skills and bond is not considered and thus it may not provide enough insights into the characters."
+                        ]
+                    }
+                ]
+            },
+            "rankModal": {
+                "content": "PR is the percentile rank of total combat power of your line-up and is calculated by the data collected in this website."
+            }
+        }
+    },
+    "team": {
+        "index": {
+            "name": "Team compositions",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Team compositions",
+                "description": "Record and share your team compositions in TenkafuMA."
+            },
+            "newComposition": "New",
+            "deleteTooltip": "Delete",
+            "copyTooltip": "Duplicate",
+            "settingTooltip": "Setting",
+            "settingDescription": "Import the latest line-up analysis data as default",
+            "errorSnackbar": "Local data not found"
+        },
+        "build": {
+            "name": "Team compositions",
+            "helmet": {
+                "title": "TenkafuMA! toolbox — Team compositions",
+                "description": "Record and share your team compositions in TenkafuMA."
+            },
+            "changeTooltip": "Change",
+            "deleteTooltip": "Remove",
+            "backTooltip": "Back to team compositions list",
+            "selectModalTitle": "Character selection",
+            "emptySlotText": "Select character",
+            "nameInputLabel": "Team name",
+            "nameInputPlaceholder": "Type team name"
+        }
+    },
+    "navbar": {
+        "menuButton": "Menu",
+        "languageSwitchTooltip": "Language",
+        "sidebar": [
+            {
+                "title": "Home"
+            },
+            {
+                "title": "Characters",
+                "descriptions": [
+                    "Potential calculator"
+                ]
+            },
+            {
+                "title": "Recruitment",
+                "descriptions": [
+                    "Overview",
+                    "Filter"
+                ]
+            },
+            {
+                "title": "Item drops",
+                "descriptions": [
+                    "Overview",
+                    "Filter"
+                ]
+            },
+            {
+                "title": "Line-up analysis"
+            },
+            {
+                "title": "Team compositions"
+            },
+            {
+                "title": "External Links",
+                "descriptions": [
+                    "Official website",
+                    "Game data (Chinese)",
+                    "Potential data (Chinese)"
+                ]
+            },
+            {
+                "title": "Report",
+                "descriptions": [
+                    "Recruitment (Chinese)",
+                    "Potential (Chinese)",
+                    "Item drop rate (Chinese)",
+                    "Feedback"
+                ]
+            }
+        ]
+    },
+    "404": {
+        "title": "Not found",
+        "h1": "Page not found",
+        "p": "Sorry, Aiko couldn't find what you are looking for.",
+        "link": "Go home"
+    }
+}
