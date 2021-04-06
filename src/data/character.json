@@ -10,8 +10,7 @@
             "oppai": -1,
             "rank": 20,
             "else": [
-                21,
-                28
+                21
             ],
             "available": true
         },
@@ -141,7 +140,8 @@
             "oppai": -1,
             "rank": 20,
             "else": [
-                21
+                21,
+                28
             ],
             "available": true
         },
