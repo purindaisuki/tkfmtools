@@ -9,41 +9,41 @@
 
 視覺化資料以供檢視隊伍。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_1.png)
+![screenshot](static/readme_feature_1.png)
 
 **隊伍組成**
 
 管理、分享關卡隊伍組成。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_2.png)
+![screenshot](static/readme_feature_2.png)
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_3.png)
+![screenshot](static/readme_feature_3.png)
 
 **全境徵才篩選器**
 
 利用標籤篩選角色，並找出有利的組合。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_4.png)
+![screenshot](static/readme_feature_4.png)
 
 **道具掉落篩選器**
 
 根據目標道具查找相應之關卡。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_5.png)
+![screenshot](static/readme_feature_5.png)
 
 **角色潛力計算**
 
 計算角色所需潛力道具及增益。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_6.png)
+![screenshot](static/readme_feature_6.png)
 
 **角色與道具**
 
 提供角色標籤及道具掉落一覽。
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_7.png)
+![screenshot](static/readme_feature_7.png)
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_8.png)
+![screenshot](static/readme_feature_8.png)
 
 ## 第三方框架 / 函式庫
 * [React](https://reactjs.org/)

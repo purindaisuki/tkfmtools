@@ -11,41 +11,41 @@ The goal of this project is to collect, organize and present the data in Tenkafu
 
 Provide visual representations to help you understand your line-up.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_1.png)
+![screenshot](static/readme_feature_1.png)
 
 **Team compositions recorder**
 
 Record and share your team compositions for stages.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_2.png)
+![screenshot](static/readme_feature_2.png)
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_3.png)
+![screenshot](static/readme_feature_3.png)
 
 **Recruitment filter**
 
 Find promising tag combinations giving high rarity characters.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_4.png)
+![screenshot](static/readme_feature_4.png)
 
 **Item drops filter**
 
 Screen out stages by target items.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_5.png)
+![screenshot](static/readme_feature_5.png)
 
 **Character potential calculator**
 
 Compute potential buffs and materials requirement for characters.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_6.png)
+![screenshot](static/readme_feature_6.png)
 
 **Characters and items**
 
 Show character recruitment tags and items drops.
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_7.png)
+![screenshot](static/readme_feature_7.png)
 
-![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_8.png)
+![screenshot](static/readme_feature_8.png)
 
 ## Libraries backing TenkafuMA! toolbox
 * [React](https://reactjs.org/)
