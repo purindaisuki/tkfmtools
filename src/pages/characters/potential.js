@@ -43,7 +43,8 @@ const CharSelectPanel = ({
 }) => {
     const { pageString, charString } = useLanguage()
 
-    const characterList = Object.keys(charString.name).filter(key => !(parseInt(key[0]) > 3))
+    const characterList = Object.keys(charString.name)
+        .filter(key => isNaN(parseInt(key[0])) || parseInt(key[0]) < 3)
 
     const selectValues = getSelectValues(selected)
 
