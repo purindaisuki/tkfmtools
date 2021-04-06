@@ -178,6 +178,7 @@ const TableBody = ({
 const btnLayoutConfig = {
     'en': { 0: 2, 990: 4 },
     'zh-TW': { 0: 4 },
+    'jp': { 0: 4 },
     'kr': { 0: 4 }
 }
 

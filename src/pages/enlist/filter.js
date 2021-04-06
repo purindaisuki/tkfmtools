@@ -120,6 +120,15 @@ const btnLayoutConfig = {
         355: 3,
         0: 2
     },
+    'jp': {
+        1260: 6,
+        1080: 5,
+        1000: 4,
+        768: 5,
+        550: 4,
+        355: 3,
+        0: 2
+    },
     'kr': {
         1260: 6,
         1080: 5,
@@ -323,6 +332,7 @@ const parseRarity = (rarity) => (
 const cardTextWrapConfig = {
     'zh-TW': 1360,
     'en': 1360,
+    'jp': 1360,
     'kr': 1360,
 }
 

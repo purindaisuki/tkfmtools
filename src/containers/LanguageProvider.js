@@ -9,7 +9,10 @@ import item_en from 'data/string/item_en.json';
 import page_kr from 'data/string/page_kr.json';
 import char_kr from 'data/string/character_kr.json';
 import item_kr from 'data/string/item_kr.json';
-import langConfig from 'languangeConfig.json';
+import page_jp from 'data/string/page_jp.json';
+import char_jp from 'data/string/character_jp.json';
+import item_jp from 'data/string/item_jp.json';
+import langConfig from 'languageConfig.json';
 
 const stringData = {
     'zh-TW': {
@@ -21,6 +24,11 @@ const stringData = {
         pageString: page_en,
         charString: char_en,
         itemString: item_en,
+    }
+    , 'jp': {
+        pageString: page_jp,
+        charString: char_jp,
+        itemString: item_jp,
     }
     , 'kr': {
         pageString: page_kr,

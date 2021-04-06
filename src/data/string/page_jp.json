@@ -1,0 +1,960 @@
+{
+    "index": {
+        "name": "首頁",
+        "helmet": {
+            "title": "天下布魔工具箱",
+            "description": "提供天下布魔中資料查詢、處理，減輕娜娜負擔。"
+        },
+        "noteButtonTooltip": "更新訊息",
+        "about": {
+            "header": "關於本站",
+            "content": [
+                {
+                    "header": "介紹",
+                    "content": [
+                        "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。",
+                        "本站包含全境徵才、主線地圖道具掉落整理及篩選，角色潛力計算、隊伍編成及分析。"
+                    ]
+                },
+                {
+                    "header": "免責聲明",
+                    "content": [
+                        "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主，因本站資料所致利害一概不負責。"
+                    ]
+                },
+                {
+                    "header": "隱私權聲明",
+                    "content": [
+                        "本站使用 Google Analytics 收集使用者數據，其使用 cookies 追蹤使用者行為，然收集之數據皆為匿名且非針對個人，只用於改進本站。關於 Google Analytics 如何收集數據請見 ",
+                        "Google 隱私權與條款",
+                        " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。"
+                    ],
+                    "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
+                },
+                {
+                    "header": "意見回饋",
+                    "content": [
+                        "Bug、建議、使用心得等請至 ",
+                        "這裡",
+                        " 。"
+                    ],
+                    "link": "https://peing.net/ja/b5295760aebf4c"
+                },
+                {
+                    "header": "參考",
+                    "content": [
+                        {
+                            "link": "https://reurl.cc/5o5A7z/",
+                            "text": "資料統整 - 凱薩沒在用的腦"
+                        },
+                        {
+                            "link": "https://reurl.cc/1gZ5nV/",
+                            "text": "潛力整理＆猜測"
+                        },
+                        {
+                            "link": "https://reurl.cc/8ypXzM",
+                            "text": "Discord 天下布魔場外群資料整理（舊）"
+                        },
+                        {
+                            "text": "其他 Discord 天下布魔場外討論群善心人士提供之資料"
+                        }
+                    ]
+                }
+            ]
+        },
+        "setting": {
+            "header": "全域設定",
+            "groupLabel": "版面配置（部分頁面及裝置有效）",
+            "labels": [
+                "直式",
+                "橫式"
+            ],
+            "clearTitle": "清除本地所有資料",
+            "clearButton": "清除",
+            "clearModalTitle": "確認清除？",
+            "clearModalContent": "紀錄在本網站的所有資料，包含隊伍分析、編成等各種詳細設定皆會被清除，且無法再回復。確定要清除？",
+            "clear": "清除",
+            "cancel": "取消"
+        },
+        "updateLog": {
+            "header": "更新日誌",
+            "new": "新增",
+            "fix": "修正",
+            "change": "變更",
+            "content": [
+                {
+                    "version": "v1.5.8",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍編成分享功能",
+                            "description": "可用連結分享隊伍編成。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析結果頁面崩潰",
+                            "description": "修正隊伍分析選中角色少於 10 個時結果頁面崩潰。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.7",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/31 遊戲更新",
+                            "description": "角色新增復活節 撒旦；全境徵才新增 KS-Ⅷ、梅絲米奈雅、娜芙菈菈、安娜、布蘭、諾諾可和試作機三號。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.6",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "次要潛力階段",
+                            "description": "次要潛力階段更改為可跳著選擇。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "表格樣式",
+                            "description": "更改表格樣式"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "3/24 遊戲更新",
+                            "description": "新增 13 章掉落。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "深色模式下載入頁面時閃爍",
+                            "description": "修正深色模式下載入頁面時閃爍問題。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.4",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "頁面未正常顯示",
+                            "description": "修正部分頁面重新載入後未正常顯示或維持原來狀態。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全局設定",
+                            "description": "於首頁新增全局版面配置（部分頁面及裝置有效）及本地資料設定。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "微調標籤樣式",
+                            "description": "微調標籤樣式。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.2",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "隊伍編成中角色拖曳與操作問題",
+                            "description": "修正重新載入頁面後，角色拖曳時目標和位置錯誤以及本地無隊伍時在編成頁操作會新增隊伍。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "隊伍編成無法選擇角色",
+                            "description": "修正本地無分析資料時選擇角色無反應"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍編成",
+                            "description": "新增隊伍編成，以紀錄、分享關卡攻略編成。"
+                        },
+                        {
+                            "type": "New",
+                            "title": "隊伍 PR 值",
+                            "description": "隊伍分析新增 PR 值。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "移除角色素質頁面",
+                            "description": "移除角色素質計算，功能遷移至隊伍編成。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "圖示按鈕沒有提示訊息",
+                            "description": "新增圖示按鈕之提示訊息。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "道具總覽顯示設定",
+                            "description": "於道具總覽新增顯示設定。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "隊伍分析角色選擇",
+                            "description": "改為點擊角色頭像選擇是否擁有該角色。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析矩形樹狀圖結果",
+                            "description": "修正有時角色未被包含在矩形樹狀圖內。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "訊息條不會消失",
+                            "description": "修正操作成功的訊息條不會消失。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "互動視窗顯示問題",
+                            "description": "修正 Safari 和 Chromium 上互動視窗高度過小問題。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍分析匯出功能",
+                            "description": "新增隊伍分析結果匯出成圖片之功能。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析圖表呈現",
+                            "description": "修正小螢幕上有些標籤會超出頁面。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "隊伍分析選擇表格問題",
+                            "description": "修正等級數字無法刪除。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.1",
+                    "content": [
+                        {
+                            "type": "Fix",
+                            "title": "角色篩選器按鈕問題",
+                            "description": "修正按鈕分組時選擇屬性會清掉其他標籤。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.4.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍分析",
+                            "description": "新增隊伍分析圖，以檢視陣容狀態。"
+                        },
+                        {
+                            "type": "New",
+                            "title": "3/10 遊戲更新",
+                            "description": "新增梅絲米奈雅、娜芙菈菈、安娜、布蘭、諾諾可、試作機三號，及 12 章掉落。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "角色潛力圖片未顯示",
+                            "description": "修正於N/R角與其他選項切換時角色圖片未載入問題。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "角色素質頁面崩潰",
+                            "description": "修正選擇索拉卡時頁面崩潰。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全境徵才篩選器佈局",
+                            "description": "新增顯示設定按鈕，以調整是否顯示標籤類別。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "互動視窗佈局",
+                            "description": "更改視窗標題顏色、關閉按鈕位置。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "角色標籤",
+                            "description": "於瑪努艾拉、夏琳新增士兵標籤。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色素質計算機",
+                            "description": "新增角色攻擊及血量計算。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "道具掉落稀有度標示",
+                            "description": "根據稀有度顯示不同顏色。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選必得提示框",
+                            "description": "擴大觸發範圍至角色框整體。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "404 頁面導航列失效",
+                            "description": "修正點擊無反應。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.3.0",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "網站結構",
+                            "description": "更改網站結構、網址在地化。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選器佈局",
+                            "description": "調整佈局、增加標籤分組及屬性、移除角色定位欄。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "道具掉落佈局",
+                            "description": "移除道具磚佈局。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選器幫助訊息",
+                            "description": "新稱全境徵才領袖、菁英說明。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "角色標籤",
+                            "description": "於布蘭妮新增支援標籤。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "魔人偶 KS-Ⅷ",
+                            "description": "新增魔人偶 KS-Ⅷ 資料。"
+                        },
+                        {
+                            "type": "New",
+                            "title": "第 11 章掉落道具",
+                            "description": "新增第 11 章掉落道具。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "部分圖片",
+                            "description": "更換潛力圖示。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "全境徵才結果定位欄誤植為屬性",
+                            "description": "修正全境徵才定位欄結果。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "掉落道具表格",
+                            "description": "新增掉落道具表格。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "全境徵才篩選結果呈現",
+                            "description": "新增角色圖片。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "變更部分排版",
+                            "description": "變更角色文字對齊、導航列高、語言選擇對齊、按鈕效果。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色標籤總覽佈局",
+                            "description": "新增表格佈局。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正排版",
+                            "description": "修正角色總覽在小螢幕時對齊問題。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色標籤總覽",
+                            "description": "新增角色標籤總覽功能。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正排版",
+                            "description": "修正英文版材料總覽在小螢幕時行數錯誤。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "英文版",
+                            "description": "新增英文版。"
+                        },
+                        {
+                            "type": "Change",
+                            "title": "角色標籤",
+                            "description": "修正撒旦、伊布力斯、蘭兒標籤。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "角色潛力材料計算",
+                            "description": "新增角色潛力材料計算功能。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "修正地圖掉落",
+                            "description": "修正 6-6, 6-11 之月光水為純淨水。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全境徵才篩選",
+                            "description": "新增全境徵才篩選器。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "潛力材料掉落",
+                            "description": "新增潛力材料掉落一覽及篩選器。"
+                        }
+                    ]
+                },
+                {
+                    "version": "v0.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "網站設置",
+                            "description": "網站設置。"
+                        }
+                    ]
+                }
+            ]
+        },
+        "license": {
+            "header": "License",
+            "content": {
+                "title": "遊戲圖像",
+                "content": "基於著作權法 §65 引用，著作財產權屬著作權人所有。若著作權人要求將盡速撤除。"
+            }
+        }
+    },
+    "characters": {
+        "potential": {
+            "name": "角色潛力",
+            "helmet": {
+                "title": "天下布魔工具箱 — 角色潛力",
+                "description": "計算天下布魔角色潛力所需材料及增益。"
+            },
+            "characterPanelTitle": "角色選擇",
+            "characterSelectTitle": "角色",
+            "currentSelectTitle": "當前",
+            "targetSelectTitle": "目標",
+            "resultDemandTitle": "需求道具",
+            "resultBuffTitle": "增益",
+            "helpModal": {
+                "title": "角色潛力計算 幫助",
+                "content": [
+                    {
+                        "title": "介紹",
+                        "content": [
+                            "本頁可計算角色所需之潛力材料及增益效果。"
+                        ]
+                    },
+                    {
+                        "title": "說明",
+                        "content": [
+                            "選擇起訖潛力階段（包含首尾），結果為累計之所需道具。若當前為 1-1；目標為 6-1，則代表累計角色 1 ~ 5 階之 6 格潛力格與第 6 階之第 1 格所需道具。",
+                            "角色可依潛力分為四類：攻擊型、防禦型、輔助型及 N/R 型 （N/R 角通用）。所謂攻擊、防禦等與角色定位不一定相等，例如朱諾安角色定位為攻擊者，潛力則是輔助型。"
+                        ]
+                    },
+                    {
+                        "title": "注意事項",
+                        "content": [
+                            "大多角色潛力需求為依規律推測而得，並非實際蒐集結果。"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "enlist": {
+        "tabLabel": [
+            "總覽",
+            "篩選"
+        ],
+        "index": {
+            "name": "全境徵才",
+            "helmet": {
+                "title": "天下布魔工具箱 — 全境徵才",
+                "description": "呈現天下布魔中全境徵才可得角色及相對應之標籤。"
+            },
+            "layout": "佈局",
+            "masonryTooltip": "磚形",
+            "tableTooltip": "表格"
+        },
+        "filter": {
+            "name": "全境徵才篩選器",
+            "helmet": {
+                "title": "天下布魔工具箱 — 全境徵才篩選器",
+                "description": "以天下布魔中全境徵才隨機得到的五個標籤為條件，篩選出可能邂逅的人選，再也不用對標籤大眼瞪小眼。"
+            },
+            "deleteTooltip": "取消全部選擇",
+            "settingTooltip": "顯示設定",
+            "tagSelectTitle": "標籤選擇",
+            "timeSelectTitle": "招募時間",
+            "tableHead": [
+                {
+                    "title": "名字",
+                    "attr": "name"
+                },
+                {
+                    "title": "稀有度",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "應用標籤",
+                    "attr": "appliedTags"
+                }
+            ],
+            "helpModal": {
+                "title": "全境徵才篩選 幫助",
+                "content": [
+                    {
+                        "title": "介紹",
+                        "content": [
+                            "此頁為用於遊戲中全境徵才之篩選器。",
+                            "應用徵才隨機得到的五個標籤，篩選出可能的人選。"
+                        ]
+                    },
+                    {
+                        "title": "操作說明",
+                        "content": [
+                            "選擇標籤以篩選角色。",
+                            "點擊表格標頭可依升／降序排列。",
+                            "若出現星星圖示，表示有組合可篩出唯一角色。",
+                            "將游標移至該角色上（移動裝置請長按）會顯示所有最小標籤組合。"
+                        ]
+                    },
+                    {
+                        "title": "常用情境",
+                        "content": [
+                            "鎖定高星角:",
+                            "選擇招募的五個標籤，並將結果依星數排序，觀察高星角是否有星星圖示。",
+                            "若所有高星角皆無圖示，則不值得使用此標籤組合招募。",
+                            "若有出現圖示，則有一試之價值。"
+                        ]
+                    },
+                    {
+                        "title": "備註",
+                        "content": [
+                            "只有包含領袖標籤才能獲得 SSR 角色。",
+                            "領袖、菁英標籤若時間選 9 小時則分別保證可得 SSR, SR 角，若否則標籤可能被劃掉。",
+                            "領袖、菁英標籤出現機率分別粗略為 0.4%, 1.2%。"
+                        ]
+                    },
+                    {
+                        "title": "注意事項",
+                        "content": [
+                            "並未考慮標籤被劃掉之可能性。",
+                            "即使出現星星圖示也不代表必中，因為標籤可能被劃掉，或有符合條件但仍未知之角色。",
+                            "搜尋結果高度依賴現有資料庫，願意的話可以點左邊資訊回報中 全境徵才數據回報 。"
+                        ]
+                    }
+                ]
+            },
+            "settingModal": {
+                "title": "顯示設定",
+                "groupLabel": "按鈕依類別分組",
+                "labels": [
+                    "是",
+                    "否"
+                ]
+            },
+            "snackbarMsg": "最多 5 個標籤"
+        }
+    },
+    "items": {
+        "drop": {
+            "tabLabel": [
+                "總覽",
+                "篩選"
+            ],
+            "index": {
+                "name": "掉落道具",
+                "helmet": {
+                    "title": "天下布魔工具箱 — 掉落道具",
+                    "description": "提供道具掉落一覽。"
+                },
+                "settingTooltip": "設定",
+                "layout": {
+                    "byItem": "依道具",
+                    "byStage": "依地圖"
+                },
+                "notAvailableMsg": "無法從地圖掉落取得",
+                "tableHead": {
+                    "stage": "關卡",
+                    "materials": "潛力材料",
+                    "trainItems": "調教道具",
+                    "expPotions": "經驗藥水",
+                    "energy": "體力消耗"
+                },
+                "settingModal": {
+                    "title": "顯示設定",
+                    "content": [
+                        {
+                            "title": "欄位",
+                            "button": [
+                                "潛力材料",
+                                "調教道具",
+                                "經驗藥水",
+                                "體力消耗"
+                            ]
+                        },
+                        {
+                            "title": "潛力材料等級",
+                            "button": [
+                                "一般初級",
+                                "一般中級",
+                                "一般高級",
+                                "高等高級"
+                            ]
+                        },
+                        {
+                            "title": "稀有度",
+                            "button": [
+                                "罕見",
+                                "少見",
+                                "常見",
+                                "必定"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "filter": {
+                "name": "掉落道具篩選",
+                "helmet": {
+                    "title": "天下布魔工具箱 — 掉落道具篩選",
+                    "description": "提供道具掉落篩選功能。"
+                },
+                "deleteTooltip": "取消全部選擇",
+                "itemPanelTitle": "道具選擇",
+                "resultTitle": "篩選結果",
+                "tableHead": [
+                    "關卡",
+                    "稀有度",
+                    "體力消耗"
+                ],
+                "helpModal": {
+                    "title": "道具掉落篩選 幫助",
+                    "content": [
+                        {
+                            "title": "介紹",
+                            "content": [
+                                "此頁為遊戲中主線掉落物之篩選器。",
+                                "根據目標篩選出包含所有目標掉落物的地圖。"
+                            ]
+                        },
+                        {
+                            "title": "操作說明",
+                            "content": [
+                                "選擇掉落物以篩選地圖。",
+                                "點擊表格標頭可依升／降序排列。"
+                            ]
+                        },
+                        {
+                            "title": "注意事項",
+                            "content": [
+                                "只包含主線之掉落物。",
+                                "即使稀有度相同，不同等級材料的掉落率也不同，不同地圖掉落率也不同。"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "analysis": {
+        "tabLabel": [
+            "隊伍",
+            "結果"
+        ],
+        "index": {
+            "name": "隊伍分析",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍分析",
+                "description": "提供圖表以分析、檢視隊伍狀態。"
+            },
+            "levelTitle": "等級",
+            "potentialTitle": "潛力",
+            "primaryPotentialTitle": "主要潛力階段",
+            "secondaryPotentialTitle": "次要潛力階段",
+            "disciplineTitle": "調教",
+            "starTitle": "星數",
+            "saveButton": "保存",
+            "loadButton": "讀取",
+            "deleteButton": "刪除",
+            "successMsg": "成功",
+            "errorMsg": "失敗",
+            "modalTitle": "讀取資料",
+            "helpModal": {
+                "title": "隊伍分析 幫助",
+                "content": [
+                    {
+                        "title": "介紹",
+                        "content": [
+                            "提供圖表以分析、檢視隊伍狀態。"
+                        ]
+                    },
+                    {
+                        "title": "如何使用",
+                        "content": [
+                            "根據自身隊伍選擇頁面上相對應角色的狀態，並點擊角色頭像以選擇是否擁有該角色。",
+                            "完成後點擊結果標籤頁即可看到分析結果。",
+                            "右上角可以保存或讀取隊伍狀態，點擊讀取可以操作本地資料。"
+                        ]
+                    }
+                ]
+            }
+        },
+        "result": {
+            "name": "隊伍分析",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍分析",
+                "description": "提供圖表以分析、檢視隊伍狀態。"
+            },
+            "exportButtonTooltip": "匯出成圖片",
+            "chart": [
+                {
+                    "title": "收集進度"
+                },
+                {
+                    "title": "角色戰力"
+                },
+                {
+                    "title": "角色等級 依定位",
+                    "legend": [
+                        "最高",
+                        "平均",
+                        "中位數",
+                        "最低"
+                    ]
+                },
+                {
+                    "title": "角色等級 依屬性",
+                    "legend": [
+                        "最高",
+                        "平均",
+                        "中位數",
+                        "最低"
+                    ]
+                },
+                {
+                    "title": "角色經驗 依定位",
+                    "legend": [
+                        "經驗",
+                        "數量"
+                    ]
+                },
+                {
+                    "title": "角色經驗 依屬性",
+                    "legend": [
+                        "經驗",
+                        "數量"
+                    ]
+                }
+            ],
+            "rank": {
+                "title": "您的隊伍戰力 PR 值為 ",
+                "high": "高 PR 值前 5",
+                "low": "低 PR 值前 5",
+                "cp": "角色戰力",
+                "PR": "PR 值"
+            },
+            "helpModal": {
+                "title": "角色戰力",
+                "content": [
+                    {
+                        "title": "定義",
+                        "content": [
+                            "角色戰力為角色攻擊力 × 血量。"
+                        ]
+                    },
+                    {
+                        "title": "備註",
+                        "content": [
+                            "角色戰力未考慮角色技能、絆數，故可能無法充分代表角色強度。"
+                        ]
+                    }
+                ]
+            },
+            "rankModal": {
+                "content": "PR 值為您的隊伍總戰力相對本網站收集之數據所計算而得。"
+            }
+        }
+    },
+    "team": {
+        "index": {
+            "name": "隊伍編成",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍編成",
+                "description": "提供天下布魔隊伍編成、輸出功能。"
+            },
+            "newComposition": "新增編成",
+            "deleteTooltip": "刪除編成",
+            "copyTooltip": "複製編成",
+            "settingTooltip": "設定",
+            "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
+            "errorSnackbar": "本地無資料"
+        },
+        "build": {
+            "name": "隊伍編成",
+            "helmet": {
+                "title": "天下布魔工具箱 — 隊伍編成",
+                "description": "提供天下布魔隊伍編成、輸出功能。"
+            },
+            "changeTooltip": "更換",
+            "deleteTooltip": "刪除",
+            "backTooltip": "返回編成一覽",
+            "shareTooltip": "分享編成",
+            "copyTooltip": "複製連結",
+            "snackbarMsg": "已複製",
+            "selectModalTitle": "角色選擇",
+            "emptySlotText": "選擇角色",
+            "nameInputLabel": "編成名",
+            "nameInputPlaceholder": "輸入隊伍編成名"
+        }
+    },
+    "navbar": {
+        "menuButton": "選單",
+        "languageSwitchTooltip": "語言",
+        "sidebar": [
+            {
+                "title": "首頁"
+            },
+            {
+                "title": "角色",
+                "descriptions": [
+                    "潛力計算"
+                ]
+            },
+            {
+                "title": "全境徵才",
+                "descriptions": [
+                    "總覽",
+                    "篩選器"
+                ]
+            },
+            {
+                "title": "道具掉落",
+                "descriptions": [
+                    "總覽",
+                    "篩選器"
+                ]
+            },
+            {
+                "title": "隊伍分析"
+            },
+            {
+                "title": "隊伍編成"
+            },
+            {
+                "title": "外部連結",
+                "descriptions": [
+                    "官方網站",
+                    "資料統整",
+                    "潛力整理＆猜測"
+                ]
+            },
+            {
+                "title": "資訊回報",
+                "descriptions": [
+                    "全境徵才數據回報",
+                    "角色潛力數據回報",
+                    "主線掉落數據回報",
+                    "意見回饋"
+                ]
+            }
+        ]
+    },
+    "404": {
+        "title": "查無此頁",
+        "h1": "查無此頁",
+        "p": "很抱歉，艾可找不到您訪問的頁面。",
+        "link": "回首頁"
+    }
+}

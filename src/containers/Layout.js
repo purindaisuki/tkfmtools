@@ -14,7 +14,7 @@ import Navbar from 'components/Navbar';
 import Sidebar from 'components/Sidebar';
 import BackToTop from 'components/BackToTop';
 
-import langConfig from 'languangeConfig.json';
+import langConfig from 'languageConfig.json';
 import 'components/global.css';
 
 const transformTheme = (theme) => {
