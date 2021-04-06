@@ -1,5 +1,5 @@
 const path = require('path')
-const langConfig = require('./src/languangeConfig.json')
+const langConfig = require('./src/languageConfig.json')
 
 // Absolute imports
 exports.onCreateWebpackConfig = ({ actions }) => {

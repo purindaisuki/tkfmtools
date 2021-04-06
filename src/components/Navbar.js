@@ -10,6 +10,7 @@ import IconButton from 'components/IconButton';
 import LocalizedLink from 'components/LocalizedLink'
 import { MenuIcon, LanguageIcon, } from 'components/icon';
 
+import langConfig from 'languageConfig.json';
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
 
@@ -25,6 +26,11 @@ const LanguageButton = styled(IconButton)`
         fill: ${props => props.theme.colors.onPrimary};
     }
 `
+const langDropdownText = {
+    'zh-TW': '繁體中文',
+    'en': 'English'
+}
+
 function LanguageSwitcher() {
     const { userLanguage, isDefault, pageString } = useLanguage()
 
@@ -46,8 +52,6 @@ function LanguageSwitcher() {
                 } else {
                     path = '/'
                 }
-                const enPath = '/en' + path
-                const krPath = '/kr' + path
 
                 return (
                     <DropDown
@@ -58,11 +62,12 @@ function LanguageSwitcher() {
                                 {LanguageIcon}
                             </LanguageButton>
                         }
-                        items={[
-                            { id: 'zh-TW', text: '繁體中文', path: path },
-                            { id: 'en', text: 'English', path: enPath },
-                            { id: 'kr', text: '한국어', path: krPath }
-                        ]}
+                        items={Object.values(langConfig)
+                            .map(lang => ({
+                                id: lang.locale,
+                                path: lang.default ? path : '/' + lang.locale + path,
+                                text: langDropdownText[lang.locale]
+                            }))}
                         renderItem={(item) => (
                             <StyledLink
                                 to={item.path}

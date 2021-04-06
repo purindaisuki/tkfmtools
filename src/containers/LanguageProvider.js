@@ -9,7 +9,7 @@ import item_en from 'data/string/item_en.json';
 import page_kr from 'data/string/page_kr.json';
 import char_kr from 'data/string/character_kr.json';
 import item_kr from 'data/string/item_kr.json';
-import langConfig from 'languangeConfig.json';
+import langConfig from 'languageConfig.json';
 
 const stringData = {
     'zh-TW': {
