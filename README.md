@@ -1,28 +1,71 @@
-# Tenkafu MA! toolbox
+# TenkafuMA! toolbox
 
-中文說明請至[此](README.zh-TW.md)
+中文說明請至 [此](README.zh-TW.md)
 
-[Demo](https://purindaisuki.github.io/tkfmtools/)
+[Demo](https://purindaisuki.github.io/tkfmtools/en/)
 
-The goal of this project is to collect, organize and present the data in Tenkafu MA!.
+The goal of this project is to collect, organize and present the data in TenkafuMA!.
 
-# Feature
-* Recruitment filter for finding promising tags combinations
-* Item drops filter for screening out stages by target items
-* Calculator for computing potential materials requirement for characters
-* Line up analysis for checking soundness of one's line up by visualizing data
-* Team compositions recorder for managing teams for passing stages
-* Overview of character recruitment tags and items drops
+## Feature
+**Line-up analysis**
+
+Provide visual representations to help you understand your line-up.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_1.png)
+
+**Team compositions recorder**
+
+Record and share your team compositions for stages.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_2.png)
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_3.png)
+
+**Recruitment filter**
+
+Find promising tag combinations giving high rarity characters.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_4.png)
+
+**Item drops filter**
+
+Screen out stages by target items.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_5.png)
+
+**Character potential calculator**
+
+Compute potential buffs and materials requirement for characters.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_6.png)
+
+**Characters and items**
+
+Show character recruitment tags and items drops.
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_7.png)
+
+![screenshot](https://purindaisuki.github.io/tkfmtools/readme_feature_8.png)
+
+## Libraries backing TenkafuMA! toolbox
+* [React](https://reactjs.org/)
+* [Gatsby](https://www.gatsbyjs.com/)
+* [Material-UI](https://material-ui.com/)
+* [styled-components](https://styled-components.com/)
+* [Firebase](https://firebase.google.com/)
+* [nivo](https://nivo.rocks/)
+* [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+* [react-masonry-css](https://github.com/paulcollett/react-masonry-css)
+* [react-helmet](https://github.com/nfl/react-helmet)
+* [nanoid](https://github.com/ai/nanoid)
+* [html2canvas](https://github.com/niklasvh/html2canvas)
 
 ## Feedback
-* Suggestion and thoughts are welcome. Please check [here](https://peing.net/ja/b5295760aebf4c).
-                    
-## Reference
-1. [資料統整 - 凱薩沒在用的腦](https://reurl.cc/5o5A7z/)
-2. [潛力整理&猜測](https://reurl.cc/1gZ5nV/)
-3. [Discord天下布魔場外群資料整理(舊)](https://reurl.cc/8ypXzM)
-4. Data provided from kind people.
+Bug reports, suggestion and thoughts are always welcome. Please contact me via:
+* [Github issues](https://github.com/purindaisuki/tkfmtools/issues)
+* [Questionbox](https://peing.net/ja/b5295760aebf4c)
+* or tag [me](justwepurin#4265) on [TenkafuMA! official discord group](https://discord.gg/wJqXQjVnw4).
 
 ## License
 * [The MIT License](https://github.com/purindaisuki/tkfmtools/blob/master/LICENSE)
-* NOTE: SVG ICONS FROM [Material icons - Google Design](https://github.com/google/material-design-icons) IS LICENSED UNDER [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE). THE ART RESOURCES FORM Tenkafu MA! ARE NOT LICENSED BY MIT AND RESERVED FOR SG Art Inc.  
+* NOTE: SVG ICONS FROM [Material icons - Google Design](https://github.com/google/material-design-icons) ARE LICENSED UNDER [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE). THE ART RESOURCES FORM Tenkafu MA! ARE ALSO NOT LICENSED BY MIT AND RESERVED FOR SG Art Inc.
