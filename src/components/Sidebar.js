@@ -193,6 +193,13 @@ const StyledList = styled(List)`
         padding: 0;
     }
 `
+const officialLink = {
+    'zh-TW': 'https://www.tenkafuma.com/',
+    'en': 'https://www.tenkafuma.com/en/',
+    'jp': 'https://www.tenkafuma.com/jp/',
+    'kr': 'https://www.tenkafuma.com/en/'
+}
+
 const Sidebar = ({ open, toggleSidebar }) => {
     const { isDefault, userLanguage, pageString } = useLanguage()
 
@@ -258,7 +265,7 @@ const Sidebar = ({ open, toggleSidebar }) => {
                         icon: LinkIcon,
                         linkType: 'external',
                         to: [
-                            'https://www.tenkafuma.com/' + (isDefault ? '' : userLanguage + '/'),
+                            officialLink[useLanguage],
                             'https://reurl.cc/5o5A7z/',
                             'https://reurl.cc/1gZ5nV/'
                         ],
@@ -271,7 +278,9 @@ const Sidebar = ({ open, toggleSidebar }) => {
                             'https://forms.gle/VYMGibGfs36F9tdQ6',
                             'https://reurl.cc/E22vDa',
                             'https://reurl.cc/jqGAVL',
-                            'https://peing.net/ja/b5295760aebf4c'
+                            isDefault
+                                ? 'https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B'
+                                : 'https://github.com/purindaisuki/tkfmtools#feedback'
                         ],
                         expandable: true,
                     }
