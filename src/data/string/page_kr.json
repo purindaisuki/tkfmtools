@@ -29,7 +29,7 @@
                         "Google 개인 정보 보호 및 약관",
                         ". 그리고 Adblock과 같은 일부 브라우저 확장은 데이터 수집을 차단합니다. 이 웹 사이트의 개선을 돕고 싶다면이 웹 사이트를 화이트리스트에 추가하십시오."
                     ],
-                    "link": "https://policies.google.com/technologies/partner-sites"
+                    "link": "https://policies.google.com/technologies/partner-sites?hl=ko"
                 },
                 {
                     "header": "피드백",
@@ -38,7 +38,7 @@
                         "여기에서 확인하세요",
                         "."
                     ],
-                    "link": "https://peing.net/ja/b5295760aebf4c"
+                    "link": "https://peing.net/ko/b5295760aebf4c"
                 },
                 {
                     "header": "참고",
