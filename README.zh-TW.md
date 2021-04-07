@@ -61,7 +61,7 @@
 ## 意見回饋
 歡迎以下列連結回報 Bug、建議、使用心得等。
 * [Github issues](https://github.com/purindaisuki/tkfmtools/issues)
-* [Questionbox](https://peing.net/ja/b5295760aebf4c)
+* [Questionbox](https://peing.net/zh-TW/b5295760aebf4c)
 * 或在 [官方 discord 群](https://discord.gg/RRRABMtHYj)、[場外 discord 群](https://discord.gg/GR9fh9MfVw) @ [我](justwepurin#4265)
 
 ## License
