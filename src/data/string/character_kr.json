@@ -83,18 +83,18 @@
         "생존력",
         "전투하면 할수록",
         "범위 공격",
-        "Counterstrike"
+        "반격"
     ],
     "tagAttributes": {
         "name": "Character",
-        "rarity": "Rarity",
-        "attribute": "Attribute",
-        "position": "Position",
-        "race": "Race",
-        "body": "Body size",
-        "oppai": "Oppai",
-        "rank": "Rank",
-        "else": "Else"
+        "rarity": "등급",
+        "attribute": "속성",
+        "position": "포지션",
+        "race": "종족",
+        "body": "체형",
+        "oppai": "가슴",
+        "rank": "",
+        "else": "기타"
     },
     "tagWarnMsg": "Not available from recruitment"
 }

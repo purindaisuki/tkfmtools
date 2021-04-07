@@ -10,38 +10,38 @@
             "header": "About",
             "content": [
                 {
-                    "header": "Introduction",
+                    "header": "소개",
                     "content": [
-                        "The goal of this website is to collect, organize and present the data in Tenkafu MA!.",
-                        "This website includes recruitment filter, item drops filter, character potential material calculator, line-up analysis and team composition tool."
+                        "이 웹 사이트의 목표는 Tenkafu MA!에서 데이터를 수집, 구성 및 제공하는 것입니다.",
+                        "이 웹 사이트에는 모집 필터, 아이템 드롭 필터, 캐릭터 잠재 재료 계산기, 라인업 분석 및 팀 구성 도구가 포함되어 있습니다."
                     ]
                 },
                 {
                     "header": "Disclaimer",
                     "content": [
-                        "All materials and information on this website are collected from players and may not reflect the actual situation. The actual gameplay shall prevail."
+                        "이 웹 사이트의 모든 자료와 정보는 플레이어로부터 수집되며 실제 상황을 반영하지 않을 수 있습니다. 실제 게임 플레이가 우선됩니다."
                     ]
                 },
                 {
-                    "header": "Privacy policy",
+                    "header": "개인 정보 정책",
                     "content": [
-                        "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
-                        "Google Privacy & Terms",
-                        ". And some browser extensions such as Adblock will block the data collection. If you are willing to help the imporvement of this website, please add this website to whitelist."
+                        "이 웹 사이트는 Google Analytics를 사용하여이 웹 사이트를 개선하기위한 목적으로 만 익명으로 수집되는 사용자 데이터를 수집합니다. Google Analytics는 쿠키를 사용하여 사용자에 대한 데이터를 추적합니다. 작동 방식에 대해 자세히 알아 보려면 ",
+                        "Google 개인 정보 보호 및 약관",
+                        ". 그리고 Adblock과 같은 일부 브라우저 확장은 데이터 수집을 차단합니다. 이 웹 사이트의 개선을 돕고 싶다면이 웹 사이트를 화이트리스트에 추가하십시오."
                     ],
                     "link": "https://policies.google.com/technologies/partner-sites"
                 },
                 {
-                    "header": "Feedback",
+                    "header": "피드백",
                     "content": [
-                        "Suggestion and thoughts are welcome. Please check ",
-                        "here",
+                        "제인을 환영합니다.",
+                        "여기에서 확인하세요",
                         "."
                     ],
                     "link": "https://peing.net/ja/b5295760aebf4c"
                 },
                 {
-                    "header": "Reference",
+                    "header": "참고",
                     "content": [
                         {
                             "link": "https://reurl.cc/5o5A7z/",
@@ -63,18 +63,18 @@
             ]
         },
         "setting": {
-            "header": "Global Settings",
-            "groupLabel": "Layout (Only works for some pages and devices)",
+            "header": "전역 설정",
+            "groupLabel": "레이아웃 (일부 페이지 및 장치에서만 작동)",
             "labels": [
                 "Portrait",
                 "Landscape"
             ],
-            "clearTitle": "Clear all data stored in localStorage",
-            "clearButton": "Clear",
-            "clearModalTitle": "Are you sure?",
-            "clearModalContent": "All data recorded in this website including team compositions, analysis, etc. will be cleared and the process is irreversible. Do you want to clear data?",
-            "clear": "Clear",
-            "cancel": "Cancel"
+            "clearTitle": "로컬에 저장된 모든 데이터 지우기",
+            "clearButton": "삭제",
+            "clearModalTitle": "정말 진행합니까?",
+            "clearModalContent": "팀 구성, 분석 등을 포함하여 이 웹 사이트에 기록 된 모든 데이터는 삭제되며 프로세스는 되돌릴 수 없습니다. 데이터를 지우시겠습니까?",
+            "clear": "삭제",
+            "cancel": "취소"
         },
         "updateLog": {
             "header": "Update Logs",
@@ -514,38 +514,38 @@
     },
     "characters": {
         "potential": {
-            "name": "Characters potential",
+            "name": "캐릭터 잠재 능력",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Characters potential",
-                "description": "Calculate the requirement of potential material and buff of characters in TenkafuMA!."
+                "title": "TenkafuMA! toolbox — 캐릭터 잠재 능력",
+                "description": "잠재 능력 개발을 위한 요구사항 및 버프를 확인하자."
             },
-            "characterPanelTitle": "Character Selection",
-            "characterSelectTitle": "Character",
-            "currentSelectTitle": "Current",
-            "targetSelectTitle": "Target",
-            "resultDemandTitle": "Material",
-            "resultBuffTitle": "Buff",
+            "characterPanelTitle": "캐릭터 선택",
+            "characterSelectTitle": "캐릭터",
+            "currentSelectTitle": "현재",
+            "targetSelectTitle": "목표",
+            "resultDemandTitle": "소재(필요량)",
+            "resultBuffTitle": "잠재 능력치",
             "helpModal": {
-                "title": "Character potential - Help",
+                "title": "캐릭터 잠재 능력 - Help",
                 "content": [
                     {
-                        "title": "Introduction",
+                        "title": "소개",
                         "content": [
-                            "This page is to calculate the requirement of potential material and buff of characters."
+                            "이 페이지는 캐릭터의 잠재 능력 상승을 위한 필요 재료 및 상승량을 계산하는 페이지입니다"
                         ]
                     },
                     {
-                        "title": "How-to",
+                        "title": "사용법",
                         "content": [
-                            "Select character and current and target stages (both included) to calculate the material requirement.",
-                            "E.g. If current stage is 1-1 and target is 6-1, the result stands for the summation of all required material from stage 1 to 5 and the first grid of stage 6."
+                            "선택된 캐릭터의 현재 잠재능력 단계(포함)부터 목표 단계까지 필요한 소재량을 계산합니다.",
+                            "예. 현재 단계를 1-1, 목표단계를 6-1로 설정했을때, 1단계부터 5단계까지 필요한 모든 재료와, 6-1의 재료의 합계를 나타냅니다."
                         ]
                     },
                     {
-                        "title": "Notes",
+                        "title": "메모",
                         "content": [
-                            "There are four types of potential patterns which are attacker type, defender type, supporter type and N/R type, a type shared by N/R characters. Note that the attacker, defender and supporter here are not identical to character positions. (e.g. Juneau is an attacker in character position but a support in potential type.)",
-                            "Most results are inferred from patterns of character potential, not from actual data."
+                            "딜러 유형, 탱커 유형, 서포터 유형 및 N/R 유형의 네 가지 유형의 잠재적 패턴이 있으며 N/R  캐릭터가 공유하는 유형입니다. 여기서 딜러, 탱커및 서포터는 캐릭터 위치와 동일하지 않습니다. (예: 쥬노안은 캐릭터 위치에서는 딜러이지만 잠재 유형에서는 서포터입니다.) ",
+                            "대부분의 결과는 실제 데이터가 아닌 캐릭터 잠재력 패턴에서 추론됩니다."
                         ]
                     }
                 ]
@@ -554,120 +554,120 @@
     },
     "enlist": {
         "tabLabel": [
-            "Overview",
-            "Filter"
+            "전체보기",
+            "필터"
         ],
         "index": {
             "name": "전 지역 모집",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Recruitment",
-                "description": "Present character tags for recruitment in TenkafuMA!."
+                "title": "TenkafuMA! toolbox — 모집",
+                "description": "캐릭터 전 지역 상시 모집 태그 설명!"
             },
             "layout": "Layout",
             "masonryTooltip": "Masonry",
             "tableTooltip": "Table"
         },
         "filter": {
-            "name": "모집 조건",
+            "name": "전 지역 모집 조건",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Recruitment filter",
+                "title": "TenkafuMA! toolbox — 모집 조건 필터",
                 "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
             },
-            "deleteTooltip": "Cancel all selections",
+            "deleteTooltip": "모든 선택 취소",
             "settingTooltip": "Display setting",
-            "tagSelectTitle": "Tag Selection",
-            "timeSelectTitle": "Recruitment time",
+            "tagSelectTitle": "태그 선택",
+            "timeSelectTitle": "모집 시간",
             "tableHead": [
                 {
-                    "title": "Name",
+                    "title": "이름",
                     "attr": "name"
                 },
                 {
-                    "title": "Rarity",
+                    "title": "등급",
                     "attr": "rarity"
                 },
                 {
-                    "title": "Applied Tags",
+                    "title": "적용된 태그",
                     "attr": "appliedTags"
                 }
             ],
             "helpModal": {
-                "title": "Recruitment filter - Help",
+                "title": "모집 조건 필터 - Help",
                 "content": [
                     {
-                        "title": "Introduction",
+                        "title": "설명",
                         "content": [
-                            "Apply the tags you get to find possible characters."
+                            "적용된 태그로 모집 가능한 캐릭터를 볼 수 있습니다."
                         ]
                     },
                     {
-                        "title": "How-to",
+                        "title": "사용법",
                         "content": [
-                            "Select tags to filter out characters.",
-                            "Sort result by clicking the table header.",
-                            "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie) the character to show the combinations."
+                            "태그를 선택해서 캐릭터를 필터링 하세요.",
+                            "표의 헤더부분을 클릭하면 정렬됩니다.",
+                            "캐릭터 뒤의 별 아이콘은 해당 캐릭터만 모집되는 조합이 있음을 의미합니다. 조합을 표시하려면 마우스를 올려두세요. (모바일은 길게누르기)"
                         ]
                     },
                     {
-                        "title": "Common scenario",
+                        "title": "일반 시나리오",
                         "content": [
-                            "Target at SR (or higher) characters:",
-                            "Select five tags you get from the recruitment.",
-                            "If there is a star icon after SR characters, then it's worth a shot."
+                            "SR(혹은 그이상) 캐릭터 대상 :",
+                            "상시 모집에 표기된 5가지의 태그를 선택하세요.",
+                            "만약 SR캐릭터 뒤에 별 아이콘이 존재한다면, 선택해 볼 가치가 있습니다."
                         ]
                     },
                     {
-                        "title": "Notes",
+                        "title": "메모",
                         "content": [
-                            "Only the leader tag can give you SSR.",
-                            "Leader and elite tag don't guarantee SSR and SR respectively unless recruitment time is set to be 9 hours.",
-                            "The probability of leader and elite tag is roughly 0.4% and 1.2% respectively."
+                            "SSR 등급의 캐릭터는 리더 태그일때만 등장합니다.",
+                            "리더, 엘리트 태그의 경우 모집시간을 9시간으로 하지 않으면 각각 SSR,SR 등급을 보장하지 않습니다.",
+                            "리더태그의 확률은 0.4%, 엘리트태그의 확률은 1.2% 정도 입니다."
                         ]
                     },
                     {
-                        "title": "Limitations",
+                        "title": "한계",
                         "content": [
-                            "Deletion of tags is not considered.",
-                            "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
+                            "태그 삭제는 고려하지 않습니다. (취소선을 의미)",
+                            "별 아이콘이 있더라도 태그 삭제, 혹은 수집된 데이터의 불완전성으로 인해 캐릭터 획득이 보장되지는 않습니다."
                         ]
                     }
                 ]
             },
             "settingModal": {
                 "title": "Display setting",
-                "groupLabel": "Group tags by class",
+                "groupLabel": "태그 그룹 활성화",
                 "labels": [
-                    "Yes",
-                    "No"
+                    "네",
+                    "아니오"
                 ]
             },
-            "snackbarMsg": "At most 5 tags"
+            "snackbarMsg": "최대 5개의 태그"
         }
     },
     "items": {
         "drop": {
             "tabLabel": [
-                "Overview",
-                "Filter"
+                "전체보기",
+                "필터"
             ],
             "index": {
-                "name": "Item drops",
+                "name": "아이템 드롭",
                 "helmet": {
-                    "title": "TenkafuMA! toolbox — Item drops",
-                    "description": "Show item drops of main stages."
+                    "title": "TenkafuMA! toolbox — 아이템 드롭",
+                    "description": "메인 스테이지의 아이템 드롭 현황"
                 },
-                "settingTooltip": "Setting",
+                "settingTooltip": "셋팅",
                 "layout": {
                     "byItem": "by Item",
                     "byStage": "by Stage"
                 },
-                "notAvailableMsg": "Not available from stage drops",
+                "notAvailableMsg": "스테이지 드롭에서는 사용 할 수 없습니다.",
                 "tableHead": {
-                    "stage": "Stage",
+                    "stage": "스테이지",
                     "materials": "소재",
                     "trainItems": "조련",
                     "expPotions": "경험치 포션",
-                    "energy": "Energy"
+                    "energy": "스테미너"
                 },
                 "settingModal": {
                     "title": "Display setting",
@@ -678,65 +678,65 @@
                                 "소재",
                                 "조련",
                                 "경험치 포션",
-                                "Energy"
+                                "스테미너"
                             ]
                         },
                         {
-                            "title": "Potential materials rank",
+                            "title": "잠재 소재 등급",
                             "button": [
-                                "General basic",
-                                "General intermediate",
-                                "General advanced",
-                                "Advanced"
+                                "초급",
+                                "중급",
+                                "고급",
+                                "최고급"
                             ]
                         },
                         {
-                            "title": "Rarity",
+                            "title": "희귀도",
                             "button": [
-                                "Epic",
-                                "Rare",
-                                "Com.",
-                                "Required"
+                                "매우 드물게 출현",
+                                "드물게 출현",
+                                "자주 출현",
+                                "확정"
                             ]
                         }
                     ]
                 }
             },
             "filter": {
-                "name": "Item drops filter",
+                "name": "아이템 드롭 필터",
                 "helmet": {
-                    "title": "TenkafuMA! toolbox — Item drops filter",
-                    "description": "Filter stages by target items."
+                    "title": "TenkafuMA! toolbox — 아이템 드롭 필터",
+                    "description": "타겟 아이템별 스테이지 필터"
                 },
-                "deleteTooltip": "Cancel all selections",
-                "itemPanelTitle": "Item Selection",
-                "resultTitle": "Result",
+                "deleteTooltip": "모든 선택 취소",
+                "itemPanelTitle": "아이템 선택",
+                "resultTitle": "결과",
                 "tableHead": [
-                    "Stage",
-                    "Rarity",
-                    "Energy"
+                    "스테이지",
+                    "희귀도",
+                    "스테미너"
                 ],
                 "helpModal": {
-                    "title": "Item drop filter - Help",
+                    "title": "아이템 드롭 필터 - Help",
                     "content": [
                         {
-                            "title": "Introduction",
+                            "title": "소개",
                             "content": [
-                                "This page is to find the stages that includes all target items."
+                                "이 페이지는 모든 아이템 드롭에 관련된 스테이지를 찾을 수 있습니다."
                             ]
                         },
                         {
-                            "title": "How-to",
+                            "title": "사용법",
                             "content": [
-                                "Select items to filter out stages.",
-                                "Sort result by clicking the table header."
+                                "아이템을 선택해서 스테이지를 필터링하세요.",
+                                "표의 헤더부분을 클릭하면 정렬됩니다."
                             ]
                         },
                         {
-                            "title": "Notes",
+                            "title": "메모",
                             "content": [
-                                "Only includes items that drops in 'World' instance.",
-                                "The same rarity does not refer to the same drop rate. It depends on the tier of items and the stages."
+                                "오직 'World' 에서 드롭 되는 항목만 포함합니다. ",
+                                "같은 희귀도는 같은 드랍율을 의미하지 않습니다. 아이템의 단계와 스테이지의 단계에 따라 다릅니다."
                             ]
                         }
                     ]
@@ -746,91 +746,92 @@
     },
     "analysis": {
         "tabLabel": [
-            "Line-up",
-            "Result"
+            "라인업",
+            "결과"
         ],
         "index": {
-            "name": "Line-up analysis",
+            "name": "라인업 분석",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Line-up analysis",
-                "description": "Provide visual representations to help you understand your line-up."
+                "title": "TenkafuMA! toolbox — 라인업 분석",
+                "description": "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
             },
-            "levelTitle": "Level",
-            "potentialTitle": "Potential",
-            "primaryPotentialTitle": "Primary potential stage",
-            "secondaryPotentialTitle": "Secondary potential stage",
-            "disciplineTitle": "Discipline",
-            "starTitle": "Star",
-            "saveButton": "Save",
-            "loadButton": "Load",
-            "deleteButton": "Delete",
-            "successMsg": "Success",
-            "errorMsg": "Failed",
-            "modalTitle": "Load data",
+            "levelTitle": "레벨",
+            "potentialTitle": "잠재 능력",
+            "primaryPotentialTitle": "잠재 능력 단계",
+            "secondaryPotentialTitle": "세부 잠재 능력 단계",
+            "disciplineTitle": "조련",
+            "starTitle": "구속력",
+            "saveButton": "저장",
+            "loadButton": "로드",
+            "deleteButton": "삭제",
+            "successMsg": "성공",
+            "errorMsg": "실패",
+            "modalTitle": "데이터 로드",
             "helpModal": {
-                "title": "Line-up analysis - help",
+                "title": "라인업 분석 - help",
                 "content": [
                     {
-                        "title": "Introduction",
+                        "title": "소개",
                         "content": [
-                            "Provide visual representations to help you understand your line-up."
+                            "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
                         ]
                     },
                     {
-                        "title": "How-to",
+                        "title": "사용법",
                         "content": [
-                            "Select the character states according to your line-up and toggle the character ownership by tapping the image of the character.",
-                            "After you finish, the analysis will show at the 'result' page.",
-                            "You can save, load and delete the data by clicking the buttons on the upper right side."
+                            "본인의 라인업에 따라 캐릭터 이미지를 탭하여 캐릭터를 활성화하고 스탯을 입력합니다.",
+
+                            "완료하면 '결과' 페이지에 분석결과가 표시됩니다.",
+                            "오른쪽 상단의 버튼을 클릭해서 데이터를 저장,불러오기 할 수 있습니다."
                         ]
                     }
                 ]
             }
         },
         "result": {
-            "name": "Line-up analysis",
+            "name": "라인업 분석",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Line-up analysis",
-                "description": "Provide visual representations to help you understand your line-up."
+                "title": "TenkafuMA! toolbox — 라인업 분석",
+                "description": "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
             },
-            "exportButtonTooltip": "Export as an image",
+            "exportButtonTooltip": "이미지로 익스포트하기.",
             "chart": [
                 {
-                    "title": "Character Collection"
+                    "title": "보유한 캐릭터"
                 },
                 {
-                    "title": "Character Combat Power"
+                    "title": "캐릭터 전투력"
                 },
                 {
-                    "title": "Character Lv by Position",
+                    "title": "유형별 캐릭터 레벨",
                     "legend": [
-                        "Max",
-                        "Avg.",
-                        "Median",
-                        "Min"
+                        "최대",
+                        "평균",
+                        "중앙값",
+                        "최소"
                     ]
                 },
                 {
-                    "title": "Character Lv by Attribute",
+                    "title": "속성별 캐릭터 레벨",
                     "legend": [
-                        "Max",
-                        "Avg.",
-                        "Median",
-                        "Min"
+                        "최대",
+                        "평균",
+                        "중앙값",
+                        "최소"
                     ]
                 },
                 {
-                    "title": "Character Exp by Position",
+                    "title": "유형별 캐릭터 경험치",
                     "legend": [
-                        "Exp",
-                        "Number"
+                        "경험치",
+                        "수"
                     ]
                 },
                 {
-                    "title": "Character Exp by Attribute",
+                    "title": "속성별 캐릭터 경험치",
                     "legend": [
-                        "Exp",
-                        "Number"
+                        "경험치",
+                        "수"
                     ]
                 }
             ],
@@ -838,97 +839,97 @@
                 "title": "PR of your line-up is",
                 "high": "High PR TOP5",
                 "low": "Low PR TOP5",
-                "cp": " combat power",
+                "cp": " 전투력",
                 "PR": "PR"
             },
             "helpModal": {
-                "title": "Character combat power",
+                "title": "캐릭터 전투력",
                 "content": [
                     {
                         "title": "Definition",
                         "content": [
-                            "Character combat power is the product of the character ATK and HP."
+                            "캐릭터 전투력은 ATK, HP 합산 결과입니다."
                         ]
                     },
                     {
-                        "title": "Note",
+                        "title": "메모",
                         "content": [
-                            "Character skills and bond is not considered and thus it may not provide enough insights into the characters."
+                            "캐릭터 스킬,진화 등은 고려되지 않으므로 충분한 통찰력을 제공하지 못할 수 있습니다."
                         ]
                     }
                 ]
             },
             "rankModal": {
-                "content": "PR is the percentile rank of total combat power of your line-up and is calculated by the data collected in this website."
+                "content": "PR은 라인업의 총 전투력에 대한 백분위 순위이며이 웹 사이트에서 수집 한 데이터로 계산됩니다."
             }
         }
     },
     "team": {
         "index": {
-            "name": "Team compositions",
+            "name": "팀 구성",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Team compositions",
-                "description": "Record and share your team compositions in TenkafuMA."
+                "title": "TenkafuMA! toolbox — 팀 구성",
+                "description": "당신의 팀 구성을 기록하고 공유하세요."
             },
-            "newComposition": "New",
-            "deleteTooltip": "Delete",
-            "copyTooltip": "Duplicate",
+            "newComposition": "추가",
+            "deleteTooltip": "삭제",
+            "copyTooltip": "복사",
             "settingTooltip": "Setting",
-            "settingDescription": "Import the latest line-up analysis data as default",
-            "errorSnackbar": "Local data not found"
+            "settingDescription": "최신 라인업 분석 데이터를 기본값으로 가져 오기",
+            "errorSnackbar": "로컬 데이터를 찾을 수 없습니다."
         },
         "build": {
-            "name": "Team compositions",
+            "name": "팀 구성",
             "helmet": {
-                "title": "TenkafuMA! toolbox — Team compositions",
-                "description": "Record and share your team compositions in TenkafuMA."
+                "title": "TenkafuMA! toolbox — 팀 구성",
+                "description": "당신의 팀 구성을 기록하고 공유하세요."
             },
-            "changeTooltip": "Change",
-            "deleteTooltip": "Remove",
-            "backTooltip": "Back to team compositions list",
-            "selectModalTitle": "Character selection",
-            "emptySlotText": "Select character",
-            "nameInputLabel": "Team name",
-            "nameInputPlaceholder": "Type team name"
+            "changeTooltip": "변경",
+            "deleteTooltip": "삭제",
+            "backTooltip": "팀 구성 초기화면으로 돌아가기",
+            "selectModalTitle": "캐릭터 선택",
+            "emptySlotText": "캐릭터를 선택하세요.",
+            "nameInputLabel": "팀 이름",
+            "nameInputPlaceholder": "팀 이름을 입력하세요"
         }
     },
     "navbar": {
-        "menuButton": "Menu",
-        "languageSwitchTooltip": "Language",
+        "menuButton": "메뉴",
+        "languageSwitchTooltip": "언어",
         "sidebar": [
             {
-                "title": "Home"
+                "title": "홈"
             },
             {
-                "title": "Characters",
+                "title": "캐릭터",
                 "descriptions": [
-                    "Potential calculator"
+                    "잠재 능력 계산기"
                 ]
             },
             {
-                "title": "Recruitment",
+                "title": "모집",
                 "descriptions": [
-                    "Overview",
-                    "Filter"
+                    "전체보기",
+                    "필터"
                 ]
             },
             {
-                "title": "Item drops",
+                "title": "아이템 드롭",
                 "descriptions": [
-                    "Overview",
-                    "Filter"
+                    "전체보기",
+                    "필터"
                 ]
             },
             {
-                "title": "Line-up analysis"
+                "title": "라인업 분석"
             },
             {
-                "title": "Team compositions"
+                "title": "팀 구성"
             },
             {
-                "title": "External Links",
+                "title": "외부 링크",
                 "descriptions": [
-                    "Official website",
+                    "오피셜 사이트",
                     "Game data (Chinese)",
                     "Potential data (Chinese)"
                 ]
