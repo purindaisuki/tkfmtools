@@ -32,6 +32,14 @@
                     "link": "https://policies.google.com/technologies/partner-sites?hl=ko"
                 },
                 {
+                    "header": "Special thanks",
+                    "content": [
+                        "",
+                        "10duckman"
+                    ],
+                    "link": "https://github.com/10duckman"
+                },
+                {
                     "header": "피드백",
                     "content": [
                         "제인을 환영합니다.",

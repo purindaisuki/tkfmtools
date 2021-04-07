@@ -32,6 +32,14 @@
                     "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
                 },
                 {
+                    "header": "特別感謝",
+                    "content": [
+                        "",
+                        "10duckman"
+                    ],
+                    "link": "https://github.com/10duckman"
+                },
+                {
                     "header": "意見回饋",
                     "content": [
                         "Bug、建議、使用心得等請至 ",

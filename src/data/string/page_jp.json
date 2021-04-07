@@ -29,7 +29,15 @@
                         "Google 隱私權與條款",
                         " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。"
                     ],
-                    "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
+                    "link": "https://policies.google.com/technologies/partner-sites?hl=ja"
+                },
+                {
+                    "header": "特別感謝",
+                    "content": [
+                        "",
+                        "10duckman"
+                    ],
+                    "link": "https://github.com/10duckman"
                 },
                 {
                     "header": "意見回饋",
@@ -38,7 +46,7 @@
                         "這裡",
                         " 。"
                     ],
-                    "link": "https://peing.net/ja/b5295760aebf4c"
+                    "link": "https://github.com/purindaisuki/tkfmtools#feedback"
                 },
                 {
                     "header": "參考",
