@@ -265,7 +265,7 @@ const Sidebar = ({ open, toggleSidebar }) => {
                         icon: LinkIcon,
                         linkType: 'external',
                         to: [
-                            officialLink[useLanguage],
+                            officialLink[userLanguage],
                             'https://reurl.cc/5o5A7z/',
                             'https://reurl.cc/1gZ5nV/'
                         ],
