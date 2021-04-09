@@ -83,6 +83,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.9",
+                    "content": [
+                        {
+                            "type": "Change",
+                            "title": "Navbar",
+                            "description": "Move the content of sidebar to main navbar on desktop."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.8",
                     "content": [
                         {

@@ -21,13 +21,15 @@ const StyledMenuItem = styled(MenuItem)`
 const DropDown = ({
     button,
     buttonOnClick,
+    buttonActive,
     items,
     renderItem,
     itemOnClick,
     itemProps,
     disableItemButton,
     closeOnclick,
-    ariaId
+    ariaId,
+    ...props
 }) => {
     const [anchorEl, setAnchorEl] = useState(false)
 
@@ -54,7 +56,8 @@ const DropDown = ({
         {React.cloneElement(button, {
             'aria-controls': ariaId,
             'aria-haspopup': 'true',
-            onClick: handleButtonClick
+            onClick: handleButtonClick,
+            $active: buttonActive || Boolean(anchorEl)
         })}
         <List
             component={StyledMenu}
@@ -62,6 +65,7 @@ const DropDown = ({
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            {...props}
         >
             {items.map(item => (
                 <ListItem

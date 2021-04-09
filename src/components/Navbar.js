@@ -1,26 +1,141 @@
 import React from 'react';
 import { Location } from '@reach/router'
 import styled, { useTheme } from 'styled-components';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Toolbar } from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
 import DropDown from 'components/DropDown';
 import IconButton from 'components/IconButton';
-import LocalizedLink from 'components/LocalizedLink'
-import { MenuIcon, LanguageIcon, } from 'components/icon';
+import LocalizedLink from 'components/LocalizedLink';
+import navbarContent from 'components/navbarContent';
+import { MenuIcon, LanguageIcon, ToolIcon } from 'components/icon';
 
 import langConfig from 'languageConfig.json';
 import SunIcon from 'images/sun.svg';
 import MoonIcon from 'images/moon.svg';
 
-const StyledLink = styled(LocalizedLink)`
-    && {
-        color: ${props => props.theme.colors.onSurface};
-        font-size: medium;
-        text-decoration: none;
+const NavButton = styled(IconButton)`
+    && svg {
+        fill: ${props => props.theme.colors.onPrimary};
     }
 `
+const StyledLink = styled(LocalizedLink)`
+    color: ${props => props.theme.colors.onSurface};
+    font-size: medium;
+    text-decoration: none;
+`
+const NavbarLink = styled(StyledLink)`
+    padding: .6rem;
+    color: ${props => props.theme.colors.onPrimary + (props.$active ? '' : 'BF')};
+    ${props => props.$active ?
+        'text-shadow: 0 0 10px #fff,0 0 10px #fff8;' : ''}
+    &:hover {
+        color: ${props => props.theme.colors.onPrimary};
+        text-shadow: 0 0 10px #fff,0 0 10px #fff8;
+    }
+    @media screen and (min-width: 1200px) {
+        padding: .8rem;
+        font-size: 1.2rem;
+    }
+`
+const StyledA = styled.a`
+    color: ${props => props.theme.colors.onSurface};
+    font-size: medium;
+    text-decoration: none;
+`
+const TextButton = styled(Button)`
+    && {
+        padding: .6rem;
+        color: ${props => props.theme.colors.onPrimary + (props.$active ? '' : 'BF')};
+        ${props => props.$active ?
+        'text-shadow: 0 0 10px #fff,0 0 10px #fff8;' : ''}
+        &:hover {
+            color: ${props => props.theme.colors.onPrimary};
+            text-shadow: 0 0 10px #fff,0 0 10px #fff8;
+        }
+        font-size: medium;
+        .MuiButton-label {
+            line-height: normal;
+            text-transform: none;
+        }
+        @media screen and (min-width: 1200px) {
+            padding: .8rem;
+            font-size: 1.2rem;
+        }
+    }
+`
+const DesktopNavbar = () => {
+    const { isDefault, userLanguage, pageString } = useLanguage()
+
+    return (
+        <div>
+            <LocalizedLink to='/'>
+                <NavButton
+                    edge="start"
+                    tooltipText={pageString.index.name}
+                    aria-label={pageString.index.name}
+                >
+                    {ToolIcon}
+                </NavButton>
+            </LocalizedLink>
+            {navbarContent(userLanguage, isDefault).map((item, ind) => (
+                ind === 0 ? null
+                    : item.expandable
+                        ? <DropDown
+                            button={
+                                <TextButton
+                                    disableFocusRipple
+                                >
+                                    {pageString.navbar.sidebar[ind].title}
+                                </TextButton>
+                            }
+                            buttonActive={window?.location.pathname.includes(item.to[0])}
+                            items={item.to.map((link, linkInd) => ({
+                                id: pageString.navbar.sidebar[ind].descriptions[linkInd],
+                                to: link,
+                                description: pageString.navbar.sidebar[ind].descriptions[linkInd]
+                            }))}
+                            renderItem={(dropdownItem) => (
+                                item.linkType === 'internal'
+                                    ? <StyledLink
+                                        to={dropdownItem.to}
+                                    >
+                                        {dropdownItem.description}
+                                    </StyledLink>
+                                    : <StyledA
+                                        href={dropdownItem.to}
+                                        target='_blank'
+                                        key={ind}
+                                    >
+                                        {dropdownItem.description}
+                                    </StyledA>
+                            )}
+                            closeOnclick
+                            ariaId={pageString.navbar.sidebar[ind].title}
+                            getContentAnchorEl={null}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            key={ind}
+                        />
+                        : <NavbarLink
+                            to={item.to}
+                            $active={window?.location.pathname.includes(item.to)}
+                            key={ind}
+                        >
+                            {pageString.navbar.sidebar[ind].title}
+                        </NavbarLink>
+            ))}
+        </div>
+    )
+}
+
 const LanguageButton = styled(IconButton)`
     && svg {
         fill: ${props => props.theme.colors.onPrimary};
@@ -31,7 +146,7 @@ const langDropdownText = {
     'en': 'English'
 }
 
-function LanguageSwitcher() {
+const LanguageSwitcher = () => {
     const { userLanguage, isDefault, pageString } = useLanguage()
 
     return (
@@ -162,11 +277,6 @@ const StyledNavbar = styled(AppBar)`
         }
     }
 `
-const MenuButton = styled(IconButton)`
-    && svg {
-        fill: ${props => props.theme.colors.onPrimary};
-    }
-`
 const Text = styled.div`
     font-size: x-large;
     font-weight: bold;
@@ -175,63 +285,68 @@ const Text = styled.div`
         font-size: 1.2rem;
     }
 `
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = ({ withSidebar, toggleSidebar }) => {
     const { userLanguage, pageString } = useLanguage()
 
-    // update mainbar title
-    let title = pageString.index.helmet.title
-    if (typeof window !== `undefined`) {
-        const pathArray = window.location.pathname.split('/')
-        let titleString = pageString
-        let flag = false
-        for (let i = 0; i < pathArray.length; i++) {
-            if (
-                (__PATH_PREFIX__ && pathArray[i] === __PATH_PREFIX__.slice(1)) ||
-                pathArray[i] === userLanguage ||
-                pathArray[i].length === 0
-            ) {
-                continue
+    let title = ''
+    if (withSidebar) {
+        // update mainbar title
+        title = pageString.index.helmet.title
+        if (typeof window !== `undefined`) {
+            const pathArray = window.location.pathname.split('/')
+            let titleString = pageString
+            let flag = false
+            for (let i = 0; i < pathArray.length; i++) {
+                if (
+                    (__PATH_PREFIX__ && pathArray[i] === __PATH_PREFIX__.slice(1)) ||
+                    pathArray[i] === userLanguage ||
+                    pathArray[i].length === 0
+                ) {
+                    continue
+                }
+
+                titleString = titleString[pathArray[i]]
+                if (!titleString) {
+                    flag = false
+                    break
+                }
+
+                flag = true
             }
 
-            titleString = titleString[pathArray[i]]
-            if (!titleString) {
-                flag = false
-                break
-            }
-
-            flag = true
-        }
-
-        if (flag) {
-            if (titleString.name) {
-                title = titleString.name
-            } else if (titleString.index) {
-                title = titleString.index.name
+            if (flag) {
+                if (titleString.name) {
+                    title = titleString.name
+                } else if (titleString.index) {
+                    title = titleString.index.name
+                }
             }
         }
     }
 
-    return (<>
+    return (
         <StyledNavbar position='sticky'>
             <Toolbar>
-                <div>
-                    <MenuButton
-                        edge="start"
-                        onClick={toggleSidebar(true)}
-                        tooltipText={pageString.navbar.menuButton}
-                        aria-label='menu'
-                    >
-                        {MenuIcon}
-                    </MenuButton>
-                    <Text>{title}</Text>
-                </div>
+                {withSidebar
+                    ? <div>
+                        <NavButton
+                            edge="start"
+                            onClick={toggleSidebar(true)}
+                            tooltipText={pageString.navbar.menuButton}
+                            aria-label='menu'
+                        >
+                            {MenuIcon}
+                        </NavButton>
+                        <Text>{title}</Text>
+                    </div>
+                    : <DesktopNavbar />}
                 <div>
                     <LanguageSwitcher />
                     <ThemeSwitcher />
                 </div>
             </Toolbar>
         </StyledNavbar>
-    </>)
+    )
 }
 
 export default Navbar

@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import styled, { ThemeProvider } from 'styled-components';
 
 import useSwitch from 'hooks/useSwitch';
-import useLocalStorage from 'hooks/useLocalStorage';
+import useWindowSize from 'hooks/useWindowSize';
 
 import WithTabs from 'containers/withTabs';
 import { panelsStyle } from 'containers/Panels';
@@ -47,10 +47,13 @@ export default function Layout({ children, withTabs, pagePath }) {
 
   const { layout, setLayout } = useSwitch('global-layout', [0, 1])
 
+  const [width,] = useWindowSize()
+
   const [state, setState] = useState({
     isDark: false,
     layoutIndex: 1,
     didLoad: false,
+    withSidebar: true,
     isSidebarOpen: false,
   })
 
@@ -66,50 +69,17 @@ export default function Layout({ children, withTabs, pagePath }) {
       ...state,
       isDark: initialTheme === 'dark',
       layoutIndex: parseInt(initLayout),
+      withSidebar: width <= 1000,
       didLoad: true
     }))
   }, [])
 
-  const [isSent, setIsSent] = useLocalStorage('analysis-data-sent-2')
-  const firebaseRef = useRef()
-
   useEffect(() => {
-    React.lazy(import('../utils/firebase')
-      .then(module => firebaseRef.current = module))
-  }, [])
-
-  if (isSent === null && firebaseRef.current) {
-    const hydrate = (lineup) => {
-      const keys = [
-        'id',
-        'attribute',
-        'position',
-        'level',
-        'potential',
-        'potentialSub',
-        'discipline',
-        'star',
-        'ATK',
-        'HP',
-        'owned'
-      ]
-
-      return lineup.map(c => c.reduce((newLineups, v, i) => {
-        newLineups[keys[i]] = v
-        return newLineups
-      }, {}))
-    }
-    const analysisData = JSON.parse(localStorage.getItem('analysis-data'))
-    if (analysisData !== null && analysisData.length !== 0) {
-      const lineup = analysisData.slice(-1)[0]
-      firebaseRef.current.uploadLineup({
-        ...lineup,
-        data: hydrate(lineup.data)
-      })
-    }
-
-    setIsSent(true)
-  }
+    setState(state => ({
+      ...state,
+      withSidebar: width <= 1000,
+    }))
+  }, [width])
 
   const toggleTheme = (event) => {
     // ignore tab and shift key
@@ -126,8 +96,11 @@ export default function Layout({ children, withTabs, pagePath }) {
   }
 
   const toggleSidebar = (boolean) => (event) => {
+    if (!state.withSidebar) {
+      return
+    }
+
     if (
-      (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) ||
       event.target.closest('.MuiListItem-root') !== null &&
       event.target.closest('a') === null
     ) {
@@ -212,13 +185,14 @@ export default function Layout({ children, withTabs, pagePath }) {
         <link rel="manifest" href="/tkfmtools/manifest.json" />
       </Helmet>
       <Navbar
+        withSidebar={state.withSidebar}
         toggleSidebar={toggleSidebar}
       />
       <div id='back-to-top-anchor' />
-      <Sidebar
+      {state.withSidebar && <Sidebar
         open={state.isSidebarOpen}
         toggleSidebar={toggleSidebar}
-      />
+      />}
       <LayoutContext.Provider value={{
         layout: layout,
         setLayout: setLayout

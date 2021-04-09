@@ -6,18 +6,8 @@ import { useLanguage } from 'containers/LanguageProvider';
 
 import LocalizedLink from 'components/LocalizedLink'
 import Accordion from 'components/Accordion';
-import {
-    RaceIcon,
-    ChestIcon,
-    EnlistIcon,
-    ExpandMoreIcon,
-    FeedbackIcon,
-    HomeIcon,
-    LinkIcon,
-    ToolIcon,
-    AnalysisIcon,
-    TeamIcon
-} from 'components/icon';
+import navbarContent from 'components/navbarContent';
+import { ExpandMoreIcon, ToolIcon } from 'components/icon';
 
 const StyledListItem = styled(ListItem)`
     font-size: large;
@@ -193,13 +183,6 @@ const StyledList = styled(List)`
         padding: 0;
     }
 `
-const officialLink = {
-    'zh-TW': 'https://www.tenkafuma.com/',
-    'en': 'https://www.tenkafuma.com/en/',
-    'jp': 'https://www.tenkafuma.com/jp/',
-    'kr': 'https://www.tenkafuma.com/en/'
-}
-
 const Sidebar = ({ open, toggleSidebar }) => {
     const { isDefault, userLanguage, pageString } = useLanguage()
 
@@ -214,77 +197,13 @@ const Sidebar = ({ open, toggleSidebar }) => {
             open={open}
             onClose={toggleSidebar(false)}
             onClick={toggleSidebar(false)}
-            onKeyDown={toggleSidebar(false)}
         >
             <SidebarHeader>
                 {ToolIcon}
                 {pageString.index.helmet.title}
             </SidebarHeader>
             <StyledList>
-                {[
-                    {
-                        to: '/',
-                        icon: HomeIcon,
-                        expandable: false,
-                    },
-                    {
-                        icon: RaceIcon,
-                        linkType: 'internal',
-                        to: ['/characters/potential/'],
-                        expandable: true,
-                    },
-                    {
-                        icon: EnlistIcon,
-                        linkType: 'internal',
-                        to: [
-                            '/enlist/',
-                            '/enlist/filter/'
-                        ],
-                        expandable: true,
-                    },
-                    {
-                        icon: ChestIcon,
-                        linkType: 'internal',
-                        to: [
-                            '/items/drop/',
-                            '/items/drop/filter/'
-                        ],
-                        expandable: true,
-                    },
-                    {
-                        to: '/analysis/',
-                        icon: AnalysisIcon,
-                        expandable: false,
-                    },
-                    {
-                        to: '/team/',
-                        icon: TeamIcon,
-                        expandable: false,
-                    },
-                    {
-                        icon: LinkIcon,
-                        linkType: 'external',
-                        to: [
-                            officialLink[userLanguage],
-                            'https://reurl.cc/5o5A7z/',
-                            'https://reurl.cc/1gZ5nV/'
-                        ],
-                        expandable: true,
-                    },
-                    {
-                        icon: FeedbackIcon,
-                        linkType: 'external',
-                        to: [
-                            'https://forms.gle/VYMGibGfs36F9tdQ6',
-                            'https://reurl.cc/E22vDa',
-                            'https://reurl.cc/jqGAVL',
-                            isDefault
-                                ? 'https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B'
-                                : 'https://github.com/purindaisuki/tkfmtools#feedback'
-                        ],
-                        expandable: true,
-                    }
-                ].map((item, ind) => (
+                {navbarContent(userLanguage, isDefault).map((item, ind) => (
                     <SidebarItem
                         {...item}
                         title={pageString.navbar.sidebar[ind].title}
