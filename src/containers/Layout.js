@@ -101,6 +101,7 @@ export default function Layout({ children, withTabs, pagePath }) {
     }
 
     if (
+      event &&
       event.target.closest('.MuiListItem-root') !== null &&
       event.target.closest('a') === null
     ) {

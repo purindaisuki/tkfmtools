@@ -86,8 +86,13 @@
                     "version": "v1.5.9",
                     "content": [
                         {
+                            "type": "New",
+                            "title": "側導航列開關手勢",
+                            "description": "於行動裝置上在畫面最左側拖曳可開啟導航列；往左滑可關閉（不支援 IOS 裝置）。"
+                        },
+                        {
                             "type": "Change",
-                            "title": "導航列",
+                            "title": "導航列內容調整",
                             "description": "於較大螢幕裝置將側導航欄內容移至主導航列。"
                         }
                     ]

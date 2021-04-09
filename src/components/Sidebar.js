@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Drawer, List, ListItem } from '@material-ui/core';
+import { List, ListItem, SwipeableDrawer } from '@material-ui/core';
 
 import { useLanguage } from 'containers/LanguageProvider';
 
@@ -151,7 +151,7 @@ const SidebarItem = ({
     )
 }
 
-const StyledDrawer = styled(Drawer)`
+const StyledDrawer = styled(SwipeableDrawer)`
     .MuiDrawer-paper {
         background-color: ${props => props.theme.colors.surface};
         width: 20rem;
@@ -192,11 +192,16 @@ const Sidebar = ({ open, toggleSidebar }) => {
         setExpanded(isExpanded ? panel : false)
     }
 
+    const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+
     return (
         <StyledDrawer
             open={open}
             onClose={toggleSidebar(false)}
+            onOpen={toggleSidebar(true)}
             onClick={toggleSidebar(false)}
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
         >
             <SidebarHeader>
                 {ToolIcon}

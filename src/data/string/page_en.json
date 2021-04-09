@@ -86,8 +86,13 @@
                     "version": "v1.5.9",
                     "content": [
                         {
+                            "type": "New",
+                            "title": "Swipeable sidebar",
+                            "description": "You can open sidebar by swiping from the left most area and close it by swiping back on moblie devices (IOS not supported)."
+                        },
+                        {
                             "type": "Change",
-                            "title": "Navbar",
+                            "title": "Navbar content",
                             "description": "Move the content of sidebar to main navbar on desktop."
                         }
                     ]
@@ -615,7 +620,7 @@
                         "content": [
                             "Select tags to filter out characters.",
                             "Sort result by clicking the table header.",
-                            "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie) the character to show the combinations."
+                            "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie devices) the character to show the combinations."
                         ]
                     },
                     {
