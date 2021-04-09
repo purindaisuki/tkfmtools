@@ -20,12 +20,20 @@ const NavButton = styled(IconButton)`
         fill: ${props => props.theme.colors.onPrimary};
     }
 `
+const StyledDropDown = styled(DropDown)`
+    && .MuiListItem-root {
+        padding: 0;
+    }
+`
 const StyledLink = styled(LocalizedLink)`
+    width: 100%;
+    padding: .4rem 1rem;
     color: ${props => props.theme.colors.onSurface};
     font-size: medium;
     text-decoration: none;
 `
 const NavbarLink = styled(StyledLink)`
+    width: auto;
     padding: .6rem;
     color: ${props => props.theme.colors.onPrimary + (props.$active ? '' : 'BF')};
     ${props => props.$active ?
@@ -40,6 +48,8 @@ const NavbarLink = styled(StyledLink)`
     }
 `
 const StyledA = styled.a`
+    width: 100%;
+    padding: .4rem 1rem;
     color: ${props => props.theme.colors.onSurface};
     font-size: medium;
     text-decoration: none;
@@ -82,7 +92,7 @@ const DesktopNavbar = () => {
             {navbarContent(userLanguage, isDefault).map((item, ind) => (
                 ind === 0 ? null
                     : item.expandable
-                        ? <DropDown
+                        ? <StyledDropDown
                             button={
                                 <TextButton
                                     disableFocusRipple
@@ -169,7 +179,7 @@ const LanguageSwitcher = () => {
                 }
 
                 return (
-                    <DropDown
+                    <StyledDropDown
                         button={
                             <LanguageButton
                                 tooltipText={pageString.navbar.languageSwitchTooltip}
