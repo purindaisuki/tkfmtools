@@ -25,8 +25,13 @@ const getSelectValues = (selected) => ({
 })
 
 const StyledSelect = styled(Select)`
-    && > div > div {
-        padding: .6rem;
+    && {
+        .MuiInputLabel-shrink {
+            transform: translate(14px, -1px) scale(0.75);
+        }
+        > div > div {
+            padding: .6rem;
+        }
     }
 `
 const CharImgWrapper = styled(ImageSupplier)`

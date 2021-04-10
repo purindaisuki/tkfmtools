@@ -184,9 +184,12 @@ const StyledHeader = styled(Header)`
         font-size: large;
         text-transform: none;
     }
+    > div:first-child {
+        max-width: 50%;
+    }
     > div:last-child {
         position: relative;
-        bottom: -.4rem;
+        bottom: -.2rem;
         right: -1rem;
     }
 `
