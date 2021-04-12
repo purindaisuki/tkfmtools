@@ -20,7 +20,7 @@ const getCharSelects = (charState) => ({
     },
     potential: {
         imgNames: 'ui_potentialPassive',
-        values: [...Array(parseInt(charState.id[0]) > 3 ? 7 : 13).keys()].slice(1),
+        values: [...Array(parseInt(charState.id[0]) > 2 ? 7 : 13).keys()].slice(1),
         disabled: false,
     },
     potentialSub: {
