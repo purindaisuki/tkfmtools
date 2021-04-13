@@ -187,11 +187,11 @@ const LanguageSwitcher = () => {
                                 {LanguageIcon}
                             </LanguageButton>
                         }
-                        items={Object.values(langConfig)
-                            .map(lang => ({
-                                id: lang.locale,
-                                path: lang.default ? path : '/' + lang.locale + path,
-                                text: langDropdownText[lang.locale]
+                        items={Object.entries(langConfig)
+                            .map(entry => ({
+                                id: entry[0],
+                                path: entry[1].default ? path : '/' + entry[0] + path,
+                                text: langDropdownText[entry[0]]
                             }))}
                         renderItem={(item) => (
                             <StyledLink
