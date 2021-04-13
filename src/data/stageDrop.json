@@ -1659,6 +1659,26 @@
                 "expPotions": []
             },
             {
+                "stage": "10 free",
+                "energy": 16,
+                "materials": [
+                    {
+                        "id": "304",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "204",
+                        "rarity": 0
+                    },
+                    {
+                        "id": "104",
+                        "rarity": 2
+                    }
+                ],
+                "trainItems": [],
+                "expPotions": []
+            },
+            {
                 "stage": "11",
                 "energy": 15,
                 "materials": [
