@@ -48,7 +48,7 @@ const StyledSelect = styled(Input)`
         }
     }
 `
-export const Select = ({ className, children, values, renderValues, ...rest }) => {
+export const Select = ({ className, values, renderValues, ...rest }) => {
     const { colors } = useTheme()
 
     return (

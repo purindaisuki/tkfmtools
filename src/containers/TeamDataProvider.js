@@ -124,8 +124,8 @@ const TeamDataProvider = ({ children }) => {
         }
     }
 
-    const newTeam = () => {
-        const newTeam = initTeam()
+    const newTeam = (team) => {
+        const newTeam = team ? team : initTeam()
         const newIndex = localTeams ? localTeams.length : 0
         if (!setLastIndex(newIndex)) {
             return 0

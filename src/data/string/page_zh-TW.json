@@ -83,6 +83,21 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.5.10",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "隊伍編成上傳功能",
+                            "description": "可上傳隊伍編成，及瀏覽他人編成。"
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "N 角主潛力階段選擇",
+                            "description": "修正 N 角主潛力階段可超過遊戲上限。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.9",
                     "content": [
                         {
@@ -894,7 +909,13 @@
             "copyTooltip": "複製編成",
             "settingTooltip": "設定",
             "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
-            "errorSnackbar": "本地無資料"
+            "errorSnackbar": "本地無資料",
+            "tabs": {
+                "local": "自己的",
+                "cloud": "看大家的"
+            },
+            "author": "作者",
+            "allStage": "全部關卡"
         },
         "build": {
             "name": "隊伍編成",
@@ -904,14 +925,29 @@
             },
             "changeTooltip": "更換",
             "deleteTooltip": "刪除",
-            "backTooltip": "返回編成一覽",
+            "uploadTooltip": "上傳編成",
             "shareTooltip": "分享編成",
             "copyTooltip": "複製連結",
-            "snackbarMsg": "已複製",
+            "copySnackbarMsg": "已複製",
             "selectModalTitle": "角色選擇",
             "emptySlotText": "選擇角色",
             "nameInputLabel": "編成名",
-            "nameInputPlaceholder": "輸入隊伍編成名"
+            "nameInputPlaceholder": "輸入隊伍編成名",
+            "stageSelectLabel": "關卡",
+            "stageSelectHelpText": "請選擇關卡",
+            "authorInputLabel": "作者",
+            "authorInputPlaceholder": "您的大名",
+            "authorInputHelpText": "請輸入 1~50 個字",
+            "descriptionInputLabel": "編成描述",
+            "descriptionInputPlaceholder": "輸入想說的話（最多 400 字）",
+            "descriptionInputHelpText": "請輸入 0~400 個字",
+            "uploadButton": "上傳",
+            "cancelButton": "取消",
+            "uploadSnackbarMsg": "上傳成功",
+            "uploadMsg": [
+                "為了方便他人理解，建議輸入編成思路、說明等。",
+                "請勿輸入個人資訊、垃圾或廣告訊息。"
+            ]
         }
     },
     "navbar": {

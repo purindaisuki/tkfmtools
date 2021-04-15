@@ -11,16 +11,16 @@ import Swappable from 'containers/Swappable';
 
 import Head from 'components/Head';
 import IconButton, { ExportButton } from 'components/IconButton';
-import LocalizedLink from 'components/LocalizedLink';
 import Header from 'components/Header';
+import { ScrollableModal } from 'components/Modal';
 import DropDown from 'components/DropDown';
 import Snackbar from 'components/Snackbar';
 import Input from 'components/Input';
+import StageSelect from 'components/StageSelect';
 import CharSlot from 'components/CharSlot';
-import { ScrollableModal } from 'components/Modal';
 import CharCard from 'components/CharCard';
 import ImageSupplier from 'components/ImageSupplier';
-import { BackIcon, CopyIcon, ShareIcon } from 'components/icon';
+import { CopyIcon, LoadIcon, ShareIcon } from 'components/icon';
 
 import charData from 'data/character.json';
 
@@ -171,6 +171,157 @@ const DraggableCharsList = () => {
     </>)
 }
 
+const StyledInput = styled(Input)`
+    && {
+        margin: .4rem 0;
+        width: 100%;
+        svg {
+            fill: ${props => props.theme.colors.onSurface};
+        }
+    }
+    textarea {
+        font-size: small;
+    }
+`
+const MessageBox = styled.ul`
+    margin: 0;
+    padding: .5rem 0 0 1rem;
+    color: ${props => props.theme.colors.onSurface};
+    font-size: small;
+`
+const ButtonBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    && > button:last-child {
+        margin-right: 0;
+        background-color: ${props => props.theme.colors.dropdownHover};
+    }
+`
+const StyledButton = styled(Button)`
+    &&& {
+        margin: .5rem .5rem 0 .5rem;
+        background-color: ${props => props.theme.colors.success
+        + (props.$isValid ? '' : '80')};
+        color: #fff;
+    }
+    &:hover {
+        box-shadow: inset 0 0 20rem #fff1;
+    }
+`
+const UploadModal = ({ open, onClose, handleUpload }) => {
+    const [state, setState] = useState({
+        chapter: '',
+        stage: '',
+        author: '',
+        description: '',
+        isStageValid: false,
+        isAuthorValid: false,
+        isDescriptionValid: true,
+    })
+
+    const { pageString } = useLanguage()
+
+    const handleChange = (key) => (event) => {
+        let newState
+        if (key === 'stage') {
+            const arr = event.target.value.split('/')
+            newState = {
+                ...state,
+                chapter: arr[0],
+                stage: arr[1],
+            }
+        } else {
+            newState = {
+                ...state,
+                [key]: event.target.value,
+            }
+        }
+
+        setState({
+            ...newState,
+            isStageValid: newState.stage !== '',
+            isAuthorValid: newState.author.length > 0 && newState.author.length < 51,
+            isDescriptionValid: newState.description.length <= 400,
+        })
+    }
+
+    return (
+        <StyledModal
+            title={pageString.team.build.uploadTooltip}
+            open={open}
+            onClose={onClose}
+            ariaLabelledby='upload-modal-title'
+            ariaDescribedby='upload-modal-description'
+        >
+            <StageSelect
+                value={state.chapter === '' ? '' : state.chapter + '/' + state.stage}
+                error={!state.isStageValid}
+                handleChange={handleChange('stage')}
+            />
+            <StyledInput
+                id='author-input'
+                value={state.author}
+                onChange={handleChange('author')}
+                label={pageString.team.build.authorInputLabel}
+                placeholder={pageString.team.build.authorInputPlaceholder}
+                variant='outlined'
+                size='small'
+                inputProps={{ 'aria-label': 'author-description' }}
+                error={!state.isAuthorValid}
+                helperText={!state.isAuthorValid &&
+                    pageString.team.build.authorInputHelpText}
+            />
+            <StyledInput
+                id='team-description-input'
+                value={state.description}
+                onChange={handleChange('description')}
+                label={pageString.team.build.descriptionInputLabel}
+                placeholder={pageString.team.build.descriptionInputPlaceholder}
+                variant='outlined'
+                size='small'
+                multiline
+                rows={3}
+                inputProps={{ 'aria-label': 'team-description' }}
+                error={!state.isDescriptionValid}
+                helperText={!state.isDescriptionValid &&
+                    pageString.team.build.descriptionInputHelpText}
+            />
+            <MessageBox>
+                {pageString.team.build.uploadMsg.map((msg, ind) => (
+                    <li key={ind}>{msg}</li>
+                ))}
+            </MessageBox>
+            <ButtonBox>
+                <StyledButton
+                    $isValid={
+                        state.isStageValid &&
+                        state.isAuthorValid &&
+                        state.isDescriptionValid
+                    }
+                    onClick={(
+                        state.isStageValid &&
+                        state.isAuthorValid &&
+                        state.isDescriptionValid
+                    )
+                        ? handleUpload({
+                            chapter: state.chapter,
+                            stage: state.stage,
+                            author: state.author,
+                            description: state.description
+                        }) : null
+                    }
+                >
+                    {pageString.team.build.uploadButton}
+                </StyledButton>
+                <StyledButton onClick={onClose}>
+                    {pageString.team.build.cancelButton}
+                </StyledButton>
+            </ButtonBox>
+        </StyledModal>
+    )
+}
+
 const StyledHeader = styled(Header)`
     position: relative;
     left: -1rem;
@@ -208,7 +359,9 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     const { setCurrentTeam } = actions
 
     const [state, setState] = useState({
-        isSnackbarOpen: false,
+        isModalOpen: false,
+        isCopySnackbarOpen: false,
+        isUploadSnackbarOpen: false,
         shareLink: 'https://tkfmtools.page.link/____'
     })
 
@@ -222,6 +375,7 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     const handleNameChange = (event) => {
         const newTeam = JSON.parse(JSON.stringify(currentTeam))
         newTeam.name = event.target.value
+
         setCurrentTeam(newTeam)
     }
 
@@ -244,16 +398,58 @@ const TeamHeader = ({ isExporting, handleExport }) => {
         navigator.clipboard.writeText(state.shareLink)
         setState(state => ({
             ...state,
-            isSnackbarOpen: true
+            isCopySnackbarOpen: true
         }))
     }
 
-    const handleSnackbarClose = () => setState(state => ({
+    const handleUpload = (input) => () => {
+        if (firebaseRef?.current) {
+            let uploadTeam = JSON.parse(JSON.stringify(currentTeam))
+            let maxLv = 60
+            if (input.chapter === 'S') {
+                maxLv = parseInt(input.stage.slice(2)) + 19
+            }
+            if (input.chapter === 'E' && input.stage.slice(0, 2) === 'Ex') {
+                maxLv = parseInt(input.stage.slice(-1)) * 10 + 20
+            }
+            uploadTeam.characters.forEach(c => {
+                if (!isNaN(parseInt(c.level)) && parseInt(c.level) > maxLv) {
+                    c.level = maxLv
+                }
+            })
+
+            firebaseRef.current.teamsRef.add({
+                ...input,
+                ...uploadTeam,
+                time: firebaseRef.current.Timestamp.now()
+            })
+                .then(() => setState(state => ({
+                    ...state,
+                    isModalOpen: false,
+                    isUploadSnackbarOpen: true
+                })))
+                .catch(err => {
+                    console.error(err)
+                })
+        }
+    }
+
+    const handleModal = (boolean) => () => setState(state => ({
         ...state,
-        isSnackbarOpen: false
+        isModalOpen: boolean
     }))
 
-    return (
+    const handleCopySnackbarClose = () => setState(state => ({
+        ...state,
+        isCopySnackbarOpen: false
+    }))
+
+    const handleUploadSnackbarClose = () => setState(state => ({
+        ...state,
+        isUploadSnackbarOpen: false
+    }))
+
+    return (<>
         <StyledHeader
             title={
                 <div>
@@ -272,14 +468,13 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                 </div>
             }
             end={<>
-                <LocalizedLink to='/team/' >
-                    <IconButton
-                        tooltipText={pageString.team.build.backTooltip}
-                        dataHtml2canvasIgnore
-                    >
-                        {BackIcon}
-                    </IconButton>
-                </LocalizedLink>
+                <IconButton
+                    onClick={handleModal(true)}
+                    tooltipText={pageString.team.build.uploadTooltip}
+                    dataHtml2canvasIgnore
+                >
+                    {LoadIcon}
+                </IconButton>
                 <DropDown
                     button={
                         <IconButton
@@ -313,15 +508,26 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                     onClick={handleExport}
                     isLoading={isExporting}
                 />
-                <Snackbar
-                    open={state.isSnackbarOpen}
-                    onClose={handleSnackbarClose}
-                    message={pageString.team.build.snackbarMsg}
-                    type='success'
-                />
             </>}
         />
-    )
+        <UploadModal
+            open={state.isModalOpen}
+            onClose={handleModal(false)}
+            handleUpload={handleUpload}
+        />
+        <Snackbar
+            open={state.isCopySnackbarOpen}
+            onClose={handleCopySnackbarClose}
+            message={pageString.team.build.copySnackbarMsg}
+            type='success'
+        />
+        <Snackbar
+            open={state.isUploadSnackbarOpen}
+            onClose={handleUploadSnackbarClose}
+            message={pageString.team.build.uploadSnackbarMsg}
+            type='success'
+        />
+    </>)
 }
 
 const ExportWrapper = styled.div`

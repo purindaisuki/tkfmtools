@@ -83,6 +83,21 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.5.10",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Team compositions upload feature",
+                            "description": "You can upload your team compositions and find other people's at team compositions page."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Main potential stage of N characters",
+                            "description": "Fix the upper bound of main potential stage of N characters."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.5.9",
                     "content": [
                         {
@@ -642,7 +657,7 @@
                     {
                         "title": "Limitations",
                         "content": [
-                            "Deletion of tags is not considered.",
+                            "Tags may be crossed out.",
                             "Even if there is a star icon, it does not guarantee you can get the character becasue of tag deletion and incompleteness of collected data."
                         ]
                     }
@@ -890,7 +905,13 @@
             "copyTooltip": "Duplicate",
             "settingTooltip": "Setting",
             "settingDescription": "Import the latest line-up analysis data as default",
-            "errorSnackbar": "Local data not found"
+            "errorSnackbar": "Local data not found",
+            "tabs": {
+                "local": "Mine",
+                "cloud": "Others"
+            },
+            "author": "Author",
+            "allStage": "All stages"
         },
         "build": {
             "name": "Team compositions",
@@ -900,14 +921,29 @@
             },
             "changeTooltip": "Change",
             "deleteTooltip": "Remove",
-            "backTooltip": "Back to team compositions list",
+            "uploadTooltip": "Upload your team composition",
             "shareTooltip": "Share team composition",
             "copyTooltip": "Copy link",
-            "snackbarMsg": "Copied",
+            "copySnackbarMsg": "Copied",
             "selectModalTitle": "Character selection",
             "emptySlotText": "Select character",
             "nameInputLabel": "Team name",
-            "nameInputPlaceholder": "Type team name"
+            "nameInputPlaceholder": "Type team name",
+            "stageSelectLabel": "Stage",
+            "stageSelectHelpText": "Please select stage",
+            "authorInputLabel": "Author",
+            "authorInputPlaceholder": "Your name",
+            "authorInputHelpText": "Please type 1~50 characters",
+            "descriptionInputLabel": "Memo",
+            "descriptionInputPlaceholder": "Type memo (max 400 characters)",
+            "descriptionInputHelpText": "Please type 0~400 characters",
+            "uploadButton": "Upload",
+            "cancelButton": "Cancel",
+            "uploadSnackbarMsg": "Uploaded",
+            "uploadMsg": [
+                "It's better to share your strategy or idea behind the team composition in the memo.",
+                "Please don't type your personal information, spam messages, ads, etc."
+            ]
         }
     },
     "navbar": {

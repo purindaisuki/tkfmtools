@@ -3,6 +3,7 @@ import React from 'react';
 import useSwitch from 'hooks/useSwitch';
 
 export default function Switchable({
+    className,
     layoutSwitcher,
     localStorageKey,
     items,
@@ -17,12 +18,13 @@ export default function Switchable({
     )
 
     return (<>
-        {React.cloneElement(layoutSwitcher, {
+        {layoutSwitcher && React.cloneElement(layoutSwitcher, {
             layout: layout,
             setLayout: setLayout,
         })}
         {items.map((item, ind) => (
             <div
+                className={className}
                 hidden={layout !== item.layout}
                 key={item.layout}
             >

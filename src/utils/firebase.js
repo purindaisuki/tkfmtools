@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/storage'
+import 'firebase/firestore'
 import { nanoid } from 'nanoid'
 
 const firebaseConfig = {
@@ -14,6 +15,9 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
+
+export const teamsRef = firebase.firestore().collection('teams')
+export const Timestamp = firebase.firestore.Timestamp
 
 const storageRef = firebase.storage().ref()
 
