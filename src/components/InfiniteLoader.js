@@ -5,7 +5,7 @@ import { CircularProgress, List } from '@material-ui/core';
 const initState = {
     items: [],
     isFetching: false,
-    loadMore: false,
+    loadMore: true,
 }
 
 const reducer = (state, action) => {
@@ -41,23 +41,23 @@ const InfiniteLoader = ({
 }) => {
     const [state, dispatch] = useReducer(reducer, initState)
 
-    const bottomBoundaryRef = useRef(null)
+    const bottomBoundaryRef = useRef()
 
-    const scrollObserver = useCallback(node => {
-        new IntersectionObserver(entries => {
+    useEffect(() => {
+        if (!bottomBoundaryRef.current) {
+            return
+        }
+
+        const scrollObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio > 0) {
                     dispatch({ type: 'LOAD_MORE', loadMore: true })
                 }
             })
-        }).observe(node)
-    }, [])
+        }).observe(bottomBoundaryRef.current)
 
-    useEffect(() => {
-        if (bottomBoundaryRef.current) {
-            scrollObserver(bottomBoundaryRef.current)
-        }
-    }, [scrollObserver, bottomBoundaryRef])
+        return () => scrollObserver.unobeserve(bottomBoundaryRef.current)
+    }, [bottomBoundaryRef])
 
     useEffect(() => {
         const cleanup = listenLatestUpdate(dispatch)
@@ -94,9 +94,8 @@ const InfiniteLoader = ({
         }
 
         dispatch({ type: 'RESET' })
-        dispatch({ type: 'LOAD_MORE', loadMore: true })
         onResetVisited()
-    }, [hasVisited])
+    }, [hasVisited, onResetVisited])
 
     return (<>
         <List>

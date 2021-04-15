@@ -240,10 +240,11 @@ const LocalTeamList = () => {
 const StyledCloudTeamItem = styled(DataItem)`
     && {
         padding-right: 1rem;
+        user-select: text;
     }
     > div {
         > div:nth-child(2) {
-            justify-content: end;
+            justify-content: flex-end;
             > span:first-child {
                 margin: 0;
             }
@@ -330,6 +331,9 @@ const CloudTeamList = () => {
         stage: 'all',
         hasFirestoreLoaded: false,
         hasVisited: true,
+        orderKey: 'time',
+        orderDirection: 'desc',
+        query: null,
         lastItem: null
     })
 
@@ -345,29 +349,35 @@ const CloudTeamList = () => {
         })
     }, [])
 
-    const compoundQuery = useCallback(({ orderKey, orderDirection }) => {
+    useEffect(() => {
         if (!cloudTeamsRef.current) {
             return
         }
 
-        let query = cloudTeamsRef.current.orderBy(orderKey, orderDirection)
+        let query = cloudTeamsRef.current.orderBy(state.orderKey, state.orderDirection)
         if (state.chapter !== 'all') {
             query = query
                 .where('chapter', '==', state.chapter)
                 .where('stage', '==', state.stage)
         }
 
-        return query
-    }, [state.chapter, state.stage, state.hasFirestoreLoaded])
+        setState(state => ({
+            ...state,
+            query: query,
+            hasVisited: false,
+        }))
+    }, [
+        state.chapter, state.stage,
+        state.orderKey, state.orderDirection,
+        state.hasFirestoreLoaded
+    ])
 
     const listenLatestUpdate = useCallback((dispatch) => {
-        const query = compoundQuery({ orderKey: 'time', orderDirection: 'desc' })
-
-        if (!query) {
+        if (!state.query) {
             return
         }
 
-        const first = query.limit(1)
+        const first = state.query.limit(1)
 
         const cleanup = first.onSnapshot(snapshot => {
 
@@ -381,20 +391,18 @@ const CloudTeamList = () => {
         })
 
         return cleanup
-    }, [compoundQuery])
+    }, [state.query])
 
     const fetchItem = useCallback(async () => {
-        let query = compoundQuery({ orderKey: 'time', orderDirection: 'desc' })
-
-        if (!query) {
+        if (!state.query) {
             return
         }
 
-        query = state.lastItem
-            ? query.startAfter(state.lastItem).limit(10)
-            : query.limit(10)
+        const pagenatedQuery = state.lastItem
+            ? state.query.startAfter(state.lastItem).limit(10)
+            : state.query.limit(10)
 
-        const snapshot = await query.get()
+        const snapshot = await pagenatedQuery.get()
         const docs = state.lastItem ? snapshot.docs : snapshot.docs.slice(1)
         const last = docs[docs.length - 1]
 
@@ -405,7 +413,7 @@ const CloudTeamList = () => {
         }
 
         return docs.map(t => ({ id: t.id, ...t.data() }))
-    }, [compoundQuery, state.lastItem])
+    }, [state.query, state.lastItem])
 
     const handleChange = (event) => {
         if (!event.target.value) {
