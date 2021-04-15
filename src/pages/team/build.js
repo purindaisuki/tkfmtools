@@ -340,6 +340,7 @@ const StyledHeader = styled(Header)`
     }
     > div:last-child {
         position: relative;
+        display: flex;
         bottom: -.2rem;
         right: -1rem;
     }
@@ -536,7 +537,7 @@ const ExportWrapper = styled.div`
     padding: 1rem;
     padding-top: 1.5rem;
     @media screen and (max-width: 1064px) {
-        margin: -1.5rem -.8rem;
+        margin: -1.5rem -.8rem 0 -.8rem;
     }
 `
 const StyledDivider = styled(Divider)`

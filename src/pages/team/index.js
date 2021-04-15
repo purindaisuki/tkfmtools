@@ -172,6 +172,7 @@ const NewButton = styled.div`
 const TitleText = styled.span`
     width: 8rem;
     color: ${props => props.theme.colors.onSurface};
+    font-size: small;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -265,7 +266,7 @@ const GridItem = styled(Grid)`
 `
 const FootText = styled.span`
     margin-left: 1rem;
-    font-size: small;
+    font-size: .75rem;
 `
 const CloudTeamItem = ({ team, handleSelectTeam }) => {
     const { pageString, stageString, userLanguage } = useLanguage()
