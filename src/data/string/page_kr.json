@@ -1,33 +1,33 @@
 {
     "index": {
-        "name": "Home",
+        "name": "홈페이지",
         "helmet": {
-            "title": "텐카푸마! toolbox",
-            "description": "Collect data and provide useful tools for TenkafuMA! to pick up Caesar's slack."
+            "title": "텐카푸마 툴박스",
+            "description": "나나의 부담을 줄이기 위해 텐카푸마의 컨텐츠 정보 조회 및 처리를 제공합니다."
         },
-        "noteButtonTooltip": "Latest update message",
+        "noteButtonTooltip": "업데이트 정보",
         "about": {
-            "header": "About",
+            "header": "사이트 정보",
             "content": [
                 {
                     "header": "소개",
                     "content": [
-                        "이 웹 사이트의 목표는 Tenkafu MA!에서 데이터를 수집, 구성 및 제공하는 것입니다.",
-                        "이 웹 사이트에는 모집 필터, 아이템 드롭 필터, 캐릭터 잠재 재료 계산기, 라인업 분석 및 팀 구성 도구가 포함되어 있습니다."
+                        "본 사이트는 모바일 게임 텐카푸마의 관련 데이터를 바탕으로 만듭니다. 정보를 정리하여 이용자들에게 편리 제공을 목적으로 하는 사이트입니다.",
+                        "본 사이트에 제공된 정보는 전 지역 모집, 메인 스테이지에서 드롭된 아이템의 정리 및 필터링, 그리고 캐릭터 잠재 능력 계산 및 팀 편성 분석을 포함합니다."
                     ]
                 },
                 {
-                    "header": "Disclaimer",
+                    "header": "면책 성명",
                     "content": [
-                        "이 웹 사이트의 모든 자료와 정보는 플레이어로부터 수집되며 실제 상황을 반영하지 않을 수 있습니다. 실제 게임 플레이가 우선됩니다."
+                        "본 사이트는 텐카푸마 플레이어가 제공해 수집한 데이터로 구성됩니다. 실제 상황은 공식 공지사항 및 게임 내 컨텐츠 정보를 기준으로 합니다. 저희는 본 사이트 내용으로 인해 발생한 모든 이익과 손해에 대한 책임을 지지 않습니다."
                     ]
                 },
                 {
-                    "header": "개인 정보 정책",
+                    "header": "개인정보 처리 방침",
                     "content": [
-                        "이 웹 사이트는 Google Analytics를 사용하여이 웹 사이트를 개선하기위한 목적으로 만 익명으로 수집되는 사용자 데이터를 수집합니다. Google Analytics는 쿠키를 사용하여 사용자에 대한 데이터를 추적합니다. 작동 방식에 대해 자세히 알아 보려면 ",
-                        "Google 개인 정보 보호 및 약관",
-                        ". 그리고 Adblock과 같은 일부 브라우저 확장은 데이터 수집을 차단합니다. 이 웹 사이트의 개선을 돕고 싶다면이 웹 사이트를 화이트리스트에 추가하십시오."
+                        "본 사이트는 Google Analytics를 사용하여 유저들의 사이트 이용에 관한 정보를  수집합니다. Google Analytics는 cookies을 통해 유저의 사이트 사용 방식을 확인합니다. 사이트 이용 정보는 특정인을 상대로 하여 수집하지 않으며 모두 익명으로 수집됩니다. 또한 수집된 정보는 사이트 개선으로 이용 목적이 제한됩니다. Google Analytics 데이타 수집에 대한 자세한 내용은 여기를 통해 확인하세요.",
+                        "Google 개인정보 처리 방침 및 이용약관",
+                        "Adblock 등의 관련 프로그램은 사이트 이용 정보 수집을 차단할 수 있습니다. 본 사이트의 성장에 도움을 주시는 것을 허용하신다면 본 사이트를 신뢰하는 사이트 리스트에 추가해 주세요."
                     ],
                     "link": "https://policies.google.com/technologies/partner-sites?hl=ko"
                 },
@@ -40,10 +40,10 @@
                     "link": "https://github.com/10duckman"
                 },
                 {
-                    "header": "피드백",
+                    "header": "의견 남기기",
                     "content": [
-                        "제인을 환영합니다.",
-                        "여기에서 확인하세요",
+                        "Bug, 건의 사항, 사용 후기는",
+                        "여기로 남겨주세요",
                         "."
                     ],
                     "link": "https://github.com/purindaisuki/tkfmtools#feedback"
@@ -53,43 +53,83 @@
                     "content": [
                         {
                             "link": "https://reurl.cc/5o5A7z/",
-                            "text": "資料統整 - 凱薩沒在用的腦"
+                            "text": "통합 자료 - 시저님의 자료실"
                         },
                         {
                             "link": "https://reurl.cc/1gZ5nV/",
-                            "text": "潛力整理＆猜測"
+                            "text": "잠재 능력 정보 정리 & 예측"
                         },
                         {
                             "link": "https://reurl.cc/8ypXzM",
-                            "text": "Discord 天下布魔場外群資料整理（舊）"
+                            "text": "Discord 텐카푸마 정보 정리 (구)"
                         },
                         {
-                            "text": "And data provided from kind people."
+                            "text": "다른 플레이어들이 제공한 Discord 텐카푸마에 관한 토론 내용"
                         }
                     ]
                 }
             ]
         },
         "setting": {
-            "header": "전역 설정",
-            "groupLabel": "레이아웃 (일부 페이지 및 장치에서만 작동)",
+            "header": "전체 설정",
+            "groupLabel": "화면 설정 (일부 페이지 및 디바이스에서만 사용 가능)",
             "labels": [
-                "Portrait",
-                "Landscape"
+                "세로",
+                "가로"
             ],
-            "clearTitle": "로컬에 저장된 모든 데이터 지우기",
+            "clearTitle": "현재 설정을 모두 삭제하시겠습니까?",
             "clearButton": "삭제",
-            "clearModalTitle": "정말 진행합니까?",
-            "clearModalContent": "팀 구성, 분석 등을 포함하여 이 웹 사이트에 기록 된 모든 데이터는 삭제되며 프로세스는 되돌릴 수 없습니다. 데이터를 지우시겠습니까?",
+            "clearModalTitle": "삭제하시겠습니까?",
+            "clearModalContent": "본 사이트에서 기록된 모든 자료, 라인업 분석, 팀 편성 등의 각종 설정이 모두 삭제되며 삭제 후에는 다시 복원할 수 없습니다. 삭제하시겠습니까?",
             "clear": "삭제",
             "cancel": "취소"
         },
         "updateLog": {
-            "header": "Update Logs",
-            "new": "New",
-            "fix": "Fix",
-            "change": "Change",
+            "header": "업데이트 일지",
+            "new": "추가",
+            "fix": "수정",
+            "change": "변경",
             "content": [
+                {
+                    "version": "v1.6.0",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "일본어, 한국어 버전",
+                            "description": "일본어 및 한국어 버전 추가"
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.10",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Team compositions upload feature",
+                            "description": "You can upload your team compositions and find other people's at team compositions page."
+                        },
+                        {
+                            "type": "Fix",
+                            "title": "Main potential stage of N characters",
+                            "description": "Fixed the upper bound of main potential stage of N characters."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.5.9",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Swipeable sidebar",
+                            "description": "You can open sidebar by swiping from the left most area and close it by swiping back on moblie devices (IOS not supported)."
+                        },
+                        {
+                            "type": "Change",
+                            "title": "Navbar content",
+                            "description": "Moved the content of sidebar to main navbar on desktop."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.5.8",
                     "content": [
@@ -101,7 +141,7 @@
                         {
                             "type": "Fix",
                             "title": "Line-up analysis result page crash",
-                            "description": "Fix line-up analysis result page crash if the number of selected characters is less than 10."
+                            "description": "Fixed line-up analysis result page crash if the number of selected characters is less than 10."
                         }
                     ]
                 },
@@ -111,7 +151,7 @@
                         {
                             "type": "New",
                             "title": "3/31 game update",
-                            "description": "Add Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
+                            "description": "Added Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
                         }
                     ]
                 },
@@ -120,13 +160,13 @@
                     "content": [
                         {
                             "type": "Change",
-                            "title": "Secondary potential stages",
-                            "description": "Allows secondary potential stages to be customizable."
+                            "title": "잠재 능력 추가 단계",
+                            "description": "잠재 능력 추가 단계 스킵 선택 가능"
                         },
                         {
                             "type": "Change",
-                            "title": "Form style",
-                            "description": "Change style of forms."
+                            "title": "표 양식",
+                            "description": "표 양식 변경"
                         }
                     ]
                 },
@@ -135,13 +175,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "3/24 game update",
-                            "description": "Add item drops of chapter 13."
+                            "title": "3/24 게임 업데이트",
+                            "description": "제13장 드롭 추가"
                         },
                         {
                             "type": "Fix",
-                            "title": "Page flash on dark mode.",
-                            "description": "Fix page flash on dark mode."
+                            "title": "다크 모드 로딩 시 페이지가 깜빡이는 오류",
+                            "description": "다크 모드 로딩 시 페이지가 깜빡이는 오류 수정"
                         }
                     ]
                 },
@@ -150,8 +190,8 @@
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Page states can't preserve",
-                            "description": "Fix some page states can't preserve after refreshing."
+                            "title": "페이지 표시 이상",
+                            "description": "일부 페이지가 새로 고침 이후에도 표시 이상이 발생하거나 원 상태가 유지되는 오류 수정"
                         }
                     ]
                 },
@@ -160,13 +200,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Global settings",
-                            "description": "Add global layout setting (Only works for some pages and devices) and local data setting at home page ."
+                            "title": "공통 적용 설정",
+                            "description": "홈페이지에 공통 적용 화면 설정 (일부 페이지 및 디바이스에서만 사용 가능) 및 로컬 데이터 설정 기능 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Adjust tabs style",
-                            "description": "Adjust tabs style."
+                            "title": "태그 양식 조정",
+                            "description": "태그 양식 조정"
                         }
                     ]
                 },
@@ -175,8 +215,8 @@
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Strange behavior at team compositions page",
-                            "description": "Fix dragging behavior, characters position after reordering and bugs in character selection."
+                            "title": "팀 편성 내 캐릭터 이동 및 조작 오류",
+                            "description": "페이지 새로 고침 후 캐릭터 이동 시 타깃과 이동 위치 오류 및 로컬 데이터 내 설정된 팀이 없을 경우 팀 편성 페이지에서 조작 시 자동으로 팀이 추가되는 문제 수정"
                         }
                     ]
                 },
@@ -185,8 +225,8 @@
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Character select not working at team composition page",
-                            "description": "Fix character select button not working under some circumstances."
+                            "title": "팀 편성에서 캐릭터를 선택할 수 없는 오류",
+                            "description": "분석 데이터가 없으면 팀 편성에서 캐릭터를 선택할 수 없는 오류 수정"
                         }
                     ]
                 },
@@ -195,23 +235,23 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Team compositions",
-                            "description": "Add team compositions for recording and sharing team compositions for stages."
+                            "title": "팀 편성",
+                            "description": "기록 및 스테이지 공략 공유를 위해 팀 편성 기능 추가"
                         },
                         {
                             "type": "New",
-                            "title": "Percentile rank of line-up",
-                            "description": "Add percentile rank in line-up analysis."
+                            "title": "팀 백분위",
+                            "description": "라인업 분석에 팀 백분위 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Remove character stats page",
-                            "description": "Remove character stats calculator. The feature still can find in the team compositions tool."
+                            "title": "캐릭터 능력치 페이지 제거",
+                            "description": "캐릭터 능력치 계산 페이지를 제거하고 해당 기능을 팀 편성으로 이동"
                         },
                         {
                             "type": "Fix",
-                            "title": "Tooltips missing for icon buttons",
-                            "description": "Add tooltips for icon buttons."
+                            "title": "아이콘 버튼에 도움말 표시",
+                            "description": "아이콘 버튼에 도움말 표시 추가"
                         }
                     ]
                 },
@@ -220,28 +260,28 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Item overview display setting",
-                            "description": "Add display setting for item overview."
+                            "title": "아이템 드롭 전체보기 표시 설정",
+                            "description": "아이템 전체보기에 표시 설정 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Line-up analysis characters selection",
-                            "description": "Now you can toggle the character ownership by tapping the image of the character."
+                            "title": "라인업 분석 및 캐릭터 선택",
+                            "description": "캐릭터의 아이콘을 탭하여 해당 캐릭터의 획득 여부를 선택 가능"
                         },
                         {
                             "type": "Fix",
-                            "title": "Treemap result of line-up analysis",
-                            "description": "Fix sometimes some characters are not included in the treemap."
+                            "title": "라인업 분석 결과 그래프",
+                            "description": "간헐적으로 캐릭터가 그래프에 반영되지 않는 문제 수정"
                         },
                         {
                             "type": "Fix",
-                            "title": "Snackbar won't disappear",
-                            "description": "Fix operation success snackbar won't disappear."
+                            "title": "메시지 바가 사라지지 않음",
+                            "description": "메시지 바가 사라지지 않는 문제 수정"
                         },
                         {
                             "type": "Fix",
-                            "title": "Modals display improperly",
-                            "description": "Fix modals display on Safari and Chromium."
+                            "title": "모달 창 표시 문제",
+                            "description": "Safari 및 Chromium 브라우저의 모달 창 표시 문제 수정"
                         }
                     ]
                 },
@@ -250,18 +290,18 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Result exporting in line-up analysis",
-                            "description": "Now you can export the result of line-up analysis as an image."
+                            "title": "라인업 분석 결과 내보내기",
+                            "description": "라인업 분석 결과를 이미지 형식으로 내보내기 기능"
                         },
                         {
                             "type": "Fix",
-                            "title": "Line-up analysis charts display",
-                            "description": "Fix some labels are out of page on small screen devices."
+                            "title": "라인업 분석표 디스플레이",
+                            "description": "작은 화면에서 태그가 페이지 밖을 넘어서는 문제 수정"
                         },
                         {
                             "type": "Fix",
-                            "title": "Input problem of line-up analysis",
-                            "description": "Fix the number of level input can't be deleted."
+                            "title": "라인업 분석 보기 옵션 문제",
+                            "description": "레벨 숫자가 제거되지 않는 문제 수정"
                         }
                     ]
                 },
@@ -270,8 +310,8 @@
                     "content": [
                         {
                             "type": "Fix",
-                            "title": "Recruitment filter problem",
-                            "description": "Fix when attribute tags are selected, the other tags are cleared."
+                            "title": "캐릭터 필터 버튼 문제",
+                            "description": "속성 태그 선택 시 기타 태그가 사라지는 현상 수정"
                         }
                     ]
                 },
@@ -280,23 +320,23 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Line-up analysis",
-                            "description": "Add line-up analysis for checking your line-up."
+                            "title": "라인업 분석",
+                            "description": "팀 편성 상태 확인을 위한 라인업 분석 이미지 추가"
                         },
                         {
                             "type": "New",
-                            "title": "3/10 game update",
-                            "description": "Add Mesmiia, Nafrala, Anna, Blaire, Natashaa, Prototype #3 and item drops of chapter 12."
+                            "title": "3/10 게임 업데이트",
+                            "description": "메스미나, 나프라라, 안나, 브란, 노노카, 시험기 3호, 12장 드롭 아이템 추가"
                         },
                         {
                             "type": "Fix",
-                            "title": "Display of images in character potential",
-                            "description": "Fix the character image is not loaded when switching option between N/R characters and the others."
+                            "title": "캐릭터 잠재 능력 이미지 표시 오류",
+                            "description": "N/R 캐릭터 및 기타 캐릭터 변경 시 캐릭터 이미지가 로딩되지 않는 문제 수정"
                         },
                         {
                             "type": "Fix",
-                            "title": "Page crash in character stats",
-                            "description": "Fix page crash when Shiraka is selected."
+                            "title": "캐릭터 능력치 페이지 표시 오류",
+                            "description": "소라카 선택 시 페이지 표시 오류 수정"
                         }
                     ]
                 },
@@ -305,18 +345,18 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Recruitment filter layout setting",
-                            "description": "Add a button for changing tag classes display setting."
+                            "title": "전 지역 모집 필터 레이아웃",
+                            "description": "설정 표시 버튼 추가로 태그 유형 표시 여부 조정 가능해짐"
                         },
                         {
                             "type": "Change",
-                            "title": "Modals layout",
-                            "description": "Change modal title color and close button position."
+                            "title": "모달 창 레이아웃",
+                            "description": "창 태그 색깔 및 닫기 버튼 위치 변경"
                         },
                         {
                             "type": "Change",
-                            "title": "Character tags",
-                            "description": "Add Soldier tag to Manuella and Charlene."
+                            "title": "캐릭터 태그",
+                            "description": "마누엘라, 샤린에 병사 태그 추가"
                         }
                     ]
                 },
@@ -325,23 +365,23 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Character stats calculator",
-                            "description": "Add character attack and hp calculator."
+                            "title": "캐릭터 능력치 계산기",
+                            "description": "캐릭터의 공격력 및 HP 계산 기능 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Rarity badge of item drops",
-                            "description": "Color badges accroding to their rarity."
+                            "title": "아이템의 레어도 표시",
+                            "description": "레어도에 따라 각각 다른 색으로 표시"
                         },
                         {
                             "type": "Change",
-                            "title": "Recruitment result tooltip",
-                            "description": "Expand hover area of the result tooltip."
+                            "title": "전 지역 모집 필터 확정 획득 알림창",
+                            "description": "발동 범위를 캐릭터창 전체로 확대"
                         },
                         {
                             "type": "Fix",
-                            "title": "Navbar not working at 404 page",
-                            "description": "Fix navbar functionality."
+                            "title": "404 페이지 네비게이션바 무효",
+                            "description": "탭한 후 반응이 없는 오류 수정"
                         }
                     ]
                 },
@@ -350,28 +390,28 @@
                     "content": [
                         {
                             "type": "Change",
-                            "title": "Website structure",
-                            "description": "Restructure website and localize urls."
+                            "title": "웹사이트 구조",
+                            "description": "웹사이트 구조 변경 및 로컬라이징 작업"
                         },
                         {
                             "type": "Change",
-                            "title": "Recruitment filter layout",
-                            "description": "Adjust layout, group tags by their attributes and remove position column."
+                            "title": "전 지역 모집 필터 레이아웃",
+                            "description": "레이아웃 조정, 태그 분류 추가, 속성 태그 추가, 캐릭터 포지션 칸 제거"
                         },
                         {
                             "type": "Change",
-                            "title": "Item drops layout",
-                            "description": "Remove mansory layout for item drops."
+                            "title": "아이템 드롭 레이아웃",
+                            "description": "아이템 드롭 레이아웃 제거"
                         },
                         {
                             "type": "Change",
-                            "title": "Help info of recruitment filter",
-                            "description": "Add notes about leader and elite tags."
+                            "title": "전 지역 모집 필터 - 도움 설명",
+                            "description": "전 지역 모집 리더, 엘리트 설명 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Character tags",
-                            "description": "Add Support tag to Britney."
+                            "title": "캐릭터 태그",
+                            "description": "브리트니에 지원 태그 추가"
                         }
                     ]
                 },
@@ -380,23 +420,23 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Magic Automaton KS-Ⅷ",
-                            "description": "Add data of Magic Automaton KS-Ⅷ."
+                            "title": "마도인형 KS-Ⅷ",
+                            "description": "마도인형 KS-Ⅷ 정보 추가"
                         },
                         {
                             "type": "New",
-                            "title": "Chapter 11 item drop",
-                            "description": "Add hapter 11 item drop."
+                            "title": "제11장 아이템 드롭",
+                            "description": "제11장 아이템 드롭 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Some pictures",
-                            "description": "Change potential picture."
+                            "title": "일부 이미지",
+                            "description": "잠재 능력 이미지 변경"
                         },
                         {
                             "type": "Fix",
-                            "title": "Result of position column in recruitment result table",
-                            "description": "Correct content of position column in recruitment result table."
+                            "title": "전 지역 모집 결과 포지션 칸 속성 표시 오류",
+                            "description": "전 지역 모집 포지션 칸 결과 수정"
                         }
                     ]
                 },
@@ -405,18 +445,18 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Item drops table",
-                            "description": "Add table of item drops in main stages."
+                            "title": "드롭 아이템 표",
+                            "description": "드롭 아이템 표 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Result presentation of character filter",
-                            "description": "Add character pictures."
+                            "title": "전 지역 모집 필터링 결과 표시 방법",
+                            "description": "캐릭터 이미지 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Some minor changes in layout",
-                            "description": "Change alignment of character texts and language switcher dropdwon, height of main navigation bar and button effects."
+                            "title": "일부 레이아웃 변경",
+                            "description": "캐릭터명, 언어 선택 정렬, 네비게이션 바, 버튼 효과 변경"
                         }
                     ]
                 },
@@ -425,13 +465,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Layout of character tags overview",
-                            "description": "Add table view."
+                            "title": "캐릭터 태그 전체보기 레이아웃",
+                            "description": "전체보기표 레이아웃 추가"
                         },
                         {
                             "type": "Fix",
-                            "title": "Fix layout",
-                            "description": "Fix text align of character names in character tags overview on small screen."
+                            "title": "레이아웃 수정",
+                            "description": "캐릭터 전체보기의 작은 화면 내 대칭 오류 수정"
                         }
                     ]
                 },
@@ -440,13 +480,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Overview of character tags",
-                            "description": "Show tags characters have."
+                            "title": "캐릭터 태그 전체보기",
+                            "description": "캐릭터 태그 전체보기 기능 추가"
                         },
                         {
                             "type": "Fix",
-                            "title": "Fix layout",
-                            "description": "Fix layout of material overview on small screen in English version."
+                            "title": "레이아웃 수정",
+                            "description": "영어 버전 소재 전체보기의 작은 화면 내 표시 오류 문제 수정"
                         }
                     ]
                 },
@@ -455,13 +495,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "English version",
-                            "description": "Add English version."
+                            "title": "영어 버전",
+                            "description": "영어 버전 추가"
                         },
                         {
                             "type": "Change",
-                            "title": "Character tags",
-                            "description": "Correct tags of Satan, Iblis and Lana."
+                            "title": "캐릭터 태그",
+                            "description": "사탄, 이블리스, 란의 태그 수정"
                         }
                     ]
                 },
@@ -470,13 +510,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Character potential material calculator",
-                            "description": "Add character potential material calculator"
+                            "title": "캐릭터 잠재 능력 소재 계산",
+                            "description": "캐릭터 잠재 능력 소재 계산 기능 추가"
                         },
                         {
                             "type": "Fix",
-                            "title": "Fix item drops",
-                            "description": "Correct item drops of stage 6-6 and 6-11."
+                            "title": "드롭 스테이지 정보 수정",
+                            "description": "6-6, 6-11의 월광수를 정제수로 수정"
                         }
                     ]
                 },
@@ -485,8 +525,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Recruitment filter",
-                            "description": "Add recruitment filter."
+                            "title": "전 지역 모집 필터",
+                            "description": "전 지역 모집 필터 추가"
                         }
                     ]
                 },
@@ -495,8 +535,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Item drops",
-                            "description": "Add overview and filter of item drops."
+                            "title": "잠재 능력 소재 드롭",
+                            "description": "잠재 능력 소재 드롭 정보 전체보기 및 필터 추가"
                         }
                     ]
                 },
@@ -505,8 +545,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Website published",
-                            "description": "Website published"
+                            "title": "사이트 개설",
+                            "description": "사이트 개설"
                         }
                     ]
                 }
@@ -515,8 +555,8 @@
         "license": {
             "header": "License",
             "content": {
-                "title": "Game art",
-                "content": "Used under R.O.C. Copyright Act §65, all rights are reserved for the copyright owner."
+                "title": "게임 이미지",
+                "content": "저작권법 제65조 규정에 따르면, 지적재산권은 저작권자 소유입니다. 만약 저작권자가 게임에 관한 내용을 이용 금지할 경우 반드시 신속하게 해당 내용을 철회해야 합니다."
             }
         }
     },
@@ -524,17 +564,17 @@
         "potential": {
             "name": "캐릭터 잠재 능력",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 캐릭터 잠재 능력",
-                "description": "잠재 능력 개발을 위한 요구사항 및 버프를 확인하자."
+                "title": "텐카푸마 툴박스 — 캐릭터 잠재 능력",
+                "description": "캐릭터의 잠재 능력 상승을 위한 필요 재료 및 상승량을 계산합니다"
             },
             "characterPanelTitle": "캐릭터 선택",
             "characterSelectTitle": "캐릭터",
             "currentSelectTitle": "현재",
             "targetSelectTitle": "목표",
-            "resultDemandTitle": "소재(필요량)",
-            "resultBuffTitle": "잠재 능력치",
+            "resultDemandTitle": "필요 소재",
+            "resultBuffTitle": "버프",
             "helpModal": {
-                "title": "캐릭터 잠재 능력 - Help",
+                "title": "캐릭터 잠재 능력 계산 - 도움말",
                 "content": [
                     {
                         "title": "소개",
@@ -543,17 +583,16 @@
                         ]
                     },
                     {
-                        "title": "사용법",
+                        "title": "사용 설명",
                         "content": [
-                            "선택된 캐릭터의 현재 잠재능력 단계(포함)부터 목표 단계까지 필요한 소재량을 계산합니다.",
-                            "예. 현재 단계를 1-1, 목표단계를 6-1로 설정했을때, 1단계부터 5단계까지 필요한 모든 재료와, 6-1의 재료의 합계를 나타냅니다."
+                            "선택된 캐릭터의 현재 잠재능력 단계(최초 및 최종 포함)부터 목표 단계까지 필요한 소재량을 계산합니다. 예. 현재 단계를 1-1, 목표단계를 6-1로 설정했을때, 1단계부터 5단계까지 필요한 모든 재료와, 6-1의 재료의 합계를 나타냅니다.",
+                            "캐릭터는 딜러 유형, 탱커 유형, 서포터 유형 및 N/R 유형(N/R 캐릭터 공유)의 네 가지 유형의 잠재적 패턴이 있습니다. 여기서 딜러, 탱커및 서포터는 캐릭터 위치와 동일하지 않습니다. 예: 쥬노안은 캐릭터 위치에서는 딜러이지만 잠재 유형에서는 서포터입니다."
                         ]
                     },
                     {
-                        "title": "메모",
+                        "title": "주의사항",
                         "content": [
-                            "딜러 유형, 탱커 유형, 서포터 유형 및 N/R 유형의 네 가지 유형의 잠재적 패턴이 있으며 N/R  캐릭터가 공유하는 유형입니다. 여기서 딜러, 탱커및 서포터는 캐릭터 위치와 동일하지 않습니다. (예: 쥬노안은 캐릭터 위치에서는 딜러이지만 잠재 유형에서는 서포터입니다.) ",
-                            "대부분의 결과는 실제 데이터가 아닌 캐릭터 잠재력 패턴에서 추론됩니다."
+                            "대부분의 캐릭터 잠재 능력 필요 소재량은 실제 데이터가 아닌 캐릭터 잠재력 패턴의 의해 예측됩니다."
                         ]
                     }
                 ]
@@ -568,21 +607,21 @@
         "index": {
             "name": "전 지역 모집",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 모집",
-                "description": "캐릭터 전 지역 상시 모집 태그 설명!"
+                "title": "텐카푸마 툴박스 — 전 지역 모집",
+                "description": "텐카푸마 전 지역 모집 가능한 캐릭터 및 태그를 표시합니다"
             },
-            "layout": "Layout",
-            "masonryTooltip": "Masonry",
-            "tableTooltip": "Table"
+            "layout": "레이아웃",
+            "masonryTooltip": "그리드",
+            "tableTooltip": "표"
         },
         "filter": {
-            "name": "전 지역 모집 조건",
+            "name": "전 지역 모집 필터",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 모집 조건 필터",
-                "description": "Apply tags in TenkafuMA! recruitment to screen out characters."
+                "title": "텐카푸마 툴박스 — 전 지역 모집 필터",
+                "description": "텐카푸마에서 전 지역 모집에 랜덤으로 받은 5개 태그를 조건으로 모집 가능한 캐릭터를 필터링할 수 있습니다. 이제 더이상 태그 선택을 고민할 필요가 없습니다."
             },
-            "deleteTooltip": "모든 선택 취소",
-            "settingTooltip": "Display setting",
+            "deleteTooltip": "선택 모두 취소",
+            "settingTooltip": "표시 설정",
             "tagSelectTitle": "태그 선택",
             "timeSelectTitle": "모집 시간",
             "tableHead": [
@@ -591,7 +630,7 @@
                     "attr": "name"
                 },
                 {
-                    "title": "등급",
+                    "title": "레어도",
                     "attr": "rarity"
                 },
                 {
@@ -600,56 +639,60 @@
                 }
             ],
             "helpModal": {
-                "title": "모집 조건 필터 - Help",
+                "title": "전 지역 모집 필터 - 도움말",
                 "content": [
                     {
-                        "title": "설명",
+                        "title": "소개",
                         "content": [
-                            "적용된 태그로 모집 가능한 캐릭터를 볼 수 있습니다."
+                            "이 페이지는 게임 내 전 지역 모집의 필터입니다.",
+                            "랜덤으로 받은 5개 태그를 선택하여 모집 가능한 캐릭터를 필터링할 수 있습니다."
                         ]
                     },
                     {
-                        "title": "사용법",
+                        "title": "사용 설명",
                         "content": [
-                            "태그를 선택해서 캐릭터를 필터링 하세요.",
-                            "표의 헤더부분을 클릭하면 정렬됩니다.",
-                            "캐릭터 뒤의 별 아이콘은 해당 캐릭터만 모집되는 조합이 있음을 의미합니다. 조합을 표시하려면 마우스를 올려두세요. (모바일은 길게누르기)"
+                            "태그를 선택해여 캐릭터를 필터링하세요.",
+                            "표의 제목 부분을 클릭하면 정렬됩니다.",
+                            "캐릭터 뒤에 스타 아이콘이 있으면 해당 캐릭터만 모집되는 조합이 있음을 의미합니다.",
+                            "최적 태그의 조합을 표시하려면 마우스를 캐릭터에 올려두세요(모바일은 길게누르기)."
                         ]
                     },
                     {
-                        "title": "일반 시나리오",
+                        "title": "상시 사용 항목",
                         "content": [
-                            "SR(혹은 그이상) 캐릭터 대상 :",
-                            "상시 모집에 표기된 5가지의 태그를 선택하세요.",
-                            "만약 SR캐릭터 뒤에 별 아이콘이 존재한다면, 선택해 볼 가치가 있습니다."
+                            "상위 티어 캐릭터 대상:",
+                            "모집에 표기된 5가지의 태그를 선택하면 필터링 결과가 티어 순서에 따라 배열됩니다. 캐릭터 뒤에 스타 아이콘이 있는지 여부를 확인하세요.",
+                            "만약 높은 티어 캐릭터 이름 뒤에 스타 아이콘이 없으면 해당 태그 조합은 모집할 가치가 없는 것으로 간주됩니다.",
+                            "반면, 스타 아이콘이 있을 경우 모집 가치가 있는 것으로 판단할 수 있습니다."
                         ]
                     },
                     {
-                        "title": "메모",
+                        "title": "비고",
                         "content": [
-                            "SSR 등급의 캐릭터는 리더 태그일때만 등장합니다.",
-                            "리더, 엘리트 태그의 경우 모집시간을 9시간으로 하지 않으면 각각 SSR,SR 등급을 보장하지 않습니다.",
-                            "리더태그의 확률은 0.4%, 엘리트태그의 확률은 1.2% 정도 입니다."
+                            "리더 태그가 포함되어야만 SSR 캐릭터 획득이 가능합니다.",
+                            "리더, 엘리트 태그의 경우 모집시간을 9시간으로 설정하면 SSR, SR 태릭터를 확정 획득합니다. 그렇지 않으면 태그가 삭제될 수도 있습니다.",
+                            "리더, 엘리트 태그의 확률은 약 0.4%, 1.2%정도입니다."
                         ]
                     },
                     {
-                        "title": "한계",
+                        "title": "주의사항",
                         "content": [
-                            "태그 삭제는 고려하지 않습니다. (취소선을 의미)",
-                            "별 아이콘이 있더라도 태그 삭제, 혹은 수집된 데이터의 불완전성으로 인해 캐릭터 획득이 보장되지는 않습니다."
+                            "해당 필터는 태그가 삭제될 수 있는 가능성을 감안해 표시하지 않습니다.",
+                            "태그 삭제 또는 수집된 데이터의 불완전성으로 인해 스타 아이콘이 있더라도 캐릭터 획득이 보장될 수 없습니다. 또한 조건을 충족하는 알 수 없는 캐릭터가 있을 수 있습니다.",
+                            "필터링 결과는 현재 수집된 데이터에 의한 것입니다. 사용자님께서 원하실 경우, 왼쪽 [데이터 제공]에서 [전 지역 모집 데이터 제공]을 통해 데이터를 제공하실 수 있습니다."
                         ]
                     }
                 ]
             },
             "settingModal": {
-                "title": "Display setting",
-                "groupLabel": "태그 그룹 활성화",
+                "title": "표시 설정",
+                "groupLabel": "버튼은 종류별로 분류됩니다",
                 "labels": [
                     "네",
-                    "아니오"
+                    "아니요"
                 ]
             },
-            "snackbarMsg": "최대 5개의 태그"
+            "snackbarMsg": "태그는 최다 5개까지 하실 수 있습니다."
         }
     },
     "items": {
@@ -661,45 +704,45 @@
             "index": {
                 "name": "아이템 드롭",
                 "helmet": {
-                    "title": "TenkafuMA! toolbox — 아이템 드롭",
-                    "description": "메인 스테이지의 아이템 드롭 현황"
+                    "title": "텐카푸마 툴박스 — 아이템 드롭",
+                    "description": "모든 아이템 드롭에 관련된 스테이지 정보 제공"
                 },
-                "settingTooltip": "셋팅",
+                "settingTooltip": "설정",
                 "layout": {
-                    "byItem": "by Item",
-                    "byStage": "by Stage"
+                    "byItem": "아이템 기준",
+                    "byStage": "스테이지 기준"
                 },
-                "notAvailableMsg": "스테이지 드롭에서는 사용 할 수 없습니다.",
+                "notAvailableMsg": "스테이지 드롭을 통해 획득할 수 없습니다",
                 "tableHead": {
                     "stage": "스테이지",
-                    "materials": "소재",
-                    "trainItems": "조련",
+                    "materials": "잠재 능력 소재",
+                    "trainItems": "조련 도구",
                     "expPotions": "경험치 포션",
-                    "energy": "스테미너"
+                    "energy": "소모 스태미나"
                 },
                 "settingModal": {
-                    "title": "Display setting",
+                    "title": "표시 설정",
                     "content": [
                         {
-                            "title": "Column",
+                            "title": "칸",
                             "button": [
-                                "소재",
-                                "조련",
+                                "잠재 능력 소재",
+                                "조련 도구",
                                 "경험치 포션",
-                                "스테미너"
+                                "소모 스태미나"
                             ]
                         },
                         {
-                            "title": "잠재 소재 등급",
+                            "title": "잠재 능력 소재 등급",
                             "button": [
-                                "초급",
+                                "일반",
                                 "중급",
-                                "고급",
-                                "최고급"
+                                "상급",
+                                "최상급"
                             ]
                         },
                         {
-                            "title": "희귀도",
+                            "title": "레어도",
                             "button": [
                                 "매우 드물게 출현",
                                 "드물게 출현",
@@ -711,40 +754,41 @@
                 }
             },
             "filter": {
-                "name": "아이템 드롭 필터",
+                "name": "드롭 아이템 필터",
                 "helmet": {
-                    "title": "TenkafuMA! toolbox — 아이템 드롭 필터",
-                    "description": "타겟 아이템별 스테이지 필터"
+                    "title": "텐카푸마 툴박스 — 드롭 아이템 필터",
+                    "description": "드롭 아이템 필터링 기능 제공"
                 },
-                "deleteTooltip": "모든 선택 취소",
+                "deleteTooltip": "선택 모두 취소",
                 "itemPanelTitle": "아이템 선택",
-                "resultTitle": "결과",
+                "resultTitle": "필터링 결과",
                 "tableHead": [
                     "스테이지",
-                    "희귀도",
-                    "스테미너"
+                    "레어도",
+                    "소모 스태미나"
                 ],
                 "helpModal": {
-                    "title": "아이템 드롭 필터 - Help",
+                    "title": "드롭 아이템 필터 - 도움말",
                     "content": [
                         {
                             "title": "소개",
                             "content": [
-                                "이 페이지는 모든 아이템 드롭에 관련된 스테이지를 찾을 수 있습니다."
+                                "이 페이지는 메인 스테이지에 드롭 가능한 아이템의 필터입니다",
+                                "목표 달성에 필요한 아이템 드롭 스테이지를 필터링할 수 있습니다"
                             ]
                         },
                         {
-                            "title": "사용법",
+                            "title": "사용 설명",
                             "content": [
-                                "아이템을 선택해서 스테이지를 필터링하세요.",
-                                "표의 헤더부분을 클릭하면 정렬됩니다."
+                                "드롭 아이템을 선택하여 지도를 필터링합니다",
+                                "표의 제목 부분을 클릭하면 정렬됩니다"
                             ]
                         },
                         {
-                            "title": "메모",
+                            "title": "주의사항",
                             "content": [
-                                "오직 'World' 에서 드롭 되는 항목만 포함합니다. ",
-                                "같은 희귀도는 같은 드랍율을 의미하지 않습니다. 아이템의 단계와 스테이지의 단계에 따라 다릅니다."
+                                "메인에서 드롭하는 아이템만 포함",
+                                "같은 레어도는 같은 드롭율을 의미하지 않습니다. 아이템의 단계와 스테이지의 단계에 따라 드롭율이 달라집니다"
                             ]
                         }
                     ]
@@ -760,37 +804,36 @@
         "index": {
             "name": "라인업 분석",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 라인업 분석",
-                "description": "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
+                "title": "텐카푸마 툴박스— 라인업 분석",
+                "description": "라인업 분석 결과 및 스탯 확인은 디스플레이를 통해 제공됩니다"
             },
             "levelTitle": "레벨",
             "potentialTitle": "잠재 능력",
-            "primaryPotentialTitle": "잠재 능력 단계",
-            "secondaryPotentialTitle": "세부 잠재 능력 단계",
+            "primaryPotentialTitle": "Primary potential stage",
+            "secondaryPotentialTitle": "Secondary potential stage",
             "disciplineTitle": "조련",
-            "starTitle": "구속력",
+            "starTitle": "티어",
             "saveButton": "저장",
-            "loadButton": "로드",
+            "loadButton": "로딩",
             "deleteButton": "삭제",
             "successMsg": "성공",
             "errorMsg": "실패",
-            "modalTitle": "데이터 로드",
+            "modalTitle": "정보 로딩",
             "helpModal": {
-                "title": "라인업 분석 - help",
+                "title": "라인업 분석 - 도움말",
                 "content": [
                     {
                         "title": "소개",
                         "content": [
-                            "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
+                            "라인업 분석 결과 및 스탯 확인은 디스플레이를 통해 제공됩니다"
                         ]
                     },
                     {
-                        "title": "사용법",
+                        "title": "사용 설명",
                         "content": [
-                            "본인의 라인업에 따라 캐릭터 이미지를 탭하여 캐릭터를 활성화하고 스탯을 입력합니다.",
-
-                            "완료하면 '결과' 페이지에 분석결과가 표시됩니다.",
-                            "오른쪽 상단의 버튼을 클릭해서 데이터를 저장,불러오기 할 수 있습니다."
+                            "자신이 지니고 있는 캐릭터는 이미지 클릭을 통해 선택할 수 있으며 캐릭터 스탯을 입력하면 라인업 분석을 진행할 수 있습니다.",
+                            "설정 완료 후, 결과를 클릭하여 분석 결과를 볼 수 있습니다.",
+                            "우측 상단에 버튼을 통해 해당 디바이스에서 데이터 저장, 팀 스탯 불러오기를 할 수 있습니다."
                         ]
                     }
                 ]
@@ -799,13 +842,13 @@
         "result": {
             "name": "라인업 분석",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 라인업 분석",
-                "description": "자신의 라인업을 이해하는데 도움이 되는 시각적 표현을 제공합니다."
+                "title": "텐카푸마 툴박스— 라인업 분석",
+                "description": "라인업 분석 결과 및 스탯 확인은 디스플레이를 통해 제공됩니다"
             },
-            "exportButtonTooltip": "이미지로 익스포트하기.",
+            "exportButtonTooltip": "이미지 다운로드",
             "chart": [
                 {
-                    "title": "보유한 캐릭터"
+                    "title": "캐릭터 수집 진도"
                 },
                 {
                     "title": "캐릭터 전투력"
@@ -815,7 +858,7 @@
                     "legend": [
                         "최대",
                         "평균",
-                        "중앙값",
+                        "중간값",
                         "최소"
                     ]
                 },
@@ -824,7 +867,7 @@
                     "legend": [
                         "최대",
                         "평균",
-                        "중앙값",
+                        "중간값",
                         "최소"
                     ]
                 },
@@ -832,73 +875,97 @@
                     "title": "유형별 캐릭터 경험치",
                     "legend": [
                         "경험치",
-                        "수"
+                        "수량"
                     ]
                 },
                 {
                     "title": "속성별 캐릭터 경험치",
                     "legend": [
                         "경험치",
-                        "수"
+                        "수량"
                     ]
                 }
             ],
             "rank": {
-                "title": "PR of your line-up is",
-                "high": "High PR TOP5",
-                "low": "Low PR TOP5",
-                "cp": " 전투력",
+                "title": "당신의 팀 PR:",
+                "high": "최대 PR TOP5",
+                "low": "최소 PR TOP5",
+                "cp": "캐릭터 전투력",
                 "PR": "PR"
             },
             "helpModal": {
                 "title": "캐릭터 전투력",
                 "content": [
                     {
-                        "title": "Definition",
+                        "title": "정의",
                         "content": [
-                            "캐릭터 전투력은 ATK, HP 합산 결과입니다."
+                            "캐릭터 전투력 = 캐릭터 공격 데미지(ATK) × HP"
                         ]
                     },
                     {
-                        "title": "메모",
+                        "title": "비고",
                         "content": [
-                            "캐릭터 스킬,진화 등은 고려되지 않으므로 충분한 통찰력을 제공하지 못할 수 있습니다."
+                            "캐릭터 전투력은 캐릭터 스킬, 구속력 등을 고려하지 않으므로 캐릭터의 전반적인 능력이 모두 반영되지 않을 수 있습니다."
                         ]
                     }
                 ]
             },
             "rankModal": {
-                "content": "PR은 라인업의 총 전투력에 대한 백분위 순위이며이 웹 사이트에서 수집 한 데이터로 계산됩니다."
+                "content": "PR은 라인업의 총 전투력에 대한 백분위이며 본 사이트에서 수집한 데이터로 계산됩니다."
             }
         }
     },
     "team": {
         "index": {
-            "name": "팀 구성",
+            "name": "팀 편성",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 팀 구성",
-                "description": "당신의 팀 구성을 기록하고 공유하세요."
+                "title": "텐카푸마 툴박스 — 팀 편성",
+                "description": "텐카푸마의 팀 편성, 공유 기능을 제공합니다."
             },
-            "newComposition": "추가",
-            "deleteTooltip": "삭제",
-            "copyTooltip": "복사",
-            "settingTooltip": "Setting",
-            "settingDescription": "최신 라인업 분석 데이터를 기본값으로 가져 오기",
-            "errorSnackbar": "로컬 데이터를 찾을 수 없습니다."
+            "newComposition": "편성 추가",
+            "deleteTooltip": "편성 삭제",
+            "copyTooltip": "편성 복사",
+            "settingTooltip": "설정",
+            "settingDescription": "최신 라인업 분석 데이터를 기본 설정으로 적용하기",
+            "errorSnackbar": "해당 디바이스에 데이터가 없습니다",
+            "tabs": {
+                "local": "Mine",
+                "cloud": "Others"
+            },
+            "author": "Author",
+            "allStage": "All stages"
         },
         "build": {
-            "name": "팀 구성",
+            "name": "팀 편성",
             "helmet": {
-                "title": "TenkafuMA! toolbox — 팀 구성",
-                "description": "당신의 팀 구성을 기록하고 공유하세요."
+                "title": "텐카푸마 툴박스 — 팀 편성",
+                "description": "텐카푸마의 팀 편성, 공유 기능을 제공합니다."
             },
             "changeTooltip": "변경",
             "deleteTooltip": "삭제",
-            "backTooltip": "팀 구성 초기화면으로 돌아가기",
+            "uploadTooltip": "Upload your team composition",
+            "shareTooltip": "Share team composition",
+            "copyTooltip": "Copy link",
+            "copySnackbarMsg": "Copied",
             "selectModalTitle": "캐릭터 선택",
-            "emptySlotText": "캐릭터를 선택하세요.",
+            "emptySlotText": "캐릭터 선택",
             "nameInputLabel": "팀 이름",
-            "nameInputPlaceholder": "팀 이름을 입력하세요"
+            "nameInputPlaceholder": "팀 이름을 입력하세요",
+            "stageSelectLabel": "Stage",
+            "stageSelectHelpText": "Please select stage",
+            "authorInputLabel": "Author",
+            "authorInputPlaceholder": "Your name",
+            "authorInputHelpText": "Please type 1~50 characters",
+            "descriptionInputLabel": "Memo",
+            "descriptionInputPlaceholder": "Type memo (max 400 characters)",
+            "descriptionInputHelpText": "Please type 0~400 characters",
+            "uploadButton": "Upload",
+            "cancelButton": "Cancel",
+            "uploadSnackbarMsg": "Uploaded",
+            "uploadMsg": [
+                "It's better to share your strategy or idea behind the team composition in the memo.",
+                "Please don't type your personal information, spam messages, ads, etc."
+            ]
         }
     },
     "navbar": {
@@ -911,11 +978,11 @@
             {
                 "title": "캐릭터",
                 "descriptions": [
-                    "잠재 능력 계산기"
+                    "잠재 능력 계산"
                 ]
             },
             {
-                "title": "모집",
+                "title": "전 지역 모집",
                 "descriptions": [
                     "전체보기",
                     "필터"
@@ -932,31 +999,31 @@
                 "title": "라인업 분석"
             },
             {
-                "title": "팀 구성"
+                "title": "팀 편성"
             },
             {
                 "title": "외부 링크",
                 "descriptions": [
-                    "오피셜 사이트",
-                    "Game data (Chinese)",
-                    "Potential data (Chinese)"
+                    "공식 사이트",
+                    "정보 통합",
+                    "잠재 능력 정보 정리 & 예측"
                 ]
             },
             {
-                "title": "Report",
+                "title": "데이터 제공",
                 "descriptions": [
-                    "Recruitment (Chinese)",
-                    "Potential (Chinese)",
-                    "Item drop rate (Chinese)",
-                    "Feedback"
+                    "전 지역 모집 데이터 제공",
+                    "캐릭터 잠재 능력 데이터 제공",
+                    "메인 아이템 드롭 데이터 제공",
+                    "의견 남기기"
                 ]
             }
         ]
     },
     "404": {
-        "title": "Not found",
-        "h1": "Page not found",
-        "p": "Sorry, Aiko couldn't find what you are looking for.",
-        "link": "Go home"
+        "title": "존재하지 않는 페이지 입니다",
+        "h1": "존재하지 않는 페이지 입니다",
+        "p": "죄송합니다. 방문하신 페이지를 아이카가 찾을 수 없습니다",
+        "link": "홈 화면으로 돌아가기"
     }
 }

@@ -14,13 +14,13 @@
     },
     "jp": {
         "path": "jp",
-        "locale": "jp",
+        "locale": "ja-JP",
         "siteLanguage": "jp",
-        "ogLocale": "ja-JP"
+        "ogLocale": "ja_JP"
     },
     "kr": {
         "path": "kr",
-        "locale": "kr",
+        "locale": "ko-KR",
         "siteLanguage": "kr",
         "ogLocale": "ko_KR"
     }
