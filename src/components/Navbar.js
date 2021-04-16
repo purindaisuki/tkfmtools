@@ -153,10 +153,12 @@ const LanguageButton = styled(IconButton)`
 `
 const langDropdownText = {
     'zh-TW': '繁體中文',
-    'en': 'English'
+    'en': 'English',
+    'jp': '日本語',
+    'kr': '한국어'
 }
 
-const LanguageSwitcher = () => {
+function LanguageSwitcher() {
     const { userLanguage, isDefault, pageString } = useLanguage()
 
     return (

@@ -183,6 +183,13 @@ const StyledList = styled(List)`
         padding: 0;
     }
 `
+const officialLink = {
+    'zh-TW': 'https://www.tenkafuma.com/',
+    'en': 'https://www.tenkafuma.com/en/',
+    'jp': 'https://www.tenkafuma.com/jp/',
+    'kr': 'https://www.tenkafuma.com/en/'
+}
+
 const Sidebar = ({ open, toggleSidebar }) => {
     const { isDefault, userLanguage, pageString } = useLanguage()
 

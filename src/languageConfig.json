@@ -11,5 +11,17 @@
         "locale": "en-US",
         "siteLanguage": "en",
         "ogLocale": "en_US"
+    },
+    "jp": {
+        "path": "jp",
+        "locale": "jp",
+        "siteLanguage": "jp",
+        "ogLocale": "ja-JP"
+    },
+    "kr": {
+        "path": "kr",
+        "locale": "kr",
+        "siteLanguage": "kr",
+        "ogLocale": "ko_KR"
     }
 }

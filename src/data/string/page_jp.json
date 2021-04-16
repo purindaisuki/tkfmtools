@@ -29,7 +29,7 @@
                         "Google 隱私權與條款",
                         " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。"
                     ],
-                    "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
+                    "link": "https://policies.google.com/technologies/partner-sites?hl=ja"
                 },
                 {
                     "header": "特別感謝",
@@ -46,7 +46,7 @@
                         "這裡",
                         " 。"
                     ],
-                    "link": "https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B"
+                    "link": "https://github.com/purindaisuki/tkfmtools#feedback"
                 },
                 {
                     "header": "參考",
@@ -90,36 +90,6 @@
             "fix": "修正",
             "change": "變更",
             "content": [
-                {
-                    "version": "v1.5.10",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "隊伍編成上傳功能",
-                            "description": "可上傳隊伍編成，及瀏覽他人編成。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "N 角主潛力階段選擇",
-                            "description": "修正 N 角主潛力階段可超過遊戲上限。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.9",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "側導航列開關手勢",
-                            "description": "於行動裝置上在畫面最左側拖曳可開啟導航列；往左滑可關閉（不支援 IOS 裝置）。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "導航列內容調整",
-                            "description": "於較大螢幕裝置將側導航欄內容移至主導航列。"
-                        }
-                    ]
-                },
                 {
                     "version": "v1.5.8",
                     "content": [
@@ -917,13 +887,7 @@
             "copyTooltip": "複製編成",
             "settingTooltip": "設定",
             "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
-            "errorSnackbar": "本地無資料",
-            "tabs": {
-                "local": "自己的",
-                "cloud": "看大家的"
-            },
-            "author": "作者",
-            "allStage": "全部關卡"
+            "errorSnackbar": "本地無資料"
         },
         "build": {
             "name": "隊伍編成",
@@ -933,29 +897,14 @@
             },
             "changeTooltip": "更換",
             "deleteTooltip": "刪除",
-            "uploadTooltip": "上傳編成",
+            "backTooltip": "返回編成一覽",
             "shareTooltip": "分享編成",
             "copyTooltip": "複製連結",
-            "copySnackbarMsg": "已複製",
+            "snackbarMsg": "已複製",
             "selectModalTitle": "角色選擇",
             "emptySlotText": "選擇角色",
             "nameInputLabel": "編成名",
-            "nameInputPlaceholder": "輸入隊伍編成名",
-            "stageSelectLabel": "關卡",
-            "stageSelectHelpText": "請選擇關卡",
-            "authorInputLabel": "作者",
-            "authorInputPlaceholder": "您的大名",
-            "authorInputHelpText": "請輸入 1~50 個字",
-            "descriptionInputLabel": "編成描述",
-            "descriptionInputPlaceholder": "輸入想說的話（最多 400 字）",
-            "descriptionInputHelpText": "請輸入 0~400 個字",
-            "uploadButton": "上傳",
-            "cancelButton": "取消",
-            "uploadSnackbarMsg": "上傳成功",
-            "uploadMsg": [
-                "為了方便他人理解，建議輸入編成思路、說明等。",
-                "請勿輸入個人資訊、垃圾或廣告訊息。"
-            ]
+            "nameInputPlaceholder": "輸入隊伍編成名"
         }
     },
     "navbar": {

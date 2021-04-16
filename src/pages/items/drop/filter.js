@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { 
+import {
     TableHead as MuiTableHead,
     TableBody as MuiTableBody,
     TableRow as MuiTableRow,
     TableCell as MuiTableCell
- } from '@material-ui/core';
+} from '@material-ui/core';
 
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
@@ -32,6 +32,14 @@ const btnLayoutConfig = {
         0: 2
     },
     'zh-TW': {
+        1360: 5,
+        992: 4,
+        768: 5,
+        624: 4,
+        410: 3,
+        0: 2,
+    },
+    'jp': {
         1360: 5,
         992: 4,
         768: 5,
