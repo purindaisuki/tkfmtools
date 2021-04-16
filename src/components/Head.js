@@ -23,7 +23,7 @@ export default ({ title, description, path }) => {
             <meta
                 property="og:image"
                 content={`https://purindaisuki.github.io/tkfmtools/website_preview${url
-                    + (isDefault ? '' : '_' + userLanguage)}.png`}
+                    + (isDefault ? '' : '_en')}.png`}
             />
             <meta
                 property="twitter:url"
@@ -33,7 +33,7 @@ export default ({ title, description, path }) => {
             <meta
                 property="twitter:image"
                 content={`https://purindaisuki.github.io/tkfmtools/website_preview${url
-                    + (isDefault ? '' : '_' + userLanguage)}.png`}
+                    + (isDefault ? '' : '_en')}.png`}
             />
             <title lang={userLanguage}>{title}</title>
         </Helmet>
