@@ -8,12 +8,14 @@ import page_en from 'data/string/page_en.json';
 import char_en from 'data/string/character_en.json';
 import item_en from 'data/string/item_en.json';
 import stage_en from 'data/string/stage_en.json';
-import page_kr from 'data/string/page_kr.json';
-import char_kr from 'data/string/character_kr.json';
-import item_kr from 'data/string/item_kr.json';
-import page_jp from 'data/string/page_jp.json';
-import char_jp from 'data/string/character_jp.json';
-import item_jp from 'data/string/item_jp.json';
+import page_ja from 'data/string/page_ja.json';
+import char_ja from 'data/string/character_ja.json';
+import item_ja from 'data/string/item_ja.json';
+import stage_ja from 'data/string/stage_ja.json';
+import page_ko from 'data/string/page_ko.json';
+import char_ko from 'data/string/character_ko.json';
+import item_ko from 'data/string/item_ko.json';
+import stage_ko from 'data/string/stage_ko.json';
 import langConfig from 'languageConfig.json';
 
 const stringData = {
@@ -29,15 +31,17 @@ const stringData = {
         itemString: item_en,
         stageString: stage_en,
     }
-    , 'jp': {
-        pageString: page_jp,
-        charString: char_jp,
-        itemString: item_jp,
+    , 'ja': {
+        pageString: page_ja,
+        charString: char_ja,
+        itemString: item_ja,
+        stageString: stage_ja,
     }
-    , 'kr': {
-        pageString: page_kr,
-        charString: char_kr,
-        itemString: item_kr,
+    , 'ko': {
+        pageString: page_ko,
+        charString: char_ko,
+        itemString: item_ko,
+        stageString: stage_ko,
     }
 }
 

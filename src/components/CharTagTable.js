@@ -47,8 +47,8 @@ const TableHead = React.forwardRef((props, ref) => {
 const cardTextWrapConfig = {
     'zh-TW': 900,
     'en': 1300,
-    'jp': 900,
-    'kr': 900,
+    'ja': 1300,
+    'ko': 1300,
 }
 
 const parseRarity = (rarity) => (

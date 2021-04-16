@@ -146,12 +146,12 @@ export default function Layout({ children, withTabs, pagePath }) {
         <meta
           property="og:url"
           content={`https://purindaisuki.github.io/tkfmtools/${isDefault
-            ? '' : userLanguage}`}
+            ? '' : 'en'}`}
         />
         <meta
           property="og:image"
           content={`https://purindaisuki.github.io/tkfmtools/website_preview_recruitment${isDefault
-            ? '' : '_' + userLanguage}.png`}
+            ? '' : '_en'}.png`}
         />
         <meta property="og:image:width" content="1440" />
         <meta property="og:image:height" content="756" />
@@ -161,12 +161,12 @@ export default function Layout({ children, withTabs, pagePath }) {
         <meta
           property="twitter:url"
           content={`https://purindaisuki.github.io/tkfmtools/${isDefault
-            ? '' : userLanguage}`}
+            ? '' : 'en'}`}
         />
         <meta
           property="twitter:image"
           content={`https://purindaisuki.github.io/tkfmtools/website_preview_recruitment${isDefault
-            ? '' : '_' + userLanguage}.png`}
+            ? '' : '_en'}.png`}
         />
         <meta name="google-site-verification" content="F_IfmH-gHHQSs2j53dl-2l-zMqnWtwWOnfqdQiwLUow" />
         <title lang={userLanguage}>{pageString.index.helmet.title}</title>

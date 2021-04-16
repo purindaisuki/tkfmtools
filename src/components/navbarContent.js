@@ -12,8 +12,8 @@ import {
 const officialLink = {
     'zh-TW': 'https://www.tenkafuma.com/',
     'en': 'https://www.tenkafuma.com/en/',
-    'jp': 'https://www.tenkafuma.com/jp/',
-    'kr': 'https://www.tenkafuma.com/en/'
+    'ja': 'https://www.tenkafuma.com/jp/',
+    'ko': 'https://www.tenkafuma.com/en/'
 }
 
 const navbarContent = (lang, isDefault) => ([

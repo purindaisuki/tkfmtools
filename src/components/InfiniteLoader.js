@@ -56,7 +56,9 @@ const InfiniteLoader = ({
             })
         }).observe(bottomBoundaryRef.current)
 
-        return () => scrollObserver.unobeserve(bottomBoundaryRef.current)
+        if (scrollObserver) {
+            return () => scrollObserver.unobeserve(bottomBoundaryRef.current)
+        }
     }, [bottomBoundaryRef])
 
     useEffect(() => {

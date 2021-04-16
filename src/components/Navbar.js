@@ -154,8 +154,8 @@ const LanguageButton = styled(IconButton)`
 const langDropdownText = {
     'zh-TW': '繁體中文',
     'en': 'English',
-    'jp': '日本語',
-    'kr': '한국어'
+    'ja': '日本語',
+    'ko': '한국어'
 }
 
 function LanguageSwitcher() {

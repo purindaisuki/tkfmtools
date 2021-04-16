@@ -148,6 +148,9 @@ const MaterialCard = styled(ItemCard)`
         height: 2rem;
         margin-right: .4rem;
     }
+    > div:last-child {
+        white-space: break-spaces;
+    }
 `
 const MaterialBox = ({
     result,
@@ -199,18 +202,18 @@ const resultLayoutConfig = {
         624: 3,
         0: 2
     },
-    'jp': {
-        1360: 6,
-        1200: 5,
-        768: 4,
-        624: 3,
+    'ja': {
+        1460: 5,
+        1305: 4,
+        768: 3,
+        624: 2,
         0: 2
     },
-    'kr': {
-        1360: 6,
-        1200: 5,
-        768: 4,
-        624: 3,
+    'ko': {
+        1460: 5,
+        1305: 4,
+        768: 3,
+        624: 2,
         0: 2
     }
 }

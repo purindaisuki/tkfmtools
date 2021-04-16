@@ -25,9 +25,9 @@
                 {
                     "header": "プライバシー声明",
                     "content": [
-                        "このサイトでは Google Analytics によって使用者のデータを収集し、また cookies を介し利用者の行動を追跡しています。こうしたデータは全て匿名であり、本サイトの改善にのみ使用され、個人を特定することはありません。 Google Analyticsのデータ収集方法についてはこちらをご覧ください。",
+                        "このサイトでは Google Analytics によって使用者のデータを収集し、また cookies を介し利用者の行動を追跡しています。こうしたデータは全て匿名であり、本サイトの改善にのみ使用され、個人を特定することはありません。 Google Analyticsのデータ収集方法については ",
                         "Google プライバシーポリシー",
-                        "Adblock等のプラグインを利用すると、データの転送をブロックする可能性があります。本サイトの改善にご協力いただける場合は、ホワイトリストへの追加をお願いします。"
+                        "をご覧ください。Adblock等のプラグインを利用すると、データの転送をブロックする可能性があります。本サイトの改善にご協力いただける場合は、ホワイトリストへの追加をお願いします。"
                     ],
                     "link": "https://policies.google.com/technologies/partner-sites?hl=ja"
                 },
@@ -845,7 +845,7 @@
                 "title": "天下布魔道具箱—チーム分析",
                 "description": "グラフにより、分析やチームの状態確認が可能です"
             },
-            "exportButtonTooltip": "画像としてエクスポート",
+            "exportButtonTooltip": "画像出力",
             "chart": [
                 {
                     "title": "コレクション進度"
@@ -899,7 +899,7 @@
                     {
                         "title": "定義",
                         "content": [
-                            "キャラの戦力は キャラ攻撃力×HP"
+                            "キャラの戦力は キャラ ATK × HP"
                         ]
                     },
                     {
@@ -929,11 +929,11 @@
             "settingDescription": "最新のチーム分析データをデフォルトに設定",
             "errorSnackbar": "データがありません",
             "tabs": {
-                "local": "Mine",
-                "cloud": "Others"
+                "local": "自分の編成",
+                "cloud": "みんなの編成"
             },
-            "author": "Author",
-            "allStage": "All stages"
+            "author": "作成者",
+            "allStage": "全てのステージ"
         },
         "build": {
             "name": "チーム編成",
@@ -943,25 +943,25 @@
             },
             "changeTooltip": "変更",
             "deleteTooltip": "削除",
-            "uploadTooltip": "Upload your team composition",
-            "shareTooltip": "Share team composition",
-            "copyTooltip": "Copy link",
-            "copySnackbarMsg": "Copied",
+            "uploadTooltip": "編成をアップロードする",
+            "shareTooltip": "シェア",
+            "copyTooltip": "コピー",
+            "copySnackbarMsg": "コピーしました",
             "selectModalTitle": "キャラ選択",
             "emptySlotText": "選択キャラ",
             "nameInputLabel": "チーム名",
             "nameInputPlaceholder": "チーム名を入力",
-            "stageSelectLabel": "Stage",
-            "stageSelectHelpText": "Please select stage",
-            "authorInputLabel": "Author",
-            "authorInputPlaceholder": "Your name",
-            "authorInputHelpText": "Please type 1~50 characters",
-            "descriptionInputLabel": "Memo",
-            "descriptionInputPlaceholder": "Type memo (max 400 characters)",
-            "descriptionInputHelpText": "Please type 0~400 characters",
-            "uploadButton": "Upload",
-            "cancelButton": "Cancel",
-            "uploadSnackbarMsg": "Uploaded",
+            "stageSelectLabel": "ステージ",
+            "stageSelectHelpText": "ステージを選択してください",
+            "authorInputLabel": "投稿者",
+            "authorInputPlaceholder": "名前",
+            "authorInputHelpText": "1～50文字以内で入力してください。",
+            "descriptionInputLabel": "編成メモ",
+            "descriptionInputPlaceholder": "メモを入力 (0~400文字)",
+            "descriptionInputHelpText": "400文字以内で入力してください。",
+            "uploadButton": "アップロード",
+            "cancelButton": "キャンセル",
+            "uploadSnackbarMsg": "アップロードしました",
             "uploadMsg": [
                 "It's better to share your strategy or idea behind the team composition in the memo.",
                 "Please don't type your personal information, spam messages, ads, etc."
@@ -1005,16 +1005,16 @@
                 "title": "外部リンク",
                 "descriptions": [
                     "公式サイト",
-                    "データ整理",
-                    "潜在能力整理＆予想"
+                    "データ整理 (中国語)",
+                    "潜在能力整理＆予想 (中国語)"
                 ]
             },
             {
                 "title": "データレポート",
                 "descriptions": [
-                    "召集令データレポート",
-                    "潜在能力データレポート",
-                    "メインストーリードロップデータレポート",
+                    "召集令データレポート (中国語)",
+                    "潜在能力データレポート (中国語)",
+                    "メインストーリードロップデータレポート (中国語)",
                     "ご意見・ご感想"
                 ]
             }

@@ -12,16 +12,16 @@
         "siteLanguage": "en",
         "ogLocale": "en_US"
     },
-    "jp": {
-        "path": "jp",
+    "ja": {
+        "path": "ja",
         "locale": "ja-JP",
-        "siteLanguage": "jp",
+        "siteLanguage": "ja",
         "ogLocale": "ja_JP"
     },
-    "kr": {
-        "path": "kr",
+    "ko": {
+        "path": "ko",
         "locale": "ko-KR",
-        "siteLanguage": "kr",
+        "siteLanguage": "ko",
         "ogLocale": "ko_KR"
     }
 }
