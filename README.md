@@ -64,7 +64,7 @@ Show character recruitment tags and items drops.
 Bug reports, suggestion and thoughts are always welcome. Please contact me via:
 * [Github issues](https://github.com/purindaisuki/tkfmtools/issues)
 * [Questionbox](https://peing.net/en/b5295760aebf4c)
-* or tag me *justwepurin#4265* on [TenkafuMA! official discord group](https://discord.gg/wJqXQjVnw4).
+* or tag me *purin#4265* on [TenkafuMA! official discord group](https://discord.gg/wJqXQjVnw4).
 
 ## License
 * [The MIT License](https://github.com/purindaisuki/tkfmtools/blob/master/LICENSE)
