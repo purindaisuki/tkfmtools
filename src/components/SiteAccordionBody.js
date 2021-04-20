@@ -12,7 +12,7 @@ import Modal from 'components/Modal';
 import { ChangeChip, FixChip, NewChip } from 'components/Chip';
 import { DeleteIcon } from 'components/icon';
 
-const SiteDescription = ({ name, content, link }) => {
+const SiteDescription = ({ content, link }) => {
     if (typeof link === 'string') {
         return (
             <p>
@@ -85,7 +85,7 @@ const DescriptionHeader = styled(Header)`
 `
 const DescriptionBody = styled.div`
     p {
-        margin: .3rem .5rem;
+        margin: 1rem .5rem;
     }
     a {
         text-decoration: none;
