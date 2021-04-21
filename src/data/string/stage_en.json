@@ -862,8 +862,8 @@
         ]
     },
     {
-        "chapter": "Chapter 10: 10",
-        "name": "Onmyoryo Nights",
+        "chapter": "10",
+        "name": "Chapter 10: Onmyoryo Nights",
         "stages": [
             {
                 "id": "10-2",
@@ -952,8 +952,8 @@
         ]
     },
     {
-        "chapter": "Chapter 11: 11",
-        "name": "The Robot's Hot!",
+        "chapter": "11",
+        "name": "Chapter 11: The Robot's Hot!",
         "stages": [
             {
                 "id": "11-2",
@@ -1046,8 +1046,8 @@
         ]
     },
     {
-        "chapter": "Chapter 12: 12",
-        "name": "General of All Trades",
+        "chapter": "12",
+        "name": "Chapter 12: General of All Trades",
         "stages": [
             {
                 "id": "12-2",
@@ -1136,8 +1136,8 @@
         ]
     },
     {
-        "chapter": "Chapter 13: 13",
-        "name": "Masters Don't Lose",
+        "chapter": "13",
+        "name": "Chapter 13: Masters Don't Lose",
         "stages": [
             {
                 "id": "13-2",
@@ -1222,6 +1222,96 @@
             {
                 "id": "13-19",
                 "name": "Hope & Despair"
+            }
+        ]
+    },
+    {
+        "chapter": "14",
+        "name": "Chapter 14: Goodnight, Isorathe",
+        "stages": [
+            {
+                "id": "14-2",
+                "name": "Warning"
+            },
+            {
+                "id": "14-3",
+                "name": "Bait"
+            },
+            {
+                "id": "14-4",
+                "name": "City Walls"
+            },
+            {
+                "id": "14-5",
+                "name": "Quick Attack"
+            },
+            {
+                "id": "14-6",
+                "name": "Fate"
+            },
+            {
+                "id": "14-7",
+                "name": "Enemy at the Gates"
+            },
+            {
+                "id": "14-7 free",
+                "name": "Snake Pit"
+            },
+            {
+                "id": "14-8",
+                "name": "Ritsuki's Will"
+            },
+            {
+                "id": "14-9",
+                "name": "Going All Out"
+            },
+            {
+                "id": "14-10",
+                "name": "Dead Meat"
+            },
+            {
+                "id": "14-11",
+                "name": "Risky Business"
+            },
+            {
+                "id": "14-12",
+                "name": "Chaos"
+            },
+            {
+                "id": "14-12 free",
+                "name": "Sealed Library"
+            },
+            {
+                "id": "14-13",
+                "name": "Ninjitsu"
+            },
+            {
+                "id": "14-14",
+                "name": "Abandon Faith"
+            },
+            {
+                "id": "14-15",
+                "name": "Struggle"
+            },
+            {
+                "id": "14-16",
+                "name": "Belief"
+            },
+            {
+                "id": "14-17",
+                "name": "Goodnight, Princess"
+            },
+            {
+                "id": "14-17 free",
+                "name": "Nest of Vipers"
+            },
+            {
+                "id": "14-18",
+                "name": "Ritsuki's Choice"
+            },
+            {
+                "id": "14-19",
+                "name": "Friendship & Loyalty"
             }
         ]
     }

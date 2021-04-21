@@ -34,10 +34,15 @@
                 {
                     "header": "特別感謝",
                     "content": [
-                        "",
-                        "10duckman"
-                    ],
-                    "link": "https://github.com/10duckman"
+                        {
+                            "link": "https://github.com/10duckman",
+                            "text": "10duckman"
+                        },
+                        {
+                            "link": "https://github.com/C0unt-zero",
+                            "text": "C0unt-zero"
+                        }
+                    ]
                 },
                 {
                     "header": "意見回饋",
@@ -90,6 +95,16 @@
             "fix": "修正",
             "change": "變更",
             "content": [
+                {
+                    "version": "v1.6.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "4/21 遊戲更新",
+                            "description": "新增復生公主 千鶴、主線 14 章。"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.0",
                     "content": [

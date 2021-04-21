@@ -34,10 +34,15 @@
                 {
                     "header": "Special thanks",
                     "content": [
-                        "",
-                        "10duckman"
-                    ],
-                    "link": "https://github.com/10duckman"
+                        {
+                            "link": "https://github.com/10duckman",
+                            "text": "10duckman"
+                        },
+                        {
+                            "link": "https://github.com/C0unt-zero",
+                            "text": "C0unt-zero"
+                        }
+                    ]
                 },
                 {
                     "header": "Feedback",
@@ -90,6 +95,16 @@
             "fix": "Fix",
             "change": "Change",
             "content": [
+                {
+                    "version": "v1.6.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "4/21 game update",
+                            "description": "Added Risen Princess Chizuru and chapter 14."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.0",
                     "content": [

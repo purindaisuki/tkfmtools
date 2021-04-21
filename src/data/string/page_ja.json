@@ -34,10 +34,15 @@
                 {
                     "header": "Special thanks",
                     "content": [
-                        "",
-                        "10duckman"
-                    ],
-                    "link": "https://github.com/10duckman"
+                        {
+                            "link": "https://github.com/10duckman",
+                            "text": "10duckman"
+                        },
+                        {
+                            "link": "https://github.com/C0unt-zero",
+                            "text": "C0unt-zero"
+                        }
+                    ]
                 },
                 {
                     "header": "ご意見・ご感想",
@@ -90,6 +95,16 @@
             "fix": "修正",
             "change": "変更",
             "content": [
+                {
+                    "version": "v1.6.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "4/21 ゲーム更新",
+                            "description": "甦りの姫 千鶴、及び14 章追加。"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.0",
                     "content": [
@@ -150,7 +165,7 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "3/31 game update",
+                            "title": "3/31 ゲーム更新",
                             "description": "Added Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
                         }
                     ]
@@ -176,7 +191,7 @@
                         {
                             "type": "New",
                             "title": "3/24 ゲーム更新",
-                            "description": "章13章ドロップアイテム追加。"
+                            "description": "13 章ドロップアイテム追加。"
                         },
                         {
                             "type": "Fix",

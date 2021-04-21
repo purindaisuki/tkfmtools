@@ -34,10 +34,15 @@
                 {
                     "header": "Special thanks",
                     "content": [
-                        "",
-                        "10duckman"
-                    ],
-                    "link": "https://github.com/10duckman"
+                        {
+                            "link": "https://github.com/10duckman",
+                            "text": "10duckman"
+                        },
+                        {
+                            "link": "https://github.com/C0unt-zero",
+                            "text": "C0unt-zero"
+                        }
+                    ]
                 },
                 {
                     "header": "의견 남기기",
@@ -90,6 +95,16 @@
             "fix": "수정",
             "change": "변경",
             "content": [
+                {
+                    "version": "v1.6.1",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "4/21 게임 업데이트",
+                            "description": "Added Risen Princess Chizuru and chapter 14."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.0",
                     "content": [
@@ -150,7 +165,7 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "3/31 game update",
+                            "title": "3/31 게임 업데이트",
                             "description": "Added Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
                         }
                     ]
