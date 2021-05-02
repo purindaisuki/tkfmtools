@@ -29,3 +29,5 @@ lineup_raw_data.json
 line_up_data_gtag.json
 fetch-line-up-data.js
 parseLineupData.js
+flatten-text.js
+unflatten-text.js
