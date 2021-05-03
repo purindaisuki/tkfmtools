@@ -125,7 +125,7 @@
                         },
                         {
                             "type": "Fix",
-                            "title": "Main potential stage of N characters",
+                            "title": "N-Character Potential Stages",
                             "description": "Fixed the upper bound of main potential stage of N characters."
                         }
                     ]
@@ -151,12 +151,12 @@
                         {
                             "type": "New",
                             "title": "Share link for team composition",
-                            "description": "Allows team compositions to be shareable."
+                            "description": "Allows users to share their team compositions."
                         },
                         {
                             "type": "Fix",
-                            "title": "Line-up analysis result page crash",
-                            "description": "Fixed line-up analysis result page crash if the number of selected characters is less than 10."
+                            "title": "Line-up analysis result page crashes",
+                            "description": "Fixed an issue where the line-up analysis results page will crash if the number of selected characters is less than 10."
                         }
                     ]
                 },

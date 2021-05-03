@@ -101,7 +101,7 @@
                         {
                             "type": "New",
                             "title": "4/21 ゲーム更新",
-                            "description": "甦りの姫 千鶴、及び14 章追加。"
+                            "description": "甦りの姫 千鶴、及び14章追加。"
                         }
                     ]
                 },
@@ -120,13 +120,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Team compositions upload feature",
-                            "description": "You can upload your team compositions and find other people's at team compositions page."
+                            "title": "チーム編成のアップロード機能",
+                            "description": "チーム編成のアップロード、他のプレイヤーのチーム編成が閲覧可能に。"
                         },
                         {
                             "type": "Fix",
-                            "title": "Main potential stage of N characters",
-                            "description": "Fixed the upper bound of main potential stage of N characters."
+                            "title": "Nキャラクター潜在能力段階",
+                            "description": "Nキャラクター潜在能力段階がゲーム内の上限を超えてしまう不具合を修正。"
                         }
                     ]
                 },
@@ -135,13 +135,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Swipeable sidebar",
-                            "description": "You can open sidebar by swiping from the left most area and close it by swiping back on moblie devices (IOS not supported)."
+                            "title": "サイドナビゲーションのON/OFF",
+                            "description": "モバイルデバイス画面の左端をスワイプするとナビゲーションがONに、また左にスワイプでOFFに（IOSデバイス未対応）。"
                         },
                         {
                             "type": "Change",
-                            "title": "Navbar content",
-                            "description": "Moved the content of sidebar to main navbar on desktop."
+                            "title": "ナビゲーションコンテンツの調整",
+                            "description": "大きな画面のデバイスのサイドナビゲーションバーのコンテンツを、メインナビゲーションバーに移動。"
                         }
                     ]
                 },
@@ -150,13 +150,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Share link for team composition",
-                            "description": "Allows team compositions to be shareable."
+                            "title": "チーム編成シェア機能",
+                            "description": "リンクによるチーム編成シェアが可能に。"
                         },
                         {
                             "type": "Fix",
-                            "title": "Line-up analysis result page crash",
-                            "description": "Fixed line-up analysis result page crash if the number of selected characters is less than 10."
+                            "title": "チーム分析結果画面がフリーズする不具合",
+                            "description": "チーム分析のキャラ選択数が10人以下だった場合、画面がフリーズする不具合修正。"
                         }
                     ]
                 },
@@ -166,7 +166,7 @@
                         {
                             "type": "New",
                             "title": "3/31 ゲーム更新",
-                            "description": "Added Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
+                            "description": "新キャラ「イースター・バニーサタン」追加。召集令に「KS-Ⅷ、メスミナヤ、ナフララ、アンナ、ブラン、ノノカ、試作機3号」追加。"
                         }
                     ]
                 },
@@ -824,8 +824,8 @@
             },
             "levelTitle": "レベル",
             "potentialTitle": "潜在能力",
-            "primaryPotentialTitle": "Primary potential stage",
-            "secondaryPotentialTitle": "Secondary potential stage",
+            "primaryPotentialTitle": "メイン潜在能力段階",
+            "secondaryPotentialTitle": "サブ潜在能力段階",
             "disciplineTitle": "調教",
             "starTitle": "星の数",
             "saveButton": "保存",
@@ -959,9 +959,9 @@
             "changeTooltip": "変更",
             "deleteTooltip": "削除",
             "uploadTooltip": "編成をアップロードする",
-            "shareTooltip": "シェア",
-            "copyTooltip": "コピー",
-            "copySnackbarMsg": "コピーしました",
+            "shareTooltip": "編成シェア",
+            "copyTooltip": "リンクコピー",
+            "copySnackbarMsg": "コピー済",
             "selectModalTitle": "キャラ選択",
             "emptySlotText": "選択キャラ",
             "nameInputLabel": "チーム名",
@@ -978,8 +978,8 @@
             "cancelButton": "キャンセル",
             "uploadSnackbarMsg": "アップロードしました",
             "uploadMsg": [
-                "It's better to share your strategy or idea behind the team composition in the memo.",
-                "Please don't type your personal information, spam messages, ads, etc."
+                "他の人が理解しやすいよう、編成の留意点や説明を記入することをお勧めします。",
+                "個人情報やスパム、広告メッセージは入力しないでください。"
             ]
         }
     },

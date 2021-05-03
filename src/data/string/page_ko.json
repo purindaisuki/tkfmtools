@@ -111,7 +111,7 @@
                         {
                             "type": "New",
                             "title": "일본어, 한국어 버전",
-                            "description": "일본어 및 한국어 버전 추가"
+                            "description": "일본어 및 한국어 버전 추가."
                         }
                     ]
                 },
@@ -120,13 +120,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Team compositions upload feature",
-                            "description": "You can upload your team compositions and find other people's at team compositions page."
+                            "title": "팀 편성 업로드 기능",
+                            "description": "팀 편성 업로드 및 다른 플레이어가 편성한 팀 참고 가능."
                         },
                         {
                             "type": "Fix",
-                            "title": "Main potential stage of N characters",
-                            "description": "Fixed the upper bound of main potential stage of N characters."
+                            "title": "N 캐릭터의 잠재 능력 단계 설정",
+                            "description": "N 캐릭터의 잠재 능력 최다 단계 수정."
                         }
                     ]
                 },
@@ -135,13 +135,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Swipeable sidebar",
-                            "description": "You can open sidebar by swiping from the left most area and close it by swiping back on moblie devices (IOS not supported)."
+                            "title": "네비게이션바 활성화 제스처",
+                            "description": "모바일 디바이스 화면에서 좌측을 끌어당겨 네비게이션바를 활성화 시킬 수 있으며, 좌측으로 스와이프하면 비활성화할 수 있습니다. (IOS 미지원)"
                         },
                         {
                             "type": "Change",
-                            "title": "Navbar content",
-                            "description": "Moved the content of sidebar to main navbar on desktop."
+                            "title": "네비게이션바 내용 조정",
+                            "description": "대형 화면 모니터에서 네비게이션바 내용이 메인 네비게이션바로 이동됩니다."
                         }
                     ]
                 },
@@ -150,13 +150,13 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Share link for team composition",
-                            "description": "Allows team compositions to be shareable."
+                            "title": "팀 편성 공유 기능",
+                            "description": "링크를 통해 편성한 팀 공유 가능."
                         },
                         {
                             "type": "Fix",
-                            "title": "Line-up analysis result page crash",
-                            "description": "Fixed line-up analysis result page crash if the number of selected characters is less than 10."
+                            "title": "라인업 분석 결과 페이지 표시 오류",
+                            "description": "라인업 분석에 선정된 캐릭터가 10명 이하 시 발생하는 분석 결과 페이지 표시 오류 수정."
                         }
                     ]
                 },
@@ -166,7 +166,7 @@
                         {
                             "type": "New",
                             "title": "3/31 게임 업데이트",
-                            "description": "Added Easter Satan. KS-Ⅷ, Mesmiia, Nafrala, Anna, Blaire, Natasha and Prototype #3 are available from recruitment now."
+                            "description": "신규 캐릭터 부활한 바니걸 사탄 추가. 전 지역 모집에 KS-Ⅷ, 메스미나, 나프라라, 안나, 브란, 노노카, 시험기 3호 추가."
                         }
                     ]
                 },
@@ -176,12 +176,12 @@
                         {
                             "type": "Change",
                             "title": "잠재 능력 추가 단계",
-                            "description": "잠재 능력 추가 단계 스킵 선택 가능"
+                            "description": "잠재 능력 추가 단계 스킵 선택 가능."
                         },
                         {
                             "type": "Change",
                             "title": "표 양식",
-                            "description": "표 양식 변경"
+                            "description": "표 양식 변경."
                         }
                     ]
                 },
@@ -191,12 +191,12 @@
                         {
                             "type": "New",
                             "title": "3/24 게임 업데이트",
-                            "description": "제13장 드롭 추가"
+                            "description": "제13장 드롭 추가."
                         },
                         {
                             "type": "Fix",
                             "title": "다크 모드 로딩 시 페이지가 깜빡이는 오류",
-                            "description": "다크 모드 로딩 시 페이지가 깜빡이는 오류 수정"
+                            "description": "다크 모드 로딩 시 페이지가 깜빡이는 오류 수정."
                         }
                     ]
                 },
@@ -206,7 +206,7 @@
                         {
                             "type": "Fix",
                             "title": "페이지 표시 이상",
-                            "description": "일부 페이지가 새로 고침 이후에도 표시 이상이 발생하거나 원 상태가 유지되는 오류 수정"
+                            "description": "일부 페이지가 새로 고침 이후에도 표시 이상이 발생하거나 원 상태가 유지되는 오류 수정."
                         }
                     ]
                 },
@@ -216,12 +216,12 @@
                         {
                             "type": "New",
                             "title": "공통 적용 설정",
-                            "description": "홈페이지에 공통 적용 화면 설정 (일부 페이지 및 디바이스에서만 사용 가능) 및 로컬 데이터 설정 기능 추가"
+                            "description": "홈페이지에 공통 적용 화면 설정 (일부 페이지 및 디바이스에서만 사용 가능) 및 로컬 데이터 설정 기능 추가."
                         },
                         {
                             "type": "Change",
                             "title": "태그 양식 조정",
-                            "description": "태그 양식 조정"
+                            "description": "태그 양식 조정."
                         }
                     ]
                 },
@@ -231,7 +231,7 @@
                         {
                             "type": "Fix",
                             "title": "팀 편성 내 캐릭터 이동 및 조작 오류",
-                            "description": "페이지 새로 고침 후 캐릭터 이동 시 타깃과 이동 위치 오류 및 로컬 데이터 내 설정된 팀이 없을 경우 팀 편성 페이지에서 조작 시 자동으로 팀이 추가되는 문제 수정"
+                            "description": "페이지 새로 고침 후 캐릭터 이동 시 타깃과 이동 위치 오류 및 로컬 데이터 내 설정된 팀이 없을 경우 팀 편성 페이지에서 조작 시 자동으로 팀이 추가되는 문제 수정."
                         }
                     ]
                 },
@@ -241,7 +241,7 @@
                         {
                             "type": "Fix",
                             "title": "팀 편성에서 캐릭터를 선택할 수 없는 오류",
-                            "description": "분석 데이터가 없으면 팀 편성에서 캐릭터를 선택할 수 없는 오류 수정"
+                            "description": "분석 데이터가 없으면 팀 편성에서 캐릭터를 선택할 수 없는 오류 수정."
                         }
                     ]
                 },
@@ -251,22 +251,22 @@
                         {
                             "type": "New",
                             "title": "팀 편성",
-                            "description": "기록 및 스테이지 공략 공유를 위해 팀 편성 기능 추가"
+                            "description": "기록 및 스테이지 공략 공유를 위해 팀 편성 기능 추가."
                         },
                         {
                             "type": "New",
                             "title": "팀 백분위",
-                            "description": "라인업 분석에 팀 백분위 추가"
+                            "description": "라인업 분석에 팀 백분위 추가."
                         },
                         {
                             "type": "Change",
                             "title": "캐릭터 능력치 페이지 제거",
-                            "description": "캐릭터 능력치 계산 페이지를 제거하고 해당 기능을 팀 편성으로 이동"
+                            "description": "캐릭터 능력치 계산 페이지를 제거하고 해당 기능을 팀 편성으로 이동."
                         },
                         {
                             "type": "Fix",
                             "title": "아이콘 버튼에 도움말 표시",
-                            "description": "아이콘 버튼에 도움말 표시 추가"
+                            "description": "아이콘 버튼에 도움말 표시 추가."
                         }
                     ]
                 },
@@ -276,27 +276,27 @@
                         {
                             "type": "New",
                             "title": "아이템 드롭 전체보기 표시 설정",
-                            "description": "아이템 전체보기에 표시 설정 추가"
+                            "description": "아이템 전체보기에 표시 설정 추가."
                         },
                         {
                             "type": "Change",
                             "title": "라인업 분석 및 캐릭터 선택",
-                            "description": "캐릭터의 아이콘을 탭하여 해당 캐릭터의 획득 여부를 선택 가능"
+                            "description": "캐릭터의 아이콘을 탭하여 해당 캐릭터의 획득 여부를 선택 가능."
                         },
                         {
                             "type": "Fix",
                             "title": "라인업 분석 결과 그래프",
-                            "description": "간헐적으로 캐릭터가 그래프에 반영되지 않는 문제 수정"
+                            "description": "간헐적으로 캐릭터가 그래프에 반영되지 않는 문제 수정."
                         },
                         {
                             "type": "Fix",
                             "title": "메시지 바가 사라지지 않음",
-                            "description": "메시지 바가 사라지지 않는 문제 수정"
+                            "description": "메시지 바가 사라지지 않는 문제 수정."
                         },
                         {
                             "type": "Fix",
                             "title": "모달 창 표시 문제",
-                            "description": "Safari 및 Chromium 브라우저의 모달 창 표시 문제 수정"
+                            "description": "Safari 및 Chromium 브라우저의 모달 창 표시 문제 수정."
                         }
                     ]
                 },
@@ -306,17 +306,17 @@
                         {
                             "type": "New",
                             "title": "라인업 분석 결과 내보내기",
-                            "description": "라인업 분석 결과를 이미지 형식으로 내보내기 기능"
+                            "description": "라인업 분석 결과를 이미지 형식으로 내보내기 기능."
                         },
                         {
                             "type": "Fix",
                             "title": "라인업 분석표 디스플레이",
-                            "description": "작은 화면에서 태그가 페이지 밖을 넘어서는 문제 수정"
+                            "description": "작은 화면에서 태그가 페이지 밖을 넘어서는 문제 수정."
                         },
                         {
                             "type": "Fix",
                             "title": "라인업 분석 보기 옵션 문제",
-                            "description": "레벨 숫자가 제거되지 않는 문제 수정"
+                            "description": "레벨 숫자가 제거되지 않는 문제 수정."
                         }
                     ]
                 },
@@ -326,7 +326,7 @@
                         {
                             "type": "Fix",
                             "title": "캐릭터 필터 버튼 문제",
-                            "description": "속성 태그 선택 시 기타 태그가 사라지는 현상 수정"
+                            "description": "속성 태그 선택 시 기타 태그가 사라지는 현상 수정."
                         }
                     ]
                 },
@@ -336,22 +336,22 @@
                         {
                             "type": "New",
                             "title": "라인업 분석",
-                            "description": "팀 편성 상태 확인을 위한 라인업 분석 이미지 추가"
+                            "description": "팀 편성 상태 확인을 위한 라인업 분석 이미지 추가."
                         },
                         {
                             "type": "New",
                             "title": "3/10 게임 업데이트",
-                            "description": "메스미나, 나프라라, 안나, 브란, 노노카, 시험기 3호, 12장 드롭 아이템 추가"
+                            "description": "메스미나, 나프라라, 안나, 브란, 노노카, 시험기 3호, 12장 드롭 아이템 추가."
                         },
                         {
                             "type": "Fix",
                             "title": "캐릭터 잠재 능력 이미지 표시 오류",
-                            "description": "N/R 캐릭터 및 기타 캐릭터 변경 시 캐릭터 이미지가 로딩되지 않는 문제 수정"
+                            "description": "N/R 캐릭터 및 기타 캐릭터 변경 시 캐릭터 이미지가 로딩되지 않는 문제 수정."
                         },
                         {
                             "type": "Fix",
                             "title": "캐릭터 능력치 페이지 표시 오류",
-                            "description": "소라카 선택 시 페이지 표시 오류 수정"
+                            "description": "소라카 선택 시 페이지 표시 오류 수정."
                         }
                     ]
                 },
@@ -361,17 +361,17 @@
                         {
                             "type": "New",
                             "title": "전 지역 모집 필터 레이아웃",
-                            "description": "설정 표시 버튼 추가로 태그 유형 표시 여부 조정 가능해짐"
+                            "description": "설정 표시 버튼 추가로 태그 유형 표시 여부 조정 가능해짐."
                         },
                         {
                             "type": "Change",
                             "title": "모달 창 레이아웃",
-                            "description": "창 태그 색깔 및 닫기 버튼 위치 변경"
+                            "description": "창 태그 색깔 및 닫기 버튼 위치 변경."
                         },
                         {
                             "type": "Change",
                             "title": "캐릭터 태그",
-                            "description": "마누엘라, 샤린에 병사 태그 추가"
+                            "description": "마누엘라, 샤린에 병사 태그 추가."
                         }
                     ]
                 },
@@ -381,22 +381,22 @@
                         {
                             "type": "New",
                             "title": "캐릭터 능력치 계산기",
-                            "description": "캐릭터의 공격력 및 HP 계산 기능 추가"
+                            "description": "캐릭터의 공격력 및 HP 계산 기능 추가."
                         },
                         {
                             "type": "Change",
                             "title": "아이템의 레어도 표시",
-                            "description": "레어도에 따라 각각 다른 색으로 표시"
+                            "description": "레어도에 따라 각각 다른 색으로 표시."
                         },
                         {
                             "type": "Change",
                             "title": "전 지역 모집 필터 확정 획득 알림창",
-                            "description": "발동 범위를 캐릭터창 전체로 확대"
+                            "description": "발동 범위를 캐릭터창 전체로 확대."
                         },
                         {
                             "type": "Fix",
                             "title": "404 페이지 네비게이션바 무효",
-                            "description": "탭한 후 반응이 없는 오류 수정"
+                            "description": "탭한 후 반응이 없는 오류 수정."
                         }
                     ]
                 },
@@ -406,27 +406,27 @@
                         {
                             "type": "Change",
                             "title": "웹사이트 구조",
-                            "description": "웹사이트 구조 변경 및 로컬라이징 작업"
+                            "description": "웹사이트 구조 변경 및 로컬라이징 작업."
                         },
                         {
                             "type": "Change",
                             "title": "전 지역 모집 필터 레이아웃",
-                            "description": "레이아웃 조정, 태그 분류 추가, 속성 태그 추가, 캐릭터 포지션 칸 제거"
+                            "description": "레이아웃 조정, 태그 분류 추가, 속성 태그 추가, 캐릭터 포지션 칸 제거."
                         },
                         {
                             "type": "Change",
                             "title": "아이템 드롭 레이아웃",
-                            "description": "아이템 드롭 레이아웃 제거"
+                            "description": "아이템 드롭 레이아웃 제거."
                         },
                         {
                             "type": "Change",
                             "title": "전 지역 모집 필터 - 도움 설명",
-                            "description": "전 지역 모집 리더, 엘리트 설명 추가"
+                            "description": "전 지역 모집 리더, 엘리트 설명 추가."
                         },
                         {
                             "type": "Change",
                             "title": "캐릭터 태그",
-                            "description": "브리트니에 지원 태그 추가"
+                            "description": "브리트니에 지원 태그 추가."
                         }
                     ]
                 },
@@ -436,22 +436,22 @@
                         {
                             "type": "New",
                             "title": "마도인형 KS-Ⅷ",
-                            "description": "마도인형 KS-Ⅷ 정보 추가"
+                            "description": "마도인형 KS-Ⅷ 정보 추가."
                         },
                         {
                             "type": "New",
                             "title": "제11장 아이템 드롭",
-                            "description": "제11장 아이템 드롭 추가"
+                            "description": "제11장 아이템 드롭 추가."
                         },
                         {
                             "type": "Change",
                             "title": "일부 이미지",
-                            "description": "잠재 능력 이미지 변경"
+                            "description": "잠재 능력 이미지 변경."
                         },
                         {
                             "type": "Fix",
                             "title": "전 지역 모집 결과 포지션 칸 속성 표시 오류",
-                            "description": "전 지역 모집 포지션 칸 결과 수정"
+                            "description": "전 지역 모집 포지션 칸 결과 수정."
                         }
                     ]
                 },
@@ -461,17 +461,17 @@
                         {
                             "type": "New",
                             "title": "드롭 아이템 표",
-                            "description": "드롭 아이템 표 추가"
+                            "description": "드롭 아이템 표 추가."
                         },
                         {
                             "type": "Change",
                             "title": "전 지역 모집 필터링 결과 표시 방법",
-                            "description": "캐릭터 이미지 추가"
+                            "description": "캐릭터 이미지 추가."
                         },
                         {
                             "type": "Change",
                             "title": "일부 레이아웃 변경",
-                            "description": "캐릭터명, 언어 선택 정렬, 네비게이션 바, 버튼 효과 변경"
+                            "description": "캐릭터명, 언어 선택 정렬, 네비게이션 바, 버튼 효과 변경."
                         }
                     ]
                 },
@@ -481,12 +481,12 @@
                         {
                             "type": "New",
                             "title": "캐릭터 태그 전체보기 레이아웃",
-                            "description": "전체보기표 레이아웃 추가"
+                            "description": "전체보기표 레이아웃 추가."
                         },
                         {
                             "type": "Fix",
                             "title": "레이아웃 수정",
-                            "description": "캐릭터 전체보기의 작은 화면 내 대칭 오류 수정"
+                            "description": "캐릭터 전체보기의 작은 화면 내 대칭 오류 수정."
                         }
                     ]
                 },
@@ -496,12 +496,12 @@
                         {
                             "type": "New",
                             "title": "캐릭터 태그 전체보기",
-                            "description": "캐릭터 태그 전체보기 기능 추가"
+                            "description": "캐릭터 태그 전체보기 기능 추가."
                         },
                         {
                             "type": "Fix",
                             "title": "레이아웃 수정",
-                            "description": "영어 버전 소재 전체보기의 작은 화면 내 표시 오류 문제 수정"
+                            "description": "영어 버전 소재 전체보기의 작은 화면 내 표시 오류 문제 수정."
                         }
                     ]
                 },
@@ -511,12 +511,12 @@
                         {
                             "type": "New",
                             "title": "영어 버전",
-                            "description": "영어 버전 추가"
+                            "description": "영어 버전 추가."
                         },
                         {
                             "type": "Change",
                             "title": "캐릭터 태그",
-                            "description": "사탄, 이블리스, 란의 태그 수정"
+                            "description": "사탄, 이블리스, 란의 태그 수정."
                         }
                     ]
                 },
@@ -526,12 +526,12 @@
                         {
                             "type": "New",
                             "title": "캐릭터 잠재 능력 소재 계산",
-                            "description": "캐릭터 잠재 능력 소재 계산 기능 추가"
+                            "description": "캐릭터 잠재 능력 소재 계산 기능 추가."
                         },
                         {
                             "type": "Fix",
                             "title": "드롭 스테이지 정보 수정",
-                            "description": "6-6, 6-11의 월광수를 정제수로 수정"
+                            "description": "6-6, 6-11의 월광수를 정제수로 수정."
                         }
                     ]
                 },
@@ -541,7 +541,7 @@
                         {
                             "type": "New",
                             "title": "전 지역 모집 필터",
-                            "description": "전 지역 모집 필터 추가"
+                            "description": "전 지역 모집 필터 추가."
                         }
                     ]
                 },
@@ -551,7 +551,7 @@
                         {
                             "type": "New",
                             "title": "잠재 능력 소재 드롭",
-                            "description": "잠재 능력 소재 드롭 정보 전체보기 및 필터 추가"
+                            "description": "잠재 능력 소재 드롭 정보 전체보기 및 필터 추가."
                         }
                     ]
                 },
@@ -561,7 +561,7 @@
                         {
                             "type": "New",
                             "title": "사이트 개설",
-                            "description": "사이트 개설"
+                            "description": "사이트 개설."
                         }
                     ]
                 }
@@ -824,8 +824,8 @@
             },
             "levelTitle": "레벨",
             "potentialTitle": "잠재 능력",
-            "primaryPotentialTitle": "Primary potential stage",
-            "secondaryPotentialTitle": "Secondary potential stage",
+            "primaryPotentialTitle": "메인 잠재 능력 단계",
+            "secondaryPotentialTitle": "서브 잠재 능력 단계",
             "disciplineTitle": "조련",
             "starTitle": "티어",
             "saveButton": "저장",
@@ -947,7 +947,7 @@
                 "local": "Mine",
                 "cloud": "Others"
             },
-            "author": "Author",
+            "author": "작성자",
             "allStage": "All stages"
         },
         "build": {
@@ -958,28 +958,28 @@
             },
             "changeTooltip": "변경",
             "deleteTooltip": "삭제",
-            "uploadTooltip": "Upload your team composition",
-            "shareTooltip": "Share team composition",
-            "copyTooltip": "Copy link",
-            "copySnackbarMsg": "Copied",
+            "uploadTooltip": "팀 편성 업로드",
+            "shareTooltip": "편성한 팀 공유",
+            "copyTooltip": "링크 복사",
+            "copySnackbarMsg": "복사 완료",
             "selectModalTitle": "캐릭터 선택",
             "emptySlotText": "캐릭터 선택",
             "nameInputLabel": "팀 이름",
             "nameInputPlaceholder": "팀 이름을 입력하세요",
-            "stageSelectLabel": "Stage",
-            "stageSelectHelpText": "Please select stage",
-            "authorInputLabel": "Author",
-            "authorInputPlaceholder": "Your name",
-            "authorInputHelpText": "Please type 1~50 characters",
-            "descriptionInputLabel": "Memo",
-            "descriptionInputPlaceholder": "Type memo (max 400 characters)",
-            "descriptionInputHelpText": "Please type 0~400 characters",
-            "uploadButton": "Upload",
-            "cancelButton": "Cancel",
-            "uploadSnackbarMsg": "Uploaded",
+            "stageSelectLabel": "스테이지",
+            "stageSelectHelpText": "스테이지를 선택하세요",
+            "authorInputLabel": "작성자",
+            "authorInputPlaceholder": "이름을 입력해 주세요",
+            "authorInputHelpText": "1~50글자의 닉네임을 입력해 주세요",
+            "descriptionInputLabel": "팀 소개",
+            "descriptionInputPlaceholder": "편성한 팀에 대해 설명해 주세요 (최다 400글자)",
+            "descriptionInputHelpText": "0~400글자의 내용을 입력해 주세요",
+            "uploadButton": "업로드",
+            "cancelButton": "취소",
+            "uploadSnackbarMsg": "업로드 완료",
             "uploadMsg": [
-                "It's better to share your strategy or idea behind the team composition in the memo.",
-                "Please don't type your personal information, spam messages, ads, etc."
+                "다른 사람이 쉽게 이해하고 활용할 수 있도록, 펀성 유의점 및 설명 등을 기재해주시기를 권장합니다.",
+                "팀 편성과 무관한 정보(스팸, 개인 정보, 광고 메시지 등)을 입력하지 마시기 바랍니다."
             ]
         }
     },
