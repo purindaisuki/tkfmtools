@@ -128,18 +128,18 @@ const CharName = styled.div`
     align-items: flex-start;
     top: .4rem;
     left: calc(5rem + 4%);
-    font-size: x-large;
+    font-size: ${props => props.$lang === 'ja' ? '1.2rem' : 'x-large'};
     transition: all 0.3s ease;
     > span:first-child {
-        font-size: medium;
+        font-size: ${props => props.$lang === 'ja' ? '.9rem' : 'medium'};
     }
     @media screen and (max-width: 768px) {
         align-items: flex-end;
         left: auto;
         right: calc(96% - 6.5rem);
-        font-size: large;
+        font-size: ${props => props.$lang === 'ja' ? '1rem' : 'large'};
         > span:first-child {
-            font-size: small;
+            font-size: ${props => props.$lang === 'ja' ? '.8rem' : 'small'};
         }
     }
 `
@@ -215,7 +215,7 @@ const CharSlotContent = ({
 
     const [charStats, setCharStats] = useCharacterStats(char)
 
-    const { charString } = useLanguage()
+    const { userLanguage, charString } = useLanguage()
 
     const onSelect = (newCharState) => {
         setCharStats(newCharState)
@@ -232,7 +232,7 @@ const CharSlotContent = ({
             isBackground
             alt=''
         />
-        <CharName>
+        <CharName $lang={userLanguage}>
             <span>{charString.name[char.id].split(' ').slice(0, -1).join(' ')}</span>
             <span>{charString.name[char.id].split(' ').slice(-1)[0]}</span>
         </CharName>
