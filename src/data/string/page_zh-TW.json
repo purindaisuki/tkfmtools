@@ -96,6 +96,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.6.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "5/12 遊戲更新",
+                            "description": "新增煌星 妲絲艾菲娜。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.1",
                     "content": [
                         {

@@ -100,6 +100,16 @@
                     "content": [
                         {
                             "type": "New",
+                            "title": "5/12 게임 업데이트",
+                            "description": "샤이닝스타 비앙스 에피나 추가."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.6.1",
+                    "content": [
+                        {
+                            "type": "New",
                             "title": "4/21 게임 업데이트",
                             "description": "다시 태어난 치즈루, 메인 스토리 14장 추가."
                         }

@@ -96,6 +96,16 @@
             "change": "変更",
             "content": [
                 {
+                    "version": "v1.6.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "5/12 ゲーム更新",
+                            "description": "シャイニングスター　ヴァンサフィーナ追加。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.1",
                     "content": [
                         {

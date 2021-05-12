@@ -96,6 +96,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.6.2",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "5/12 game update",
+                            "description": "Added Queen Daphne Bloom."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.1",
                     "content": [
                         {
