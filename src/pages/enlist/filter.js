@@ -14,8 +14,8 @@ import useSwitch from 'hooks/useSwitch';
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
+import { ResultTablePanel } from "components/recruitment-filter";
 import Head from 'components/Head';
-import ResultTablePanel from 'components/ResultTablePanel';
 import { SortableTh } from 'components/SortableTable';
 import Header from 'components/Header';
 import { HeaderIconButton } from 'components/IconButton';
@@ -669,11 +669,8 @@ const Filter = () => {
                 groupBtnByClass={groupBtnByClass}
             />
             <ResultTablePanel
-                data={state.characters}
-                head={<TableHead />}
-                body={<TableBody />}
-                sortFunc={sortFunc}
-                defaultSortKey={'rarity'}
+                filterTags={state.filterBtnValue}
+                enlistHour={state.enlistHour}
                 handleModalOpen={handelHelpModal(true)}
                 maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
                 striped

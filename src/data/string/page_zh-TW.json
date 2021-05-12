@@ -651,16 +651,16 @@
             "timeSelectTitle": "招募時間",
             "tableHead": [
                 {
-                    "title": "名字",
-                    "attr": "name"
+                    "title": "#",
+                    "attr": "number"
                 },
                 {
-                    "title": "稀有度",
-                    "attr": "rarity"
+                    "title": "標籤",
+                    "attr": "tags"
                 },
                 {
-                    "title": "應用標籤",
-                    "attr": "appliedTags"
+                    "title": "可能性",
+                    "attr": "possibility"
                 }
             ],
             "helpModal": {

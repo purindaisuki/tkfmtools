@@ -651,16 +651,16 @@
             "timeSelectTitle": "召集時間",
             "tableHead": [
                 {
-                    "title": "名前",
-                    "attr": "name"
-                },
-                {
-                    "title": "レア度",
-                    "attr": "rarity"
+                    "title": "#",
+                    "attr": "number"
                 },
                 {
                     "title": "タグ",
-                    "attr": "appliedTags"
+                    "attr": "tags"
+                },
+                {
+                    "title": "可能性",
+                    "attr": "possibility"
                 }
             ],
             "helpModal": {

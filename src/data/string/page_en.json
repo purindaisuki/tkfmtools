@@ -652,16 +652,16 @@
             "timeSelectTitle": "Recruitment time",
             "tableHead": [
                 {
-                    "title": "Name",
-                    "attr": "name"
+                    "title": "#",
+                    "attr": "number"
                 },
                 {
-                    "title": "Rarity",
-                    "attr": "rarity"
+                    "title": "Tags",
+                    "attr": "tags"
                 },
                 {
-                    "title": "Applied Tags",
-                    "attr": "appliedTags"
+                    "title": "Character Possibility",
+                    "attr": "possibility"
                 }
             ],
             "helpModal": {

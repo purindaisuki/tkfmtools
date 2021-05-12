@@ -651,16 +651,16 @@
             "timeSelectTitle": "모집 시간",
             "tableHead": [
                 {
-                    "title": "이름",
-                    "attr": "name"
+                    "title": "#",
+                    "attr": "number"
                 },
                 {
-                    "title": "레어도",
-                    "attr": "rarity"
+                    "title": "태그",
+                    "attr": "tags"
                 },
                 {
-                    "title": "적용된 태그",
-                    "attr": "appliedTags"
+                    "title": "가능성",
+                    "attr": "possibility"
                 }
             ],
             "helpModal": {
