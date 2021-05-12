@@ -44,20 +44,33 @@ const calculateScore = (characters) => {
     existedRarity[c.rarity] = true;
   });
 
+  // SSR (for Leader tag only)
   if (existedRarity[3]) return 3;
 
   if (existedRarity[0]) {
-    if (existedRarity[2]) return 0.5;
+    if (existedRarity[2]) {
+      // N, R, and SR
+      if (existedRarity[1]) {
+        return 0.75;
+      }
+      // N and SR
+      return 0.5;
+    }
+    // N and R
     if (existedRarity[1]) return 0.25;
+    // only N
     return 0;
   }
 
   if (existedRarity[1]) {
+    // R and SR
     if (existedRarity[2]) return 1.5;
+
+    // only R
     return 1;
   }
 
-  // remain only case where 2 is existed
+  // only SR
   return 2;
 };
 
