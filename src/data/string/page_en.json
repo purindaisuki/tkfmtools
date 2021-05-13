@@ -678,6 +678,7 @@
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "Toggle Mode",
             "helpModal": {
                 "title": "Recruitment filter - Help",
                 "content": [

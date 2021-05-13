@@ -677,6 +677,7 @@
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "トグルモード",
             "helpModal": {
                 "title": "召集令フィルタ サポート",
                 "content": [

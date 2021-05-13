@@ -677,6 +677,7 @@
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "토글 모드",
             "helpModal": {
                 "title": "전 지역 모집 필터 - 도움말",
                 "content": [

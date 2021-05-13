@@ -750,7 +750,6 @@ const Filter = () => {
     }
 
     const toggleFilterMode = useCallback(() => {
-        console.log('toggle!', filterMode)
         setFilterMode(filterMode === 0 ? 1 : 0)
     }, [filterMode])
 
@@ -786,7 +785,7 @@ const Filter = () => {
                     handleModalOpen={handelHelpModal(true)}
                     maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
                     striped
-                    headerEnd={<FilterToggleButton onClick={toggleFilterMode}>Toggle Mode</FilterToggleButton>}
+                    headerEnd={<FilterToggleButton onClick={toggleFilterMode}>{pageString.enlist.filter.toggleMode}</FilterToggleButton>}
                 />}
 
         </Panels>

@@ -21,7 +21,7 @@ export const ResultTablePanel = (props) => {
         withHelp
         onClickHelp={handleModalOpen}
         border
-        end={<ToggleButton onClick={onToggleFilter}>Toggle Mode</ToggleButton>}
+        end={<ToggleButton onClick={onToggleFilter}>{pageString.enlist.filter.toggleMode}</ToggleButton>}
       />
       <TableWrapper $maxHeight={maxHeight}>
         <StyledTable stickyHeader $striped={striped} size="small">

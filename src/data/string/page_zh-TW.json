@@ -677,6 +677,7 @@
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "切換模式",
             "helpModal": {
                 "title": "全境徵才篩選 幫助",
                 "content": [
