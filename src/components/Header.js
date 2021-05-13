@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { HeaderIconButton } from 'components/IconButton';
 import { HelpIcon } from 'components/icon';
 
-const StyledHeader = styled.div`
+export const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,7 +15,7 @@ const StyledHeader = styled.div`
     font-size: large;
     font-weight: normal;
 `
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,19 +42,19 @@ const Header = ({
     id,
     border
 }) => (
-    <StyledHeader className={className} $border={border}>
-        <TitleWrapper>
-            <span id={id}>{titleIcon}{title}</span>
-            {withHelp && onClickHelp &&
-                <HeaderIconButton
-                    onClick={onClickHelp}
-                    tooltipText='Help'
-                >
-                    {HelpIcon}
-                </HeaderIconButton>}
-        </TitleWrapper>
-        {end && <div>{end}</div>}
-    </StyledHeader>
-)
+        <StyledHeader className={className} $border={border}>
+            <TitleWrapper>
+                <span id={id}>{titleIcon}{title}</span>
+                {withHelp && onClickHelp &&
+                    <HeaderIconButton
+                        onClick={onClickHelp}
+                        tooltipText='Help'
+                    >
+                        {HelpIcon}
+                    </HeaderIconButton>}
+            </TitleWrapper>
+            {end && <div>{end}</div>}
+        </StyledHeader>
+    )
 
 export default Header

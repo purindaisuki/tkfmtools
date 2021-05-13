@@ -29,6 +29,7 @@ const ResultTablePanel = ({
     handleModalOpen,
     maxHeight,
     striped,
+    headerEnd,
 }) => {
     const { pageString } = useLanguage()
 
@@ -37,6 +38,7 @@ const ResultTablePanel = ({
             title={pageString.items.drop.filter.resultTitle}
             withHelp
             onClickHelp={handleModalOpen}
+            end={headerEnd}
             border
         />
         <TableWrapper $maxHeight={maxHeight}>

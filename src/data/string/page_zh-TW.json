@@ -663,6 +663,20 @@
                     "attr": "possibility"
                 }
             ],
+            "tableHeadByCharacter": [
+                {
+                    "title": "名前",
+                    "attr": "name"
+                },
+                {
+                    "title": "レア度",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "タグ",
+                    "attr": "appliedTags"
+                }
+            ],
             "helpModal": {
                 "title": "全境徵才篩選 幫助",
                 "content": [

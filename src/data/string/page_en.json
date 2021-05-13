@@ -664,6 +664,20 @@
                     "attr": "possibility"
                 }
             ],
+            "tableHeadByCharacter": [
+                {
+                    "title": "Name",
+                    "attr": "name"
+                },
+                {
+                    "title": "Rarity",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "Applied Tags",
+                    "attr": "appliedTags"
+                }
+            ],
             "helpModal": {
                 "title": "Recruitment filter - Help",
                 "content": [

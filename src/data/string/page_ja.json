@@ -663,6 +663,20 @@
                     "attr": "possibility"
                 }
             ],
+            "tableHeadByCharacter": [
+                {
+                    "title": "名字",
+                    "attr": "name"
+                },
+                {
+                    "title": "稀有度",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "應用標籤",
+                    "attr": "appliedTags"
+                }
+            ],
             "helpModal": {
                 "title": "召集令フィルタ サポート",
                 "content": [

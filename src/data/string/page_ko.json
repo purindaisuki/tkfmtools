@@ -663,6 +663,20 @@
                     "attr": "possibility"
                 }
             ],
+            "tableHeadByCharacter": [
+                {
+                    "title": "이름",
+                    "attr": "name"
+                },
+                {
+                    "title": "레어도",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "적용된 태그",
+                    "attr": "appliedTags"
+                }
+            ],
             "helpModal": {
                 "title": "전 지역 모집 필터 - 도움말",
                 "content": [
