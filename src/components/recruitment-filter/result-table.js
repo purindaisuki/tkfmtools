@@ -78,26 +78,26 @@ export const ResultTablePanel = (props) => {
   const { pageString } = useLanguage();
   const { filterTags, enlistHour, handleModalOpen, maxHeight, striped } = props;
 
+  // get data from json only once (empty dependency)
+  const availableCharacters = useMemo(() => charData
+    .filter((char) => char.tags.available)
+    .map((char) => {
+      const { id, rarity, tags } = char;
+      const { else: elseTags, ...otherTags } = tags;
+      return {
+        id,
+        rarity,
+        tags: [...Object.values(otherTags), ...elseTags],
+      };
+    }), [])
+
   const sortedData = useMemo(() => {
     const sortedTags = [...filterTags].sort();
     if (sortedTags.length === 0) {
       return [];
     }
 
-    // filter characters by query tags
-    const availableCharacters = charData
-      .filter((char) => char.tags.available)
-      .map((char) => {
-        const { id, rarity, tags } = char;
-        const { else: elseTags, ...otherTags } = tags;
-        return {
-          id,
-          rarity,
-          tags: [...Object.values(otherTags), ...elseTags],
-        };
-      });
-
-    // type = Array<string, { tags: Array<number>, characters: { id: string, rarity: number, tags: Array<number> } }>
+    // type = Array<string, { tags: Array<number>, characters: { id: string, rarity: number, tags: Array<number> }, score: number }>
     const result = [];
 
     // max length of combination is 3
@@ -107,8 +107,8 @@ export const ResultTablePanel = (props) => {
       const tagCombination = Array.from(combinations(sortedTags, i));
 
       tagCombination.forEach((tags) => {
-        // deep copy an array of objects
-        let survivors = JSON.parse(JSON.stringify(availableCharacters));
+        // shallow copy is enough as we didn't change anything in object
+        let survivors = [...availableCharacters];
 
         // rarity filtering
         // 20 -> Leader Tag
