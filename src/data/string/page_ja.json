@@ -659,21 +659,21 @@
                     "attr": "tags"
                 },
                 {
-                    "title": "可能性",
+                    "title": "入手可能なキャラ",
                     "attr": "possibility"
                 }
             ],
             "tableHeadByCharacter": [
                 {
-                    "title": "名字",
+                    "title": "名前",
                     "attr": "name"
                 },
                 {
-                    "title": "稀有度",
+                    "title": "レア度",
                     "attr": "rarity"
                 },
                 {
-                    "title": "應用標籤",
+                    "title": "タグ",
                     "attr": "appliedTags"
                 }
             ],
