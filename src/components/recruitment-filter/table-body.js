@@ -18,15 +18,18 @@ export const TableBody = ({ sortedData }) => {
     <MuiTableBody>
       {sortedData.map((d, i) => (
         <MuiTableRow key={i}>
-          <MuiTableCell>{i + 1}</MuiTableCell>
+          <MuiTableCell padding='none'>{i + 1}</MuiTableCell>
           <MuiTableCell>
-            {d.tags.map((i) => charString.tags[i]).join(", ")}
+            <TextWrapper>
+              {d.tags.map((i) => charString.tags[i]).join(", ")}
+            </TextWrapper>
           </MuiTableCell>
           <MuiTableCell>
             <CardRow>
-              {d.characters.map((character, i) => (
-                <Card rarity={character.rarity} key={i}>
+              {d.characters.map((character) => (
+                <Card rarity={character.rarity} key={character.id}>
                   <CharacterImage
+                    rarity={character.rarity}
                     imgType="char_small"
                     imgId={character.id}
                     alt=""
@@ -42,6 +45,10 @@ export const TableBody = ({ sortedData }) => {
   );
 };
 
+const TextWrapper = styled.span`
+  word-break: keep-all;
+  white-space: break-spaces;
+`;
 const CardRow = styled.div`
   width: 100%;
   display: flex;
@@ -52,30 +59,31 @@ const Card = styled.div`
   display: flex;
   align-items: center;
 
+  height: 3rem;
+
   padding: 1px 8px 1px 1px;
   margin: 4px;
 
-  height: 3.6rem;
-
-  box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 10%), 2px 2px 2px 1px rgb(0 0 0 / 10%);
-  background: ${(p) =>
-    p.rarity === 0
-      ? "#C0C0C0"
-      : p.rarity === 1
-      ? "#00B2F6"
-      : p.rarity === 2
-      ? "#FFAE00"
-      : "#FF6600"};
-  color: #333333;
+  background-color:${props => props.theme.colors.dropdownHover + '40'};
+  box-shadow: 2px 2px 2px 1px ${props => props.theme.colors.dropdownHover + '80'};
+  border-radius: 3rem;
+  color: ${props => props.theme.colors.onSurface};
 `;
 
 const CharacterImage = styled(ImgCard)`
-  height: 100%;
-  width: 50px;
-
   margin-right: 2px;
+  
+  > div:first-child {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    border: 2.5px solid ${props =>
+    props.rarity < 2
+      ? props.theme.colors.shadow
+      : props.theme.colors.secondary};
+  }
 
-  > .gatsby-image-wrapper {
-    background: #aaaaaa;
+  img {
+    border: none;
   }
 `;

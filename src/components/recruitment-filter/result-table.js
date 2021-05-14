@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Scrollable from "containers/Scrollable";
@@ -40,10 +40,6 @@ const TableWrapper = styled(Scrollable)`
 `;
 
 const StyledTable = styled(Table)`
-  img {
-    width: 1.8rem;
-    height: 1.8rem;
-  }
   td {
     padding-left: 0.75rem;
   }
