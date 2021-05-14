@@ -41,6 +41,10 @@
                         {
                             "link": "https://github.com/C0unt-zero",
                             "text": "C0unt-zero"
+                        },
+                        {
+                            "link": "https://github.com/PureStream",
+                            "text": "PureStream"
                         }
                     ]
                 },
@@ -96,7 +100,17 @@
             "change": "변경",
             "content": [
                 {
-                    "version": "v1.6.1",
+                    "version": "v1.6.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Result of recruitment filter can be shown by tag combinations.",
+                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                        }
+                    ]
+                },
+                {
+                    "version": "v1.6.2",
                     "content": [
                         {
                             "type": "New",
@@ -677,7 +691,6 @@
                     "attr": "appliedTags"
                 }
             ],
-            "toggleMode": "토글 모드",
             "helpModal": {
                 "title": "전 지역 모집 필터 - 도움말",
                 "content": [
@@ -692,6 +705,7 @@
                         "title": "사용 설명",
                         "content": [
                             "태그를 선택해여 캐릭터를 필터링하세요.",
+                            "Change buttons display and result presentation from setting.",
                             "표의 제목 부분을 클릭하면 정렬됩니다.",
                             "캐릭터 뒤에 스타 아이콘이 있으면 해당 캐릭터만 모집되는 조합이 있음을 의미합니다.",
                             "최적 태그의 조합을 표시하려면 마우스를 캐릭터에 올려두세요(모바일은 길게누르기)."
@@ -730,6 +744,11 @@
                 "labels": [
                     "네",
                     "아니요"
+                ],
+                "resultDisplay": "Show result by",
+                "resultLabels": [
+                    "Characters",
+                    "Tag combinations"
                 ]
             },
             "snackbarMsg": "태그는 최다 5개까지 하실 수 있습니다."

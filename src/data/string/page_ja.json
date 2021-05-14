@@ -41,6 +41,10 @@
                         {
                             "link": "https://github.com/C0unt-zero",
                             "text": "C0unt-zero"
+                        },
+                        {
+                            "link": "https://github.com/PureStream",
+                            "text": "PureStream"
                         }
                     ]
                 },
@@ -96,12 +100,22 @@
             "change": "変更",
             "content": [
                 {
+                    "version": "v1.6.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Result of recruitment filter can be shown by tag combinations.",
+                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.2",
                     "content": [
                         {
                             "type": "New",
                             "title": "5/12 ゲーム更新",
-                            "description": "シャイニングスター　ヴァンサフィーナ追加。"
+                            "description": "煌星 バンサフィーナ追加。"
                         }
                     ]
                 },
@@ -677,7 +691,6 @@
                     "attr": "appliedTags"
                 }
             ],
-            "toggleMode": "トグルモード",
             "helpModal": {
                 "title": "召集令フィルタ サポート",
                 "content": [
@@ -692,6 +705,7 @@
                         "title": "操作説明",
                         "content": [
                             "選別したいキャラのタグを選択",
+                            "Change buttons display and result presentation from setting.",
                             "表上の三角マークをタップし、昇順と降順を変更できます",
                             "星のついたキャラは、そのタグの条件で唯一のキャラであることを示しています",
                             "カーソルを選択したいキャラまで移動（モバイルデバイスはロングタップ）すると、最小のタグの組み合わせが表示されます"
@@ -730,6 +744,11 @@
                 "labels": [
                     "はい",
                     "いいえ"
+                ],
+                "resultDisplay": "Show result by",
+                "resultLabels": [
+                    "Characters",
+                    "Tag combinations"
                 ]
             },
             "snackbarMsg": "選べるタグは最大5個までです"

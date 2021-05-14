@@ -48,6 +48,9 @@ export const TableBody = ({ sortedData }) => {
 const TextWrapper = styled.span`
   word-break: keep-all;
   white-space: break-spaces;
+  @media screen and (max-width: 600px) {
+    font-size: small;
+  }
 `;
 const CardRow = styled.div`
   width: 100%;
@@ -68,6 +71,10 @@ const Card = styled.div`
   box-shadow: 2px 2px 2px 1px ${props => props.theme.colors.dropdownHover + '80'};
   border-radius: 3rem;
   color: ${props => props.theme.colors.onSurface};
+
+  @media screen and (max-width: 600px) {
+    font-size: small;
+  }
 `;
 
 const CharacterImage = styled(ImgCard)`

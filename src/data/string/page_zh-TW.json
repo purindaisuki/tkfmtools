@@ -41,6 +41,10 @@
                         {
                             "link": "https://github.com/C0unt-zero",
                             "text": "C0unt-zero"
+                        },
+                        {
+                            "link": "https://github.com/PureStream",
+                            "text": "PureStream"
                         }
                     ]
                 },
@@ -95,6 +99,16 @@
             "fix": "修正",
             "change": "變更",
             "content": [
+                {
+                    "version": "v1.6.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "全境徵才篩選器新增結果依組合呈現功能",
+                            "description": "可選擇依照標籤組合呈現篩選結果。"
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.2",
                     "content": [
@@ -677,7 +691,6 @@
                     "attr": "appliedTags"
                 }
             ],
-            "toggleMode": "切換模式",
             "helpModal": {
                 "title": "全境徵才篩選 幫助",
                 "content": [
@@ -692,6 +705,7 @@
                         "title": "操作說明",
                         "content": [
                             "選擇標籤以篩選角色。",
+                            "可從設定調整按鈕顯示及結果呈現方式。",
                             "點擊表格標頭可依升／降序排列。",
                             "若出現星星圖示，表示有組合可篩出唯一角色。",
                             "將游標移至該角色上（移動裝置請長按）會顯示所有最小標籤組合。"
@@ -730,6 +744,11 @@
                 "labels": [
                     "是",
                     "否"
+                ],
+                "resultDisplay": "結果表示",
+                "resultLabels": [
+                    "依角色",
+                    "依標籤組合"
                 ]
             },
             "snackbarMsg": "最多 5 個標籤"

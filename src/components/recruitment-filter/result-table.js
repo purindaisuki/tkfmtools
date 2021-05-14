@@ -21,7 +21,6 @@ export const ResultTablePanel = (props) => {
         withHelp
         onClickHelp={handleModalOpen}
         border
-        end={<ToggleButton onClick={onToggleFilter}>{pageString.enlist.filter.toggleMode}</ToggleButton>}
       />
       <TableWrapper $maxHeight={maxHeight}>
         <StyledTable stickyHeader $striped={striped} size="small">
@@ -44,16 +43,3 @@ const StyledTable = styled(Table)`
     padding-left: 0.75rem;
   }
 `;
-
-export const ToggleButton = styled.div`
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background-color: ${p => p.theme.colors.onSurface};
-    color: ${p => p.theme.colors.surface};
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-    :hover {
-        background-color: ${p => p.theme.colors.secondary};
-    }
-`

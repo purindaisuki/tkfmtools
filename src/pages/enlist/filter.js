@@ -14,7 +14,7 @@ import useSwitch from 'hooks/useSwitch';
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
-import { ResultTablePanel, ToggleButton as FilterToggleButton } from "components/recruitment-filter";
+import { ResultTablePanel } from 'components/recruitment-filter';
 import ResultTablePanelByCharacter from 'components/ResultTablePanel'
 import Head from 'components/Head';
 import { SortableTh } from 'components/SortableTable';
@@ -279,9 +279,9 @@ const TableHead = ({ requestSort, getSortDirection }) => {
 
 const DistinctCharacterTooltip = withStyles({
     tooltip: {
-        right: "0",
-        fontSize: "1rem",
-        whiteSpace: "pre"
+        right: '0',
+        fontSize: '1rem',
+        whiteSpace: 'pre'
     }
 })(Tooltip)
 
@@ -381,8 +381,9 @@ const StyledModal = styled(ScrollableModal)`
 const SettingModal = ({
     open,
     onClose,
-    radioValue,
-    handleRadioChange
+    filterLayout,
+    resultLayout,
+    handleLayoutChange
 }) => {
     const { pageString } = useLanguage()
 
@@ -396,11 +397,21 @@ const SettingModal = ({
         >
             <RadioGroup
                 label={pageString.enlist.filter.settingModal.groupLabel}
-                value={radioValue}
-                handleChange={handleRadioChange}
+                value={pageString.enlist.filter.settingModal.labels[filterLayout]}
+                handleChange={handleLayoutChange('filter')}
             >
                 {pageString.enlist.filter.settingModal
                     .labels.map(label => (
+                        <Radio label={label} value={label} key={label} />
+                    ))}
+            </RadioGroup>
+            <RadioGroup
+                label={pageString.enlist.filter.settingModal.resultDisplay}
+                value={pageString.enlist.filter.settingModal.resultLabels[resultLayout]}
+                handleChange={handleLayoutChange('result')}
+            >
+                {pageString.enlist.filter.settingModal
+                    .resultLabels.map(label => (
                         <Radio label={label} value={label} key={label} />
                     ))}
             </RadioGroup>
@@ -480,20 +491,19 @@ const Filter = () => {
         isSnackbarOpen: false,
     })
 
-    // 0 -> Filter and group by tags, 1 -> Filter and display by character
-    const [filterMode, setFilterMode] = useState(0)
-
-    const { pageString, charString } = useLanguage()
-
-    const btnsSettingLabels = pageString.enlist.filter.settingModal.labels
-
-    const { layout, setLayout } = useSwitch(
+    const { layout: btnLayout, setLayout: setBtnLayout } = useSwitch(
         'group-btns-by-class',
-        btnsSettingLabels,
+        [0, 1],
         (typeof window === 'undefined' || window.innerWidth <= 1000) ? 1 : 0
     )
 
-    const groupBtnByClass = layout === btnsSettingLabels[0]
+    const { layout: resultLayout, setLayout: setReslutLayout } = useSwitch(
+        'show-filter-result-by',
+        [0, 1],
+        0
+    )
+
+    const { pageString, charString } = useLanguage()
 
     // get data from json only once (empty dependency), they are character available for recruiting
     const availableCharacters = useMemo(() => charData
@@ -545,7 +555,8 @@ const Filter = () => {
             })
         }
 
-        if (filterMode === 0) {
+        // 0 -> Filter and display by character, 1 -> Filter and group by tags
+        if (resultLayout === 1) {
             // type = Array<string, { tags: Array<number>, characters: { id: string, rarity: number, tags: Array<number> }, score: number }>
             const result = [];
 
@@ -677,7 +688,7 @@ const Filter = () => {
             }
             return filteredChars
         }
-    }, [state.filterBtnValue, state.enlistHour, filterMode])
+    }, [state.filterBtnValue, state.enlistHour, resultLayout])
 
     const handleEnlistHourChange = (event) => {
         setState((state) => ({
@@ -733,13 +744,23 @@ const Filter = () => {
         }))
     }
 
-    const handleRadioChange = (event) => {
+    const handleLayoutChange = (key) => (event) => {
         setState((state) => ({
             ...state,
             isSettingModalOpen: false,
         }))
 
-        setLayout(event.target.value)
+        if (key === 'filter') {
+            setBtnLayout(
+                pageString.enlist.filter.settingModal.labels
+                    .indexOf(event.target.value)
+            )
+        } else if (key === 'result') {
+            setReslutLayout(
+                pageString.enlist.filter.settingModal.resultLabels
+                    .indexOf(event.target.value)
+            )
+        }
     }
 
     const handleSnackbarClose = () => {
@@ -748,10 +769,6 @@ const Filter = () => {
             isSnackbarOpen: false,
         }))
     }
-
-    const toggleFilterMode = useCallback(() => {
-        setFilterMode(filterMode === 0 ? 1 : 0)
-    }, [filterMode])
 
     return (<>
         <Head
@@ -767,41 +784,39 @@ const Filter = () => {
                 handleEnlistHourChange={handleEnlistHourChange}
                 filterBtnValue={state.filterBtnValue}
                 handleModalOpen={handleSettingModal(true)}
-                groupBtnByClass={groupBtnByClass}
+                groupBtnByClass={btnLayout === 0}
             />
-
-            {filterMode === 0 ? <ResultTablePanel
+            {resultLayout === 1 ? <ResultTablePanel
                 filteredData={filteredData}
-                onToggleFilter={toggleFilterMode}
                 handleModalOpen={handelHelpModal(true)}
-                maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
+                maxHeight={btnLayout === 0 ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
                 striped
             /> : <ResultTablePanelByCharacter
-                    data={filteredData}
-                    head={<TableHead />}
-                    body={<TableBody />}
-                    sortFunc={sortFunc}
-                    defaultSortKey={'rarity'}
-                    handleModalOpen={handelHelpModal(true)}
-                    maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
-                    striped
-                    headerEnd={<FilterToggleButton onClick={toggleFilterMode}>{pageString.enlist.filter.toggleMode}</FilterToggleButton>}
-                />}
+                data={filteredData}
+                head={<TableHead />}
+                body={<TableBody />}
+                sortFunc={sortFunc}
+                defaultSortKey='rarity'
+                handleModalOpen={handelHelpModal(true)}
+                maxHeight={btnLayout === 0 ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
+                striped
+            />}
 
         </Panels>
         <SettingModal
             open={state.isSettingModalOpen}
             onClose={handleSettingModal(false)}
-            radioValue={layout}
-            handleRadioChange={handleRadioChange}
+            filterLayout={btnLayout}
+            resultLayout={resultLayout}
+            handleLayoutChange={handleLayoutChange}
         />
         <TextModal
             title={pageString.enlist.filter.helpModal.title}
             open={state.isHelpModalOpen}
             onClose={handelHelpModal(false)}
             content={pageString.enlist.filter.helpModal.content}
-            ariaLabelledby="help-modal-title"
-            ariaDescribedby="help-modal-description"
+            ariaLabelledby='help-modal-title'
+            ariaDescribedby='help-modal-description'
         />
         <Snackbar
             open={state.isSnackbarOpen}

@@ -41,6 +41,10 @@
                         {
                             "link": "https://github.com/C0unt-zero",
                             "text": "C0unt-zero"
+                        },
+                        {
+                            "link": "https://github.com/PureStream",
+                            "text": "PureStream"
                         }
                     ]
                 },
@@ -95,6 +99,16 @@
             "fix": "Fix",
             "change": "Change",
             "content": [
+                {
+                    "version": "v1.6.3",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Result of recruitment filter can be shown by tag combinations.",
+                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                        }
+                    ]
+                },
                 {
                     "version": "v1.6.2",
                     "content": [
@@ -678,7 +692,6 @@
                     "attr": "appliedTags"
                 }
             ],
-            "toggleMode": "Toggle Mode",
             "helpModal": {
                 "title": "Recruitment filter - Help",
                 "content": [
@@ -692,6 +705,7 @@
                         "title": "How-to",
                         "content": [
                             "Select tags to filter out characters.",
+                            "Change buttons display and result presentation from setting.",
                             "Sort result by clicking the table header.",
                             "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie devices) the character to show the combinations."
                         ]
@@ -727,6 +741,11 @@
                 "labels": [
                     "Yes",
                     "No"
+                ],
+                "resultDisplay": "Show result by",
+                "resultLabels": [
+                    "Characters",
+                    "Tag combinations"
                 ]
             },
             "snackbarMsg": "Max 5 tags"
