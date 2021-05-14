@@ -12,7 +12,7 @@ import { TableBody } from "./table-body";
 
 export const ResultTablePanel = (props) => {
   const { pageString } = useLanguage();
-  const { filteredData, handleModalOpen, maxHeight, striped, onToggleFilter } = props;
+  const { filteredData, handleModalOpen, maxHeight, striped } = props;
 
   return (
     <>
@@ -36,6 +36,9 @@ const TableWrapper = styled(Scrollable)`
   max-height: ${(props) => props.$maxHeight};
   overflow-x: hidden;
   overflow-y: auto;
+  @media screen and (max-width: 1000px) {
+    overflow-y: hidden;
+  }
 `;
 
 const StyledTable = styled(Table)`
