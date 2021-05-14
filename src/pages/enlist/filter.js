@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import {
     TableHead as MuiTableHead,
@@ -14,8 +14,9 @@ import useSwitch from 'hooks/useSwitch';
 import Panels from 'containers/Panels';
 import { useLanguage } from 'containers/LanguageProvider';
 
+import { ResultTablePanel, ToggleButton as FilterToggleButton } from "components/recruitment-filter";
+import ResultTablePanelByCharacter from 'components/ResultTablePanel'
 import Head from 'components/Head';
-import ResultTablePanel from 'components/ResultTablePanel';
 import { SortableTh } from 'components/SortableTable';
 import Header from 'components/Header';
 import { HeaderIconButton } from 'components/IconButton';
@@ -261,7 +262,7 @@ const TableHead = ({ requestSort, getSortDirection }) => {
     return (
         <MuiTableHead>
             <MuiTableRow>
-                {pageString.enlist.filter.tableHead
+                {pageString.enlist.filter.tableHeadByCharacter
                     .map((item, ind) => (
                         <SortableTh
                             key={ind}
@@ -422,15 +423,65 @@ function* combinations(elements, num) {
     }
 }
 
+// check if every input tags are in target tags
+const checkTags = (inputTags, targetTags) =>
+    targetTags.every((v) => inputTags.includes(v));
+
+// calculate priority score
+const calculateScore = (characters) => {
+    // 3 - SSR, 2 - SR, 1 - R, 0 - N
+    const existedRarity = {
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+    };
+
+    characters.forEach((c) => {
+        existedRarity[c.rarity] = true;
+    });
+
+    // SSR (for Leader tag only)
+    if (existedRarity[3]) return 3;
+
+    if (existedRarity[0]) {
+        if (existedRarity[2]) {
+            // N, R, and SR
+            if (existedRarity[1]) {
+                return 0.75;
+            }
+            // N and SR
+            return 0.5;
+        }
+        // N and R
+        if (existedRarity[1]) return 0.25;
+        // only N
+        return 0;
+    }
+
+    if (existedRarity[1]) {
+        // R and SR
+        if (existedRarity[2]) return 1.5;
+
+        // only R
+        return 1;
+    }
+
+    // only SR
+    return 2;
+};
+
 const Filter = () => {
     const [state, setState] = useState({
         filterBtnValue: [],
-        characters: [],
         enlistHour: '9',
         isHelpModalOpen: false,
         isSettingModalOpen: false,
         isSnackbarOpen: false,
     })
+
+    // 0 -> Filter and group by tags, 1 -> Filter and display by character
+    const [filterMode, setFilterMode] = useState(0)
 
     const { pageString, charString } = useLanguage()
 
@@ -444,7 +495,20 @@ const Filter = () => {
 
     const groupBtnByClass = layout === btnsSettingLabels[0]
 
-    const sortFunc = (sortableItems, sortConfig) => {
+    // get data from json only once (empty dependency), they are character available for recruiting
+    const availableCharacters = useMemo(() => charData
+        .filter((char) => char.tags.available)
+        .map((char) => {
+            const { id, rarity, tags } = char;
+            const { else: elseTags, ...otherTags } = tags;
+            return {
+                id,
+                rarity,
+                tags: [...Object.values(otherTags), ...elseTags],
+            };
+        }), [])
+
+    const sortFunc = useCallback((sortableItems, sortConfig) => {
         sortableItems.sort((a, b) => {
             let aKey
             let bKey
@@ -466,121 +530,154 @@ const Filter = () => {
             }
             return 0
         })
-    }
+    }, [charString])
 
-    useEffect(() => {
-        const val = state.filterBtnValue.slice()
-        if (val.length === 0) {
-            setState((state) => ({
-                ...state,
-                characters: []
-            }))
+    const filteredData = useMemo(() => {
+        if (state.filterBtnValue.length === 0)
+            return []
+
+        const sortedTags = [...state.filterBtnValue].sort()
+
+        if (dataLayer && sortedTags.length === 5) {
+            dataLayer.push({
+                'event': 'five_tags_selected',
+                'character_tag_combination': sortedTags,
+            })
         }
 
-        val.sort()
-        // filter characters by query tags
-        let charTagData = charData.filter(char => char.tags.available)
-        charTagData = charTagData.map((char => {
-            const { id, rarity, tags } = char
-            return ({ id, rarity, ...tags })
-        }))
+        if (filterMode === 0) {
+            // type = Array<string, { tags: Array<number>, characters: { id: string, rarity: number, tags: Array<number> }, score: number }>
+            const result = [];
 
-        let filteredChars = []
-        for (let i = val.length; i > 0; i--) {
-            // generate combinations
-            const tagCombs = Array.from(combinations(val, i))
-            // screen out ineligible characters
-            tagCombs.forEach(tags => {
-                // filter by rank and time
-                let survivors = JSON.parse(JSON.stringify(charTagData))
-                if (!tags.includes(20)) {
-                    survivors = survivors.filter(char => char.rarity < 3)
-                    if (state.enlistHour < 4 && !tags.includes(19)) {
-                        survivors = survivors.filter(char => char.rarity < 2)
-                    }
-                }
-                // filter by tags
-                let appliedTagsNum = 0
-                tagData.forEach(t => {
-                    if (appliedTagsNum === tags.length || survivors.length === 0) {
-                        return false
+            // max length of combination is 3
+            const combinationLength = Math.min(sortedTags.length, 3);
+
+            for (let i = combinationLength; i > 0; i--) {
+                const tagCombination = Array.from(combinations(sortedTags, i));
+
+                tagCombination.forEach((tags) => {
+                    // shallow copy is enough as we didn't change anything in object
+                    let survivors = [...availableCharacters];
+
+                    // rarity filtering
+                    // 20 -> Leader Tag
+                    if (!tags.includes(20)) {
+                        // 19 -> Elite Tag
+                        const rarityCheck = state.enlistHour < 4 && !tags.includes(19) ? 2 : 3;
+                        survivors = survivors.filter((char) => char.rarity < rarityCheck);
                     }
 
-                    [...Array(t.range[1]).keys()].slice(t.range[0]).forEach(id => {
-                        if (tags.includes(id)) {
-                            appliedTagsNum++
-                            survivors = id < 21
-                                ? survivors.filter(c => c[t.type] === id)
-                                : survivors.filter(c => c[t.type].includes(id))
+                    // tags filtering
+                    survivors = survivors.filter((d) => checkTags(d.tags, tags));
+
+                    // put data into result
+                    if (survivors.length > 0) {
+                        result.push({
+                            tags,
+                            characters: survivors,
+                            score: calculateScore(survivors),
+                        });
+                    }
+                });
+            }
+
+            // return the sorted data by score
+            return result.sort((a, b) => b.score - a.score);
+        } else {
+            // filter characters by query tags
+            let charTagData = charData.filter(char => char.tags.available)
+            charTagData = charTagData.map((char => {
+                const { id, rarity, tags } = char
+                return ({ id, rarity, ...tags })
+            }))
+
+            let filteredChars = []
+            for (let i = sortedTags.length; i > 0; i--) {
+                // generate combinations
+                const tagCombs = Array.from(combinations(sortedTags, i))
+                // screen out ineligible characters
+                tagCombs.forEach(tags => {
+                    // filter by rank and time
+                    let survivors = JSON.parse(JSON.stringify(charTagData))
+                    if (!tags.includes(20)) {
+                        survivors = survivors.filter(char => char.rarity < 3)
+                        if (state.enlistHour < 4 && !tags.includes(19)) {
+                            survivors = survivors.filter(char => char.rarity < 2)
                         }
-                    })
-                })
-                // whether any three (or fewer) tags can lead to only one characters
-                if (survivors.length === 1 && appliedTagsNum <= 3) {
-                    let isExist = false
-                    filteredChars.forEach(existChar => {
-                        if (existChar.id === survivors[0].id) {
-                            isExist = true
-                            for (
-                                let j = existChar.distinctTagCombs.length - 1;
-                                j >= 0;
-                                j--
-                            ) {
-                                if (
-                                    tags.every(t => existChar.distinctTagCombs[j].includes(t))
-                                ) {
-                                    existChar.distinctTagCombs.splice(j, 1)
-                                }
-                            }
-                            existChar.distinctTagCombs.push(tags)
+                    }
+                    // filter by tags
+                    let appliedTagsNum = 0
+                    tagData.forEach(t => {
+                        if (appliedTagsNum === tags.length || survivors.length === 0) {
                             return false
                         }
-                    })
-                    if (!isExist) {
-                        filteredChars.push({
-                            id: survivors[0].id,
-                            rarity: survivors[0].rarity,
-                            attribute: survivors[0].attribute,
-                            position: survivors[0].position,
-                            appliedTags: tags,
-                            distinctTagCombs: [tags]
+
+                        [...Array(t.range[1]).keys()].slice(t.range[0]).forEach(id => {
+                            if (tags.includes(id)) {
+                                appliedTagsNum++
+                                survivors = id < 21
+                                    ? survivors.filter(c => c[t.type] === id)
+                                    : survivors.filter(c => c[t.type].includes(id))
+                            }
                         })
-                    }
-                } else {
-                    survivors.forEach(char => {
+                    })
+                    // whether any three (or fewer) tags can lead to only one characters
+                    if (survivors.length === 1 && appliedTagsNum <= 3) {
                         let isExist = false
                         filteredChars.forEach(existChar => {
-                            if (existChar.id === char.id) {
+                            if (existChar.id === survivors[0].id) {
                                 isExist = true
+                                for (
+                                    let j = existChar.distinctTagCombs.length - 1;
+                                    j >= 0;
+                                    j--
+                                ) {
+                                    if (
+                                        tags.every(t => existChar.distinctTagCombs[j].includes(t))
+                                    ) {
+                                        existChar.distinctTagCombs.splice(j, 1)
+                                    }
+                                }
+                                existChar.distinctTagCombs.push(tags)
                                 return false
                             }
                         })
                         if (!isExist) {
                             filteredChars.push({
-                                id: char.id,
-                                rarity: char.rarity,
-                                attribute: char.attribute,
-                                position: char.position,
+                                id: survivors[0].id,
+                                rarity: survivors[0].rarity,
+                                attribute: survivors[0].attribute,
+                                position: survivors[0].position,
                                 appliedTags: tags,
-                                distinctTagCombs: []
+                                distinctTagCombs: [tags]
                             })
                         }
-                    })
-                }
-            })
+                    } else {
+                        survivors.forEach(char => {
+                            let isExist = false
+                            filteredChars.forEach(existChar => {
+                                if (existChar.id === char.id) {
+                                    isExist = true
+                                    return false
+                                }
+                            })
+                            if (!isExist) {
+                                filteredChars.push({
+                                    id: char.id,
+                                    rarity: char.rarity,
+                                    attribute: char.attribute,
+                                    position: char.position,
+                                    appliedTags: tags,
+                                    distinctTagCombs: []
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+            return filteredChars
         }
-        setState((state) => ({
-            ...state,
-            characters: filteredChars
-        }))
-
-        if (dataLayer && val.length === 5) {
-            dataLayer.push({
-                'event': 'five_tags_selected',
-                'character_tag_combination': val,
-            })
-        }
-    }, [state.filterBtnValue, state.enlistHour])
+    }, [state.filterBtnValue, state.enlistHour, filterMode])
 
     const handleEnlistHourChange = (event) => {
         setState((state) => ({
@@ -652,6 +749,10 @@ const Filter = () => {
         }))
     }
 
+    const toggleFilterMode = useCallback(() => {
+        setFilterMode(filterMode === 0 ? 1 : 0)
+    }, [filterMode])
+
     return (<>
         <Head
             title={pageString.enlist.filter.helmet.title}
@@ -668,16 +769,25 @@ const Filter = () => {
                 handleModalOpen={handleSettingModal(true)}
                 groupBtnByClass={groupBtnByClass}
             />
-            <ResultTablePanel
-                data={state.characters}
-                head={<TableHead />}
-                body={<TableBody />}
-                sortFunc={sortFunc}
-                defaultSortKey={'rarity'}
+
+            {filterMode === 0 ? <ResultTablePanel
+                filteredData={filteredData}
+                onToggleFilter={toggleFilterMode}
                 handleModalOpen={handelHelpModal(true)}
                 maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
                 striped
-            />
+            /> : <ResultTablePanelByCharacter
+                    data={filteredData}
+                    head={<TableHead />}
+                    body={<TableBody />}
+                    sortFunc={sortFunc}
+                    defaultSortKey={'rarity'}
+                    handleModalOpen={handelHelpModal(true)}
+                    maxHeight={groupBtnByClass ? 'calc(100vh - 5rem)' : 'calc(100vh - 16rem)'}
+                    striped
+                    headerEnd={<FilterToggleButton onClick={toggleFilterMode}>{pageString.enlist.filter.toggleMode}</FilterToggleButton>}
+                />}
+
         </Panels>
         <SettingModal
             open={state.isSettingModalOpen}

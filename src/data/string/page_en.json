@@ -652,6 +652,20 @@
             "timeSelectTitle": "Recruitment time",
             "tableHead": [
                 {
+                    "title": "#",
+                    "attr": "number"
+                },
+                {
+                    "title": "Tags",
+                    "attr": "tags"
+                },
+                {
+                    "title": "Character Possibility",
+                    "attr": "possibility"
+                }
+            ],
+            "tableHeadByCharacter": [
+                {
                     "title": "Name",
                     "attr": "name"
                 },
@@ -664,6 +678,7 @@
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "Toggle Mode",
             "helpModal": {
                 "title": "Recruitment filter - Help",
                 "content": [

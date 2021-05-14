@@ -651,18 +651,33 @@
             "timeSelectTitle": "召集時間",
             "tableHead": [
                 {
-                    "title": "名前",
-                    "attr": "name"
-                },
-                {
-                    "title": "レア度",
-                    "attr": "rarity"
+                    "title": "#",
+                    "attr": "number"
                 },
                 {
                     "title": "タグ",
+                    "attr": "tags"
+                },
+                {
+                    "title": "可能性",
+                    "attr": "possibility"
+                }
+            ],
+            "tableHeadByCharacter": [
+                {
+                    "title": "名字",
+                    "attr": "name"
+                },
+                {
+                    "title": "稀有度",
+                    "attr": "rarity"
+                },
+                {
+                    "title": "應用標籤",
                     "attr": "appliedTags"
                 }
             ],
+            "toggleMode": "トグルモード",
             "helpModal": {
                 "title": "召集令フィルタ サポート",
                 "content": [
