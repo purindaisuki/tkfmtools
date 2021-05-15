@@ -100,6 +100,16 @@
             "change": "Change",
             "content": [
                 {
+                    "version": "v1.6.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Added tag icons for combinations that guarantee SR characters",
+                            "description": "Combinations that only contain SR characters are marked with tag icons."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.3",
                     "content": [
                         {
@@ -707,14 +717,16 @@
                             "Select tags to filter out characters.",
                             "Change buttons display and result presentation from setting.",
                             "Sort result by clicking the table header.",
-                            "Star icon after characters means there are some combinations lead to only one character. Hover on (long press on moblie devices) the character to show the combinations."
+                            "Star icon after characters means there are some combinations lead to only one character.",
+                            "Tag icon represents there are some combinations guarantee SR characters.",
+                            "Hover on (long press on moblie devices) the character to show the combinations."
                         ]
                     },
                     {
                         "title": "Common scenario",
                         "content": [
                             "Target at SR (or higher) characters:",
-                            "Select five tags you get from the recruitment and sort the result according to the number of stars. Check out whether there are any stars after the SR characters. If there aren't any stars after the SR characters, then it's not worth it to recruit them with these tags. If there is a star icon after SR characters, then it's worth a shot."
+                            "Select five tags you get from the recruitment and sort the result according to the number of stars. Check out whether there are any star or tag icon after the SR characters. If there aren't any icons after the SR characters, then it's not worth it to recruit them with these tags. If there is a icon after SR characters, then it's worth a shot."
                         ]
                     },
                     {
@@ -748,7 +760,8 @@
                     "Tag combinations"
                 ]
             },
-            "snackbarMsg": "Max 5 tags"
+            "snackbarMsg": "Max 5 tags",
+            "guaranteeSR": "guarantee SR"
         }
     },
     "items": {

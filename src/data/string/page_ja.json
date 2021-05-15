@@ -100,6 +100,16 @@
             "change": "変更",
             "content": [
                 {
+                    "version": "v1.6.4",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "Added tag icons for combinations that guarantee SR characters",
+                            "description": "Combinations that only contain SR characters are marked with tag icons."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.3",
                     "content": [
                         {
@@ -708,16 +718,17 @@
                             "Change buttons display and result presentation from setting.",
                             "表上の三角マークをタップし、昇順と降順を変更できます",
                             "星のついたキャラは、そのタグの条件で唯一のキャラであることを示しています",
+                            "Tag icon represents there are some combinations guarantee SR characters.",
                             "カーソルを選択したいキャラまで移動（モバイルデバイスはロングタップ）すると、最小のタグの組み合わせが表示されます"
                         ]
                     },
                     {
                         "title": "使い方",
                         "content": [
-                            "星の多いキャラをターゲットにする場合:",
-                            "招集したいタグを５つ選択し、レア度による順番に並び替え、星マークのついたキャラがいるかどうか確認します",
-                            "もし星マークのついたキャラがいない場合、この組み合わせによる招集ではゲットはできません",
-                            "もし星マークのついたキャラがいる場合は試してみる価値ありです"
+                            "SR、SSR キャラをターゲットにする場合:",
+                            "招集したいタグを５つ選択し、レア度による順番に並び替え、星マークやタグマークのついたキャラがいるかどうか確認します",
+                            "もしマークのついたキャラがいない場合、この組み合わせによる招集ではゲットはできません",
+                            "もしマークのついたキャラがいる場合は試してみる価値ありです"
                         ]
                     },
                     {
@@ -751,7 +762,8 @@
                     "Tag combinations"
                 ]
             },
-            "snackbarMsg": "選べるタグは最大5個までです"
+            "snackbarMsg": "選べるタグは最大5個までです",
+            "guaranteeSR": "SR 必得"
         }
     },
     "items": {
