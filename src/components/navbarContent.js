@@ -16,6 +16,13 @@ const officialLink = {
     'ko': 'https://www.tenkafuma.com/en/'
 }
 
+const discordLink = {
+    'zh-TW': 'https://discord.gg/RRRABMtHYj',
+    'en': 'https://discord.gg/wJqXQjVnw4',
+    'ja': 'https://discord.gg/AppXZMeaQq',
+    'ko': 'https://discord.gg/wgKCqS869Q'
+}
+
 const navbarContent = (lang, isDefault) => ([
     {
         to: '/',
@@ -62,8 +69,8 @@ const navbarContent = (lang, isDefault) => ([
     {
         to: [
             officialLink[lang],
-            'https://reurl.cc/5o5A7z/',
-            'https://reurl.cc/1gZ5nV/'
+            discordLink[lang],
+            'https://tkfm.wiki/'
         ],
         linkType: 'external',
         expandable: true,
