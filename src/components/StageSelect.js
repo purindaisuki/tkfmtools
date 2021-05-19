@@ -66,7 +66,7 @@ const StageSelect = ({ children, className, value, error, handleChange }) => {
                         {stage.id + ' : ' + stage.name}
                     </MenuItem >
                 )),
-                chapter.stagePrefix && [...Array(51).keys()].slice(1).map(ind => (
+                chapter.stagePrefix && [...Array(61).keys()].slice(1).map(ind => (
                     <MenuItem
                         value={chapter.chapter + '/' + chapter.chapter + '-' + ind}
                         key={chapter.chapter + '-' + ind}
