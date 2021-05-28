@@ -10,10 +10,10 @@ import {
 } from 'components/icon';
 
 const officialLink = {
-    'zh-TW': 'https://www.tenkafuma.com/',
+    'zh-TW': 'https://www.tenkafuma.com/zh-Hant/',
     'en': 'https://www.tenkafuma.com/en/',
-    'ja': 'https://www.tenkafuma.com/jp/',
-    'ko': 'https://www.tenkafuma.com/en/'
+    'ja': 'https://www.tenkafuma.com/ja/',
+    'ko': 'https://www.tenkafuma.com/ko/'
 }
 
 const discordLink = {
