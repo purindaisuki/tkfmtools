@@ -100,6 +100,16 @@
             "change": "변경",
             "content": [
                 {
+                    "version": "v1.6.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "5/31 게임 업데이트",
+                            "description": "여름날 시즈카, 여름날 루루, 여름날 KS-Ⅷ."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.4",
                     "content": [
                         {

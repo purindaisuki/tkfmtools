@@ -100,6 +100,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.6.5",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "5/31 遊戲更新",
+                            "description": "新增夏日 靜、夏日 露露及夏日 KS-Ⅷ。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.4",
                     "content": [
                         {
