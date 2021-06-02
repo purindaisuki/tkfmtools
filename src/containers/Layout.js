@@ -130,11 +130,12 @@ export default function Layout({ children, withTabs, pagePath }) {
         }}
       >
         <meta charSet="utf-8" />
-        <meta name="application-name" content="&nbsp;" />
+        <meta name="application-name" content="Tkfm Toolbox" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="msapplication-TileImage" content="/tkfmtools/mstile-144x144.png" />
         <meta name="msapplication-square70x70logo" content="/tkfmtools/mstile-70x70.png" />
         <meta name="msapplication-square150x150logo" content="/tkfmtools/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
         <meta name="msapplication-square310x310logo" content="/tkfmtools/mstile-310x310.png" />
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
         <meta name="title" content={pageString.index.helmet.title} />
