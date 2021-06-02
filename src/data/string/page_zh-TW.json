@@ -100,6 +100,16 @@
             "change": "變更",
             "content": [
                 {
+                    "version": "v1.6.6",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "6/2 遊戲更新",
+                            "description": "全境徵才新增 復生公主 千鶴和煌星 妲絲艾菲娜。"
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.5",
                     "content": [
                         {

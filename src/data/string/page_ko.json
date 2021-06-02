@@ -100,6 +100,16 @@
             "change": "변경",
             "content": [
                 {
+                    "version": "v1.6.6",
+                    "content": [
+                        {
+                            "type": "New",
+                            "title": "6/2 게임 업데이트",
+                            "description": "전 지역 모집에 다시 태어난 치즈루, 샤이닝스타 비앙스 에피나 추가."
+                        }
+                    ]
+                },
+                {
                     "version": "v1.6.5",
                     "content": [
                         {
