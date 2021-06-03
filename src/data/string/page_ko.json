@@ -124,8 +124,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Added tag icons for combinations that guarantee SR characters",
-                            "description": "Combinations that only contain SR characters are marked with tag icons."
+                            "title": "전 지역 모집 필터에 확정 획득SR 표시 추가",
+                            "description": "확정 획득 SR 조합이 있으면 획득 가능 SR캐릭터가 태그로 표시됩니다."
                         }
                     ]
                 },
@@ -134,8 +134,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Result of recruitment filter can be shown by tag combinations.",
-                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                            "title": "태그 조합에 따른 전 지역 모집 필터링 결과 표시 기능 추가",
+                            "description": "태그 조합에 따른 필터링 결과를 볼 수 있습니다."
                         }
                     ]
                 },
@@ -735,10 +735,10 @@
                         "title": "사용 설명",
                         "content": [
                             "태그를 선택해여 캐릭터를 필터링하세요.",
-                            "Change buttons display and result presentation from setting.",
+                            "설정에서 버튼 표시 및 결과 표시 방식을 변경할 수 있습니다.",
                             "표의 제목 부분을 클릭하면 정렬됩니다.",
                             "캐릭터 뒤에 스타 아이콘이 있으면 해당 캐릭터만 모집되는 조합이 있음을 의미합니다.",
-                            "Tag icon represents there are some combinations guarantee SR characters.",
+                            "확정 획득 SR 캐릭터 조합이 존재할 경우 태그가 표시됩니다.",
                             "최적 태그의 조합을 표시하려면 마우스를 캐릭터에 올려두세요(모바일은 길게누르기)."
                         ]
                     },
@@ -776,14 +776,14 @@
                     "네",
                     "아니요"
                 ],
-                "resultDisplay": "Show result by",
+                "resultDisplay": "결과 표시",
                 "resultLabels": [
-                    "Characters",
-                    "Tag combinations"
+                    "캐릭터",
+                    "태그 조합"
                 ]
             },
             "snackbarMsg": "태그는 최다 5개까지 하실 수 있습니다.",
-            "guaranteeSR": "guarantee SR"
+            "guaranteeSR": "확정 SR"
         }
     },
     "items": {
@@ -1020,11 +1020,11 @@
             "settingDescription": "최신 라인업 분석 데이터를 기본 설정으로 적용하기",
             "errorSnackbar": "해당 디바이스에 데이터가 없습니다",
             "tabs": {
-                "local": "Mine",
-                "cloud": "Others"
+                "local": "자신의 팀",
+                "cloud": "다른 팀"
             },
             "author": "작성자",
-            "allStage": "All stages"
+            "allStage": "모든 스테이지"
         },
         "build": {
             "name": "팀 편성",

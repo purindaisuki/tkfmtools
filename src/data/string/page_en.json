@@ -124,7 +124,7 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Added tag icons for combinations that guarantee SR characters",
+                            "title": "Added guaranteed SR tag to the Recruitment filter",
                             "description": "Combinations that only contain SR characters are marked with tag icons."
                         }
                     ]
@@ -134,8 +134,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Result of recruitment filter can be shown by tag combinations.",
-                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                            "title": "Added the function that filters recruitment results based on tag combinations",
+                            "description": "Can filter results according to tag combinations."
                         }
                     ]
                 },
@@ -738,7 +738,7 @@
                             "Change buttons display and result presentation from setting.",
                             "Sort result by clicking the table header.",
                             "Star icon after characters means there are some combinations lead to only one character.",
-                            "Tag icon represents there are some combinations guarantee SR characters.",
+                            "Tag icon indicates the combination guarantees SR characters.",
                             "Hover on (long press on moblie devices) the character to show the combinations."
                         ]
                     },

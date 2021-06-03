@@ -124,8 +124,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Added tag icons for combinations that guarantee SR characters",
-                            "description": "Combinations that only contain SR characters are marked with tag icons."
+                            "title": "召集令フィルタに確定入手SRのタグを追加",
+                            "description": "確定入手SRの組み合わせがある場合、獲得できるSRキャラをタグで表示します。"
                         }
                     ]
                 },
@@ -134,8 +134,8 @@
                     "content": [
                         {
                             "type": "New",
-                            "title": "Result of recruitment filter can be shown by tag combinations.",
-                            "description": "Allows users to toggle the result shown between by characters and by combinations."
+                            "title": "召集令フィルタに、組み合わせに基づいて結果を表示する機能を追加",
+                            "description": "タグの組み合わせに基づいてフィルタ結果を選択可能に"
                         }
                     ]
                 },
@@ -735,10 +735,10 @@
                         "title": "操作説明",
                         "content": [
                             "選別したいキャラのタグを選択",
-                            "Change buttons display and result presentation from setting.",
+                            "設定からボタンの表示と結果の表示方法を調整できます",
                             "表上の三角マークをタップし、昇順と降順を変更できます",
                             "星のついたキャラは、そのタグの条件で唯一のキャラであることを示しています",
-                            "Tag icon represents there are some combinations guarantee SR characters.",
+                            "タグマークが表示された場合、確定入手SRの組み合わせがあることを示しています",
                             "カーソルを選択したいキャラまで移動（モバイルデバイスはロングタップ）すると、最小のタグの組み合わせが表示されます"
                         ]
                     },
@@ -776,14 +776,14 @@
                     "はい",
                     "いいえ"
                 ],
-                "resultDisplay": "Show result by",
+                "resultDisplay": "結果の表示",
                 "resultLabels": [
-                    "Characters",
-                    "Tag combinations"
+                    "キャラクター",
+                    "タグの組み合わせ"
                 ]
             },
             "snackbarMsg": "選べるタグは最大5個までです",
-            "guaranteeSR": "SR 必得"
+            "guaranteeSR": "確定入手 SR"
         }
     },
     "items": {
