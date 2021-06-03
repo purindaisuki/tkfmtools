@@ -981,7 +981,7 @@
                 "title": "당신의 팀 PR:",
                 "high": "최대 PR TOP5",
                 "low": "최소 PR TOP5",
-                "cp": "캐릭터 전투력",
+                "cp": "전투력",
                 "PR": "PR"
             },
             "helpModal": {

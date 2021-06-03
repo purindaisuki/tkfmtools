@@ -204,6 +204,7 @@ const RankCharWrapper = styled.div`
     border: 2px solid ${props => props.theme.colors.rank[props.$rank]};
     > span {
         padding: .6rem;
+        font-size: small;
         white-space: pre;
     }
     &:hover {
