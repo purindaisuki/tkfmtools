@@ -238,7 +238,9 @@
             "body": -1,
             "oppai": -1,
             "rank": 20,
-            "else": [],
+            "else": [
+                21
+            ],
             "available": true
         },
         "stats": {
