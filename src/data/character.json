@@ -355,7 +355,9 @@
             "body": -1,
             "oppai": 15,
             "rank": 20,
-            "else": [],
+            "else": [
+                26
+            ],
             "available": true
         },
         "stats": {
