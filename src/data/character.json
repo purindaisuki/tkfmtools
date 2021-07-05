@@ -352,7 +352,7 @@
             "attribute": 4,
             "position": 9,
             "race": 10,
-            "body": -1,
+            "body": 14,
             "oppai": 15,
             "rank": 20,
             "else": [
