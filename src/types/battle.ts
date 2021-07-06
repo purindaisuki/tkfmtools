@@ -14,23 +14,23 @@ import {
 export interface TestCharacterStats {
   id: "test";
   attribute: number;
-  atk: number;
-  hp: number;
+  ATK: number;
+  HP: number;
 }
 
 export interface BattleCharacter {
   readonly id: string;
   readonly attribute: CharacterAttribute;
   readonly position: CharacterPosition;
-  readonly baseAtk: number;
-  readonly baseHp: number;
-  maxHp: number;
+  readonly baseATK: number;
+  readonly baseHP: number;
+  maxHP: number;
   readonly skillSet: SkillSet;
   extraSkill: Skill[];
-  atk: number;
-  hp: number;
+  ATK: number;
+  HP: number;
   shield: number;
-  cd: number;
+  CD: number;
   currentCD: number;
   teamPosition: number;
   effects: SkillEffect[];

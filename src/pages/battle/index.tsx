@@ -32,7 +32,7 @@ const lineup = [
     bond: 5,
   },
   {
-    id: "106",
+    id: "209",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),
@@ -53,10 +53,57 @@ const lineup = [
 
 const enemies = [
   {
+    id: "209",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "126",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "157",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "102",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "106",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+];
+/*
+ {
     id: "test",
     attribute: 0,
-    atk: 0,
-    hp: 2147483647,
+    ATK: 0,
+    HP: 50000000,
     level: 60,
     potential: 0,
     potentialSub: Array(6).fill(false),
@@ -64,7 +111,7 @@ const enemies = [
     star: 0,
     bond: 0,
   },
-];
+*/
 
 const battle = Client({
   game: Battle({

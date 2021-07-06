@@ -10,31 +10,31 @@ import {
 import { BattleCharacter as Character } from "../../types/battle";
 
 export function calcAttack(character: Character) {
-  let atkEffectPercentage = 1;
-  let atkEffectValue = 0;
+  let ATKEffectPercentage = 1;
+  let ATKEffectValue = 0;
 
   character.effects.forEach((s) => {
     if (s.type === SkillEffectType.ATTACK_POWER && s.value !== undefined) {
       if (s.basis === SkillEffectBasis.SELF_ATK) {
-        atkEffectValue += s.value;
+        ATKEffectValue += s.value;
       } else if (s.basis === SkillEffectBasis.TARGET_ATK) {
         const stack = s.stack ? s.stack : 1;
         // check the condition of conditional skill
         if (
           !(
             (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-              character.hp / character.maxHp < s.value) ||
+              character.HP / character.maxHP < s.value) ||
             (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-              character.hp / character.maxHp >= s.value)
+              character.HP / character.maxHP >= s.value)
           )
         ) {
-          atkEffectPercentage += s.value * stack;
+          ATKEffectPercentage += s.value * stack;
         }
       }
     }
   });
 
-  return Math.floor(character.baseAtk * atkEffectPercentage) + atkEffectValue;
+  return Math.floor(character.baseATK * ATKEffectPercentage) + ATKEffectValue;
 }
 
 /**
@@ -86,9 +86,9 @@ export function calcDamage(
 
     if (
       (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.hp / from.maxHp < s.value) ||
+        from.HP / from.maxHP < s.value) ||
       (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.hp / from.maxHp >= s.value)
+        from.HP / from.maxHP >= s.value)
     ) {
       return true;
     }
@@ -124,9 +124,9 @@ export function calcDamage(
 
     if (
       (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.hp / from.maxHp < s.value) ||
+        from.HP / from.maxHP < s.value) ||
       (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.hp / from.maxHp >= s.value)
+        from.HP / from.maxHP >= s.value)
     ) {
       return true;
     }
@@ -176,7 +176,7 @@ export function calcDamage(
   });
 
   return Math.floor(
-    from.atk *
+    from.ATK *
       dealtDamageEffect *
       attackDamageEffect *
       attributeEffect *
@@ -205,13 +205,13 @@ export function calcHeal(
 
   switch (action.basis) {
     case SkillEffectBasis.SELF_ATK:
-      base = from.atk;
+      base = from.ATK;
       break;
     case SkillEffectBasis.TARGET_ATK:
-      base = to.atk;
+      base = to.ATK;
       break;
     case SkillEffectBasis.TARGET_MAX_HP:
-      base = to.maxHp;
+      base = to.maxHP;
       break;
     case SkillEffectBasis.DAMAGE:
       if (damage === undefined) {
@@ -273,13 +273,13 @@ export function calcShield(
 
   switch (action.basis) {
     case SkillEffectBasis.SELF_ATK:
-      base = from.atk;
+      base = from.ATK;
       break;
     case SkillEffectBasis.TARGET_ATK:
-      base = to.atk;
+      base = to.ATK;
       break;
     case SkillEffectBasis.TARGET_MAX_HP:
-      base = to.maxHp;
+      base = to.maxHP;
       break;
     default:
       throw "invalid argument";

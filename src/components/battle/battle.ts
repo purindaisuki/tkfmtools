@@ -59,7 +59,7 @@ function processSkill(
   ) {
     effect = {
       ...effect,
-      value: from.atk * s.value,
+      value: from.ATK * s.value,
     };
   }
 
@@ -106,7 +106,7 @@ function processSkill(
             ...effect,
             value: correctedValue,
           });
-          target.atk = calcAttack(target);
+          target.ATK = calcAttack(target);
         }
         break;
       case SkillActionType.CANCEL_GUARD:
@@ -114,8 +114,8 @@ function processSkill(
         break;
       case SkillActionType.CHANGE_CD:
         if (s.value !== undefined) {
-          target.cd += s.value;
-          target.currentCD = target.cd;
+          target.CD += s.value;
+          target.currentCD = target.CD;
         }
         break;
       case SkillActionType.CHANGE_CURRENT_CD:
@@ -126,8 +126,8 @@ function processSkill(
         break;
       case SkillActionType.CHANGE_MAX_HP:
         if (s.value !== undefined) {
-          target.maxHp *= 1 + s.value;
-          target.hp = target.maxHp;
+          target.maxHP *= 1 + s.value;
+          target.HP = target.maxHP;
         }
         break;
       case SkillActionType.CLEAR_ABNORMAL:
@@ -174,18 +174,9 @@ function processSkill(
           return true;
         });
 
-        target.hp -= restDamage;
-        target.hp = target.hp < 0 ? 0 : target.hp;
-        target.isDead = target.hp === 0;
-
-        G.log.push({
-          player: ctx.currentPlayer,
-          turn: G.turn,
-          type: s.type,
-          value: damage,
-          from: from.id,
-          to: target.id,
-        });
+        target.HP -= restDamage;
+        target.HP = target.HP < 0 ? 0 : target.HP;
+        target.isDead = target.HP === 0;
 
         // for debug
         logArr?.push({
@@ -197,7 +188,8 @@ function processSkill(
           to: target.id,
         });
 
-        if (!target.isDead) {
+        // dot won't trigger attacked skills
+        if (!target.isDead && s.on !== SkillOn.TURN_END) {
           target.isSleep = false;
 
           // trigger target's passive
@@ -221,7 +213,7 @@ function processSkill(
                 s.type !== SkillActionType.COUNTER_STRIKE ||
                 targetSkill.type !== SkillActionType.COUNTER_STRIKE
               ) {
-                trigger(tempG, tempCtx, targetSkill, isTurnEnd);
+                trigger(tempG, tempCtx, targetSkill, isTurnEnd, logArr);
               }
             });
           target.skillSet.passive
@@ -231,7 +223,7 @@ function processSkill(
                 s.type !== SkillActionType.COUNTER_STRIKE ||
                 targetSkill.type !== SkillActionType.COUNTER_STRIKE
               ) {
-                trigger(tempG, tempCtx, targetSkill, isTurnEnd);
+                trigger(tempG, tempCtx, targetSkill, isTurnEnd, logArr);
               }
             });
         } else {
@@ -263,17 +255,8 @@ function processSkill(
           }
         }
         const heal = calcHeal(from, target, s, healBasis);
-        target.hp += heal;
-        target.hp = target.hp > target.maxHp ? target.maxHp : target.hp;
-
-        G.log.push({
-          player: ctx.currentPlayer,
-          turn: G.turn,
-          type: s.type,
-          value: heal,
-          from: from.id,
-          to: target.id,
-        });
+        target.HP += heal;
+        target.HP = target.HP > target.maxHP ? target.maxHP : target.HP;
 
         // for debug
         logArr?.push({
@@ -295,7 +278,8 @@ function processSkill(
         const shield = calcShield(from, target, s);
         target.shield += shield;
 
-        G.log.push({
+        // for debug
+        logArr?.push({
           player: ctx.currentPlayer,
           turn: G.turn,
           type: s.type,
@@ -360,10 +344,10 @@ function trigger(
       to = selfTeam.filter((c, ind) => !c.isDead && ind !== G.selected);
       break;
     case SkillTarget.TEAM_LEAST_HP:
-      const leastHp = Math.min(
-        ...selfTeam.filter((c) => !c.isDead).map((c) => c.hp)
+      const leastHP = Math.min(
+        ...selfTeam.filter((c) => !c.isDead).map((c) => c.HP)
       );
-      to = selfTeam.filter((c) => c.hp === leastHp).slice(0, 1);
+      to = selfTeam.filter((c) => c.HP === leastHP).slice(0, 1);
       break;
     case SkillTarget.ALL_ENEMIES:
       to = enemies.filter((c) => !c.isDead);
@@ -439,14 +423,14 @@ function initCharacter(
   teamPosition: number
 ): Character {
   if (characterStats.id === "test") {
-    const { attribute, atk, hp } = characterStats as TestCharacterStats;
+    const { attribute, ATK, HP } = characterStats as TestCharacterStats;
     return {
       id: "test",
       attribute: attribute,
       position: 5,
-      baseAtk: atk,
-      baseHp: hp,
-      maxHp: hp,
+      baseATK: ATK,
+      baseHP: HP,
+      maxHP: HP,
       skillSet: {
         leader: [],
         normalAttack: [],
@@ -454,11 +438,11 @@ function initCharacter(
         passive: [],
       },
       extraSkill: [],
-      atk: atk,
-      hp: hp,
+      ATK: ATK,
+      HP: HP,
       shield: 0,
-      cd: 0,
-      currentCD: 0,
+      CD: 0,
+      currentCD: 51,
       teamPosition,
       effects: [],
       isMoved: false,
@@ -488,7 +472,7 @@ function initCharacter(
     throw "invalid argumnet";
   }
 
-  const { ATK: baseAtk, HP: baseHp } = res;
+  const { ATK: baseATK, HP: baseHP } = res;
 
   const { ultimate, starPassive, potentialPassive, ...rest } = skillData[id];
 
@@ -517,19 +501,19 @@ function initCharacter(
     id,
     attribute: charMap[id].tags.attribute,
     position: charMap[id].tags.position,
-    baseAtk,
-    baseHp,
-    maxHp: baseHp,
+    baseATK,
+    baseHP,
+    maxHP: baseHP,
     skillSet: {
       ...rest,
       ultimate: currUltimate,
       passive: currStarPassive.concat(currPotentialPassive),
     },
     extraSkill: [],
-    atk: baseAtk,
-    hp: baseHp,
+    ATK: baseATK,
+    HP: baseHP,
     shield: 0,
-    cd: currUltimate[0].CD,
+    CD: currUltimate[0].CD,
     currentCD: currUltimate[0].CD,
     teamPosition,
     effects: [],
@@ -563,11 +547,42 @@ const pushSkill = (
   });
 };
 
+const movable = (lineup: Character[], condition: (ind: number) => boolean) =>
+  lineup.reduce((res, _, i) => {
+    if (condition(i)) {
+      res.push(i);
+    }
+    return res;
+  }, [] as number[]);
+
+const validateSelected = (G: G, ctx: Ctx, selected: number) => {
+  const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
+
+  return !(
+    !selectedCharacter ||
+    selectedCharacter.isMoved ||
+    selectedCharacter.isDead ||
+    selectedCharacter.isParalysis ||
+    selectedCharacter.isSleep ||
+    selectedCharacter.isBroken
+  );
+};
+
+const validateTarget = (G: G, ctx: Ctx, target: number) => {
+  const enemies =
+    G.lineups[ctx.playOrder.filter((p) => p !== ctx.currentPlayer)[0]];
+  const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
+
+  return tauntIndex === -1 ? true : tauntIndex === target;
+};
+
 function endMove(G: G, ctx: Ctx) {
   const lineup = G.lineups[ctx.currentPlayer];
   lineup[G.selected].isMoved = true;
 
-  const next = lineup.findIndex((c) => !c.isMoved && !c.isDead && !c.isBroken);
+  const next = lineup.findIndex(
+    (c) => !(c.isMoved || c.isDead || c.isParalysis || c.isSleep || !c.isBroken)
+  );
   if (next !== -1) {
     G.selected = next;
   }
@@ -576,6 +591,7 @@ function endMove(G: G, ctx: Ctx) {
 export const Battle = (setupData: BattleSetupData) => ({
   name: "tkfm-battle-simulator",
   setup: (ctx: Ctx) => {
+    //console.log("Battle Start");
     const lineups = setupData.lineups.map((lineup) =>
       lineup.map((c, ind) => initCharacter(c, ind))
     );
@@ -616,7 +632,24 @@ export const Battle = (setupData: BattleSetupData) => ({
   },
   moves: {
     attack: {
-      move: (G: G, ctx: Ctx): G | typeof INVALID_MOVE | void => {
+      move: (
+        G: G,
+        ctx: Ctx,
+        selected: number,
+        target: number
+      ): G | typeof INVALID_MOVE | void => {
+        if (validateSelected(G, ctx, selected)) {
+          G.selected = selected;
+        } else {
+          return INVALID_MOVE;
+        }
+
+        if (validateTarget(G, ctx, target)) {
+          G.target = target;
+        } else {
+          return INVALID_MOVE;
+        }
+
         const self = G.lineups[ctx.currentPlayer][G.selected];
         if (
           self.isMoved ||
@@ -647,13 +680,29 @@ export const Battle = (setupData: BattleSetupData) => ({
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
 
-        ctx.log?.setMetadata(log);
-        endMove(G, ctx);
+        G.log.push(...log);
       },
       undoable: true,
     },
     ultimate: {
-      move: (G: G, ctx: Ctx): G | typeof INVALID_MOVE | void => {
+      move: (
+        G: G,
+        ctx: Ctx,
+        selected: number,
+        target: number
+      ): G | typeof INVALID_MOVE | void => {
+        if (validateSelected(G, ctx, selected)) {
+          G.selected = selected;
+        } else {
+          return INVALID_MOVE;
+        }
+
+        if (validateTarget(G, ctx, target)) {
+          G.target = target;
+        } else {
+          return INVALID_MOVE;
+        }
+
         const self = G.lineups[ctx.currentPlayer][G.selected];
         if (
           self.isMoved ||
@@ -666,7 +715,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         ) {
           return INVALID_MOVE;
         }
-        self.currentCD = self.cd;
+        self.currentCD = self.CD;
 
         const { leader, ultimate, passive } = self.skillSet;
         const skillQueue: SkillQueue = [];
@@ -687,13 +736,22 @@ export const Battle = (setupData: BattleSetupData) => ({
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
 
-        ctx.log?.setMetadata(log);
-        endMove(G, ctx);
+        G.log.push(...log);
       },
       undoable: true,
     },
     guard: {
-      move: (G: G, ctx: Ctx): G | typeof INVALID_MOVE | void => {
+      move: (
+        G: G,
+        ctx: Ctx,
+        selected: number
+      ): G | typeof INVALID_MOVE | void => {
+        if (validateSelected(G, ctx, selected)) {
+          G.selected = selected;
+        } else {
+          return INVALID_MOVE;
+        }
+
         const self = G.lineups[ctx.currentPlayer][G.selected];
         if (
           self.isMoved ||
@@ -711,15 +769,13 @@ export const Battle = (setupData: BattleSetupData) => ({
         pushSkill(
           G,
           ctx,
-          [...self.skillSet.passive, ...self.extraSkill],
+          [...self.skillSet.passive],
           (s) => s.condition === SkillCondition.GUARD,
           skillQueue
         );
 
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
-
-        endMove(G, ctx);
       },
       undoable: true,
     },
@@ -730,6 +786,8 @@ export const Battle = (setupData: BattleSetupData) => ({
           !selected ||
           selected.isMoved ||
           selected.isDead ||
+          selected.isParalysis ||
+          selected.isSleep ||
           selected.isBroken
         ) {
           return INVALID_MOVE;
@@ -757,6 +815,7 @@ export const Battle = (setupData: BattleSetupData) => ({
   },
   turn: {
     onBegin: (G: G, ctx: Ctx) => {
+      //console.log(`Player: ${ctx.currentPlayer} Turn: ${G.turn} start`);
       const selfTeam = G.lineups[ctx.currentPlayer];
       const enemies =
         G.lineups[ctx.playOrder.filter((p) => p !== ctx.currentPlayer)[0]];
@@ -812,11 +871,16 @@ export const Battle = (setupData: BattleSetupData) => ({
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
 
-        c.atk = c.baseAtk;
-        c.atk = calcAttack(c);
+        c.ATK = c.baseATK;
+        c.ATK = calcAttack(c);
       });
     },
+    onMove: (G: G, ctx: Ctx) => {
+      //console.log(`Player: ${ctx.currentPlayer} c: ${G.selected} end move`);
+      endMove(G, ctx);
+    },
     onEnd: (G: G, ctx: Ctx) => {
+      //console.log(`Player: ${ctx.currentPlayer} Turn: ${G.turn} end`);
       const log: Log[] = [];
       G.lineups[ctx.currentPlayer].forEach((c, ind) => {
         c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
@@ -826,18 +890,63 @@ export const Battle = (setupData: BattleSetupData) => ({
           }
         });
       });
-      ctx.log?.setMetadata(log);
+
+      G.log.push(...log);
       if (ctx.currentPlayer === ctx.playOrder.slice(-1)[0]) {
         G.turn++;
       }
     },
     endIf: (G: G, ctx: Ctx) =>
-      G.lineups[ctx.currentPlayer].every((c) => c.isMoved),
+      G.lineups[ctx.currentPlayer].every(
+        (c) => c.isMoved || c.isParalysis || c.isSleep || c.isBroken
+      ),
   },
   minPlayers: 2,
   maxPlayers: 2,
-  endIf: (G: G) =>
-    G.turn > 50 ||
-    Object.values(G.lineups).some((lineup) => lineup.every((c) => c.isDead)),
+  endIf: (G: G, ctx: Ctx): any => {
+    const isAllDead = Object.values(G.lineups).map((lineup) =>
+      lineup.every((c) => c.isDead)
+    );
+
+    if (G.turn > 50 || isAllDead[0] || isAllDead[1]) {
+      //console.log(`Over at turn ${G.turn}, win: ${!isAllDead[0]}`);
+      return { fail: isAllDead[0], winner: ctx.currentPlayer };
+    }
+  },
   disableUndo: false,
+  ai: {
+    enumerate: (G: G, ctx: Ctx) => {
+      let moves = [];
+      const lineup = G.lineups[ctx.currentPlayer];
+      const enemies =
+        G.lineups[ctx.playOrder.filter((p) => p !== ctx.currentPlayer)[0]];
+      const canSelected = movable(lineup, (ind) =>
+        validateSelected(G, ctx, ind)
+      );
+      const canTarget = movable(enemies, (ind) => validateTarget(G, ctx, ind));
+
+      for (let s of canSelected) {
+        let canUltimate = lineup[s].currentCD === 0 && !lineup[s].isSilence;
+
+        for (let t of canTarget) {
+          moves.push({
+            move: "attack",
+            args: [s, t],
+          });
+          moves.push({
+            move: "guard",
+            args: [s],
+          });
+          if (canUltimate) {
+            moves.push({
+              move: "ultimate",
+              args: [s, t],
+            });
+          }
+        }
+      }
+
+      return moves;
+    },
+  },
 });
