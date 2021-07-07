@@ -27,12 +27,13 @@ const StyledIconButton = styled(MuiIconButton)`
         }
     }
 `
-const IconButton = ({ children, className, tooltipText, onClick, dataHtml2canvasIgnore }) => (
+const IconButton = ({ children, className, tooltipText, onClick, dataHtml2canvasIgnore, ariaDescribedby }) => (
     <Tooltip title={<TextWrapper>{tooltipText}</TextWrapper>}>
         <StyledIconButton
-            aria-label={tooltipText}
-            onClick={onClick}
             className={className}
+            onClick={onClick}
+            aria-label={tooltipText}
+            aria-describedby={ariaDescribedby}
             data-html2canvas-ignore={dataHtml2canvasIgnore ? 'true' : 'false'}
         >
             {children}

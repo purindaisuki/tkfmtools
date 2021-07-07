@@ -23,6 +23,7 @@ yarn-error.log*
 
 /.cache
 /.vscode
+/dist
 .eslintcache
 google_app_credentials.json
 lineup_raw_data.json

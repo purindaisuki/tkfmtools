@@ -18,25 +18,25 @@ export enum SkillTarget {
 }
 
 export enum SkillActionType {
-  CANCEL_GUARD,
-  CHANGE_CD,
-  CHANGE_CURRENT_CD,
-  CHANGE_MAX_HP,
+  NORMAL_ATTACK,
+  ULTIMATE,
   COUNTER_STRIKE,
   EXTRA_ATTACK,
   FOLLOW_UP_ATTACK,
-  FREEZE_CD,
   GUARD,
   HEAL,
-  NORMAL_ATTACK,
-  PARALYSIS,
   SHIELD,
-  SLEEP,
-  SILENCE,
-  TAUNT,
-  ULTIMATE,
+  CANCEL_GUARD,
+  CHANGE_CD,
+  CHANGE_CURRENT_CD,
+  FREEZE_CD,
+  CHANGE_MAX_HP,
   CLEAR_ABNORMAL,
   CLEAR_DEBUFF,
+  TAUNT,
+  SLEEP,
+  SILENCE,
+  PARALYSIS,
   ADDSKILL,
 }
 
@@ -51,19 +51,20 @@ export enum SkillEffectType {
   NORMAL_ATTACK_DAMAGED,
   ULTIMATE_DAMAGED,
   GUARD_EFFECT,
-  SHIELD_EFFECT,
-  SHIELDED,
   HEAL_EFFECT,
   HEALED,
+  SHIELD_EFFECT,
+  SHIELDED,
+  IMMUNE_SLEEP,
   IMMUNE_SILENCE,
   IMMUNE_PARALYSIS,
-  IMMUNE_SLEEP,
 }
 
 export enum SkillEffectBasis {
   SELF_ATK,
   TARGET_ATK,
   TARGET_MAX_HP,
+  TARGET_CURRENT_HP,
   DAMAGE,
 }
 
@@ -89,7 +90,7 @@ export enum SkillOn {
   TURN_END,
 }
 
-export interface Skill {
+export interface ISkill {
   type: SkillActionType | SkillEffectType;
   condition: SkillCondition;
   conditionValue?: number;
@@ -116,56 +117,60 @@ export interface Skill {
       | SkillEffectType.ATTACK_POWER;
     basis?: SkillEffectBasis.TARGET_ATK;
     value: number;
-    target: SkillTarget.SINGLE_ENEMY | SkillTarget.TEAM;
+    target:
+      | SkillTarget.SINGLE_ENEMY
+      | SkillTarget.ALL_ENEMIES
+      | SkillTarget.TEAM;
     on: SkillOn;
     duration?: number;
+    repeat?: number;
   };
 }
 
-export type ConditionalPassiveSkill = Omit<Skill, "CD" | "maxStack"> & {
+export type ConditionalPassiveSkill = Omit<ISkill, "CD" | "maxStack"> & {
   condition: SkillCondition.BATTLE_BEGIN;
   otherCondition: SkillCondition.HP_GREATER_THAN | SkillCondition.HP_LESS_THAN;
   otherConditionValue: number;
   value: number;
 };
 
-export type StackableSkill = Omit<Skill, "duartion"> & {
+export type StackableSkill = Omit<ISkill, "duartion"> & {
   value: number;
   maxStack: number;
 };
 
-export type UltimateSkill = Skill & {
+export type UltimateSkill = ISkill & {
   condition: SkillCondition.ULTIMATE;
   conditionValue?: number;
   CD: number;
 };
 
-export type TurnBasedSkill = Skill & {
+export type TurnBasedSkill = ISkill & {
   condition: SkillCondition.TURN_BASED;
   conditionValue: number /* trigger at (n + 1)th turn */;
   value: number;
 };
 
-export type FollowUpAttackSkill = Skill & {
+export type FollowUpAttackSkill = ISkill & {
   type: SkillActionType.FOLLOW_UP_ATTACK;
   value: number;
   repeat: number;
 };
 
-export type SkillAction = Omit<Skill, "type"> & {
+export type SkillAction = Omit<ISkill, "type"> & {
   type: SkillActionType;
 };
 
-export type SkillEffect = Omit<Skill, "CD"> & {
+export type SkillEffect = Omit<ISkill, "CD"> & {
   from: string;
   stack?: number;
 };
 
-export interface SkillSet {
-  leader: Skill[];
-  normalAttack: Exclude<Skill, TurnBasedSkill>[];
+export interface ISkillSet {
+  leader: ISkill[];
+  normalAttack: Exclude<ISkill, TurnBasedSkill>[];
   ultimate: UltimateSkill[];
-  passive: Skill[];
+  passive: ISkill[];
 }
 
 export const potentialPassive = (
@@ -181,7 +186,7 @@ export const potentialPassive = (
     | SkillEffectType.IMMUNE_PARALYSIS
     | SkillEffectType.IMMUNE_SLEEP
 ) => {
-  const passive: Skill & { potential: number } = {
+  const passive: ISkill & { potential: number } = {
     potential: potential,
     type: type,
     condition: SkillCondition.BATTLE_BEGIN,

@@ -1,13 +1,13 @@
 import {
-  Skill,
+  ISkill,
   SkillActionType,
   SkillCondition,
   SkillEffect,
   SkillEffectBasis,
   SkillEffectType,
   SkillOn,
-} from "../../types/skills";
-import { BattleCharacter as Character } from "../../types/battle";
+} from "types/skills";
+import { BattleCharacter as Character } from "types/battle";
 
 export function calcAttack(character: Character) {
   let ATKEffectPercentage = 1;
@@ -52,7 +52,7 @@ const ATTRIBUTE_CHART = [
 export function calcDamage(
   from: Character,
   to: Character,
-  action: Skill | SkillEffect
+  action: ISkill | SkillEffect
 ) {
   if (
     !action.value ||
@@ -64,7 +64,7 @@ export function calcDamage(
       action.type === SkillActionType.FOLLOW_UP_ATTACK
     )
   ) {
-    throw "invalid argument";
+    throw "invalid argument: wrong skill type";
   }
 
   let dealtDamageEffect = 1;
@@ -77,6 +77,14 @@ export function calcDamage(
   let breakEffect = to.isBroken ? 1.25 : 1;
   let damagedEffect = 1;
   let attributeDamagedEffect = 1;
+
+  if (action.basis === SkillEffectBasis.TARGET_CURRENT_HP) {
+    return Math.floor(to.HP * action.value);
+  }
+
+  if (action.basis === SkillEffectBasis.TARGET_MAX_HP) {
+    return Math.floor(to.maxHP * action.value);
+  }
 
   from.effects.forEach((s) => {
     // exclude dot
@@ -191,7 +199,7 @@ export function calcDamage(
 export function calcHeal(
   from: Character,
   to: Character,
-  action: Skill | SkillEffect,
+  action: ISkill | SkillEffect,
   damage?: number
 ) {
   if (!action.value || action.type !== SkillActionType.HEAL) {
@@ -212,6 +220,9 @@ export function calcHeal(
       break;
     case SkillEffectBasis.TARGET_MAX_HP:
       base = to.maxHP;
+      break;
+    case SkillEffectBasis.TARGET_CURRENT_HP:
+      base = to.HP;
       break;
     case SkillEffectBasis.DAMAGE:
       if (damage === undefined) {
@@ -260,7 +271,7 @@ export function calcHeal(
 export function calcShield(
   from: Character,
   to: Character,
-  action: Skill | SkillEffect,
+  action: ISkill | SkillEffect
 ) {
   if (!action.value || action.type !== SkillActionType.SHIELD) {
     throw "invalid argument";

@@ -1,18 +1,18 @@
 import {
-  Skill,
+  ISkill,
   SkillActionType,
   SkillEffect,
   SkillOn,
-  SkillSet,
-} from "../types/skills";
+  ISkillSet,
+} from "types/skills";
 import {
   CharacterAttribute,
   CharacterPosition,
   CharacterStats,
-} from "../types/characters";
+} from "types/characters";
 
 export interface TestCharacterStats {
-  id: "test";
+  id: "scarecrow";
   attribute: number;
   ATK: number;
   HP: number;
@@ -25,8 +25,8 @@ export interface BattleCharacter {
   readonly baseATK: number;
   readonly baseHP: number;
   maxHP: number;
-  readonly skillSet: SkillSet;
-  extraSkill: Skill[];
+  readonly skillSet: ISkillSet;
+  extraSkill: ISkill[];
   ATK: number;
   HP: number;
   shield: number;
@@ -44,11 +44,10 @@ export interface BattleCharacter {
   isDead: boolean;
 }
 
-export interface G {
+export interface IGameState {
   lineups: { [playerName: string]: BattleCharacter[] };
   selected: number;
   target: number;
-  turn: number;
   log: Log[];
 }
 

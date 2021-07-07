@@ -1,4 +1,4 @@
-export interface CharacterData {
+export interface ICharacterData {
   id: string;
   rarity: number;
   tags: {

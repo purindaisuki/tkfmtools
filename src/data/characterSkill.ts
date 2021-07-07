@@ -1,19 +1,19 @@
 import { CharacterAttribute } from "../types/characters";
 import {
-  Skill,
+  ISkill,
   SkillActionType,
   SkillCondition,
   SkillEffectBasis,
   SkillEffectType,
   SkillOn,
-  SkillSet,
+  ISkillSet,
   SkillTarget,
   UltimateSkill,
   potentialPassive,
-} from "../types/skills";
+} from "types/skills";
 
 export const data: Readonly<{
-  [id: string]: Omit<SkillSet, "ultimate" | "passive" | "extra"> & {
+  [id: string]: Omit<ISkillSet, "ultimate" | "passive" | "extra"> & {
     ultimate: {
       common: UltimateSkill[];
       bond: {
@@ -24,8 +24,8 @@ export const data: Readonly<{
         };
       }[];
     };
-    starPassive: (Skill & { star: number })[];
-    potentialPassive: (Skill & { potential: number })[];
+    starPassive: (ISkill & { star: number })[];
+    potentialPassive: (ISkill & { potential: number })[];
   };
 }> = {
   "101": {
@@ -690,6 +690,125 @@ export const data: Readonly<{
       potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
     ],
   },
+  "117": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.35,
+        on: SkillOn.TURN_BEGIN,
+        duration: 4,
+      },
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.NORMAL_ATTACK_DAMAGE,
+        value: 1.5,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM_EXCEPT_SELF,
+        type: SkillEffectType.DEALT_DAMAGE,
+        value: -0.15,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.ALL_ENEMIES,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 0.5,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          duration: 3,
+          type: SkillEffectType.ATTACK_POWER,
+          basis: SkillEffectBasis.TARGET_ATK,
+          value: 0.25,
+          CD: 4,
+          on: SkillOn.BEFORE_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.ALL_ENEMIES,
+          type: SkillActionType.ULTIMATE,
+          value: 1.65,
+          CD: 4,
+          on: SkillOn.ON_ACTION,
+        },
+      ],
+      bond: [
+        { 0: { value: 0.25, duration: 3 }, 1: { value: 1.65 } },
+        { 0: { value: 0.25, duration: 3 }, 1: { value: 1.88 } },
+        { 0: { value: 0.25, duration: 3 }, 1: { value: 2.11 } },
+        { 0: { value: 0.35, duration: 3 }, 1: { value: 2.11 } },
+        { 0: { value: 0.35, duration: 4 }, 1: { value: 2.11 } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.HP_LESS_THAN,
+        conditionValue: 0.99,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.175,
+        on: SkillOn.BEFORE_ACTION,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.HP_LESS_THAN,
+        conditionValue: 0.99,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.NORMAL_ATTACK_DAMAGE,
+        value: 0.5,
+        on: SkillOn.BEFORE_ACTION,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillActionType.HEAL,
+        basis: SkillEffectBasis.TARGET_MAX_HP,
+        value: 0.075,
+        on: SkillOn.TURN_END,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.BATTLE_BEGIN,
+        conditionValue: 1,
+        target: SkillTarget.SELF,
+        type: SkillActionType.EXTRA_ATTACK,
+        basis: SkillEffectBasis.TARGET_CURRENT_HP,
+        value: 0.015,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.TURN_BASED,
+        conditionValue: 1,
+        target: SkillTarget.SELF,
+        type: SkillActionType.EXTRA_ATTACK,
+        basis: SkillEffectBasis.TARGET_CURRENT_HP,
+        value: 0.015,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.NORMAL_ATTACK_DAMAGE),
+      potentialPassive(12, SkillEffectType.IMMUNE_SILENCE),
+    ],
+  },
   "125": {
     leader: [
       {
@@ -992,6 +1111,103 @@ export const data: Readonly<{
       potentialPassive(12, SkillEffectType.IMMUNE_PARALYSIS),
     ],
   },
+  "129": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.ATTACKER,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.6,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM,
+        type: SkillEffectType.IMMUNE_SILENCE,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 1,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillActionType.ULTIMATE,
+          value: 3.65,
+          CD: 4,
+          on: SkillOn.ON_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillEffectType.DAMAGED,
+          value: 0.2,
+          CD: 4,
+          on: SkillOn.AFTER_ACTION,
+          maxStack: 1,
+        },
+      ],
+      bond: [
+        { 0: { value: 3.65 }, 1: { on: SkillOn.AFTER_ACTION } },
+        { 0: { value: 4.17 }, 1: { on: SkillOn.AFTER_ACTION } },
+        { 0: { value: 4.7 }, 1: { on: SkillOn.AFTER_ACTION } },
+        { 0: { value: 5.23 }, 1: { on: SkillOn.AFTER_ACTION } },
+        { 0: { value: 5.76 }, 1: { on: SkillOn.BEFORE_ACTION } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: -0.1,
+        on: SkillOn.AFTER_ACTION,
+        duration: 1,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillEffectType.DAMAGED,
+        value: 0.045,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 6,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.4,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.ULTIMATE,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.SILENCE,
+        on: SkillOn.AFTER_ACTION,
+        duration: 1,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.ULTIMATE_DAMAGE),
+      potentialPassive(12, SkillEffectType.IMMUNE_PARALYSIS),
+    ],
+  },
   "130": {
     leader: [
       {
@@ -1151,7 +1367,7 @@ export const data: Readonly<{
         duration: 1,
         type: SkillActionType.SHIELD,
         basis: SkillEffectBasis.SELF_ATK,
-        value: 0.1,
+        value: 1,
         on: SkillOn.AFTER_ACTION,
       },
       {
@@ -1183,6 +1399,255 @@ export const data: Readonly<{
     ],
     potentialPassive: [
       potentialPassive(6, SkillEffectType.DAMAGED),
+      potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
+    ],
+  },
+  "131": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillEffectType.ULTIMATE_DAMAGED,
+        value: 0.5,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 1,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillActionType.ULTIMATE,
+          value: 2.65,
+          CD: 3,
+          on: SkillOn.ON_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillActionType.CHANGE_CURRENT_CD,
+          value: 1,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillEffectType.DEALT_DAMAGE,
+          value: -0.15,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+          duration: 1,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillEffectType.DAMAGED,
+          value: 0.15,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+          duration: 3,
+        },
+      ],
+      bond: [
+        {
+          0: { value: 2.65 },
+          1: { value: 1 },
+          2: { value: -0.15 },
+          3: { value: 0.15 },
+        },
+        {
+          0: { value: 2.98 },
+          1: { value: 1 },
+          2: { value: -0.15 },
+          3: { value: 0.15 },
+        },
+        {
+          0: { value: 3.31 },
+          1: { value: 1 },
+          2: { value: -0.15 },
+          3: { value: 0.15 },
+        },
+        {
+          0: { value: 3.31 },
+          1: { value: 1 },
+          2: { value: -0.2 },
+          3: { value: 0.2 },
+        },
+        {
+          0: { value: 3.64 },
+          1: { value: 2 },
+          2: { value: -0.2 },
+          3: { value: 0.2 },
+        },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ULTIMATE_DAMAGE,
+        value: 0.2,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.TURN_BASED,
+        conditionValue: 3,
+        type: SkillActionType.ADDSKILL,
+        target: SkillTarget.SELF,
+        on: SkillOn.TURN_BEGIN,
+        skill: {
+          condition: SkillCondition.ATTACK,
+          type: SkillActionType.FOLLOW_UP_ATTACK,
+          value: 0.4,
+          target: SkillTarget.SINGLE_ENEMY,
+          on: SkillOn.AFTER_ACTION,
+          duration: 1,
+          repeat: 3,
+        },
+      },
+      {
+        star: 5,
+        condition: SkillCondition.TURN_BASED,
+        conditionValue: 4,
+        type: SkillActionType.ADDSKILL,
+        target: SkillTarget.SELF,
+        on: SkillOn.TURN_BEGIN,
+        skill: {
+          condition: SkillCondition.ATTACK,
+          type: SkillActionType.FOLLOW_UP_ATTACK,
+          value: 0.5,
+          target: SkillTarget.ALL_ENEMIES,
+          on: SkillOn.AFTER_ACTION,
+          duration: 1,
+          repeat: 4,
+        },
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.ATTACK_POWER),
+      potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
+    ],
+  },
+  "132": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM,
+        type: SkillActionType.ADDSKILL,
+        on: SkillOn.TURN_BEGIN,
+        skill: {
+          type: SkillActionType.NORMAL_ATTACK,
+          condition: SkillCondition.NORMAL_ATTACK,
+          value: 0.65,
+          target: SkillTarget.SINGLE_ENEMY,
+          on: SkillOn.AFTER_ACTION,
+        },
+      },
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM,
+        type: SkillActionType.ADDSKILL,
+        on: SkillOn.TURN_BEGIN,
+        skill: {
+          type: SkillActionType.ULTIMATE,
+          condition: SkillCondition.ULTIMATE,
+          value: 0.65,
+          target: SkillTarget.SINGLE_ENEMY,
+          on: SkillOn.AFTER_ACTION,
+        },
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 1,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          duration: 1,
+          type: SkillEffectType.ULTIMATE_DAMAGED,
+          value: 0.35,
+          CD: 6,
+          on: SkillOn.BEFORE_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          duration: 2,
+          type: SkillEffectType.ATTACK_POWER,
+          basis: SkillEffectBasis.TARGET_ATK,
+          value: 0,
+          CD: 6,
+          on: SkillOn.BEFORE_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillActionType.ULTIMATE,
+          value: 4.75,
+          CD: 6,
+          on: SkillOn.ON_ACTION,
+        },
+      ],
+      bond: [
+        { 1: { value: 0 }, 2: { value: 4.75 } },
+        { 1: { value: 0 }, 2: { value: 5.5 } },
+        { 1: { value: 0 }, 2: { value: 6.25 } },
+        { 1: { value: 0 }, 2: { value: 7 } },
+        { 1: { value: 0.15 }, 2: { value: 7.75 } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        duration: 2,
+        type: SkillEffectType.HEALED,
+        value: -0.5,
+        on: SkillOn.AFTER_ACTION,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ULTIMATE,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.3,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 1,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.TEAM,
+        type: SkillEffectType.ULTIMATE_DAMAGE,
+        value: 0.05,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 6,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.ULTIMATE_DAMAGE),
       potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
     ],
   },
@@ -1367,6 +1832,253 @@ export const data: Readonly<{
     potentialPassive: [
       potentialPassive(6, SkillEffectType.DAMAGED),
       potentialPassive(12, SkillEffectType.IMMUNE_PARALYSIS),
+    ],
+  },
+  "211": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM,
+        type: SkillEffectType.SHIELDED,
+        value: 0.3,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.TEAM,
+        duration: 1,
+        type: SkillActionType.SHIELD,
+        basis: SkillEffectBasis.SELF_ATK,
+        value: 0.5,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.TEAM,
+          type: SkillActionType.HEAL,
+          basis: SkillEffectBasis.SELF_ATK,
+          value: 0.95,
+          CD: 5,
+          on: SkillOn.ON_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.TEAM,
+          duration: 2,
+          type: SkillActionType.SHIELD,
+          basis: SkillEffectBasis.SELF_ATK,
+          value: 1.2,
+          CD: 5,
+          on: SkillOn.ON_ACTION,
+        },
+      ],
+      bond: [
+        { 0: { value: 0.95 }, 1: { value: 1.2 } },
+        { 0: { value: 1.1 }, 1: { value: 1.38 } },
+        { 0: { value: 1.25 }, 1: { value: 1.56 } },
+        { 0: { value: 1.4 }, 1: { value: 1.74 } },
+        { 0: { value: 1.55 }, 1: { value: 1.92 } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.TEAM,
+        type: SkillActionType.HEAL,
+        basis: SkillEffectBasis.SELF_ATK,
+        value: 0.15,
+        duration: 2,
+        on: SkillOn.TURN_END,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ATTACKED,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.DAMAGED,
+        value: -0.1,
+        duration: 1,
+        on: SkillOn.AFTER_ACTION,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.SHIELD_EFFECT,
+        value: 0.3,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.DAMAGED),
+      potentialPassive(12, SkillEffectType.IMMUNE_SILENCE),
+    ],
+  },
+  "212": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.TEAM,
+        type: SkillActionType.CHANGE_CURRENT_CD,
+        value: -4,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.ALL_ENEMIES,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 0.5,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.ALL_ENEMIES,
+          type: SkillActionType.ULTIMATE,
+          value: 1.33,
+          CD: 3,
+          on: SkillOn.ON_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.ALL_ENEMIES,
+          duration: 1,
+          type: SkillEffectType.DAMAGED,
+          value: 0.15,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+        },
+      ],
+      bond: [
+        { 0: { value: 1.33 } },
+        { 0: { value: 1.49 } },
+        { 0: { value: 1.66 } },
+        { 0: { value: 1.82 } },
+        { 0: { value: 1.99 } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.ALL_ENEMIES,
+        type: SkillActionType.FOLLOW_UP_ATTACK,
+        value: 0.2,
+        on: SkillOn.AFTER_ACTION,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.2,
+        on: SkillOn.BATTLE_BEGIN,
+        duration: 4,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.ALL_ENEMIES,
+        type: SkillEffectType.DAMAGED,
+        value: 0.2,
+        on: SkillOn.BATTLE_BEGIN,
+        duration: 1,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.NORMAL_ATTACK_DAMAGE),
+      potentialPassive(12, SkillEffectType.IMMUNE_PARALYSIS),
+    ],
+  },
+  "213": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillEffectType.DAMAGED,
+        value: 0.3,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 1,
+        on: SkillOn.ON_ACTION,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillActionType.ULTIMATE,
+          value: 2.65,
+          CD: 3,
+          on: SkillOn.ON_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: SkillEffectType.DAMAGED,
+          value: 0.1,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+          maxStack: 3,
+        },
+      ],
+      bond: [
+        { 0: { value: 2.65 } },
+        { 0: { value: 2.98 } },
+        { 0: { value: 3.31 } },
+        { 0: { value: 3.64 } },
+        { 0: { value: 3.97 } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.FOLLOW_UP_ATTACK,
+        value: 0.3,
+        on: SkillOn.AFTER_ACTION,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillEffectType.DAMAGED,
+        value: 0.05,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 6,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ATTACK,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.05,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 6,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.NORMAL_ATTACK_DAMAGE),
+      potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
     ],
   },
 };
