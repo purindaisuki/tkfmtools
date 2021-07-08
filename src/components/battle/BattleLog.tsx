@@ -1,0 +1,142 @@
+import React from "react";
+import styled from "styled-components";
+import { TableBody, TableRow, TableCell } from "@material-ui/core";
+import { useLanguage } from "containers/LanguageProvider";
+import Table from "components/Table";
+import { HPBar } from ".";
+import { IGameState, ILog } from "types/battle";
+import skillString from "data/string/skill_zh-TW.json";
+import Scrollable from "containers/Scrollable";
+
+const LogCell = ({
+  children,
+  colSpan,
+}: {
+  children: React.ReactNode;
+  colSpan?: number;
+}): JSX.Element => (
+  <TableCell align="center" size="small" colSpan={colSpan}>
+    <TextWrapper>{children}</TextWrapper>
+  </TableCell>
+);
+
+const TextWrapper = styled.span`
+  font-size: small;
+`;
+
+const MoveLog = ({
+  G,
+  moveLog,
+}: {
+  G: IGameState;
+  moveLog: ILog;
+}): JSX.Element => {
+  const { charString }: any = useLanguage();
+  const fromCharacter = G.lineups[moveLog.player][moveLog.from.position];
+  const toCharacter = moveLog.to.isEnemy
+    ? G.lineups[moveLog.player === "0" ? "1" : "0"][moveLog.to.position]
+    : G.lineups[moveLog.player][moveLog.to.position];
+
+  return (
+    <TableRow>
+      <LogCell>
+        <CharacterTextWrapper $isEnemy={moveLog.player === "1"}>
+          {`${charString.name[fromCharacter.id]} (${
+            fromCharacter.teamPosition + 1
+          })`}
+        </CharacterTextWrapper>
+      </LogCell>
+      <LogCell>{"⭢"}</LogCell>
+      <LogCell>{`${moveLog.value ? moveLog.value : ""} (${
+        skillString.type[moveLog.type]
+      })`}</LogCell>
+      {moveLog.value || moveLog.from.position !== moveLog.to.position ? (
+        <>
+          <LogCell>{"⭢"}</LogCell>
+          <LogCell>
+            <CharacterTextWrapper
+              $isEnemy={
+                (moveLog.player === "0" && moveLog.to.isEnemy) ||
+                (moveLog.player === "1" && !moveLog.to.isEnemy)
+              }
+            >
+              {`${charString.name[toCharacter.id]} (${
+                toCharacter.teamPosition + 1
+              })`}
+            </CharacterTextWrapper>
+          </LogCell>
+          <LogCell>
+            <HPTextWrapper>{`${moveLog.to.HP}${
+              moveLog.to.shield ? `(${moveLog.to.shield})` : ""
+            }`}</HPTextWrapper>
+            <LogHPBar
+              HPPercent={(moveLog.to.HP / toCharacter.maxHP) * 100}
+              shieldPercent={(moveLog.to.shield / toCharacter.maxHP) * 100}
+              originalHPPercent={
+                (moveLog.to.originalHP / toCharacter.maxHP) * 100
+              }
+              originalShieldPercent={
+                (moveLog.to.originalShield / toCharacter.maxHP) * 100
+              }
+            />
+          </LogCell>
+        </>
+      ) : null}
+    </TableRow>
+  );
+};
+
+const CharacterTextWrapper = styled.span<{ $isEnemy: boolean }>`
+  color: ${(props) =>
+    props.theme.colors[props.$isEnemy ? "secondary" : "onSurface"]};
+`;
+const HPTextWrapper = styled(TextWrapper)`
+  margin-left: 0.3rem;
+  font-size: 0.75rem;
+`;
+const LogHPBar = styled(HPBar)`
+  width: 6.5rem;
+`;
+
+type Props = {
+  G: IGameState;
+};
+
+export const BattleLog = ({ G }: Props): JSX.Element => {
+  let counter = 0;
+
+  return (
+    <TableWrapper>
+      <Table>
+        <TableBody>
+          {G.log.map((logPerTurn, ind) => {
+            const turn = ind % 2 === 0 ? "You" : "Enemy";
+            return (
+              <React.Fragment key={ind}>
+                <TableRow>
+                  <LogCell colSpan={6}>
+                    <TurnTextWrapper>
+                      {`Turn ${Math.floor(ind / 2) + 1} (${turn})`}
+                    </TurnTextWrapper>
+                  </LogCell>
+                </TableRow>
+                {logPerTurn.map((logPerMove) => {
+                  return <MoveLog G={G} key={counter++} moveLog={logPerMove} />;
+                })}
+              </React.Fragment>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableWrapper>
+  );
+};
+
+const TableWrapper = styled(Scrollable)`
+  max-height: 80vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
+const TurnTextWrapper = styled(TextWrapper)`
+  font-weight: bold;
+`;

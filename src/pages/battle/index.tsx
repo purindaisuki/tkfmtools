@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Button as MuiButton } from "@material-ui/core";
 import { BoardProps, Client } from "boardgame.io/react";
+import Panels from "containers/Panels";
 import {
   Battle,
+  BattleLog,
   CharacterButton,
   getCharacterButtonState,
 } from "components/battle";
@@ -59,16 +61,13 @@ const lineup = [
 
 const enemies = [
   {
-    id: "scarecrow",
-    attribute: 0,
-    ATK: 0,
-    HP: 1000000000,
+    id: "101",
     level: 60,
-    potential: 0,
-    potentialSub: Array(6).fill(false),
-    discipline: 0,
-    star: 0,
-    bond: 0,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
   },
   {
     id: "scarecrow",
@@ -113,34 +112,41 @@ const Board = ({
   };
 
   return (
-    <>
-      <div>{`Turn: ${Math.floor((ctx.turn + 1) / 2)}`}</div>
-      <BoardContainer>
-        {Object.entries(G.lineups).map(([player, lineup]) => (
-          <div key={player}>
-            {lineup.map((c, ind) => (
-              <CharacterButton
-                key={ind}
-                character={c}
-                state={getCharacterButtonState(G, ctx, c, player)}
-                onClick={handleCharacterClick(ind, player)}
-              />
-            ))}
-          </div>
-        ))}
-      </BoardContainer>
-      <Button onClick={handleAttackClick}>Attack</Button>
-      <Button onClick={handleUltimateClick}>Ultimate</Button>
-      <Button onClick={handleGuardClick}>Guard</Button>
-      <Button onClick={() => undo()}>Undo</Button>
-      <Button onClick={() => redo()}>Redo</Button>
-      <Button onClick={() => reset()}>Reset</Button>
-      <div>Log</div>
-    </>
+    <Panels panelsWidth={["30%", "70%"]}>
+      <div>
+        <div>{`Turn: ${Math.floor((ctx.turn + 1) / 2)}`}</div>
+        <BattleContainer>
+          {Object.entries(G.lineups).map(([player, lineup]) => (
+            <div key={player}>
+              {lineup.map((c, ind) => (
+                <CharacterButton
+                  key={ind}
+                  character={c}
+                  state={getCharacterButtonState(G, ctx, c, player)}
+                  onClick={handleCharacterClick(ind, player)}
+                />
+              ))}
+            </div>
+          ))}
+        </BattleContainer>
+        <div>
+          <Button onClick={handleAttackClick}>Attack</Button>
+          <Button onClick={handleUltimateClick}>Ultimate</Button>
+          <Button onClick={handleGuardClick}>Guard</Button>
+          <Button onClick={() => undo()}>Undo</Button>
+          <Button onClick={() => redo()}>Redo</Button>
+          <Button onClick={() => reset()}>Reset</Button>
+        </div>
+      </div>
+      <BattleLog G={G} />
+    </Panels>
   );
 };
 
 const BoardContainer = styled.div`
+  display: flex;
+`;
+const BattleContainer = styled.div`
   display: flex;
   > div:first-child {
     margin-right: 1rem;
@@ -158,6 +164,7 @@ const battle = Client({
   }),
   board: Board,
   numPlayers: 2,
+  debug: false,
 });
 
 export default battle;

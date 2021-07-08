@@ -2,13 +2,13 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { Popover } from "@material-ui/core";
 import { BattleCharacter as Character } from "types/battle";
-import skillString from "data/string/skill_zh-TW.json";
 import {
   SkillActionType,
   SkillEffect,
   SkillEffectBasis,
   SkillEffectType,
 } from "types/skills";
+import skillString from "data/string/skill_zh-TW.json";
 
 const effectString = (effect: SkillEffect) => {
   let string = skillString.type[effect.type];
@@ -31,7 +31,7 @@ type Props = {
   id?: string;
   character: Character;
   open: boolean;
-  anchorEl: HTMLInputElement | null;
+  anchorEl: HTMLButtonElement | null;
   onClose: () => void;
 };
 

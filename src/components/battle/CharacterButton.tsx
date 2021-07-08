@@ -141,12 +141,9 @@ const CharacterStats = ({
     <CharacterStatsWrapper>
       <span>{`${HP}`}</span>
       <HPBar
-        $HP={HPPercent}
-        $shield={shieldPercent > 100 ? 100 : shieldPercent}
-      >
-        <div />
-        <div />
-      </HPBar>
+        HPPercent={HPPercent}
+        shieldPercent={shieldPercent > 100 ? 100 : shieldPercent}
+      />
       <CharacterStateList character={character} />
     </CharacterStatsWrapper>
   );
@@ -163,26 +160,75 @@ const CharacterStatsWrapper = styled.div`
     font-size: 0.9rem;
   }
 `;
-const HPBar = styled.div<{ $HP: number; $shield: number }>`
+
+type HPBarProps = {
+  HPPercent: number;
+  shieldPercent: number;
+  originalHPPercent?: number;
+  originalShieldPercent?: number;
+};
+
+export const HPBar = ({
+  HPPercent,
+  shieldPercent,
+  originalHPPercent,
+  originalShieldPercent,
+  className,
+}: HPBarProps & React.HTMLAttributes<HTMLDivElement>): JSX.Element => (
+  <StyledHPBar
+    $HP={HPPercent}
+    $shield={shieldPercent}
+    $originalHP={originalHPPercent}
+    $originalShield={originalShieldPercent}
+    className={className}
+  >
+    <div />
+    <div />
+    <div />
+    <div />
+  </StyledHPBar>
+);
+
+const StyledHPBar = styled.div<{
+  $HP: number;
+  $shield: number;
+  $originalHP?: number;
+  $originalShield?: number;
+}>`
+  position: relative;
   height: 0.5rem;
   width: 8rem;
   margin-left: 0.2rem;
   margin-bottom: 0.5rem;
-  background-color: ${(props) => props.theme.colors.shadow};
+  background-color: ${(props) => props.theme.colors.dropdownHover};
   border-radius: 0.25rem;
-  > div {
+  div {
     height: 100%;
     border-radius: 0.25rem;
     transition: width 1s;
   }
-  > div:first-child {
+  > div:nth-child(1) {
+    position: absolute;
+    width: ${(props) => (props.$originalHP ? props.$originalHP : 0)}%;
+    background-color: ${(props) => props.theme.colors.shadow};
+  }
+  > div:nth-child(2) {
+    position: absolute;
+    top: 0.7rem;
+    width: ${(props) => (props.$originalShield ? props.$originalShield : 0)}%;
+    height: 60%;
+    background-color: ${(props) => props.theme.colors.shadow};
+  }
+  > div:nth-child(3) {
+    position: absolute;
     width: ${(props) => props.$HP}%;
     background-color: ${(props) => props.theme.colors.secondary};
   }
-  > div:nth-child(2) {
+  > div:nth-child(4) {
+    position: absolute;
+    top: 0.7rem;
     width: ${(props) => props.$shield}%;
     height: 60%;
-    margin-top: 2px;
     background-color: ${(props) => props.theme.chart.colors[1]};
   }
 `;
@@ -197,9 +243,9 @@ export const CharacterButton = ({
   onClick: () => void;
 }): JSX.Element => {
   const { charString }: any = useLanguage();
-  const [anchorEl, setAnchorEl] = useState<HTMLInputElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -256,16 +302,9 @@ const DetailsButton = styled(IconButton)`
     padding: 0.4rem;
     color: ${(props) => props.theme.colors.onBackground};
   }
-` as (props: {
-  className?: string;
-  children?: JSX.Element;
-  tooltipText: string;
-  onClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  dataHtml2canvasIgnore?: boolean;
-  ariaDescribedby?: string;
-}) => JSX.Element;
+`;
 
-const CharacterAvatar = styled(ImageSupplier)<{
+export const CharacterAvatar = styled(ImageSupplier)<{
   $grayscale: boolean;
   $attr: number;
 }>`
@@ -281,15 +320,7 @@ const CharacterAvatar = styled(ImageSupplier)<{
   border-radius: 100%;
   background-color: ${(props) => props.theme.colors.background};
   filter: grayscale(${(props) => (props.$grayscale ? 1 : 0)});
-` as (props: {
-  className?: string;
-  children?: JSX.Element;
-  name: string;
-  isBackground?: boolean;
-  $grayscale: boolean;
-  $attr: number;
-  alt: string;
-}) => JSX.Element;
+`;
 
 const Button = styled(MuiButton)`
   && {

@@ -48,16 +48,22 @@ export interface IGameState {
   lineups: { [playerName: string]: BattleCharacter[] };
   selected: number;
   target: number;
-  log: Log[][];
+  log: ILog[][];
 }
 
-export interface Log {
+export interface ILog {
   player: string;
-  turn: number;
   type: SkillActionType;
   value?: number;
-  from: string;
-  to: string;
+  from: { position: number };
+  to: {
+    isEnemy: boolean;
+    position: number;
+    originalHP: number;
+    HP: number;
+    originalShield: number;
+    shield: number;
+  };
 }
 
 export type BattleSetupData = {
