@@ -1,15 +1,14 @@
 import React from "react";
-import { useLanguage } from "containers/LanguageProvider";
-
+import styled from "styled-components";
 import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
 } from "@material-ui/core";
-
+import { useLanguage } from "containers/LanguageProvider";
 import { ImgCard } from "components/Card";
 
-import styled from "styled-components";
+
 
 export const TableBody = ({ sortedData }) => {
   const { charString } = useLanguage();
@@ -18,7 +17,7 @@ export const TableBody = ({ sortedData }) => {
     <MuiTableBody>
       {sortedData.map((d, i) => (
         <MuiTableRow key={i}>
-          <MuiTableCell padding='none'>{i + 1}</MuiTableCell>
+          <MuiTableCell padding="none">{i + 1}</MuiTableCell>
           <MuiTableCell>
             <TextWrapper>
               {d.tags.map((i) => charString.tags[i]).join(", ")}
@@ -67,10 +66,11 @@ const Card = styled.div`
   padding: 1px 8px 1px 1px;
   margin: 4px;
 
-  background-color:${props => props.theme.colors.dropdownHover + '40'};
-  box-shadow: 2px 2px 2px 1px ${props => props.theme.colors.dropdownHover + '80'};
+  background-color: ${(props) => props.theme.colors.dropdownHover + "40"};
+  box-shadow: 2px 2px 2px 1px
+    ${(props) => props.theme.colors.dropdownHover + "80"};
   border-radius: 3rem;
-  color: ${props => props.theme.colors.onSurface};
+  color: ${(props) => props.theme.colors.onSurface};
 
   @media screen and (max-width: 600px) {
     font-size: small;
@@ -79,15 +79,16 @@ const Card = styled.div`
 
 const CharacterImage = styled(ImgCard)`
   margin-right: 2px;
-  
+
   > div:first-child {
     width: 3rem;
     height: 3rem;
     border-radius: 100%;
-    border: 2.5px solid ${props =>
-    props.rarity < 2
-      ? props.theme.colors.shadow
-      : props.theme.colors.secondary};
+    border: 2.5px solid
+      ${(props) =>
+        props.rarity < 2
+          ? props.theme.colors.shadow
+          : props.theme.colors.secondary};
   }
 
   img {

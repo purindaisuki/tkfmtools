@@ -1,20 +1,18 @@
 {
-    "plugins": [
-        [
-            "transform-imports",
-            {
-                "@material-ui/core": {
-                    "transform": "@material-ui/core/esm/${member}",
-                    "preventFullImport": true
-                },
-                "@material-ui/lab": {
-                    "transform": "@material-ui/lab/esm/${member}",
-                    "preventFullImport": true
-                }
-            }
-        ]
-    ],
-    "presets": [
-        "babel-preset-gatsby"
+  "plugins": [
+    [
+      "transform-imports",
+      {
+        "@material-ui/core": {
+          "transform": "@material-ui/core/esm/${member}",
+          "preventFullImport": true
+        },
+        "@material-ui/lab": {
+          "transform": "@material-ui/lab/esm/${member}",
+          "preventFullImport": true
+        }
+      }
     ]
+  ],
+  "presets": ["babel-preset-gatsby"]
 }

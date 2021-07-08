@@ -1,51 +1,9 @@
 [
-    {
-        "type": "attribute",
-        "range": [
-            0,
-            5
-        ]
-    },
-    {
-        "type": "position",
-        "range": [
-            5,
-            10
-        ]
-    },
-    {
-        "type": "race",
-        "range": [
-            10,
-            13
-        ]
-    },
-    {
-        "type": "body",
-        "range": [
-            13,
-            15
-        ]
-    },
-    {
-        "type": "oppai",
-        "range": [
-            15,
-            18
-        ]
-    },
-    {
-        "type": "rank",
-        "range": [
-            18,
-            21
-        ]
-    },
-    {
-        "type": "else",
-        "range": [
-            21,
-            33
-        ]
-    }
+  { "type": "attribute", "range": [0, 5] },
+  { "type": "position", "range": [5, 10] },
+  { "type": "race", "range": [10, 13] },
+  { "type": "body", "range": [13, 15] },
+  { "type": "oppai", "range": [15, 18] },
+  { "type": "rank", "range": [18, 21] },
+  { "type": "else", "range": [21, 33] }
 ]

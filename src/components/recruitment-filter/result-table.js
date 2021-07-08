@@ -3,10 +3,8 @@ import styled from "styled-components";
 
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
-
 import Table from "components/Table";
-
-import Header from 'components/Header';
+import Header from "components/Header";
 import { TableHead } from "./table-head";
 import { TableBody } from "./table-body";
 
@@ -40,7 +38,6 @@ const TableWrapper = styled(Scrollable)`
     overflow-y: hidden;
   }
 `;
-
 const StyledTable = styled(Table)`
   td {
     padding-left: 0.75rem;

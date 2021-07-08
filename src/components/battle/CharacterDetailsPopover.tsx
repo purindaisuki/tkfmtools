@@ -1,7 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { Popover } from "@material-ui/core";
-
 import { BattleCharacter as Character } from "types/battle";
 import skillString from "data/string/skill_zh-TW.json";
 import {

@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button as MuiButton, Tooltip } from "@material-ui/core";
 import type { Ctx } from "boardgame.io";
-
 import { useLanguage } from "containers/LanguageProvider";
-
 import { BattleCharacter as Character, IGameState } from "types/battle";
 import ImageSupplier from "components/ImageSupplier";
 import { CharacterDetailsPopover } from "components/battle";
@@ -13,7 +11,6 @@ import {
   ClockIcon,
   ElseIcon,
   GuardIcon,
-  HpIcon,
   ParalysisIcon,
   SilenceIcon,
   SleepIcon,
@@ -82,7 +79,6 @@ const StateIcon = styled.span<{ $active: boolean }>`
       props.theme.colors[props.$active ? "secondary" : "dropdownHover"]};
   }
 `;
-
 const TooltipTextWrapper = styled.span`
   font-size: small;
 `;
@@ -126,7 +122,6 @@ const ListWrapper = styled.div`
     margin-left: 0;
   }
 `;
-
 const TextWrapper = styled.span`
   line-height: 1rem;
   vertical-align: middle;
@@ -168,7 +163,6 @@ const CharacterStatsWrapper = styled.div`
     font-size: 0.9rem;
   }
 `;
-
 const HPBar = styled.div<{ $HP: number; $shield: number }>`
   height: 0.5rem;
   width: 8rem;
@@ -253,7 +247,6 @@ export const CharacterButton = ({
 const ButtonWrapper = styled.div`
   position: relative;
 `;
-
 const DetailsButton = styled(IconButton)`
   && {
     position: absolute;
@@ -303,7 +296,6 @@ const Button = styled(MuiButton)`
     color: ${(props) => props.theme.colors.onBackground};
   }
 `;
-
 const StyledCharacterMuiButton = styled(Button)<{
   $state: CharacterButtonState;
 }>`

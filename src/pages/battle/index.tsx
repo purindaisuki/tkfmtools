@@ -1,17 +1,13 @@
-import React, { useState, useReducer } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button as MuiButton } from "@material-ui/core";
-import type { Ctx } from "boardgame.io";
 import { BoardProps, Client } from "boardgame.io/react";
-
-import { useLanguage } from "containers/LanguageProvider";
-
 import {
   Battle,
   CharacterButton,
   getCharacterButtonState,
 } from "components/battle";
-import { BattleCharacter as Character, IGameState } from "types/battle";
+import { IGameState } from "types/battle";
 
 const lineup = [
   {
@@ -88,18 +84,6 @@ const enemies = [
   },
 ];
 
-const BoardContainer = styled.div`
-  display: flex;
-  > div:first-child {
-    margin-right: 1rem;
-  }
-`;
-const Button = styled(MuiButton)`
-  && {
-    color: ${(props) => props.theme.colors.onBackground};
-  }
-`;
-
 const Board = ({
   G,
   ctx,
@@ -132,26 +116,18 @@ const Board = ({
     <>
       <div>{`Turn: ${Math.floor((ctx.turn + 1) / 2)}`}</div>
       <BoardContainer>
-        <div>
-          {G.lineups[0].map((c, ind) => (
-            <CharacterButton
-              key={c.id}
-              character={c}
-              state={getCharacterButtonState(G, ctx, c, ctx.playOrder[0])}
-              onClick={handleCharacterClick(ind, ctx.playOrder[0])}
-            />
-          ))}
-        </div>
-        <div>
-          {G.lineups[1].map((c, ind) => (
-            <CharacterButton
-              key={c.id}
-              character={c}
-              state={getCharacterButtonState(G, ctx, c, ctx.playOrder[1])}
-              onClick={handleCharacterClick(ind, ctx.playOrder[1])}
-            />
-          ))}
-        </div>
+        {Object.entries(G.lineups).map(([player, lineup]) => (
+          <div key={player}>
+            {lineup.map((c, ind) => (
+              <CharacterButton
+                key={ind}
+                character={c}
+                state={getCharacterButtonState(G, ctx, c, player)}
+                onClick={handleCharacterClick(ind, player)}
+              />
+            ))}
+          </div>
+        ))}
       </BoardContainer>
       <Button onClick={handleAttackClick}>Attack</Button>
       <Button onClick={handleUltimateClick}>Ultimate</Button>
@@ -163,6 +139,18 @@ const Board = ({
     </>
   );
 };
+
+const BoardContainer = styled.div`
+  display: flex;
+  > div:first-child {
+    margin-right: 1rem;
+  }
+`;
+const Button = styled(MuiButton)`
+  && {
+    color: ${(props) => props.theme.colors.onBackground};
+  }
+`;
 
 const battle = Client({
   game: Battle({

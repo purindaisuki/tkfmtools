@@ -1,170 +1,170 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-import useLocalStorage from 'hooks/useLocalStorage';
-
-import { useLineupData } from 'containers/LineupDataProvider';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import useLocalStorage from "hooks/useLocalStorage";
+import { useLineupData } from "containers/LineupDataProvider";
 
 const initTeam = () => ({
-    name: '',
-    characters: [...Array(5).keys()].map(i => ({ key: 'key' + i }))
-})
+  name: "",
+  characters: [...Array(5).keys()].map((i) => ({ key: "key" + i })),
+});
 
-const TeamsContext = createContext()
+const TeamsContext = createContext();
 
-export const useTeamData = () => useContext(TeamsContext)
+export const useTeamData = () => useContext(TeamsContext);
 
 const TeamDataProvider = ({ children }) => {
-    const [localTeams, setLocalTeams] = useLocalStorage('team-data')
-    const [lastIndex, setLastIndex] = useLocalStorage('last-team-index')
-    const [isImportingLineup, setIsImportingLineup] = useLocalStorage('import-line-up-data')
+  const [localTeams, setLocalTeams] = useLocalStorage("team-data");
+  const [lastIndex, setLastIndex] = useLocalStorage("last-team-index");
+  const [isImportingLineup, setIsImportingLineup] = useLocalStorage(
+    "import-line-up-data"
+  );
 
-    const { localLineups } = useLineupData()
+  const { localLineups } = useLineupData();
 
-    const [didLoad, setDidLoad] = useState(false)
+  const [didLoad, setDidLoad] = useState(false);
 
-    // add key to legacy local data
+  // add key to legacy local data
+  if (localTeams) {
+    localTeams.forEach((i) => {
+      i.characters.forEach((c, ind) => {
+        if (!c) {
+          i.characters[ind] = { key: "key" + ind };
+        } else if (!c.key) {
+          c.key = "key" + ind;
+        }
+      });
+    });
+  }
+
+  useEffect(() => {
+    const loadTeamFromUrl = async () => {
+      const url = new URL(window.location.href);
+      const team = JSON.parse(url.searchParams.get("team"));
+
+      if (team) {
+        url.search = "";
+        window.history.replaceState("", "", url.href);
+
+        const length = pushTeam(team);
+
+        setLastIndex(length - 1);
+      }
+
+      setDidLoad(true);
+    };
+
+    if (!didLoad && localTeams !== undefined) {
+      loadTeamFromUrl();
+    }
+  }, [localTeams]);
+
+  const pushTeam = (team) => {
+    let newTeams;
     if (localTeams) {
-        localTeams.forEach(i => {
-            i.characters.forEach((c, ind) => {
-                if (!c) {
-                    i.characters[ind] = { key: 'key' + ind }
-                } else if (!c.key) {
-                    c.key = 'key' + ind
-                }
-            })
-        })
+      newTeams = Array.from(localTeams);
+      newTeams.push(team);
+    } else {
+      newTeams = [team];
     }
 
-    useEffect(() => {
-        const loadTeamFromUrl = async () => {
-            const url = new URL(window.location.href)
-            const team = JSON.parse(url.searchParams.get('team'))
-
-            if (team) {
-                url.search = ''
-                window.history.replaceState('', '', url.href)
-
-                const length = pushTeam(team)
-
-                setLastIndex(length - 1)
-            }
-
-            setDidLoad(true)
-        }
-
-        if (!didLoad && localTeams !== undefined) {
-            loadTeamFromUrl()
-        }
-    }, [localTeams])
-
-    const pushTeam = (team) => {
-        let newTeams
-        if (localTeams) {
-            newTeams = Array.from(localTeams)
-            newTeams.push(team)
-        } else {
-            newTeams = [team]
-        }
-
-        if (!setLocalTeams(newTeams)) {
-            return 0
-        }
-
-        return newTeams.length
+    if (!setLocalTeams(newTeams)) {
+      return 0;
     }
 
-    const getTeam = (index) => {
-        if (!localTeams || !localTeams[index]) {
-            return
-        }
+    return newTeams.length;
+  };
 
-        return localTeams[index]
+  const getTeam = (index) => {
+    if (!localTeams || !localTeams[index]) {
+      return;
     }
 
-    const deleteTeam = (index) => {
-        if (!localTeams || !localTeams[index]) {
-            return 0
-        }
+    return localTeams[index];
+  };
 
-        const newTeams = Array.from(localTeams)
-        newTeams.splice(index, 1)
-
-        if (!setLocalTeams(newTeams) || !setLastIndex(-1)) {
-            return 0
-        }
-
-        return 1
+  const deleteTeam = (index) => {
+    if (!localTeams || !localTeams[index]) {
+      return 0;
     }
 
-    const setCurrentTeam = (team) => {
-        let newTeams
-        if (!localTeams || lastIndex === undefined || lastIndex < 0) {
-            newTeams = [team]
-        } else {
-            newTeams = Array.from(localTeams)
-            newTeams.splice(lastIndex, 1, team)
-        }
+    const newTeams = Array.from(localTeams);
+    newTeams.splice(index, 1);
 
-        if (!setLocalTeams(newTeams)) {
-            return 0
-        }
-
-        return 1
+    if (!setLocalTeams(newTeams) || !setLastIndex(-1)) {
+      return 0;
     }
 
-    const selectTeam = (index) => {
-        const team = getTeam(index)
+    return 1;
+  };
 
-        if (!team) {
-            return 0
-        }
-
-        if (!setLastIndex(index)) {
-            return 0
-        }
+  const setCurrentTeam = (team) => {
+    let newTeams;
+    if (!localTeams || lastIndex === undefined || lastIndex < 0) {
+      newTeams = [team];
+    } else {
+      newTeams = Array.from(localTeams);
+      newTeams.splice(lastIndex, 1, team);
     }
 
-    const newTeam = (team) => {
-        const newTeam = team ? team : initTeam()
-        const newIndex = localTeams ? localTeams.length : 0
-        if (!setLastIndex(newIndex)) {
-            return 0
-        }
-
-        return pushTeam(newTeam)
+    if (!setLocalTeams(newTeams)) {
+      return 0;
     }
 
-    const toggleImportLineupData = () => {
-        if (!isImportingLineup && (!localLineups || localLineups.length === 0)) {
-            return 0
-        }
+    return 1;
+  };
 
-        if (!setIsImportingLineup(!isImportingLineup)) {
-            return 0
-        }
+  const selectTeam = (index) => {
+    const team = getTeam(index);
 
-        return 1
+    if (!team) {
+      return 0;
     }
 
-    const provider = {
-        localTeams: localTeams,
-        currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
-        isImportingLineup: isImportingLineup || false,
-        didLoad: didLoad,
-        actions: {
-            newTeam,
-            getTeam,
-            selectTeam,
-            pushTeam,
-            deleteTeam,
-            setCurrentTeam,
-            toggleImportLineupData
-        }
+    if (!setLastIndex(index)) {
+      return 0;
+    }
+  };
+
+  const newTeam = (team) => {
+    const newTeam = team ? team : initTeam();
+    const newIndex = localTeams ? localTeams.length : 0;
+    if (!setLastIndex(newIndex)) {
+      return 0;
     }
 
-    return (
-        <TeamsContext.Provider value={provider}>{children}</TeamsContext.Provider>
-    )
-}
+    return pushTeam(newTeam);
+  };
 
-export default TeamDataProvider
+  const toggleImportLineupData = () => {
+    if (!isImportingLineup && (!localLineups || localLineups.length === 0)) {
+      return 0;
+    }
+
+    if (!setIsImportingLineup(!isImportingLineup)) {
+      return 0;
+    }
+
+    return 1;
+  };
+
+  const provider = {
+    localTeams: localTeams,
+    currentTeam: localTeams ? localTeams[lastIndex] : initTeam(),
+    isImportingLineup: isImportingLineup || false,
+    didLoad: didLoad,
+    actions: {
+      newTeam,
+      getTeam,
+      selectTeam,
+      pushTeam,
+      deleteTeam,
+      setCurrentTeam,
+      toggleImportLineupData,
+    },
+  };
+
+  return (
+    <TeamsContext.Provider value={provider}>{children}</TeamsContext.Provider>
+  );
+};
+
+export default TeamDataProvider;

@@ -1,6 +1,5 @@
 import type { Ctx } from "boardgame.io";
 import { INVALID_MOVE } from "boardgame.io/core";
-
 import {
   ISkill,
   SkillActionType,
@@ -208,9 +207,7 @@ function processSkill(
           };
           const tempCtx = {
             ...ctx,
-            currentPlayer: ctx.playOrder.filter(
-              (p) => p !== ctx.currentPlayer
-            )[0],
+            currentPlayer: ctx.currentPlayer === "0" ? "1" : "0",
           };
 
           target.skillSet.leader
@@ -586,7 +583,7 @@ function initCharacter(
 
 // always two players
 const getEnemies = (G: IGameState, ctx: Ctx) =>
-  G.lineups[ctx.playOrder.filter((p) => p !== ctx.currentPlayer)[0]];
+  G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
 
 const pushSkill = (
   G: IGameState,
