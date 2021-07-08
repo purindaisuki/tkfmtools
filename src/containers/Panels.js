@@ -27,7 +27,7 @@ export const panelsStyle = [
   },
 ];
 
-const HorizontalPanels = ({ children, panelsWidth, horizontal }) => {
+const Panels = ({ children, panelsWidth, horizontal }) => {
   const { layout } = useLayoutConfig();
 
   const [isLandscape, setLandscape] = useState(true);
@@ -93,4 +93,4 @@ const OutlinedPanel = styled.div`
   box-shadow: 0 0 0.15em ${(props) => props.theme.colors.shadow};
 `;
 
-export default HorizontalPanels;
+export default Panels;
