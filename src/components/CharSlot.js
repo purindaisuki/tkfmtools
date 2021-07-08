@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import useCharacterStats from "hooks/useCharacterStats";
@@ -86,6 +86,10 @@ const CharSlotContent = ({
 
     setCurrentTeam(newTeam);
   };
+
+  useEffect(() => {
+    setCharStats(char);
+  }, [char]);
 
   return (
     <>
