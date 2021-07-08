@@ -48,14 +48,14 @@ export interface IGameState {
   lineups: { [playerName: string]: BattleCharacter[] };
   selected: number;
   target: number;
-  log: Log[];
+  log: Log[][];
 }
 
 export interface Log {
   player: string;
   turn: number;
   type: SkillActionType;
-  value: number;
+  value?: number;
   from: string;
   to: string;
 }

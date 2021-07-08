@@ -248,16 +248,15 @@ function processSkill(
         break;
       case SkillActionType.HEAL:
         let healBasis: number | undefined;
-        if (s.basis === SkillEffectBasis.DAMAGE) {
+        if (s.basis === SkillEffectBasis.DAMAGE && logArr) {
           // search basis
-          for (let i = G.log.length - 1; i >= 0; i++) {
+          for (let i = logArr.length - 1; i >= 0; i++) {
             if (
-              G.log[i].turn === Math.floor((ctx.turn + 1) / 2) &&
-              G.log[i].player === ctx.currentPlayer &&
-              (G.log[i].type === SkillActionType.NORMAL_ATTACK ||
-                G.log[i].type === SkillActionType.ULTIMATE)
+              logArr[i].from === from.id &&
+              (logArr[i].type === SkillActionType.NORMAL_ATTACK ||
+                logArr[i].type === SkillActionType.ULTIMATE)
             ) {
-              healBasis = G.log[i].value;
+              healBasis = logArr[i].value;
               break;
             }
           }
@@ -735,7 +734,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
 
-        G.log.push(...log);
+        G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
       },
       undoable: true,
@@ -792,7 +791,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         skillQueue.sort((a, b) => a.order - b.order);
         skillQueue.forEach((s) => s.cb());
 
-        G.log.push(...log);
+        G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
       },
       undoable: true,
@@ -820,6 +819,15 @@ export const Battle = (setupData: BattleSetupData) => ({
           return INVALID_MOVE;
         }
         self.isGuard = true;
+        const log: Log[] = [
+          {
+            player: ctx.currentPlayer,
+            turn: Math.floor(ctx.turn + 1) / 2,
+            type: SkillActionType.GUARD,
+            from: self.id,
+            to: self.id,
+          },
+        ];
 
         if (!self.isSilence) {
           const skillQueue: SkillQueue = [];
@@ -829,12 +837,15 @@ export const Battle = (setupData: BattleSetupData) => ({
             ctx,
             [...self.skillSet.passive],
             (s) => s.condition === SkillCondition.GUARD,
-            skillQueue
+            skillQueue,
+            false,
+            log
           );
 
           skillQueue.sort((a, b) => a.order - b.order);
           skillQueue.forEach((s) => s.cb());
         }
+        G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
       },
       undoable: true,
@@ -882,7 +893,6 @@ export const Battle = (setupData: BattleSetupData) => ({
   },
   turn: {
     onBegin: (G: IGameState, ctx: Ctx) => {
-      //console.log(`Player: ${ctx.currentPlayer} Turn: ${Math.floor((ctx.turn+1)/2)} start`);
       const selfTeam = G.lineups[ctx.currentPlayer];
       const enemies = getEnemies(G, ctx);
 
@@ -891,6 +901,8 @@ export const Battle = (setupData: BattleSetupData) => ({
       const currTarget = enemies.findIndex((c) => !c.isDead && c.isTaunt);
       G.target =
         currTarget === -1 ? enemies.findIndex((c) => !c.isDead) : currTarget;
+
+      G.log.push([]);
 
       // clear expired effects
       selfTeam.forEach((c, ind): boolean | void => {
@@ -962,7 +974,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         });
       });
 
-      G.log.push(...log);
+      G.log.slice(-1)[0].push(...log);
     },
     endIf: (G: IGameState, ctx: Ctx) =>
       G.lineups[ctx.currentPlayer].every(
