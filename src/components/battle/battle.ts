@@ -311,12 +311,11 @@ function processSkill(
         const para = target.effects.find(
           (s) => s.type === SkillEffectType.PARALYSISED
         );
+        const paraBuff = para?.value ? para.value : 0;
+        const rPara = ctx.random?.Number();
 
-        if (para && para.value) {
-          const p = ctx.random?.Number();
-          if (p && p < s.probability * (1 + para.value)) {
-            target.isParalysis = true;
-          }
+        if (rPara && rPara < s.probability * (1 + paraBuff)) {
+          target.isSilence = true;
         }
         break;
       case SkillActionType.SLEEP:
@@ -332,12 +331,11 @@ function processSkill(
         const sleep = target.effects.find(
           (s) => s.type === SkillEffectType.SLEEPED
         );
+        const sleepBuff = sleep?.value ? sleep.value : 0;
+        const rSleep = ctx.random?.Number();
 
-        if (sleep && sleep.value) {
-          const p = ctx.random?.Number();
-          if (p && p < s.probability * (1 + sleep.value)) {
-            target.isSleep = true;
-          }
+        if (rSleep && rSleep < s.probability * (1 + sleepBuff)) {
+          target.isSilence = true;
         }
         break;
       case SkillActionType.SILENCE:
@@ -349,16 +347,14 @@ function processSkill(
         ) {
           break;
         }
-
         const silence = target.effects.find(
           (s) => s.type === SkillEffectType.SILENCED
         );
+        const silenceBuff = silence?.value ? silence.value : 0;
+        const rSilence = ctx.random?.Number();
 
-        if (silence && silence.value) {
-          const p = ctx.random?.Number();
-          if (p && p < s.probability * (1 + silence.value)) {
-            target.isSilence = true;
-          }
+        if (rSilence && rSilence < s.probability * (1 + silenceBuff)) {
+          target.isSilence = true;
         }
         break;
       case SkillActionType.TAUNT:
