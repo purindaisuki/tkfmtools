@@ -55,9 +55,13 @@ export enum SkillEffectType {
   HEALED,
   SHIELD_EFFECT,
   SHIELDED,
+  IMMUNE_CHANGE_CD,
   IMMUNE_SLEEP,
   IMMUNE_SILENCE,
   IMMUNE_PARALYSIS,
+  SLEEPED,
+  SILENCED,
+  PARALYSISED,
 }
 
 export enum SkillEffectBasis {
@@ -105,21 +109,25 @@ export interface ISkill {
   maxStack?: number /* undefined -> no limit */;
   byAttribute?: number /* get extra damaged by A attribute */;
   repeat?: number;
+  probability?: number;
   skill?: {
     condition:
       | SkillCondition.NORMAL_ATTACK
       | SkillCondition.ULTIMATE
-      | SkillCondition.ATTACK;
+      | SkillCondition.ATTACK
+      | SkillCondition.ATTACKED;
     type:
       | SkillActionType.NORMAL_ATTACK
       | SkillActionType.ULTIMATE
       | SkillActionType.FOLLOW_UP_ATTACK
+      | SkillActionType.HEAL
       | SkillEffectType.ATTACK_POWER;
     basis?: SkillEffectBasis.TARGET_ATK;
     value: number;
     target:
       | SkillTarget.SINGLE_ENEMY
       | SkillTarget.ALL_ENEMIES
+      | SkillTarget.SELF
       | SkillTarget.TEAM;
     on: SkillOn;
     duration?: number;
@@ -179,7 +187,7 @@ export const potentialPassive = (
     | SkillEffectType.ATTACK_POWER
     | SkillEffectType.DAMAGED
     | SkillEffectType.GUARD_EFFECT
-    | SkillEffectType.HEAL_EFFECT
+    | SkillEffectType.HEALED
     | SkillEffectType.NORMAL_ATTACK_DAMAGE
     | SkillEffectType.ULTIMATE_DAMAGE
     | SkillEffectType.IMMUNE_SILENCE
@@ -205,7 +213,7 @@ export const potentialPassive = (
     case SkillEffectType.GUARD_EFFECT:
       passive.value = 0.1;
       break;
-    case SkillEffectType.HEAL_EFFECT:
+    case SkillEffectType.HEALED:
       passive.value = 0.15;
       break;
     case SkillEffectType.NORMAL_ATTACK_DAMAGE:

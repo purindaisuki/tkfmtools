@@ -33,7 +33,7 @@ const lineup = [
     bond: 5,
   },
   {
-    id: "132",
+    id: "127",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),

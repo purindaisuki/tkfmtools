@@ -48,7 +48,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -151,13 +151,13 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SELF,
         type: SkillActionType.GUARD,
         on: SkillOn.ON_ACTION,
       },
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 0.5,
@@ -265,7 +265,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -348,7 +348,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -440,7 +440,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -617,7 +617,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -718,7 +718,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.ALL_ENEMIES,
         type: SkillActionType.NORMAL_ATTACK,
         value: 0.5,
@@ -829,7 +829,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 0.5,
@@ -1013,6 +1013,144 @@ export const data: Readonly<{
       potentialPassive(12, SkillEffectType.IMMUNE_SILENCE),
     ],
   },
+  "127": {
+    leader: [
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillActionType.CHANGE_CD,
+        value: -1,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.33,
+        on: SkillOn.TURN_BEGIN,
+      },
+    ],
+    normalAttack: [
+      {
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.NORMAL_ATTACK,
+        value: 0.5,
+        on: SkillOn.ON_ACTION,
+      },
+      {
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.25,
+        on: SkillOn.AFTER_ACTION,
+        duration: 2,
+      },
+    ],
+    ultimate: {
+      common: [
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          duration: 1,
+          type: SkillEffectType.ATTACK_POWER,
+          basis: SkillEffectBasis.TARGET_ATK,
+          value: 0.6,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          duration: 1,
+          type: SkillActionType.TAUNT,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          type: SkillActionType.GUARD,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          type: SkillActionType.ADDSKILL,
+          CD: 3,
+          on: SkillOn.AFTER_ACTION,
+          skill: {
+            condition: SkillCondition.ATTACKED,
+            type: SkillActionType.HEAL,
+            basis: SkillEffectBasis.TARGET_ATK,
+            value: 0.3,
+            target: SkillTarget.SELF,
+            on: SkillOn.AFTER_ACTION,
+            duration: 1,
+          },
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
+          type: SkillEffectType.GUARD_EFFECT,
+          CD: 3,
+          value: -0.25,
+          on: SkillOn.AFTER_ACTION,
+          duration: 1,
+        },
+      ],
+      bond: [
+        { 0: { value: 0.6 }, 3: { skill: { value: 0.3 } } },
+        { 0: { value: 0.8 }, 3: { skill: { value: 0.3 } } },
+        { 0: { value: 1 }, 3: { skill: { value: 0.3 } } },
+        { 0: { value: 1 }, 3: { skill: { value: 0.4 } } },
+        { 0: { value: 1 }, 3: { skill: { value: 0.5 } } },
+      ],
+    },
+    starPassive: [
+      {
+        star: 1,
+        condition: SkillCondition.ATTACKED,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.ATTACK_POWER,
+        basis: SkillEffectBasis.TARGET_ATK,
+        value: 0.02,
+        on: SkillOn.AFTER_ACTION,
+        maxStack: 25,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.BATTLE_BEGIN,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.IMMUNE_CHANGE_CD,
+        on: SkillOn.TURN_BEGIN,
+      },
+      {
+        star: 3,
+        condition: SkillCondition.ATTACKED,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.COUNTER_STRIKE,
+        value: 1,
+        on: SkillOn.AFTER_ACTION,
+      },
+      {
+        star: 5,
+        condition: SkillCondition.ULTIMATE,
+        target: SkillTarget.SELF,
+        type: SkillEffectType.DEALT_DAMAGE,
+        value: 0.33,
+        on: SkillOn.AFTER_ACTION,
+        duration: 1,
+      },
+    ],
+    potentialPassive: [
+      potentialPassive(6, SkillEffectType.HEALED),
+      potentialPassive(12, SkillEffectType.IMMUNE_SLEEP),
+    ],
+  },
   "128": {
     leader: [
       {
@@ -1033,7 +1171,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -1130,7 +1268,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -1201,6 +1339,7 @@ export const data: Readonly<{
         type: SkillActionType.SILENCE,
         on: SkillOn.AFTER_ACTION,
         duration: 1,
+        probability: 1,
       },
     ],
     potentialPassive: [
@@ -1414,7 +1553,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,
@@ -2012,7 +2151,7 @@ export const data: Readonly<{
     ],
     normalAttack: [
       {
-        condition: SkillCondition.ATTACK,
+        condition: SkillCondition.NORMAL_ATTACK,
         target: SkillTarget.SINGLE_ENEMY,
         type: SkillActionType.NORMAL_ATTACK,
         value: 1,

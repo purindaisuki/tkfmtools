@@ -120,7 +120,15 @@ function processSkill(
         }
         break;
       case SkillActionType.CHANGE_CURRENT_CD:
-        if (s.value !== undefined) {
+        if (
+          s.value !== undefined &&
+          !target.skillSet.passive.some(
+            (e) => e.type === SkillEffectType.IMMUNE_CHANGE_CD
+          ) &&
+          !target.effects.some(
+            (e) => e.type === SkillEffectType.IMMUNE_CHANGE_CD
+          )
+        ) {
           target.currentCD += s.value;
           target.currentCD = target.currentCD < 0 ? 0 : target.currentCD;
         }
@@ -294,19 +302,67 @@ function processSkill(
         target.effects.push({ ...effect, value: shield });
         break;
       case SkillActionType.PARALYSIS:
-        target.isParalysis = !target.skillSet.passive.some(
-          (s) => s.type === SkillEffectType.IMMUNE_PARALYSIS
+        if (
+          !s.probability ||
+          target.skillSet.passive.some(
+            (s) => s.type === SkillEffectType.IMMUNE_PARALYSIS
+          )
+        ) {
+          break;
+        }
+
+        const para = target.effects.find(
+          (s) => s.type === SkillEffectType.PARALYSISED
         );
+
+        if (para && para.value) {
+          const p = ctx.random?.Number();
+          if (p && p < s.probability * (1 + para.value)) {
+            target.isParalysis = true;
+          }
+        }
         break;
       case SkillActionType.SLEEP:
-        target.isSleep = !target.skillSet.passive.some(
-          (s) => s.type === SkillEffectType.IMMUNE_SLEEP
+        if (
+          !s.probability ||
+          target.skillSet.passive.some(
+            (s) => s.type === SkillEffectType.IMMUNE_SLEEP
+          )
+        ) {
+          break;
+        }
+
+        const sleep = target.effects.find(
+          (s) => s.type === SkillEffectType.SLEEPED
         );
+
+        if (sleep && sleep.value) {
+          const p = ctx.random?.Number();
+          if (p && p < s.probability * (1 + sleep.value)) {
+            target.isSleep = true;
+          }
+        }
         break;
       case SkillActionType.SILENCE:
-        target.isSilence = !target.skillSet.passive.some(
-          (s) => s.type === SkillEffectType.IMMUNE_SILENCE
+        if (
+          !s.probability ||
+          target.skillSet.passive.some(
+            (s) => s.type === SkillEffectType.IMMUNE_SILENCE
+          )
+        ) {
+          break;
+        }
+
+        const silence = target.effects.find(
+          (s) => s.type === SkillEffectType.SILENCED
         );
+
+        if (silence && silence.value) {
+          const p = ctx.random?.Number();
+          if (p && p < s.probability * (1 + silence.value)) {
+            target.isSilence = true;
+          }
+        }
         break;
       case SkillActionType.TAUNT:
         target.isTaunt = true;
