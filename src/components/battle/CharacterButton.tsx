@@ -34,6 +34,7 @@ export const getCharacterButtonState = (
     return CharacterButtonState.TARGETED;
   }
   if (
+    (player === "1" && ctx.turn === 1) ||
     character.isDead ||
     character.isMoved ||
     character.isParalysis ||
@@ -142,7 +143,7 @@ const CharacterStats = ({
       <span>{`${HP}`}</span>
       <HPBar
         HPPercent={HPPercent}
-        shieldPercent={shieldPercent > 100 ? 100 : shieldPercent}
+        shieldPercent={shieldPercent}
       />
       <CharacterStateList character={character} />
     </CharacterStatsWrapper>
@@ -177,9 +178,13 @@ export const HPBar = ({
 }: HPBarProps & React.HTMLAttributes<HTMLDivElement>): JSX.Element => (
   <StyledHPBar
     $HP={HPPercent}
-    $shield={shieldPercent}
+    $shield={shieldPercent > 100 ? 100 : shieldPercent}
     $originalHP={originalHPPercent}
-    $originalShield={originalShieldPercent}
+    $originalShield={
+      originalShieldPercent && originalShieldPercent > 100
+        ? 100
+        : originalShieldPercent
+    }
     className={className}
   >
     <div />

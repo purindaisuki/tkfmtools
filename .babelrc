@@ -14,5 +14,14 @@
       }
     ]
   ],
-  "presets": ["babel-preset-gatsby"]
+  "presets": [
+    [
+      "babel-preset-gatsby",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ]
+  ]
 }

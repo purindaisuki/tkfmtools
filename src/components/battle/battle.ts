@@ -29,7 +29,8 @@ import { ICharacterData } from "types/characters";
 /**
  * todo:
  * finish skill
- * finish unimplemented
+ * fix dot
+ * fix noel skill
  */
 
 function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
@@ -89,6 +90,10 @@ function processSkill(
     switch (s.type) {
       case SkillActionType.ADDSKILL:
         if (s.skill) {
+          const addedSkill = {...s.skill}
+          if (s.skill.basis === SkillEffectBasis.FIXED) {
+            
+          }
           target.extraSkill.push({ ...s.skill });
         }
         break;
@@ -245,6 +250,11 @@ function processSkill(
           }
         } else {
           target.isTaunt = false;
+          target.isGuard = false;
+          target.isSilence = false;
+          target.isSleep = false;
+          target.isParalysis = false;
+          target.isBroken = false;
         }
         break;
       case SkillActionType.FREEZE_CD:
@@ -683,7 +693,7 @@ const validateTarget = (G: IGameState, ctx: Ctx, target: number) => {
   const enemies = getEnemies(G, ctx);
   const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
 
-  return tauntIndex === -1 ? true : tauntIndex === target;
+  return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
 };
 
 function endMove(G: IGameState, ctx: Ctx) {
@@ -1074,5 +1084,54 @@ export const Battle = (setupData: BattleSetupData) => ({
 
       return moves;
     },
+    objectives: () => ({
+      maximizeDamage: {
+        checker: (G: IGameState, ctx: Ctx) => true,
+        weight: (G: IGameState, ctx: Ctx): number => {
+          const moves = G.log[ctx.turn - 1];
+          if (moves.length === 0) {
+            return 0;
+          }
+          const score =
+            moves.reduce(
+              (score, move) =>
+                move.to.isEnemy &&
+                move.value &&
+                (move.type === SkillActionType.NORMAL_ATTACK ||
+                  move.type === SkillActionType.ULTIMATE ||
+                  move.type === SkillActionType.COUNTER_STRIKE ||
+                  move.type === SkillActionType.FOLLOW_UP_ATTACK ||
+                  move.type === SkillActionType.EXTRA_ATTACK)
+                  ? score + move.value
+                  : score,
+              0
+            ) / 1000000;
+          return score;
+        },
+      },
+
+      //for simulate pvp
+      /*
+      kill: {
+        checker: (G: IGameState, ctx: Ctx) => {
+          const moves = G.log[ctx.turn - 1];
+          if (moves.length === 0) {
+            return false;
+          }
+          return moves.some(
+            (move) =>
+              move.to.isEnemy && move.to.originalHP > 0 && move.to.HP === 0
+          );
+        },
+        weight: 1,
+      },
+      dontDie: {
+        checker: (G: IGameState, ctx: Ctx) =>
+          G.lineups[ctx.currentPlayer].some((c) => c.isDead),
+        weight: -1,
+      },*/
+    }),
+    iterations: 20,
+    playoutDepth: 35,
   },
 });

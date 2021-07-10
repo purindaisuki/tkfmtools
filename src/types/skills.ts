@@ -70,6 +70,7 @@ export enum SkillEffectBasis {
   TARGET_MAX_HP,
   TARGET_CURRENT_HP,
   DAMAGE,
+  FIXED,
 }
 
 export enum SkillCondition {
@@ -115,14 +116,15 @@ export interface ISkill {
       | SkillCondition.NORMAL_ATTACK
       | SkillCondition.ULTIMATE
       | SkillCondition.ATTACK
-      | SkillCondition.ATTACKED;
+      | SkillCondition.ATTACKED
+      | SkillCondition.TURN_BASED;
     type:
       | SkillActionType.NORMAL_ATTACK
       | SkillActionType.ULTIMATE
       | SkillActionType.FOLLOW_UP_ATTACK
       | SkillActionType.HEAL
       | SkillEffectType.ATTACK_POWER;
-    basis?: SkillEffectBasis.TARGET_ATK;
+    basis?: SkillEffectBasis.TARGET_ATK | SkillEffectBasis.FIXED;
     value: number;
     target:
       | SkillTarget.SINGLE_ENEMY
