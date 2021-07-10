@@ -234,25 +234,27 @@ export function calcHeal(
       throw "invalid argument";
   }
 
-  from.effects.forEach((s) => {
-    if (s.value !== undefined) {
-      const stack = s.stack ? s.stack : 1;
+  from.effects.forEach((s): boolean | void => {
+    if (action.on === SkillOn.TURN_END || s.value === undefined) {
+      return true;
+    }
 
-      switch (s.type) {
-        case SkillEffectType.HEAL_EFFECT:
-          healEffect += s.value * stack;
-          break;
-        case SkillEffectType.NORMAL_ATTACK_DAMAGE:
-          if (action.type === SkillActionType.NORMAL_ATTACK) {
-            damageEffect += s.value * stack;
-          }
-          break;
-        case SkillEffectType.ULTIMATE_DAMAGE:
-          if (action.type === SkillActionType.ULTIMATE) {
-            damageEffect += s.value * stack;
-          }
-          break;
-      }
+    const stack = s.stack ? s.stack : 1;
+
+    switch (s.type) {
+      case SkillEffectType.HEAL_EFFECT:
+        healEffect += s.value * stack;
+        break;
+      case SkillEffectType.NORMAL_ATTACK_DAMAGE:
+        if (action.type === SkillActionType.NORMAL_ATTACK) {
+          damageEffect += s.value * stack;
+        }
+        break;
+      case SkillEffectType.ULTIMATE_DAMAGE:
+        if (action.type === SkillActionType.ULTIMATE) {
+          damageEffect += s.value * stack;
+        }
+        break;
     }
   });
 

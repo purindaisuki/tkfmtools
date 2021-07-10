@@ -32,7 +32,14 @@ const MoveLog = ({
   moveLog: ILog;
 }): JSX.Element => {
   const { charString }: any = useLanguage();
-  const fromCharacter = G.lineups[moveLog.player][moveLog.from.position];
+  const fromCharacter =
+    G.lineups[
+      moveLog.from.isEnemy
+        ? moveLog.player === "0"
+          ? "1"
+          : "0"
+        : moveLog.player
+    ][moveLog.from.position];
   const toCharacter = moveLog.to.isEnemy
     ? G.lineups[moveLog.player === "0" ? "1" : "0"][moveLog.to.position]
     : G.lineups[moveLog.player][moveLog.to.position];
@@ -40,7 +47,13 @@ const MoveLog = ({
   return (
     <TableRow>
       <LogCell>
-        <CharacterTextWrapper $isEnemy={moveLog.player === "1"}>
+        <CharacterTextWrapper
+          $isEnemy={
+            moveLog.from.isEnemy
+              ? moveLog.player === "0"
+              : moveLog.player === "1"
+          }
+        >
           {`${charString.name[fromCharacter.id]} (${
             fromCharacter.teamPosition + 1
           })`}
@@ -56,8 +69,9 @@ const MoveLog = ({
           <LogCell>
             <CharacterTextWrapper
               $isEnemy={
-                (moveLog.player === "0" && moveLog.to.isEnemy) ||
-                (moveLog.player === "1" && !moveLog.to.isEnemy)
+                moveLog.to.isEnemy
+                  ? moveLog.player === "0"
+                  : moveLog.player === "1"
               }
             >
               {`${charString.name[toCharacter.id]} (${

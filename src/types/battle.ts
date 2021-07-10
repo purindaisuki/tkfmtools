@@ -2,7 +2,6 @@ import {
   ISkill,
   SkillActionType,
   SkillEffect,
-  SkillOn,
   ISkillSet,
 } from "types/skills";
 import {
@@ -44,6 +43,12 @@ export interface BattleCharacter {
   isDead: boolean;
 }
 
+export type SkillQueue = {
+  selected: number;
+  target: number;
+  skill: ISkill;
+}[];
+
 export interface IGameState {
   lineups: { [playerName: string]: BattleCharacter[] };
   selected: number;
@@ -55,7 +60,7 @@ export interface ILog {
   player: string;
   type: SkillActionType;
   value?: number;
-  from: { position: number };
+  from: { isEnemy: boolean; position: number };
   to: {
     isEnemy: boolean;
     position: number;
@@ -69,5 +74,3 @@ export interface ILog {
 export type BattleSetupData = {
   lineups: [CharacterStats[], CharacterStats[] | TestCharacterStats[]];
 };
-
-export type SkillQueue = { cb: () => void; order: SkillOn }[];

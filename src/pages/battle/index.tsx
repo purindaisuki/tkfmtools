@@ -35,26 +35,7 @@ const scarerow = {
   bond: 0,
 };
 
-const lineup = [ {
-  id: "125",
-  level: 60,
-  potential: 12,
-  potentialSub: Array(6).fill(true),
-  discipline: 3,
-  star: 5,
-  bond: 5,
-},];
-
-const enemies = [
-  {
-    id: "125",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
+const lineup = [
   {
     id: "126",
     level: 60,
@@ -65,7 +46,7 @@ const enemies = [
     bond: 5,
   },
   {
-    id: "157",
+    id: "125",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),
@@ -73,15 +54,9 @@ const enemies = [
     star: 5,
     bond: 5,
   },
-  {
-    id: "130",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
+];
+
+const enemies = [
   {
     id: "132",
     level: 60,
@@ -194,7 +169,7 @@ class DoNothingBot extends MCTSBot {
   constructor(opts: any) {
     super({
       ...opts,
-       objectives: () => ({}),
+      objectives: () => ({}),
       iterations: 1,
       playoutDepth: 1,
     });
@@ -215,6 +190,6 @@ const App = Client({
   }),
 });
 
-const BattlePage = () => <App playerID="0"/>;
+const BattlePage = () => <App playerID="0" />;
 
 export default BattlePage;

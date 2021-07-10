@@ -17,7 +17,6 @@ import {
   BattleSetupData,
   IGameState,
   ILog,
-  SkillQueue,
   TestCharacterStats,
 } from "types/battle";
 import { data as skillData } from "data/characterSkill";
@@ -25,13 +24,6 @@ import { calcAttack, calcDamage, calcHeal, calcShield } from "./utils";
 import calcCharStats from "utils/calcCharStats";
 import charMap from "data/charMap";
 import { ICharacterData } from "types/characters";
-
-/**
- * todo:
- * finish skill
- * fix dot
- * fix noel skill
- */
 
 function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
   for (let p in e1) {
@@ -45,14 +37,12 @@ function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
 function processSkill(
   G: IGameState,
   ctx: Ctx,
-  from: Character,
-  to: Character[],
+  from: { character: Character; isEnemy: boolean },
+  to: { characters: Character[]; isEnemy: boolean },
   s: ISkill | SkillEffect,
-  isEnemy: boolean,
-  isTurnEnd: boolean,
   logArr?: ILog[]
 ) {
-  let effect = { ...s, from: from.id } as SkillEffect;
+  let effect = { ...s, from: from.character.teamPosition } as SkillEffect;
 
   if (
     s.type === SkillEffectType.ATTACK_POWER &&
@@ -61,11 +51,11 @@ function processSkill(
   ) {
     effect = {
       ...effect,
-      value: from.ATK * s.value,
+      value: from.character.ATK * s.value,
     };
   }
 
-  to.forEach((target): boolean | void => {
+  to.characters.forEach((target): boolean | void => {
     // check stackable
     const existEffect = target.effects.find((e) => sameEffect(e, effect));
     if (existEffect) {
@@ -81,19 +71,9 @@ function processSkill(
       effect.stack = 1;
     }
 
-    // not take endturn effect if not at turn end
-    if (s.on === SkillOn.TURN_END && !isTurnEnd) {
-      target.effects.push(effect);
-      return true;
-    }
-
     switch (s.type) {
       case SkillActionType.ADDSKILL:
         if (s.skill) {
-          const addedSkill = {...s.skill}
-          if (s.skill.basis === SkillEffectBasis.FIXED) {
-            
-          }
           target.extraSkill.push({ ...s.skill });
         }
         break;
@@ -104,7 +84,9 @@ function processSkill(
           if (s.basis === SkillEffectBasis.SELF_ATK && s.value) {
             correctedValue = Math.floor(
               correctedValue *
-                (from.teamPosition < target.teamPosition ? 1 + s.value : 1)
+                (from.character.teamPosition < target.teamPosition
+                  ? 1 + s.value
+                  : 1)
             );
           }
 
@@ -166,16 +148,19 @@ function processSkill(
       case SkillActionType.ULTIMATE:
       case SkillActionType.EXTRA_ATTACK:
       case SkillActionType.FOLLOW_UP_ATTACK:
-        const damage = calcDamage(from, target, s);
+        const damage = calcDamage(from.character, target, s);
         let restDamage = damage;
 
         const damageLog = {
           player: ctx.currentPlayer,
           type: s.type,
           value: damage,
-          from: { position: from.teamPosition },
+          from: {
+            isEnemy: from.isEnemy,
+            position: from.character.teamPosition,
+          },
           to: {
-            isEnemy: isEnemy,
+            isEnemy: to.isEnemy,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -232,7 +217,7 @@ function processSkill(
                 s.type !== SkillActionType.COUNTER_STRIKE ||
                 targetSkill.type !== SkillActionType.COUNTER_STRIKE
               ) {
-                trigger(tempG, tempCtx, targetSkill, isTurnEnd, logArr);
+                trigger(tempG, tempCtx, targetSkill, logArr);
               }
             });
 
@@ -244,7 +229,7 @@ function processSkill(
                   s.type !== SkillActionType.COUNTER_STRIKE ||
                   targetSkill.type !== SkillActionType.COUNTER_STRIKE
                 ) {
-                  trigger(tempG, tempCtx, targetSkill, isTurnEnd, logArr);
+                  trigger(tempG, tempCtx, targetSkill, logArr);
                 }
               });
           }
@@ -267,9 +252,12 @@ function processSkill(
         logArr?.push({
           player: ctx.currentPlayer,
           type: s.type,
-          from: { position: from.teamPosition },
+          from: {
+            isEnemy: from.isEnemy,
+            position: from.character.teamPosition,
+          },
           to: {
-            isEnemy: isEnemy,
+            isEnemy: to.isEnemy,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -281,7 +269,7 @@ function processSkill(
         if (!target.isSilence) {
           target.skillSet.passive.forEach((targetSkill) => {
             if (targetSkill.condition === SkillCondition.GUARD) {
-              trigger(G, ctx, targetSkill, isTurnEnd, logArr);
+              trigger(G, ctx, targetSkill, logArr);
             }
           });
         }
@@ -292,7 +280,7 @@ function processSkill(
           // search basis
           for (let i = logArr.length - 1; i >= 0; i++) {
             if (
-              logArr[i].from.position === from.teamPosition &&
+              logArr[i].from.position === from.character.teamPosition &&
               (logArr[i].type === SkillActionType.NORMAL_ATTACK ||
                 logArr[i].type === SkillActionType.ULTIMATE)
             ) {
@@ -301,15 +289,18 @@ function processSkill(
             }
           }
         }
-        const heal = calcHeal(from, target, s, healBasis);
+        const heal = calcHeal(from.character, target, s, healBasis);
 
         const healLog = {
           player: ctx.currentPlayer,
           type: s.type,
           value: heal,
-          from: { position: from.teamPosition },
+          from: {
+            isEnemy: from.isEnemy,
+            position: from.character.teamPosition,
+          },
           to: {
-            isEnemy: isEnemy,
+            isEnemy: to.isEnemy,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -327,20 +318,23 @@ function processSkill(
           target.skillSet.passive
             .filter((s) => s.condition === SkillCondition.HEALED)
             .forEach((s) => {
-              trigger(G, ctx, s, isTurnEnd);
+              trigger(G, ctx, s);
             });
         }
         break;
       case SkillActionType.SHIELD:
-        const shield = calcShield(from, target, s);
+        const shield = calcShield(from.character, target, s);
 
         const shieldLog = {
           player: ctx.currentPlayer,
           type: s.type,
           value: shield,
-          from: { position: from.teamPosition },
+          from: {
+            isEnemy: from.isEnemy,
+            position: from.character.teamPosition,
+          },
           to: {
-            isEnemy: isEnemy,
+            isEnemy: to.isEnemy,
             position: target.teamPosition,
             originalHP: target.HP,
             HP: target.HP,
@@ -431,7 +425,6 @@ function trigger(
   G: IGameState,
   ctx: Ctx,
   s: ISkill | SkillEffect,
-  isTurnEnd: boolean = false,
   logArr?: ILog[]
 ) {
   const enemies = getEnemies(G, ctx);
@@ -505,16 +498,24 @@ function trigger(
       : 1;
 
   for (let i = 0; i < repeat; i++) {
-    processSkill(
-      G,
-      ctx,
-      selfTeam[G.selected],
-      to,
-      s,
-      isEnemy,
-      isTurnEnd,
-      logArr
-    );
+    if (s.on === SkillOn.TURN_END) {
+      to.forEach((c) => {
+        c.effects.push({
+          ...s,
+          from: selfTeam[G.selected].teamPosition,
+          fromEnemy: isEnemy,
+        });
+      });
+    } else {
+      processSkill(
+        G,
+        ctx,
+        { character: selfTeam[G.selected], isEnemy: false },
+        { characters: to, isEnemy: isEnemy },
+        s,
+        logArr
+      );
+    }
   }
 }
 
@@ -649,25 +650,6 @@ function initCharacter(
 const getEnemies = (G: IGameState, ctx: Ctx) =>
   G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
 
-const pushSkill = (
-  G: IGameState,
-  ctx: Ctx,
-  skills: ISkill[],
-  condition: (s: ISkill) => boolean,
-  arr: SkillQueue,
-  isTurnEnd?: boolean,
-  logArr?: ILog[]
-) => {
-  skills.forEach((s) => {
-    if (condition(s)) {
-      arr.push({
-        cb: () => trigger(G, ctx, s, isTurnEnd, logArr),
-        order: s.on,
-      });
-    }
-  });
-};
-
 const movable = (lineup: Character[], condition: (ind: number) => boolean) =>
   lineup.reduce((res, _, i) => {
     if (condition(i)) {
@@ -718,6 +700,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       lineups,
       selected: 0,
       target: 0,
+      skillQueue: [],
       log: [],
     };
 
@@ -779,29 +762,22 @@ export const Battle = (setupData: BattleSetupData) => ({
         ) {
           return INVALID_MOVE;
         }
+
         const { leader, normalAttack, passive } = self.skillSet;
-        const skillQueue: SkillQueue = [];
         const log: ILog[] = [];
 
-        const skils = self.isSilence
+        let skills = self.isSilence
           ? [...normalAttack, ...leader, ...self.extraSkill]
           : [...normalAttack, ...leader, ...passive, ...self.extraSkill];
-
-        pushSkill(
-          G,
-          ctx,
-          skils,
+        skills = skills.filter(
           (s) =>
             s.condition === SkillCondition.ATTACK ||
-            s.condition === SkillCondition.NORMAL_ATTACK,
-          skillQueue,
-          false,
-          log
+            s.condition === SkillCondition.NORMAL_ATTACK
         );
-
-        // consume skills by order
-        skillQueue.sort((a, b) => a.order - b.order);
-        skillQueue.forEach((s) => s.cb());
+        skills.sort((a, b) => a.on - b.on);
+        skills.forEach((s) => {
+          trigger(G, ctx, s, log);
+        });
 
         G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
@@ -842,23 +818,17 @@ export const Battle = (setupData: BattleSetupData) => ({
         self.currentCD = self.CD;
 
         const { leader, ultimate, passive } = self.skillSet;
-        const skillQueue: SkillQueue = [];
         const log: ILog[] = [];
-
-        pushSkill(
-          G,
-          ctx,
-          [...ultimate, ...leader, ...passive, ...self.extraSkill],
+        let skills = [...ultimate, ...leader, ...passive, ...self.extraSkill];
+        skills = skills.filter(
           (s) =>
             s.condition === SkillCondition.ATTACK ||
-            s.condition === SkillCondition.ULTIMATE,
-          skillQueue,
-          false,
-          log
+            s.condition === SkillCondition.ULTIMATE
         );
-
-        skillQueue.sort((a, b) => a.order - b.order);
-        skillQueue.forEach((s) => s.cb());
+        skills.sort((a, b) => a.on - b.on);
+        skills.forEach((s) => {
+          trigger(G, ctx, s, log);
+        });
 
         G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
@@ -889,7 +859,6 @@ export const Battle = (setupData: BattleSetupData) => ({
         }
 
         const log: ILog[] = [];
-
         trigger(
           G,
           ctx,
@@ -899,9 +868,9 @@ export const Battle = (setupData: BattleSetupData) => ({
             target: SkillTarget.SELF,
             on: SkillOn.ON_ACTION,
           },
-          false,
           log
         );
+
         G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
       },
@@ -958,7 +927,6 @@ export const Battle = (setupData: BattleSetupData) => ({
       const currTarget = enemies.findIndex((c) => !c.isDead && c.isTaunt);
       G.target =
         currTarget === -1 ? enemies.findIndex((c) => !c.isDead) : currTarget;
-
       G.log.push([]);
 
       // clear expired effects
@@ -967,6 +935,10 @@ export const Battle = (setupData: BattleSetupData) => ({
           return true;
         }
 
+        // aside from battle begin
+        if (ctx.turn > 2) {
+          c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
+        }
         c.isBroken = false;
         c.isGuard = false;
         c.isMoved = false;
@@ -996,37 +968,49 @@ export const Battle = (setupData: BattleSetupData) => ({
 
         // turn-based skills
         const { leader, passive } = c.skillSet;
-        const skillQueue: SkillQueue = [];
         const skills = c.isSilence ? [...leader] : [...leader, ...passive];
 
-        pushSkill(
-          { ...G, selected: ind },
-          ctx,
-          skills,
-          (s) =>
+        skills.forEach((s) => {
+          if (
             s.condition === SkillCondition.TURN_BASED &&
             s.on === SkillOn.TURN_BEGIN &&
             Math.floor((ctx.turn + 1) / 2) !== 1 &&
             s.conditionValue !== undefined &&
-            (Math.floor((ctx.turn + 1) / 2) - 1) % s.conditionValue === 0,
-          skillQueue
-        );
-
-        skillQueue.sort((a, b) => a.order - b.order);
-        skillQueue.forEach((s) => s.cb());
+            (Math.floor((ctx.turn + 1) / 2) - 1) % s.conditionValue === 0
+          ) {
+            trigger({ ...G, selected: ind }, ctx, s);
+          }
+        });
 
         c.ATK = c.baseATK;
         c.ATK = calcAttack(c);
       });
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
-      //console.log(`Player: ${ctx.currentPlayer} Turn: ${Math.floor((ctx.turn+1)/2)} end`);
       const log: ILog[] = [];
       G.lineups[ctx.currentPlayer].forEach((c, ind) => {
-        c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
         c.effects.forEach((s) => {
           if (s.on === SkillOn.TURN_END) {
-            trigger({ ...G, selected: ind }, ctx, s, true, log);
+            const fromCharacter = s.fromEnemy
+              ? getEnemies(G, ctx).find((c) => c.teamPosition === s.from)
+              : G.lineups[ctx.currentPlayer][s.from];
+
+            if (fromCharacter) {
+              processSkill(
+                { ...G, selected: ind },
+                ctx,
+                {
+                  character: fromCharacter,
+                  isEnemy: s.fromEnemy === undefined ? false : s.fromEnemy,
+                },
+                { characters: [c], isEnemy: false },
+                {
+                  ...s,
+                  target: SkillTarget.SELF,
+                },
+                log
+              );
+            }
           }
         });
       });
