@@ -184,7 +184,10 @@ export function calcDamage(
   });
 
   return Math.floor(
-    from.ATK *
+    (action.on === SkillOn.TURN_END &&
+    action.basis === SkillEffectBasis.SELF_ATK
+      ? 1
+      : from.ATK) *
       dealtDamageEffect *
       attackDamageEffect *
       attributeEffect *
@@ -211,27 +214,34 @@ export function calcHeal(
   let healedEffect = 1;
   let damageEffect = 1;
 
-  switch (action.basis) {
-    case SkillEffectBasis.SELF_ATK:
-      base = from.ATK;
-      break;
-    case SkillEffectBasis.TARGET_ATK:
-      base = to.ATK;
-      break;
-    case SkillEffectBasis.TARGET_MAX_HP:
-      base = to.maxHP;
-      break;
-    case SkillEffectBasis.TARGET_CURRENT_HP:
-      base = to.HP;
-      break;
-    case SkillEffectBasis.DAMAGE:
-      if (damage === undefined) {
-        throw "invalid argument";
-      }
+  if (
+    action.on === SkillOn.TURN_END &&
+    action.basis === SkillEffectBasis.SELF_ATK
+  ) {
+    base = 1;
+  } else {
+    switch (action.basis) {
+      case SkillEffectBasis.SELF_ATK:
+        base = from.ATK;
+        break;
+      case SkillEffectBasis.TARGET_ATK:
+        base = to.ATK;
+        break;
+      case SkillEffectBasis.TARGET_MAX_HP:
+        base = to.maxHP;
+        break;
+      case SkillEffectBasis.TARGET_CURRENT_HP:
+        base = to.HP;
+        break;
+      case SkillEffectBasis.DAMAGE:
+        if (damage === undefined) {
+          throw "invalid argument";
+        }
 
-      return Math.floor(damage * action.value);
-    default:
-      throw "invalid argument";
+        return Math.floor(damage * action.value);
+      default:
+        throw "invalid argument";
+    }
   }
 
   from.effects.forEach((s): boolean | void => {

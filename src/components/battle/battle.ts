@@ -500,11 +500,17 @@ function trigger(
   for (let i = 0; i < repeat; i++) {
     if (s.on === SkillOn.TURN_END) {
       to.forEach((c) => {
-        c.effects.push({
+        const endTurnEffect = {
           ...s,
           from: selfTeam[G.selected].teamPosition,
           fromEnemy: isEnemy,
-        });
+        };
+
+        if (s.basis === SkillEffectBasis.SELF_ATK && s.value) {
+          endTurnEffect.value = selfTeam[G.selected].ATK * s.value;
+        }
+
+        c.effects.push(endTurnEffect);
       });
     } else {
       processSkill(
@@ -1030,7 +1036,6 @@ export const Battle = (setupData: BattleSetupData) => ({
     );
 
     if (ctx.turn > 100 || isAllDead[0] || isAllDead[1]) {
-      //console.log(`Over at turn ${Math.floor((ctx.turn+1)/2)}, win: ${!isAllDead[0]}`);
       return { fail: isAllDead[0], winner: ctx.currentPlayer };
     }
   },

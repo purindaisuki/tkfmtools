@@ -14,12 +14,14 @@ const effectString = (effect: SkillEffect) => {
   let string = skillString.type[effect.type];
   if (effect.value) {
     const stack = effect.stack ? effect.stack : 1;
-    string += effect.value > 0 ? "增加 " : "減少 ";
+    if (!(effect.type in SkillActionType)) {
+      string += effect.value > 0 ? "增加 " : "減少 ";
+    }
     string +=
       (effect.type === SkillEffectType.ATTACK_POWER &&
         effect.basis === SkillEffectBasis.SELF_ATK) ||
       effect.type in SkillActionType
-        ? Math.abs(effect.value).toString()
+        ? Math.abs(Math.floor(effect.value)).toString()
         : Math.abs(Math.round(effect.value * stack * 1000) / 10).toString() +
           "%";
   }
