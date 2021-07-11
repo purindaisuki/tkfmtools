@@ -83,7 +83,53 @@ const lineup = [
   },
 ];
 
-const enemies = [scarerow];
+const enemies = [
+  {
+    id: "209",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "130",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "157",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "126",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "132",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+];
 
 const Board = ({
   G,

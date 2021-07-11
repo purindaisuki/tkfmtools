@@ -703,6 +703,186 @@ function endMove(G: IGameState, ctx: Ctx) {
   }
 }
 
+// moves in battle
+function attack(
+  G: IGameState,
+  ctx: Ctx,
+  selected: number,
+  target: number
+): IGameState | typeof INVALID_MOVE | void {
+  // mutate G directly is ok since it's handled by the library under the hood
+  if (validateSelected(G, ctx, selected)) {
+    G.selected = selected;
+  } else {
+    return INVALID_MOVE;
+  }
+
+  if (validateTarget(G, ctx, target)) {
+    G.target = target;
+  } else {
+    return INVALID_MOVE;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  if (
+    self.isMoved ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isBroken
+  ) {
+    return INVALID_MOVE;
+  }
+
+  const { leader, normalAttack, passive } = self.skillSet;
+  const log: ILog[] = [];
+
+  let skills = self.isSilence
+    ? [...normalAttack, ...leader, ...self.extraSkill]
+    : [...normalAttack, ...leader, ...passive, ...self.extraSkill];
+  skills = skills.filter(
+    (s) =>
+      s.condition === SkillCondition.ATTACK ||
+      s.condition === SkillCondition.NORMAL_ATTACK
+  );
+  skills.sort((a, b) => a.on - b.on);
+  skills.forEach((s) => {
+    trigger(G, ctx, s, log);
+  });
+
+  G.log.slice(-1)[0].push(...log);
+  endMove(G, ctx);
+}
+
+function ultimate(
+  G: IGameState,
+  ctx: Ctx,
+  selected: number,
+  target: number
+): IGameState | typeof INVALID_MOVE | void {
+  if (validateSelected(G, ctx, selected)) {
+    G.selected = selected;
+  } else {
+    return INVALID_MOVE;
+  }
+
+  if (validateTarget(G, ctx, target)) {
+    G.target = target;
+  } else {
+    return INVALID_MOVE;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  if (
+    self.isMoved ||
+    self.currentCD > 0 ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isSilence ||
+    self.isBroken
+  ) {
+    return INVALID_MOVE;
+  }
+  self.currentCD = self.CD;
+
+  const { leader, ultimate, passive } = self.skillSet;
+  const log: ILog[] = [];
+  let skills = [...ultimate, ...leader, ...passive, ...self.extraSkill];
+  skills = skills.filter(
+    (s) =>
+      s.condition === SkillCondition.ATTACK ||
+      s.condition === SkillCondition.ULTIMATE
+  );
+  skills.sort((a, b) => a.on - b.on);
+  skills.forEach((s) => {
+    trigger(G, ctx, s, log);
+  });
+
+  self.effects = self.effects.filter(
+    (e) => e.invalidWhen !== SkillCondition.ULTIMATE
+  );
+  G.log.slice(-1)[0].push(...log);
+  endMove(G, ctx);
+}
+
+function guard(
+  G: IGameState,
+  ctx: Ctx,
+  selected: number
+): IGameState | typeof INVALID_MOVE | void {
+  if (validateSelected(G, ctx, selected)) {
+    G.selected = selected;
+  } else {
+    return INVALID_MOVE;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  if (
+    self.isMoved ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isBroken
+  ) {
+    return INVALID_MOVE;
+  }
+
+  const log: ILog[] = [];
+  trigger(
+    G,
+    ctx,
+    {
+      type: SkillActionType.GUARD,
+      condition: SkillCondition.GUARD,
+      target: SkillTarget.SELF,
+      on: SkillOn.ON_ACTION,
+    },
+    log
+  );
+
+  G.log.slice(-1)[0].push(...log);
+  endMove(G, ctx);
+}
+
+function switchMember(
+  G: IGameState,
+  ctx: Ctx,
+  ind: number
+): IGameState | typeof INVALID_MOVE | void {
+  const selected = G.lineups[ctx.currentPlayer][ind];
+  if (
+    !selected ||
+    selected.isMoved ||
+    selected.isDead ||
+    selected.isParalysis ||
+    selected.isSleep ||
+    selected.isBroken
+  ) {
+    return INVALID_MOVE;
+  }
+
+  G.selected = ind;
+}
+
+function switchTarget(
+  G: IGameState,
+  ctx: Ctx,
+  ind: number
+): IGameState | typeof INVALID_MOVE | void {
+  const enemies = getEnemies(G, ctx);
+  if (enemies.some((c) => c.isTaunt && !c.isDead)) {
+    return INVALID_MOVE;
+  }
+
+  const target = enemies[ind];
+  if (!target || target.isDead) {
+    return INVALID_MOVE;
+  }
+
+  G.target = ind;
+}
+
 export const Battle = (setupData: BattleSetupData) => ({
   name: "tkfm-battle-simulator",
   setup: (ctx: Ctx) => {
@@ -745,193 +925,11 @@ export const Battle = (setupData: BattleSetupData) => ({
     return G;
   },
   moves: {
-    attack: {
-      move: (
-        G: IGameState,
-        ctx: Ctx,
-        selected: number,
-        target: number
-      ): IGameState | typeof INVALID_MOVE | void => {
-        // mutate G directly is ok since it's handled by the library under the hood
-        if (validateSelected(G, ctx, selected)) {
-          G.selected = selected;
-        } else {
-          return INVALID_MOVE;
-        }
-
-        if (validateTarget(G, ctx, target)) {
-          G.target = target;
-        } else {
-          return INVALID_MOVE;
-        }
-
-        const self = G.lineups[ctx.currentPlayer][G.selected];
-        if (
-          self.isMoved ||
-          self.isDead ||
-          self.isParalysis ||
-          self.isSleep ||
-          self.isBroken
-        ) {
-          return INVALID_MOVE;
-        }
-
-        const { leader, normalAttack, passive } = self.skillSet;
-        const log: ILog[] = [];
-
-        let skills = self.isSilence
-          ? [...normalAttack, ...leader, ...self.extraSkill]
-          : [...normalAttack, ...leader, ...passive, ...self.extraSkill];
-        skills = skills.filter(
-          (s) =>
-            s.condition === SkillCondition.ATTACK ||
-            s.condition === SkillCondition.NORMAL_ATTACK
-        );
-        skills.sort((a, b) => a.on - b.on);
-        skills.forEach((s) => {
-          trigger(G, ctx, s, log);
-        });
-
-        G.log.slice(-1)[0].push(...log);
-        endMove(G, ctx);
-      },
-      undoable: true,
-    },
-    ultimate: {
-      move: (
-        G: IGameState,
-        ctx: Ctx,
-        selected: number,
-        target: number
-      ): IGameState | typeof INVALID_MOVE | void => {
-        if (validateSelected(G, ctx, selected)) {
-          G.selected = selected;
-        } else {
-          return INVALID_MOVE;
-        }
-
-        if (validateTarget(G, ctx, target)) {
-          G.target = target;
-        } else {
-          return INVALID_MOVE;
-        }
-
-        const self = G.lineups[ctx.currentPlayer][G.selected];
-        if (
-          self.isMoved ||
-          self.currentCD > 0 ||
-          self.isDead ||
-          self.isParalysis ||
-          self.isSleep ||
-          self.isSilence ||
-          self.isBroken
-        ) {
-          return INVALID_MOVE;
-        }
-        self.currentCD = self.CD;
-
-        const { leader, ultimate, passive } = self.skillSet;
-        const log: ILog[] = [];
-        let skills = [...ultimate, ...leader, ...passive, ...self.extraSkill];
-        skills = skills.filter(
-          (s) =>
-            s.condition === SkillCondition.ATTACK ||
-            s.condition === SkillCondition.ULTIMATE
-        );
-        skills.sort((a, b) => a.on - b.on);
-        skills.forEach((s) => {
-          trigger(G, ctx, s, log);
-        });
-
-        self.effects = self.effects.filter(
-          (e) => e.invalidWhen !== SkillCondition.ULTIMATE
-        );
-        G.log.slice(-1)[0].push(...log);
-        endMove(G, ctx);
-      },
-      undoable: true,
-    },
-    guard: {
-      move: (
-        G: IGameState,
-        ctx: Ctx,
-        selected: number
-      ): IGameState | typeof INVALID_MOVE | void => {
-        if (validateSelected(G, ctx, selected)) {
-          G.selected = selected;
-        } else {
-          return INVALID_MOVE;
-        }
-
-        const self = G.lineups[ctx.currentPlayer][G.selected];
-        if (
-          self.isMoved ||
-          self.isDead ||
-          self.isParalysis ||
-          self.isSleep ||
-          self.isBroken
-        ) {
-          return INVALID_MOVE;
-        }
-
-        const log: ILog[] = [];
-        trigger(
-          G,
-          ctx,
-          {
-            type: SkillActionType.GUARD,
-            condition: SkillCondition.GUARD,
-            target: SkillTarget.SELF,
-            on: SkillOn.ON_ACTION,
-          },
-          log
-        );
-
-        G.log.slice(-1)[0].push(...log);
-        endMove(G, ctx);
-      },
-      undoable: true,
-    },
-    switchMember: {
-      move: (
-        G: IGameState,
-        ctx: Ctx,
-        ind: number
-      ): IGameState | typeof INVALID_MOVE | void => {
-        const selected = G.lineups[ctx.currentPlayer][ind];
-        if (
-          !selected ||
-          selected.isMoved ||
-          selected.isDead ||
-          selected.isParalysis ||
-          selected.isSleep ||
-          selected.isBroken
-        ) {
-          return INVALID_MOVE;
-        }
-
-        G.selected = ind;
-      },
-    },
-    switchTarget: {
-      move: (
-        G: IGameState,
-        ctx: Ctx,
-        ind: number
-      ): IGameState | typeof INVALID_MOVE | void => {
-        const enemies = getEnemies(G, ctx);
-        if (enemies.some((c) => c.isTaunt && !c.isDead)) {
-          return INVALID_MOVE;
-        }
-
-        const target = enemies[ind];
-        if (!target || target.isDead) {
-          return INVALID_MOVE;
-        }
-
-        G.target = ind;
-      },
-    },
+    attack,
+    ultimate,
+    guard,
+    switchMember,
+    switchTarget,
     doNothing: (G: IGameState, ctx: Ctx) => {
       G.lineups[ctx.currentPlayer][G.selected].isMoved = true;
     },
@@ -1072,87 +1070,5 @@ export const Battle = (setupData: BattleSetupData) => ({
     }
   },
   disableUndo: false,
-  ai: {
-    enumerate: (G: IGameState, ctx: Ctx) => {
-      let moves = [];
-      const lineup = G.lineups[ctx.currentPlayer];
-      const enemies = getEnemies(G, ctx);
-      const canSelected = movable(lineup, (ind) =>
-        validateSelected(G, ctx, ind)
-      );
-      const canTarget = movable(enemies, (ind) => validateTarget(G, ctx, ind));
-
-      for (let s of canSelected) {
-        let canUltimate = lineup[s].currentCD === 0 && !lineup[s].isSilence;
-
-        for (let t of canTarget) {
-          moves.push({
-            move: "attack",
-            args: [s, t],
-          });
-          moves.push({
-            move: "guard",
-            args: [s],
-          });
-          if (canUltimate) {
-            moves.push({
-              move: "ultimate",
-              args: [s, t],
-            });
-          }
-        }
-      }
-
-      return moves;
-    },
-    objectives: () => ({
-      maximizeDamage: {
-        checker: () => true,
-        weight: (G: IGameState, ctx: Ctx): number => {
-          const moves = G.log[ctx.turn - 1];
-          if (moves.length === 0) {
-            return 0;
-          }
-          const score =
-            moves.reduce(
-              (score, move) =>
-                move.to.isEnemy &&
-                move.value &&
-                (move.type === SkillActionType.NORMAL_ATTACK ||
-                  move.type === SkillActionType.ULTIMATE ||
-                  move.type === SkillActionType.COUNTER_STRIKE ||
-                  move.type === SkillActionType.FOLLOW_UP_ATTACK ||
-                  move.type === SkillActionType.EXTRA_ATTACK)
-                  ? score + move.value
-                  : score,
-              0
-            ) / 1000000;
-          return score;
-        },
-      },
-
-      //for simulate pvp
-      /*
-      kill: {
-        checker: (G: IGameState, ctx: Ctx) => {
-          const moves = G.log[ctx.turn - 1];
-          if (moves.length === 0) {
-            return false;
-          }
-          return moves.some(
-            (move) =>
-              move.to.isEnemy && move.to.originalHP > 0 && move.to.HP === 0
-          );
-        },
-        weight: 1,
-      },
-      dontDie: {
-        checker: (G: IGameState, ctx: Ctx) =>
-          G.lineups[ctx.currentPlayer].some((c) => c.isDead),
-        weight: -1,
-      },*/
-    }),
-    iterations: 200,
-    playoutDepth: 35,
-  },
+  ai: { enumerate: () => [] },
 });
