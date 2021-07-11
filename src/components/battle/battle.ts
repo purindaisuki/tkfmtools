@@ -25,6 +25,7 @@ import calcCharStats from "utils/calcCharStats";
 import charMap from "data/charMap";
 import { ICharacterData } from "types/characters";
 
+// helpers
 function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
   for (let p in e1) {
     if (p !== "duartion" && p !== "stack" && e1[p] !== e2[p]) {
@@ -33,6 +34,41 @@ function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
   }
   return true;
 }
+
+// always two players
+export const getEnemies = (G: IGameState, ctx: Ctx) =>
+  G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
+
+export const movable = (
+  lineup: Character[],
+  condition: (ind: number) => boolean
+) =>
+  lineup.reduce((res, _, i) => {
+    if (condition(i)) {
+      res.push(i);
+    }
+    return res;
+  }, [] as number[]);
+
+export const validateSelected = (G: IGameState, ctx: Ctx, selected: number) => {
+  const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
+
+  return !(
+    !selectedCharacter ||
+    selectedCharacter.isMoved ||
+    selectedCharacter.isDead ||
+    selectedCharacter.isParalysis ||
+    selectedCharacter.isSleep ||
+    selectedCharacter.isBroken
+  );
+};
+
+export const validateTarget = (G: IGameState, ctx: Ctx, target: number) => {
+  const enemies = getEnemies(G, ctx);
+  const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
+
+  return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
+};
 
 function processSkill(
   G: IGameState,
@@ -365,7 +401,8 @@ function processSkill(
         const rPara = ctx.random?.Number();
 
         if (rPara && rPara < s.probability * (1 + paraBuff)) {
-          target.isSilence = true;
+          target.isParalysis = true;
+          target.effects.push(effect);
         }
         break;
       case SkillActionType.SLEEP:
@@ -385,7 +422,8 @@ function processSkill(
         const rSleep = ctx.random?.Number();
 
         if (rSleep && rSleep < s.probability * (1 + sleepBuff)) {
-          target.isSilence = true;
+          target.isSleep = true;
+          target.effects.push(effect);
         }
         break;
       case SkillActionType.SILENCE:
@@ -405,6 +443,7 @@ function processSkill(
 
         if (rSilence && rSilence < s.probability * (1 + silenceBuff)) {
           target.isSilence = true;
+          target.effects.push(effect);
         }
         break;
       case SkillActionType.TAUNT:
@@ -652,38 +691,6 @@ function initCharacter(
   };
 }
 
-// always two players
-const getEnemies = (G: IGameState, ctx: Ctx) =>
-  G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
-
-const movable = (lineup: Character[], condition: (ind: number) => boolean) =>
-  lineup.reduce((res, _, i) => {
-    if (condition(i)) {
-      res.push(i);
-    }
-    return res;
-  }, [] as number[]);
-
-const validateSelected = (G: IGameState, ctx: Ctx, selected: number) => {
-  const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
-
-  return !(
-    !selectedCharacter ||
-    selectedCharacter.isMoved ||
-    selectedCharacter.isDead ||
-    selectedCharacter.isParalysis ||
-    selectedCharacter.isSleep ||
-    selectedCharacter.isBroken
-  );
-};
-
-const validateTarget = (G: IGameState, ctx: Ctx, target: number) => {
-  const enemies = getEnemies(G, ctx);
-  const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
-
-  return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
-};
-
 function endMove(G: IGameState, ctx: Ctx) {
   const lineup = G.lineups[ctx.currentPlayer];
   lineup[G.selected].isMoved = true;
@@ -836,6 +843,9 @@ export const Battle = (setupData: BattleSetupData) => ({
           trigger(G, ctx, s, log);
         });
 
+        self.effects = self.effects.filter(
+          (e) => e.invalidWhen !== SkillCondition.ULTIMATE
+        );
         G.log.slice(-1)[0].push(...log);
         endMove(G, ctx);
       },
@@ -922,6 +932,9 @@ export const Battle = (setupData: BattleSetupData) => ({
         G.target = ind;
       },
     },
+    doNothing: (G: IGameState, ctx: Ctx) => {
+      G.lineups[ctx.currentPlayer][G.selected].isMoved = true;
+    },
   },
   turn: {
     onBegin: (G: IGameState, ctx: Ctx) => {
@@ -941,36 +954,13 @@ export const Battle = (setupData: BattleSetupData) => ({
           return true;
         }
 
+        c.isBroken = false;
+        c.isGuard = false;
+        c.isMoved = false;
         // aside from battle begin
         if (ctx.turn > 2) {
           c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
         }
-        c.isBroken = false;
-        c.isGuard = false;
-        c.isMoved = false;
-        c.effects = c.effects.filter((s) => {
-          if (s.duration !== undefined) {
-            s.duration--;
-          }
-          if (s.duration === 0) {
-            if (s.type === SkillActionType.SHIELD && s.value) {
-              c.shield -= s.value;
-            }
-            if (s.type === SkillActionType.TAUNT) {
-              c.isTaunt = false;
-            }
-            return false;
-          }
-          return true;
-        });
-        c.extraSkill = c.extraSkill.filter((s) => {
-          if (s.duration !== undefined) {
-            s.duration--;
-          } else {
-            return true;
-          }
-          return s.duration !== 0;
-        });
 
         // turn-based skills
         const { leader, passive } = c.skillSet;
@@ -993,13 +983,14 @@ export const Battle = (setupData: BattleSetupData) => ({
       });
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
+      const selfTeam = G.lineups[ctx.currentPlayer];
       const log: ILog[] = [];
-      G.lineups[ctx.currentPlayer].forEach((c, ind) => {
+      selfTeam.forEach((c, ind) => {
         c.effects.forEach((s) => {
           if (s.on === SkillOn.TURN_END) {
             const fromCharacter = s.fromEnemy
               ? getEnemies(G, ctx).find((c) => c.teamPosition === s.from)
-              : G.lineups[ctx.currentPlayer][s.from];
+              : selfTeam[s.from];
 
             if (fromCharacter) {
               processSkill(
@@ -1022,6 +1013,47 @@ export const Battle = (setupData: BattleSetupData) => ({
       });
 
       G.log.slice(-1)[0].push(...log);
+
+      // clear expired effects
+      selfTeam.forEach((c): boolean | void => {
+        if (c.isDead) {
+          return true;
+        }
+
+        c.effects = c.effects.filter((s) => {
+          if (s.duration !== undefined) {
+            s.duration--;
+          }
+          if (s.duration === 0) {
+            if (s.type === SkillActionType.SHIELD && s.value) {
+              c.shield -= s.value;
+            }
+            if (s.type === SkillActionType.TAUNT) {
+              c.isTaunt = false;
+            }
+            if (s.type === SkillActionType.PARALYSIS) {
+              c.isParalysis = false;
+            }
+            if (s.type === SkillActionType.SLEEP) {
+              c.isSleep = false;
+            }
+            if (s.type === SkillActionType.SILENCE) {
+              c.isSilence = false;
+            }
+            return false;
+          }
+
+          return true;
+        });
+        c.extraSkill = c.extraSkill.filter((s) => {
+          if (s.duration !== undefined) {
+            s.duration--;
+          } else {
+            return true;
+          }
+          return s.duration !== 0;
+        });
+      });
     },
     endIf: (G: IGameState, ctx: Ctx) =>
       G.lineups[ctx.currentPlayer].every(
@@ -1075,7 +1107,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     },
     objectives: () => ({
       maximizeDamage: {
-        checker: (G: IGameState, ctx: Ctx) => true,
+        checker: () => true,
         weight: (G: IGameState, ctx: Ctx): number => {
           const moves = G.log[ctx.turn - 1];
           if (moves.length === 0) {
@@ -1120,7 +1152,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         weight: -1,
       },*/
     }),
-    iterations: 20,
+    iterations: 200,
     playoutDepth: 35,
   },
 });

@@ -110,6 +110,7 @@ export interface ISkill {
   byAttribute?: number /* get extra damaged by A attribute */;
   repeat?: number;
   probability?: number;
+  invalidWhen?: SkillCondition;
   skill?: {
     condition:
       | SkillCondition.NORMAL_ATTACK

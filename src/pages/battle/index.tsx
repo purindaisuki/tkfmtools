@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { BoardProps, Client } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
-import { MCTSBot } from "boardgame.io/ai";
 import Panels from "containers/Panels";
 import {
   Battle,
@@ -11,6 +10,7 @@ import {
   getCharacterButtonState,
 } from "components/battle";
 import { IGameState } from "types/battle";
+import { AutoBot, CustomMCTSBot, DoNothingBot } from "components/battle/bots";
 import Header from "components/Header";
 import IconButton from "components/IconButton";
 import {
@@ -26,7 +26,7 @@ const scarerow = {
   id: "scarecrow",
   attribute: 0,
   ATK: 0,
-  HP: 1000000000,
+  HP: 5000000000,
   level: 60,
   potential: 0,
   potentialSub: Array(6).fill(false),
@@ -37,7 +37,7 @@ const scarerow = {
 
 const lineup = [
   {
-    id: "126",
+    id: "209",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),
@@ -46,7 +46,7 @@ const lineup = [
     bond: 5,
   },
   {
-    id: "125",
+    id: "130",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),
@@ -54,9 +54,24 @@ const lineup = [
     star: 5,
     bond: 5,
   },
-];
-
-const enemies = [
+  {
+    id: "157",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
+  {
+    id: "126",
+    level: 60,
+    potential: 12,
+    potentialSub: Array(6).fill(true),
+    discipline: 3,
+    star: 5,
+    bond: 5,
+  },
   {
     id: "132",
     level: 60,
@@ -67,6 +82,8 @@ const enemies = [
     bond: 5,
   },
 ];
+
+const enemies = [scarerow];
 
 const Board = ({
   G,
@@ -157,24 +174,6 @@ const ControlPanel = styled.div`
   flex-wrap: wrap;
   margin-bottom: -0.5rem;
 `;
-
-class CustomMCTSBot extends MCTSBot {
-  constructor(opts: any) {
-    // allow to set ai objectives and settings
-    super({ ...opts, ...opts.game.ai });
-  }
-}
-
-class DoNothingBot extends MCTSBot {
-  constructor(opts: any) {
-    super({
-      ...opts,
-      objectives: () => ({}),
-      iterations: 1,
-      playoutDepth: 1,
-    });
-  }
-}
 
 const App = Client({
   game: Battle({

@@ -116,7 +116,10 @@ export function calcDamage(
         }
         break;
       case SkillEffectType.ULTIMATE_DAMAGE:
-        if (action.type === SkillActionType.ULTIMATE) {
+        if (
+          action.type === SkillActionType.ULTIMATE ||
+          action.type === SkillActionType.FOLLOW_UP_ATTACK
+        ) {
           attackDamageEffect += s.value * stack;
         }
         break;
@@ -168,7 +171,8 @@ export function calcDamage(
       case SkillEffectType.ULTIMATE_DAMAGED:
         if (
           action.on !== SkillOn.TURN_END &&
-          action.type === SkillActionType.ULTIMATE
+          (action.type === SkillActionType.ULTIMATE ||
+            action.type === SkillActionType.FOLLOW_UP_ATTACK)
         ) {
           attackDamageEffect += s.value * stack;
         }
