@@ -926,7 +926,7 @@ export const data: Readonly<{
         condition: SkillCondition.BATTLE_BEGIN,
         target: SkillTarget.TEAM,
         type: SkillActionType.HEAL,
-        basis: SkillEffectBasis.SELF_ATK,
+        basis: SkillEffectBasis.TARGET_ATK,
         value: 0.35,
         on: SkillOn.TURN_END,
       },

@@ -62,6 +62,7 @@ const SidebarAccordions = ({
 );
 
 const StyledListItem = styled(ListItem)`
+  position: relative;
   font-size: large;
   cursor: pointer;
   && {
@@ -70,6 +71,7 @@ const StyledListItem = styled(ListItem)`
   }
   svg {
     fill: ${(props) => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.secondary};
     width: 1.6rem;
     height: 1.6rem;
     margin-right: 1.25rem;
@@ -125,6 +127,7 @@ const SidebarItem = ({
   descriptions,
   expanded,
   onChange,
+  isBeta,
 }) => {
   if (expandable) {
     return (
@@ -143,10 +146,29 @@ const SidebarItem = ({
   return (
     <StyledListItem component={LocalizedLink} button to={to}>
       {icon}
-      {title}
+      <BetaTitleWrapper $isBeta={isBeta}>{title}</BetaTitleWrapper>
     </StyledListItem>
   );
 };
+
+export const BetaTitleWrapper = styled.span`
+  position: relative;
+  ${(props) =>
+    props.$isBeta
+      ? `&:after {
+    position: absolute;
+    top: 50%;
+    right: -0.4rem;
+    content: "BETA";
+    padding: 0 3px;
+    border-radius: 2px;
+    background: ${props.theme.colors.dropdownHover};
+    transform: translate(100%, -50%);
+    line-height: 12px;
+    font-size: 9px;
+  }`
+      : ""}
+`;
 
 const Sidebar = ({ open, toggleSidebar }) => {
   const { isDefault, userLanguage, pageString } = useLanguage();
@@ -188,6 +210,7 @@ const Sidebar = ({ open, toggleSidebar }) => {
             expanded={expanded === ind}
             onChange={handleExpand(ind)}
             key={ind}
+            isBeta={ind === 6}
           />
         ))}
       </StyledList>

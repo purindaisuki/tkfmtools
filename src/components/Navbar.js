@@ -7,6 +7,7 @@ import DropDown from "components/DropDown";
 import IconButton from "components/IconButton";
 import LocalizedLink from "components/LocalizedLink";
 import navbarContent from "components/navbarContent";
+import { BetaTitleWrapper } from "components/Sidebar";
 import { MenuIcon, LanguageIcon, ToolIcon } from "components/icon";
 import langConfig from "languageConfig.json";
 import SunIcon from "images/sun.svg";
@@ -70,7 +71,10 @@ const DesktopNavbar = () => {
             $active={window?.location.pathname.includes(item.to)}
             key={ind}
           >
-            {pageString.navbar.sidebar[ind].title}
+            <BetaWrapper $isBeta={ind === 6}>
+              {" "}
+              {pageString.navbar.sidebar[ind].title}
+            </BetaWrapper>
           </NavbarLink>
         )
       )}
@@ -140,6 +144,17 @@ const TextButton = styled(Button)`
     }
   }
 `;
+const BetaWrapper = styled(BetaTitleWrapper)`
+  ${(props) =>
+    props.$isBeta
+      ? `&:after {
+    top: -1px;
+    left: 0;
+    right: auto;
+    transform: translateY(-100%);
+  }`
+      : ""}
+`;
 
 const langDropdownText = {
   "zh-TW": "繁體中文",
@@ -196,7 +211,7 @@ const LanguageSwitcher = () => {
       }}
     </Location>
   );
-}
+};
 
 const LanguageButton = styled(IconButton)`
   && svg {

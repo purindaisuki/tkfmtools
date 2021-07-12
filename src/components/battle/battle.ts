@@ -182,7 +182,6 @@ function processSkill(
       case SkillActionType.COUNTER_STRIKE:
       case SkillActionType.NORMAL_ATTACK:
       case SkillActionType.ULTIMATE:
-      case SkillActionType.EXTRA_ATTACK:
       case SkillActionType.FOLLOW_UP_ATTACK:
         const damage = calcDamage(from.character, target, s);
         let restDamage = damage;
@@ -397,7 +396,7 @@ function processSkill(
         }
 
         const para = target.effects.find(
-          (s) => s.type === SkillEffectType.PARALYSISED
+          (s) => s.type === SkillEffectType.PARALYZED
         );
         const paraBuff = para?.value ? para.value : 0;
         const rPara = ctx.random?.Number();
@@ -547,8 +546,33 @@ function trigger(
           fromEnemy: isEnemy,
         };
 
-        if (s.basis === SkillEffectBasis.SELF_ATK && s.value) {
-          endTurnEffect.value = selfTeam[G.selected].ATK * s.value;
+        if (s.value) {
+          switch (s.basis) {
+            case SkillEffectBasis.SELF_ATK:
+              endTurnEffect.value = selfTeam[G.selected].ATK * s.value;
+              break;
+            case SkillEffectBasis.TARGET_ATK:
+              endTurnEffect.value =
+                s.value *
+                (isEnemy
+                  ? enemies[c.teamPosition].ATK
+                  : selfTeam[c.teamPosition].ATK);
+              break;
+            case SkillEffectBasis.TARGET_MAX_HP:
+              endTurnEffect.value =
+                s.value *
+                (isEnemy
+                  ? enemies[c.teamPosition].maxHP
+                  : selfTeam[c.teamPosition].maxHP);
+              break;
+            case SkillEffectBasis.TARGET_CURRENT_HP:
+              endTurnEffect.value =
+                s.value *
+                (isEnemy
+                  ? enemies[c.teamPosition].HP
+                  : selfTeam[c.teamPosition].HP);
+              break;
+          }
         }
 
         c.effects.push(endTurnEffect);

@@ -58,7 +58,7 @@ const Layout = ({ children, withTabs, pagePath }) => {
       ...state,
       isDark: initialTheme === "dark",
       layoutIndex: parseInt(initLayout),
-      withSidebar: width <= 1000,
+      withSidebar: width <= 1268,
       didLoad: true,
     }));
   }, []);
@@ -66,7 +66,7 @@ const Layout = ({ children, withTabs, pagePath }) => {
   useEffect(() => {
     setState((state) => ({
       ...state,
-      withSidebar: width <= 1000,
+      withSidebar: width <= 1268,
     }));
   }, [width]);
 

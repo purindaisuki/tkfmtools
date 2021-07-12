@@ -1013,6 +1013,36 @@
       ]
     }
   },
+  "battle": {
+    "index": {
+      "name": "Battle Simulator",
+      "helmet": {
+        "title": "TenkafuMA Toolbox — Battle simulator",
+        "description": "Simulate battle in TenkafuMA."
+      },
+      "turn": "Turn",
+      "HP": "HP",
+      "ATK": "ATK",
+      "shield": "Shield",
+      "effect": "Effect",
+      "silence": "Silence",
+      "sleep": "Sleep",
+      "paralysis": "Paralysis",
+      "details": "Details",
+      "controlPanel": {
+        "attack": "Normal attack",
+        "ultimate": "Ultimate skill",
+        "guard": "Guard",
+        "undo": "Undo",
+        "redo": "Redo",
+        "reset": "Reset"
+      },
+      "log": {
+        "you": "You",
+        "enemy": "Enemy"
+      }
+    }
+  },
   "navbar": {
     "menuButton": "Menu",
     "languageSwitchTooltip": "Language",
@@ -1037,6 +1067,9 @@
       },
       {
         "title": "Team compositions"
+      },
+      {
+        "title": "Battle"
       },
       {
         "title": "External Links",

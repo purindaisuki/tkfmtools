@@ -89,6 +89,8 @@ const CharacterStateList = ({
 }: {
   character: Character;
 }): JSX.Element => {
+  const { pageString }: any = useLanguage();
+
   return (
     <ListWrapper>
       <CharacterStateTooltip
@@ -98,17 +100,26 @@ const CharacterStateList = ({
         {ClockIcon}
       </CharacterStateTooltip>
       <TextWrapper>{` ${character.currentCD}`}</TextWrapper>
-      <CharacterStateTooltip tooltipText={"防禦"} active={character.isGuard}>
+      <CharacterStateTooltip
+        tooltipText={pageString.battle.index.controlPanel.guard}
+        active={character.isGuard}
+      >
         {GuardIcon}
       </CharacterStateTooltip>
-      <CharacterStateTooltip tooltipText={"沉默"} active={character.isSilence}>
+      <CharacterStateTooltip
+        tooltipText={pageString.battle.index.silence}
+        active={character.isSilence}
+      >
         {SilenceIcon}
       </CharacterStateTooltip>
-      <CharacterStateTooltip tooltipText={"睡眠"} active={character.isSleep}>
+      <CharacterStateTooltip
+        tooltipText={pageString.battle.index.sleep}
+        active={character.isSleep}
+      >
         {SleepIcon}
       </CharacterStateTooltip>
       <CharacterStateTooltip
-        tooltipText={"麻痺"}
+        tooltipText={pageString.battle.index.paralysis}
         active={character.isParalysis}
       >
         {ParalysisIcon}
@@ -141,10 +152,7 @@ const CharacterStats = ({
   return (
     <CharacterStatsWrapper>
       <span>{`${HP}`}</span>
-      <HPBar
-        HPPercent={HPPercent}
-        shieldPercent={shieldPercent}
-      />
+      <HPBar HPPercent={HPPercent} shieldPercent={shieldPercent} />
       <CharacterStateList character={character} />
     </CharacterStatsWrapper>
   );
@@ -239,15 +247,19 @@ const StyledHPBar = styled.div<{
 `;
 
 export const CharacterButton = ({
+  G,
+  ctx,
+  player,
   character,
-  state,
   onClick,
 }: {
+  G: IGameState;
+  ctx: Ctx;
+  player: string;
   character: Character;
-  state: CharacterButtonState;
   onClick: () => void;
 }): JSX.Element => {
-  const { charString }: any = useLanguage();
+  const { charString, pageString }: any = useLanguage();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -266,18 +278,23 @@ export const CharacterButton = ({
       <DetailsButton
         onClick={handleClick}
         ariaDescribedby={id}
-        tooltipText={`details`}
+        tooltipText={pageString.battle.index.details}
       >
         {ElseIcon}
       </DetailsButton>
       <CharacterDetailsPopover
+        G={G}
+        player={player}
         id={id}
         character={character}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
       />
-      <StyledCharacterMuiButton $state={state} onClick={onClick}>
+      <StyledCharacterMuiButton
+        $state={getCharacterButtonState(G, ctx, character, player)}
+        onClick={onClick}
+      >
         <CharacterAvatar
           key={character.id}
           name={`char_small_${character.id}`}

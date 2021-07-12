@@ -60,9 +60,9 @@ const MoveLog = ({
         </CharacterTextWrapper>
       </LogCell>
       <LogCell>{"⭢"}</LogCell>
-      <LogCell>{`${moveLog.value ? moveLog.value : ""} (${
-        skillString.type[moveLog.type]
-      })`}</LogCell>
+      <LogCell>{`${moveLog.value ? moveLog.value : ""} (${skillString.type[
+        moveLog.type
+      ].replace(" {value}", "")})`}</LogCell>
       {moveLog.value || moveLog.from.position !== moveLog.to.position ? (
         <>
           <LogCell>{"⭢"}</LogCell>
@@ -117,29 +117,33 @@ type Props = {
 };
 
 export const BattleLog = ({ G }: Props): JSX.Element => {
+  const { pageString }: any = useLanguage();
   let counter = 0;
 
   return (
     <TableWrapper>
       <Table>
         <TableBody>
-          {G.log.map((logPerTurn, ind) => {
-            const turn = ind % 2 === 0 ? "You" : "Enemy";
-            return (
-              <React.Fragment key={ind}>
-                <TableRow>
-                  <LogCell colSpan={6}>
-                    <TurnTextWrapper>
-                      {`Turn ${Math.floor(ind / 2) + 1} (${turn})`}
-                    </TurnTextWrapper>
-                  </LogCell>
-                </TableRow>
-                {logPerTurn.map((logPerMove) => {
-                  return <MoveLog G={G} key={counter++} moveLog={logPerMove} />;
-                })}
-              </React.Fragment>
-            );
-          })}
+          {G.log.map((logPerTurn, ind) => (
+            <React.Fragment key={ind}>
+              <TableRow>
+                <LogCell colSpan={6}>
+                  <TurnTextWrapper>
+                    {`${pageString.battle.index.turn} ${
+                      Math.floor(ind / 2) + 1
+                    } (${
+                      pageString.battle.index.log[
+                        ind % 2 === 0 ? "you" : "enemy"
+                      ]
+                    })`}
+                  </TurnTextWrapper>
+                </LogCell>
+              </TableRow>
+              {logPerTurn.map((logPerMove) => (
+                <MoveLog G={G} key={counter++} moveLog={logPerMove} />
+              ))}
+            </React.Fragment>
+          ))}
         </TableBody>
       </Table>
     </TableWrapper>

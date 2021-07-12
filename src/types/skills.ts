@@ -21,7 +21,6 @@ export enum SkillActionType {
   NORMAL_ATTACK,
   ULTIMATE,
   COUNTER_STRIKE,
-  EXTRA_ATTACK,
   FOLLOW_UP_ATTACK,
   GUARD,
   HEAL,
@@ -41,7 +40,7 @@ export enum SkillActionType {
 }
 
 export enum SkillEffectType {
-  ATTACK_POWER = 20,
+  ATTACK_POWER = 19,
   NORMAL_ATTACK_DAMAGE,
   ULTIMATE_DAMAGE,
   DEALT_DAMAGE,
@@ -61,7 +60,7 @@ export enum SkillEffectType {
   IMMUNE_PARALYSIS,
   SLEEPED,
   SILENCED,
-  PARALYSISED,
+  PARALYZED,
 }
 
 export enum SkillEffectBasis {

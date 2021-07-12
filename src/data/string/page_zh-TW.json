@@ -994,6 +994,36 @@
       ]
     }
   },
+  "battle": {
+    "index": {
+      "name": "戰鬥模擬",
+      "helmet": {
+        "title": "天下布魔工具箱 — 戰鬥模擬",
+        "description": "提供遊戲內戰鬥模擬。"
+      },
+      "turn": "回合",
+      "HP": "血量",
+      "ATK": "攻擊",
+      "shield": "護盾",
+      "effect": "效果",
+      "silence": "沉默",
+      "sleep": "睡眠",
+      "paralysis": "麻痺",
+      "details": "詳細",
+      "controlPanel": {
+        "attack": "普通攻擊",
+        "ultimate": "必殺技",
+        "guard": "防禦",
+        "undo": "上一步",
+        "redo": "下一步",
+        "reset": "重置"
+      },
+      "log": {
+        "you": "己方",
+        "enemy": "敵方"
+      }
+    }
+  },
   "navbar": {
     "menuButton": "選單",
     "languageSwitchTooltip": "語言",
@@ -1018,6 +1048,9 @@
       },
       {
         "title": "隊伍編成"
+      },
+      {
+        "title": "戰鬥"
       },
       {
         "title": "外部連結",

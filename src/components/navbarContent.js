@@ -7,6 +7,7 @@ import {
   LinkIcon,
   AnalysisIcon,
   TeamIcon,
+  PositionIcon,
 } from "components/icon";
 
 const officialLink = {
@@ -59,6 +60,12 @@ const navbarContent = (lang, isDefault) => [
     linkType: "internal",
     expandable: false,
     icon: TeamIcon,
+  },
+  {
+    to: "/battle/",
+    linkType: "internal",
+    expandable: false,
+    icon: PositionIcon,
   },
   {
     to: [officialLink[lang], discordLink[lang], "https://tkfm.wiki/"],

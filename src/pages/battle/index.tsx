@@ -3,12 +3,8 @@ import styled from "styled-components";
 import { BoardProps, Client } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
 import Panels from "containers/Panels";
-import {
-  Battle,
-  BattleLog,
-  CharacterButton,
-  getCharacterButtonState,
-} from "components/battle";
+import { useLanguage } from "containers/LanguageProvider";
+import { Battle, BattleLog, CharacterButton } from "components/battle";
 import { IGameState } from "types/battle";
 import { AutoBot, CustomMCTSBot, DoNothingBot } from "components/battle/bots";
 import Header from "components/Header";
@@ -21,6 +17,7 @@ import {
   RedoIcon,
   ResetIcon,
 } from "components/icon";
+import Head from "components/Head";
 
 const scarerow = {
   id: "scarecrow",
@@ -37,7 +34,7 @@ const scarerow = {
 
 const lineup = [
   {
-    id: "209",
+    id: "126",
     level: 60,
     potential: 12,
     potentialSub: Array(6).fill(true),
@@ -83,9 +80,7 @@ const lineup = [
   },
 ];
 
-const enemies = [
-  scarerow
-];
+const enemies = [scarerow];
 
 const Board = ({
   G,
@@ -95,6 +90,8 @@ const Board = ({
   redo,
   reset,
 }: BoardProps<IGameState>): JSX.Element => {
+  const { pageString }: any = useLanguage();
+
   const handleCharacterClick = (ind: number, player: string) => () => {
     if (ctx.currentPlayer === player) {
       moves.switchMember(ind);
@@ -116,46 +113,77 @@ const Board = ({
   };
 
   return (
-    <Panels panelsWidth={["30%", "70%"]}>
-      <div>
-        <StyledHeader title={`Turn: ${Math.floor((ctx.turn + 1) / 2)}`} />
-        <BattleContainer>
-          {Object.entries(G.lineups).map(([player, lineup]) => (
-            <div key={player}>
-              {lineup.map((c, ind) => (
-                <CharacterButton
-                  key={ind}
-                  character={c}
-                  state={getCharacterButtonState(G, ctx, c, player)}
-                  onClick={handleCharacterClick(ind, player)}
-                />
-              ))}
-            </div>
-          ))}
-        </BattleContainer>
-        <ControlPanel>
-          <IconButton onClick={handleAttackClick} tooltipText={"攻擊"}>
-            {AttackIcon}
-          </IconButton>
-          <IconButton onClick={handleUltimateClick} tooltipText={"必殺"}>
-            {UltimateIcon}
-          </IconButton>
-          <IconButton onClick={handleGuardClick} tooltipText={"防禦"}>
-            {GuardIcon}
-          </IconButton>
-          <IconButton onClick={() => undo()} tooltipText={"上一步"}>
-            {UndoIcon}
-          </IconButton>
-          <IconButton onClick={() => redo()} tooltipText={"下一步"}>
-            {RedoIcon}
-          </IconButton>
-          <IconButton onClick={() => reset()} tooltipText={"重置"}>
-            {ResetIcon}
-          </IconButton>
-        </ControlPanel>
-      </div>
-      <BattleLog G={G} />
-    </Panels>
+    <>
+      <Head
+        title={pageString.battle.index.helmet.title}
+        description={pageString.battle.index.helmet.description}
+        path="/battle/"
+      />
+      <Panels panelsWidth={["30%", "70%"]}>
+        <div>
+          <StyledHeader
+            title={`${pageString.battle.index.turn}: ${Math.floor(
+              (ctx.turn + 1) / 2
+            )}`}
+          />
+          <BattleContainer>
+            {Object.entries(G.lineups).map(([player, lineup]) => (
+              <div key={player}>
+                {lineup.map((c, ind) => (
+                  <CharacterButton
+                    key={ind}
+                    G={G}
+                    ctx={ctx}
+                    player={player}
+                    character={c}
+                    onClick={handleCharacterClick(ind, player)}
+                  />
+                ))}
+              </div>
+            ))}
+          </BattleContainer>
+          <ControlPanel>
+            <IconButton
+              onClick={handleAttackClick}
+              tooltipText={pageString.battle.index.controlPanel.attack}
+            >
+              {AttackIcon}
+            </IconButton>
+            <IconButton
+              onClick={handleUltimateClick}
+              tooltipText={pageString.battle.index.controlPanel.ultimate}
+            >
+              {UltimateIcon}
+            </IconButton>
+            <IconButton
+              onClick={handleGuardClick}
+              tooltipText={pageString.battle.index.controlPanel.guard}
+            >
+              {GuardIcon}
+            </IconButton>
+            <IconButton
+              onClick={() => undo()}
+              tooltipText={pageString.battle.index.controlPanel.redo}
+            >
+              {UndoIcon}
+            </IconButton>
+            <IconButton
+              onClick={() => redo()}
+              tooltipText={pageString.battle.index.controlPanel.undo}
+            >
+              {RedoIcon}
+            </IconButton>
+            <IconButton
+              onClick={() => reset()}
+              tooltipText={pageString.battle.index.controlPanel.reset}
+            >
+              {ResetIcon}
+            </IconButton>
+          </ControlPanel>
+        </div>
+        <BattleLog G={G} />
+      </Panels>
+    </>
   );
 };
 

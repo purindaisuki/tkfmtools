@@ -60,7 +60,6 @@ export function calcDamage(
       action.type === SkillActionType.COUNTER_STRIKE ||
       action.type === SkillActionType.NORMAL_ATTACK ||
       action.type === SkillActionType.ULTIMATE ||
-      action.type === SkillActionType.EXTRA_ATTACK ||
       action.type === SkillActionType.FOLLOW_UP_ATTACK
     )
   ) {
@@ -219,8 +218,7 @@ export function calcHeal(
   let damageEffect = 1;
 
   if (
-    action.on === SkillOn.TURN_END &&
-    action.basis === SkillEffectBasis.SELF_ATK
+    action.on === SkillOn.TURN_END
   ) {
     base = 1;
   } else {
