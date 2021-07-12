@@ -1032,6 +1032,7 @@
         "redo": "Redo",
         "reset": "Reset"
       },
+      "tabs": ["Log", "Setting", "Help"],
       "log": {
         "you": "You",
         "enemy": "Enemy"

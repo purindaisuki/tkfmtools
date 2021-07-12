@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BoardProps, Client } from "boardgame.io/react";
+import { Tab, Tabs } from "@material-ui/core";
 import { Local } from "boardgame.io/multiplayer";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
@@ -16,8 +17,12 @@ import {
   UndoIcon,
   RedoIcon,
   ResetIcon,
+  SettingIcon,
+  HelpIcon,
+  NoteIcon,
 } from "components/icon";
 import Head from "components/Head";
+import { useState } from "react";
 
 const scarerow = {
   id: "scarecrow",
@@ -81,6 +86,101 @@ const lineup = [
 ];
 
 const enemies = [scarerow];
+
+const Setings = (): JSX.Element => {
+  return (
+    <div>
+      <div>Team</div>
+      <div>Enemies</div>
+      <div>Bot</div>
+    </div>
+  );
+};
+
+const TabPanel = ({
+  children,
+  value,
+  index,
+}: {
+  children: React.ReactNode;
+  value: number;
+  index: number;
+}): JSX.Element => (
+  <div
+    role="tabpanel"
+    hidden={value !== index}
+    id={`info-tabpanel-${index}`}
+    aria-labelledby={`info-tab-${index}`}
+  >
+    {value === index && children}
+  </div>
+);
+
+const tabIcons = [NoteIcon, SettingIcon, HelpIcon];
+
+const InfoTabs = ({ G }: { G: IGameState }): JSX.Element => {
+  const { pageString }: any = useLanguage();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <>
+      <StyledTabs
+        value={value}
+        onChange={handleChange}
+        aria-label="Info tabs"
+        variant="fullWidth"
+      >
+        {pageString.battle.index.tabs.map((tab: string, ind: number) => (
+          <StyledTab
+            label={tab}
+            id={`info-tab-${ind}`}
+            aria-controls={`info-tabpanel-${ind}`}
+            icon={tabIcons[ind]}
+            $selected={value === ind}
+          />
+        ))}
+      </StyledTabs>
+      <TabPanel value={value} index={0}>
+        <BattleLog G={G} />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Setings />
+      </TabPanel>
+    </>
+  );
+};
+
+const StyledTabs = styled(Tabs)`
+  && {
+    min-height: 0;
+    .MuiTabs-indicator {
+      background-color: ${(props) => props.theme.colors.secondary};
+    }
+  }
+`;
+const StyledTab = styled(Tab)<{ $selected: boolean }>`
+  && {
+    padding: 0.3rem 0.5rem;
+    min-width: 120px;
+    min-height: 0;
+    .MuiTab-wrapper {
+      flex-direction: row;
+      margin-bottom: 0.5rem;
+      svg {
+        height: 1.6rem;
+        width: 1.6rem;
+        margin-right: 0.4rem;
+        margin-bottom: 0;
+        fill: ${(props) =>
+          props.theme.colors[props.$selected ? "secondary" : "onSurface"]};
+      }
+    }
+  }
+`;
 
 const Board = ({
   G,
@@ -181,7 +281,7 @@ const Board = ({
             </IconButton>
           </ControlPanel>
         </div>
-        <BattleLog G={G} />
+        <InfoTabs G={G} />
       </Panels>
     </>
   );
@@ -196,7 +296,7 @@ const BattleContainer = styled.div`
 `;
 const StyledHeader = styled(Header)`
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+  border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
 `;
 const ControlPanel = styled.div`
   display: flex;

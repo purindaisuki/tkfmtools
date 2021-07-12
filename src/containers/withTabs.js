@@ -89,42 +89,40 @@ const withTabs = ({ children, pagePath }) => {
 };
 
 const StyledTabs = styled(Tabs)`
-    && {
-        margin: -1rem;
-        margin-bottom: 1rem;
-        background-color:  ${(props) => props.theme.colors.shadow + "1A"};
-        .MuiTabs-indicator {
-            background-color:  ${(props) => props.theme.colors.secondary};
-        }
-        .MuiTab-root {
-            min-width: 0;
-            min-height: 0;
-            padding: .6rem 1.2rem;
-            z-index: 1;
-            > span {
-                display: ${(props) =>
-                  props.$lang === "en" ? "flex" : "inline"}};
-                font-size: ${(props) =>
-                  props.$lang === "en" ? "1rem" : "medium"}};
-            }
-        }
-        .MuiTab-wrapper {
-            color: ${(props) => props.theme.colors.onSurface}
-        }
-        svg {
-            width: 1.4rem;
-            height: 1.4rem;
-            margin: 0rem .2rem;
-            margin-left: 0;
-            fill: ${(props) => props.theme.colors.onSurface};
-        }
-        .Mui-selected > span {
-            color: ${(props) => props.theme.colors.secondary};
-            svg {
-                fill: ${(props) => props.theme.colors.secondary};
-            }
-        }
+  && {
+    margin: -1rem;
+    margin-bottom: 1rem;
+    background-color:  ${(props) => props.theme.colors.shadow + "1A"};
+    .MuiTabs-indicator {
+      background-color:  ${(props) => props.theme.colors.secondary};
     }
+    .MuiTab-root {
+      min-width: 0;
+      min-height: 0;
+      padding: .6rem 1.2rem;
+      z-index: 1;
+      > span {
+        display: ${(props) => (props.$lang === "en" ? "flex" : "inline")}};
+        font-size: ${(props) => (props.$lang === "en" ? "1rem" : "medium")}};
+      }
+    }
+    .MuiTab-wrapper {
+      color: ${(props) => props.theme.colors.onSurface}
+    }
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+      margin: 0rem .2rem;
+      margin-left: 0;
+      fill: ${(props) => props.theme.colors.onSurface};
+    }
+    .Mui-selected > span {
+      color: ${(props) => props.theme.colors.secondary};
+      svg {
+        fill: ${(props) => props.theme.colors.secondary};
+      }
+    }
+  }
 `;
 const TabPanel = styled.div`
   position: relative;
