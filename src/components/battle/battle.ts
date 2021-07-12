@@ -245,17 +245,19 @@ function processSkill(
             currentPlayer: ctx.currentPlayer === "0" ? "1" : "0",
           };
 
-          target.skillSet.leader
-            .filter((s) => s.condition === SkillCondition.ATTACKED)
-            .forEach((targetSkill) => {
-              // counterstrike won't trigger counterstrike
-              if (
-                s.type !== SkillActionType.COUNTER_STRIKE ||
-                targetSkill.type !== SkillActionType.COUNTER_STRIKE
-              ) {
-                trigger(tempG, tempCtx, targetSkill, logArr);
-              }
-            });
+          if (target.teamPosition === 0) {
+            target.skillSet.leader
+              .filter((s) => s.condition === SkillCondition.ATTACKED)
+              .forEach((targetSkill) => {
+                // counterstrike won't trigger counterstrike
+                if (
+                  s.type !== SkillActionType.COUNTER_STRIKE ||
+                  targetSkill.type !== SkillActionType.COUNTER_STRIKE
+                ) {
+                  trigger(tempG, tempCtx, targetSkill, logArr);
+                }
+              });
+          }
 
           if (!target.isSilence) {
             target.skillSet.passive
@@ -734,12 +736,15 @@ function attack(
     return INVALID_MOVE;
   }
 
-  const { leader, normalAttack, passive } = self.skillSet;
   const log: ILog[] = [];
+  let skills = [...self.skillSet.normalAttack, ...self.extraSkill];
+  if (self.teamPosition === 0) {
+    skills.push(...self.skillSet.leader);
+  }
+  if (!self.isSilence) {
+    skills.push(...self.skillSet.passive);
+  }
 
-  let skills = self.isSilence
-    ? [...normalAttack, ...leader, ...self.extraSkill]
-    : [...normalAttack, ...leader, ...passive, ...self.extraSkill];
   skills = skills.filter(
     (s) =>
       s.condition === SkillCondition.ATTACK ||
@@ -786,9 +791,15 @@ function ultimate(
   }
   self.currentCD = self.CD;
 
-  const { leader, ultimate, passive } = self.skillSet;
   const log: ILog[] = [];
-  let skills = [...ultimate, ...leader, ...passive, ...self.extraSkill];
+  let skills = [...self.skillSet.ultimate, ...self.extraSkill];
+  if (self.teamPosition === 0) {
+    skills.push(...self.skillSet.leader);
+  }
+  if (!self.isSilence) {
+    skills.push(...self.skillSet.passive);
+  }
+
   skills = skills.filter(
     (s) =>
       s.condition === SkillCondition.ATTACK ||
@@ -961,8 +972,13 @@ export const Battle = (setupData: BattleSetupData) => ({
         }
 
         // turn-based skills
-        const { leader, passive } = c.skillSet;
-        const skills = c.isSilence ? [...leader] : [...leader, ...passive];
+        let skills = [];
+        if (c.teamPosition === 0) {
+          skills.push(...c.skillSet.leader);
+        }
+        if (!c.isSilence) {
+          skills.push(...c.skillSet.passive);
+        }
 
         skills.forEach((s) => {
           if (

@@ -648,6 +648,15 @@ export const data: Readonly<{
     },
     starPassive: [
       {
+        star: 5,
+        condition: SkillCondition.NORMAL_ATTACK,
+        target: SkillTarget.SINGLE_ENEMY,
+        type: SkillActionType.FOLLOW_UP_ATTACK,
+        value: 0.2,
+        on: SkillOn.AFTER_ACTION,
+        repeat: 3,
+      },
+      {
         star: 1,
         condition: SkillCondition.ATTACK,
         target: SkillTarget.SELF,
@@ -675,15 +684,6 @@ export const data: Readonly<{
         value: -0.5,
         on: SkillOn.AFTER_ACTION,
         duration: 2,
-      },
-      {
-        star: 5,
-        condition: SkillCondition.NORMAL_ATTACK,
-        target: SkillTarget.SINGLE_ENEMY,
-        type: SkillActionType.FOLLOW_UP_ATTACK,
-        value: 0.2,
-        on: SkillOn.AFTER_ACTION,
-        repeat: 3,
       },
     ],
     potentialPassive: [
