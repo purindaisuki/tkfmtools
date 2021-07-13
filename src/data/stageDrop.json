@@ -1248,22 +1248,22 @@
         "expPotions": []
       },
       {
-        "stage": "17",
-        "energy": 18,
-        "materials": [
-          { "id": "404", "rarity": 0 },
-          { "id": "101", "rarity": 2 }
-        ],
-        "trainItems": [],
-        "expPotions": []
-      },
-      {
-        "stage": "17 free",
+        "stage": "16 free",
         "energy": 18,
         "materials": [
           { "id": "410", "rarity": 0 },
           { "id": "204", "rarity": 1 },
           { "id": "101", "rarity": 3 }
+        ],
+        "trainItems": [],
+        "expPotions": []
+      },
+      {
+        "stage": "17",
+        "energy": 18,
+        "materials": [
+          { "id": "404", "rarity": 0 },
+          { "id": "101", "rarity": 2 }
         ],
         "trainItems": [],
         "expPotions": []
