@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BoardProps, Client } from "boardgame.io/react";
 import { Tab, Tabs } from "@material-ui/core";
+import { Ctx } from "boardgame.io";
+import { BoardProps, Client as BgioClient } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
+import Head from "components/Head";
 import { Battle, BattleLog, CharacterButton } from "components/battle";
-import { IGameState } from "types/battle";
 import { AutoBot, CustomMCTSBot, DoNothingBot } from "components/battle/bots";
 import Header from "components/Header";
 import IconButton from "components/IconButton";
@@ -21,10 +22,10 @@ import {
   HelpIcon,
   NoteIcon,
 } from "components/icon";
-import Head from "components/Head";
-import { useState } from "react";
+import { BattleSetupData, IGameState } from "types/battle";
+import { CharacterStats } from "types/characters";
 
-const scarerow = {
+const scarecrow = {
   id: "scarecrow",
   attribute: 0,
   ATK: 0,
@@ -37,65 +38,40 @@ const scarerow = {
   bond: 0,
 };
 
-const lineup = [
-  {
-    id: "126",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
-  {
-    id: "130",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
-  {
-    id: "157",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
-  {
-    id: "126",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
-  {
-    id: "103",
-    level: 60,
-    potential: 12,
-    potentialSub: Array(6).fill(true),
-    discipline: 3,
-    star: 5,
-    bond: 5,
-  },
-];
+interface IGameSetupProps {
+  handleLineupChange: (lineup: CharacterStats[]) => void;
+  handleEnemiesChange: (enemies: CharacterStats[]) => void;
+  handleBotChange: (ind: number) => void;
+}
 
-const enemies = [scarerow];
-
-const Setings = (): JSX.Element => {
+const Setings = ({
+  handleLineupChange,
+  handleEnemiesChange,
+  handleBotChange,
+}: IGameSetupProps): JSX.Element => {
+  // make a confirm btn to set changes to avoid frequently re-rendering
   return (
     <div>
-      <div>Team</div>
-      <div>Enemies</div>
-      <div>Bot</div>
+      <div>
+        <SettingHeader title={`Team`} />
+        <button onClick={() => handleLineupChange([])}>setlineup</button>
+      </div>
+      <div>
+        <SettingHeader title={`Enemies`} />
+        <button onClick={() => handleEnemiesChange([])}>setlineup</button>
+      </div>
+      <div>
+        <SettingHeader title={`Bot`} />
+        <button onClick={() => handleBotChange(0)}>setlineup</button>
+      </div>
     </div>
   );
 };
+
+const SettingHeader = styled(Header)`
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+`;
 
 const TabPanel = ({
   children,
@@ -118,7 +94,14 @@ const TabPanel = ({
 
 const tabIcons = [NoteIcon, SettingIcon, HelpIcon];
 
-const InfoTabs = ({ G }: { G: IGameState }): JSX.Element => {
+const InfoTabs = ({
+  G,
+  handleLineupChange,
+  handleEnemiesChange,
+  handleBotChange,
+}: {
+  G: IGameState;
+} & IGameSetupProps): JSX.Element => {
   const { pageString }: any = useLanguage();
   const [value, setValue] = useState(0);
 
@@ -141,6 +124,7 @@ const InfoTabs = ({ G }: { G: IGameState }): JSX.Element => {
             aria-controls={`info-tabpanel-${ind}`}
             icon={tabIcons[ind]}
             $selected={value === ind}
+            key={ind}
           />
         ))}
       </StyledTabs>
@@ -148,7 +132,11 @@ const InfoTabs = ({ G }: { G: IGameState }): JSX.Element => {
         <BattleLog G={G} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Setings />
+        <Setings
+          handleLineupChange={handleLineupChange}
+          handleEnemiesChange={handleEnemiesChange}
+          handleBotChange={handleBotChange}
+        />
       </TabPanel>
     </>
   );
@@ -189,7 +177,10 @@ const Board = ({
   undo,
   redo,
   reset,
-}: BoardProps<IGameState>): JSX.Element => {
+  handleLineupChange,
+  handleEnemiesChange,
+  handleBotChange,
+}: BoardProps<IGameState> & IGameSetupProps): JSX.Element => {
   const { pageString }: any = useLanguage();
 
   const handleCharacterClick = (ind: number, player: string) => () => {
@@ -213,77 +204,75 @@ const Board = ({
   };
 
   return (
-    <>
-      <Head
-        title={pageString.battle.index.helmet.title}
-        description={pageString.battle.index.helmet.description}
-        path="/battle/"
+    <Panels panelsWidth={["30%", "70%"]}>
+      <div>
+        <StyledHeader
+          title={`${pageString.battle.index.turn}: ${Math.floor(
+            (ctx.turn + 1) / 2
+          )}`}
+        />
+        <BattleContainer>
+          {Object.entries(G.lineups).map(([player, lineup]) => (
+            <div key={player}>
+              {lineup.map((c, ind) => (
+                <CharacterButton
+                  key={ind}
+                  G={G}
+                  ctx={ctx}
+                  player={player}
+                  character={c}
+                  onClick={handleCharacterClick(ind, player)}
+                />
+              ))}
+            </div>
+          ))}
+        </BattleContainer>
+        <ControlPanel>
+          <IconButton
+            onClick={handleAttackClick}
+            tooltipText={pageString.battle.index.controlPanel.attack}
+          >
+            {AttackIcon}
+          </IconButton>
+          <IconButton
+            onClick={handleUltimateClick}
+            tooltipText={pageString.battle.index.controlPanel.ultimate}
+          >
+            {UltimateIcon}
+          </IconButton>
+          <IconButton
+            onClick={handleGuardClick}
+            tooltipText={pageString.battle.index.controlPanel.guard}
+          >
+            {GuardIcon}
+          </IconButton>
+          <IconButton
+            onClick={() => undo()}
+            tooltipText={pageString.battle.index.controlPanel.redo}
+          >
+            {UndoIcon}
+          </IconButton>
+          <IconButton
+            onClick={() => redo()}
+            tooltipText={pageString.battle.index.controlPanel.undo}
+          >
+            {RedoIcon}
+          </IconButton>
+          <IconButton
+            onClick={() => reset()}
+            tooltipText={pageString.battle.index.controlPanel.reset}
+          >
+            {ResetIcon}
+          </IconButton>
+        </ControlPanel>
+      </div>
+      <InfoTabs
+        G={G}
+        handleLineupChange={handleLineupChange}
+        handleEnemiesChange={handleEnemiesChange}
+        handleBotChange={handleBotChange}
       />
-      <Panels panelsWidth={["30%", "70%"]}>
-        <div>
-          <StyledHeader
-            title={`${pageString.battle.index.turn}: ${Math.floor(
-              (ctx.turn + 1) / 2
-            )}`}
-          />
-          <BattleContainer>
-            {Object.entries(G.lineups).map(([player, lineup]) => (
-              <div key={player}>
-                {lineup.map((c, ind) => (
-                  <CharacterButton
-                    key={ind}
-                    G={G}
-                    ctx={ctx}
-                    player={player}
-                    character={c}
-                    onClick={handleCharacterClick(ind, player)}
-                  />
-                ))}
-              </div>
-            ))}
-          </BattleContainer>
-          <ControlPanel>
-            <IconButton
-              onClick={handleAttackClick}
-              tooltipText={pageString.battle.index.controlPanel.attack}
-            >
-              {AttackIcon}
-            </IconButton>
-            <IconButton
-              onClick={handleUltimateClick}
-              tooltipText={pageString.battle.index.controlPanel.ultimate}
-            >
-              {UltimateIcon}
-            </IconButton>
-            <IconButton
-              onClick={handleGuardClick}
-              tooltipText={pageString.battle.index.controlPanel.guard}
-            >
-              {GuardIcon}
-            </IconButton>
-            <IconButton
-              onClick={() => undo()}
-              tooltipText={pageString.battle.index.controlPanel.redo}
-            >
-              {UndoIcon}
-            </IconButton>
-            <IconButton
-              onClick={() => redo()}
-              tooltipText={pageString.battle.index.controlPanel.undo}
-            >
-              {RedoIcon}
-            </IconButton>
-            <IconButton
-              onClick={() => reset()}
-              tooltipText={pageString.battle.index.controlPanel.reset}
-            >
-              {ResetIcon}
-            </IconButton>
-          </ControlPanel>
-        </div>
-        <InfoTabs G={G} />
-      </Panels>
-    </>
+    </Panels>
   );
 };
 
@@ -305,20 +294,110 @@ const ControlPanel = styled.div`
   margin-bottom: -0.5rem;
 `;
 
-const App = Client({
-  game: Battle({
-    lineups: [lineup, enemies],
-  }),
-  board: Board,
-  numPlayers: 2,
-  debug: false,
-  multiplayer: Local({
-    bots: {
-      1: CustomMCTSBot,
-    },
-  }),
-});
+const wrapper = () =>
+  BgioClient<IGameState, BoardProps & IGameSetupProps, Ctx>({
+    game: Battle({ lineups: [[], []] }),
+    board: Board,
+  });
 
-const BattlePage = () => <App playerID="0" />;
+type ClientType = ReturnType<typeof wrapper>;
+
+const bots = [AutoBot, DoNothingBot, CustomMCTSBot];
+
+const BattlePage = (): JSX.Element => {
+  const { pageString }: any = useLanguage();
+
+  const [lineup, setLineup] = useState<CharacterStats[]>([
+    {
+      id: "209",
+      level: 60,
+      potential: 12,
+      potentialSub: Array(6).fill(true),
+      discipline: 3,
+      star: 5,
+      bond: 5,
+    },
+    {
+      id: "209",
+      level: 60,
+      potential: 12,
+      potentialSub: Array(6).fill(true),
+      discipline: 3,
+      star: 5,
+      bond: 5,
+    },
+    {
+      id: "303",
+      level: 60,
+      potential: 6,
+      potentialSub: Array(6).fill(true),
+      discipline: 3,
+      star: 5,
+      bond: 5,
+    },
+    {
+      id: "209",
+      level: 60,
+      potential: 12,
+      potentialSub: Array(6).fill(true),
+      discipline: 3,
+      star: 5,
+      bond: 5,
+    },
+    {
+      id: "209",
+      level: 60,
+      potential: 12,
+      potentialSub: Array(6).fill(true),
+      discipline: 3,
+      star: 5,
+      bond: 5,
+    },
+  ]);
+  const [enemies, setEnemies] = useState<CharacterStats[]>([scarecrow]);
+  const [botIndex, setBotIndex] = useState(0);
+  const [Client, setClient] = useState<ClientType | undefined>();
+
+  const initBattle = (setupData: BattleSetupData, botIndex: number) => {
+    setClient(() =>
+      BgioClient({
+        game: Battle(setupData),
+        board: Board,
+        numPlayers: 2,
+        debug: false,
+        multiplayer: Local({
+          bots: {
+            1: bots[botIndex],
+          },
+        }),
+      })
+    );
+  };
+  const handleLineupChange = (lineup: CharacterStats[]) => setLineup(lineup);
+  const handleEnemiesChange = (lineup: CharacterStats[]) => setEnemies(lineup);
+  const handleBotChange = (ind: number) => setBotIndex(ind);
+
+  useEffect(() => {
+    initBattle({ lineups: [lineup, enemies] }, botIndex);
+  }, [lineup, enemies, botIndex]);
+
+  return (
+    <>
+      <Head
+        title={pageString.battle.index.helmet.title}
+        description={pageString.battle.index.helmet.description}
+        path="/battle/"
+      />
+      {Client && (
+        <Client
+          playerID="0"
+          handleLineupChange={handleLineupChange}
+          handleEnemiesChange={handleEnemiesChange}
+          handleBotChange={handleBotChange}
+        />
+      )}
+    </>
+  );
+};
 
 export default BattlePage;
