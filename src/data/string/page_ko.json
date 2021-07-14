@@ -93,6 +93,16 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.6.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/14 게임 업데이트",
+              "description": "대천사 성녀 밀레, 마법소녀 토타라, 징벌의 천사, 복음의 천사 추가."
+            }
+          ]
+        },
+        {
           "version": "v1.6.6",
           "content": [
             {

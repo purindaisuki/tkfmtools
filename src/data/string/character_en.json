@@ -6,6 +6,7 @@
     "104": "Elf Queen Salucia",
     "105": "Dwarf Queen Lana",
     "106": "Phasi Princess Lulu",
+    "107": "Archangel Saint Milae",
     "108": "Magic Automaton KS-Ⅷ",
     "117": "Festive Ba'al",
     "125": "Idol Iblis",
@@ -27,6 +28,7 @@
     "215": "General Juneau",
     "216": "Genius Tactician Britney",
     "236": "Slime Queen Nafrala",
+    "238": "Magical Knight Tyrella",
     "301": "Head Nurse Irene",
     "302": "Bakeneko Nana",
     "303": "Dragoon Iris",
@@ -53,9 +55,11 @@
     "416": "Phasi Guard Anna",
     "417": "Phasi Soldier Blaire",
     "418": "Phasi Wizard Natasha",
+    "419": "Angel of Punishment",
+    "420": "Angel of Bliss",
     "422": "Prototype #3",
     "nr": "N/R characters",
-    "scarecrow": "Scarecrow"
+    "scarerow": "Scarerow"
   },
   "tags": [
     "Fire attribute",

@@ -97,6 +97,16 @@
       "change": "Change",
       "content": [
         {
+          "version": "v1.6.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/14 Game Update",
+              "description": "Added Archangel Saint Milae, Magical Knight Tyrella, Angel of Punishment and Angel of Bliss."
+            }
+          ]
+        },
+        {
           "version": "v1.6.6",
           "content": [
             {

@@ -93,6 +93,16 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.6.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/14 遊戲更新",
+              "description": "新增天使長 聖米勒、魔法少女 托特拉、懲戒天使及福音天使。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.6",
           "content": [
             {

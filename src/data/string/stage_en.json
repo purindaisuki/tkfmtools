@@ -376,5 +376,32 @@
       { "id": "14-18", "name": "Ritsuki's Choice" },
       { "id": "14-19", "name": "Friendship & Loyalty" }
     ]
+  },
+  {
+    "chapter": "15",
+    "name": "Chapter 15: Heavenly Justice",
+    "stages": [
+      { "id": "15-2", "name": "Prayer and Miracle" },
+      { "id": "15-2 free", "name": "Slime Hunting Ground" },
+      { "id": "15-3", "name": "Angelic Force!!" },
+      { "id": "15-4", "name": "Turn of the Tide" },
+      { "id": "15-5", "name": "Containment" },
+      { "id": "15-6", "name": "Unexpected Guest" },
+      { "id": "15-6 free", "name": "Electrical Test Center" },
+      { "id": "15-7", "name": "Drastic Change" },
+      { "id": "15-8", "name": "Courage to Retreat" },
+      { "id": "15-9", "name": "Responsibility" },
+      { "id": "15-9 free", "name": "Vine's Morning" },
+      { "id": "15-10", "name": "Executing Tactics" },
+      { "id": "15-11", "name": "War of Attrition" },
+      { "id": "15-12", "name": "A Pile of Mud" },
+      { "id": "15-12 free", "name": "Tentacle Lab" },
+      { "id": "15-13", "name": "Mighty Investigation" },
+      { "id": "15-14", "name": "Power of Faith" },
+      { "id": "15-15", "name": "Fishing" },
+      { "id": "15-15 free", "name": "Pervert and Dust" },
+      { "id": "15-16", "name": "Road to Success" },
+      { "id": "15-17", "name": "End of an Era" }
+    ]
   }
 ]

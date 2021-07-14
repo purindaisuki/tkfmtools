@@ -93,6 +93,16 @@
       "change": "変更",
       "content": [
         {
+          "version": "v1.6.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/14 ゲーム更新",
+              "description": "新キャラ「天使長 聖女ミラ、魔法少女 トトラ、懲戒天使、福音天使」追加。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.6",
           "content": [
             {
