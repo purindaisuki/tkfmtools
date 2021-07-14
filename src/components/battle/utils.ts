@@ -60,7 +60,8 @@ export function calcDamage(
       action.type === SkillActionType.COUNTER_STRIKE ||
       action.type === SkillActionType.NORMAL_ATTACK ||
       action.type === SkillActionType.ULTIMATE ||
-      action.type === SkillActionType.FOLLOW_UP_ATTACK
+      action.type === SkillActionType.FOLLOW_UP_ATTACK ||
+      action.type === SkillActionType.REAL_ATTACK
     )
   ) {
     throw "invalid argument: wrong skill type";
@@ -69,7 +70,8 @@ export function calcDamage(
   let dealtDamageEffect = 1;
   let attackDamageEffect = 1;
   let attributeEffect =
-    action.on === SkillOn.TURN_END
+    action.on === SkillOn.TURN_END ||
+    action.type === SkillActionType.REAL_ATTACK
       ? 1
       : ATTRIBUTE_CHART[from.attribute][to.attribute];
   let guardEffect = to.isGuard ? 0.5 : 1;
@@ -87,7 +89,11 @@ export function calcDamage(
 
   from.effects.forEach((s) => {
     // exclude dot
-    if (action.on === SkillOn.TURN_END || s.value === undefined) {
+    if (
+      action.on === SkillOn.TURN_END ||
+      action.type === SkillActionType.REAL_ATTACK ||
+      s.value === undefined
+    ) {
       return true;
     }
 
@@ -128,7 +134,7 @@ export function calcDamage(
   });
 
   to.effects.forEach((s) => {
-    if (s.value === undefined) {
+    if (s.value === undefined || action.type === SkillActionType.REAL_ATTACK) {
       return true;
     }
 
@@ -217,9 +223,7 @@ export function calcHeal(
   let healedEffect = 1;
   let damageEffect = 1;
 
-  if (
-    action.on === SkillOn.TURN_END
-  ) {
+  if (action.on === SkillOn.TURN_END) {
     base = 1;
   } else {
     switch (action.basis) {

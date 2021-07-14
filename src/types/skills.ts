@@ -22,6 +22,7 @@ export enum SkillActionType {
   ULTIMATE,
   COUNTER_STRIKE,
   FOLLOW_UP_ATTACK,
+  REAL_ATTACK,
   GUARD,
   HEAL,
   SHIELD,
@@ -40,7 +41,7 @@ export enum SkillActionType {
 }
 
 export enum SkillEffectType {
-  ATTACK_POWER = 19,
+  ATTACK_POWER = 20,
   NORMAL_ATTACK_DAMAGE,
   ULTIMATE_DAMAGE,
   DEALT_DAMAGE,
@@ -58,7 +59,7 @@ export enum SkillEffectType {
   IMMUNE_SLEEP,
   IMMUNE_SILENCE,
   IMMUNE_PARALYSIS,
-  SLEEPED,
+  SLEPT,
   SILENCED,
   PARALYZED,
 }
@@ -108,7 +109,7 @@ export interface ISkill {
   maxStack?: number /* undefined -> no limit */;
   byAttribute?: number /* get extra damaged by A attribute */;
   repeat?: number;
-  probability?: number;
+  possibility?: number;
   invalidWhen?: SkillCondition;
   skill?: {
     condition:
@@ -121,7 +122,9 @@ export interface ISkill {
       | SkillActionType.ULTIMATE
       | SkillActionType.FOLLOW_UP_ATTACK
       | SkillActionType.HEAL
-      | SkillEffectType.ATTACK_POWER;
+      | SkillEffectType.ATTACK_POWER
+      | SkillEffectType.ULTIMATE_DAMAGE
+      | SkillEffectType.NORMAL_ATTACK_DAMAGE;
     basis?: SkillEffectBasis.TARGET_ATK;
     value: number;
     target:

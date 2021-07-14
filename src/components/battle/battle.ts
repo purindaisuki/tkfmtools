@@ -78,6 +78,18 @@ function processSkill(
   s: ISkill | SkillEffect,
   logArr?: ILog[]
 ) {
+  if (
+    s.possibility &&
+    s.type !== SkillEffectType.PARALYZED &&
+    s.type !== SkillEffectType.SLEPT &&
+    s.type !== SkillEffectType.SILENCED
+  ) {
+    const r = ctx.random?.Number();
+    if (!r || r > s.possibility) {
+      return;
+    }
+  }
+
   let effect = { ...s, from: from.character.teamPosition } as SkillEffect;
 
   if (
@@ -183,6 +195,7 @@ function processSkill(
       case SkillActionType.NORMAL_ATTACK:
       case SkillActionType.ULTIMATE:
       case SkillActionType.FOLLOW_UP_ATTACK:
+      case SkillActionType.REAL_ATTACK:
         const damage = calcDamage(from.character, target, s);
         let restDamage = damage;
 
@@ -387,7 +400,7 @@ function processSkill(
         break;
       case SkillActionType.PARALYSIS:
         if (
-          !s.probability ||
+          !s.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_PARALYSIS
           )
@@ -401,14 +414,14 @@ function processSkill(
         const paraBuff = para?.value ? para.value : 0;
         const rPara = ctx.random?.Number();
 
-        if (rPara && rPara < s.probability * (1 + paraBuff)) {
+        if (rPara && rPara < s.possibility * (1 + paraBuff)) {
           target.isParalysis = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SLEEP:
         if (
-          !s.probability ||
+          !s.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SLEEP
           )
@@ -417,19 +430,19 @@ function processSkill(
         }
 
         const sleep = target.effects.find(
-          (s) => s.type === SkillEffectType.SLEEPED
+          (s) => s.type === SkillEffectType.SLEPT
         );
         const sleepBuff = sleep?.value ? sleep.value : 0;
         const rSleep = ctx.random?.Number();
 
-        if (rSleep && rSleep < s.probability * (1 + sleepBuff)) {
+        if (rSleep && rSleep < s.possibility * (1 + sleepBuff)) {
           target.isSleep = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SILENCE:
         if (
-          !s.probability ||
+          !s.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SILENCE
           )
@@ -442,7 +455,7 @@ function processSkill(
         const silenceBuff = silence?.value ? silence.value : 0;
         const rSilence = ctx.random?.Number();
 
-        if (rSilence && rSilence < s.probability * (1 + silenceBuff)) {
+        if (rSilence && rSilence < s.possibility * (1 + silenceBuff)) {
           target.isSilence = true;
           target.effects.push(effect);
         }
