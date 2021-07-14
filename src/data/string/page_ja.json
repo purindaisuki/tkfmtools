@@ -1,1119 +1,1070 @@
 {
-    "index": {
-        "name": "ホーム",
-        "helmet": {
-            "title": "天下布魔道具箱",
-            "description": "天下布魔の情報検索・処理ができ、ナナの負担を減らすことができます"
+  "index": {
+    "name": "ホーム",
+    "helmet": {
+      "title": "天下布魔道具箱",
+      "description": "天下布魔の情報検索・処理ができ、ナナの負担を減らすことができます"
+    },
+    "noteButtonTooltip": "更新情報",
+    "about": {
+      "header": "サイトについて",
+      "content": [
+        {
+          "header": "紹介",
+          "content": [
+            "このサイトはスマホゲーム天下布魔のデータを基に作られたもので、データを整理した便利な「道具」として提供するものです。",
+            "このサイトでは召集令、メインストーリーマップ、ドロップアイテム、キャラ潜在能力値シュミレート、チーム編成や分析を見ることができます。"
+          ]
         },
-        "noteButtonTooltip": "更新情報",
-        "about": {
-            "header": "サイトについて",
-            "content": [
-                {
-                    "header": "紹介",
-                    "content": [
-                        "このサイトはスマホゲーム天下布魔のデータを基に作られたもので、データを整理した便利な「道具」として提供するものです。",
-                        "このサイトでは召集令、メインストーリーマップ、ドロップアイテム、キャラ潜在能力値シュミレート、チーム編成や分析を見ることができます。"
-                    ]
-                },
-                {
-                    "header": "免責事項",
-                    "content": [
-                        "このサイトで使用しているデータは熱心なプレイヤーの皆さまが集めたものです。実際の内容は公式サイト及びゲームを基準とします。この資料によって発生した一切の利害に関して責任は負いません。"
-                    ]
-                },
-                {
-                    "header": "プライバシー声明",
-                    "content": [
-                        "このサイトでは Google Analytics によって使用者のデータを収集し、また cookies を介し利用者の行動を追跡しています。こうしたデータは全て匿名であり、本サイトの改善にのみ使用され、個人を特定することはありません。 Google Analyticsのデータ収集方法については ",
-                        "Google プライバシーポリシー",
-                        "をご覧ください。Adblock等のプラグインを利用すると、データの転送をブロックする可能性があります。本サイトの改善にご協力いただける場合は、ホワイトリストへの追加をお願いします。"
-                    ],
-                    "link": "https://policies.google.com/technologies/partner-sites?hl=ja"
-                },
-                {
-                    "header": "Special thanks",
-                    "content": [
-                        {
-                            "link": "https://github.com/10duckman",
-                            "text": "10duckman"
-                        },
-                        {
-                            "link": "https://github.com/C0unt-zero",
-                            "text": "C0unt-zero"
-                        },
-                        {
-                            "link": "https://github.com/PureStream",
-                            "text": "PureStream"
-                        }
-                    ]
-                },
-                {
-                    "header": "ご意見・ご感想",
-                    "content": [
-                        "不具合、ご意見・ご感想は",
-                        "こちらにて",
-                        "。"
-                    ],
-                    "link": "https://github.com/purindaisuki/tkfmtools#feedback"
-                },
-                {
-                    "header": "參考",
-                    "content": [
-                        {
-                            "link": "https://reurl.cc/5o5A7z/",
-                            "text": "資料統整 - 凱薩沒在用的腦"
-                        },
-                        {
-                            "link": "https://reurl.cc/1gZ5nV/",
-                            "text": "潜在能力整理＆予想"
-                        },
-                        {
-                            "link": "https://reurl.cc/8ypXzM",
-                            "text": "Discord 天下布魔場外群資料整理（舊）"
-                        },
-                        {
-                            "text": "その他 Discord に天下布魔のファン提供資料"
-                        }
-                    ]
-                }
-            ]
+        {
+          "header": "免責事項",
+          "content": [
+            "このサイトで使用しているデータは熱心なプレイヤーの皆さまが集めたものです。実際の内容は公式サイト及びゲームを基準とします。この資料によって発生した一切の利害に関して責任は負いません。"
+          ]
         },
-        "setting": {
-            "header": "共通設定",
-            "groupLabel": "画面設定（一部ページとデバイスでのみ有効）",
-            "labels": [
-                "縦",
-                "横"
-            ],
-            "clearTitle": "サイトにある全てのデータを消去",
-            "clearButton": "消去",
-            "clearModalTitle": "本当に消去しますか？",
-            "clearModalContent": "本サイトのチーム分析、編成等の全てのデータが消去されます。消去すると元に戻すことはできません。本当に消去しますか？",
-            "clear": "消去",
-            "cancel": "キャンセル"
+        {
+          "header": "プライバシー声明",
+          "content": [
+            "このサイトでは Google Analytics によって使用者のデータを収集し、また cookies を介し利用者の行動を追跡しています。こうしたデータは全て匿名であり、本サイトの改善にのみ使用され、個人を特定することはありません。 Google Analyticsのデータ収集方法については ",
+            "Google プライバシーポリシー",
+            "をご覧ください。Adblock等のプラグインを利用すると、データの転送をブロックする可能性があります。本サイトの改善にご協力いただける場合は、ホワイトリストへの追加をお願いします。"
+          ],
+          "link": "https://policies.google.com/technologies/partner-sites?hl=ja"
         },
-        "updateLog": {
-            "header": "更新履歴",
-            "new": "新規",
-            "fix": "修正",
-            "change": "変更",
-            "content": [
-                {
-                    "version": "v1.6.6",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "6/2 ゲーム更新",
-                            "description": "新キャラ「夏の日 ナナ」追加。召集令に「甦りの姫 千鶴、煌星 バンサフィーナ」追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.5",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "5/31 ゲーム更新",
-                            "description": "新キャラ「夏の日 静、夏の日 ルル、夏の日 KS-Ⅷ」追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.4",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "召集令フィルタに確定入手SRのタグを追加",
-                            "description": "確定入手SRの組み合わせがある場合、獲得できるSRキャラをタグで表示します。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.3",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "召集令フィルタに、組み合わせに基づいて結果を表示する機能を追加",
-                            "description": "タグの組み合わせに基づいてフィルタ結果を選択可能に"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "5/12 ゲーム更新",
-                            "description": "煌星 バンサフィーナ追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.1",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "4/21 ゲーム更新",
-                            "description": "甦りの姫 千鶴、メインストーリー14章追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.6.0",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "日本語版、韓国語版",
-                            "description": "日本語と韓国語追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.10",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "チーム編成のアップロード機能",
-                            "description": "チーム編成のアップロード、他のプレイヤーのチーム編成が閲覧可能に。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "Nキャラクター潜在能力段階",
-                            "description": "Nキャラクター潜在能力段階がゲーム内の上限を超えてしまう不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.9",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "サイドナビゲーションのON/OFF",
-                            "description": "モバイルデバイス画面の左端をスワイプするとナビゲーションがONに、また左にスワイプでOFFに（IOSデバイス未対応）。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "ナビゲーションコンテンツの調整",
-                            "description": "大きな画面のデバイスのサイドナビゲーションバーのコンテンツを、メインナビゲーションバーに移動。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.8",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "チーム編成シェア機能",
-                            "description": "リンクによるチーム編成シェアが可能に。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "チーム分析結果画面がフリーズする不具合",
-                            "description": "チーム分析のキャラ選択数が10人以下だった場合、画面がフリーズする不具合修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.7",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "3/31 ゲーム更新",
-                            "description": "新キャラ「イースター・バニーサタン」追加。召集令に「KS-Ⅷ、メスミナヤ、ナフララ、アンナ、ブラン、ノノカ、試作機3号」追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.6",
-                    "content": [
-                        {
-                            "type": "Change",
-                            "title": "潜在能力段階追加",
-                            "description": "潜在能力段階を飛ばして選択可能に。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "フォーム",
-                            "description": "フォーム形式を変更。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.5",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "3/24 ゲーム更新",
-                            "description": "13 章ドロップアイテム追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "ダークモード時のローディング画面チラつき",
-                            "description": "ダークモード時にローディング画面がチラつく不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.4",
-                    "content": [
-                        {
-                            "type": "Fix",
-                            "title": "ページ表示異常",
-                            "description": "一部画面において再度読み込み時に正常に表示されない、またはフリーズする不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.3",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "共通設定",
-                            "description": "ホーム画面に画面設定（一部ページとデバイスでのみ有効）とサイトデータ設定を追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "タグ表示の微調整",
-                            "description": "タグ表示を微調整。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.2",
-                    "content": [
-                        {
-                            "type": "Fix",
-                            "title": "チーム編成のキャラのドラッグ操作とチーム編成操作の不具合",
-                            "description": "画面の再度読み込み後にキャラをドラッグした際、目標と位置が合わない不具合を修正。チームが無いときに編成画面を操作するとチームが新規編成される不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": 4,
-                    "content": [
-                        {
-                            "type": "Fix",
-                            "title": "チーム編成時キャラが選択できない不具合",
-                            "description": "分析データが無いときにキャラ選択をしても反応がない不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.5.0",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "チーム編成",
-                            "description": "チーム編成にセーブ機能とステージ攻略編成のシェア機能を追加。"
-                        },
-                        {
-                            "type": "New",
-                            "title": "チームPR値",
-                            "description": "チーム分析にPR値を追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "キャラ素質ページ削除",
-                            "description": "キャラ素質ページを削除し、機能をチーム編成に移行。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "アイコンボタンのヒント表示",
-                            "description": "アイコンボタンのヒントを追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.4.3",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "道具一覧表の表示設定",
-                            "description": "道具一覧表に表示設定を追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "チーム分析のキャラ選択",
-                            "description": "キャラのアイコンをクリックすると該当キャラを保有しているか確認可能に。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "チーム分析のツリーグラフ結果",
-                            "description": "キャラクターがツリーグラフ内に含まれないことがある不具合を修正。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "メッセージバーが消えない不具合",
-                            "description": "操作成功のメッセージバーが消えない不具合を修正。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "モーダルウィンドウの表示不具合",
-                            "description": "Safari とChromium にて起こるモーダルウィンドウの表示不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.4.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "チーム分析エクスポート機能",
-                            "description": "チーム分析を画像としてエクスポートできる機能を追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "チーム分析表の表示不具合",
-                            "description": "タグがページから飛び出す不具合を修正。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "チーム分析選択表の不具合",
-                            "description": "レベル等の数字が消せない不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.4.1",
-                    "content": [
-                        {
-                            "type": "Fix",
-                            "title": "キャラのフィルタボタン不具合",
-                            "description": "属性をクリックすると他のタグがリセットされる不具合。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.4.0",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "チーム分析",
-                            "description": "チーム分析イメージに配置状態の確認を追加。"
-                        },
-                        {
-                            "type": "New",
-                            "title": "3/10 ゲーム更新",
-                            "description": "メスミナヤ、ナフララ、アンナ、ブラン、ノノカ、試作機3号、及び12 章ドロップアイテム追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "キャラ潜在能力画像の表示不具合",
-                            "description": "N/Rキャラと他のキャラを切り替え時に、キャラの画像が読み込まれない不具合を修正。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "キャラ素質ページのクラッシュ",
-                            "description": "ソラカを選択すると、画面がクラッシュする不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.3.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "召集令のフィルタレイアウト",
-                            "description": "表示設定ボタンの追加と、タグ表示の調整。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "モーダルウィンドウのレイアウト",
-                            "description": "モーダルウィンドウの色と「閉じる」ボタンの位置を変更。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "キャラのタグ",
-                            "description": "マヌエラ、シャーリーンに兵士タグを追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.3.1",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "キャラ素質計算",
-                            "description": "キャラの攻撃力とHP計算を追加。"
-                        },
-                        {
-                            "type": "’",
-                            "title": "ドロップアイテムのレア度表示",
-                            "description": "レア度によって違う色で表示。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "召集令フィルタの確定入手ヒント表示",
-                            "description": "反応範囲をキャラ枠の全体に拡大。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "404 ページ表示不具合",
-                            "description": "タップしても無反応な不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.3.0",
-                    "content": [
-                        {
-                            "type": "Change",
-                            "title": "サイト仕様",
-                            "description": "サイト仕様を変更、URLをローカライズ化。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "召集令フィルタのレイアウト",
-                            "description": "レイアウト調整、タグと属性追加、キャラポジション削除。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "アイテムドロップレイアウト",
-                            "description": "アイテムドロップのレイアウトを消去。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "召集令フィルタのサポートメッセージ",
-                            "description": "召集令にリーダー、エリートの説明を追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "キャラクタータグ",
-                            "description": "ブリトニーにサポートタグを追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.2.4",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "魔導人形 KS-Ⅷ",
-                            "description": "魔導人形 KS-Ⅷのデータを追加。"
-                        },
-                        {
-                            "type": "New",
-                            "title": "第 11 章ドロップアイテム",
-                            "description": "第 11 章のドロップアイテムを追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "一部イメージ",
-                            "description": "潜在能力のイメージを変更。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "召集令結果のポジション欄が属性になる不具合",
-                            "description": "召集令のポジション欄の不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.2.3",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "ドロップアイテム表",
-                            "description": "ドロップアイテム表を追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "召集令フィルタ結果の表示",
-                            "description": "キャライメージを追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "一部レイアウト変更",
-                            "description": "キャラ名の文字揃え、ナビゲーションの高さ、言語ボタンの揃え、ボタン効果を変更。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.2.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "キャラタグ一覧のレイアウト",
-                            "description": "表のレイアウトを追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "レイアウト修正",
-                            "description": "小さい画面でキャラ一覧を開くと、正しく表示されない不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.2.1",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "キャラタグ一覧",
-                            "description": "キャラタグ一覧機能を追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "レイアウト修正",
-                            "description": "英語版にて、小さい画面でキャラ一覧を開くと、正しく表示されない不具合を修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "英語版",
-                            "description": "英語版追加。"
-                        },
-                        {
-                            "type": "Change",
-                            "title": "キャラクタータグ",
-                            "description": "サタン、イブリース、ランのタグを修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.1",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "潜在能力材料の計算",
-                            "description": "潜在能力材料の計算機能を追加。"
-                        },
-                        {
-                            "type": "Fix",
-                            "title": "ドロップマップ修正",
-                            "description": "6-6、6-11の月光水を純水に修正。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v1.0",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "召集令フィルタ",
-                            "description": "召集令にフィルタ機能を追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v0.2",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "潜在能力素材ドロップ",
-                            "description": "潜在能力素材ドロップ一覧及びフィルタ機能を追加。"
-                        }
-                    ]
-                },
-                {
-                    "version": "v0.1",
-                    "content": [
-                        {
-                            "type": "New",
-                            "title": "サイト開設",
-                            "description": "サイト開設。"
-                        }
-                    ]
-                }
-            ]
-        },
-        "license": {
-            "header": "License",
-            "content": {
-                "title": "ゲームイメージ画像",
-                "content": "著作権 §65により、著作財産権は著作権をもつ者に帰属します。著作者が要求した場合、直ちに削除しなければなりません。"
+        {
+          "header": "Special thanks",
+          "content": [
+            {
+              "link": "https://github.com/10duckman",
+              "text": "10duckman"
+            },
+            {
+              "link": "https://github.com/C0unt-zero",
+              "text": "C0unt-zero"
+            },
+            {
+              "link": "https://github.com/PureStream",
+              "text": "PureStream"
             }
-        }
-    },
-    "characters": {
-        "potential": {
-            "name": "潜在能力",
-            "helmet": {
-                "title": "天下布魔道具箱—潜在能力",
-                "description": "天下布魔の潜在能力に必要な素材とバフをシュミレート"
-            },
-            "characterPanelTitle": "キャラを選択",
-            "characterSelectTitle": "キャラクター",
-            "currentSelectTitle": "現状レベル",
-            "targetSelectTitle": "目標レベル",
-            "resultDemandTitle": "必要な素材",
-            "resultBuffTitle": "バフ",
-            "helpModal": {
-                "title": "潜在能力シュミレート サポート",
-                "content": [
-                    {
-                        "title": "紹介",
-                        "content": [
-                            "このページではキャラ潜在能力素材及びバフのシュミレートが可能です"
-                        ]
-                    },
-                    {
-                        "title": "説明",
-                        "content": [
-                            "潜在段階（最初から最終まで）を選んで出た結果は、目標レベルまでに必要な素材の総計です。現在のレベルが1-1で目標レベルを6-1とした場合、1～5までの6段階潜在能力と6‐1までの全ての道具が表示されます",
-                            "キャラの潜在能力は「攻撃型、防御型、サポート型、N/R 型（N/R 型キャラ）」の4つに分けられます。ただし、潜在能力とポジションが同じとは限りません。例：ジュノアンのポジションは攻撃型、潜在能力はサポート型"
-                        ]
-                    },
-                    {
-                        "title": "注意事項",
-                        "content": [
-                            "キャラ潜在能力の多くは法則から推測していますので、実際のコレクト結果とは異なる場合があります"
-                        ]
-                    }
-                ]
-            }
-        }
-    },
-    "enlist": {
-        "tabLabel": [
-            "一覧",
-            "フィルタ"
-        ],
-        "index": {
-            "name": "召集令",
-            "helmet": {
-                "title": "天下布魔道具箱—召集令",
-                "description": "天下布魔の召集令で入手可能なキャラと対応するタグを表示"
-            },
-            "layout": "レイアウト",
-            "masonryTooltip": "グリッド",
-            "tableTooltip": "一覧表"
+          ]
         },
-        "filter": {
-            "name": "召集令フィルタ",
-            "helmet": {
-                "title": "天下布魔道具箱—召集令フィルタ",
-                "description": "天下布魔の召集令でランダムに出現する5つのタグを条件として、召集令で出現する可能性のあるキャラクターをフィルタリングすることができます"
-            },
-            "deleteTooltip": "全ての選択を取消",
-            "settingTooltip": "表示設定",
-            "tagSelectTitle": "タグ選択",
-            "timeSelectTitle": "召集時間",
-            "tableHead": [
-                {
-                    "title": "#",
-                    "attr": "number"
-                },
-                {
-                    "title": "タグ",
-                    "attr": "tags"
-                },
-                {
-                    "title": "入手可能なキャラ",
-                    "attr": "possibility"
-                }
-            ],
-            "tableHeadByCharacter": [
-                {
-                    "title": "名前",
-                    "attr": "name"
-                },
-                {
-                    "title": "レア度",
-                    "attr": "rarity"
-                },
-                {
-                    "title": "タグ",
-                    "attr": "appliedTags"
-                }
-            ],
-            "helpModal": {
-                "title": "召集令フィルタ サポート",
-                "content": [
-                    {
-                        "title": "紹介",
-                        "content": [
-                            "このページはゲーム内の召集令のフィルタとして使用できます",
-                            "召集令でランダムに出現する5つのタグに対応しており、出現する可能性のあるキャラクターをフィルタリングできます"
-                        ]
-                    },
-                    {
-                        "title": "操作説明",
-                        "content": [
-                            "選別したいキャラのタグを選択",
-                            "設定からボタンの表示と結果の表示方法を調整できます",
-                            "表上の三角マークをタップし、昇順と降順を変更できます",
-                            "星のついたキャラは、そのタグの条件で唯一のキャラであることを示しています",
-                            "タグマークが表示された場合、確定入手SRの組み合わせがあることを示しています",
-                            "カーソルを選択したいキャラまで移動（モバイルデバイスはロングタップ）すると、最小のタグの組み合わせが表示されます"
-                        ]
-                    },
-                    {
-                        "title": "使い方",
-                        "content": [
-                            "SR、SSR キャラをターゲットにする場合:",
-                            "招集したいタグを５つ選択し、レア度による順番に並び替え、星マークやタグマークのついたキャラがいるかどうか確認します",
-                            "もしマークのついたキャラがいない場合、この組み合わせによる招集ではゲットはできません",
-                            "もしマークのついたキャラがいる場合は試してみる価値ありです"
-                        ]
-                    },
-                    {
-                        "title": "注意",
-                        "content": [
-                            "リーダータグが無ければ、SSRキャラを獲得できません",
-                            "リーダー・エリートタグでは、時間を9時間に設定した場合、それぞれSSR、SRが確定入手となります。",
-                            "リーダー・エリートタグの出現率はそれぞれ約 0.4%,、1.2%です"
-                        ]
-                    },
-                    {
-                        "title": "注意事項",
-                        "content": [
-                            "タグが外れている可能性があります",
-                            "星マークがついているとしても、必ず出現するわけではありません。タグが外れていたり、条件に適合する未知のキャラがいる可能性があります。",
-                            "検索結果は現状のデータベースが基準になります。もしデータに間違いがある場合は、左側のデータレポートにある召集令データレポートより報告をお願いいたします。"
-                        ]
-                    }
-                ]
-            },
-            "settingModal": {
-                "title": "表示設定",
-                "groupLabel": "ボタンをタイプ別に分けますか",
-                "labels": [
-                    "はい",
-                    "いいえ"
-                ],
-                "resultDisplay": "結果の表示",
-                "resultLabels": [
-                    "キャラクター",
-                    "タグの組み合わせ"
-                ]
-            },
-            "snackbarMsg": "選べるタグは最大5個までです",
-            "guaranteeSR": "確定入手 SR"
-        }
-    },
-    "items": {
-        "drop": {
-            "tabLabel": [
-                "一覧",
-                "フィルタ"
-            ],
-            "index": {
-                "name": "ドロップアイテム",
-                "helmet": {
-                    "title": "天下布魔道具箱—ドロップアイテム",
-                    "description": "ドロップアイテム一覧"
-                },
-                "settingTooltip": "設定",
-                "layout": {
-                    "byItem": "道具から",
-                    "byStage": "マップから"
-                },
-                "notAvailableMsg": "このマップではドロップアイテムは取得できません",
-                "tableHead": {
-                    "stage": "ステージ",
-                    "materials": "潜在能力素材",
-                    "trainItems": "調教道具",
-                    "expPotions": "経験値ポーション",
-                    "energy": "体力消耗"
-                },
-                "settingModal": {
-                    "title": "表示設定",
-                    "content": [
-                        {
-                            "title": "欄",
-                            "button": [
-                                "潜在能力素材",
-                                "調教道具",
-                                "経験値ポーション",
-                                "体力消耗"
-                            ]
-                        },
-                        {
-                            "title": "潜在能力素材ランク",
-                            "button": [
-                                "一般初級",
-                                "一般中級",
-                                "一般高級",
-                                "高等高級"
-                            ]
-                        },
-                        {
-                            "title": "レア度",
-                            "button": [
-                                "めったに出ない",
-                                "たまに出る",
-                                "よく出る",
-                                "かならず出る"
-                            ]
-                        }
-                    ]
-                }
-            },
-            "filter": {
-                "name": "ドロップアイテムフィルタ",
-                "helmet": {
-                    "title": "天下布魔道具箱 —ドロップアイテム",
-                    "description": "ドロップアイテムのフィルタ検索ができます"
-                },
-                "deleteTooltip": "全ての選択を取消",
-                "itemPanelTitle": "アイテム選択",
-                "resultTitle": "フィルタ結果",
-                "tableHead": [
-                    "ステージ",
-                    "レア度",
-                    "体力消耗"
-                ],
-                "helpModal": {
-                    "title": "ドロップアイテム サポート",
-                    "content": [
-                        {
-                            "title": "紹介",
-                            "content": [
-                                "このページではゲーム内メインストーリーでのドロップアイテムのフィルタ検索ができます",
-                                "選択したドロップアイテムをもとに、入手可能なマップを表示できます"
-                            ]
-                        },
-                        {
-                            "title": "操作説明",
-                            "content": [
-                                "選択したドロップアイテムをもとに、マップを検索できます",
-                                "表上の三角マークをタップし、昇順と降順を変更できます"
-                            ]
-                        },
-                        {
-                            "title": "注意事項",
-                            "content": [
-                                "メインストーリーのドロップアイテム限定です",
-                                "たとえレア度が同じでも、ランクごとに素材のドロップ率は異なります。また、マップごとのドロップ率も異なります"
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "analysis": {
-        "tabLabel": [
-            "チーム",
-            "リザルト"
-        ],
-        "index": {
-            "name": "チーム分析",
-            "helmet": {
-                "title": "天下布魔道具箱—チーム分析",
-                "description": "グラフにより、分析やチームの状態確認が可能です"
-            },
-            "levelTitle": "レベル",
-            "potentialTitle": "潜在能力",
-            "primaryPotentialTitle": "メイン潜在能力段階",
-            "secondaryPotentialTitle": "サブ潜在能力段階",
-            "disciplineTitle": "調教",
-            "starTitle": "星の数",
-            "saveButton": "保存",
-            "loadButton": "読み込み",
-            "deleteButton": "削除",
-            "successMsg": "成功",
-            "errorMsg": "失敗",
-            "modalTitle": "データ読み込み",
-            "helpModal": {
-                "title": "チーム分析 サポート",
-                "content": [
-                    {
-                        "title": "紹介",
-                        "content": [
-                            "グラフにより、分析やチームの状態確認が可能です"
-                        ]
-                    },
-                    {
-                        "title": "使い方",
-                        "content": [
-                            "チーム選択画面のキャラの状態を参考にキャラアイコンをタップすると、選択したキャラを保有しているか確認できます",
-                            "完成後、結果タブをタップすれば分析結果を確認できます",
-                            "右上のボタンからチーム状態を保存・読み取りが可能です。読み取りをタップすることでデータの操作が可能です"
-                        ]
-                    }
-                ]
-            }
+        {
+          "header": "ご意見・ご感想",
+          "content": ["不具合、ご意見・ご感想は", "こちらにて", "。"],
+          "link": "https://github.com/purindaisuki/tkfmtools#feedback"
         },
-        "result": {
-            "name": "チーム分析",
-            "helmet": {
-                "title": "天下布魔道具箱—チーム分析",
-                "description": "グラフにより、分析やチームの状態確認が可能です"
+        {
+          "header": "參考",
+          "content": [
+            {
+              "link": "https://reurl.cc/5o5A7z/",
+              "text": "資料統整 - 凱薩沒在用的腦"
             },
-            "exportButtonTooltip": "画像出力",
-            "chart": [
-                {
-                    "title": "コレクション進度"
-                },
-                {
-                    "title": "キャラ戦力"
-                },
-                {
-                    "title": "キャラレベル（ポジション基準）",
-                    "legend": [
-                        "最高",
-                        "平均",
-                        "中間",
-                        "最低"
-                    ]
-                },
-                {
-                    "title": "キャラレベル（属性基準）",
-                    "legend": [
-                        "最高",
-                        "平均",
-                        "中間",
-                        "最低"
-                    ]
-                },
-                {
-                    "title": "キャラ経験値（ポジション基準）",
-                    "legend": [
-                        "経験値",
-                        "數量"
-                    ]
-                },
-                {
-                    "title": "キャラ経験値（属性基準）",
-                    "legend": [
-                        "経験値",
-                        "數量"
-                    ]
-                }
-            ],
-            "rank": {
-                "title": "あなたのチーム戦力PR値は",
-                "high": "高PR値トップ5",
-                "low": "低PR値トップ5",
-                "cp": "戦力",
-                "PR": "PR值"
+            {
+              "link": "https://reurl.cc/1gZ5nV/",
+              "text": "潜在能力整理＆予想"
             },
-            "helpModal": {
-                "title": "キャラ戦力",
-                "content": [
-                    {
-                        "title": "定義",
-                        "content": [
-                            "キャラの戦力は キャラ ATK × HP"
-                        ]
-                    },
-                    {
-                        "title": "注釈",
-                        "content": [
-                            "キャラ戦力はキャラスキル・絆を考慮していない為、正確なキャラの強さとは限りません"
-                        ]
-                    }
-                ]
+            {
+              "link": "https://reurl.cc/8ypXzM",
+              "text": "Discord 天下布魔場外群資料整理（舊）"
             },
-            "rankModal": {
-                "content": "PR値はあなたのチームの総戦力と、このサイトのデータとを比較して算出した数値です"
+            {
+              "text": "その他 Discord に天下布魔のファン提供資料"
             }
+          ]
         }
+      ]
     },
-    "team": {
-        "index": {
-            "name": "チーム編成",
-            "helmet": {
-                "title": "天下布魔道具箱—チーム編成",
-                "description": "ここでは天下布魔のチーム編成とアウトプットができます"
-            },
-            "newComposition": "新規作成",
-            "deleteTooltip": "削除",
-            "copyTooltip": "コピー",
-            "settingTooltip": "設定",
-            "settingDescription": "最新のチーム分析データをデフォルトに設定",
-            "errorSnackbar": "データがありません",
-            "tabs": {
-                "local": "自分の編成",
-                "cloud": "みんなの編成"
-            },
-            "author": "作成者",
-            "allStage": "全てのステージ"
+    "setting": {
+      "header": "共通設定",
+      "groupLabel": "画面設定（一部ページとデバイスでのみ有効）",
+      "labels": ["縦", "横"],
+      "clearTitle": "サイトにある全てのデータを消去",
+      "clearButton": "消去",
+      "clearModalTitle": "本当に消去しますか？",
+      "clearModalContent": "本サイトのチーム分析、編成等の全てのデータが消去されます。消去すると元に戻すことはできません。本当に消去しますか？",
+      "clear": "消去",
+      "cancel": "キャンセル"
+    },
+    "updateLog": {
+      "header": "更新履歴",
+      "new": "新規",
+      "fix": "修正",
+      "change": "変更",
+      "content": [
+        {
+          "version": "v1.6.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/14 ゲーム更新",
+              "description": "新キャラ「天使長 聖女ミラ、魔法少女 トトラ、懲戒天使、福音天使」追加。"
+            }
+          ]
         },
-        "build": {
-            "name": "チーム編成",
-            "helmet": {
-                "title": "天下布魔道具箱—チーム編成",
-                "description": "ここでは天下布魔のチーム編成とアウトプットができます"
-            },
-            "changeTooltip": "変更",
-            "deleteTooltip": "削除",
-            "uploadTooltip": "編成をアップロードする",
-            "shareTooltip": "編成シェア",
-            "copyTooltip": "リンクコピー",
-            "copySnackbarMsg": "コピー済",
-            "selectModalTitle": "キャラ選択",
-            "emptySlotText": "選択キャラ",
-            "nameInputLabel": "チーム名",
-            "nameInputPlaceholder": "チーム名を入力",
-            "stageSelectLabel": "ステージ",
-            "stageSelectHelpText": "ステージを選択してください",
-            "authorInputLabel": "投稿者",
-            "authorInputPlaceholder": "名前",
-            "authorInputHelpText": "1～50文字以内で入力してください。",
-            "descriptionInputLabel": "編成メモ",
-            "descriptionInputPlaceholder": "メモを入力 (0~400文字)",
-            "descriptionInputHelpText": "400文字以内で入力してください。",
-            "uploadButton": "アップロード",
-            "cancelButton": "キャンセル",
-            "uploadSnackbarMsg": "アップロードしました",
-            "uploadMsg": [
-                "他の人が理解しやすいよう、編成の留意点や説明を記入することをお勧めします。",
-                "個人情報やスパム、広告メッセージは入力しないでください。"
-            ]
-        }
-    },
-    "navbar": {
-        "menuButton": "メニュー",
-        "languageSwitchTooltip": "言語",
-        "sidebar": [
+        {
+          "version": "v1.6.6",
+          "content": [
             {
-                "title": "ホーム"
-            },
-            {
-                "title": "キャラクター",
-                "descriptions": [
-                    "潜在能力シュミレート"
-                ]
-            },
-            {
-                "title": "召集令",
-                "descriptions": [
-                    "一覧",
-                    "フィルタ"
-                ]
-            },
-            {
-                "title": "アイテムドロップ",
-                "descriptions": [
-                    "一覧",
-                    "フィルタ"
-                ]
-            },
-            {
-                "title": "チーム分析"
-            },
-            {
-                "title": "チーム編成"
-            },
-            {
-                "title": "外部リンク",
-                "descriptions": [
-                    "公式サイト",
-                    "公式 Discord",
-                    "TenkafuMA Wiki (非公式、英語)"
-                ]
-            },
-            {
-                "title": "データレポート",
-                "descriptions": [
-                    "召集令データレポート (中国語)",
-                    "メインストーリードロップデータレポート (中国語)",
-                    "ご意見・ご感想"
-                ]
+              "type": "New",
+              "title": "6/2 ゲーム更新",
+              "description": "新キャラ「夏の日 ナナ」追加。召集令に「甦りの姫 千鶴、煌星 バンサフィーナ」追加。"
             }
-        ]
+          ]
+        },
+        {
+          "version": "v1.6.5",
+          "content": [
+            {
+              "type": "New",
+              "title": "5/31 ゲーム更新",
+              "description": "新キャラ「夏の日 静、夏の日 ルル、夏の日 KS-Ⅷ」追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.6.4",
+          "content": [
+            {
+              "type": "New",
+              "title": "召集令フィルタに確定入手SRのタグを追加",
+              "description": "確定入手SRの組み合わせがある場合、獲得できるSRキャラをタグで表示します。"
+            }
+          ]
+        },
+        {
+          "version": "v1.6.3",
+          "content": [
+            {
+              "type": "New",
+              "title": "召集令フィルタに、組み合わせに基づいて結果を表示する機能を追加",
+              "description": "タグの組み合わせに基づいてフィルタ結果を選択可能に"
+            }
+          ]
+        },
+        {
+          "version": "v1.6.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "5/12 ゲーム更新",
+              "description": "煌星 バンサフィーナ追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.6.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "4/21 ゲーム更新",
+              "description": "甦りの姫 千鶴、メインストーリー14章追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.6.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "日本語版、韓国語版",
+              "description": "日本語と韓国語追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.10",
+          "content": [
+            {
+              "type": "New",
+              "title": "チーム編成のアップロード機能",
+              "description": "チーム編成のアップロード、他のプレイヤーのチーム編成が閲覧可能に。"
+            },
+            {
+              "type": "Fix",
+              "title": "Nキャラクター潜在能力段階",
+              "description": "Nキャラクター潜在能力段階がゲーム内の上限を超えてしまう不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.9",
+          "content": [
+            {
+              "type": "New",
+              "title": "サイドナビゲーションのON/OFF",
+              "description": "モバイルデバイス画面の左端をスワイプするとナビゲーションがONに、また左にスワイプでOFFに（IOSデバイス未対応）。"
+            },
+            {
+              "type": "Change",
+              "title": "ナビゲーションコンテンツの調整",
+              "description": "大きな画面のデバイスのサイドナビゲーションバーのコンテンツを、メインナビゲーションバーに移動。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.8",
+          "content": [
+            {
+              "type": "New",
+              "title": "チーム編成シェア機能",
+              "description": "リンクによるチーム編成シェアが可能に。"
+            },
+            {
+              "type": "Fix",
+              "title": "チーム分析結果画面がフリーズする不具合",
+              "description": "チーム分析のキャラ選択数が10人以下だった場合、画面がフリーズする不具合修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.7",
+          "content": [
+            {
+              "type": "New",
+              "title": "3/31 ゲーム更新",
+              "description": "新キャラ「イースター・バニーサタン」追加。召集令に「KS-Ⅷ、メスミナヤ、ナフララ、アンナ、ブラン、ノノカ、試作機3号」追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.6",
+          "content": [
+            {
+              "type": "Change",
+              "title": "潜在能力段階追加",
+              "description": "潜在能力段階を飛ばして選択可能に。"
+            },
+            {
+              "type": "Change",
+              "title": "フォーム",
+              "description": "フォーム形式を変更。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.5",
+          "content": [
+            {
+              "type": "New",
+              "title": "3/24 ゲーム更新",
+              "description": "13 章ドロップアイテム追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "ダークモード時のローディング画面チラつき",
+              "description": "ダークモード時にローディング画面がチラつく不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.4",
+          "content": [
+            {
+              "type": "Fix",
+              "title": "ページ表示異常",
+              "description": "一部画面において再度読み込み時に正常に表示されない、またはフリーズする不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.3",
+          "content": [
+            {
+              "type": "New",
+              "title": "共通設定",
+              "description": "ホーム画面に画面設定（一部ページとデバイスでのみ有効）とサイトデータ設定を追加。"
+            },
+            {
+              "type": "Change",
+              "title": "タグ表示の微調整",
+              "description": "タグ表示を微調整。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.2",
+          "content": [
+            {
+              "type": "Fix",
+              "title": "チーム編成のキャラのドラッグ操作とチーム編成操作の不具合",
+              "description": "画面の再度読み込み後にキャラをドラッグした際、目標と位置が合わない不具合を修正。チームが無いときに編成画面を操作するとチームが新規編成される不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": 4,
+          "content": [
+            {
+              "type": "Fix",
+              "title": "チーム編成時キャラが選択できない不具合",
+              "description": "分析データが無いときにキャラ選択をしても反応がない不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.5.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "チーム編成",
+              "description": "チーム編成にセーブ機能とステージ攻略編成のシェア機能を追加。"
+            },
+            {
+              "type": "New",
+              "title": "チームPR値",
+              "description": "チーム分析にPR値を追加。"
+            },
+            {
+              "type": "Change",
+              "title": "キャラ素質ページ削除",
+              "description": "キャラ素質ページを削除し、機能をチーム編成に移行。"
+            },
+            {
+              "type": "Fix",
+              "title": "アイコンボタンのヒント表示",
+              "description": "アイコンボタンのヒントを追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.4.3",
+          "content": [
+            {
+              "type": "New",
+              "title": "道具一覧表の表示設定",
+              "description": "道具一覧表に表示設定を追加。"
+            },
+            {
+              "type": "Change",
+              "title": "チーム分析のキャラ選択",
+              "description": "キャラのアイコンをクリックすると該当キャラを保有しているか確認可能に。"
+            },
+            {
+              "type": "Fix",
+              "title": "チーム分析のツリーグラフ結果",
+              "description": "キャラクターがツリーグラフ内に含まれないことがある不具合を修正。"
+            },
+            {
+              "type": "Fix",
+              "title": "メッセージバーが消えない不具合",
+              "description": "操作成功のメッセージバーが消えない不具合を修正。"
+            },
+            {
+              "type": "Fix",
+              "title": "モーダルウィンドウの表示不具合",
+              "description": "Safari とChromium にて起こるモーダルウィンドウの表示不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.4.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "チーム分析エクスポート機能",
+              "description": "チーム分析を画像としてエクスポートできる機能を追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "チーム分析表の表示不具合",
+              "description": "タグがページから飛び出す不具合を修正。"
+            },
+            {
+              "type": "Fix",
+              "title": "チーム分析選択表の不具合",
+              "description": "レベル等の数字が消せない不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.4.1",
+          "content": [
+            {
+              "type": "Fix",
+              "title": "キャラのフィルタボタン不具合",
+              "description": "属性をクリックすると他のタグがリセットされる不具合。"
+            }
+          ]
+        },
+        {
+          "version": "v1.4.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "チーム分析",
+              "description": "チーム分析イメージに配置状態の確認を追加。"
+            },
+            {
+              "type": "New",
+              "title": "3/10 ゲーム更新",
+              "description": "メスミナヤ、ナフララ、アンナ、ブラン、ノノカ、試作機3号、及び12 章ドロップアイテム追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "キャラ潜在能力画像の表示不具合",
+              "description": "N/Rキャラと他のキャラを切り替え時に、キャラの画像が読み込まれない不具合を修正。"
+            },
+            {
+              "type": "Fix",
+              "title": "キャラ素質ページのクラッシュ",
+              "description": "ソラカを選択すると、画面がクラッシュする不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.3.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "召集令のフィルタレイアウト",
+              "description": "表示設定ボタンの追加と、タグ表示の調整。"
+            },
+            {
+              "type": "Change",
+              "title": "モーダルウィンドウのレイアウト",
+              "description": "モーダルウィンドウの色と「閉じる」ボタンの位置を変更。"
+            },
+            {
+              "type": "Change",
+              "title": "キャラのタグ",
+              "description": "マヌエラ、シャーリーンに兵士タグを追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.3.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "キャラ素質計算",
+              "description": "キャラの攻撃力とHP計算を追加。"
+            },
+            {
+              "type": "’",
+              "title": "ドロップアイテムのレア度表示",
+              "description": "レア度によって違う色で表示。"
+            },
+            {
+              "type": "Change",
+              "title": "召集令フィルタの確定入手ヒント表示",
+              "description": "反応範囲をキャラ枠の全体に拡大。"
+            },
+            {
+              "type": "Fix",
+              "title": "404 ページ表示不具合",
+              "description": "タップしても無反応な不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.3.0",
+          "content": [
+            {
+              "type": "Change",
+              "title": "サイト仕様",
+              "description": "サイト仕様を変更、URLをローカライズ化。"
+            },
+            {
+              "type": "Change",
+              "title": "召集令フィルタのレイアウト",
+              "description": "レイアウト調整、タグと属性追加、キャラポジション削除。"
+            },
+            {
+              "type": "Change",
+              "title": "アイテムドロップレイアウト",
+              "description": "アイテムドロップのレイアウトを消去。"
+            },
+            {
+              "type": "Change",
+              "title": "召集令フィルタのサポートメッセージ",
+              "description": "召集令にリーダー、エリートの説明を追加。"
+            },
+            {
+              "type": "Change",
+              "title": "キャラクタータグ",
+              "description": "ブリトニーにサポートタグを追加。"
+            }
+          ]
+        },
+        {
+          "version": "v1.2.4",
+          "content": [
+            {
+              "type": "New",
+              "title": "魔導人形 KS-Ⅷ",
+              "description": "魔導人形 KS-Ⅷのデータを追加。"
+            },
+            {
+              "type": "New",
+              "title": "第 11 章ドロップアイテム",
+              "description": "第 11 章のドロップアイテムを追加。"
+            },
+            {
+              "type": "Change",
+              "title": "一部イメージ",
+              "description": "潜在能力のイメージを変更。"
+            },
+            {
+              "type": "Fix",
+              "title": "召集令結果のポジション欄が属性になる不具合",
+              "description": "召集令のポジション欄の不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.2.3",
+          "content": [
+            {
+              "type": "New",
+              "title": "ドロップアイテム表",
+              "description": "ドロップアイテム表を追加。"
+            },
+            {
+              "type": "Change",
+              "title": "召集令フィルタ結果の表示",
+              "description": "キャライメージを追加。"
+            },
+            {
+              "type": "Change",
+              "title": "一部レイアウト変更",
+              "description": "キャラ名の文字揃え、ナビゲーションの高さ、言語ボタンの揃え、ボタン効果を変更。"
+            }
+          ]
+        },
+        {
+          "version": "v1.2.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "キャラタグ一覧のレイアウト",
+              "description": "表のレイアウトを追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "レイアウト修正",
+              "description": "小さい画面でキャラ一覧を開くと、正しく表示されない不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.2.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "キャラタグ一覧",
+              "description": "キャラタグ一覧機能を追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "レイアウト修正",
+              "description": "英語版にて、小さい画面でキャラ一覧を開くと、正しく表示されない不具合を修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "英語版",
+              "description": "英語版追加。"
+            },
+            {
+              "type": "Change",
+              "title": "キャラクタータグ",
+              "description": "サタン、イブリース、ランのタグを修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "潜在能力材料の計算",
+              "description": "潜在能力材料の計算機能を追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "ドロップマップ修正",
+              "description": "6-6、6-11の月光水を純水に修正。"
+            }
+          ]
+        },
+        {
+          "version": "v1.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "召集令フィルタ",
+              "description": "召集令にフィルタ機能を追加。"
+            }
+          ]
+        },
+        {
+          "version": "v0.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "潜在能力素材ドロップ",
+              "description": "潜在能力素材ドロップ一覧及びフィルタ機能を追加。"
+            }
+          ]
+        },
+        {
+          "version": "v0.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "サイト開設",
+              "description": "サイト開設。"
+            }
+          ]
+        }
+      ]
     },
-    "404": {
-        "title": "ページが見つかりませんでした",
-        "h1": "ページが見つかりませんでした",
-        "p": "申し訳ございません。アイカ、ページを見つけられませんでした。",
-        "link": "ホームに戻る"
+    "license": {
+      "header": "License",
+      "content": {
+        "title": "ゲームイメージ画像",
+        "content": "著作権 §65により、著作財産権は著作権をもつ者に帰属します。著作者が要求した場合、直ちに削除しなければなりません。"
+      }
     }
+  },
+  "characters": {
+    "potential": {
+      "name": "潜在能力",
+      "helmet": {
+        "title": "天下布魔道具箱—潜在能力",
+        "description": "天下布魔の潜在能力に必要な素材とバフをシュミレート"
+      },
+      "characterPanelTitle": "キャラを選択",
+      "characterSelectTitle": "キャラクター",
+      "currentSelectTitle": "現状レベル",
+      "targetSelectTitle": "目標レベル",
+      "resultDemandTitle": "必要な素材",
+      "resultBuffTitle": "バフ",
+      "helpModal": {
+        "title": "潜在能力シュミレート サポート",
+        "content": [
+          {
+            "title": "紹介",
+            "content": [
+              "このページではキャラ潜在能力素材及びバフのシュミレートが可能です"
+            ]
+          },
+          {
+            "title": "説明",
+            "content": [
+              "潜在段階（最初から最終まで）を選んで出た結果は、目標レベルまでに必要な素材の総計です。現在のレベルが1-1で目標レベルを6-1とした場合、1～5までの6段階潜在能力と6‐1までの全ての道具が表示されます",
+              "キャラの潜在能力は「攻撃型、防御型、サポート型、N/R 型（N/R 型キャラ）」の4つに分けられます。ただし、潜在能力とポジションが同じとは限りません。例：ジュノアンのポジションは攻撃型、潜在能力はサポート型"
+            ]
+          },
+          {
+            "title": "注意事項",
+            "content": [
+              "キャラ潜在能力の多くは法則から推測していますので、実際のコレクト結果とは異なる場合があります"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "enlist": {
+    "tabLabel": ["一覧", "フィルタ"],
+    "index": {
+      "name": "召集令",
+      "helmet": {
+        "title": "天下布魔道具箱—召集令",
+        "description": "天下布魔の召集令で入手可能なキャラと対応するタグを表示"
+      },
+      "layout": "レイアウト",
+      "masonryTooltip": "グリッド",
+      "tableTooltip": "一覧表"
+    },
+    "filter": {
+      "name": "召集令フィルタ",
+      "helmet": {
+        "title": "天下布魔道具箱—召集令フィルタ",
+        "description": "天下布魔の召集令でランダムに出現する5つのタグを条件として、召集令で出現する可能性のあるキャラクターをフィルタリングすることができます"
+      },
+      "deleteTooltip": "全ての選択を取消",
+      "settingTooltip": "表示設定",
+      "tagSelectTitle": "タグ選択",
+      "timeSelectTitle": "召集時間",
+      "tableHead": [
+        {
+          "title": "#",
+          "attr": "number"
+        },
+        {
+          "title": "タグ",
+          "attr": "tags"
+        },
+        {
+          "title": "入手可能なキャラ",
+          "attr": "possibility"
+        }
+      ],
+      "tableHeadByCharacter": [
+        {
+          "title": "名前",
+          "attr": "name"
+        },
+        {
+          "title": "レア度",
+          "attr": "rarity"
+        },
+        {
+          "title": "タグ",
+          "attr": "appliedTags"
+        }
+      ],
+      "helpModal": {
+        "title": "召集令フィルタ サポート",
+        "content": [
+          {
+            "title": "紹介",
+            "content": [
+              "このページはゲーム内の召集令のフィルタとして使用できます",
+              "召集令でランダムに出現する5つのタグに対応しており、出現する可能性のあるキャラクターをフィルタリングできます"
+            ]
+          },
+          {
+            "title": "操作説明",
+            "content": [
+              "選別したいキャラのタグを選択",
+              "設定からボタンの表示と結果の表示方法を調整できます",
+              "表上の三角マークをタップし、昇順と降順を変更できます",
+              "星のついたキャラは、そのタグの条件で唯一のキャラであることを示しています",
+              "タグマークが表示された場合、確定入手SRの組み合わせがあることを示しています",
+              "カーソルを選択したいキャラまで移動（モバイルデバイスはロングタップ）すると、最小のタグの組み合わせが表示されます"
+            ]
+          },
+          {
+            "title": "使い方",
+            "content": [
+              "SR、SSR キャラをターゲットにする場合:",
+              "招集したいタグを５つ選択し、レア度による順番に並び替え、星マークやタグマークのついたキャラがいるかどうか確認します",
+              "もしマークのついたキャラがいない場合、この組み合わせによる招集ではゲットはできません",
+              "もしマークのついたキャラがいる場合は試してみる価値ありです"
+            ]
+          },
+          {
+            "title": "注意",
+            "content": [
+              "リーダータグが無ければ、SSRキャラを獲得できません",
+              "リーダー・エリートタグでは、時間を9時間に設定した場合、それぞれSSR、SRが確定入手となります。",
+              "リーダー・エリートタグの出現率はそれぞれ約 0.4%,、1.2%です"
+            ]
+          },
+          {
+            "title": "注意事項",
+            "content": [
+              "タグが外れている可能性があります",
+              "星マークがついているとしても、必ず出現するわけではありません。タグが外れていたり、条件に適合する未知のキャラがいる可能性があります。",
+              "検索結果は現状のデータベースが基準になります。もしデータに間違いがある場合は、左側のデータレポートにある召集令データレポートより報告をお願いいたします。"
+            ]
+          }
+        ]
+      },
+      "settingModal": {
+        "title": "表示設定",
+        "groupLabel": "ボタンをタイプ別に分けますか",
+        "labels": ["はい", "いいえ"],
+        "resultDisplay": "結果の表示",
+        "resultLabels": ["キャラクター", "タグの組み合わせ"]
+      },
+      "snackbarMsg": "選べるタグは最大5個までです",
+      "guaranteeSR": "確定入手 SR"
+    }
+  },
+  "items": {
+    "drop": {
+      "tabLabel": ["一覧", "フィルタ"],
+      "index": {
+        "name": "ドロップアイテム",
+        "helmet": {
+          "title": "天下布魔道具箱—ドロップアイテム",
+          "description": "ドロップアイテム一覧"
+        },
+        "settingTooltip": "設定",
+        "layout": {
+          "byItem": "道具から",
+          "byStage": "マップから"
+        },
+        "notAvailableMsg": "このマップではドロップアイテムは取得できません",
+        "tableHead": {
+          "stage": "ステージ",
+          "materials": "潜在能力素材",
+          "trainItems": "調教道具",
+          "expPotions": "経験値ポーション",
+          "energy": "体力消耗"
+        },
+        "settingModal": {
+          "title": "表示設定",
+          "content": [
+            {
+              "title": "欄",
+              "button": [
+                "潜在能力素材",
+                "調教道具",
+                "経験値ポーション",
+                "体力消耗"
+              ]
+            },
+            {
+              "title": "潜在能力素材ランク",
+              "button": ["一般初級", "一般中級", "一般高級", "高等高級"]
+            },
+            {
+              "title": "レア度",
+              "button": [
+                "めったに出ない",
+                "たまに出る",
+                "よく出る",
+                "かならず出る"
+              ]
+            }
+          ]
+        }
+      },
+      "filter": {
+        "name": "ドロップアイテムフィルタ",
+        "helmet": {
+          "title": "天下布魔道具箱 —ドロップアイテム",
+          "description": "ドロップアイテムのフィルタ検索ができます"
+        },
+        "deleteTooltip": "全ての選択を取消",
+        "itemPanelTitle": "アイテム選択",
+        "resultTitle": "フィルタ結果",
+        "tableHead": ["ステージ", "レア度", "体力消耗"],
+        "helpModal": {
+          "title": "ドロップアイテム サポート",
+          "content": [
+            {
+              "title": "紹介",
+              "content": [
+                "このページではゲーム内メインストーリーでのドロップアイテムのフィルタ検索ができます",
+                "選択したドロップアイテムをもとに、入手可能なマップを表示できます"
+              ]
+            },
+            {
+              "title": "操作説明",
+              "content": [
+                "選択したドロップアイテムをもとに、マップを検索できます",
+                "表上の三角マークをタップし、昇順と降順を変更できます"
+              ]
+            },
+            {
+              "title": "注意事項",
+              "content": [
+                "メインストーリーのドロップアイテム限定です",
+                "たとえレア度が同じでも、ランクごとに素材のドロップ率は異なります。また、マップごとのドロップ率も異なります"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "analysis": {
+    "tabLabel": ["チーム", "リザルト"],
+    "index": {
+      "name": "チーム分析",
+      "helmet": {
+        "title": "天下布魔道具箱—チーム分析",
+        "description": "グラフにより、分析やチームの状態確認が可能です"
+      },
+      "levelTitle": "レベル",
+      "potentialTitle": "潜在能力",
+      "primaryPotentialTitle": "メイン潜在能力段階",
+      "secondaryPotentialTitle": "サブ潜在能力段階",
+      "disciplineTitle": "調教",
+      "starTitle": "星の数",
+      "saveButton": "保存",
+      "loadButton": "読み込み",
+      "deleteButton": "削除",
+      "successMsg": "成功",
+      "errorMsg": "失敗",
+      "modalTitle": "データ読み込み",
+      "helpModal": {
+        "title": "チーム分析 サポート",
+        "content": [
+          {
+            "title": "紹介",
+            "content": ["グラフにより、分析やチームの状態確認が可能です"]
+          },
+          {
+            "title": "使い方",
+            "content": [
+              "チーム選択画面のキャラの状態を参考にキャラアイコンをタップすると、選択したキャラを保有しているか確認できます",
+              "完成後、結果タブをタップすれば分析結果を確認できます",
+              "右上のボタンからチーム状態を保存・読み取りが可能です。読み取りをタップすることでデータの操作が可能です"
+            ]
+          }
+        ]
+      }
+    },
+    "result": {
+      "name": "チーム分析",
+      "helmet": {
+        "title": "天下布魔道具箱—チーム分析",
+        "description": "グラフにより、分析やチームの状態確認が可能です"
+      },
+      "exportButtonTooltip": "画像出力",
+      "chart": [
+        {
+          "title": "コレクション進度"
+        },
+        {
+          "title": "キャラ戦力"
+        },
+        {
+          "title": "キャラレベル（ポジション基準）",
+          "legend": ["最高", "平均", "中間", "最低"]
+        },
+        {
+          "title": "キャラレベル（属性基準）",
+          "legend": ["最高", "平均", "中間", "最低"]
+        },
+        {
+          "title": "キャラ経験値（ポジション基準）",
+          "legend": ["経験値", "數量"]
+        },
+        {
+          "title": "キャラ経験値（属性基準）",
+          "legend": ["経験値", "數量"]
+        }
+      ],
+      "rank": {
+        "title": "あなたのチーム戦力PR値は",
+        "high": "高PR値トップ5",
+        "low": "低PR値トップ5",
+        "cp": "戦力",
+        "PR": "PR值"
+      },
+      "helpModal": {
+        "title": "キャラ戦力",
+        "content": [
+          {
+            "title": "定義",
+            "content": ["キャラの戦力は キャラ ATK × HP"]
+          },
+          {
+            "title": "注釈",
+            "content": [
+              "キャラ戦力はキャラスキル・絆を考慮していない為、正確なキャラの強さとは限りません"
+            ]
+          }
+        ]
+      },
+      "rankModal": {
+        "content": "PR値はあなたのチームの総戦力と、このサイトのデータとを比較して算出した数値です"
+      }
+    }
+  },
+  "team": {
+    "index": {
+      "name": "チーム編成",
+      "helmet": {
+        "title": "天下布魔道具箱—チーム編成",
+        "description": "ここでは天下布魔のチーム編成とアウトプットができます"
+      },
+      "newComposition": "新規作成",
+      "deleteTooltip": "削除",
+      "copyTooltip": "コピー",
+      "settingTooltip": "設定",
+      "settingDescription": "最新のチーム分析データをデフォルトに設定",
+      "errorSnackbar": "データがありません",
+      "tabs": {
+        "local": "自分の編成",
+        "cloud": "みんなの編成"
+      },
+      "author": "作成者",
+      "allStage": "全てのステージ"
+    },
+    "build": {
+      "name": "チーム編成",
+      "helmet": {
+        "title": "天下布魔道具箱—チーム編成",
+        "description": "ここでは天下布魔のチーム編成とアウトプットができます"
+      },
+      "changeTooltip": "変更",
+      "deleteTooltip": "削除",
+      "uploadTooltip": "編成をアップロードする",
+      "shareTooltip": "編成シェア",
+      "copyTooltip": "リンクコピー",
+      "copySnackbarMsg": "コピー済",
+      "selectModalTitle": "キャラ選択",
+      "emptySlotText": "選択キャラ",
+      "nameInputLabel": "チーム名",
+      "nameInputPlaceholder": "チーム名を入力",
+      "stageSelectLabel": "ステージ",
+      "stageSelectHelpText": "ステージを選択してください",
+      "authorInputLabel": "投稿者",
+      "authorInputPlaceholder": "名前",
+      "authorInputHelpText": "1～50文字以内で入力してください。",
+      "descriptionInputLabel": "編成メモ",
+      "descriptionInputPlaceholder": "メモを入力 (0~400文字)",
+      "descriptionInputHelpText": "400文字以内で入力してください。",
+      "uploadButton": "アップロード",
+      "cancelButton": "キャンセル",
+      "uploadSnackbarMsg": "アップロードしました",
+      "uploadMsg": [
+        "他の人が理解しやすいよう、編成の留意点や説明を記入することをお勧めします。",
+        "個人情報やスパム、広告メッセージは入力しないでください。"
+      ]
+    }
+  },
+  "navbar": {
+    "menuButton": "メニュー",
+    "languageSwitchTooltip": "言語",
+    "sidebar": [
+      {
+        "title": "ホーム"
+      },
+      {
+        "title": "キャラクター",
+        "descriptions": ["潜在能力シュミレート"]
+      },
+      {
+        "title": "召集令",
+        "descriptions": ["一覧", "フィルタ"]
+      },
+      {
+        "title": "アイテムドロップ",
+        "descriptions": ["一覧", "フィルタ"]
+      },
+      {
+        "title": "チーム分析"
+      },
+      {
+        "title": "チーム編成"
+      },
+      {
+        "title": "外部リンク",
+        "descriptions": [
+          "公式サイト",
+          "公式 Discord",
+          "TenkafuMA Wiki (非公式、英語)"
+        ]
+      },
+      {
+        "title": "データレポート",
+        "descriptions": [
+          "召集令データレポート (中国語)",
+          "メインストーリードロップデータレポート (中国語)",
+          "ご意見・ご感想"
+        ]
+      }
+    ]
+  },
+  "404": {
+    "title": "ページが見つかりませんでした",
+    "h1": "ページが見つかりませんでした",
+    "p": "申し訳ございません。アイカ、ページを見つけられませんでした。",
+    "link": "ホームに戻る"
+  }
 }

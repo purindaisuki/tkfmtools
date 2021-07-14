@@ -1,1208 +1,407 @@
 [
-    {
-        "chapter": "Q",
-        "name": "Daily Quest",
-        "stages": [
-            {
-                "id": "D-1",
-                "name": "Training-Beginner"
-            },
-            {
-                "id": "D-2",
-                "name": "Training-Intermediate"
-            },
-            {
-                "id": "D-3",
-                "name": "Training-Advanced"
-            },
-            {
-                "id": "D-4",
-                "name": "Training-Superior"
-            },
-            {
-                "id": "D-5",
-                "name": "Training-MasterⅠ"
-            },
-            {
-                "id": "D-6",
-                "name": "Training-MasterⅡ"
-            },
-            {
-                "id": "D-7",
-                "name": "Training-MasterⅢ"
-            },
-            {
-                "id": "D-8",
-                "name": "Training-MasterⅣ"
-            },
-            {
-                "id": "T-1",
-                "name": "Trade-Beginner"
-            },
-            {
-                "id": "T-2",
-                "name": "Trade-Intermediate"
-            },
-            {
-                "id": "T-3",
-                "name": "Trade-Advanced"
-            },
-            {
-                "id": "T-4",
-                "name": "Trade-Superior"
-            },
-            {
-                "id": "T-5",
-                "name": "Trade-MasterⅠ"
-            },
-            {
-                "id": "T-6",
-                "name": "Trade-MasterⅡ"
-            },
-            {
-                "id": "T-7",
-                "name": "Trade-MasterⅢ"
-            },
-            {
-                "id": "T-8",
-                "name": "Trade-MasterⅣ"
-            }
-        ]
-    },
-    {
-        "chapter": "S",
-        "name": "The Demon Spire",
-        "stagePrefix": "The Demon Spire-",
-        "stageSuffix": "F"
-    },
-    {
-        "chapter": "0",
-        "name": "Prologue: Archdemon Caesar",
-        "stages": [
-            {
-                "id": "0-1",
-                "name": "Get a Move On!"
-            },
-            {
-                "id": "0-2",
-                "name": "Kill 'em All, Caez!"
-            },
-            {
-                "id": "0-3",
-                "name": "The Caez' Knees"
-            },
-            {
-                "id": "0-4",
-                "name": "Pimpin Caez!"
-            },
-            {
-                "id": "0-5",
-                "name": "Caez' a Genius!"
-            },
-            {
-                "id": "0-6",
-                "name": "Get 'em, Caez!"
-            },
-            {
-                "id": "0-6 free",
-                "name": "Damn Rebels!"
-            },
-            {
-                "id": "0-7",
-                "name": "The World is Yours!"
-            }
-        ]
-    },
-    {
-        "chapter": "1",
-        "name": "Chapter 1: The Fall of Ba'al",
-        "stages": [
-            {
-                "id": "1-2",
-                "name": "Knock Much?"
-            },
-            {
-                "id": "1-3",
-                "name": "Great Hospitality"
-            },
-            {
-                "id": "1-4",
-                "name": "Thanks a Ton!"
-            },
-            {
-                "id": "1-5",
-                "name": "Casino Ala Caesar"
-            },
-            {
-                "id": "1-5 free",
-                "name": "Green Pastures"
-            },
-            {
-                "id": "1-6",
-                "name": "Make Your Move"
-            },
-            {
-                "id": "1-6 free",
-                "name": "Dogs and... Cows?"
-            },
-            {
-                "id": "1-7",
-                "name": "Bada Bing"
-            },
-            {
-                "id": "1-7 free",
-                "name": "From the Shadows"
-            },
-            {
-                "id": "1-8",
-                "name": "Bada Boom"
-            },
-            {
-                "id": "1-9",
-                "name": "First Thing's First"
-            }
-        ]
-    },
-    {
-        "chapter": "2",
-        "name": "Chapter 2: The Holy Knights",
-        "stages": [
-            {
-                "id": "2-2",
-                "name": "The Mighty Holy Knights"
-            },
-            {
-                "id": "2-3",
-                "name": "The Church of Caesar"
-            },
-            {
-                "id": "2-4",
-                "name": "Clash of Faith"
-            },
-            {
-                "id": "2-5",
-                "name": "Knight's Got Knockers"
-            },
-            {
-                "id": "2-5 free",
-                "name": "Lost Knights"
-            },
-            {
-                "id": "2-6",
-                "name": "Farseer Caesar"
-            },
-            {
-                "id": "2-7",
-                "name": "You Suck!"
-            },
-            {
-                "id": "2-7 free",
-                "name": "Loyal Dogs"
-            },
-            {
-                "id": "2-8",
-                "name": "Dog Fight"
-            },
-            {
-                "id": "2-8 free",
-                "name": "The Holy Stash"
-            },
-            {
-                "id": "2-9",
-                "name": "The Knight Knows"
-            }
-        ]
-    },
-    {
-        "chapter": "3",
-        "name": "Chapter 3: The Aristocrat's Big Tits",
-        "stages": [
-            {
-                "id": "3-2",
-                "name": "Archdemon Iblis"
-            },
-            {
-                "id": "3-2 free",
-                "name": "Succubus Heights"
-            },
-            {
-                "id": "3-3",
-                "name": "Idiots Attack"
-            },
-            {
-                "id": "3-4",
-                "name": "Playground Scuffle"
-            },
-            {
-                "id": "3-5",
-                "name": "Tricks of the Trade"
-            },
-            {
-                "id": "3-6",
-                "name": "More Tricks N' Trades"
-            },
-            {
-                "id": "3-6 free",
-                "name": "Battle Boyz"
-            },
-            {
-                "id": "3-7",
-                "name": "Mind Your Business"
-            },
-            {
-                "id": "3-7 free",
-                "name": "Iblis' Squad"
-            },
-            {
-                "id": "3-8",
-                "name": "Sound the Horn"
-            },
-            {
-                "id": "3-8 free",
-                "name": "Slime Time"
-            },
-            {
-                "id": "3-9",
-                "name": "Head to Head"
-            },
-            {
-                "id": "3-10",
-                "name": "As an Archdemon"
-            }
-        ]
-    },
-    {
-        "chapter": "4",
-        "name": "Chapter 4: Keep the Faith, Fiora!",
-        "stages": [
-            {
-                "id": "4-2",
-                "name": "Caesar's Comin At Ya!"
-            },
-            {
-                "id": "4-3",
-                "name": "A Bit of Resist"
-            },
-            {
-                "id": "4-3 free-1",
-                "name": "Excelsis Camp"
-            },
-            {
-                "id": "4-3 free-2",
-                "name": "Excelsis Treasure Room"
-            },
-            {
-                "id": "4-4",
-                "name": "Crisis of Faith"
-            },
-            {
-                "id": "4-5",
-                "name": "Excelsior!!"
-            },
-            {
-                "id": "4-5 free",
-                "name": "Excelsis Water Works"
-            },
-            {
-                "id": "4-6",
-                "name": "Stupid Stalemate"
-            },
-            {
-                "id": "4-7",
-                "name": "Zany Zealots"
-            },
-            {
-                "id": "4-7 free",
-                "name": "Excelsis Church"
-            },
-            {
-                "id": "4-8",
-                "name": "Break on Through"
-            },
-            {
-                "id": "4-9",
-                "name": "Icky Feelings"
-            },
-            {
-                "id": "4-9 free",
-                "name": "Excelsis Crematorium"
-            },
-            {
-                "id": "4-10",
-                "name": "Elite Forces"
-            },
-            {
-                "id": "4-11",
-                "name": "Charge, Caez!"
-            },
-            {
-                "id": "4-12",
-                "name": "Resistance is Futile"
-            },
-            {
-                "id": "4-13",
-                "name": "The Last Barrier"
-            }
-        ]
-    },
-    {
-        "chapter": "5",
-        "name": "Chapter 5: Insatiable Satan",
-        "stages": [
-            {
-                "id": "5-2",
-                "name": "Satan Strikes Again!!"
-            },
-            {
-                "id": "5-3",
-                "name": "Out of Nowhere"
-            },
-            {
-                "id": "5-4",
-                "name": "Satan's Escape!"
-            },
-            {
-                "id": "5-4 free",
-                "name": "Wanderers"
-            },
-            {
-                "id": "5-5",
-                "name": "To the Front Lines!!"
-            },
-            {
-                "id": "5-6",
-                "name": "Thirst for BLOOOD!!"
-            },
-            {
-                "id": "5-6 free",
-                "name": "Lost and Found"
-            },
-            {
-                "id": "5-7",
-                "name": "Garrisons and Stuff"
-            },
-            {
-                "id": "5-8",
-                "name": "Searching for Satan"
-            },
-            {
-                "id": "5-9",
-                "name": "Past Grievances"
-            },
-            {
-                "id": "5-9 free",
-                "name": "The Cow Level"
-            },
-            {
-                "id": "5-10",
-                "name": "Chance Encounters"
-            },
-            {
-                "id": "5-11",
-                "name": "Crazies and Craziers"
-            },
-            {
-                "id": "5-12",
-                "name": "Quick Attack"
-            },
-            {
-                "id": "5-13",
-                "name": "Insane in the Membrane"
-            },
-            {
-                "id": "5-14",
-                "name": "The Final Fight"
-            }
-        ]
-    },
-    {
-        "chapter": "6",
-        "name": "Chapter 6: The Twin Snakes",
-        "stages": [
-            {
-                "id": "6-2",
-                "name": "Dwarf Time!"
-            },
-            {
-                "id": "6-3",
-                "name": "Alliance"
-            },
-            {
-                "id": "6-3 free",
-                "name": "Gold Stash"
-            },
-            {
-                "id": "6-4",
-                "name": "Merry Mountains"
-            },
-            {
-                "id": "6-5",
-                "name": "Goofin' Around"
-            },
-            {
-                "id": "6-6",
-                "name": "Clear My Head"
-            },
-            {
-                "id": "6-6 free",
-                "name": "Food Stores"
-            },
-            {
-                "id": "6-7",
-                "name": "Loop de Loot"
-            },
-            {
-                "id": "6-8",
-                "name": "Power Plays"
-            },
-            {
-                "id": "6-8 free",
-                "name": "Weapons Hold"
-            },
-            {
-                "id": "6-9",
-                "name": "Hit and Run"
-            },
-            {
-                "id": "6-10",
-                "name": "Headhunting"
-            },
-            {
-                "id": "6-10 free",
-                "name": "Spice Rack"
-            },
-            {
-                "id": "6-11",
-                "name": "Ba'al Says"
-            },
-            {
-                "id": "6-12",
-                "name": "Call My Bluff"
-            },
-            {
-                "id": "6-13",
-                "name": "Sever's Down"
-            },
-            {
-                "id": "6-14",
-                "name": "Push the Frontlines!"
-            },
-            {
-                "id": "6-15",
-                "name": "The Twin Snakers"
-            }
-        ]
-    },
-    {
-        "chapter": "7",
-        "name": "Chapter 7: To Smitheld!",
-        "stages": [
-            {
-                "id": "7-2",
-                "name": "It's Dwarf Time!"
-            },
-            {
-                "id": "7-3",
-                "name": "Tradin' and Takin'"
-            },
-            {
-                "id": "7-3 free-1",
-                "name": "Abandoned Warehouse"
-            },
-            {
-                "id": "7-3 free-2",
-                "name": "Medicine Supply"
-            },
-            {
-                "id": "7-3 free-3",
-                "name": "Old Hangar"
-            },
-            {
-                "id": "7-4",
-                "name": "Take a Break, Nana!"
-            },
-            {
-                "id": "7-5",
-                "name": "Invasion Persuasion"
-            },
-            {
-                "id": "7-6",
-                "name": "Just My Luck"
-            },
-            {
-                "id": "7-7",
-                "name": "Retreat!"
-            },
-            {
-                "id": "7-8",
-                "name": "Tempting Fate"
-            },
-            {
-                "id": "7-9",
-                "name": "Escape or Advance?"
-            },
-            {
-                "id": "7-9 free",
-                "name": "Food Stores"
-            },
-            {
-                "id": "7-10",
-                "name": "The Queen's Gambit"
-            },
-            {
-                "id": "7-11",
-                "name": "Full Frontal"
-            },
-            {
-                "id": "7-11 free",
-                "name": "Barracks"
-            },
-            {
-                "id": "7-12",
-                "name": "Flank from the Left"
-            },
-            {
-                "id": "7-13",
-                "name": "Flank from the Right"
-            },
-            {
-                "id": "7-14",
-                "name": "Everybody Flank!!"
-            },
-            {
-                "id": "7-15",
-                "name": "Archdemon Vs. Dwarf"
-            }
-        ]
-    },
-    {
-        "chapter": "8",
-        "name": "Chapter 8: The Princess Connection",
-        "stages": [
-            {
-                "id": "8-2",
-                "name": "A Storm Approaches"
-            },
-            {
-                "id": "8-2 free",
-                "name": "Hunters Teaparty"
-            },
-            {
-                "id": "8-3",
-                "name": "Like, Uh…"
-            },
-            {
-                "id": "8-4",
-                "name": "Random Encounters"
-            },
-            {
-                "id": "8-5",
-                "name": "Scout's Report"
-            },
-            {
-                "id": "8-6",
-                "name": "Toil and Trouble"
-            },
-            {
-                "id": "8-7",
-                "name": "Plans Into Action"
-            },
-            {
-                "id": "8-8",
-                "name": "The Witness"
-            },
-            {
-                "id": "8-8 free",
-                "name": "Dwarf Teaparty"
-            },
-            {
-                "id": "8-9",
-                "name": "The Messengers"
-            },
-            {
-                "id": "8-10",
-                "name": "Attack Squad"
-            },
-            {
-                "id": "8-11",
-                "name": "Search and Destroy"
-            },
-            {
-                "id": "8-11 free",
-                "name": "Empire Teaparty"
-            },
-            {
-                "id": "8-12",
-                "name": "The Princess' Training"
-            },
-            {
-                "id": "8-13",
-                "name": "One Man's Trash"
-            },
-            {
-                "id": "8-14",
-                "name": "Wily Dwarves"
-            },
-            {
-                "id": "8-15",
-                "name": "Payback Time"
-            },
-            {
-                "id": "8-16",
-                "name": "Exit Stage Right"
-            },
-            {
-                "id": "8-17",
-                "name": "Tea Time, Again!"
-            },
-            {
-                "id": "8-17 free",
-                "name": "Foreign Teaparty"
-            },
-            {
-                "id": "8-18",
-                "name": "Kill 'em All, Again!!"
-            },
-            {
-                "id": "8-19",
-                "name": "A New Life"
-            }
-        ]
-    },
-    {
-        "chapter": "9",
-        "name": "Chapter 9: The Misty Forest",
-        "stages": [
-            {
-                "id": "9-2",
-                "name": "Advance, Ba'al!!"
-            },
-            {
-                "id": "9-3",
-                "name": "Ba'al's Here!!"
-            },
-            {
-                "id": "9-4",
-                "name": "Elven Queen Salucia"
-            },
-            {
-                "id": "9-4 free",
-                "name": "Elven Warehouse"
-            },
-            {
-                "id": "9-5",
-                "name": "Demons Press On"
-            },
-            {
-                "id": "9-6",
-                "name": "Ba'al Goes All Out"
-            },
-            {
-                "id": "9-7",
-                "name": "Fast Times"
-            },
-            {
-                "id": "9-8",
-                "name": "Looking for Elves"
-            },
-            {
-                "id": "9-8 free",
-                "name": "Elven Food Stores"
-            },
-            {
-                "id": "9-9",
-                "name": "It's Inevitable"
-            },
-            {
-                "id": "9-10",
-                "name": "It's a Twin Thing~!"
-            },
-            {
-                "id": "9-11",
-                "name": "One Last Push"
-            },
-            {
-                "id": "9-12",
-                "name": "Salucia's Decision"
-            },
-            {
-                "id": "9-12 free",
-                "name": "Elven Storage Hut"
-            },
-            {
-                "id": "9-13",
-                "name": "Midnight Love"
-            },
-            {
-                "id": "9-14",
-                "name": "Sucker Punch"
-            },
-            {
-                "id": "9-15",
-                "name": "Stick to the Plan!"
-            },
-            {
-                "id": "9-16",
-                "name": "More Hostages!!"
-            },
-            {
-                "id": "9-17",
-                "name": "Elves in One Basket"
-            }
-        ]
-    },
-    {
-        "chapter": "10",
-        "name": "Chapter 10: Onmyoryo Nights",
-        "stages": [
-            {
-                "id": "10-2",
-                "name": "Eastern Nation"
-            },
-            {
-                "id": "10-3",
-                "name": "A Guide to Isorath"
-            },
-            {
-                "id": "10-4",
-                "name": "Setting Out!"
-            },
-            {
-                "id": "10-5",
-                "name": "A Journey East"
-            },
-            {
-                "id": "10-6",
-                "name": "The Forest's Edge"
-            },
-            {
-                "id": "10-7",
-                "name": "A Hidden Barrier"
-            },
-            {
-                "id": "10-8",
-                "name": "Demon Hubbub"
-            },
-            {
-                "id": "10-9",
-                "name": "Wrath of Isorath"
-            },
-            {
-                "id": "10-9 free",
-                "name": "Medicine Hut"
-            },
-            {
-                "id": "10-10",
-                "name": "Within the Barrier"
-            },
-            {
-                "id": "10-11",
-                "name": "Surprise Attack"
-            },
-            {
-                "id": "10-12",
-                "name": "Need More Power"
-            },
-            {
-                "id": "10-12 free",
-                "name": "Ceremonial Chamber"
-            },
-            {
-                "id": "10-13",
-                "name": "The Onmyoji's Decision"
-            },
-            {
-                "id": "10-14",
-                "name": "Broken Barrier"
-            },
-            {
-                "id": "10-15",
-                "name": "Iblis' Secret Weapon"
-            },
-            {
-                "id": "10-16",
-                "name": "Yokai & Caesar SP"
-            },
-            {
-                "id": "10-16 free",
-                "name": "House of Poison"
-            },
-            {
-                "id": "10-17",
-                "name": "Caesar's Oppression"
-            },
-            {
-                "id": "10-18",
-                "name": "A Realization"
-            },
-            {
-                "id": "10-19",
-                "name": "Shizuka Support"
-            }
-        ]
-    },
-    {
-        "chapter": "11",
-        "name": "Chapter 11: The Robot's Hot!",
-        "stages": [
-            {
-                "id": "11-2",
-                "name": "Frontline Intel"
-            },
-            {
-                "id": "11-3",
-                "name": "Neverending War"
-            },
-            {
-                "id": "11-3 free",
-                "name": "Lakeside Cabin"
-            },
-            {
-                "id": "11-4",
-                "name": "Command & Conquer"
-            },
-            {
-                "id": "11-5",
-                "name": "It's a Bird-Girl?"
-            },
-            {
-                "id": "11-6",
-                "name": "It's a Witch?"
-            },
-            {
-                "id": "11-7",
-                "name": "No, it's KS-Ⅷ!!!"
-            },
-            {
-                "id": "11-7 free",
-                "name": "Griffin's Battlefield"
-            },
-            {
-                "id": "11-8",
-                "name": "Uninvited Guest"
-            },
-            {
-                "id": "11-9",
-                "name": "Chaotic Conditions"
-            },
-            {
-                "id": "11-10",
-                "name": "Report!!"
-            },
-            {
-                "id": "11-11",
-                "name": "Decapitation?"
-            },
-            {
-                "id": "11-12",
-                "name": "A Fairytale Friendship"
-            },
-            {
-                "id": "11-12 free",
-                "name": "Hunter's Shack"
-            },
-            {
-                "id": "11-13",
-                "name": "The Restless Phasi"
-            },
-            {
-                "id": "11-14",
-                "name": "All Is Quiet..."
-            },
-            {
-                "id": "11-14 free",
-                "name": "A Toppled Tree"
-            },
-            {
-                "id": "11-15",
-                "name": "Hunter... or Hunted?"
-            },
-            {
-                "id": "11-16",
-                "name": "Phasi Scouts"
-            },
-            {
-                "id": "11-17",
-                "name": "A Distant Clash"
-            },
-            {
-                "id": "11-18",
-                "name": "Retreat!!!!"
-            },
-            {
-                "id": "11-19",
-                "name": "The Robot's Hot!"
-            }
-        ]
-    },
-    {
-        "chapter": "12",
-        "name": "Chapter 12: General of All Trades",
-        "stages": [
-            {
-                "id": "12-2",
-                "name": "Babe and the Beast"
-            },
-            {
-                "id": "12-3",
-                "name": "Move Out!"
-            },
-            {
-                "id": "12-4",
-                "name": "Mixed Assault"
-            },
-            {
-                "id": "12-4 free",
-                "name": "Demon Realm Support"
-            },
-            {
-                "id": "12-5",
-                "name": "In This Together"
-            },
-            {
-                "id": "12-6",
-                "name": "Juneau's Decision"
-            },
-            {
-                "id": "12-7",
-                "name": "Evenly Matched"
-            },
-            {
-                "id": "12-7 free",
-                "name": "Smitheld Support"
-            },
-            {
-                "id": "12-8",
-                "name": "New Friends"
-            },
-            {
-                "id": "12-9",
-                "name": "The Lost Army"
-            },
-            {
-                "id": "12-10",
-                "name": "Out of the Oven"
-            },
-            {
-                "id": "12-10 free",
-                "name": "Oberia Support"
-            },
-            {
-                "id": "12-11",
-                "name": "Iblis' Analysis"
-            },
-            {
-                "id": "12-12",
-                "name": "V-Day!"
-            },
-            {
-                "id": "12-13",
-                "name": "Welcome, Welcome!"
-            },
-            {
-                "id": "12-13 free",
-                "name": "Attack Their Caravans!"
-            },
-            {
-                "id": "12-14",
-                "name": "Chain Reaction"
-            },
-            {
-                "id": "12-15",
-                "name": "Leave it to Fate"
-            },
-            {
-                "id": "12-15 free",
-                "name": "Attack their Villages!"
-            },
-            {
-                "id": "12-16",
-                "name": "Pet Peeves"
-            },
-            {
-                "id": "12-17",
-                "name": "Winds of Change"
-            }
-        ]
-    },
-    {
-        "chapter": "13",
-        "name": "Chapter 13: Masters Don't Lose",
-        "stages": [
-            {
-                "id": "13-2",
-                "name": "No.1 Blademaster"
-            },
-            {
-                "id": "13-3",
-                "name": "Stalemate"
-            },
-            {
-                "id": "13-4",
-                "name": "The Elder"
-            },
-            {
-                "id": "13-5",
-                "name": "Master Procrastinator"
-            },
-            {
-                "id": "13-6",
-                "name": "Slayer Delayer"
-            },
-            {
-                "id": "13-7",
-                "name": "Offerings of War"
-            },
-            {
-                "id": "13-7 free",
-                "name": "Wasteland Creatures"
-            },
-            {
-                "id": "13-8",
-                "name": "Battle Formation"
-            },
-            {
-                "id": "13-9",
-                "name": "ATTACK!!!"
-            },
-            {
-                "id": "13-10",
-                "name": "Pride & Arrogance"
-            },
-            {
-                "id": "13-11",
-                "name": "Blademasters & Demons"
-            },
-            {
-                "id": "13-12",
-                "name": "Face-Off"
-            },
-            {
-                "id": "13-13",
-                "name": "Playtime"
-            },
-            {
-                "id": "13-13 free",
-                "name": "Hidden Treasure"
-            },
-            {
-                "id": "13-14",
-                "name": "The Day of the Battle"
-            },
-            {
-                "id": "13-15",
-                "name": "Make the Date"
-            },
-            {
-                "id": "13-16",
-                "name": "Battlefield Clash"
-            },
-            {
-                "id": "13-17",
-                "name": "Nothing Lasts Forever"
-            },
-            {
-                "id": "13-17 free",
-                "name": "Ceremonial Lands"
-            },
-            {
-                "id": "13-18",
-                "name": "Victorious Ambush"
-            },
-            {
-                "id": "13-19",
-                "name": "Hope & Despair"
-            }
-        ]
-    },
-    {
-        "chapter": "14",
-        "name": "Chapter 14: Goodnight, Isorathe",
-        "stages": [
-            {
-                "id": "14-2",
-                "name": "Warning"
-            },
-            {
-                "id": "14-3",
-                "name": "Bait"
-            },
-            {
-                "id": "14-4",
-                "name": "City Walls"
-            },
-            {
-                "id": "14-5",
-                "name": "Quick Attack"
-            },
-            {
-                "id": "14-6",
-                "name": "Fate"
-            },
-            {
-                "id": "14-7",
-                "name": "Enemy at the Gates"
-            },
-            {
-                "id": "14-7 free",
-                "name": "Snake Pit"
-            },
-            {
-                "id": "14-8",
-                "name": "Ritsuki's Will"
-            },
-            {
-                "id": "14-9",
-                "name": "Going All Out"
-            },
-            {
-                "id": "14-10",
-                "name": "Dead Meat"
-            },
-            {
-                "id": "14-11",
-                "name": "Risky Business"
-            },
-            {
-                "id": "14-12",
-                "name": "Chaos"
-            },
-            {
-                "id": "14-12 free",
-                "name": "Sealed Library"
-            },
-            {
-                "id": "14-13",
-                "name": "Ninjitsu"
-            },
-            {
-                "id": "14-14",
-                "name": "Abandon Faith"
-            },
-            {
-                "id": "14-15",
-                "name": "Struggle"
-            },
-            {
-                "id": "14-16",
-                "name": "Belief"
-            },
-            {
-                "id": "14-17",
-                "name": "Goodnight, Princess"
-            },
-            {
-                "id": "14-17 free",
-                "name": "Nest of Vipers"
-            },
-            {
-                "id": "14-18",
-                "name": "Ritsuki's Choice"
-            },
-            {
-                "id": "14-19",
-                "name": "Friendship & Loyalty"
-            }
-        ]
-    }
+  {
+    "chapter": "Q",
+    "name": "Daily Quest",
+    "stages": [
+      { "id": "D-1", "name": "Training-Beginner" },
+      { "id": "D-2", "name": "Training-Intermediate" },
+      { "id": "D-3", "name": "Training-Advanced" },
+      { "id": "D-4", "name": "Training-Superior" },
+      { "id": "D-5", "name": "Training-MasterⅠ" },
+      { "id": "D-6", "name": "Training-MasterⅡ" },
+      { "id": "D-7", "name": "Training-MasterⅢ" },
+      { "id": "D-8", "name": "Training-MasterⅣ" },
+      { "id": "T-1", "name": "Trade-Beginner" },
+      { "id": "T-2", "name": "Trade-Intermediate" },
+      { "id": "T-3", "name": "Trade-Advanced" },
+      { "id": "T-4", "name": "Trade-Superior" },
+      { "id": "T-5", "name": "Trade-MasterⅠ" },
+      { "id": "T-6", "name": "Trade-MasterⅡ" },
+      { "id": "T-7", "name": "Trade-MasterⅢ" },
+      { "id": "T-8", "name": "Trade-MasterⅣ" }
+    ]
+  },
+  {
+    "chapter": "S",
+    "name": "The Demon Spire",
+    "stagePrefix": "The Demon Spire-",
+    "stageSuffix": "F"
+  },
+  {
+    "chapter": "0",
+    "name": "Prologue: Archdemon Caesar",
+    "stages": [
+      { "id": "0-1", "name": "Get a Move On!" },
+      { "id": "0-2", "name": "Kill 'em All, Caez!" },
+      { "id": "0-3", "name": "The Caez' Knees" },
+      { "id": "0-4", "name": "Pimpin Caez!" },
+      { "id": "0-5", "name": "Caez' a Genius!" },
+      { "id": "0-6", "name": "Get 'em, Caez!" },
+      { "id": "0-6 free", "name": "Damn Rebels!" },
+      { "id": "0-7", "name": "The World is Yours!" }
+    ]
+  },
+  {
+    "chapter": "1",
+    "name": "Chapter 1: The Fall of Ba'al",
+    "stages": [
+      { "id": "1-2", "name": "Knock Much?" },
+      { "id": "1-3", "name": "Great Hospitality" },
+      { "id": "1-4", "name": "Thanks a Ton!" },
+      { "id": "1-5", "name": "Casino Ala Caesar" },
+      { "id": "1-5 free", "name": "Green Pastures" },
+      { "id": "1-6", "name": "Make Your Move" },
+      { "id": "1-6 free", "name": "Dogs and... Cows?" },
+      { "id": "1-7", "name": "Bada Bing" },
+      { "id": "1-7 free", "name": "From the Shadows" },
+      { "id": "1-8", "name": "Bada Boom" },
+      { "id": "1-9", "name": "First Thing's First" }
+    ]
+  },
+  {
+    "chapter": "2",
+    "name": "Chapter 2: The Holy Knights",
+    "stages": [
+      { "id": "2-2", "name": "The Mighty Holy Knights" },
+      { "id": "2-3", "name": "The Church of Caesar" },
+      { "id": "2-4", "name": "Clash of Faith" },
+      { "id": "2-5", "name": "Knight's Got Knockers" },
+      { "id": "2-5 free", "name": "Lost Knights" },
+      { "id": "2-6", "name": "Farseer Caesar" },
+      { "id": "2-7", "name": "You Suck!" },
+      { "id": "2-7 free", "name": "Loyal Dogs" },
+      { "id": "2-8", "name": "Dog Fight" },
+      { "id": "2-8 free", "name": "The Holy Stash" },
+      { "id": "2-9", "name": "The Knight Knows" }
+    ]
+  },
+  {
+    "chapter": "3",
+    "name": "Chapter 3: The Aristocrat's Big Tits",
+    "stages": [
+      { "id": "3-2", "name": "Archdemon Iblis" },
+      { "id": "3-2 free", "name": "Succubus Heights" },
+      { "id": "3-3", "name": "Idiots Attack" },
+      { "id": "3-4", "name": "Playground Scuffle" },
+      { "id": "3-5", "name": "Tricks of the Trade" },
+      { "id": "3-6", "name": "More Tricks N' Trades" },
+      { "id": "3-6 free", "name": "Battle Boyz" },
+      { "id": "3-7", "name": "Mind Your Business" },
+      { "id": "3-7 free", "name": "Iblis' Squad" },
+      { "id": "3-8", "name": "Sound the Horn" },
+      { "id": "3-8 free", "name": "Slime Time" },
+      { "id": "3-9", "name": "Head to Head" },
+      { "id": "3-10", "name": "As an Archdemon" }
+    ]
+  },
+  {
+    "chapter": "4",
+    "name": "Chapter 4: Keep the Faith, Fiora!",
+    "stages": [
+      { "id": "4-2", "name": "Caesar's Comin At Ya!" },
+      { "id": "4-3", "name": "A Bit of Resist" },
+      { "id": "4-3 free-1", "name": "Excelsis Camp" },
+      { "id": "4-3 free-2", "name": "Excelsis Treasure Room" },
+      { "id": "4-4", "name": "Crisis of Faith" },
+      { "id": "4-5", "name": "Excelsior!!" },
+      { "id": "4-5 free", "name": "Excelsis Water Works" },
+      { "id": "4-6", "name": "Stupid Stalemate" },
+      { "id": "4-7", "name": "Zany Zealots" },
+      { "id": "4-7 free", "name": "Excelsis Church" },
+      { "id": "4-8", "name": "Break on Through" },
+      { "id": "4-9", "name": "Icky Feelings" },
+      { "id": "4-9 free", "name": "Excelsis Crematorium" },
+      { "id": "4-10", "name": "Elite Forces" },
+      { "id": "4-11", "name": "Charge, Caez!" },
+      { "id": "4-12", "name": "Resistance is Futile" },
+      { "id": "4-13", "name": "The Last Barrier" }
+    ]
+  },
+  {
+    "chapter": "5",
+    "name": "Chapter 5: Insatiable Satan",
+    "stages": [
+      { "id": "5-2", "name": "Satan Strikes Again!!" },
+      { "id": "5-3", "name": "Out of Nowhere" },
+      { "id": "5-4", "name": "Satan's Escape!" },
+      { "id": "5-4 free", "name": "Wanderers" },
+      { "id": "5-5", "name": "To the Front Lines!!" },
+      { "id": "5-6", "name": "Thirst for BLOOOD!!" },
+      { "id": "5-6 free", "name": "Lost and Found" },
+      { "id": "5-7", "name": "Garrisons and Stuff" },
+      { "id": "5-8", "name": "Searching for Satan" },
+      { "id": "5-9", "name": "Past Grievances" },
+      { "id": "5-9 free", "name": "The Cow Level" },
+      { "id": "5-10", "name": "Chance Encounters" },
+      { "id": "5-11", "name": "Crazies and Craziers" },
+      { "id": "5-12", "name": "Quick Attack" },
+      { "id": "5-13", "name": "Insane in the Membrane" },
+      { "id": "5-14", "name": "The Final Fight" }
+    ]
+  },
+  {
+    "chapter": "6",
+    "name": "Chapter 6: The Twin Snakes",
+    "stages": [
+      { "id": "6-2", "name": "Dwarf Time!" },
+      { "id": "6-3", "name": "Alliance" },
+      { "id": "6-3 free", "name": "Gold Stash" },
+      { "id": "6-4", "name": "Merry Mountains" },
+      { "id": "6-5", "name": "Goofin' Around" },
+      { "id": "6-6", "name": "Clear My Head" },
+      { "id": "6-6 free", "name": "Food Stores" },
+      { "id": "6-7", "name": "Loop de Loot" },
+      { "id": "6-8", "name": "Power Plays" },
+      { "id": "6-8 free", "name": "Weapons Hold" },
+      { "id": "6-9", "name": "Hit and Run" },
+      { "id": "6-10", "name": "Headhunting" },
+      { "id": "6-10 free", "name": "Spice Rack" },
+      { "id": "6-11", "name": "Ba'al Says" },
+      { "id": "6-12", "name": "Call My Bluff" },
+      { "id": "6-13", "name": "Sever's Down" },
+      { "id": "6-14", "name": "Push the Frontlines!" },
+      { "id": "6-15", "name": "The Twin Snakers" }
+    ]
+  },
+  {
+    "chapter": "7",
+    "name": "Chapter 7: To Smitheld!",
+    "stages": [
+      { "id": "7-2", "name": "It's Dwarf Time!" },
+      { "id": "7-3", "name": "Tradin' and Takin'" },
+      { "id": "7-3 free-1", "name": "Abandoned Warehouse" },
+      { "id": "7-3 free-2", "name": "Medicine Supply" },
+      { "id": "7-3 free-3", "name": "Old Hangar" },
+      { "id": "7-4", "name": "Take a Break, Nana!" },
+      { "id": "7-5", "name": "Invasion Persuasion" },
+      { "id": "7-6", "name": "Just My Luck" },
+      { "id": "7-7", "name": "Retreat!" },
+      { "id": "7-8", "name": "Tempting Fate" },
+      { "id": "7-9", "name": "Escape or Advance?" },
+      { "id": "7-9 free", "name": "Food Stores" },
+      { "id": "7-10", "name": "The Queen's Gambit" },
+      { "id": "7-11", "name": "Full Frontal" },
+      { "id": "7-11 free", "name": "Barracks" },
+      { "id": "7-12", "name": "Flank from the Left" },
+      { "id": "7-13", "name": "Flank from the Right" },
+      { "id": "7-14", "name": "Everybody Flank!!" },
+      { "id": "7-15", "name": "Archdemon Vs. Dwarf" }
+    ]
+  },
+  {
+    "chapter": "8",
+    "name": "Chapter 8: The Princess Connection",
+    "stages": [
+      { "id": "8-2", "name": "A Storm Approaches" },
+      { "id": "8-2 free", "name": "Hunters Teaparty" },
+      { "id": "8-3", "name": "Like, Uh…" },
+      { "id": "8-4", "name": "Random Encounters" },
+      { "id": "8-5", "name": "Scout's Report" },
+      { "id": "8-6", "name": "Toil and Trouble" },
+      { "id": "8-7", "name": "Plans Into Action" },
+      { "id": "8-8", "name": "The Witness" },
+      { "id": "8-8 free", "name": "Dwarf Teaparty" },
+      { "id": "8-9", "name": "The Messengers" },
+      { "id": "8-10", "name": "Attack Squad" },
+      { "id": "8-11", "name": "Search and Destroy" },
+      { "id": "8-11 free", "name": "Empire Teaparty" },
+      { "id": "8-12", "name": "The Princess' Training" },
+      { "id": "8-13", "name": "One Man's Trash" },
+      { "id": "8-14", "name": "Wily Dwarves" },
+      { "id": "8-15", "name": "Payback Time" },
+      { "id": "8-16", "name": "Exit Stage Right" },
+      { "id": "8-17", "name": "Tea Time, Again!" },
+      { "id": "8-17 free", "name": "Foreign Teaparty" },
+      { "id": "8-18", "name": "Kill 'em All, Again!!" },
+      { "id": "8-19", "name": "A New Life" }
+    ]
+  },
+  {
+    "chapter": "9",
+    "name": "Chapter 9: The Misty Forest",
+    "stages": [
+      { "id": "9-2", "name": "Advance, Ba'al!!" },
+      { "id": "9-3", "name": "Ba'al's Here!!" },
+      { "id": "9-4", "name": "Elven Queen Salucia" },
+      { "id": "9-4 free", "name": "Elven Warehouse" },
+      { "id": "9-5", "name": "Demons Press On" },
+      { "id": "9-6", "name": "Ba'al Goes All Out" },
+      { "id": "9-7", "name": "Fast Times" },
+      { "id": "9-8", "name": "Looking for Elves" },
+      { "id": "9-8 free", "name": "Elven Food Stores" },
+      { "id": "9-9", "name": "It's Inevitable" },
+      { "id": "9-10", "name": "It's a Twin Thing~!" },
+      { "id": "9-11", "name": "One Last Push" },
+      { "id": "9-12", "name": "Salucia's Decision" },
+      { "id": "9-12 free", "name": "Elven Storage Hut" },
+      { "id": "9-13", "name": "Midnight Love" },
+      { "id": "9-14", "name": "Sucker Punch" },
+      { "id": "9-15", "name": "Stick to the Plan!" },
+      { "id": "9-16", "name": "More Hostages!!" },
+      { "id": "9-17", "name": "Elves in One Basket" }
+    ]
+  },
+  {
+    "chapter": "10",
+    "name": "Chapter 10: Onmyoryo Nights",
+    "stages": [
+      { "id": "10-2", "name": "Eastern Nation" },
+      { "id": "10-3", "name": "A Guide to Isorath" },
+      { "id": "10-4", "name": "Setting Out!" },
+      { "id": "10-5", "name": "A Journey East" },
+      { "id": "10-6", "name": "The Forest's Edge" },
+      { "id": "10-7", "name": "A Hidden Barrier" },
+      { "id": "10-8", "name": "Demon Hubbub" },
+      { "id": "10-9", "name": "Wrath of Isorath" },
+      { "id": "10-9 free", "name": "Medicine Hut" },
+      { "id": "10-10", "name": "Within the Barrier" },
+      { "id": "10-11", "name": "Surprise Attack" },
+      { "id": "10-12", "name": "Need More Power" },
+      { "id": "10-12 free", "name": "Ceremonial Chamber" },
+      { "id": "10-13", "name": "The Onmyoji's Decision" },
+      { "id": "10-14", "name": "Broken Barrier" },
+      { "id": "10-15", "name": "Iblis' Secret Weapon" },
+      { "id": "10-16", "name": "Yokai & Caesar SP" },
+      { "id": "10-16 free", "name": "House of Poison" },
+      { "id": "10-17", "name": "Caesar's Oppression" },
+      { "id": "10-18", "name": "A Realization" },
+      { "id": "10-19", "name": "Shizuka Support" }
+    ]
+  },
+  {
+    "chapter": "11",
+    "name": "Chapter 11: The Robot's Hot!",
+    "stages": [
+      { "id": "11-2", "name": "Frontline Intel" },
+      { "id": "11-3", "name": "Neverending War" },
+      { "id": "11-3 free", "name": "Lakeside Cabin" },
+      { "id": "11-4", "name": "Command & Conquer" },
+      { "id": "11-5", "name": "It's a Bird-Girl?" },
+      { "id": "11-6", "name": "It's a Witch?" },
+      { "id": "11-7", "name": "No, it's KS-Ⅷ!!!" },
+      { "id": "11-7 free", "name": "Griffin's Battlefield" },
+      { "id": "11-8", "name": "Uninvited Guest" },
+      { "id": "11-9", "name": "Chaotic Conditions" },
+      { "id": "11-10", "name": "Report!!" },
+      { "id": "11-11", "name": "Decapitation?" },
+      { "id": "11-12", "name": "A Fairytale Friendship" },
+      { "id": "11-12 free", "name": "Hunter's Shack" },
+      { "id": "11-13", "name": "The Restless Phasi" },
+      { "id": "11-14", "name": "All Is Quiet..." },
+      { "id": "11-14 free", "name": "A Toppled Tree" },
+      { "id": "11-15", "name": "Hunter... or Hunted?" },
+      { "id": "11-16", "name": "Phasi Scouts" },
+      { "id": "11-17", "name": "A Distant Clash" },
+      { "id": "11-18", "name": "Retreat!!!!" },
+      { "id": "11-19", "name": "The Robot's Hot!" }
+    ]
+  },
+  {
+    "chapter": "12",
+    "name": "Chapter 12: General of All Trades",
+    "stages": [
+      { "id": "12-2", "name": "Babe and the Beast" },
+      { "id": "12-3", "name": "Move Out!" },
+      { "id": "12-4", "name": "Mixed Assault" },
+      { "id": "12-4 free", "name": "Demon Realm Support" },
+      { "id": "12-5", "name": "In This Together" },
+      { "id": "12-6", "name": "Juneau's Decision" },
+      { "id": "12-7", "name": "Evenly Matched" },
+      { "id": "12-7 free", "name": "Smitheld Support" },
+      { "id": "12-8", "name": "New Friends" },
+      { "id": "12-9", "name": "The Lost Army" },
+      { "id": "12-10", "name": "Out of the Oven" },
+      { "id": "12-10 free", "name": "Oberia Support" },
+      { "id": "12-11", "name": "Iblis' Analysis" },
+      { "id": "12-12", "name": "V-Day!" },
+      { "id": "12-13", "name": "Welcome, Welcome!" },
+      { "id": "12-13 free", "name": "Attack Their Caravans!" },
+      { "id": "12-14", "name": "Chain Reaction" },
+      { "id": "12-15", "name": "Leave it to Fate" },
+      { "id": "12-15 free", "name": "Attack their Villages!" },
+      { "id": "12-16", "name": "Pet Peeves" },
+      { "id": "12-17", "name": "Winds of Change" }
+    ]
+  },
+  {
+    "chapter": "13",
+    "name": "Chapter 13: Masters Don't Lose",
+    "stages": [
+      { "id": "13-2", "name": "No.1 Blademaster" },
+      { "id": "13-3", "name": "Stalemate" },
+      { "id": "13-4", "name": "The Elder" },
+      { "id": "13-5", "name": "Master Procrastinator" },
+      { "id": "13-6", "name": "Slayer Delayer" },
+      { "id": "13-7", "name": "Offerings of War" },
+      { "id": "13-7 free", "name": "Wasteland Creatures" },
+      { "id": "13-8", "name": "Battle Formation" },
+      { "id": "13-9", "name": "ATTACK!!!" },
+      { "id": "13-10", "name": "Pride & Arrogance" },
+      { "id": "13-11", "name": "Blademasters & Demons" },
+      { "id": "13-12", "name": "Face-Off" },
+      { "id": "13-13", "name": "Playtime" },
+      { "id": "13-13 free", "name": "Hidden Treasure" },
+      { "id": "13-14", "name": "The Day of the Battle" },
+      { "id": "13-15", "name": "Make the Date" },
+      { "id": "13-16", "name": "Battlefield Clash" },
+      { "id": "13-17", "name": "Nothing Lasts Forever" },
+      { "id": "13-17 free", "name": "Ceremonial Lands" },
+      { "id": "13-18", "name": "Victorious Ambush" },
+      { "id": "13-19", "name": "Hope & Despair" }
+    ]
+  },
+  {
+    "chapter": "14",
+    "name": "Chapter 14: Goodnight, Isorathe",
+    "stages": [
+      { "id": "14-2", "name": "Warning" },
+      { "id": "14-3", "name": "Bait" },
+      { "id": "14-4", "name": "City Walls" },
+      { "id": "14-5", "name": "Quick Attack" },
+      { "id": "14-6", "name": "Fate" },
+      { "id": "14-7", "name": "Enemy at the Gates" },
+      { "id": "14-7 free", "name": "Snake Pit" },
+      { "id": "14-8", "name": "Ritsuki's Will" },
+      { "id": "14-9", "name": "Going All Out" },
+      { "id": "14-10", "name": "Dead Meat" },
+      { "id": "14-11", "name": "Risky Business" },
+      { "id": "14-12", "name": "Chaos" },
+      { "id": "14-12 free", "name": "Sealed Library" },
+      { "id": "14-13", "name": "Ninjitsu" },
+      { "id": "14-14", "name": "Abandon Faith" },
+      { "id": "14-15", "name": "Struggle" },
+      { "id": "14-16", "name": "Belief" },
+      { "id": "14-17", "name": "Goodnight, Princess" },
+      { "id": "14-17 free", "name": "Nest of Vipers" },
+      { "id": "14-18", "name": "Ritsuki's Choice" },
+      { "id": "14-19", "name": "Friendship & Loyalty" }
+    ]
+  },
+  {
+    "chapter": "15",
+    "name": "Chapter 15: Heavenly Justice",
+    "stages": [
+      { "id": "15-2", "name": "Prayer and Miracle" },
+      { "id": "15-2 free", "name": "Slime Hunting Ground" },
+      { "id": "15-3", "name": "Angelic Force!!" },
+      { "id": "15-4", "name": "Turn of the Tide" },
+      { "id": "15-5", "name": "Containment" },
+      { "id": "15-6", "name": "Unexpected Guest" },
+      { "id": "15-6 free", "name": "Electrical Test Center" },
+      { "id": "15-7", "name": "Drastic Change" },
+      { "id": "15-8", "name": "Courage to Retreat" },
+      { "id": "15-9", "name": "Responsibility" },
+      { "id": "15-9 free", "name": "Vine's Morning" },
+      { "id": "15-10", "name": "Executing Tactics" },
+      { "id": "15-11", "name": "War of Attrition" },
+      { "id": "15-12", "name": "A Pile of Mud" },
+      { "id": "15-12 free", "name": "Tentacle Lab" },
+      { "id": "15-13", "name": "Mighty Investigation" },
+      { "id": "15-14", "name": "Power of Faith" },
+      { "id": "15-15", "name": "Fishing" },
+      { "id": "15-15 free", "name": "Pervert and Dust" },
+      { "id": "15-16", "name": "Road to Success" },
+      { "id": "15-17", "name": "End of an Era" }
+    ]
+  }
 ]
