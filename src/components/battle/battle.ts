@@ -122,7 +122,11 @@ function processSkill(
     switch (s.type) {
       case SkillActionType.ADDSKILL:
         if (s.skill) {
-          target.extraSkill.push({ ...s.skill });
+          if (s.condition === SkillCondition.BATTLE_BEGIN) {
+            target.skillSet.passive.push({ ...s.skill });
+          } else {
+            target.extraSkill.push({ ...s.skill });
+          }
         }
         break;
       case SkillEffectType.ATTACK_POWER:
@@ -1076,22 +1080,22 @@ export const Battle = (setupData: BattleSetupData) => ({
             s.duration--;
           }
           if (s.duration === 0) {
-            if (s.type === SkillActionType.SHIELD && s.value) {
-              c.shield -= s.value;
+            switch (s.type) {
+              case SkillActionType.SHIELD:
+                if (s.value) {
+                  c.shield -= s.value;
+                }
+              case SkillActionType.TAUNT:
+                c.isTaunt = false;
+              case SkillActionType.PARALYSIS:
+                c.isParalysis = false;
+              case SkillActionType.SLEEP:
+                c.isSleep = false;
+              case SkillActionType.SILENCE:
+                c.isSilence = false;
+              default:
+                return false;
             }
-            if (s.type === SkillActionType.TAUNT) {
-              c.isTaunt = false;
-            }
-            if (s.type === SkillActionType.PARALYSIS) {
-              c.isParalysis = false;
-            }
-            if (s.type === SkillActionType.SLEEP) {
-              c.isSleep = false;
-            }
-            if (s.type === SkillActionType.SILENCE) {
-              c.isSilence = false;
-            }
-            return false;
           }
 
           return true;
