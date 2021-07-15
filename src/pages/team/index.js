@@ -120,10 +120,10 @@ const CharsBox = ({ chars }) => {
   return (
     <CharContainer>
       {chars.map(
-        (c) =>
+        (c, ind) =>
           c?.id && (
             <CharImg
-              key={c.id}
+              key={ind}
               name={`char_small_${c.id}`}
               alt={charString.name[c.id]}
             />
@@ -151,57 +151,106 @@ const EmptySlot = styled.div`
   overflow: hidden;
 `;
 
-const LocalTeamList = () => {
+const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
   const { pageString } = useLanguage();
 
   const { localTeams, actions } = useTeamData();
   const { newTeam, getTeam, selectTeam, pushTeam, deleteTeam } = actions;
 
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean);
+
+  const handleTeamClick = (team, ind) => (event) => {
+    if (isFromPlayer || isFromEnemies) {
+      // validate team
+      if (
+        team.some((c) => c.id && c.level.length === 0) ||
+        team.every((c) => !c.id)
+      ) {
+        event.preventDefault();
+        setSnackbarOpen(true);
+      }
+    } else {
+      selectTeam(ind);
+    }
+  };
+
   return (
-    <List>
-      <DataItem
-        component={LocalizedLink}
-        to="/team/build/"
-        button
-        key="new"
-        onClick={() => newTeam()}
-      >
-        <NewButton>
-          {NewIcon}
-          <span>{pageString.team.index.newComposition}</span>
-        </NewButton>
-      </DataItem>
-      {localTeams?.map((t, ind) => (
+    <>
+      <List>
         <DataItem
           component={LocalizedLink}
           to="/team/build/"
           button
-          key={ind}
-          onClick={() => selectTeam(ind)}
+          key="new"
+          onClick={() => newTeam()}
         >
-          <TitleText>{t.name}</TitleText>
-          <CharsBox chars={t.characters} />
-          <ListItemSecondaryAction>
-            <OperationButton
-              onClick={() => pushTeam(getTeam(ind))}
-              tooltipText={pageString.team.index.copyTooltip}
-              edge="end"
-              aria-label="copy-team"
-            >
-              {CopyIcon}
-            </OperationButton>
-            <OperationButton
-              onClick={() => deleteTeam(ind)}
-              tooltipText={pageString.team.index.deleteTooltip}
-              edge="end"
-              aria-label="delete-team"
-            >
-              {DeleteIcon}
-            </OperationButton>
-          </ListItemSecondaryAction>
+          <NewButton>
+            {NewIcon}
+            <span>{pageString.team.index.newComposition}</span>
+          </NewButton>
         </DataItem>
-      ))}
-    </List>
+        {localTeams?.map((t, ind) => {
+          let newLineups;
+          if (isFromPlayer || isFromEnemies) {
+            const team = t.characters
+              .filter((c) => c.id)
+              .map((c) => {
+                const { key, ...rest } = c;
+                return rest;
+              });
+            newLineups = isFromPlayer ? [team, lineups[1]] : [lineups[0], team];
+          }
+          return (
+            <DataItem
+              component={LocalizedLink}
+              to={isFromPlayer || isFromEnemies ? "/battle/" : "/team/build/"}
+              state={
+                isFromPlayer || isFromEnemies
+                  ? {
+                      lineups: newLineups,
+                      isFromPlayer,
+                      isFromEnemies,
+                    }
+                  : undefined
+              }
+              replace={isFromPlayer || isFromEnemies}
+              button
+              key={ind}
+              onClick={handleTeamClick(t.characters, ind)}
+            >
+              <TitleText>{t.name}</TitleText>
+              <CharsBox chars={t.characters} />
+              <ListItemSecondaryAction>
+                <OperationButton
+                  onClick={() => pushTeam(getTeam(ind))}
+                  tooltipText={pageString.team.index.copyTooltip}
+                  edge="end"
+                  aria-label="copy-team"
+                >
+                  {CopyIcon}
+                </OperationButton>
+                <OperationButton
+                  onClick={() => deleteTeam(ind)}
+                  tooltipText={pageString.team.index.deleteTooltip}
+                  edge="end"
+                  aria-label="delete-team"
+                >
+                  {DeleteIcon}
+                </OperationButton>
+              </ListItemSecondaryAction>
+            </DataItem>
+          );
+        })}
+      </List>
+      <Snackbar
+        open={isSnackbarOpen}
+        onClose={handleSnackbar(false)}
+        message={pageString.team.index.errorSelectSnackbar}
+        type="error"
+      />
+    </>
   );
 };
 
@@ -500,8 +549,9 @@ const StyledStageSelect = styled(StageSelect)`
   }
 `;
 
-const Team = () => {
+const Team = ({ location }) => {
   const { pageString } = useLanguage();
+  const { isFromPlayer, isFromEnemies } = location.state;
 
   return (
     <PageWrapper>
@@ -510,14 +560,25 @@ const Team = () => {
         description={pageString.team.index.helmet.description}
         path="/team/"
       />
-      <StyledHeader end={<SettingDropDown />} />
+      <StyledHeader
+        title={
+          isFromPlayer || isFromEnemies ? "Please select a team" : undefined
+        }
+        end={<SettingDropDown />}
+      />
       <StyledDivider />
       <TabPanel
         localStorageKey="team-list-tab"
-        layoutSwitcher={<Tabs />}
+        layoutSwitcher={!(isFromPlayer || isFromEnemies) && <Tabs />}
         items={[
-          { layout: "local", content: <LocalTeamList /> },
-          { layout: "cloud", content: <CloudTeamList /> },
+          {
+            layout: "local",
+            content: <LocalTeamList {...location.state} />,
+          },
+          {
+            layout: "cloud",
+            content: !(isFromPlayer || isFromEnemies) && <CloudTeamList />,
+          },
         ]}
         initLayoutIndex={0}
       />

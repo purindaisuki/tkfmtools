@@ -964,6 +964,7 @@
       "settingTooltip": "設定",
       "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
       "errorSnackbar": "本地無資料",
+      "errorSelectSnackbar": "隊伍格式錯誤",
       "tabs": {
         "local": "自己的",
         "cloud": "看大家的"

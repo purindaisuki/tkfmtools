@@ -21,6 +21,9 @@ const LogCell = ({
 );
 
 const TextWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: small;
 `;
 
@@ -43,7 +46,7 @@ const MoveLog = ({
   const toCharacter = moveLog.to.isEnemy
     ? G.lineups[moveLog.player === "0" ? "1" : "0"][moveLog.to.position]
     : G.lineups[moveLog.player][moveLog.to.position];
-
+  console.log(moveLog);
   return (
     <TableRow>
       <LogCell>
@@ -151,7 +154,7 @@ export const BattleLog = ({ G }: Props): JSX.Element => {
 };
 
 const TableWrapper = styled(Scrollable)`
-  max-height: 80vh;
+  max-height: calc(80vh - 2.7rem);
   overflow-x: hidden;
   overflow-y: auto;
 `;

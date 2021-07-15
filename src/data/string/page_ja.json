@@ -978,6 +978,7 @@
       "settingTooltip": "設定",
       "settingDescription": "最新のチーム分析データをデフォルトに設定",
       "errorSnackbar": "データがありません",
+      "errorSelectSnackbar": "Invalid team format",
       "tabs": {
         "local": "自分の編成",
         "cloud": "みんなの編成"
