@@ -2768,7 +2768,7 @@ export const data: Readonly<{
         star: 1,
         condition: SkillCondition.ULTIMATE,
         target: SkillTarget.SELF,
-        type: SkillActionType.CHANGE_CD,
+        type: SkillActionType.CHANGE_CURRENT_CD,
         value: -2,
         on: SkillOn.AFTER_ACTION,
         possibility: 0.5,

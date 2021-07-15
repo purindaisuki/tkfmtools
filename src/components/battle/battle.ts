@@ -78,18 +78,6 @@ function processSkill(
   s: ISkill | SkillEffect,
   logArr?: ILog[]
 ) {
-  if (
-    s.possibility &&
-    s.type !== SkillEffectType.PARALYZED &&
-    s.type !== SkillEffectType.SLEPT &&
-    s.type !== SkillEffectType.SILENCED
-  ) {
-    const r = ctx.random?.Number();
-    if (!r || r > s.possibility) {
-      return;
-    }
-  }
-
   let effect = { ...s, from: from.character.teamPosition } as SkillEffect;
 
   if (
@@ -104,6 +92,18 @@ function processSkill(
   }
 
   to.characters.forEach((target): boolean | void => {
+    if (
+      s.possibility &&
+      s.type !== SkillEffectType.PARALYZED &&
+      s.type !== SkillEffectType.SLEPT &&
+      s.type !== SkillEffectType.SILENCED
+    ) {
+      const r = ctx.random?.Number();
+      if (!r || r > s.possibility) {
+        return true;
+      }
+    }
+
     // check stackable
     const existEffect = target.effects.find((e) => sameEffect(e, effect));
     if (existEffect) {
