@@ -551,7 +551,6 @@ const StyledStageSelect = styled(StageSelect)`
 
 const Team = ({ location }) => {
   const { pageString } = useLanguage();
-  const { isFromPlayer, isFromEnemies } = location.state;
 
   return (
     <PageWrapper>
@@ -562,14 +561,20 @@ const Team = ({ location }) => {
       />
       <StyledHeader
         title={
-          isFromPlayer || isFromEnemies ? pageString.team.index.selectTeam : undefined
+          location.state?.isFromPlayer || location.state?.isFromEnemies
+            ? pageString.team.index.selectTeam
+            : undefined
         }
         end={<SettingDropDown />}
       />
       <StyledDivider />
       <TabPanel
         localStorageKey="team-list-tab"
-        layoutSwitcher={!(isFromPlayer || isFromEnemies) && <Tabs />}
+        layoutSwitcher={
+          !(location.state?.isFromPlayer || location.state?.isFromEnemies) && (
+            <Tabs />
+          )
+        }
         items={[
           {
             layout: "local",
@@ -577,7 +582,9 @@ const Team = ({ location }) => {
           },
           {
             layout: "cloud",
-            content: !(isFromPlayer || isFromEnemies) && <CloudTeamList />,
+            content: !(
+              location.state?.isFromPlayer || location.state?.isFromEnemies
+            ) && <CloudTeamList />,
           },
         ]}
         initLayoutIndex={0}
