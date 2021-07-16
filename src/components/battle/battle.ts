@@ -1127,5 +1127,9 @@ export const Battle = (setupData: BattleSetupData) => ({
     }
   },
   disableUndo: false,
-  ai: { enumerate: () => [] },
+  ai: {
+    enumerate: () => [],
+    iterations: setupData.iterations,
+    playoutDepth: setupData.playoutDepth,
+  },
 });

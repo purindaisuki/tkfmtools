@@ -970,7 +970,8 @@
         "cloud": "看大家的"
       },
       "author": "作者",
-      "allStage": "全部關卡"
+      "allStage": "全部關卡",
+      "selectTeam": "請選擇隊伍"
     },
     "build": {
       "name": "隊伍編成",
@@ -1013,6 +1014,7 @@
         "description": "提供遊戲內戰鬥模擬。"
       },
       "turn": "回合",
+      "calculating": "計算中...",
       "HP": "血量",
       "ATK": "攻擊",
       "shield": "護盾",
@@ -1033,6 +1035,15 @@
       "log": {
         "you": "己方",
         "enemy": "敵方"
+      },
+      "setting": {
+        "team": "己方隊伍",
+        "enemy": "敵方隊伍",
+        "bot": "敵方 AI",
+        "select": "選擇",
+        "scarecrow": "稻草人",
+        "groupLabel": "類型",
+        "labels": ["自動", "木樁", "MCTS"]
       }
     }
   },

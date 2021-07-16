@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface HeaderProps {
+interface HeaderProps {
   title: string;
   titleIcon?: HTMLElement;
   withHelp?: boolean;

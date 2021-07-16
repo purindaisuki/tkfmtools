@@ -562,7 +562,7 @@ const Team = ({ location }) => {
       />
       <StyledHeader
         title={
-          isFromPlayer || isFromEnemies ? "Please select a team" : undefined
+          isFromPlayer || isFromEnemies ? pageString.team.index.selectTeam : undefined
         }
         end={<SettingDropDown />}
       />

@@ -981,7 +981,8 @@
         "cloud": "다른 팀"
       },
       "author": "작성자",
-      "allStage": "모든 스테이지"
+      "allStage": "모든 스테이지",
+      "selectTeam": "Please select a team"
     },
     "build": {
       "name": "팀 편성",
@@ -1024,6 +1025,7 @@
         "description": "Simulate battle in TenkafuMA."
       },
       "turn": "Turn",
+      "calculating": "Calculating...",
       "HP": "HP",
       "ATK": "ATK",
       "shield": "Shield",
@@ -1044,6 +1046,15 @@
       "log": {
         "you": "You",
         "enemy": "Enemy"
+      },
+      "setting": {
+        "team": "Team",
+        "enemy": "Enemy",
+        "bot": "Enemy AI",
+        "select": "Select",
+        "scarecrow": "Scarecrow",
+        "groupLabel": "Type",
+        "labels": ["Auto", "Do nothing", "MCTS"]
       }
     }
   },

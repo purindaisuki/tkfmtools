@@ -989,7 +989,8 @@
         "cloud": "Others"
       },
       "author": "Author",
-      "allStage": "All stages"
+      "allStage": "All stages",
+      "selectTeam": "Please select a team"
     },
     "build": {
       "name": "Team compositions",
@@ -1032,6 +1033,7 @@
         "description": "Simulate battle in TenkafuMA."
       },
       "turn": "Turn",
+      "calculating": "Calculating...",
       "HP": "HP",
       "ATK": "ATK",
       "shield": "Shield",
@@ -1052,6 +1054,15 @@
       "log": {
         "you": "You",
         "enemy": "Enemy"
+      },
+      "setting": {
+        "team": "Team",
+        "enemy": "Enemy",
+        "bot": "Enemy AI",
+        "select": "Select",
+        "scarecrow": "Scarecrow",
+        "groupLabel": "Type",
+        "labels": ["Auto", "Do nothing", "MCTS"]
       }
     }
   },

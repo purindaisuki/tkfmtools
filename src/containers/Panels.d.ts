@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface PanelsProps {
+interface PanelsProps {
   panelsWidth: [string, string];
   horizontal?: boolean;
 }

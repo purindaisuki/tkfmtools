@@ -13,6 +13,7 @@ export class CustomMCTSBot extends MCTSBot {
     // allow to set ai objectives and settings
     super({
       ...opts,
+      ...opts.game.ai,
       enumerate: (G: IGameState, ctx: Ctx) => {
         let moves = [];
         const lineup = G.lineups[ctx.currentPlayer];
@@ -68,8 +69,6 @@ export class CustomMCTSBot extends MCTSBot {
           weight: -1,
         },
       }),
-      iterations: 200,
-      playoutDepth: 35,
     });
   }
 }

@@ -73,4 +73,6 @@ export interface ILog {
 
 export type BattleSetupData = {
   lineups: [CharacterStats[], CharacterStats[] | TestCharacterStats[]];
+  iterations?: number;
+  playoutDepth?: number;
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PageProps } from "gatsby";
 import styled from "styled-components";
-import { Tab, Tabs } from "@material-ui/core";
+import { CircularProgress, Tab, Tabs } from "@material-ui/core";
 import { Ctx } from "boardgame.io";
 import { BoardProps, Client as BgioClient } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
@@ -31,6 +31,7 @@ import {
 } from "components/icon";
 import { BattleSetupData, IGameState } from "types/battle";
 import { CharacterStats } from "types/characters";
+import useLocalStorage from "hooks/useLocalStorage";
 
 const scarecrow = {
   id: "scarecrow",
@@ -68,21 +69,22 @@ const tabIcons = [NoteIcon, SettingIcon, HelpIcon];
 
 const InfoTabs = ({
   G,
-  settingHandlers,
+  settingProps,
 }: {
   G: IGameState;
-} & { settingHandlers: IGameSetupProps }): JSX.Element => {
+} & { settingProps: IGameSetupProps }): JSX.Element => {
   const { pageString }: any = useLanguage();
-  const [value, setValue] = useState(0);
+
+  const [tabIndex, setTabIndex] = useLocalStorage("battle-setting-tab", 0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    setTabIndex(newValue);
   };
 
   return (
     <>
       <StyledTabs
-        value={value}
+        value={tabIndex}
         onChange={handleChange}
         aria-label="Info tabs"
         variant="fullWidth"
@@ -93,16 +95,16 @@ const InfoTabs = ({
             id={`info-tab-${ind}`}
             aria-controls={`info-tabpanel-${ind}`}
             icon={tabIcons[ind]}
-            $selected={value === ind}
+            $selected={tabIndex === ind}
             key={ind}
           />
         ))}
       </StyledTabs>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={tabIndex} index={0}>
         <BattleLog G={G} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <BattleSettings {...settingHandlers} />
+      <TabPanel value={tabIndex} index={1}>
+        <BattleSettings {...settingProps} />
       </TabPanel>
     </>
   );
@@ -143,9 +145,9 @@ const Board = ({
   undo,
   redo,
   reset,
-  settingHandlers,
+  settingProps,
 }: BoardProps<IGameState> & {
-  settingHandlers: IGameSetupProps;
+  settingProps: IGameSetupProps;
 }): JSX.Element => {
   const { pageString }: any = useLanguage();
 
@@ -176,6 +178,14 @@ const Board = ({
           title={`${pageString.battle.index.turn}: ${Math.floor(
             (ctx.turn + 1) / 2
           )}`}
+          end={
+            ctx.currentPlayer === "1" && (
+              <SpinnerWrapper>
+                <span>{pageString.battle.index.calculating}</span>
+                <StyledSpinner size={24} thickness={6} disableShrink />
+              </SpinnerWrapper>
+            )
+          }
         />
         <LineupsContainer>
           {Object.entries(G.lineups).map(([player, lineup]) => (
@@ -232,7 +242,7 @@ const Board = ({
           </IconButton>
         </ControlPanel>
       </div>
-      <InfoTabs G={G} settingHandlers={settingHandlers} />
+      <InfoTabs G={G} settingProps={settingProps} />
     </Panels>
   );
 };
@@ -257,13 +267,20 @@ const ControlPanel = styled.div`
   flex-wrap: wrap;
   margin-bottom: -0.5rem;
 `;
+const SpinnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+`;
+const StyledSpinner = styled(CircularProgress)`
+  && {
+    margin: 0 0.5rem;
+    color: ${(props) => props.theme.colors.secondary};
+  }
+`;
 
 const wrapper = () =>
-  BgioClient<
-    IGameState,
-    BoardProps & { settingHandlers: IGameSetupProps },
-    Ctx
-  >({
+  BgioClient<IGameState, BoardProps & { settingProps: IGameSetupProps }, Ctx>({
     game: Battle({ lineups: [[], []] }),
     board: Board,
   });
@@ -274,15 +291,19 @@ const bots = [AutoBot, DoNothingBot, CustomMCTSBot];
 
 const BattlePage = ({ location }: PageProps): JSX.Element => {
   const { pageString }: any = useLanguage();
+
   const lineupsFromTeam = (
     (location.state as any)?.lineups
       ? (location.state as any).lineups
       : [[], [scarecrow]]
   ) as [CharacterStats[], CharacterStats[]];
-
   const [lineups, setLineups] =
     useState<[CharacterStats[], CharacterStats[]]>(lineupsFromTeam);
-  const [botIndex, setBotIndex] = useState(0);
+
+  const [botIndex, setBotIndex] = useLocalStorage("bot-type", 0);
+  const [iterations, setIterations] = useState(100);
+  const [playoutDepth, setPlayoutDepth] = useState(30);
+
   const [Client, setClient] = useState<ClientType | undefined>();
 
   const initBattle = (setupData: BattleSetupData, botIndex: number) => {
@@ -300,15 +321,27 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
       })
     );
   };
-  const settingHandlers = {
+
+  const settingProps = {
     lineups,
+    botIndex,
+    iterations,
+    playoutDepth,
     handleSelectScarecrow: () => setLineups([lineups[0], [scarecrow]]),
-    handleBotChange: (ind: number) => setBotIndex(ind),
+    handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBotIndex(
+        pageString.battle.index.setting.labels.indexOf(event.target.value)
+      );
+    },
+    handleIterationsChange: (newValue: number | number[]) => () =>
+      setIterations(newValue as number),
+    handlePlayoutDepthChange: (newValue: number | number[]) => () =>
+      setPlayoutDepth(newValue as number),
   };
 
   useEffect(() => {
-    initBattle({ lineups }, botIndex);
-  }, [lineups, botIndex]);
+    initBattle({ lineups, iterations, playoutDepth }, botIndex);
+  }, [lineups, iterations, playoutDepth, botIndex]);
 
   return (
     <>
@@ -317,7 +350,7 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
         description={pageString.battle.index.helmet.description}
         path="/battle/"
       />
-      {Client && <Client playerID="0" settingHandlers={settingHandlers} />}
+      {Client && <Client playerID="0" settingProps={settingProps} />}
     </>
   );
 };
