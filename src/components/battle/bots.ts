@@ -1,11 +1,7 @@
 import type { Ctx } from "boardgame.io";
 import { MCTSBot } from "boardgame.io/ai";
 import { IGameState } from "types/battle";
-import {
-  getEnemies,
-  validateSelected,
-  validateTarget,
-} from "components/battle";
+import { getEnemies, canSelect, canTarget } from "components/battle";
 import { BattleCharacter as Character } from "types/battle";
 
 const findAllIndices = (
@@ -30,16 +26,16 @@ export class CustomMCTSBot extends MCTSBot {
         const lineup = G.lineups[ctx.currentPlayer];
         const enemies = getEnemies(G, ctx);
         const selected = findAllIndices(lineup, (ind) =>
-          validateSelected(G, ctx, ind)
+          canSelect(G, ctx, ind)
         );
-        const canTarget = findAllIndices(enemies, (ind) =>
-          validateTarget(G, ctx, ind)
+        const targets = findAllIndices(enemies, (ind) =>
+          canTarget(G, ctx, ind)
         );
 
         for (let s of selected) {
           let canUltimate = lineup[s].currentCD === 0 && !lineup[s].isSilence;
 
-          for (let t of canTarget) {
+          for (let t of targets) {
             moves.push({
               move: "attack",
               args: [s, t],
@@ -91,15 +87,13 @@ export class AutoBot extends MCTSBot {
         const lineup = G.lineups[ctx.currentPlayer];
         const enemies = getEnemies(G, ctx);
 
-        const selected = lineup.findIndex((_, ind) =>
-          validateSelected(G, ctx, ind)
-        );
+        const selected = lineup.findIndex((_, ind) => canSelect(G, ctx, ind));
         if (selected === -1) {
           return [{ move: "doNothing", args: [] }];
         }
 
-        const canTarget = enemies
-          .filter((_, ind) => validateTarget(G, ctx, ind))
+        const targets = enemies
+          .filter((_, ind) => canTarget(G, ctx, ind))
           .reduce((max, c) => {
             if (!max[0] || c.HP / c.maxHP > max[0].HP / max[0].maxHP) {
               return [c];
@@ -110,15 +104,15 @@ export class AutoBot extends MCTSBot {
             return max;
           }, [] as Character[]);
 
-        if (canTarget.length === 0) {
+        if (targets.length === 0) {
           return [{ move: "doNothing", args: [] }];
         }
         let targeted: number;
-        if (canTarget.length === 1) {
-          targeted = canTarget[0].teamPosition;
+        if (targets.length === 1) {
+          targeted = targets[0].teamPosition;
         } else {
-          const r = ctx.random?.Die(canTarget.length);
-          targeted = canTarget[r !== undefined ? r : 0].teamPosition;
+          const r = ctx.random?.Die(targets.length);
+          targeted = targets[r !== undefined ? r : 0].teamPosition;
         }
 
         return [

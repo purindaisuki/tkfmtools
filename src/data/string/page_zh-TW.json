@@ -1027,6 +1027,7 @@
       "sleep": "睡眠",
       "paralysis": "麻痺",
       "details": "詳細",
+      "invalidMove": "無效的動作",
       "controlPanel": {
         "attack": "普通攻擊",
         "ultimate": "必殺技",

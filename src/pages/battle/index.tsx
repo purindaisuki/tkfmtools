@@ -13,6 +13,11 @@ import {
   BattleHelp,
   BattleLog,
   BattleSettings,
+  canAttack,
+  canGuard,
+  canSelect,
+  canTarget,
+  canUltimate,
   CharacterButton,
   IGameSetupProps,
   SelectTeamButton,
@@ -34,6 +39,7 @@ import {
 import { BattleSetupData, IGameState } from "types/battle";
 import { CharacterStats } from "types/characters";
 import useLocalStorage from "hooks/useLocalStorage";
+import Snackbar from "components/Snackbar";
 
 const scarecrow = {
   id: "scarecrow",
@@ -156,31 +162,73 @@ const Board = ({
   handleReset: () => void;
 }): JSX.Element => {
   const { pageString }: any = useLanguage();
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleCharacterClick = (ind: number, player: string) => () => {
-    if (ctx.currentPlayer === player) {
-      moves.switchMember(ind);
-    } else {
-      moves.switchTarget(ind);
+    if (ctx.turn > 0 && !ctx.gameover) {
+      if (ctx.currentPlayer === player) {
+        if (canSelect(G, ctx, ind)) {
+          moves.switchMember(ind);
+          return;
+        }
+      } else if (canTarget(G, ctx, ind)) {
+        moves.switchTarget(ind);
+        return;
+      }
     }
+    setSnackbarOpen(true);
   };
 
   const handleAttackClick = () => {
-    if (ctx.turn > 0 && !ctx.gameover) {
+    if (
+      ctx.turn > 0 &&
+      !ctx.gameover &&
+      canAttack(G, ctx, G.selected, G.target)
+    ) {
       moves.attack(G.selected, G.target);
+      return;
     }
+    setSnackbarOpen(true);
   };
 
   const handleUltimateClick = () => {
-    if (ctx.turn > 0 && !ctx.gameover) {
+    if (
+      ctx.turn > 0 &&
+      !ctx.gameover &&
+      canUltimate(G, ctx, G.selected, G.target)
+    ) {
       moves.ultimate(G.selected, G.target);
+      return;
     }
+    setSnackbarOpen(true);
   };
 
   const handleGuardClick = () => {
-    if (ctx.turn > 0 && !ctx.gameover) {
+    if (ctx.turn > 0 && !ctx.gameover && canGuard(G, ctx, G.selected)) {
       moves.guard(G.selected);
+      return;
     }
+    setSnackbarOpen(true);
+  };
+
+  const handleUndoClick = () => {
+    if (ctx.turn > 0 && !ctx.gameover) {
+      undo();
+      return;
+    }
+    setSnackbarOpen(true);
+  };
+
+  const handleRedoClick = () => {
+    if (ctx.turn > 0 && !ctx.gameover) {
+      redo();
+      return;
+    }
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -255,13 +303,13 @@ const Board = ({
             {GuardIcon}
           </IconButton>
           <IconButton
-            onClick={() => undo()}
+            onClick={handleUndoClick}
             tooltipText={pageString.battle.index.controlPanel.undo}
           >
             {UndoIcon}
           </IconButton>
           <IconButton
-            onClick={() => redo()}
+            onClick={handleRedoClick}
             tooltipText={pageString.battle.index.controlPanel.redo}
           >
             {RedoIcon}
@@ -273,6 +321,12 @@ const Board = ({
             {ResetIcon}
           </IconButton>
         </ControlPanel>
+        <Snackbar
+          open={isSnackbarOpen}
+          onClose={handleSnackbarClose}
+          message={pageString.battle.index.invalidMove}
+          type="error"
+        />
       </MainPanel>
       <InfoTabs G={G} settingProps={settingProps} />
     </Panels>

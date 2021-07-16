@@ -1038,6 +1038,7 @@
       "sleep": "Sleep",
       "paralysis": "Paralysis",
       "details": "Details",
+      "invalidMove": "Invalid move",
       "controlPanel": {
         "attack": "Normal attack",
         "ultimate": "Ultimate skill",

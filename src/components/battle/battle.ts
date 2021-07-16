@@ -39,7 +39,11 @@ function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
 export const getEnemies = (G: IGameState, ctx: Ctx) =>
   G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
 
-export const validateSelected = (G: IGameState, ctx: Ctx, selected: number) => {
+export const canSelect = (
+  G: IGameState,
+  ctx: Ctx,
+  selected: number
+): boolean => {
   const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
 
   return !(
@@ -52,11 +56,80 @@ export const validateSelected = (G: IGameState, ctx: Ctx, selected: number) => {
   );
 };
 
-export const validateTarget = (G: IGameState, ctx: Ctx, target: number) => {
+export const canTarget = (G: IGameState, ctx: Ctx, target: number) => {
   const enemies = getEnemies(G, ctx);
   const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
 
   return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
+};
+
+export const canAttack = (
+  G: IGameState,
+  ctx: Ctx,
+  selected: number,
+  target: number
+): boolean => {
+  if (!canSelect(G, ctx, selected)) {
+    return false;
+  }
+
+  if (!canTarget(G, ctx, target)) {
+    return false;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  return !(
+    self.isMoved ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isBroken
+  );
+};
+
+export const canUltimate = (
+  G: IGameState,
+  ctx: Ctx,
+  selected: number,
+  target: number
+): boolean => {
+  if (!canSelect(G, ctx, selected)) {
+    return false;
+  }
+
+  if (!canTarget(G, ctx, target)) {
+    return false;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  return !(
+    self.isMoved ||
+    self.currentCD > 0 ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isSilence ||
+    self.isBroken
+  );
+};
+
+export const canGuard = (
+  G: IGameState,
+  ctx: Ctx,
+  selected: number
+): boolean => {
+  if (!canSelect(G, ctx, selected)) {
+    return false;
+  }
+
+  const self = G.lineups[ctx.currentPlayer][G.selected];
+  return !(
+    self.isMoved ||
+    self.isDead ||
+    self.isParalysis ||
+    self.isSleep ||
+    self.isBroken
+  );
 };
 
 function processSkill(
@@ -212,25 +285,26 @@ function processSkill(
           },
         } as ILog;
 
-        target.effects = target.effects.filter((e) => {
-          if (e.type === SkillActionType.SHIELD) {
-            if (!e.duration || !e.value) {
-              return false;
-            }
+        if (s.type !== SkillActionType.REAL_ATTACK) {
+          target.effects = target.effects.filter((e) => {
+            if (e.type === SkillActionType.SHIELD) {
+              if (!e.duration || !e.value) {
+                return false;
+              }
 
-            if (restDamage >= e.value) {
-              restDamage -= e.value;
-              target.shield -= e.value;
-              return false;
-            } else {
-              e.value -= restDamage;
-              target.shield -= restDamage;
-              restDamage = 0;
+              if (restDamage >= e.value) {
+                restDamage -= e.value;
+                target.shield -= e.value;
+                return false;
+              } else {
+                e.value -= restDamage;
+                target.shield -= restDamage;
+                restDamage = 0;
+              }
             }
-          }
-          return true;
-        });
-
+            return true;
+          });
+        }
         target.HP -= restDamage;
         target.HP = target.HP < 0 ? 0 : target.HP;
         target.isDead = target.HP === 0;
@@ -747,29 +821,14 @@ function attack(
   target: number
 ): IGameState | typeof INVALID_MOVE | void {
   // mutate G directly is ok since it's handled by the library under the hood
-  if (validateSelected(G, ctx, selected)) {
+  if (canAttack(G, ctx, selected, target)) {
     G.selected = selected;
-  } else {
-    return INVALID_MOVE;
-  }
-
-  if (validateTarget(G, ctx, target)) {
     G.target = target;
   } else {
     return INVALID_MOVE;
   }
 
   const self = G.lineups[ctx.currentPlayer][G.selected];
-  if (
-    self.isMoved ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isBroken
-  ) {
-    return INVALID_MOVE;
-  }
-
   const log: ILog[] = [];
   let skills = [...self.skillSet.normalAttack, ...self.extraSkill];
   if (self.teamPosition === 0) {
@@ -799,30 +858,14 @@ function ultimate(
   selected: number,
   target: number
 ): IGameState | typeof INVALID_MOVE | void {
-  if (validateSelected(G, ctx, selected)) {
+  if (canUltimate(G, ctx, selected, target)) {
     G.selected = selected;
-  } else {
-    return INVALID_MOVE;
-  }
-
-  if (validateTarget(G, ctx, target)) {
     G.target = target;
   } else {
     return INVALID_MOVE;
   }
 
   const self = G.lineups[ctx.currentPlayer][G.selected];
-  if (
-    self.isMoved ||
-    self.currentCD > 0 ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isSilence ||
-    self.isBroken
-  ) {
-    return INVALID_MOVE;
-  }
   self.currentCD = self.CD;
 
   const log: ILog[] = [];
@@ -856,20 +899,9 @@ function guard(
   ctx: Ctx,
   selected: number
 ): IGameState | typeof INVALID_MOVE | void {
-  if (validateSelected(G, ctx, selected)) {
+  if (canGuard(G, ctx, selected)) {
     G.selected = selected;
   } else {
-    return INVALID_MOVE;
-  }
-
-  const self = G.lineups[ctx.currentPlayer][G.selected];
-  if (
-    self.isMoved ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isBroken
-  ) {
     return INVALID_MOVE;
   }
 
@@ -895,19 +927,11 @@ function switchMember(
   ctx: Ctx,
   ind: number
 ): IGameState | typeof INVALID_MOVE | void {
-  const selected = G.lineups[ctx.currentPlayer][ind];
-  if (
-    !selected ||
-    selected.isMoved ||
-    selected.isDead ||
-    selected.isParalysis ||
-    selected.isSleep ||
-    selected.isBroken
-  ) {
+  if (canSelect(G, ctx, ind)) {
+    G.selected = ind;
+  } else {
     return INVALID_MOVE;
   }
-
-  G.selected = ind;
 }
 
 function switchTarget(
@@ -915,17 +939,11 @@ function switchTarget(
   ctx: Ctx,
   ind: number
 ): IGameState | typeof INVALID_MOVE | void {
-  const enemies = getEnemies(G, ctx);
-  if (enemies.some((c) => c.isTaunt && !c.isDead)) {
+  if (canTarget(G, ctx, ind)) {
+    G.target = ind;
+  } else {
     return INVALID_MOVE;
   }
-
-  const target = enemies[ind];
-  if (!target || target.isDead) {
-    return INVALID_MOVE;
-  }
-
-  G.target = ind;
 }
 
 export const Battle = (setupData: BattleSetupData) => ({
