@@ -14,6 +14,7 @@ export interface IGameSetupProps {
   iterations: number;
   playoutDepth: number;
   handleSelectScarecrow: () => void;
+  handleSelectScarecrows: () => void;
   handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleIterationsChange: (newValue: number) => () => void;
   handlePlayoutDepthChange: (newValue: number) => () => void;
@@ -58,6 +59,7 @@ export const BattleSettings = ({
   iterations,
   playoutDepth,
   handleSelectScarecrow,
+  handleSelectScarecrows,
   handleBotChange,
   handleIterationsChange,
   handlePlayoutDepthChange,
@@ -77,6 +79,9 @@ export const BattleSettings = ({
       <SettingHeader title={pageString.battle.index.setting.enemy} />
       <StyledButton onClick={handleSelectScarecrow}>
         {pageString.battle.index.setting.scarecrow}
+      </StyledButton>
+      <StyledButton onClick={handleSelectScarecrows}>
+        {`${pageString.battle.index.setting.scarecrow} ×5`}
       </StyledButton>
       <SelectTeamButton
         isFromPlayer={false}

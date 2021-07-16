@@ -446,6 +446,8 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
     iterations,
     playoutDepth,
     handleSelectScarecrow: () => setLineups([lineups[0], [scarecrow]]),
+    handleSelectScarecrows: () =>
+      setLineups([lineups[0], Array(5).fill(scarecrow)]),
     handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       setBotIndex(
         pageString.battle.index.setting.labels.indexOf(event.target.value)
