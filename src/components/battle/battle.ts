@@ -995,6 +995,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     switchTarget,
     doNothing: (G: IGameState, ctx: Ctx) => {
       G.lineups[ctx.currentPlayer][G.selected].isMoved = true;
+      endMove(G, ctx);
     },
   },
   turn: {
