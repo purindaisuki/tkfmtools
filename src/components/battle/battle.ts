@@ -39,17 +39,6 @@ function sameEffect<T extends SkillEffect>(e1: T, e2: T) {
 export const getEnemies = (G: IGameState, ctx: Ctx) =>
   G.lineups[ctx.currentPlayer === "0" ? "1" : "0"];
 
-export const movable = (
-  lineup: Character[],
-  condition: (ind: number) => boolean
-) =>
-  lineup.reduce((res, _, i) => {
-    if (condition(i)) {
-      res.push(i);
-    }
-    return res;
-  }, [] as number[]);
-
 export const validateSelected = (G: IGameState, ctx: Ctx, selected: number) => {
   const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
 
@@ -92,6 +81,10 @@ function processSkill(
   }
 
   to.characters.forEach((target): boolean | void => {
+    if (target.isDead) {
+      return true;
+    }
+
     if (
       s.possibility &&
       s.type !== SkillEffectType.PARALYZED &&
@@ -1123,7 +1116,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     );
 
     if (ctx.turn > 100 || isAllDead[0] || isAllDead[1]) {
-      return { fail: isAllDead[0], winner: ctx.currentPlayer };
+      return { winner: isAllDead[1] ? "0" : "1" };
     }
   },
   disableUndo: false,

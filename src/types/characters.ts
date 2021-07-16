@@ -24,6 +24,7 @@ export enum CharacterAttribute {
   WIND,
   LIGHT,
   DARK,
+  NONE,
 }
 
 export enum CharacterPosition {

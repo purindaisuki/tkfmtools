@@ -95,7 +95,9 @@ export const BattleSettings = ({
       </StyledRadioGroup>
       {botIndex === 2 && (
         <div>
-          <div id="iterations-slider">iterations</div>
+          <TextWrapper id="iterations-slider">
+            {pageString.battle.index.setting.iterations}
+          </TextWrapper>
           <StyledSlider
             value={iterationsValue}
             max={1000}
@@ -107,7 +109,9 @@ export const BattleSettings = ({
             onChangeCommitted={handleIterationsChange(iterationsValue)}
             aria-labelledby="iterations-slider"
           />
-          <div id="playoutDepth-slider">playout depth</div>
+          <TextWrapper id="playoutDepth-slider">
+            {pageString.battle.index.setting.playoutDepth}
+          </TextWrapper>
           <StyledSlider
             value={playoutDepthValue}
             max={100}
@@ -164,6 +168,10 @@ const StyledRadioGroup = styled(RadioGroup)`
     font-size: 0.875rem;
   }
 `;
+const TextWrapper = styled.div`
+  font-size: 0.875rem;
+`;
+
 const StyledSlider = styled(Slider)`
   && {
     color: ${(props) => props.theme.colors.secondary};

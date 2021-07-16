@@ -10,6 +10,7 @@ import { useLanguage } from "containers/LanguageProvider";
 import Head from "components/Head";
 import {
   Battle,
+  BattleHelp,
   BattleLog,
   BattleSettings,
   CharacterButton,
@@ -36,7 +37,7 @@ import useLocalStorage from "hooks/useLocalStorage";
 
 const scarecrow = {
   id: "scarecrow",
-  attribute: 0,
+  attribute: 5,
   ATK: 0,
   HP: 5000000000,
   level: 60,
@@ -107,6 +108,9 @@ const InfoTabs = ({
       <TabPanel value={tabIndex} index={1}>
         <BattleSettings {...settingProps} />
       </TabPanel>
+      <TabPanel value={tabIndex} index={2}>
+        <BattleHelp />
+      </TabPanel>
     </>
   );
 };
@@ -162,26 +166,40 @@ const Board = ({
   };
 
   const handleAttackClick = () => {
-    moves.attack(G.selected, G.target);
+    if (ctx.turn > 0 && !ctx.gameover) {
+      moves.attack(G.selected, G.target);
+    }
   };
 
   const handleUltimateClick = () => {
-    moves.ultimate(G.selected, G.target);
+    if (ctx.turn > 0 && !ctx.gameover) {
+      moves.ultimate(G.selected, G.target);
+    }
   };
 
   const handleGuardClick = () => {
-    moves.guard(G.selected);
+    if (ctx.turn > 0 && !ctx.gameover) {
+      moves.guard(G.selected);
+    }
   };
 
   return (
     <Panels panelsWidth={["37.5%", "62.5%"]}>
-      <div>
+      <MainPanel $isBattleOver={ctx.turn > 0 && ctx.gameover !== undefined}>
+        <div>
+          {
+            pageString.battle.index[
+              ctx.gameover?.winner === "0" ? "win" : "lose"
+            ]
+          }
+        </div>
         <StyledHeader
           title={`${pageString.battle.index.turn}: ${Math.floor(
             (ctx.turn + 1) / 2
           )}`}
           end={
-            ctx.currentPlayer === "1" && (
+            ctx.currentPlayer === "1" &&
+            !ctx.gameover && (
               <SpinnerWrapper>
                 <span>{pageString.battle.index.calculating}</span>
                 <StyledSpinner size={24} thickness={6} disableShrink />
@@ -238,13 +256,13 @@ const Board = ({
           </IconButton>
           <IconButton
             onClick={() => undo()}
-            tooltipText={pageString.battle.index.controlPanel.redo}
+            tooltipText={pageString.battle.index.controlPanel.undo}
           >
             {UndoIcon}
           </IconButton>
           <IconButton
             onClick={() => redo()}
-            tooltipText={pageString.battle.index.controlPanel.undo}
+            tooltipText={pageString.battle.index.controlPanel.redo}
           >
             {RedoIcon}
           </IconButton>
@@ -255,7 +273,7 @@ const Board = ({
             {ResetIcon}
           </IconButton>
         </ControlPanel>
-      </div>
+      </MainPanel>
       <InfoTabs G={G} settingProps={settingProps} />
     </Panels>
   );
@@ -271,11 +289,28 @@ const LineupsContainer = styled.div`
     margin-right: 1rem;
   }
 `;
+const MainPanel = styled.div<{ $isBattleOver: boolean }>`
+  position: relative;
+  > div:first-child {
+    display: ${(props) => (props.$isBattleOver ? "flex" : "none")};
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    top: -1rem;
+    left: -1rem;
+    width: calc(100% + 2rem);
+    height: calc(100% + 1.5rem);
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+`;
 const StyledHeader = styled(Header)`
   margin-bottom: 0.5rem;
   border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
 `;
 const ControlPanel = styled.div`
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

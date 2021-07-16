@@ -5,7 +5,6 @@ import { useLanguage } from "containers/LanguageProvider";
 import Table from "components/Table";
 import { HPBar } from ".";
 import { IGameState, ILog } from "types/battle";
-import skillString from "data/string/skill_zh-TW.json";
 import Scrollable from "containers/Scrollable";
 
 const LogCell = ({
@@ -34,7 +33,7 @@ const MoveLog = ({
   G: IGameState;
   moveLog: ILog;
 }): JSX.Element => {
-  const { charString }: any = useLanguage();
+  const { charString, skillString }: any = useLanguage();
   const fromCharacter =
     G.lineups[
       moveLog.from.isEnemy
@@ -46,7 +45,7 @@ const MoveLog = ({
   const toCharacter = moveLog.to.isEnemy
     ? G.lineups[moveLog.player === "0" ? "1" : "0"][moveLog.to.position]
     : G.lineups[moveLog.player][moveLog.to.position];
-  console.log(moveLog);
+
   return (
     <TableRow>
       <LogCell>
@@ -63,9 +62,9 @@ const MoveLog = ({
         </CharacterTextWrapper>
       </LogCell>
       <LogCell>{"⭢"}</LogCell>
-      <LogCell>{`${moveLog.value ? moveLog.value : ""} (${skillString.type[
-        moveLog.type
-      ].replace(" {value}", "")})`}</LogCell>
+      <LogCell>{`${moveLog.value ? moveLog.value : ""} (${(
+        skillString.type[moveLog.type] as string
+      ).replace(" {value}", "")})`}</LogCell>
       {moveLog.value || moveLog.from.position !== moveLog.to.position ? (
         <>
           <LogCell>{"⭢"}</LogCell>
@@ -84,7 +83,7 @@ const MoveLog = ({
           </LogCell>
           <LogCell>
             <HPTextWrapper>{`${moveLog.to.HP}${
-              moveLog.to.shield ? `(${moveLog.to.shield})` : ""
+              moveLog.to.shield ? ` (${moveLog.to.shield})` : ""
             }`}</HPTextWrapper>
             <LogHPBar
               HPPercent={(moveLog.to.HP / toCharacter.maxHP) * 100}

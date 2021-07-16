@@ -8,6 +8,7 @@ import {
   SkillOn,
 } from "types/skills";
 import { BattleCharacter as Character } from "types/battle";
+import { CharacterAttribute } from "types/characters";
 
 export function calcAttack(character: Character) {
   let ATKEffectPercentage = 1;
@@ -70,6 +71,8 @@ export function calcDamage(
   let dealtDamageEffect = 1;
   let attackDamageEffect = 1;
   let attributeEffect =
+    from.attribute === CharacterAttribute.NONE ||
+    to.attribute === CharacterAttribute.NONE ||
     action.on === SkillOn.TURN_END ||
     action.type === SkillActionType.REAL_ATTACK
       ? 1
