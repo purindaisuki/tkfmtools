@@ -14,6 +14,7 @@ import {
   BattleSettings,
   CharacterButton,
   IGameSetupProps,
+  SelectTeamButton,
 } from "components/battle";
 import { AutoBot, CustomMCTSBot, DoNothingBot } from "components/battle/bots";
 import Header from "components/Header";
@@ -190,16 +191,28 @@ const Board = ({
         <LineupsContainer>
           {Object.entries(G.lineups).map(([player, lineup]) => (
             <div key={player}>
-              {lineup.map((c, ind) => (
-                <CharacterButton
-                  key={ind}
-                  G={G}
-                  ctx={ctx}
-                  player={player}
-                  character={c}
-                  onClick={handleCharacterClick(ind, player)}
+              {lineup.length === 0 ? (
+                <StyledSelectTeamButton
+                  isFromPlayer={player === "0"}
+                  lineups={settingProps.lineups}
+                  text={
+                    pageString.battle.index[
+                      player === "0" ? "selectYourTeam" : "selectEnemies"
+                    ]
+                  }
                 />
-              ))}
+              ) : (
+                lineup.map((c, ind) => (
+                  <CharacterButton
+                    key={ind}
+                    G={G}
+                    ctx={ctx}
+                    player={player}
+                    character={c}
+                    onClick={handleCharacterClick(ind, player)}
+                  />
+                ))
+              )}
             </div>
           ))}
         </LineupsContainer>
@@ -249,7 +262,7 @@ const Board = ({
 
 const LineupsContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   @media screen and (min-width: 1001px) {
     min-height: calc(80vh - 5.3rem);
   }
@@ -276,6 +289,13 @@ const StyledSpinner = styled(CircularProgress)`
   && {
     margin: 0 0.5rem;
     color: ${(props) => props.theme.colors.secondary};
+  }
+`;
+const StyledSelectTeamButton = styled(SelectTeamButton)`
+  &&&& {
+    height: 100%;
+    padding: 1rem;
+    font-size: 1rem;
   }
 `;
 

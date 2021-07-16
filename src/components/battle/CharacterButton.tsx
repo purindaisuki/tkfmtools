@@ -130,8 +130,14 @@ const CharacterStateList = ({
 
 const ListWrapper = styled.div`
   margin-left: 0.3rem;
+  white-space: nowrap;
   > span:first-child {
     margin-left: 0;
+  }
+  @media screen and (max-width: 600px) {
+    > span:nth-child(n + 4) {
+      display: none;
+    }
   }
 `;
 const TextWrapper = styled.span`
@@ -167,6 +173,11 @@ const CharacterStatsWrapper = styled.div`
   > span {
     margin-left: 0.3rem;
     font-size: 0.9rem;
+  }
+  @media screen and (max-width: 600px) {
+    > span:first-child {
+      display: none;
+    }
   }
 `;
 
@@ -210,7 +221,8 @@ const StyledHPBar = styled.div<{
 }>`
   position: relative;
   height: 0.5rem;
-  width: 8rem;
+  width: 100%;
+  max-width: 8rem;
   margin-left: 0.2rem;
   margin-bottom: 0.5rem;
   background-color: ${(props) => props.theme.colors.dropdownHover};
@@ -243,6 +255,9 @@ const StyledHPBar = styled.div<{
     width: ${(props) => props.$shield}%;
     height: 60%;
     background-color: ${(props) => props.theme.chart.colors[1]};
+  }
+  @media screen and (max-width: 600px) {
+    margin-top: 1rem;
   }
 `;
 
@@ -333,7 +348,10 @@ export const CharacterAvatar = styled(ImageSupplier)<{
   z-index: 1;
   width: 4rem;
   height: 4rem;
-  margin-left: 0.4rem;
+  @media screen and (max-width: 600px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
   border: 0.2rem solid
     ${(props) =>
       props.$grayscale
@@ -366,10 +384,13 @@ const StyledCharacterMuiButton = styled(Button)<{
             return props.theme.colors.shadow;
         }
       }};
-    background-color: rgba(0, 0, 0, 0.05);
+    ${(props) =>
+      props.$state === CharacterButtonState.NOT_MOVABLE
+        ? "background-color: rgba(0, 0, 0, 0.1);"
+        : ""}
     filter: brightness(
       ${(props) =>
-        props.$state === CharacterButtonState.NOT_MOVABLE ? 0.7 : 1}
+      props.$state === CharacterButtonState.NOT_MOVABLE ? 0.7 : 1}
     );
   }
 `;

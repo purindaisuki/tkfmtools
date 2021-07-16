@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ImageSupplierProps {
+export interface ImageSupplierProps {
   name: string;
   isBackground?: boolean;
   grayscale?: boolean;

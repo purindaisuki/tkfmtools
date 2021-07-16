@@ -1,6 +1,6 @@
 import React from "react";
 
-interface IconButtonProps {
+export interface IconButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   tooltipText?: string;
   dataHtml2canvasIgnore?: boolean;

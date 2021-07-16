@@ -1,6 +1,6 @@
 import React from "react";
 
-interface LocalizedLinkProps {
+export interface LocalizedLinkProps {
   to: string;
   disableLocale?: boolean;
   decoration?: boolean;

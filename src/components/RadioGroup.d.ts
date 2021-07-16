@@ -1,6 +1,6 @@
 import React from "react";
 
-interface RadioGroupProps {
+export interface RadioGroupProps {
   label: string;
   value: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,7 +8,7 @@ interface RadioGroupProps {
 
 declare const RadioGroup: React.FC<RadioGroupProps>;
 
-interface RadioProps {
+export interface RadioProps {
   label: string;
   value: string;
 }

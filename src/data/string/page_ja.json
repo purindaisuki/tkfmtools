@@ -1029,6 +1029,8 @@
       },
       "turn": "Turn",
       "calculating": "Calculating...",
+      "selectYourTeam": "Select your team",
+      "selectEnemies": "Select enemy",
       "HP": "HP",
       "ATK": "ATK",
       "shield": "Shield",

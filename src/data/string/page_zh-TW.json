@@ -1015,6 +1015,8 @@
       },
       "turn": "回合",
       "calculating": "計算中...",
+      "selectYourTeam": "選擇己方隊伍",
+      "selectEnemies": "選擇敵方隊伍",
       "HP": "血量",
       "ATK": "攻擊",
       "shield": "護盾",

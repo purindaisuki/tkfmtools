@@ -110,9 +110,16 @@ const CharacterTextWrapper = styled.span<{ $isEnemy: boolean }>`
 const HPTextWrapper = styled(TextWrapper)`
   margin-left: 0.3rem;
   font-size: 0.75rem;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 const LogHPBar = styled(HPBar)`
   width: 6.5rem;
+  margin-top: 0;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 type Props = {
@@ -157,6 +164,11 @@ const TableWrapper = styled(Scrollable)`
   max-height: calc(80vh - 2.7rem);
   overflow-x: hidden;
   overflow-y: auto;
+  tr {
+    > td:nth-child(even) {
+      padding: 0;
+    }
+  }
 `;
 const TurnTextWrapper = styled(TextWrapper)`
   font-weight: bold;

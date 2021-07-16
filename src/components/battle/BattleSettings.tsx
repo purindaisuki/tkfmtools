@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, ButtonProps, Slider } from "@material-ui/core";
 import Header from "components/Header";
@@ -18,6 +18,32 @@ export interface IGameSetupProps {
   handleIterationsChange: (newValue: number) => () => void;
   handlePlayoutDepthChange: (newValue: number) => () => void;
 }
+
+export const SelectTeamButton = ({
+  isFromPlayer,
+  lineups,
+  text,
+  className,
+}: {
+  isFromPlayer: boolean;
+  lineups: [CharacterStats[], CharacterStats[]];
+  text: string;
+} & React.HTMLAttributes<HTMLDivElement>): JSX.Element => (
+  <StyledButton
+    component={StyledLink}
+    to="/team/"
+    state={{
+      isFromPlayer: isFromPlayer,
+      isFromEnemies: !isFromPlayer,
+      lineups,
+    }}
+    replace
+    className={className}
+  >
+    {text}
+    {OpenIcon}
+  </StyledButton>
+);
 
 type LinkProps = {
   component: React.ReactNode;
@@ -43,28 +69,20 @@ export const BattleSettings = ({
   return (
     <div>
       <SettingHeader title={pageString.battle.index.setting.team} />
-      <StyledButton
-        component={StyledLink}
-        to="/team/"
-        state={{ isFromPlayer: true, lineups }}
-        replace
-      >
-        {pageString.battle.index.setting.select}
-        {OpenIcon}
-      </StyledButton>
+      <SelectTeamButton
+        isFromPlayer={true}
+        lineups={lineups}
+        text={pageString.battle.index.setting.select}
+      />
       <SettingHeader title={pageString.battle.index.setting.enemy} />
       <StyledButton onClick={handleSelectScarecrow}>
         {pageString.battle.index.setting.scarecrow}
       </StyledButton>
-      <StyledButton
-        component={StyledLink}
-        to="/team/"
-        state={{ isFromEnemies: true, lineups }}
-        replace
-      >
-        {pageString.battle.index.setting.select}
-        {OpenIcon}
-      </StyledButton>
+      <SelectTeamButton
+        isFromPlayer={false}
+        lineups={lineups}
+        text={pageString.battle.index.setting.select}
+      />
       <SettingHeader title={pageString.battle.index.setting.bot} />
       <StyledRadioGroup
         label={pageString.battle.index.setting.groupLabel}
