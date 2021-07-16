@@ -145,10 +145,11 @@ const Board = ({
   moves,
   undo,
   redo,
-  reset,
   settingProps,
+  handleReset,
 }: BoardProps<IGameState> & {
   settingProps: IGameSetupProps;
+  handleReset: () => void;
 }): JSX.Element => {
   const { pageString }: any = useLanguage();
 
@@ -248,7 +249,7 @@ const Board = ({
             {RedoIcon}
           </IconButton>
           <IconButton
-            onClick={() => reset()}
+            onClick={handleReset}
             tooltipText={pageString.battle.index.controlPanel.reset}
           >
             {ResetIcon}
@@ -300,7 +301,13 @@ const StyledSelectTeamButton = styled(SelectTeamButton)`
 `;
 
 const wrapper = () =>
-  BgioClient<IGameState, BoardProps & { settingProps: IGameSetupProps }, Ctx>({
+  BgioClient<
+    IGameState,
+    BoardProps & { settingProps: IGameSetupProps } & {
+      handleReset: () => void;
+    },
+    Ctx
+  >({
     game: Battle({ lineups: [[], []] }),
     board: Board,
   });
@@ -323,6 +330,8 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
   const [botIndex, setBotIndex] = useLocalStorage("bot-type", 0);
   const [iterations, setIterations] = useState(100);
   const [playoutDepth, setPlayoutDepth] = useState(30);
+  // re-initial by useEffect rather than use the reset function of the library due to its issue
+  const [resetFlag, setResetFlag] = useState(false);
 
   const [Client, setClient] = useState<ClientType | undefined>();
 
@@ -361,7 +370,7 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
 
   useEffect(() => {
     initBattle({ lineups, iterations, playoutDepth }, botIndex);
-  }, [lineups, iterations, playoutDepth, botIndex]);
+  }, [lineups, iterations, playoutDepth, botIndex, resetFlag]);
 
   return (
     <>
@@ -370,7 +379,13 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
         description={pageString.battle.index.helmet.description}
         path="/battle/"
       />
-      {Client && <Client playerID="0" settingProps={settingProps} />}
+      {Client && (
+        <Client
+          playerID="0"
+          settingProps={settingProps}
+          handleReset={() => setResetFlag(!resetFlag)}
+        />
+      )}
     </>
   );
 };
