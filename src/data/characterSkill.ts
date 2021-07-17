@@ -3023,7 +3023,7 @@ export const data: Readonly<{
       potentialPassive(12, SkillEffectType.IMMUNE_SILENCE),
     ],
   },
-  "237": {
+  "236": {
     leader: [
       {
         condition: SkillCondition.BATTLE_BEGIN,
