@@ -93,6 +93,16 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.7.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "Battle Simulator",
+              "description": "Added battle simulator."
+            }
+          ]
+        },
+        {
           "version": "v1.6.7",
           "content": [
             {

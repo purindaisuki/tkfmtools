@@ -93,6 +93,16 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.7.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "戰鬥模擬",
+              "description": "新增戰鬥模擬。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.7",
           "content": [
             {

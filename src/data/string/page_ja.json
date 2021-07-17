@@ -93,6 +93,16 @@
       "change": "変更",
       "content": [
         {
+          "version": "v1.7.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "戦闘シミュレーター",
+              "description": "戦闘シミュレート機能を追加。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.7",
           "content": [
             {
@@ -985,7 +995,7 @@
       },
       "author": "作成者",
       "allStage": "全てのステージ",
-      "selectTeam": "Please select a team"
+      "selectTeam": "チームを選択"
     },
     "build": {
       "name": "チーム編成",
@@ -1022,9 +1032,9 @@
   },
   "battle": {
     "index": {
-      "name": "Battle Simulator",
+      "name": "戦闘シミュレーター",
       "helmet": {
-        "title": "TenkafuMA Toolbox — Battle simulator",
+        "title": "天下布魔道具箱—戦闘シミュレーター",
         "description": "Simulate battle in TenkafuMA."
       },
       "turn": "Turn",
@@ -1116,7 +1126,7 @@
         "title": "チーム編成"
       },
       {
-        "title": "Battle"
+        "title": "戦闘"
       },
       {
         "title": "外部リンク",
