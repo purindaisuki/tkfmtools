@@ -385,7 +385,6 @@ const StyledSelectTeamButton = styled(SelectTeamButton)`
   &&&& {
     height: 100%;
     padding: 1rem;
-    font-size: 1rem;
   }
 `;
 
