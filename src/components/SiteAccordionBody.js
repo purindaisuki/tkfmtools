@@ -353,6 +353,13 @@ export const SiteLicense = () => {
               "https://github.com/paulcollett/react-masonry-css/blob/master/LICENSE",
             license: "MIT License",
           },
+          {
+            titleLink: "https://github.com/boardgameio/boardgame.io",
+            title: "boardgame.io",
+            licenseLink:
+              "https://github.com/boardgameio/boardgame.io/blob/main/LICENSE",
+            license: "MIT License",
+          },
         ].map((item, ind) => (
           <li key={ind}>
             <LicenseItemHeader
