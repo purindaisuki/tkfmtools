@@ -21,9 +21,10 @@ const PotentialInput = ({
 
   const { potentialType } = charMap[charId];
 
-  const buffs = potentialData.type[potentialType][mainValue - 1].pattern.map(
-    (p) => potentialData.itemMap[p].type
-  );
+  const potentialStage = potentialData.type[potentialType][mainValue - 1];
+  const buffs = potentialStage
+    ? potentialStage.pattern.map((p) => potentialData.itemMap[p].type)
+    : Array(6).fill("ATK");
 
   return (
     <Wrapper className={className}>
