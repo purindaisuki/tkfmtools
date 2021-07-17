@@ -19,6 +19,12 @@
 
 ![screenshot](static/readme_feature_3.png)
 
+**戰鬥模擬**
+
+模擬遊戲內戰鬥流程
+
+![screenshot](static/readme_feature_9.png)
+
 **全境徵才篩選器**
 
 利用標籤篩選角色，並找出有利的組合。
@@ -57,6 +63,7 @@
 * [react-helmet](https://github.com/nfl/react-helmet)
 * [nanoid](https://github.com/ai/nanoid)
 * [html2canvas](https://github.com/niklasvh/html2canvas)
+* [boardgame.io](https://github.com/boardgameio/boardgame.io)
 
 ## 意見回饋
 歡迎以下列連結回報 Bug、建議、使用心得等。
