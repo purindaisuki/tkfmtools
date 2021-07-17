@@ -1,27 +1,27 @@
 {
-    "zh-TW": {
-        "default": true,
-        "path": "",
-        "locale": "zh-TW",
-        "siteLanguage": "zh-TW",
-        "ogLocale": "zh_TW"
-    },
-    "en": {
-        "path": "en",
-        "locale": "en-US",
-        "siteLanguage": "en",
-        "ogLocale": "en_US"
-    },
-    "ja": {
-        "path": "ja",
-        "locale": "ja-JP",
-        "siteLanguage": "ja",
-        "ogLocale": "ja_JP"
-    },
-    "ko": {
-        "path": "ko",
-        "locale": "ko-KR",
-        "siteLanguage": "ko",
-        "ogLocale": "ko_KR"
-    }
+  "zh-TW": {
+    "default": true,
+    "path": "",
+    "locale": "zh-TW",
+    "siteLanguage": "zh-TW",
+    "ogLocale": "zh_TW"
+  },
+  "en": {
+    "path": "en",
+    "locale": "en-US",
+    "siteLanguage": "en",
+    "ogLocale": "en_US"
+  },
+  "ja": {
+    "path": "ja",
+    "locale": "ja-JP",
+    "siteLanguage": "ja",
+    "ogLocale": "ja_JP"
+  },
+  "ko": {
+    "path": "ko",
+    "locale": "ko-KR",
+    "siteLanguage": "ko",
+    "ogLocale": "ko_KR"
+  }
 }

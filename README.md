@@ -21,6 +21,12 @@ Record and share your team compositions for stages.
 
 ![screenshot](static/readme_feature_3.png)
 
+**Battle simulator**
+
+Simulate the process of battle in the game.
+
+![screenshot](static/readme_feature_9.png)
+
 **Recruitment filter**
 
 Find promising tag combinations giving high rarity characters.
@@ -59,6 +65,7 @@ Show character recruitment tags and items drops.
 * [react-helmet](https://github.com/nfl/react-helmet)
 * [nanoid](https://github.com/ai/nanoid)
 * [html2canvas](https://github.com/niklasvh/html2canvas)
+* [boardgame.io](https://github.com/boardgameio/boardgame.io)
 
 ## Feedback
 Bug reports, suggestion and thoughts are always welcome. Please contact me via:

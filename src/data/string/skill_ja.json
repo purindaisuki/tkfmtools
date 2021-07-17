@@ -1,0 +1,80 @@
+{
+  "type": [
+    "Normal attack",
+    "Ultimate",
+    "Counterstrike",
+    "Extra damage",
+    "Real damage",
+    "Guard",
+    "Heal",
+    "Shield {value}",
+    "Remove guard stance",
+    "Max CD {verb} {value}",
+    "Change current CD",
+    "Freeze current CD",
+    "Change max HP",
+    "Clear abnormal states",
+    "Clear attack debuffs",
+    "Clear sustain debuffs",
+    "Taunt",
+    "Sleep",
+    "Silence",
+    "Paralysis",
+    "Add skill",
+    ["Increase attack power by {value}", "Decrease attack power by {value}"],
+    [
+      "Increase normal attack damage by {value}",
+      "Deecrease normal attack damage by {value}"
+    ],
+    [
+      "Increase ultimate damage by {value}",
+      "Decrease ultimate damage by {value}"
+    ],
+    ["Deal {value} more damage", "Deal {value} less damage"],
+    [
+      "Take {value} more damage from {attribute} attribute",
+      "Take {value} less damage from {attribute} attribute"
+    ],
+    [
+      "Increase attribute buffs/debuffs by {value}",
+      "Decrease attribute buffs/debuffs by {value}"
+    ],
+    ["Take {value} more damage", "Take {value} less damage"],
+    [
+      "Take {value} more damage for normal attack",
+      "Take {value} less damage for normal attack"
+    ],
+    [
+      "Take {value} more damage for ultimate",
+      "Take {value} less damage for ultimate"
+    ],
+    [
+      "Take {value} more damage while in Guard Stance",
+      "Take {value} less damage while in Guard Stance"
+    ],
+    ["Increase Recover Rate by {value}", "Decrease Recover Rate by {value}"],
+    ["Increase Recovered Rate by {value}", "Derease Recovered Rate by {value}"],
+    ["Shield increases {value}", "Shield decreases {value}"],
+    ["increase shielded by {value}", "Decrease shielded by {value}"],
+    "CD changes Immunity",
+    "Sleep Immunity",
+    "Silence Immunity",
+    "Paralysis Immunity",
+    [
+      "Increase the chance of being slept by {value}",
+      "Decrease the chance of being slept by {value}"
+    ],
+    [
+      "Increase the chance of being silenced by {value}",
+      "Increase the chance of being silenced by {value}"
+    ],
+    [
+      "Increase the chance of being paralyzed by {value}",
+      "Decrease the chance of being paralyzed by {value}"
+    ]
+  ],
+  "endTurnEffect": {
+    "damage": ["Take {value} damage every turn"],
+    "heal": ["Recover {value} HP every turn"]
+  }
+}

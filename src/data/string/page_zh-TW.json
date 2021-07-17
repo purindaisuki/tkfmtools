@@ -93,6 +93,16 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.7.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "戰鬥模擬",
+              "description": "新增戰鬥模擬。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.7",
           "content": [
             {
@@ -964,12 +974,14 @@
       "settingTooltip": "設定",
       "settingDescription": "導入最新一筆隊伍分析資料為角色預設",
       "errorSnackbar": "本地無資料",
+      "errorSelectSnackbar": "隊伍格式錯誤",
       "tabs": {
         "local": "自己的",
         "cloud": "看大家的"
       },
       "author": "作者",
-      "allStage": "全部關卡"
+      "allStage": "全部關卡",
+      "selectTeam": "請選擇隊伍"
     },
     "build": {
       "name": "隊伍編成",
@@ -1004,6 +1016,73 @@
       ]
     }
   },
+  "battle": {
+    "index": {
+      "name": "戰鬥模擬",
+      "helmet": {
+        "title": "天下布魔工具箱 — 戰鬥模擬",
+        "description": "提供遊戲內戰鬥模擬。"
+      },
+      "turn": "回合",
+      "calculating": "計算中...",
+      "selectYourTeam": "選擇己方隊伍",
+      "selectEnemies": "選擇敵方隊伍",
+      "win": "獲勝！真不愧是凱薩大人",
+      "lose": "我竟然會...",
+      "HP": "血量",
+      "ATK": "攻擊",
+      "shield": "護盾",
+      "effect": "效果",
+      "taunt": "嘲諷",
+      "silence": "沉默",
+      "sleep": "睡眠",
+      "paralysis": "麻痺",
+      "details": "詳細",
+      "invalidMove": "無效的動作",
+      "controlPanel": {
+        "attack": "普通攻擊",
+        "ultimate": "必殺技",
+        "guard": "防禦",
+        "undo": "上一步",
+        "redo": "下一步",
+        "reset": "重置"
+      },
+      "tabs": ["戰鬥日誌", "設定", "幫助"],
+      "log": {
+        "you": "己方",
+        "enemy": "敵方"
+      },
+      "setting": {
+        "team": "己方隊伍",
+        "enemy": "敵方隊伍",
+        "bot": "敵方 AI",
+        "select": "選擇",
+        "scarecrow": "稻草人",
+        "groupLabel": "類型",
+        "labels": ["自動", "木樁", "MCTS"],
+        "iterations": "迭代次數",
+        "playoutDepth": "遊玩深度"
+      },
+      "help": [
+        { "title": "介紹", "content": ["模擬遊戲內戰鬥流程。"] },
+        {
+          "title": "說明",
+          "content": [
+            "戰鬥：點選角色以選擇行動角色或目標，並點擊按鈕進行動作；可點選上／下一步取消／重做動作，但僅限於該回合之動作。",
+            "角色狀態：點選角色框右上角可查看角色詳細狀態。",
+            "設定：可由設定介面設置己方與敵方隊伍，以及敵方 AI，敵方隊伍之稻草人沒有任何技能，只會防禦或不做任何動作，你大概會想用它來測傷害。",
+            "AI：AI 有三種模式：自動、木樁、MCTS。自動與遊戲內敵方一般關卡 AI 相同，優先攻擊血量百分比最高者；木樁則是不做任何動作；MCTS 則會盡可能獲勝，迭代次數與遊玩深度會影響其表現，愈高表現可能會越好，但需要更久時間處理。"
+          ]
+        },
+        {
+          "title": "注意事項",
+          "content": [
+            "所有戰鬥機制、流程並不保證與遊戲內一致，實際情況以遊戲內為主。"
+          ]
+        }
+      ]
+    }
+  },
   "navbar": {
     "menuButton": "選單",
     "languageSwitchTooltip": "語言",
@@ -1028,6 +1107,9 @@
       },
       {
         "title": "隊伍編成"
+      },
+      {
+        "title": "戰鬥"
       },
       {
         "title": "外部連結",

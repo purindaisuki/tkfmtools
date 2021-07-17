@@ -93,6 +93,16 @@
       "change": "変更",
       "content": [
         {
+          "version": "v1.7.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "戦闘シミュレーター",
+              "description": "戦闘シミュレート機能を追加。"
+            }
+          ]
+        },
+        {
           "version": "v1.6.7",
           "content": [
             {
@@ -978,12 +988,14 @@
       "settingTooltip": "設定",
       "settingDescription": "最新のチーム分析データをデフォルトに設定",
       "errorSnackbar": "データがありません",
+      "errorSelectSnackbar": "Invalid team format",
       "tabs": {
         "local": "自分の編成",
         "cloud": "みんなの編成"
       },
       "author": "作成者",
-      "allStage": "全てのステージ"
+      "allStage": "全てのステージ",
+      "selectTeam": "チームを選択"
     },
     "build": {
       "name": "チーム編成",
@@ -1018,6 +1030,76 @@
       ]
     }
   },
+  "battle": {
+    "index": {
+      "name": "戦闘シミュレーター",
+      "helmet": {
+        "title": "天下布魔道具箱—戦闘シミュレーター",
+        "description": "Simulate battle in TenkafuMA."
+      },
+      "turn": "Turn",
+      "calculating": "Calculating...",
+      "selectYourTeam": "Select your team",
+      "selectEnemies": "Select enemy",
+      "win": "Victory!",
+      "lose": "Defeated...",
+      "HP": "HP",
+      "ATK": "ATK",
+      "shield": "Shield",
+      "effect": "Effect",
+      "taunt": "Taunt",
+      "silence": "Silence",
+      "sleep": "Sleep",
+      "paralysis": "Paralysis",
+      "details": "Details",
+      "invalidMove": "Invalid move",
+      "controlPanel": {
+        "attack": "Normal attack",
+        "ultimate": "Ultimate skill",
+        "guard": "Guard",
+        "undo": "Undo",
+        "redo": "Redo",
+        "reset": "Reset"
+      },
+      "tabs": ["Log", "Setting", "Help"],
+      "log": {
+        "you": "You",
+        "enemy": "Enemy"
+      },
+      "setting": {
+        "team": "Team",
+        "enemy": "Enemy",
+        "bot": "Enemy AI",
+        "select": "Select",
+        "scarecrow": "Scarecrow",
+        "groupLabel": "Type",
+        "labels": ["Auto", "DoNothing", "MCTS"],
+        "iterations": "iterations",
+        "playoutDepth": "playout depth"
+      },
+      "help": [
+        {
+          "title": "Introduction",
+          "content": ["Simulate the battle in the game."]
+        },
+        {
+          "title": "How-to",
+          "content": [
+            "Battle: Select the character to move or the target by clicking it then click the buttons below to do actions. Undo and redo are available but limited in the same turn.",
+            "Character status: Click the ... in the upper right corner to check details of the character.",
+            "Setting: You can set your team, enemy and enemy AI in the setting tab. Scarecrow is a character without any skills and can either guard or do nothing. You might want to use it to test damage.",
+            "AI: There are three modes of AI: Auto, DoNothing and MCTS. Auto is the same with the normal stage in the game, targeting at the one with highest HP%. DoNothing literally does nothing. MCTS will try its best to win the battle and the iterations and playout depth affect its performance. The larger they are, the better results it might give and obviously the longer it takes."
+          ]
+        },
+        {
+          "title": "Caveat",
+          "content": [
+            "The battle system including values, mechanics and so on can not completely reflect and represent the actual gameplay."
+          ]
+        }
+      ]
+    }
+  },
   "navbar": {
     "menuButton": "メニュー",
     "languageSwitchTooltip": "言語",
@@ -1042,6 +1124,9 @@
       },
       {
         "title": "チーム編成"
+      },
+      {
+        "title": "戦闘"
       },
       {
         "title": "外部リンク",

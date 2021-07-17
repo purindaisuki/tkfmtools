@@ -12,10 +12,7 @@
       "else": [21],
       "available": true
     },
-    "stats": {
-      "initATK": 920,
-      "initHP": 3476.8
-    },
+    "stats": { "initATK": 920, "initHP": 3476.8 },
     "potentialType": 0
   },
   {
@@ -31,10 +28,7 @@
       "else": [23, 29, 32],
       "available": true
     },
-    "stats": {
-      "initATK": 640,
-      "initHP": 5000
-    },
+    "stats": { "initATK": 640, "initHP": 5000 },
     "potentialType": 1
   },
   {
@@ -50,10 +44,7 @@
       "else": [21, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 1000,
-      "initHP": 3200
-    },
+    "stats": { "initATK": 1000, "initHP": 3200 },
     "potentialType": 0
   },
   {
@@ -69,10 +60,7 @@
       "else": [26, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 880,
-      "initHP": 3635.2
-    },
+    "stats": { "initATK": 880, "initHP": 3635.2 },
     "potentialType": 2
   },
   {
@@ -88,10 +76,7 @@
       "else": [21, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 849.6,
-      "initHP": 3763.2
-    },
+    "stats": { "initATK": 849.6, "initHP": 3763.2 },
     "potentialType": 0
   },
   {
@@ -107,10 +92,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 899.2,
-      "initHP": 3555.2
-    },
+    "stats": { "initATK": 899.2, "initHP": 3555.2 },
     "potentialType": 2
   },
   {
@@ -126,10 +108,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 940.8,
-      "initHP": 3395.2
-    },
+    "stats": { "initATK": 940.8, "initHP": 3395.2 },
     "potentialType": 0
   },
   {
@@ -145,10 +124,7 @@
       "else": [21, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 944,
-      "initHP": 3388.8
-    },
+    "stats": { "initATK": 944, "initHP": 3388.8 },
     "potentialType": 0
   },
   {
@@ -164,10 +140,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 939.2,
-      "initHP": 3403.2
-    },
+    "stats": { "initATK": 939.2, "initHP": 3403.2 },
     "potentialType": 0
   },
   {
@@ -183,10 +156,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 726.4,
-      "initHP": 4400
-    },
+    "stats": { "initATK": 726.4, "initHP": 4400 },
     "potentialType": 2
   },
   {
@@ -202,10 +172,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 904,
-      "initHP": 3539.2
-    },
+    "stats": { "initATK": 904, "initHP": 3539.2 },
     "potentialType": 2
   },
   {
@@ -221,10 +188,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 580.8,
-      "initHP": 5499.2
-    },
+    "stats": { "initATK": 580.8, "initHP": 5499.2 },
     "potentialType": 1
   },
   {
@@ -240,10 +204,7 @@
       "else": [21, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 928,
-      "initHP": 3448
-    },
+    "stats": { "initATK": 928, "initHP": 3448 },
     "potentialType": 0
   },
   {
@@ -259,10 +220,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 995.2,
-      "initHP": 3544
-    },
+    "stats": { "initATK": 995.2, "initHP": 3544 },
     "potentialType": 0
   },
   {
@@ -278,10 +236,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 940.8,
-      "initHP": 3748.8
-    },
+    "stats": { "initATK": 940.8, "initHP": 3748.8 },
     "potentialType": 2
   },
   {
@@ -297,10 +252,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 947.2,
-      "initHP": 3720
-    },
+    "stats": { "initATK": 947.2, "initHP": 3720 },
     "potentialType": 0
   },
   {
@@ -316,10 +268,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 1008,
-      "initHP": 3499.2
-    },
+    "stats": { "initATK": 1008, "initHP": 3499.2 },
     "potentialType": 0
   },
   {
@@ -335,10 +284,7 @@
       "else": [],
       "available": true
     },
-    "stats": {
-      "initATK": 904,
-      "initHP": 3539.2
-    },
+    "stats": { "initATK": 904, "initHP": 3539.2 },
     "potentialType": 2
   },
   {
@@ -354,10 +300,7 @@
       "else": [26],
       "available": true
     },
-    "stats": {
-      "initATK": 896,
-      "initHP": 3571.2
-    },
+    "stats": { "initATK": 896, "initHP": 3571.2 },
     "potentialType": 0
   },
   {
@@ -373,10 +316,7 @@
       "else": [26],
       "available": true
     },
-    "stats": {
-      "initATK": 767.2,
-      "initHP": 3032.4
-    },
+    "stats": { "initATK": 767.2, "initHP": 3032.4 },
     "potentialType": 2
   },
   {
@@ -392,10 +332,7 @@
       "else": [22, 23, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 546,
-      "initHP": 4264.4
-    },
+    "stats": { "initATK": 546, "initHP": 4264.4 },
     "potentialType": 1
   },
   {
@@ -411,10 +348,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 750.4,
-      "initHP": 3101
-    },
+    "stats": { "initATK": 750.4, "initHP": 3101 },
     "potentialType": 2
   },
   {
@@ -430,10 +364,7 @@
       "else": [21, 28, 31],
       "available": true
     },
-    "stats": {
-      "initATK": 831.6,
-      "initHP": 2795.8
-    },
+    "stats": { "initATK": 831.6, "initHP": 2795.8 },
     "potentialType": 0
   },
   {
@@ -449,10 +380,7 @@
       "else": [27, 30],
       "available": true
     },
-    "stats": {
-      "initATK": 838.6,
-      "initHP": 2773.4
-    },
+    "stats": { "initATK": 838.6, "initHP": 2773.4 },
     "potentialType": 0
   },
   {
@@ -468,10 +396,7 @@
       "else": [25, 27],
       "available": true
     },
-    "stats": {
-      "initATK": 767.2,
-      "initHP": 3032.4
-    },
+    "stats": { "initATK": 767.2, "initHP": 3032.4 },
     "potentialType": 0
   },
   {
@@ -487,10 +412,7 @@
       "else": [21, 26],
       "available": true
     },
-    "stats": {
-      "initATK": 777,
-      "initHP": 2993.2
-    },
+    "stats": { "initATK": 777, "initHP": 2993.2 },
     "potentialType": 2
   },
   {
@@ -506,10 +428,7 @@
       "else": [26, 27, 28, 31],
       "available": true
     },
-    "stats": {
-      "initATK": 736.4,
-      "initHP": 3158.4
-    },
+    "stats": { "initATK": 736.4, "initHP": 3158.4 },
     "potentialType": 2
   },
   {
@@ -525,10 +444,7 @@
       "else": [22, 23, 24, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 534.8,
-      "initHP": 4349.8
-    },
+    "stats": { "initATK": 534.8, "initHP": 4349.8 },
     "potentialType": 1
   },
   {
@@ -544,10 +460,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 799.4,
-      "initHP": 2909.2
-    },
+    "stats": { "initATK": 799.4, "initHP": 2909.2 },
     "potentialType": 0
   },
   {
@@ -563,10 +476,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 684,
-      "initHP": 2374.8
-    },
+    "stats": { "initATK": 684, "initHP": 2374.8 },
     "potentialType": 3
   },
   {
@@ -582,10 +492,7 @@
       "else": [21],
       "available": true
     },
-    "stats": {
-      "initATK": 700.8,
-      "initHP": 2316
-    },
+    "stats": { "initATK": 700.8, "initHP": 2316 },
     "potentialType": 3
   },
   {
@@ -601,10 +508,7 @@
       "else": [21, 30, 31],
       "available": true
     },
-    "stats": {
-      "initATK": 535.2,
-      "initHP": 3034.8
-    },
+    "stats": { "initATK": 535.2, "initHP": 3034.8 },
     "potentialType": 3
   },
   {
@@ -620,10 +524,7 @@
       "else": [22, 23, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 464.4,
-      "initHP": 3490.8
-    },
+    "stats": { "initATK": 464.4, "initHP": 3490.8 },
     "potentialType": 3
   },
   {
@@ -639,10 +540,7 @@
       "else": [25],
       "available": true
     },
-    "stats": {
-      "initATK": 655.2,
-      "initHP": 2478
-    },
+    "stats": { "initATK": 655.2, "initHP": 2478 },
     "potentialType": 3
   },
   {
@@ -658,10 +556,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 626.4,
-      "initHP": 2590.8
-    },
+    "stats": { "initATK": 626.4, "initHP": 2590.8 },
     "potentialType": 3
   },
   {
@@ -677,10 +572,7 @@
       "else": [21, 30],
       "available": true
     },
-    "stats": {
-      "initATK": 703.2,
-      "initHP": 2307.6
-    },
+    "stats": { "initATK": 703.2, "initHP": 2307.6 },
     "potentialType": 3
   },
   {
@@ -696,10 +588,7 @@
       "else": [27],
       "available": true
     },
-    "stats": {
-      "initATK": 663.6,
-      "initHP": 2445.6
-    },
+    "stats": { "initATK": 663.6, "initHP": 2445.6 },
     "potentialType": 3
   },
   {
@@ -715,10 +604,7 @@
       "else": [22, 23],
       "available": true
     },
-    "stats": {
-      "initATK": 360,
-      "initHP": 2812
-    },
+    "stats": { "initATK": 360, "initHP": 2812 },
     "potentialType": 3
   },
   {
@@ -734,10 +620,7 @@
       "else": [21, 31],
       "available": true
     },
-    "stats": {
-      "initATK": 483,
-      "initHP": 2093
-    },
+    "stats": { "initATK": 483, "initHP": 2093 },
     "potentialType": 3
   },
   {
@@ -753,10 +636,7 @@
       "else": [22, 23],
       "available": true
     },
-    "stats": {
-      "initATK": 364,
-      "initHP": 2778
-    },
+    "stats": { "initATK": 364, "initHP": 2778 },
     "potentialType": 3
   },
   {
@@ -772,10 +652,7 @@
       "else": [21],
       "available": true
     },
-    "stats": {
-      "initATK": 555,
-      "initHP": 1821
-    },
+    "stats": { "initATK": 555, "initHP": 1821 },
     "potentialType": 3
   },
   {
@@ -791,10 +668,7 @@
       "else": [27],
       "available": true
     },
-    "stats": {
-      "initATK": 549,
-      "initHP": 1844
-    },
+    "stats": { "initATK": 549, "initHP": 1844 },
     "potentialType": 3
   },
   {
@@ -810,10 +684,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 368,
-      "initHP": 2745
-    },
+    "stats": { "initATK": 368, "initHP": 2745 },
     "potentialType": 3
   },
   {
@@ -829,10 +700,7 @@
       "else": [21],
       "available": true
     },
-    "stats": {
-      "initATK": 528,
-      "initHP": 1914
-    },
+    "stats": { "initATK": 528, "initHP": 1914 },
     "potentialType": 3
   },
   {
@@ -848,10 +716,7 @@
       "else": [21, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 495,
-      "initHP": 2045
-    },
+    "stats": { "initATK": 495, "initHP": 2045 },
     "potentialType": 3
   },
   {
@@ -867,10 +732,7 @@
       "else": [22, 23, 31],
       "available": true
     },
-    "stats": {
-      "initATK": 365,
-      "initHP": 2767
-    },
+    "stats": { "initATK": 365, "initHP": 2767 },
     "potentialType": 3
   },
   {
@@ -886,10 +748,7 @@
       "else": [22, 23, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 367,
-      "initHP": 2756
-    },
+    "stats": { "initATK": 367, "initHP": 2756 },
     "potentialType": 3
   },
   {
@@ -905,10 +764,7 @@
       "else": [24],
       "available": true
     },
-    "stats": {
-      "initATK": 528,
-      "initHP": 1914
-    },
+    "stats": { "initATK": 528, "initHP": 1914 },
     "potentialType": 3
   },
   {
@@ -924,10 +780,7 @@
       "else": [24, 27, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 361,
-      "initHP": 2801
-    },
+    "stats": { "initATK": 361, "initHP": 2801 },
     "potentialType": 3
   },
   {
@@ -943,10 +796,7 @@
       "else": [22, 23, 25],
       "available": true
     },
-    "stats": {
-      "initATK": 428,
-      "initHP": 2362
-    },
+    "stats": { "initATK": 428, "initHP": 2362 },
     "potentialType": 3
   },
   {
@@ -962,10 +812,7 @@
       "else": [25],
       "available": true
     },
-    "stats": {
-      "initATK": 495,
-      "initHP": 2045
-    },
+    "stats": { "initATK": 495, "initHP": 2045 },
     "potentialType": 3
   },
   {
@@ -981,10 +828,7 @@
       "else": [25, 27],
       "available": true
     },
-    "stats": {
-      "initATK": 492,
-      "initHP": 2054
-    },
+    "stats": { "initATK": 492, "initHP": 2054 },
     "potentialType": 3
   },
   {
@@ -1000,10 +844,7 @@
       "else": [22, 23],
       "available": true
     },
-    "stats": {
-      "initATK": 375,
-      "initHP": 2700
-    },
+    "stats": { "initATK": 375, "initHP": 2700 },
     "potentialType": 3
   },
   {
@@ -1019,10 +860,7 @@
       "else": [21, 23],
       "available": true
     },
-    "stats": {
-      "initATK": 506,
-      "initHP": 2000
-    },
+    "stats": { "initATK": 506, "initHP": 2000 },
     "potentialType": 3
   },
   {
@@ -1038,10 +876,7 @@
       "else": [21, 28],
       "available": true
     },
-    "stats": {
-      "initATK": 546,
-      "initHP": 1851
-    },
+    "stats": { "initATK": 546, "initHP": 1851 },
     "potentialType": 3
   },
   {
@@ -1057,10 +892,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 361,
-      "initHP": 2801
-    },
+    "stats": { "initATK": 361, "initHP": 2801 },
     "potentialType": 3
   },
   {
@@ -1076,10 +908,7 @@
       "else": [],
       "available": false
     },
-    "stats": {
-      "initATK": 522,
-      "initHP": 1939
-    },
+    "stats": { "initATK": 522, "initHP": 1939 },
     "potentialType": 3
   },
   {
@@ -1095,10 +924,7 @@
       "else": [21, 29],
       "available": true
     },
-    "stats": {
-      "initATK": 522,
-      "initHP": 1939
-    },
+    "stats": { "initATK": 522, "initHP": 1939 },
     "potentialType": 3
   }
 ]
