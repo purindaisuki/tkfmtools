@@ -332,10 +332,13 @@ function processSkill(
             target.skillSet.leader
               .filter((s) => s.condition === SkillCondition.ATTACKED)
               .forEach((targetSkill) => {
-                // counterstrike won't trigger counterstrike
+                // followup attack and counterstrike won't trigger counterstrike
                 if (
-                  s.type !== SkillActionType.COUNTER_STRIKE ||
-                  targetSkill.type !== SkillActionType.COUNTER_STRIKE
+                  !(
+                    targetSkill.type === SkillActionType.COUNTER_STRIKE &&
+                    (s.type === SkillActionType.COUNTER_STRIKE ||
+                      s.type === SkillActionType.FOLLOW_UP_ATTACK)
+                  )
                 ) {
                   trigger(tempG, tempCtx, targetSkill, logArr);
                 }
@@ -1004,10 +1007,14 @@ export const Battle = (setupData: BattleSetupData) => ({
       const enemies = getEnemies(G, ctx);
 
       // update selected and target
-      G.selected = selfTeam.findIndex((c) => !c.isDead);
-      const currTarget = enemies.findIndex((c) => !c.isDead && c.isTaunt);
-      G.target =
-        currTarget === -1 ? enemies.findIndex((c) => !c.isDead) : currTarget;
+      if (selfTeam[G.selected].isDead) {
+        G.selected = selfTeam.findIndex((c) => !c.isDead);
+      }
+      if (enemies[G.target].isDead) {
+        const tauntEnemy = enemies.findIndex((c) => !c.isDead && c.isTaunt);
+        G.target =
+          tauntEnemy === -1 ? enemies.findIndex((c) => !c.isDead) : tauntEnemy;
+      }
       G.log.push([]);
 
       // clear expired effects

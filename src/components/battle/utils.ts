@@ -113,7 +113,7 @@ export function calcDamage(
 
     switch (s.type) {
       case SkillEffectType.ATTRIBUTE_EFFECT:
-        attributeEffect += s.value * stack;
+        attributeEffect = 1 + (attributeEffect - 1) * (1 + s.value * stack);
         break;
       case SkillEffectType.DEALT_DAMAGE:
         dealtDamageEffect += s.value * stack;
@@ -162,7 +162,7 @@ export function calcDamage(
         break;
       case SkillEffectType.ATTRIBUTE_EFFECT:
         if (action.on !== SkillOn.TURN_END) {
-          attributeEffect += s.value * stack;
+          attributeEffect = 1 + (attributeEffect - 1) * (1 + s.value * stack);
         }
         break;
       case SkillEffectType.DAMAGED:
