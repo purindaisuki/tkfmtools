@@ -1,7 +1,14 @@
 import type { Ctx } from "boardgame.io";
 import { MCTSBot } from "boardgame.io/ai";
 import { IGameState } from "types/battle";
-import { getEnemies, canSelect, canTarget } from "components/battle";
+import {
+  canAttack,
+  canGuard,
+  canSelect,
+  canTarget,
+  canUltimate,
+  getEnemies,
+} from "components/battle";
 import { BattleCharacter as Character } from "types/battle";
 
 const findAllIndices = (
@@ -33,18 +40,20 @@ export class CustomMCTSBot extends MCTSBot {
         );
 
         for (let s of selected) {
-          let canUltimate = lineup[s].currentCD === 0 && !lineup[s].isSilence;
-
           for (let t of targets) {
-            moves.push({
-              move: "attack",
-              args: [s, t],
-            });
-            moves.push({
-              move: "guard",
-              args: [s],
-            });
-            if (canUltimate) {
+            if (canAttack(G, ctx, s, t)) {
+              moves.push({
+                move: "attack",
+                args: [s, t],
+              });
+            }
+            if (canGuard(G, ctx, s)) {
+              moves.push({
+                move: "guard",
+                args: [s],
+              });
+            }
+            if (canUltimate(G, ctx, s, t)) {
               moves.push({
                 move: "ultimate",
                 args: [s, t],
@@ -64,7 +73,9 @@ export class CustomMCTSBot extends MCTSBot {
             }
             return moves.some(
               (move) =>
-                move.to.isEnemy && move.to.originalHP > 0 && move.to.HP === 0
+                move.to.player !== ctx.currentPlayer &&
+                move.to.originalHP > 0 &&
+                move.to.HP === 0
             );
           },
           weight: 1,
@@ -107,21 +118,18 @@ export class AutoBot extends MCTSBot {
         if (targets.length === 0) {
           return [{ move: "doNothing", args: [] }];
         }
-        let targeted: number;
+        let target: number;
         if (targets.length === 1) {
-          targeted = targets[0].teamPosition;
+          target = targets[0].teamPosition;
         } else {
           const r = ctx.random?.Die(targets.length);
-          targeted = targets[r !== undefined ? r : 0].teamPosition;
+          target = targets[r !== undefined ? r : 0].teamPosition;
         }
 
         return [
           {
-            move:
-              lineup[selected].currentCD === 0 && !lineup[selected].isSilence
-                ? "ultimate"
-                : "attack",
-            args: [selected, targeted],
+            move: canUltimate(G, ctx, selected, target) ? "ultimate" : "attack",
+            args: [selected, target],
           },
         ];
       },
