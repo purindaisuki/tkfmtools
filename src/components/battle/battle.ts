@@ -866,9 +866,7 @@ function endMove(G: IGameState, ctx: Ctx) {
   const lineup = G.lineups[ctx.currentPlayer];
   lineup[G.selected[ctx.currentPlayer]].isMoved = true;
 
-  const next = lineup.findIndex(
-    (c) => !(c.isMoved || c.isDead || c.isParalysis || c.isSleep || c.isBroken)
-  );
+  const next = lineup.findIndex((_, ind) => canGuard(G, ctx, ind));
   if (next !== -1) {
     G.selected[ctx.currentPlayer] = next;
   }
@@ -1093,17 +1091,21 @@ export const Battle = (setupData: BattleSetupData) => ({
                   if (s.value) {
                     c.shield -= s.value;
                   }
+                  break;
                 case SkillActionType.TAUNT:
                   c.isTaunt = false;
+                  break;
                 case SkillActionType.PARALYSIS:
                   c.isParalysis = false;
+                  break;
                 case SkillActionType.SLEEP:
                   c.isSleep = false;
+                  break;
                 case SkillActionType.SILENCE:
                   c.isSilence = false;
-                default:
-                  return false;
+                  break;
               }
+              return false;
             }
 
             return true;
@@ -1187,9 +1189,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.log.slice(-1)[0].push(...log);
     },
     endIf: (G: IGameState, ctx: Ctx) =>
-      G.lineups[ctx.currentPlayer].every(
-        (c) => c.isMoved || c.isDead || c.isParalysis || c.isSleep || c.isBroken
-      ),
+      G.lineups[ctx.currentPlayer].every((_, ind) => !canGuard(G, ctx, ind)),
   },
   minPlayers: 2,
   maxPlayers: 2,
