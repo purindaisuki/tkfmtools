@@ -30,7 +30,10 @@ export const getCharacterButtonState = (
   character: Character,
   player: string
 ) => {
-  if (ctx.currentPlayer !== player && G.target === character.teamPosition) {
+  if (
+    ctx.currentPlayer !== player &&
+    G.target[ctx.currentPlayer] === character.teamPosition
+  ) {
     return CharacterButtonState.TARGETED;
   }
   if (
@@ -44,7 +47,7 @@ export const getCharacterButtonState = (
     return CharacterButtonState.NOT_MOVABLE;
   }
   if (ctx.currentPlayer === player) {
-    if (G.selected === character.teamPosition) {
+    if (G.selected[ctx.currentPlayer] === character.teamPosition) {
       return CharacterButtonState.SELECTED;
     }
     if (character.currentCD === 0 && !character.isSilence) {

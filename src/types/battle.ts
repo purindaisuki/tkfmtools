@@ -1,9 +1,4 @@
-import {
-  ISkill,
-  SkillActionType,
-  SkillEffect,
-  ISkillSet,
-} from "types/skills";
+import { ISkill, SkillActionType, SkillEffect, ISkillSet } from "types/skills";
 import {
   CharacterAttribute,
   CharacterPosition,
@@ -50,9 +45,10 @@ export type SkillQueue = {
 }[];
 
 export interface IGameState {
-  lineups: { [playerName: string]: BattleCharacter[] };
-  selected: number;
-  target: number;
+  lineups: Record<string, BattleCharacter[]>;
+  selected: Record<string, number>;
+  target: Record<string, number>;
+  skillQueue:SkillQueue;
   log: ILog[][];
 }
 

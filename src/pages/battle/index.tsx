@@ -163,6 +163,8 @@ const Board = ({
 }): JSX.Element => {
   const { pageString }: any = useLanguage();
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+  const selected = G.selected[ctx.currentPlayer];
+  const target = G.target[ctx.currentPlayer];
 
   const handleCharacterClick = (ind: number, player: string) => () => {
     if (ctx.turn > 0 && !ctx.gameover) {
@@ -180,12 +182,8 @@ const Board = ({
   };
 
   const handleAttackClick = () => {
-    if (
-      ctx.turn > 0 &&
-      !ctx.gameover &&
-      canAttack(G, ctx, G.selected, G.target)
-    ) {
-      moves.attack(G.selected, G.target);
+    if (ctx.turn > 0 && !ctx.gameover && canAttack(G, ctx, selected, target)) {
+      moves.attack(selected, target);
       return;
     }
     setSnackbarOpen(true);
@@ -195,17 +193,17 @@ const Board = ({
     if (
       ctx.turn > 0 &&
       !ctx.gameover &&
-      canUltimate(G, ctx, G.selected, G.target)
+      canUltimate(G, ctx, selected, target)
     ) {
-      moves.ultimate(G.selected, G.target);
+      moves.ultimate(selected, target);
       return;
     }
     setSnackbarOpen(true);
   };
 
   const handleGuardClick = () => {
-    if (ctx.turn > 0 && !ctx.gameover && canGuard(G, ctx, G.selected)) {
-      moves.guard(G.selected);
+    if (ctx.turn > 0 && !ctx.gameover && canGuard(G, ctx, selected)) {
+      moves.guard(selected);
       return;
     }
     setSnackbarOpen(true);
