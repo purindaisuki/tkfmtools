@@ -28,7 +28,11 @@ const effectString = (effect: SkillEffect, skillString: any) => {
         ? Math.abs(Math.floor(effect.value)).toString()
         : Math.abs(Math.round(effect.value * stack * 1000) / 10).toString() +
           "%";
-    string = string[effect.value > 0 ? 0 : 1].replace("{value}", value);
+    if (typeof string === "string") {
+      string = string.replace("{value}", value);
+    } else {
+      string = string[effect.value > 0 ? 0 : 1].replace("{value}", value);
+    }
   }
 
   if (effect.duration) {
