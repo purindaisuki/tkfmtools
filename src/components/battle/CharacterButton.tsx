@@ -14,6 +14,7 @@ import {
   ParalysisIcon,
   SilenceIcon,
   SleepIcon,
+  TauntIcon
 } from "components/icon";
 
 enum CharacterButtonState {
@@ -108,6 +109,12 @@ const CharacterStateList = ({
         active={character.isGuard}
       >
         {GuardIcon}
+      </CharacterStateTooltip>
+      <CharacterStateTooltip
+        tooltipText={pageString.battle.index.taunt}
+        active={character.isTaunt}
+      >
+        {TauntIcon}
       </CharacterStateTooltip>
       <CharacterStateTooltip
         tooltipText={pageString.battle.index.silence}
@@ -225,7 +232,7 @@ const StyledHPBar = styled.div<{
   position: relative;
   height: 0.5rem;
   width: 100%;
-  max-width: 8rem;
+  max-width: 8.8rem;
   margin-left: 0.2rem;
   margin-bottom: 0.5rem;
   background-color: ${(props) => props.theme.colors.dropdownHover};

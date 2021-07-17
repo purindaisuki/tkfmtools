@@ -349,11 +349,13 @@ const MainPanel = styled.div<{ $isBattleOver: boolean }>`
     justify-content: center;
     position: absolute;
     z-index: 1;
-    top: -1rem;
+    top: -1.5rem;
     left: -1rem;
     width: calc(100% + 2rem);
-    height: calc(100% + 1.5rem);
-    background-color: rgba(0, 0, 0, 0.2);
+    height: calc(100% + 2rem);
+    border-radius: 0.25rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
   }
 `;
 const StyledHeader = styled(Header)`

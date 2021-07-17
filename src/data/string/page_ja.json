@@ -1037,6 +1037,7 @@
       "ATK": "ATK",
       "shield": "Shield",
       "effect": "Effect",
+      "taunt": "Taunt",
       "silence": "Silence",
       "sleep": "Sleep",
       "paralysis": "Paralysis",
