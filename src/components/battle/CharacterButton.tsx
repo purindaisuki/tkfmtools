@@ -232,7 +232,7 @@ const StyledHPBar = styled.div<{
   position: relative;
   height: 0.5rem;
   width: 100%;
-  max-width: 8.8rem;
+  max-width: 9.2rem;
   margin-left: 0.2rem;
   margin-bottom: 0.5rem;
   background-color: ${(props) => props.theme.colors.dropdownHover};
