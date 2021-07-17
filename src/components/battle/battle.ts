@@ -13,6 +13,7 @@ import {
 } from "types/skills";
 import { CharacterStats } from "types/characters";
 import {
+  BattleCharacter,
   BattleCharacter as Character,
   BattleSetupData,
   IGameState,
@@ -249,7 +250,7 @@ function processSkill(
         target.isSleep = false;
         target.isSilence = false;
         break;
-      case SkillActionType.CLEAR_DEBUFF:
+      case SkillActionType.CLEAR_ATTACK_DEBUFF:
         target.effects = target.effects.filter(
           (e) =>
             !(
@@ -258,6 +259,18 @@ function processSkill(
               (e.type === SkillEffectType.ATTACK_POWER ||
                 e.type == SkillEffectType.NORMAL_ATTACK_DAMAGE ||
                 e.type === SkillEffectType.ULTIMATE_DAMAGE)
+            )
+        );
+        break;
+      case SkillActionType.CLEAR_SUSTAIN_DEBUFF:
+        target.effects = target.effects.filter(
+          (e) =>
+            !(
+              e.value &&
+              e.value < 0 &&
+              (e.type === SkillEffectType.DAMAGED ||
+                e.type == SkillEffectType.GUARD_EFFECT ||
+                e.type === SkillEffectType.HEALED)
             )
         );
         break;
@@ -619,10 +632,18 @@ function trigger(
     case SkillTarget.SUPPORT:
       to = selfTeam.filter((c) => !c.isDead && c.position === 9);
       break;
+    case SkillTarget.LEFTMOST:
+      const leftmost = selfTeam.find((c) => !c.isDead);
+      to = leftmost ? [leftmost] : [];
+      break;
     default:
       // unimplemented: position specific skill may change if someone is dead
       const target = s.target;
       to = selfTeam.filter((c, ind) => !c.isDead && target.includes(ind));
+  }
+
+  if (to.length === 0) {
+    return;
   }
 
   const repeat =

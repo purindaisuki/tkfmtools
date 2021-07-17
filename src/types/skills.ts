@@ -15,6 +15,7 @@ export enum SkillTarget {
   HEALER,
   OBSTRUCTER,
   SUPPORT,
+  LEFTMOST,
 }
 
 export enum SkillActionType {
@@ -32,7 +33,8 @@ export enum SkillActionType {
   FREEZE_CD,
   CHANGE_MAX_HP,
   CLEAR_ABNORMAL,
-  CLEAR_DEBUFF,
+  CLEAR_ATTACK_DEBUFF,
+  CLEAR_SUSTAIN_DEBUFF,
   TAUNT,
   SLEEP,
   SILENCE,
@@ -41,7 +43,7 @@ export enum SkillActionType {
 }
 
 export enum SkillEffectType {
-  ATTACK_POWER = 20,
+  ATTACK_POWER = 21,
   NORMAL_ATTACK_DAMAGE,
   ULTIMATE_DAMAGE,
   DEALT_DAMAGE,
@@ -86,7 +88,6 @@ export enum SkillCondition {
 }
 
 export enum SkillOn {
-  BATTLE_BEGIN,
   TURN_BEGIN,
   BEFORE_ACTION,
   ON_ACTION,
@@ -116,17 +117,22 @@ export interface ISkill {
       | SkillCondition.NORMAL_ATTACK
       | SkillCondition.ULTIMATE
       | SkillCondition.ATTACK
-      | SkillCondition.ATTACKED;
+      | SkillCondition.ATTACKED
+      | SkillCondition.BATTLE_BEGIN;
     type:
       | SkillActionType.NORMAL_ATTACK
       | SkillActionType.ULTIMATE
+      | SkillActionType.COUNTER_STRIKE
       | SkillActionType.FOLLOW_UP_ATTACK
       | SkillActionType.HEAL
       | SkillEffectType.ATTACK_POWER
       | SkillEffectType.ULTIMATE_DAMAGE
-      | SkillEffectType.NORMAL_ATTACK_DAMAGE;
+      | SkillEffectType.NORMAL_ATTACK_DAMAGE
+      | SkillEffectType.IMMUNE_SILENCE
+      | SkillEffectType.IMMUNE_SLEEP
+      | SkillEffectType.IMMUNE_PARALYSIS;
     basis?: SkillEffectBasis.TARGET_ATK;
-    value: number;
+    value?: number;
     target:
       | SkillTarget.SINGLE_ENEMY
       | SkillTarget.ALL_ENEMIES
