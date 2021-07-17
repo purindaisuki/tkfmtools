@@ -1071,7 +1071,6 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.target[ctx.currentPlayer] = nextTarget(G, ctx);
       G.log.push([]);
 
-      // clear expired effects
       selfTeam.forEach((c, ind): boolean | void => {
         if (c.isDead) {
           return true;
@@ -1083,6 +1082,40 @@ export const Battle = (setupData: BattleSetupData) => ({
         // aside from battle begin
         if (ctx.turn > 2) {
           c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
+          // clear expired effects
+          c.effects = c.effects.filter((s) => {
+            if (s.duration !== undefined) {
+              s.duration--;
+            }
+            if (s.duration === 0) {
+              switch (s.type) {
+                case SkillActionType.SHIELD:
+                  if (s.value) {
+                    c.shield -= s.value;
+                  }
+                case SkillActionType.TAUNT:
+                  c.isTaunt = false;
+                case SkillActionType.PARALYSIS:
+                  c.isParalysis = false;
+                case SkillActionType.SLEEP:
+                  c.isSleep = false;
+                case SkillActionType.SILENCE:
+                  c.isSilence = false;
+                default:
+                  return false;
+              }
+            }
+
+            return true;
+          });
+          c.extraSkill = c.extraSkill.filter((s) => {
+            if (s.duration !== undefined) {
+              s.duration--;
+            } else {
+              return true;
+            }
+            return s.duration !== 0;
+          });
         }
 
         // turn-based skills
@@ -1152,47 +1185,6 @@ export const Battle = (setupData: BattleSetupData) => ({
       });
 
       G.log.slice(-1)[0].push(...log);
-
-      // clear expired effects
-      selfTeam.forEach((c): boolean | void => {
-        if (c.isDead) {
-          return true;
-        }
-
-        c.effects = c.effects.filter((s) => {
-          if (s.duration !== undefined) {
-            s.duration--;
-          }
-          if (s.duration === 0) {
-            switch (s.type) {
-              case SkillActionType.SHIELD:
-                if (s.value) {
-                  c.shield -= s.value;
-                }
-              case SkillActionType.TAUNT:
-                c.isTaunt = false;
-              case SkillActionType.PARALYSIS:
-                c.isParalysis = false;
-              case SkillActionType.SLEEP:
-                c.isSleep = false;
-              case SkillActionType.SILENCE:
-                c.isSilence = false;
-              default:
-                return false;
-            }
-          }
-
-          return true;
-        });
-        c.extraSkill = c.extraSkill.filter((s) => {
-          if (s.duration !== undefined) {
-            s.duration--;
-          } else {
-            return true;
-          }
-          return s.duration !== 0;
-        });
-      });
     },
     endIf: (G: IGameState, ctx: Ctx) =>
       G.lineups[ctx.currentPlayer].every(
