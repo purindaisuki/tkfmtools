@@ -34,28 +34,13 @@ const MoveLog = ({
   moveLog: ILog;
 }): JSX.Element => {
   const { charString, skillString }: any = useLanguage();
-  const fromCharacter =
-    G.lineups[
-      moveLog.from.isEnemy
-        ? moveLog.player === "0"
-          ? "1"
-          : "0"
-        : moveLog.player
-    ][moveLog.from.position];
-  const toCharacter = moveLog.to.isEnemy
-    ? G.lineups[moveLog.player === "0" ? "1" : "0"][moveLog.to.position]
-    : G.lineups[moveLog.player][moveLog.to.position];
+  const fromCharacter = G.lineups[moveLog.from.player][moveLog.from.position];
+  const toCharacter = G.lineups[moveLog.to.player][moveLog.to.position];
 
   return (
     <TableRow>
       <LogCell>
-        <CharacterTextWrapper
-          $isEnemy={
-            moveLog.from.isEnemy
-              ? moveLog.player === "0"
-              : moveLog.player === "1"
-          }
-        >
+        <CharacterTextWrapper $isEnemy={moveLog.from.player === "1"}>
           {`${charString.name[fromCharacter.id]} (${
             fromCharacter.teamPosition + 1
           })`}
@@ -69,13 +54,7 @@ const MoveLog = ({
         <>
           <LogCell>{"⭢"}</LogCell>
           <LogCell>
-            <CharacterTextWrapper
-              $isEnemy={
-                moveLog.to.isEnemy
-                  ? moveLog.player === "0"
-                  : moveLog.player === "1"
-              }
-            >
+            <CharacterTextWrapper $isEnemy={moveLog.to.player === "1"}>
               {`${charString.name[toCharacter.id]} (${
                 toCharacter.teamPosition + 1
               })`}

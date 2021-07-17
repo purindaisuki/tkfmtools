@@ -309,7 +309,6 @@ export const CharacterButton = ({
       </DetailsButton>
       <CharacterDetailsPopover
         G={G}
-        player={player}
         id={id}
         character={character}
         open={Boolean(anchorEl)}

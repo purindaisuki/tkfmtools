@@ -39,7 +39,6 @@ const effectString = (effect: SkillEffect, skillString: any) => {
 
 type Props = {
   G: IGameState;
-  player: string;
   id?: string;
   character: Character;
   open: boolean;
@@ -49,7 +48,6 @@ type Props = {
 
 export const CharacterDetailsPopover = ({
   G,
-  player,
   id,
   character,
   open,
@@ -91,13 +89,9 @@ export const CharacterDetailsPopover = ({
         {character.effects.map((e, ind) => (
           <div key={ind}>
             {effectString(e, skillString) +
-              ` (${
-                charString.name[
-                  G.lineups[
-                    e.fromEnemy ? (player === "0" ? "1" : "0") : player
-                  ][e.from].id
-                ]
-              } (${e.from + 1}))`}
+              ` (${charString.name[G.lineups[e.fromPlayer][e.from].id]} (${
+                e.from + 1
+              }))`}
           </div>
         ))}
       </div>

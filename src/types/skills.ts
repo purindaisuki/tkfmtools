@@ -180,7 +180,7 @@ export type SkillAction = Omit<ISkill, "type"> & {
 
 export type SkillEffect = Omit<ISkill, "CD"> & {
   from: number;
-  fromEnemy?: boolean;
+  fromPlayer: string;
   stack?: number;
 };
 

@@ -13,7 +13,6 @@ import {
 } from "types/skills";
 import { CharacterStats } from "types/characters";
 import {
-  BattleCharacter,
   BattleCharacter as Character,
   BattleSetupData,
   IGameState,
@@ -141,7 +140,13 @@ function processSkill(
   s: ISkill | SkillEffect,
   logArr?: ILog[]
 ) {
-  let effect = { ...s, from: from.character.teamPosition } as SkillEffect;
+  let effect = {
+    ...s,
+    fromPlayer: (s as SkillEffect).fromPlayer
+      ? (s as SkillEffect).fromPlayer
+      : ctx.currentPlayer,
+    from: from.character.teamPosition,
+  } as SkillEffect;
 
   if (
     s.type === SkillEffectType.ATTACK_POWER &&
@@ -287,11 +292,15 @@ function processSkill(
           type: s.type,
           value: damage,
           from: {
-            isEnemy: from.isEnemy,
+            player: effect.fromPlayer,
             position: from.character.teamPosition,
           },
           to: {
-            isEnemy: to.isEnemy,
+            player: to.isEnemy
+              ? ctx.currentPlayer === "0"
+                ? "1"
+                : "0"
+              : ctx.currentPlayer,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -374,7 +383,7 @@ function processSkill(
                 }
               });
           }
-        } else {
+        } else if (target.isDead) {
           target.isTaunt = false;
           target.isGuard = false;
           target.isSilence = false;
@@ -395,11 +404,15 @@ function processSkill(
           player: ctx.currentPlayer,
           type: s.type,
           from: {
-            isEnemy: from.isEnemy,
+            player: effect.fromPlayer,
             position: from.character.teamPosition,
           },
           to: {
-            isEnemy: to.isEnemy,
+            player: to.isEnemy
+              ? ctx.currentPlayer === "0"
+                ? "1"
+                : "0"
+              : ctx.currentPlayer,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -438,11 +451,15 @@ function processSkill(
           type: s.type,
           value: heal,
           from: {
-            isEnemy: from.isEnemy,
+            player: effect.fromPlayer,
             position: from.character.teamPosition,
           },
           to: {
-            isEnemy: to.isEnemy,
+            player: to.isEnemy
+              ? ctx.currentPlayer === "0"
+                ? "1"
+                : "0"
+              : ctx.currentPlayer,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -472,11 +489,15 @@ function processSkill(
           type: s.type,
           value: shield,
           from: {
-            isEnemy: from.isEnemy,
+            player: effect.fromPlayer,
             position: from.character.teamPosition,
           },
           to: {
-            isEnemy: to.isEnemy,
+            player: to.isEnemy
+              ? ctx.currentPlayer === "0"
+                ? "1"
+                : "0"
+              : ctx.currentPlayer,
             position: target.teamPosition,
             originalHP: target.HP,
             HP: target.HP,
@@ -657,7 +678,7 @@ function trigger(
         const endTurnEffect = {
           ...s,
           from: selfTeam[selected].teamPosition,
-          fromEnemy: isEnemy,
+          fromPlayer: ctx.currentPlayer,
         };
 
         if (s.value) {
@@ -1102,9 +1123,10 @@ export const Battle = (setupData: BattleSetupData) => ({
       selfTeam.forEach((c, ind) => {
         c.effects.forEach((s) => {
           if (s.on === SkillOn.TURN_END) {
-            const fromCharacter = s.fromEnemy
-              ? getEnemies(G, ctx).find((c) => c.teamPosition === s.from)
-              : selfTeam[s.from];
+            const fromCharacter =
+              s.fromPlayer === ctx.currentPlayer
+                ? selfTeam[s.from]
+                : getEnemies(G, ctx).find((c) => c.teamPosition === s.from);
 
             if (fromCharacter) {
               processSkill(
@@ -1115,7 +1137,7 @@ export const Battle = (setupData: BattleSetupData) => ({
                 ctx,
                 {
                   character: fromCharacter,
-                  isEnemy: s.fromEnemy === undefined ? false : s.fromEnemy,
+                  isEnemy: s.fromPlayer !== ctx.currentPlayer,
                 },
                 { characters: [c], isEnemy: false },
                 {

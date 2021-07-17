@@ -48,7 +48,7 @@ export interface IGameState {
   lineups: Record<string, BattleCharacter[]>;
   selected: Record<string, number>;
   target: Record<string, number>;
-  skillQueue:SkillQueue;
+  skillQueue: SkillQueue;
   log: ILog[][];
 }
 
@@ -56,9 +56,9 @@ export interface ILog {
   player: string;
   type: SkillActionType;
   value?: number;
-  from: { isEnemy: boolean; position: number };
+  from: { player: string; position: number };
   to: {
-    isEnemy: boolean;
+    player: string;
     position: number;
     originalHP: number;
     HP: number;
