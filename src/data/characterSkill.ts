@@ -981,8 +981,9 @@ export const data: Readonly<{
     starPassive: [
       {
         star: 1,
-        condition: SkillCondition.HP_LESS_THAN,
-        conditionValue: 0.99,
+        condition: SkillCondition.BATTLE_BEGIN,
+        otherCondition: SkillCondition.HP_LESS_THAN,
+        otherConditionValue: 0.99,
         target: SkillTarget.SELF,
         type: SkillEffectType.ATTACK_POWER,
         basis: SkillEffectBasis.TARGET_ATK,
@@ -991,8 +992,9 @@ export const data: Readonly<{
       },
       {
         star: 3,
-        condition: SkillCondition.HP_LESS_THAN,
-        conditionValue: 0.99,
+        condition: SkillCondition.BATTLE_BEGIN,
+        otherCondition: SkillCondition.HP_LESS_THAN,
+        otherConditionValue: 0.99,
         target: SkillTarget.SELF,
         type: SkillEffectType.NORMAL_ATTACK_DAMAGE,
         value: 0.5,
@@ -5158,8 +5160,9 @@ export const data: Readonly<{
     starPassive: [
       {
         star: 1,
-        condition: SkillCondition.HP_LESS_THAN,
-        conditionValue: 0.25,
+        condition: SkillCondition.BATTLE_BEGIN,
+        otherCondition: SkillCondition.HP_LESS_THAN,
+        otherConditionValue: 0.25,
         target: SkillTarget.SELF,
         type: SkillEffectType.ATTACK_POWER,
         basis: SkillEffectBasis.TARGET_ATK,
@@ -5168,8 +5171,9 @@ export const data: Readonly<{
       },
       {
         star: 1,
-        condition: SkillCondition.HP_LESS_THAN,
-        conditionValue: 0.25,
+        condition: SkillCondition.BATTLE_BEGIN,
+        otherCondition: SkillCondition.HP_LESS_THAN,
+        otherConditionValue: 0.25,
         target: SkillTarget.SELF,
         type: SkillEffectType.DAMAGED,
         value: -0.5,

@@ -23,10 +23,12 @@ export function calcAttack(character: Character) {
         // check the condition of conditional skill
         if (
           !(
-            (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-              character.HP / character.maxHP < s.value) ||
-            (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-              character.HP / character.maxHP >= s.value)
+            (s.otherConditionValue &&
+              s.otherCondition === SkillCondition.HP_GREATER_THAN &&
+              character.HP / character.maxHP < s.otherConditionValue) ||
+            (s.otherConditionValue &&
+              s.otherCondition === SkillCondition.HP_LESS_THAN &&
+              character.HP / character.maxHP >= s.otherConditionValue)
           )
         ) {
           ATKEffectPercentage += s.value * stack;
@@ -101,10 +103,12 @@ export function calcDamage(
     }
 
     if (
-      (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.HP / from.maxHP < s.value) ||
-      (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.HP / from.maxHP >= s.value)
+      (s.otherConditionValue &&
+        s.otherCondition === SkillCondition.HP_GREATER_THAN &&
+        from.HP / from.maxHP < s.otherConditionValue) ||
+      (s.otherConditionValue &&
+        s.otherCondition === SkillCondition.HP_LESS_THAN &&
+        from.HP / from.maxHP >= s.otherConditionValue)
     ) {
       return true;
     }
@@ -142,10 +146,12 @@ export function calcDamage(
     }
 
     if (
-      (s.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.HP / from.maxHP < s.value) ||
-      (s.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.HP / from.maxHP >= s.value)
+      (s.otherConditionValue &&
+        s.otherCondition === SkillCondition.HP_GREATER_THAN &&
+        from.HP / from.maxHP < s.otherConditionValue) ||
+      (s.otherConditionValue &&
+        s.otherCondition === SkillCondition.HP_LESS_THAN &&
+        from.HP / from.maxHP >= s.otherConditionValue)
     ) {
       return true;
     }

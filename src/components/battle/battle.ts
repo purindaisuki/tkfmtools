@@ -178,7 +178,7 @@ function processSkill(
 
     // check stackable
     const existEffect = target.effects.find((e) => sameEffect(e, effect));
-    if (existEffect) {
+    if (existEffect && existEffect.on !== SkillOn.TURN_END) {
       if (!existEffect.maxStack && !existEffect.duration) {
         return true;
       } else if (existEffect.maxStack && existEffect.stack) {
