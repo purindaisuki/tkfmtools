@@ -140,7 +140,8 @@ export interface ISkill {
       | SkillTarget.SELF
       | SkillTarget.TEAM;
     on: SkillOn;
-    duration?: number;
+    duration?: number /*duarion of effect*/;
+    skillDuration?: number /* duartion of extra skill */;
     repeat?: number;
   };
 }
@@ -197,6 +198,7 @@ export type SkillEffect = Omit<ISkill, "CD"> & {
   from: number;
   fromPlayer: string;
   stack?: number;
+  skillDuration?: number;
 };
 
 export interface ISkillSet {

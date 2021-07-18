@@ -9,6 +9,7 @@ import {
   SkillTarget,
   SkillEffectType,
   FollowUpAttackSkill,
+  UltimateSkill,
 } from "types/skills";
 import { CharacterStats, ICharacterData } from "types/characters";
 import {
@@ -95,11 +96,7 @@ const processSkill = (
     switch (skill.type) {
       case SkillActionType.ADDSKILL:
         if (skill.skill) {
-          if (skill.condition === SkillCondition.BATTLE_BEGIN) {
-            target.skillSet.passive.push({ ...skill.skill });
-          } else {
-            target.extraSkill.push({ ...skill.skill });
-          }
+          target.extraSkill.push({ ...skill.skill });
         }
         break;
       case SkillEffectType.ATTACK_POWER:
@@ -591,6 +588,7 @@ export const trigger = (
   const enemies = getEnemies(G, ctx);
   const selfTeam = G.lineups[ctx.currentPlayer];
   const selected = G.selected[ctx.currentPlayer];
+  const { CD, ...rest } = skill as UltimateSkill;
   const repeat =
     (skill as FollowUpAttackSkill).repeat !== undefined
       ? (skill as FollowUpAttackSkill).repeat
@@ -600,7 +598,7 @@ export const trigger = (
     if (skill.on === SkillOn.TURN_END) {
       targets.forEach((c) => {
         const endTurnEffect = {
-          ...skill,
+          ...rest,
           from: selfTeam[selected].teamPosition,
           fromPlayer: ctx.currentPlayer,
         };
@@ -642,7 +640,7 @@ export const trigger = (
         ctx,
         { character: selfTeam[selected], isEnemy: false },
         { characters: targets, isEnemy: isEnemy },
-        skill,
+        rest,
         logArr
       );
     }
@@ -883,12 +881,13 @@ export const Battle = (setupData: BattleSetupData) => ({
             return true;
           });
           c.extraSkill = c.extraSkill.filter((s) => {
-            if (s.duration !== undefined) {
-              s.duration--;
+            const extraSkill = s as SkillEffect;
+            if (extraSkill.skillDuration !== undefined) {
+              extraSkill.skillDuration--;
             } else {
               return true;
             }
-            return s.duration !== 0;
+            return extraSkill.skillDuration !== 0;
           });
         }
 

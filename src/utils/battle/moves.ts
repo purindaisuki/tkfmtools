@@ -3,6 +3,7 @@ import { INVALID_MOVE } from "boardgame.io/core";
 import {
   SkillActionType,
   SkillCondition,
+  SkillEffect,
   SkillOn,
   SkillTarget,
 } from "types/skills";
@@ -71,7 +72,9 @@ export const attack = (
   );
   skills.sort((a, b) => a.on - b.on);
   skills.forEach((s) => {
-    trigger(G, ctx, s, log);
+    const skill = s as SkillEffect;
+    const { skillDuration, ...rest } = skill;
+    trigger(G, ctx, rest, log);
   });
 
   G.log.slice(-1)[0].push(...log);
@@ -124,7 +127,9 @@ export const ultimate = (
   );
   skills.sort((a, b) => a.on - b.on);
   skills.forEach((s) => {
-    trigger(G, ctx, s, log);
+    const skill = s as SkillEffect;
+    const { skillDuration, ...rest } = skill;
+    trigger(G, ctx, rest, log);
   });
 
   self.effects = self.effects.filter(
