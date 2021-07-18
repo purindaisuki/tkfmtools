@@ -7,8 +7,8 @@ import {
   canSelect,
   canTarget,
   canUltimate,
-  getEnemies,
-} from "components/battle";
+} from "utils/battle";
+import { getEnemies } from "./helpers";
 import { BattleCharacter as Character } from "types/battle";
 
 const findAllIndices = (

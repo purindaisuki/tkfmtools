@@ -10,7 +10,7 @@ import {
 import { BattleCharacter as Character } from "types/battle";
 import { CharacterAttribute } from "types/characters";
 
-export function calcAttack(character: Character) {
+export const calcAttack = (character: Character) => {
   let ATKEffectPercentage = 1;
   let ATKEffectValue = 0;
 
@@ -38,7 +38,7 @@ export function calcAttack(character: Character) {
   });
 
   return Math.floor(character.baseATK * ATKEffectPercentage) + ATKEffectValue;
-}
+};
 
 /**
  * A chart describing the damage rate among attributes
@@ -52,11 +52,11 @@ const ATTRIBUTE_CHART = [
   [1, 1, 1, 1.5, 1],
 ];
 
-export function calcDamage(
+export const calcDamage = (
   from: Character,
   to: Character,
   action: ISkill | SkillEffect
-) {
+) => {
   if (
     !action.value ||
     !(
@@ -215,14 +215,14 @@ export function calcDamage(
       attributeDamagedEffect *
       action.value
   );
-}
+};
 
-export function calcHeal(
+export const calcHeal = (
   from: Character,
   to: Character,
   action: ISkill | SkillEffect,
   damage?: number
-) {
+) => {
   if (!action.value || action.type !== SkillActionType.HEAL) {
     throw "invalid argument";
   }
@@ -293,13 +293,13 @@ export function calcHeal(
   return Math.floor(
     base * healEffect * healedEffect * damageEffect * action.value
   );
-}
+};
 
-export function calcShield(
+export const calcShield = (
   from: Character,
   to: Character,
   action: ISkill | SkillEffect
-) {
+) => {
   if (!action.value || action.type !== SkillActionType.SHIELD) {
     throw "invalid argument";
   }
@@ -355,4 +355,4 @@ export function calcShield(
   return Math.floor(
     base * shieldEffect * shieldedEffect * damageEffect * action.value
   );
-}
+};

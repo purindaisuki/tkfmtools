@@ -9,20 +9,24 @@ import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import Head from "components/Head";
 import {
-  Battle,
   BattleHelp,
   BattleLog,
   BattleSettings,
+  CharacterButton,
+  IGameSetupProps,
+  SelectTeamButton,
+} from "components/battle";
+import {
+  Battle,
   canAttack,
   canGuard,
   canSelect,
   canTarget,
   canUltimate,
-  CharacterButton,
-  IGameSetupProps,
-  SelectTeamButton,
-} from "components/battle";
-import { AutoBot, CustomMCTSBot, DoNothingBot } from "components/battle/bots";
+  AutoBot,
+  CustomMCTSBot,
+  DoNothingBot,
+} from "utils/battle";
 import Header from "components/Header";
 import IconButton from "components/IconButton";
 import {
