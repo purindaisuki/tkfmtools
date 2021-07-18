@@ -5,7 +5,7 @@ import {
   CharacterStats,
 } from "types/characters";
 
-export interface TestCharacterStats {
+export interface ScarecrowStats {
   id: "scarecrow";
   attribute: number;
   ATK: number;
@@ -68,7 +68,7 @@ export interface ILog {
 }
 
 export type BattleSetupData = {
-  lineups: [CharacterStats[], CharacterStats[] | TestCharacterStats[]];
+  lineups: [CharacterStats[], CharacterStats[] | ScarecrowStats[]];
   iterations?: number;
   playoutDepth?: number;
 };

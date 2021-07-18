@@ -17,13 +17,13 @@ export const canSelect = (
 ): boolean => {
   const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
 
-  return !(
-    !selectedCharacter ||
-    selectedCharacter.isMoved ||
-    selectedCharacter.isDead ||
-    selectedCharacter.isParalysis ||
-    selectedCharacter.isSleep ||
-    selectedCharacter.isBroken
+  return (
+    selectedCharacter &&
+    !selectedCharacter.isMoved &&
+    !selectedCharacter.isDead &&
+    !selectedCharacter.isParalysis &&
+    !selectedCharacter.isSleep &&
+    !selectedCharacter.isBroken
   );
 };
 
@@ -39,24 +39,7 @@ export const canAttack = (
   ctx: Ctx,
   selected: number,
   target: number
-): boolean => {
-  if (!canSelect(G, ctx, selected)) {
-    return false;
-  }
-
-  if (!canTarget(G, ctx, target)) {
-    return false;
-  }
-
-  const self = G.lineups[ctx.currentPlayer][selected];
-  return !(
-    self.isMoved ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isBroken
-  );
-};
+): boolean => canSelect(G, ctx, selected) && canTarget(G, ctx, target);
 
 export const attack = (
   G: IGameState,
@@ -64,7 +47,6 @@ export const attack = (
   selected: number,
   target: number
 ): IGameState | typeof INVALID_MOVE | void => {
-  // mutate G directly is ok since it's handled by the library under the hood
   if (canAttack(G, ctx, selected, target)) {
     G.selected[ctx.currentPlayer] = selected;
     G.target[ctx.currentPlayer] = target;
@@ -102,24 +84,12 @@ export const canUltimate = (
   selected: number,
   target: number
 ): boolean => {
-  if (!canSelect(G, ctx, selected)) {
-    return false;
-  }
-
-  if (!canTarget(G, ctx, target)) {
+  if (!(canSelect(G, ctx, selected) && canTarget(G, ctx, target))) {
     return false;
   }
 
   const self = G.lineups[ctx.currentPlayer][selected];
-  return !(
-    self.isMoved ||
-    self.currentCD > 0 ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isSilence ||
-    self.isBroken
-  );
+  return self.currentCD === 0 && !self.isSilence;
 };
 
 export const ultimate = (
@@ -164,31 +134,12 @@ export const ultimate = (
   endMove(G, ctx);
 };
 
-export const canGuard = (
-  G: IGameState,
-  ctx: Ctx,
-  selected: number
-): boolean => {
-  if (!canSelect(G, ctx, selected)) {
-    return false;
-  }
-
-  const self = G.lineups[ctx.currentPlayer][selected];
-  return !(
-    self.isMoved ||
-    self.isDead ||
-    self.isParalysis ||
-    self.isSleep ||
-    self.isBroken
-  );
-};
-
 export const guard = (
   G: IGameState,
   ctx: Ctx,
   selected: number
 ): IGameState | typeof INVALID_MOVE | void => {
-  if (canGuard(G, ctx, selected)) {
+  if (canSelect(G, ctx, selected)) {
     G.selected[ctx.currentPlayer] = selected;
   } else {
     return INVALID_MOVE;

@@ -16,7 +16,7 @@ import {
   BattleSetupData,
   IGameState,
   ILog,
-  TestCharacterStats,
+  ScarecrowStats,
 } from "types/battle";
 import {
   attack,
@@ -24,38 +24,39 @@ import {
   ultimate,
   switchMember,
   switchTarget,
-  canGuard,
+  canSelect,
 } from ".";
 import { calcAttack, calcDamage, calcHeal, calcShield } from "./calculators";
 import { getEnemies, merge, sameEffect } from "./helpers";
 import calcCharStats from "utils/calcCharStats";
 import { data as skillData } from "data/characterSkill";
 import charMap from "data/charMap";
+import { canTarget } from "./moves";
 
 const processSkill = (
   G: IGameState,
   ctx: Ctx,
   from: { character: Character; isEnemy: boolean },
   to: { characters: Character[]; isEnemy: boolean },
-  s: ISkill | SkillEffect,
+  skill: ISkill | SkillEffect,
   logArr?: ILog[]
 ) => {
   let effect = {
-    ...s,
-    fromPlayer: (s as SkillEffect).fromPlayer
-      ? (s as SkillEffect).fromPlayer
+    ...skill,
+    fromPlayer: (skill as SkillEffect).fromPlayer
+      ? (skill as SkillEffect).fromPlayer
       : ctx.currentPlayer,
     from: from.character.teamPosition,
   } as SkillEffect;
 
   if (
-    s.type === SkillEffectType.ATTACK_POWER &&
-    s.basis === SkillEffectBasis.SELF_ATK &&
-    s.value
+    skill.type === SkillEffectType.ATTACK_POWER &&
+    skill.basis === SkillEffectBasis.SELF_ATK &&
+    skill.value
   ) {
     effect = {
       ...effect,
-      value: from.character.ATK * s.value,
+      value: from.character.ATK * skill.value,
     };
   }
 
@@ -65,13 +66,13 @@ const processSkill = (
     }
 
     if (
-      s.possibility &&
-      s.type !== SkillEffectType.PARALYZED &&
-      s.type !== SkillEffectType.SLEPT &&
-      s.type !== SkillEffectType.SILENCED
+      skill.possibility &&
+      skill.type !== SkillEffectType.PARALYZED &&
+      skill.type !== SkillEffectType.SLEPT &&
+      skill.type !== SkillEffectType.SILENCED
     ) {
       const r = ctx.random?.Number();
-      if (!r || r > s.possibility) {
+      if (!r || r > skill.possibility) {
         return true;
       }
     }
@@ -91,13 +92,13 @@ const processSkill = (
       effect.stack = 1;
     }
 
-    switch (s.type) {
+    switch (skill.type) {
       case SkillActionType.ADDSKILL:
-        if (s.skill) {
-          if (s.condition === SkillCondition.BATTLE_BEGIN) {
-            target.skillSet.passive.push({ ...s.skill });
+        if (skill.skill) {
+          if (skill.condition === SkillCondition.BATTLE_BEGIN) {
+            target.skillSet.passive.push({ ...skill.skill });
           } else {
-            target.extraSkill.push({ ...s.skill });
+            target.extraSkill.push({ ...skill.skill });
           }
         }
         break;
@@ -105,11 +106,11 @@ const processSkill = (
         if (effect.value) {
           let correctedValue = effect.value;
           // if is behind character then multiple its value again
-          if (s.basis === SkillEffectBasis.SELF_ATK && s.value) {
+          if (skill.basis === SkillEffectBasis.SELF_ATK && skill.value) {
             correctedValue = Math.floor(
               correctedValue *
                 (from.character.teamPosition < target.teamPosition
-                  ? 1 + s.value
+                  ? 1 + skill.value
                   : 1)
             );
           }
@@ -125,14 +126,14 @@ const processSkill = (
         target.isGuard = false;
         break;
       case SkillActionType.CHANGE_CD:
-        if (s.value !== undefined) {
-          target.CD += s.value;
+        if (skill.value !== undefined) {
+          target.CD += skill.value;
           target.currentCD = target.CD;
         }
         break;
       case SkillActionType.CHANGE_CURRENT_CD:
         if (
-          s.value !== undefined &&
+          skill.value !== undefined &&
           !target.skillSet.passive.some(
             (e) => e.type === SkillEffectType.IMMUNE_CHANGE_CD
           ) &&
@@ -140,13 +141,13 @@ const processSkill = (
             (e) => e.type === SkillEffectType.IMMUNE_CHANGE_CD
           )
         ) {
-          target.currentCD += s.value;
+          target.currentCD += skill.value;
           target.currentCD = target.currentCD < 0 ? 0 : target.currentCD;
         }
         break;
       case SkillActionType.CHANGE_MAX_HP:
-        if (s.value !== undefined) {
-          target.maxHP *= 1 + s.value;
+        if (skill.value !== undefined) {
+          target.maxHP *= 1 + skill.value;
           target.HP = target.maxHP;
         }
         break;
@@ -172,24 +173,34 @@ const processSkill = (
           (e) =>
             !(
               e.value &&
-              e.value < 0 &&
-              (e.type === SkillEffectType.DAMAGED ||
-                e.type == SkillEffectType.GUARD_EFFECT ||
-                e.type === SkillEffectType.HEALED)
+              ((e.value > 0 && e.type === SkillEffectType.DAMAGED) ||
+                (e.value < 0 && e.type == SkillEffectType.GUARD_EFFECT) ||
+                (e.value < 0 && e.type === SkillEffectType.HEALED))
             )
         );
+        break;
+      case SkillActionType.CLEAR_EFFECT_FROM_SELF:
+        if (skill.skill) {
+          target.effects = target.effects.filter(
+            (e) =>
+              !sameEffect(e, {
+                ...skill.skill,
+                from: from.character.teamPosition,
+              } as typeof e)
+          );
+        }
         break;
       case SkillActionType.COUNTER_STRIKE:
       case SkillActionType.NORMAL_ATTACK:
       case SkillActionType.ULTIMATE:
       case SkillActionType.FOLLOW_UP_ATTACK:
       case SkillActionType.REAL_ATTACK:
-        const damage = calcDamage(from.character, target, s);
+        const damage = calcDamage(from.character, target, skill);
         let restDamage = damage;
 
         const damageLog = {
           player: ctx.currentPlayer,
-          type: s.type,
+          type: skill.type,
           value: damage,
           from: {
             player: effect.fromPlayer,
@@ -207,7 +218,7 @@ const processSkill = (
           },
         } as ILog;
 
-        if (s.type !== SkillActionType.REAL_ATTACK) {
+        if (skill.type !== SkillActionType.REAL_ATTACK) {
           target.effects = target.effects.filter((e) => {
             if (e.type === SkillActionType.SHIELD) {
               if (!e.duration || !e.value) {
@@ -236,7 +247,7 @@ const processSkill = (
         logArr?.push(damageLog);
 
         // dot won't trigger attacked skills
-        if (!target.isDead && s.on !== SkillOn.TURN_END) {
+        if (!target.isDead && skill.on !== SkillOn.TURN_END) {
           target.isSleep = false;
 
           // trigger target's passive
@@ -262,8 +273,8 @@ const processSkill = (
                 if (
                   !(
                     targetSkill.type === SkillActionType.COUNTER_STRIKE &&
-                    (s.type === SkillActionType.COUNTER_STRIKE ||
-                      s.type === SkillActionType.FOLLOW_UP_ATTACK)
+                    (skill.type === SkillActionType.COUNTER_STRIKE ||
+                      skill.type === SkillActionType.FOLLOW_UP_ATTACK)
                   )
                 ) {
                   trigger(tempG, tempCtx, targetSkill, logArr);
@@ -276,7 +287,7 @@ const processSkill = (
               .filter((s) => s.condition === SkillCondition.ATTACKED)
               .forEach((targetSkill) => {
                 if (
-                  s.type !== SkillActionType.COUNTER_STRIKE ||
+                  skill.type !== SkillActionType.COUNTER_STRIKE ||
                   targetSkill.type !== SkillActionType.COUNTER_STRIKE
                 ) {
                   trigger(tempG, tempCtx, targetSkill, logArr);
@@ -294,15 +305,15 @@ const processSkill = (
         }
         break;
       case SkillActionType.FREEZE_CD:
-        if (s.duration) {
-          target.currentCD += s.duration;
+        if (skill.duration) {
+          target.currentCD += skill.duration;
         }
         break;
       case SkillActionType.GUARD:
         target.isGuard = true;
         logArr?.push({
           player: ctx.currentPlayer,
-          type: s.type,
+          type: skill.type,
           from: {
             player: effect.fromPlayer,
             position: from.character.teamPosition,
@@ -331,7 +342,7 @@ const processSkill = (
         break;
       case SkillActionType.HEAL:
         let healBasis: number | undefined;
-        if (s.basis === SkillEffectBasis.DAMAGE && logArr) {
+        if (skill.basis === SkillEffectBasis.DAMAGE && logArr) {
           // search basis
           for (let i = logArr.length - 1; i >= 0; i++) {
             if (
@@ -344,11 +355,11 @@ const processSkill = (
             }
           }
         }
-        const heal = calcHeal(from.character, target, s, healBasis);
+        const heal = calcHeal(from.character, target, skill, healBasis);
 
         const healLog = {
           player: ctx.currentPlayer,
-          type: s.type,
+          type: skill.type,
           value: heal,
           from: {
             player: effect.fromPlayer,
@@ -382,11 +393,11 @@ const processSkill = (
         }
         break;
       case SkillActionType.SHIELD:
-        const shield = calcShield(from.character, target, s);
+        const shield = calcShield(from.character, target, skill);
 
         const shieldLog = {
           player: ctx.currentPlayer,
-          type: s.type,
+          type: skill.type,
           value: shield,
           from: {
             player: effect.fromPlayer,
@@ -413,7 +424,7 @@ const processSkill = (
         break;
       case SkillActionType.PARALYSIS:
         if (
-          !s.possibility ||
+          !skill.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_PARALYSIS
           )
@@ -422,19 +433,19 @@ const processSkill = (
         }
 
         const para = target.effects.find(
-          (s) => s.type === SkillEffectType.PARALYZED
+          (e) => e.type === SkillEffectType.PARALYZED
         );
         const paraBuff = para?.value ? para.value : 0;
         const rPara = ctx.random?.Number();
 
-        if (rPara && rPara < s.possibility * (1 + paraBuff)) {
+        if (rPara && rPara < skill.possibility * (1 + paraBuff)) {
           target.isParalysis = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SLEEP:
         if (
-          !s.possibility ||
+          !skill.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SLEEP
           )
@@ -443,19 +454,19 @@ const processSkill = (
         }
 
         const sleep = target.effects.find(
-          (s) => s.type === SkillEffectType.SLEPT
+          (e) => e.type === SkillEffectType.SLEPT
         );
         const sleepBuff = sleep?.value ? sleep.value : 0;
         const rSleep = ctx.random?.Number();
 
-        if (rSleep && rSleep < s.possibility * (1 + sleepBuff)) {
+        if (rSleep && rSleep < skill.possibility * (1 + sleepBuff)) {
           target.isSleep = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SILENCE:
         if (
-          !s.possibility ||
+          !skill.possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SILENCE
           )
@@ -468,7 +479,7 @@ const processSkill = (
         const silenceBuff = silence?.value ? silence.value : 0;
         const rSilence = ctx.random?.Number();
 
-        if (rSilence && rSilence < s.possibility * (1 + silenceBuff)) {
+        if (rSilence && rSilence < skill.possibility * (1 + silenceBuff)) {
           target.isSilence = true;
           target.effects.push(effect);
         }
@@ -478,8 +489,8 @@ const processSkill = (
         target.effects.push(effect);
         break;
       default:
-        if (s.type in SkillActionType) {
-          throw `action not allow in effects, type: ${s.type}`;
+        if (skill.type in SkillActionType) {
+          throw `action not allow in effects, type: ${skill.type}`;
         }
         target.effects.push(effect);
         break;
@@ -487,122 +498,135 @@ const processSkill = (
   });
 };
 
-export const trigger = (
+const getSkillTargets = (
   G: IGameState,
   ctx: Ctx,
-  s: ISkill | SkillEffect,
-  logArr?: ILog[]
+  skill: ISkill | SkillEffect
 ) => {
   const enemies = getEnemies(G, ctx);
   const selfTeam = G.lineups[ctx.currentPlayer];
   const selected = G.selected[ctx.currentPlayer];
-  let to: Character[];
+  let targets: Character[];
   let isEnemy = false;
 
-  switch (s.target) {
+  switch (skill.target) {
     case SkillTarget.SELF:
-      to = [selfTeam[selected]];
+      targets = [selfTeam[selected]];
       break;
     case SkillTarget.TEAM:
-      to = selfTeam.filter((c) => !c.isDead);
+      targets = selfTeam.filter((c) => !c.isDead);
       break;
     case SkillTarget.TEAM_EXCEPT_SELF:
-      to = selfTeam.filter((c, ind) => !c.isDead && ind !== selected);
+      targets = selfTeam.filter((c, ind) => !c.isDead && ind !== selected);
       break;
     case SkillTarget.TEAM_LEAST_HP:
       const leastHP = Math.min(
         ...selfTeam.filter((c) => !c.isDead).map((c) => c.HP)
       );
-      to = selfTeam.filter((c) => c.HP === leastHP).slice(0, 1);
+      targets = selfTeam.filter((c) => c.HP === leastHP).slice(0, 1);
       break;
     case SkillTarget.ALL_ENEMIES:
-      to = enemies.filter((c) => !c.isDead);
+      targets = enemies.filter((c) => !c.isDead);
       isEnemy = true;
       break;
     case SkillTarget.SINGLE_ENEMY:
-      to = [enemies[G.target[ctx.currentPlayer]]];
+      targets = [enemies[G.target[ctx.currentPlayer]]];
       isEnemy = true;
       break;
     case SkillTarget.FIRE:
-      to = selfTeam.filter((c) => !c.isDead && c.attribute === 0);
+      targets = selfTeam.filter((c) => !c.isDead && c.attribute === 0);
       break;
     case SkillTarget.WATER:
-      to = selfTeam.filter((c) => !c.isDead && c.attribute === 1);
+      targets = selfTeam.filter((c) => !c.isDead && c.attribute === 1);
       break;
     case SkillTarget.WIND:
-      to = selfTeam.filter((c) => !c.isDead && c.attribute === 2);
+      targets = selfTeam.filter((c) => !c.isDead && c.attribute === 2);
       break;
     case SkillTarget.LIGHT:
-      to = selfTeam.filter((c) => !c.isDead && c.attribute === 3);
+      targets = selfTeam.filter((c) => !c.isDead && c.attribute === 3);
       break;
     case SkillTarget.DARK:
-      to = selfTeam.filter((c) => !c.isDead && c.attribute === 4);
+      targets = selfTeam.filter((c) => !c.isDead && c.attribute === 4);
       break;
     case SkillTarget.ATTACKER:
-      to = selfTeam.filter((c) => !c.isDead && c.position === 5);
+      targets = selfTeam.filter((c) => !c.isDead && c.position === 5);
       break;
     case SkillTarget.PROTECTOR:
-      to = selfTeam.filter((c) => !c.isDead && c.position === 6);
+      targets = selfTeam.filter((c) => !c.isDead && c.position === 6);
       break;
     case SkillTarget.HEALER:
-      to = selfTeam.filter((c) => !c.isDead && c.position === 7);
+      targets = selfTeam.filter((c) => !c.isDead && c.position === 7);
       break;
     case SkillTarget.OBSTRUCTER:
-      to = selfTeam.filter((c) => !c.isDead && c.position === 8);
+      targets = selfTeam.filter((c) => !c.isDead && c.position === 8);
       break;
     case SkillTarget.SUPPORT:
-      to = selfTeam.filter((c) => !c.isDead && c.position === 9);
+      targets = selfTeam.filter((c) => !c.isDead && c.position === 9);
       break;
     case SkillTarget.LEFTMOST:
       const leftmost = selfTeam.find((c) => !c.isDead);
-      to = leftmost ? [leftmost] : [];
+      targets = leftmost ? [leftmost] : [];
       break;
     default:
-      // unimplemented: position specific skill may change if someone is dead
-      const target = s.target;
-      to = selfTeam.filter((c, ind) => !c.isDead && target.includes(ind));
+      // unimplemented: position specific skill may change in actual game if someone is dead
+      const target = skill.target;
+      targets = selfTeam.filter((c, ind) => !c.isDead && target.includes(ind));
   }
 
-  if (to.length === 0) {
+  return { targets, isEnemy };
+};
+
+export const trigger = (
+  G: IGameState,
+  ctx: Ctx,
+  skill: ISkill | SkillEffect,
+  logArr?: ILog[]
+) => {
+  const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
+
+  if (targets.length === 0) {
     return;
   }
 
+  const enemies = getEnemies(G, ctx);
+  const selfTeam = G.lineups[ctx.currentPlayer];
+  const selected = G.selected[ctx.currentPlayer];
   const repeat =
-    (s as FollowUpAttackSkill).repeat !== undefined
-      ? (s as FollowUpAttackSkill).repeat
+    (skill as FollowUpAttackSkill).repeat !== undefined
+      ? (skill as FollowUpAttackSkill).repeat
       : 1;
 
   for (let i = 0; i < repeat; i++) {
-    if (s.on === SkillOn.TURN_END) {
-      to.forEach((c) => {
+    if (skill.on === SkillOn.TURN_END) {
+      targets.forEach((c) => {
         const endTurnEffect = {
-          ...s,
+          ...skill,
           from: selfTeam[selected].teamPosition,
           fromPlayer: ctx.currentPlayer,
         };
 
-        if (s.value) {
-          switch (s.basis) {
+        if (skill.value) {
+          switch (skill.basis) {
             case SkillEffectBasis.SELF_ATK:
-              endTurnEffect.value = selfTeam[selected].ATK * s.value;
+              endTurnEffect.value = selfTeam[selected].ATK * skill.value;
               break;
             case SkillEffectBasis.TARGET_ATK:
               endTurnEffect.value =
-                s.value *
+                skill.value *
                 (isEnemy
                   ? enemies[c.teamPosition].ATK
                   : selfTeam[c.teamPosition].ATK);
               break;
             case SkillEffectBasis.TARGET_MAX_HP:
               endTurnEffect.value =
-                s.value *
+                skill.value *
                 (isEnemy
                   ? enemies[c.teamPosition].maxHP
                   : selfTeam[c.teamPosition].maxHP);
               break;
             case SkillEffectBasis.TARGET_CURRENT_HP:
               endTurnEffect.value =
-                s.value *
+                skill.value *
                 (isEnemy
                   ? enemies[c.teamPosition].HP
                   : selfTeam[c.teamPosition].HP);
@@ -617,8 +641,8 @@ export const trigger = (
         G,
         ctx,
         { character: selfTeam[selected], isEnemy: false },
-        { characters: to, isEnemy: isEnemy },
-        s,
+        { characters: targets, isEnemy: isEnemy },
+        skill,
         logArr
       );
     }
@@ -626,11 +650,11 @@ export const trigger = (
 };
 
 const initCharacter = (
-  characterStats: CharacterStats | TestCharacterStats,
+  characterStats: CharacterStats | ScarecrowStats,
   teamPosition: number
 ): Character => {
   if (characterStats.id === "scarecrow") {
-    const { attribute, ATK, HP } = characterStats as TestCharacterStats;
+    const { attribute, ATK, HP } = characterStats as ScarecrowStats;
     return {
       id: "scarecrow",
       attribute: attribute,
@@ -738,8 +762,7 @@ const initCharacter = (
 const nextTarget = (G: IGameState, ctx: Ctx) => {
   const enemies = getEnemies(G, ctx);
   if (enemies[G.target[ctx.currentPlayer]].isDead) {
-    const tauntEnemy = enemies.findIndex((c) => !c.isDead && c.isTaunt);
-    return tauntEnemy === -1 ? enemies.findIndex((c) => !c.isDead) : tauntEnemy;
+    return enemies.findIndex((_, ind) => canTarget(G, ctx, ind));
   } else {
     return G.target[ctx.currentPlayer];
   }
@@ -749,7 +772,7 @@ export const endMove = (G: IGameState, ctx: Ctx) => {
   const lineup = G.lineups[ctx.currentPlayer];
   lineup[G.selected[ctx.currentPlayer]].isMoved = true;
 
-  const next = lineup.findIndex((_, ind) => canGuard(G, ctx, ind));
+  const next = lineup.findIndex((_, ind) => canSelect(G, ctx, ind));
   if (next !== -1) {
     G.selected[ctx.currentPlayer] = next;
   }
@@ -814,8 +837,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     onBegin: (G: IGameState, ctx: Ctx) => {
       const selfTeam = G.lineups[ctx.currentPlayer];
 
-      // update selected and target
-      G.selected[ctx.currentPlayer] = selfTeam.findIndex((c) => !c.isDead);
+      // update target
       G.target[ctx.currentPlayer] = nextTarget(G, ctx);
       G.log.push([]);
 
@@ -901,6 +923,11 @@ export const Battle = (setupData: BattleSetupData) => ({
         c.ATK = c.baseATK;
         c.ATK = calcAttack(c);
       });
+
+      // update selected
+      G.selected[ctx.currentPlayer] = selfTeam.findIndex((_, ind) =>
+        canSelect(G, ctx, ind)
+      );
     },
     onEnd: (G: IGameState, ctx: Ctx) => {
       const selfTeam = G.lineups[ctx.currentPlayer];
@@ -939,7 +966,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.log.slice(-1)[0].push(...log);
     },
     endIf: (G: IGameState, ctx: Ctx) =>
-      !G.lineups[ctx.currentPlayer].some((_, ind) => canGuard(G, ctx, ind)),
+      !G.lineups[ctx.currentPlayer].some((_, ind) => canSelect(G, ctx, ind)),
   },
   minPlayers: 2,
   maxPlayers: 2,

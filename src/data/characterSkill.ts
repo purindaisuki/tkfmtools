@@ -5324,6 +5324,21 @@ export const data: Readonly<{
         {
           condition: SkillCondition.ULTIMATE,
           target: SkillTarget.SELF,
+          type: SkillActionType.CLEAR_EFFECT_FROM_SELF,
+          on: SkillOn.AFTER_ACTION,
+          CD: 7,
+          skill: {
+            condition: SkillCondition.NORMAL_ATTACK,
+            target: SkillTarget.SELF,
+            type: SkillEffectType.ULTIMATE_DAMAGE,
+            value: 0.05,
+            on: SkillOn.AFTER_ACTION,
+            maxStack: 6,
+          },
+        },
+        {
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SELF,
           type: SkillActionType.PARALYSIS,
           on: SkillOn.AFTER_ACTION,
           CD: 7,

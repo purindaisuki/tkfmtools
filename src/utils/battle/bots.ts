@@ -3,7 +3,6 @@ import { MCTSBot } from "boardgame.io/ai";
 import { IGameState } from "types/battle";
 import {
   canAttack,
-  canGuard,
   canSelect,
   canTarget,
   canUltimate,
@@ -47,7 +46,7 @@ export class CustomMCTSBot extends MCTSBot {
                 args: [s, t],
               });
             }
-            if (canGuard(G, ctx, s)) {
+            if (canSelect(G, ctx, s)) {
               moves.push({
                 move: "guard",
                 args: [s],

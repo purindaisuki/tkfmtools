@@ -35,6 +35,7 @@ export enum SkillActionType {
   CLEAR_ABNORMAL,
   CLEAR_ATTACK_DEBUFF,
   CLEAR_SUSTAIN_DEBUFF,
+  CLEAR_EFFECT_FROM_SELF,
   TAUNT,
   SLEEP,
   SILENCE,
@@ -43,7 +44,7 @@ export enum SkillActionType {
 }
 
 export enum SkillEffectType {
-  ATTACK_POWER = 21,
+  ATTACK_POWER = 22,
   NORMAL_ATTACK_DAMAGE,
   ULTIMATE_DAMAGE,
   DEALT_DAMAGE,
@@ -176,6 +177,20 @@ export type FollowUpAttackSkill = ISkill & {
 
 export type SkillAction = Omit<ISkill, "type"> & {
   type: SkillActionType;
+};
+
+export type EndTurnSkill = ISkill & {
+  type:
+    | SkillActionType.HEAL
+    | SkillActionType.NORMAL_ATTACK
+    | SkillActionType.ULTIMATE;
+  basis:
+    | SkillEffectBasis.SELF_ATK
+    | SkillEffectBasis.TARGET_ATK
+    | SkillEffectBasis.TARGET_MAX_HP
+    | SkillEffectBasis.TARGET_CURRENT_HP;
+  value: number;
+  on: SkillOn.TURN_END;
 };
 
 export type SkillEffect = Omit<ISkill, "CD"> & {

@@ -5,11 +5,11 @@ import Header from "components/Header";
 import LocalizedLink from "components/LocalizedLink";
 import RadioGroup, { Radio } from "components/RadioGroup";
 import { OpenIcon } from "components/icon";
-import { CharacterStats } from "types/characters";
 import { useLanguage } from "containers/LanguageProvider";
+import { BattleSetupData } from "types/battle";
 
 export interface IGameSetupProps {
-  lineups: [CharacterStats[], CharacterStats[]];
+  lineups: BattleSetupData["lineups"];
   botIndex: number;
   iterations: number;
   playoutDepth: number;
@@ -27,7 +27,7 @@ export const SelectTeamButton = ({
   className,
 }: {
   isFromPlayer: boolean;
-  lineups: [CharacterStats[], CharacterStats[]];
+  lineups: BattleSetupData["lineups"];
   text: string;
 } & React.HTMLAttributes<HTMLDivElement>): JSX.Element => (
   <StyledButton

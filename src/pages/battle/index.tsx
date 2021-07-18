@@ -19,7 +19,6 @@ import {
 import {
   Battle,
   canAttack,
-  canGuard,
   canSelect,
   canTarget,
   canUltimate,
@@ -41,7 +40,6 @@ import {
   NoteIcon,
 } from "components/icon";
 import { BattleSetupData, IGameState } from "types/battle";
-import { CharacterStats } from "types/characters";
 import useLocalStorage from "hooks/useLocalStorage";
 import Snackbar from "components/Snackbar";
 
@@ -206,7 +204,7 @@ const Board = ({
   };
 
   const handleGuardClick = () => {
-    if (ctx.turn > 0 && !ctx.gameover && canGuard(G, ctx, selected)) {
+    if (ctx.turn > 0 && !ctx.gameover && canSelect(G, ctx, selected)) {
       moves.guard(selected);
       return;
     }
@@ -392,6 +390,7 @@ const StyledSelectTeamButton = styled(SelectTeamButton)`
   }
 `;
 
+// use wrapper to get generic function's type
 const wrapper = () =>
   BgioClient<
     IGameState,
@@ -401,7 +400,6 @@ const wrapper = () =>
     game: Battle({ lineups: [[], []] }),
     board: Board,
   });
-
 type ClientType = ReturnType<typeof wrapper>;
 
 const bots = [AutoBot, DoNothingBot, CustomMCTSBot];
@@ -413,14 +411,14 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
     (location.state as any)?.lineups
       ? (location.state as any).lineups
       : [[], [scarecrow]]
-  ) as [CharacterStats[], CharacterStats[]];
+  ) as BattleSetupData["lineups"];
   const [lineups, setLineups] =
-    useState<[CharacterStats[], CharacterStats[]]>(lineupsFromTeam);
+    useState<BattleSetupData["lineups"]>(lineupsFromTeam);
 
   const [botIndex, setBotIndex] = useLocalStorage("bot-type", 0);
   const [iterations, setIterations] = useState(100);
   const [playoutDepth, setPlayoutDepth] = useState(30);
-  // re-initial by useEffect rather than use the reset function of the library due to its issue
+  // re-initial by useEffect rather than use the built-in function of library due to its issue
   const [resetFlag, setResetFlag] = useState(false);
 
   const [Client, setClient] = useState<ClientType | undefined>();
@@ -446,9 +444,22 @@ const BattlePage = ({ location }: PageProps): JSX.Element => {
     botIndex,
     iterations,
     playoutDepth,
-    handleSelectScarecrow: () => setLineups([lineups[0], [scarecrow]]),
-    handleSelectScarecrows: () =>
-      setLineups([lineups[0], Array(5).fill(scarecrow)]),
+    handleSelectScarecrow: () => {
+      const newLineups = [
+        lineups[0],
+        [scarecrow],
+      ] as BattleSetupData["lineups"];
+      setLineups(newLineups);
+      window.history.replaceState({ lineups: newLineups }, "");
+    },
+    handleSelectScarecrows: () => {
+      const newLineups = [
+        lineups[0],
+        Array(5).fill(scarecrow),
+      ] as BattleSetupData["lineups"];
+      setLineups(newLineups);
+      window.history.replaceState({ lineups: newLineups }, "");
+    },
     handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       setBotIndex(
         pageString.battle.index.setting.labels.indexOf(event.target.value)
