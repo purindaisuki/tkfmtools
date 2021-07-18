@@ -6,6 +6,7 @@ import Table from "components/Table";
 import { HPBar } from ".";
 import { IGameState, ILog } from "types/battle";
 import Scrollable from "containers/Scrollable";
+import { ArrowIcon } from "components/icon";
 
 const LogCell = ({
   children,
@@ -24,6 +25,11 @@ const TextWrapper = styled.span`
   flex-direction: column;
   align-items: center;
   font-size: small;
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: ${(props) => props.theme.colors.onSurface};
+  }
 `;
 
 const MoveLog = ({
@@ -46,13 +52,13 @@ const MoveLog = ({
           })`}
         </CharacterTextWrapper>
       </LogCell>
-      <LogCell>{"⭢"}</LogCell>
+      <LogCell>{ArrowIcon}</LogCell>
       <LogCell>{`${moveLog.value ? moveLog.value : ""} (${(
         skillString.type[moveLog.type] as string
       ).replace(" {value}", "")})`}</LogCell>
       {moveLog.value || moveLog.from.position !== moveLog.to.position ? (
         <>
-          <LogCell>{"⭢"}</LogCell>
+          <LogCell>{ArrowIcon}</LogCell>
           <LogCell>
             <CharacterTextWrapper $isEnemy={moveLog.to.player === "1"}>
               {`${charString.name[toCharacter.id]} (${
