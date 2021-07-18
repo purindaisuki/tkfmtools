@@ -939,7 +939,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.log.slice(-1)[0].push(...log);
     },
     endIf: (G: IGameState, ctx: Ctx) =>
-      G.lineups[ctx.currentPlayer].every((_, ind) => !canGuard(G, ctx, ind)),
+      !G.lineups[ctx.currentPlayer].some((_, ind) => canGuard(G, ctx, ind)),
   },
   minPlayers: 2,
   maxPlayers: 2,

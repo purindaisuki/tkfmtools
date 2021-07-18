@@ -48,7 +48,7 @@ export const canAttack = (
     return false;
   }
 
-  const self = G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]];
+  const self = G.lineups[ctx.currentPlayer][selected];
   return !(
     self.isMoved ||
     self.isDead ||
@@ -110,7 +110,7 @@ export const canUltimate = (
     return false;
   }
 
-  const self = G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]];
+  const self = G.lineups[ctx.currentPlayer][selected];
   return !(
     self.isMoved ||
     self.currentCD > 0 ||
@@ -173,7 +173,7 @@ export const canGuard = (
     return false;
   }
 
-  const self = G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]];
+  const self = G.lineups[ctx.currentPlayer][selected];
   return !(
     self.isMoved ||
     self.isDead ||

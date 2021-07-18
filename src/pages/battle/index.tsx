@@ -395,9 +395,7 @@ const StyledSelectTeamButton = styled(SelectTeamButton)`
 const wrapper = () =>
   BgioClient<
     IGameState,
-    BoardProps & { settingProps: IGameSetupProps } & {
-      handleReset: () => void;
-    },
+    BoardProps & { settingProps: IGameSetupProps; handleReset: () => void },
     Ctx
   >({
     game: Battle({ lineups: [[], []] }),
