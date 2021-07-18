@@ -112,32 +112,35 @@ type Props = {
 
 export const BattleLog = ({ G }: Props): JSX.Element => {
   const { pageString }: any = useLanguage();
-  let counter = 0;
+  const logLength = G.log.length;
 
   return (
     <TableWrapper>
       <Table>
         <TableBody>
-          {G.log.map((logPerTurn, ind) => (
-            <React.Fragment key={ind}>
-              <TableRow>
-                <LogCell colSpan={6}>
-                  <TurnTextWrapper>
-                    {`${pageString.battle.index.turn} ${
-                      Math.floor(ind / 2) + 1
-                    } (${
-                      pageString.battle.index.log[
-                        ind % 2 === 0 ? "you" : "enemy"
-                      ]
-                    })`}
-                  </TurnTextWrapper>
-                </LogCell>
-              </TableRow>
-              {logPerTurn.map((logPerMove) => (
-                <MoveLog G={G} key={counter++} moveLog={logPerMove} />
-              ))}
-            </React.Fragment>
-          ))}
+          {G.log
+            .slice(0)
+            .reverse()
+            .map((logPerTurn, ind) => (
+              <React.Fragment key={logLength - ind}>
+                <TableRow>
+                  <LogCell colSpan={6}>
+                    <TurnTextWrapper>
+                      {`${pageString.battle.index.turn} ${
+                        Math.floor((logLength - ind) / 2) + 1
+                      } (${
+                        pageString.battle.index.log[
+                          ind % 2 === 0 ? "you" : "enemy"
+                        ]
+                      })`}
+                    </TurnTextWrapper>
+                  </LogCell>
+                </TableRow>
+                {logPerTurn.map((logPerMove, i) => (
+                  <MoveLog G={G} key={i} moveLog={logPerMove} />
+                ))}
+              </React.Fragment>
+            ))}
         </TableBody>
       </Table>
     </TableWrapper>
