@@ -11,7 +11,7 @@ import { BattleCharacter as Character } from "types/battle";
 import { CharacterAttribute } from "types/characters";
 
 export const calcAttack = (character: Character) => {
-  let ATKEffectPercentage = 1;
+  let ATKEffectPercentage = 0;
   let ATKEffectValue = 0;
 
   character.effects.forEach((e) => {
@@ -31,13 +31,16 @@ export const calcAttack = (character: Character) => {
               character.HP / character.maxHP >= e.otherConditionValue)
           )
         ) {
-          ATKEffectPercentage += e.value * stack;
+          ATKEffectPercentage += e.value * stack * 100;
         }
       }
     }
   });
 
-  return Math.floor(character.baseATK * ATKEffectPercentage) + ATKEffectValue;
+  return (
+    Math.floor(character.baseATK * (1 + ATKEffectPercentage / 100)) +
+    ATKEffectValue
+  );
 };
 
 /**
