@@ -1,7 +1,7 @@
 const charData = require("../data/character.json");
 const potentialData = require("../data/potential.json");
 
-const calcCharPotential = function (id, from, to, potentialType) {
+const calcCharPotential = (id, from, to, potentialType) => {
   const result = {
     items: {},
     money: 0,
@@ -63,19 +63,20 @@ const calcCharPotential = function (id, from, to, potentialType) {
   return result;
 };
 
-const calcCharStats = function ({
+const calcCharStats = ({
   id,
   level,
   potential,
   potentialSub,
   discipline,
   star,
-}) {
-  if (!id) {
-    return;
+}) => {
+  const characterData = charData.find((c) => c.id === id);
+  if (!characterData) {
+    throw `invalid character id: ${id}`;
   }
 
-  const { initATK, initHP } = charData.find((c) => c.id === id).stats;
+  const { initATK, initHP } = characterData.stats;
 
   const levelBuff = 1.1 ** (level - 1);
 
