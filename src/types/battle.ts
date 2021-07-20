@@ -1,4 +1,4 @@
-import { ISkill, SkillActionType, SkillEffect, ISkillSet } from "types/skills";
+import { ISkill, SkillActionType, SkillEffect, ISkillSet, ExtraSkill } from "types/skills";
 import {
   CharacterAttribute,
   CharacterPosition,
@@ -20,7 +20,7 @@ export interface BattleCharacter {
   readonly baseHP: number;
   maxHP: number;
   readonly skillSet: ISkillSet;
-  extraSkill: ISkill[];
+  extraSkill: ExtraSkill[];
   ATK: number;
   HP: number;
   shield: number;

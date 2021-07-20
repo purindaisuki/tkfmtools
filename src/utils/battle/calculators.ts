@@ -10,6 +10,8 @@ import {
 import { BattleCharacter as Character } from "types/battle";
 import { CharacterAttribute } from "types/characters";
 
+const correctionValue = 0.0001;
+
 export const calcAttack = (character: Character) => {
   let ATKEffectPercentage = 0;
   let ATKEffectValue = 0;
@@ -48,11 +50,11 @@ export const calcAttack = (character: Character) => {
  * rate = ATTRIBUTE_CHART[from][to]
  */
 const ATTRIBUTE_CHART = [
-  [1, 0.75, 1.5, 1, 1],
-  [1.5, 1, 0.75, 1, 1],
-  [0.75, 1.5, 1, 1, 1],
-  [1, 1, 1, 1, 1.5],
-  [1, 1, 1, 1.5, 1],
+  [0, -0.25, 0.5, 0, 0],
+  [0.5, 0, -0.25, 0, 0],
+  [-0.25, 0.5, 0, 0, 0],
+  [0, 0, 0, 0, 0.5],
+  [0, 0, 0, 0.5, 0],
 ];
 
 export const calcDamage = (
@@ -80,28 +82,88 @@ export const calcDamage = (
     to.attribute === CharacterAttribute.NONE ||
     action.on === SkillOn.TURN_END ||
     action.type === SkillActionType.REAL_ATTACK
-      ? 1
+      ? 0
       : ATTRIBUTE_CHART[from.attribute][to.attribute];
   let guardEffect = to.isGuard ? 0.5 : 1;
   let breakEffect = to.isBroken ? 1.25 : 1;
   let damagedEffect = 1;
   let attributeDamagedEffect = 1;
 
+  to.effects.forEach((e) => {
+    if (e.value === undefined) {
+      return true;
+    }
+
+    if (
+      (e.otherConditionValue &&
+        e.otherCondition === SkillCondition.HP_GREATER_THAN &&
+        from.HP / from.maxHP < e.otherConditionValue) ||
+      (e.otherConditionValue &&
+        e.otherCondition === SkillCondition.HP_LESS_THAN &&
+        from.HP / from.maxHP >= e.otherConditionValue)
+    ) {
+      return true;
+    }
+    const stack = e.stack ? e.stack : 1;
+
+    switch (e.type) {
+      case SkillEffectType.ATTRIBUTE_DAMAGED:
+        if (e.byAttribute === from.attribute) {
+          attributeDamagedEffect += e.value * stack;
+        }
+        break;
+      case SkillEffectType.ATTRIBUTE_EFFECT:
+        attributeEffect *= 1 + e.value * stack;
+        break;
+      case SkillEffectType.DAMAGED:
+        damagedEffect += e.value * stack;
+        break;
+      case SkillEffectType.NORMAL_ATTACK_DAMAGED:
+        if (action.type === SkillActionType.NORMAL_ATTACK) {
+          attackDamageEffect += e.value * stack;
+        }
+        break;
+      case SkillEffectType.ULTIMATE_DAMAGED:
+        if (
+          action.type === SkillActionType.ULTIMATE ||
+          action.type === SkillActionType.FOLLOW_UP_ATTACK
+        ) {
+          attackDamageEffect += e.value * stack;
+        }
+        break;
+      case SkillEffectType.GUARD_EFFECT:
+        if (to.isGuard) {
+          guardEffect -= e.value * stack;
+        }
+        break;
+    }
+
+    return true;
+  });
+
   if (action.basis === SkillEffectBasis.TARGET_CURRENT_HP) {
-    return Math.floor(to.HP * action.value);
+    return Math.floor(to.HP * action.value * guardEffect + correctionValue);
   }
 
   if (action.basis === SkillEffectBasis.TARGET_MAX_HP) {
-    return Math.floor(to.maxHP * action.value);
+    return Math.floor(to.maxHP * action.value * guardEffect + correctionValue);
+  }
+
+  if (action.on === SkillOn.TURN_END) {
+    return Math.floor(
+      (action.on === SkillOn.TURN_END &&
+      action.basis === SkillEffectBasis.SELF_ATK
+        ? 1
+        : from.ATK) *
+        guardEffect *
+        damagedEffect *
+        action.value +
+        correctionValue
+    );
   }
 
   from.effects.forEach((e) => {
-    // exclude dot
-    if (
-      action.on === SkillOn.TURN_END ||
-      action.type === SkillActionType.REAL_ATTACK ||
-      e.value === undefined
-    ) {
+    if (e.value === undefined) {
       return true;
     }
 
@@ -120,7 +182,7 @@ export const calcDamage = (
 
     switch (e.type) {
       case SkillEffectType.ATTRIBUTE_EFFECT:
-        attributeEffect = 1 + (attributeEffect - 1) * (1 + e.value * stack);
+        attributeEffect *= 1 + e.value * stack;
         break;
       case SkillEffectType.DEALT_DAMAGE:
         dealtDamageEffect += e.value * stack;
@@ -143,80 +205,17 @@ export const calcDamage = (
     return true;
   });
 
-  to.effects.forEach((e) => {
-    if (e.value === undefined || action.type === SkillActionType.REAL_ATTACK) {
-      return true;
-    }
-
-    if (
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.HP / from.maxHP < e.otherConditionValue) ||
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.HP / from.maxHP >= e.otherConditionValue)
-    ) {
-      return true;
-    }
-    const stack = e.stack ? e.stack : 1;
-
-    switch (e.type) {
-      case SkillEffectType.ATTRIBUTE_DAMAGED:
-        if (
-          action.on !== SkillOn.TURN_END &&
-          e.byAttribute === from.attribute
-        ) {
-          attributeDamagedEffect += e.value * stack;
-        }
-        break;
-      case SkillEffectType.ATTRIBUTE_EFFECT:
-        if (action.on !== SkillOn.TURN_END) {
-          attributeEffect = 1 + (attributeEffect - 1) * (1 + e.value * stack);
-        }
-        break;
-      case SkillEffectType.DAMAGED:
-        damagedEffect += e.value * stack;
-        break;
-      case SkillEffectType.NORMAL_ATTACK_DAMAGED:
-        if (
-          action.on !== SkillOn.TURN_END &&
-          action.type === SkillActionType.NORMAL_ATTACK
-        ) {
-          attackDamageEffect += e.value * stack;
-        }
-        break;
-      case SkillEffectType.ULTIMATE_DAMAGED:
-        if (
-          action.on !== SkillOn.TURN_END &&
-          (action.type === SkillActionType.ULTIMATE ||
-            action.type === SkillActionType.FOLLOW_UP_ATTACK)
-        ) {
-          attackDamageEffect += e.value * stack;
-        }
-        break;
-      case SkillEffectType.GUARD_EFFECT:
-        if (to.isGuard) {
-          guardEffect -= e.value * stack;
-        }
-        break;
-    }
-
-    return true;
-  });
-
   return Math.floor(
-    (action.on === SkillOn.TURN_END &&
-    action.basis === SkillEffectBasis.SELF_ATK
-      ? 1
-      : from.ATK) *
+    from.ATK *
       dealtDamageEffect *
       attackDamageEffect *
-      attributeEffect *
+      (1 + attributeEffect) *
       guardEffect *
       breakEffect *
       damagedEffect *
       attributeDamagedEffect *
-      action.value
+      action.value +
+      correctionValue
   );
 };
 
@@ -256,35 +255,47 @@ export const calcHeal = (
           throw "invalid argument";
         }
 
-        return Math.floor(damage * action.value);
+        return Math.floor(damage * action.value + correctionValue);
       default:
         throw "invalid argument";
     }
   }
 
-  from.effects.forEach((e): boolean | void => {
-    if (action.on === SkillOn.TURN_END || e.value === undefined) {
-      return true;
-    }
+  if (
+    action.on !== SkillOn.TURN_END &&
+    action.basis !== SkillEffectBasis.TARGET_MAX_HP &&
+    action.basis !== SkillEffectBasis.TARGET_CURRENT_HP
+  ) {
+    from.effects.forEach((e): boolean | void => {
+      if (e.value === undefined) {
+        return true;
+      }
 
-    const stack = e.stack ? e.stack : 1;
+      const stack = e.stack ? e.stack : 1;
 
-    switch (e.type) {
-      case SkillEffectType.HEAL_EFFECT:
-        healEffect += e.value * stack;
-        break;
-      case SkillEffectType.NORMAL_ATTACK_DAMAGE:
-        if (action.condition === SkillCondition.NORMAL_ATTACK) {
-          damageEffect += e.value * stack;
-        }
-        break;
-      case SkillEffectType.ULTIMATE_DAMAGE:
-        if (action.condition === SkillCondition.ULTIMATE) {
-          damageEffect += e.value * stack;
-        }
-        break;
-    }
-  });
+      switch (e.type) {
+        case SkillEffectType.HEAL_EFFECT:
+          healEffect += e.value * stack;
+          break;
+        case SkillEffectType.NORMAL_ATTACK_DAMAGE:
+          if (
+            action.condition === SkillCondition.ATTACK ||
+            action.condition === SkillCondition.NORMAL_ATTACK
+          ) {
+            damageEffect += e.value * stack;
+          }
+          break;
+        case SkillEffectType.ULTIMATE_DAMAGE:
+          if (
+            action.condition === SkillCondition.ATTACK ||
+            action.condition === SkillCondition.ULTIMATE
+          ) {
+            damageEffect += e.value * stack;
+          }
+          break;
+      }
+    });
+  }
 
   to.effects.forEach((e) => {
     if (e.value !== undefined && e.type === SkillEffectType.HEALED) {
@@ -294,7 +305,8 @@ export const calcHeal = (
   });
 
   return Math.floor(
-    base * healEffect * healedEffect * damageEffect * action.value
+    base * healEffect * healedEffect * damageEffect * action.value +
+      correctionValue
   );
 };
 
@@ -326,27 +338,35 @@ export const calcShield = (
       throw "invalid argument";
   }
 
-  from.effects.forEach((e) => {
-    if (e.value !== undefined) {
-      const stack = e.stack ? e.stack : 1;
+  if (action.basis !== SkillEffectBasis.TARGET_MAX_HP) {
+    from.effects.forEach((e) => {
+      if (e.value !== undefined) {
+        const stack = e.stack ? e.stack : 1;
 
-      switch (e.type) {
-        case SkillEffectType.SHIELD_EFFECT:
-          shieldEffect += e.value * stack;
-          break;
-        case SkillEffectType.NORMAL_ATTACK_DAMAGE:
-          if (action.condition === SkillCondition.NORMAL_ATTACK) {
-            damageEffect += e.value * stack;
-          }
-          break;
-        case SkillEffectType.ULTIMATE_DAMAGE:
-          if (action.condition === SkillCondition.ULTIMATE) {
-            damageEffect += e.value * stack;
-          }
-          break;
+        switch (e.type) {
+          case SkillEffectType.SHIELD_EFFECT:
+            shieldEffect += e.value * stack;
+            break;
+          case SkillEffectType.NORMAL_ATTACK_DAMAGE:
+            if (
+              action.condition === SkillCondition.ATTACK ||
+              action.condition === SkillCondition.NORMAL_ATTACK
+            ) {
+              damageEffect += e.value * stack;
+            }
+            break;
+          case SkillEffectType.ULTIMATE_DAMAGE:
+            if (
+              action.condition === SkillCondition.ATTACK ||
+              action.condition === SkillCondition.ULTIMATE
+            ) {
+              damageEffect += e.value * stack;
+            }
+            break;
+        }
       }
-    }
-  });
+    });
+  }
 
   to.effects.forEach((e) => {
     if (e.value !== undefined && e.type === SkillEffectType.SHIELDED) {
@@ -356,6 +376,7 @@ export const calcShield = (
   });
 
   return Math.floor(
-    base * shieldEffect * shieldedEffect * damageEffect * action.value
+    base * shieldEffect * shieldedEffect * damageEffect * action.value +
+      correctionValue
   );
 };

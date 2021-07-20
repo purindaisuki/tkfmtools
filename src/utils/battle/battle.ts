@@ -10,6 +10,7 @@ import {
   SkillEffectType,
   FollowUpAttackSkill,
   UltimateSkill,
+  ExtraSkill,
 } from "types/skills";
 import { CharacterStats, ICharacterData } from "types/characters";
 import {
@@ -39,7 +40,7 @@ const processSkill = (
   ctx: Ctx,
   from: { character: Character; isEnemy: boolean },
   to: { characters: Character[]; isEnemy: boolean },
-  skill: ISkill | SkillEffect,
+  skill: ISkill | ExtraSkill | SkillEffect,
   logArr?: ILog[]
 ) => {
   let effect = {
@@ -67,13 +68,13 @@ const processSkill = (
     }
 
     if (
-      skill.possibility &&
+      (skill as ISkill).possibility &&
       skill.type !== SkillEffectType.PARALYZED &&
       skill.type !== SkillEffectType.SLEPT &&
       skill.type !== SkillEffectType.SILENCED
     ) {
       const r = ctx.random?.Number();
-      if (!r || r > skill.possibility) {
+      if (!r || r > (skill as ISkill).possibility!) {
         return true;
       }
     }
@@ -421,7 +422,7 @@ const processSkill = (
         break;
       case SkillActionType.PARALYSIS:
         if (
-          !skill.possibility ||
+          !(skill as ISkill).possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_PARALYSIS
           )
@@ -435,14 +436,14 @@ const processSkill = (
         const paraBuff = para?.value ? para.value : 0;
         const rPara = ctx.random?.Number();
 
-        if (rPara && rPara < skill.possibility * (1 + paraBuff)) {
+        if (rPara && rPara < (skill as ISkill).possibility! * (1 + paraBuff)) {
           target.isParalysis = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SLEEP:
         if (
-          !skill.possibility ||
+          !(skill as ISkill).possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SLEEP
           )
@@ -456,14 +457,17 @@ const processSkill = (
         const sleepBuff = sleep?.value ? sleep.value : 0;
         const rSleep = ctx.random?.Number();
 
-        if (rSleep && rSleep < skill.possibility * (1 + sleepBuff)) {
+        if (
+          rSleep &&
+          rSleep < (skill as ISkill).possibility! * (1 + sleepBuff)
+        ) {
           target.isSleep = true;
           target.effects.push(effect);
         }
         break;
       case SkillActionType.SILENCE:
         if (
-          !skill.possibility ||
+          !(skill as ISkill).possibility ||
           target.skillSet.passive.some(
             (s) => s.type === SkillEffectType.IMMUNE_SILENCE
           )
@@ -476,7 +480,10 @@ const processSkill = (
         const silenceBuff = silence?.value ? silence.value : 0;
         const rSilence = ctx.random?.Number();
 
-        if (rSilence && rSilence < skill.possibility * (1 + silenceBuff)) {
+        if (
+          rSilence &&
+          rSilence < (skill as ISkill).possibility! * (1 + silenceBuff)
+        ) {
           target.isSilence = true;
           target.effects.push(effect);
         }
@@ -576,7 +583,7 @@ const getSkillTargets = (
 export const trigger = (
   G: IGameState,
   ctx: Ctx,
-  skill: ISkill | SkillEffect,
+  skill: ISkill | ExtraSkill | SkillEffect,
   logArr?: ILog[]
 ) => {
   const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
@@ -588,11 +595,12 @@ export const trigger = (
   const enemies = getEnemies(G, ctx);
   const selfTeam = G.lineups[ctx.currentPlayer];
   const selected = G.selected[ctx.currentPlayer];
-  const { CD, ...rest } = skill as UltimateSkill;
-  const repeat =
+  const { CD, skillDuration, ...rest } = skill as UltimateSkill & ExtraSkill;
+  const repeat = (
     (skill as FollowUpAttackSkill).repeat !== undefined
       ? (skill as FollowUpAttackSkill).repeat
-      : 1;
+      : 1
+  ) as number;
 
   for (let i = 0; i < repeat; i++) {
     if (skill.on === SkillOn.TURN_END) {
@@ -885,7 +893,7 @@ export const Battle = (setupData: BattleSetupData) => ({
             return true;
           });
           c.extraSkill = c.extraSkill.filter((s) => {
-            const extraSkill = s as SkillEffect;
+            const extraSkill = s as ExtraSkill;
             if (extraSkill.skillDuration !== undefined) {
               extraSkill.skillDuration--;
             } else {

@@ -113,38 +113,40 @@ export interface ISkill {
   repeat?: number;
   possibility?: number;
   invalidWhen?: SkillCondition;
-  skill?: {
-    condition:
-      | SkillCondition.NORMAL_ATTACK
-      | SkillCondition.ULTIMATE
-      | SkillCondition.ATTACK
-      | SkillCondition.ATTACKED
-      | SkillCondition.BATTLE_BEGIN;
-    type:
-      | SkillActionType.NORMAL_ATTACK
-      | SkillActionType.ULTIMATE
-      | SkillActionType.COUNTER_STRIKE
-      | SkillActionType.FOLLOW_UP_ATTACK
-      | SkillActionType.HEAL
-      | SkillEffectType.ATTACK_POWER
-      | SkillEffectType.ULTIMATE_DAMAGE
-      | SkillEffectType.NORMAL_ATTACK_DAMAGE
-      | SkillEffectType.IMMUNE_SILENCE
-      | SkillEffectType.IMMUNE_SLEEP
-      | SkillEffectType.IMMUNE_PARALYSIS;
-    basis?: SkillEffectBasis.TARGET_ATK;
-    value?: number;
-    target:
-      | SkillTarget.SINGLE_ENEMY
-      | SkillTarget.ALL_ENEMIES
-      | SkillTarget.SELF
-      | SkillTarget.TEAM;
-    on: SkillOn;
-    duration?: number /*duarion of effect*/;
-    skillDuration?: number /* duartion of extra skill */;
-    repeat?: number;
-  };
+  skill?: ExtraSkill;
 }
+
+export type ExtraSkill = {
+  condition:
+    | SkillCondition.NORMAL_ATTACK
+    | SkillCondition.ULTIMATE
+    | SkillCondition.ATTACK
+    | SkillCondition.ATTACKED
+    | SkillCondition.BATTLE_BEGIN;
+  type:
+    | SkillActionType.NORMAL_ATTACK
+    | SkillActionType.ULTIMATE
+    | SkillActionType.COUNTER_STRIKE
+    | SkillActionType.FOLLOW_UP_ATTACK
+    | SkillActionType.HEAL
+    | SkillEffectType.ATTACK_POWER
+    | SkillEffectType.ULTIMATE_DAMAGE
+    | SkillEffectType.NORMAL_ATTACK_DAMAGE
+    | SkillEffectType.IMMUNE_SILENCE
+    | SkillEffectType.IMMUNE_SLEEP
+    | SkillEffectType.IMMUNE_PARALYSIS;
+  basis?: SkillEffectBasis.TARGET_ATK;
+  value?: number;
+  target:
+    | SkillTarget.SINGLE_ENEMY
+    | SkillTarget.ALL_ENEMIES
+    | SkillTarget.SELF
+    | SkillTarget.TEAM;
+  on: SkillOn;
+  duration?: number /*duarion of effect*/;
+  skillDuration?: number /* duartion of extra skill */;
+  repeat?: number;
+};
 
 export type ConditionalPassiveSkill = Omit<ISkill, "CD" | "maxStack"> & {
   condition: SkillCondition.BATTLE_BEGIN;
@@ -173,7 +175,7 @@ export type TurnBasedSkill = ISkill & {
 export type FollowUpAttackSkill = ISkill & {
   type: SkillActionType.FOLLOW_UP_ATTACK;
   value: number;
-  repeat: number;
+  repeat?: number;
 };
 
 export type SkillAction = Omit<ISkill, "type"> & {
@@ -194,11 +196,10 @@ export type EndTurnSkill = ISkill & {
   on: SkillOn.TURN_END;
 };
 
-export type SkillEffect = Omit<ISkill, "CD"> & {
+export type SkillEffect = Omit<ISkill, "CD" | "possibility"> & {
   from: number;
   fromPlayer: string;
   stack?: number;
-  skillDuration?: number;
 };
 
 export interface ISkillSet {

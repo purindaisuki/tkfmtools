@@ -3714,7 +3714,7 @@ export const data: Readonly<{
         condition: SkillCondition.ATTACKED,
         target: SkillTarget.SELF,
         type: SkillActionType.HEAL,
-        basis: SkillEffectBasis.TARGET_ATK,
+        basis: SkillEffectBasis.SELF_ATK,
         value: 1,
         on: SkillOn.AFTER_ACTION,
         possibility: 0.15,
@@ -4117,6 +4117,7 @@ export const data: Readonly<{
         type: SkillActionType.HEAL,
         basis: SkillEffectBasis.TARGET_MAX_HP,
         on: SkillOn.AFTER_ACTION,
+        value: 0.04,
         possibility: 0.5,
       },
       {
