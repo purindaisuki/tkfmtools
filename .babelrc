@@ -17,11 +17,8 @@
   "presets": [
     [
       "babel-preset-gatsby",
-      {
-        "targets": {
-          "esmodules": true
-        }
-      }
+      { "targets": { "esmodules": true } },
+      "@babel/preset-typescript"
     ]
   ]
 }

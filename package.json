@@ -45,7 +45,8 @@
     "build": "gatsby build --prefix-paths",
     "serve": "gatsby serve --prefix-paths -o",
     "clean": "gatsby clean",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -66,12 +67,21 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@types/jest": "^26.0.24",
     "@types/react": "^17.0.13",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.11",
+    "babel-jest": "^27.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
-    "babel-preset-gatsby": "^1.8.0",
+    "babel-preset-gatsby": "^1.9.0",
     "eslint": "^7.29.0",
     "gh-pages": "^3.2.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.6",
+    "react-test-renderer": "^17.0.2",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
   "resolutions": {
