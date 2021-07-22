@@ -35,11 +35,11 @@ import { data as skillData } from "data/characterSkill";
 import charMap from "data/charMap";
 import { canTarget } from "./moves";
 
-const processSkill = (
+export const processSkill = (
   G: IGameState,
   ctx: Ctx,
-  from: { character: Character; isEnemy: boolean },
-  to: { characters: Character[]; isEnemy: boolean },
+  from: { character: Character },
+  to: { characters: Character[]; player: string },
   skill: ISkill | ExtraSkill | SkillEffect,
   logArr?: ILog[]
 ) => {
@@ -205,11 +205,7 @@ const processSkill = (
             position: from.character.teamPosition,
           },
           to: {
-            player: to.isEnemy
-              ? ctx.currentPlayer === "0"
-                ? "1"
-                : "0"
-              : ctx.currentPlayer,
+            player: to.player,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -265,31 +261,34 @@ const processSkill = (
 
           if (target.teamPosition === 0) {
             target.skillSet.leader
-              .filter((s) => s.condition === SkillCondition.ATTACKED)
-              .forEach((targetSkill) => {
-                // followup attack and counterstrike won't trigger counterstrike
-                if (
+              .filter(
+                (s) =>
+                  s.condition === SkillCondition.ATTACKED &&
                   !(
-                    targetSkill.type === SkillActionType.COUNTER_STRIKE &&
+                    s.type === SkillActionType.COUNTER_STRIKE &&
                     (skill.type === SkillActionType.COUNTER_STRIKE ||
                       skill.type === SkillActionType.FOLLOW_UP_ATTACK)
                   )
-                ) {
-                  trigger(tempG, tempCtx, targetSkill, logArr);
-                }
+              )
+              .forEach((targetSkill) => {
+                // followup attack and counterstrike won't trigger counterstrike
+                trigger(tempG, tempCtx, targetSkill, logArr);
               });
           }
 
           if (!target.isSilence) {
             target.skillSet.passive
-              .filter((s) => s.condition === SkillCondition.ATTACKED)
+              .filter(
+                (s) =>
+                  s.condition === SkillCondition.ATTACKED &&
+                  !(
+                    s.type === SkillActionType.COUNTER_STRIKE &&
+                    (skill.type === SkillActionType.COUNTER_STRIKE ||
+                      skill.type === SkillActionType.FOLLOW_UP_ATTACK)
+                  )
+              )
               .forEach((targetSkill) => {
-                if (
-                  skill.type !== SkillActionType.COUNTER_STRIKE ||
-                  targetSkill.type !== SkillActionType.COUNTER_STRIKE
-                ) {
-                  trigger(tempG, tempCtx, targetSkill, logArr);
-                }
+                trigger(tempG, tempCtx, targetSkill, logArr);
               });
           }
         } else if (target.isDead) {
@@ -317,11 +316,7 @@ const processSkill = (
             position: from.character.teamPosition,
           },
           to: {
-            player: to.isEnemy
-              ? ctx.currentPlayer === "0"
-                ? "1"
-                : "0"
-              : ctx.currentPlayer,
+            player: to.player,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -364,11 +359,7 @@ const processSkill = (
             position: from.character.teamPosition,
           },
           to: {
-            player: to.isEnemy
-              ? ctx.currentPlayer === "0"
-                ? "1"
-                : "0"
-              : ctx.currentPlayer,
+            player: to.player,
             position: target.teamPosition,
             originalHP: target.HP,
             originalShield: target.shield,
@@ -402,11 +393,7 @@ const processSkill = (
             position: from.character.teamPosition,
           },
           to: {
-            player: to.isEnemy
-              ? ctx.currentPlayer === "0"
-                ? "1"
-                : "0"
-              : ctx.currentPlayer,
+            player: to.player,
             position: target.teamPosition,
             originalHP: target.HP,
             HP: target.HP,
@@ -595,14 +582,12 @@ export const trigger = (
   const enemies = getEnemies(G, ctx);
   const selfTeam = G.lineups[ctx.currentPlayer];
   const selected = G.selected[ctx.currentPlayer];
-  const { CD, skillDuration, ...rest } = skill as UltimateSkill & ExtraSkill;
-  const repeat = (
-    (skill as FollowUpAttackSkill).repeat !== undefined
-      ? (skill as FollowUpAttackSkill).repeat
-      : 1
-  ) as number;
+  const { CD, skillDuration, repeat, ...rest } = skill as UltimateSkill &
+    ExtraSkill &
+    FollowUpAttackSkill;
+  let repeatTimes = repeat !== undefined ? repeat : 1;
 
-  for (let i = 0; i < repeat; i++) {
+  for (let i = 0; i < repeatTimes; i++) {
     if (skill.on === SkillOn.TURN_END) {
       targets.forEach((c) => {
         const endTurnEffect = {
@@ -646,8 +631,15 @@ export const trigger = (
       processSkill(
         G,
         ctx,
-        { character: selfTeam[selected], isEnemy: false },
-        { characters: targets, isEnemy: isEnemy },
+        { character: selfTeam[selected] },
+        {
+          characters: targets,
+          player: isEnemy
+            ? ctx.currentPlayer === "0"
+              ? "1"
+              : "0"
+            : ctx.currentPlayer,
+        },
         rest,
         logArr
       );
@@ -655,7 +647,7 @@ export const trigger = (
   }
 };
 
-const initCharacter = (
+export const initCharacter = (
   characterStats: CharacterStats | ScarecrowStats,
   teamPosition: number
 ): Character => {
@@ -958,11 +950,8 @@ export const Battle = (setupData: BattleSetupData) => ({
                   selected: { ...G.selected, [ctx.currentPlayer]: ind },
                 },
                 ctx,
-                {
-                  character: fromCharacter,
-                  isEnemy: s.fromPlayer !== ctx.currentPlayer,
-                },
-                { characters: [c], isEnemy: false },
+                { character: fromCharacter },
+                { characters: [c], player: ctx.currentPlayer },
                 {
                   ...s,
                   target: SkillTarget.SELF,
