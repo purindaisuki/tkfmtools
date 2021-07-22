@@ -98,7 +98,9 @@ const InfiniteLoader = ({
         {state.items.map((i) => renderItem(i))}
         <div ref={bottomBoundaryRef} />
       </List>
-      {state.isFetching && <StyledSpinner size={32} thickness={6} />}
+      {state.isFetching && (
+        <StyledSpinner size={32} thickness={6} disableShrink />
+      )}
     </>
   );
 };
