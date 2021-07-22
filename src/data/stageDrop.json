@@ -2310,7 +2310,7 @@
         "energy": 20,
         "materials": [
           { "id": "405", "rarity": 0 },
-          { "id": "101", "rarity": 2 }
+          { "id": "103", "rarity": 2 }
         ],
         "trainItems": [],
         "expPotions": [{ "id": "803", "rarity": 2 }]
