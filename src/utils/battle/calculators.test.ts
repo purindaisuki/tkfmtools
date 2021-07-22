@@ -1,6 +1,14 @@
 import { calcAttack, calcDamage, calcHeal, calcShield } from "./calculators";
-import { data as skillData } from "data/characterSkill";
 import { CharacterAttribute, CharacterPosition } from "types/characters";
+import {
+  SkillActionType,
+  SkillCondition,
+  SkillEffectBasis,
+  SkillEffectType,
+  SkillOn,
+  SkillTarget,
+} from "types/skills";
+import { BattleCharacter } from "types/battle";
 
 const from = {
   from: 0,
@@ -8,111 +16,156 @@ const from = {
 };
 
 const ATKBuffByValue = {
-  ...skillData["106"].starPassive[1],
+  condition: SkillCondition.ATTACK,
+  target: SkillTarget.TEAM,
+  duration: 1,
+  type: SkillEffectType.ATTACK_POWER,
+  basis: SkillEffectBasis.SELF_ATK,
+  on: SkillOn.AFTER_ACTION,
   value: 1234567,
-  ...from,
 };
 
 const ATKBuffByPercentage = {
-  ...skillData["126"].starPassive[2],
+  condition: SkillCondition.ULTIMATE,
+  target: SkillTarget.TEAM,
+  duration: 12,
+  type: SkillEffectType.ATTACK_POWER,
+  basis: SkillEffectBasis.TARGET_ATK,
+  on: SkillOn.AFTER_ACTION,
   value: 0.11,
-  ...from,
 };
 
 const stackableATKBuffByPercentage = {
-  ...skillData["101"].starPassive[1],
+  condition: SkillCondition.ATTACKED,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.ATTACK_POWER,
+  basis: SkillEffectBasis.TARGET_ATK,
+  on: SkillOn.AFTER_ACTION,
+  maxStack: 2,
   value: 0.12,
   stack: 2,
-  ...from,
 };
 
 const conditionalATKBuff = {
-  ...skillData["103"].starPassive[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  otherCondition: SkillCondition.HP_GREATER_THAN,
   otherConditionValue: 0.75,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.ATTACK_POWER,
+  basis: SkillEffectBasis.TARGET_ATK,
+  on: SkillOn.BEFORE_ACTION,
   value: 0.15,
-  ...from,
 };
 
 const normalAttackDamageBuff = {
-  ...skillData["101"].starPassive[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.NORMAL_ATTACK_DAMAGE,
+  on: SkillOn.TURN_BEGIN,
   value: 0.13,
-  ...from,
 };
 
 const normalAttackDamagedBuff = {
-  ...skillData["137"].starPassive[2],
+  condition: SkillCondition.ATTACK,
+  target: SkillTarget.SINGLE_ENEMY,
+  type: SkillEffectType.NORMAL_ATTACK_DAMAGED,
+  on: SkillOn.AFTER_ACTION,
+  maxStack: 10,
   value: 0.14,
   stack: 4,
-  ...from,
 };
 
 const ultimateDamageBuff = {
-  ...skillData["106"].leader[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.TEAM,
+  type: SkillEffectType.ULTIMATE_DAMAGE,
+  on: SkillOn.TURN_BEGIN,
   value: 0.15,
-  ...from,
 };
 
 const ultimateDamagedBuff = {
-  ...skillData["131"].leader[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SINGLE_ENEMY,
+  type: SkillEffectType.ULTIMATE_DAMAGED,
+  on: SkillOn.TURN_BEGIN,
   value: 0.16,
-  ...from,
 };
 
 const attributeDamagedBuff = {
-  ...skillData["128"].ultimate.common[0],
+  condition: SkillCondition.ULTIMATE,
+  target: SkillTarget.SINGLE_ENEMY,
+  type: SkillEffectType.ATTRIBUTE_DAMAGED,
+  on: SkillOn.BEFORE_ACTION,
+  maxStack: 2,
   value: 0.17,
   stack: 1,
   byAttribute: CharacterAttribute.FIRE,
-  ...from,
 };
 
 const attributeEffectBuff = {
-  ...skillData["215"].leader[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.TEAM,
+  type: SkillEffectType.ATTRIBUTE_EFFECT,
+  on: SkillOn.TURN_BEGIN,
   value: 0.18,
-  ...from,
 };
 
 const dealtDamageBuff = {
-  ...skillData["101"].leader[1],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.TEAM_EXCEPT_SELF,
+  type: SkillEffectType.DEALT_DAMAGE,
+  on: SkillOn.TURN_BEGIN,
   value: 0.19,
   stack: 2,
-  ...from,
 };
 
 const damagedBuff = {
-  ...skillData["102"].starPassive[0],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.DAMAGED,
+  on: SkillOn.TURN_BEGIN,
   value: 0.2,
-  ...from,
 };
 
 const guardEffectBuff = {
-  ...skillData["102"].leader[1],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.GUARD_EFFECT,
+  on: SkillOn.TURN_BEGIN,
   value: 0.21,
-  ...from,
 };
 
 const healBuff = {
-  ...skillData["306"].starPassive[1],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.HEAL_EFFECT,
+  on: SkillOn.TURN_BEGIN,
   value: 0.22,
-  ...from,
 };
 
 const healedBuff = {
-  ...skillData["125"].starPassive[1],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.HEALED,
+  on: SkillOn.TURN_BEGIN,
   value: 0.23,
-  ...from,
 };
 
 const shieldBuff = {
-  ...skillData["211"].starPassive[2],
+  condition: SkillCondition.BATTLE_BEGIN,
+  target: SkillTarget.SELF,
+  type: SkillEffectType.SHIELD_EFFECT,
+  on: SkillOn.TURN_BEGIN,
   value: 0.24,
-  ...from,
 };
 
 const shieldedBuff = {
-  ...skillData["126"].starPassive[1],
+  condition: SkillCondition.ATTACK,
+  target: SkillTarget.TEAM,
+  duration: 2,
+  type: SkillEffectType.SHIELDED,
+  on: SkillOn.AFTER_ACTION,
   value: 0.25,
-  ...from,
 };
 
 const character = {
@@ -153,7 +206,7 @@ const character = {
     healedBuff,
     shieldBuff,
     shieldedBuff,
-  ],
+  ].map((e) => ({ ...e, ...from })),
   isMoved: false,
   isGuard: false,
   isBroken: false,
@@ -162,7 +215,7 @@ const character = {
   isSleep: false,
   isSilence: false,
   isDead: false,
-};
+} as BattleCharacter;
 
 describe("attack power calculation", () => {
   test("conditional buffs take its effect", () => {
@@ -175,10 +228,25 @@ describe("attack power calculation", () => {
 });
 
 describe("damage calculation", () => {
+  const normalAttack = {
+    condition: SkillCondition.NORMAL_ATTACK,
+    target: SkillTarget.SINGLE_ENEMY,
+    type: SkillActionType.NORMAL_ATTACK,
+    value: 1,
+    on: SkillOn.ON_ACTION,
+  };
+
+  const ultimate = {
+    condition: SkillCondition.ULTIMATE,
+    target: SkillTarget.SINGLE_ENEMY,
+    type: SkillActionType.ULTIMATE,
+    value: 3.3,
+    CD: 4,
+    on: SkillOn.ON_ACTION,
+  };
+
   test("normal attack damage", () => {
-    expect(
-      calcDamage(character, character, skillData["101"].normalAttack[0])
-    ).toBe(3274408);
+    expect(calcDamage(character, character, normalAttack)).toBe(3274408);
   });
 
   test("damage with attribute effect", () => {
@@ -186,140 +254,188 @@ describe("damage calculation", () => {
       calcDamage(
         character,
         { ...character, attribute: CharacterAttribute.WIND },
-        skillData["101"].normalAttack[0]
+        normalAttack
       )
     ).toBe(5554052);
   });
 
   test("ultimate damage", () => {
-    expect(
-      calcDamage(character, character, skillData["101"].ultimate.common[1])
-    ).toBe(8375898);
+    expect(calcDamage(character, character, ultimate)).toBe(8375898);
   });
 
   test("damage when opponent guards", () => {
     expect(
-      calcDamage(
-        character,
-        { ...character, isGuard: true },
-        skillData["101"].ultimate.common[1]
-      )
+      calcDamage(character, { ...character, isGuard: true }, ultimate)
     ).toBe(2429010);
   });
 
-  test("real damage", () => {
+  test("real attack", () => {
+    const realAttack = {
+      condition: SkillCondition.BATTLE_BEGIN,
+      conditionValue: 1,
+      target: SkillTarget.SELF,
+      type: SkillActionType.REAL_ATTACK,
+      basis: SkillEffectBasis.TARGET_CURRENT_HP,
+      value: 0.3,
+      on: SkillOn.TURN_BEGIN,
+    };
+
     expect(
-      calcDamage(
-        character,
-        { ...character, HP: 123456 },
-        { ...skillData["117"].starPassive[3], value: 0.3 }
-      )
+      calcDamage(character, { ...character, HP: 123456 }, realAttack)
     ).toBe(37036);
   });
 
   test("dot", () => {
-    expect(
-      calcDamage(character, character, {
-        ...skillData["125"].normalAttack[0],
-        value: 123456,
-      })
-    ).toBe(148147);
+    const dot = {
+      condition: SkillCondition.NORMAL_ATTACK,
+      target: SkillTarget.SINGLE_ENEMY,
+      type: SkillActionType.NORMAL_ATTACK,
+      basis: SkillEffectBasis.SELF_ATK,
+      value: 123456,
+      on: SkillOn.TURN_END,
+      duration: 4,
+    };
+
+    expect(calcDamage(character, character, dot)).toBe(148147);
   });
 
   test("follow up attack", () => {
-    expect(
-      calcDamage(character, character, {
-        ...skillData["103"].leader[0],
-        value: 1,
-      })
-    ).toBe(2538151);
+    const followupAttack = {
+      condition: SkillCondition.ATTACK,
+      target: SkillTarget.ALL_ENEMIES,
+      type: SkillActionType.FOLLOW_UP_ATTACK,
+      value: 1,
+      on: SkillOn.AFTER_ACTION,
+      repeat: 1,
+    };
+    expect(calcDamage(character, character, followupAttack)).toBe(2538151);
   });
 });
 
 describe("heal calculation", () => {
   test("heal by self attack (normal attack)", () => {
-    expect(
-      calcHeal(
-        character,
-        { ...character, ATK: 0 },
-        { ...skillData["106"].normalAttack[0], value: 1 },
-        123456
-      )
-    ).toBe(1695678);
+    const heal = {
+      condition: SkillCondition.NORMAL_ATTACK,
+      target: SkillTarget.TEAM,
+      type: SkillActionType.HEAL,
+      basis: SkillEffectBasis.SELF_ATK,
+      value: 1,
+      on: SkillOn.ON_ACTION,
+    };
+
+    expect(calcHeal(character, { ...character, ATK: 0 }, heal, 123456)).toBe(
+      1695678
+    );
   });
 
   test("heal by self attack (ultimate)", () => {
-    expect(
-      calcHeal(
-        character,
-        { ...character, ATK: 0 },
-        { ...skillData["106"].ultimate.common[0], value: 1 },
-        123456
-      )
-    ).toBe(1725690);
+    const heal = {
+      condition: SkillCondition.ULTIMATE,
+      target: SkillTarget.TEAM,
+      type: SkillActionType.HEAL,
+      basis: SkillEffectBasis.SELF_ATK,
+      value: 1,
+      CD: 5,
+      on: SkillOn.ON_ACTION,
+    };
+
+    expect(calcHeal(character, { ...character, ATK: 0 }, heal, 123456)).toBe(
+      1725690
+    );
   });
 
   test("heal by target attack(end turn heal)", () => {
-    expect(
-      calcHeal(
-        { ...character, ATK: 0 },
-        character,
-        { ...skillData["126"].leader[1], value: 456456 },
-        123456
-      )
-    ).toBe(561440);
+    const heal = {
+      condition: SkillCondition.BATTLE_BEGIN,
+      target: SkillTarget.TEAM,
+      type: SkillActionType.HEAL,
+      basis: SkillEffectBasis.TARGET_ATK,
+      value: 456456,
+      on: SkillOn.TURN_END,
+    };
+
+    expect(calcHeal({ ...character, ATK: 0 }, character, heal, 123456)).toBe(
+      561440
+    );
   });
 
   test("heal by damage", () => {
-    expect(
-      calcHeal(
-        character,
-        character,
-        { ...skillData["103"].starPassive[2], value: 0.1 },
-        123456
-      )
-    ).toBe(12345);
+    const heal = {
+      star: 3,
+      condition: SkillCondition.ATTACK,
+      target: SkillTarget.SELF,
+      type: SkillActionType.HEAL,
+      basis: SkillEffectBasis.DAMAGE,
+      value: 0.1,
+      on: SkillOn.ON_ACTION,
+    };
+
+    expect(calcHeal(character, character, heal, 123456)).toBe(12345);
   });
 
   test("heal by maxHP", () => {
+    const heal = {
+      condition: SkillCondition.NORMAL_ATTACK,
+      target: SkillTarget.SELF,
+      type: SkillActionType.HEAL,
+      basis: SkillEffectBasis.TARGET_MAX_HP,
+      on: SkillOn.AFTER_ACTION,
+      value: 1,
+      possibility: 0.5,
+    };
+
     expect(
-      calcHeal(
-        { ...character, HP: 321321, maxHP: 1 },
-        character,
-        { ...skillData["403"].starPassive[0], value: 1 },
-        123456
-      )
+      calcHeal({ ...character, HP: 321321, maxHP: 1 }, character, heal, 123456)
     ).toBe(615000);
   });
 });
 
 describe("shield calculation", () => {
   test("shield (normal attack)", () => {
-    expect(
-      calcShield(
-        character,
-        { ...character, ATK: 0 },
-        { ...skillData["157"].normalAttack[0], value: 1 }
-      )
-    ).toBe(1751500);
+    const shield = {
+      condition: SkillCondition.NORMAL_ATTACK,
+      target: SkillTarget.TEAM,
+      duration: 1,
+      type: SkillActionType.SHIELD,
+      basis: SkillEffectBasis.SELF_ATK,
+      value: 1,
+      on: SkillOn.ON_ACTION,
+    };
+
+    expect(calcShield(character, { ...character, ATK: 0 }, shield)).toBe(
+      1751500
+    );
   });
 
   test("shield (ultimate)", () => {
-    expect(
-      calcShield(
-        character,
-        { ...character, ATK: 0 },
-        { ...skillData["157"].ultimate.common[0], value: 1 }
-      )
-    ).toBe(1782500);
+    const shield = {
+      condition: SkillCondition.ULTIMATE,
+      target: SkillTarget.TEAM,
+      duration: 2,
+      type: SkillActionType.SHIELD,
+      basis: SkillEffectBasis.SELF_ATK,
+      value: 1,
+      on: SkillOn.ON_ACTION,
+    };
+
+    expect(calcShield(character, { ...character, ATK: 0 }, shield)).toBe(
+      1782500
+    );
   });
 
   test("shield by maxHP", () => {
+    const shield = {
+      condition: SkillCondition.NORMAL_ATTACK,
+      target: SkillTarget.SELF,
+      type: SkillActionType.SHIELD,
+      basis: SkillEffectBasis.TARGET_MAX_HP,
+      value: 1,
+      on: SkillOn.ON_ACTION,
+      duration: 2,
+    };
+
     expect(
-      calcShield({ ...character, HP: 321321, maxHP: 1 }, character, {
-        ...skillData["210"].normalAttack[0],
-        value: 1,
-      })
+      calcShield({ ...character, HP: 321321, maxHP: 1 }, character, shield)
     ).toBe(625000);
   });
 });
