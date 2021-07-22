@@ -112,7 +112,6 @@ export interface ISkill {
   byAttribute?: number /* get extra damaged by A attribute */;
   repeat?: number;
   possibility?: number;
-  invalidWhen?: SkillCondition;
   skill?: ExtraSkill;
 }
 
@@ -196,7 +195,7 @@ export type EndTurnSkill = ISkill & {
   on: SkillOn.TURN_END;
 };
 
-export type SkillEffect = Omit<ISkill, "CD" | "possibility"> & {
+export type SkillEffect = Omit<ISkill, "CD" | "possibility" | "repeat"> & {
   from: number;
   fromPlayer: string;
   stack?: number;

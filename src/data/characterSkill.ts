@@ -5364,7 +5364,6 @@ export const data: Readonly<{
         value: 0.05,
         on: SkillOn.AFTER_ACTION,
         maxStack: 6,
-        invalidWhen: SkillCondition.ULTIMATE,
       },
       {
         star: 3,

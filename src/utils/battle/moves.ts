@@ -1,9 +1,9 @@
 import type { Ctx } from "boardgame.io";
 import { INVALID_MOVE } from "boardgame.io/core";
 import {
+  ISkill,
   SkillActionType,
   SkillCondition,
-  SkillEffect,
   SkillOn,
   SkillTarget,
 } from "types/skills";
@@ -18,18 +18,21 @@ export const canSelect = (
 ): boolean => {
   const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
 
-  return (
-    selectedCharacter &&
-    !selectedCharacter.isMoved &&
-    !selectedCharacter.isDead &&
-    !selectedCharacter.isParalysis &&
-    !selectedCharacter.isSleep &&
-    !selectedCharacter.isBroken
-  );
+  return !selectedCharacter
+    ? false
+    : !selectedCharacter.isMoved &&
+        !selectedCharacter.isDead &&
+        !selectedCharacter.isParalysis &&
+        !selectedCharacter.isSleep &&
+        !selectedCharacter.isBroken;
 };
 
 export const canTarget = (G: IGameState, ctx: Ctx, target: number) => {
   const enemies = getEnemies(G, ctx);
+  if (!enemies[target]) {
+    return false;
+  }
+
   const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
 
   return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
@@ -57,7 +60,12 @@ export const attack = (
 
   const self = G.lineups[ctx.currentPlayer][selected];
   const log: ILog[] = [];
-  let skills = [...self.skillSet.normalAttack, ...self.extraSkill];
+  let skills = self.extraSkill.map((s) => {
+    const { skillDuration, ...rest } = s;
+    return rest;
+  }) as ISkill[];
+
+  skills.push(...self.skillSet.normalAttack);
   if (self.teamPosition === 0) {
     skills.push(...self.skillSet.leader);
   }
@@ -72,9 +80,7 @@ export const attack = (
   );
   skills.sort((a, b) => a.on - b.on);
   skills.forEach((s) => {
-    const skill = s as SkillEffect;
-    const { skillDuration, ...rest } = skill;
-    trigger(G, ctx, rest, log);
+    trigger(G, ctx, s, log);
   });
 
   G.log.slice(-1)[0].push(...log);
@@ -112,7 +118,12 @@ export const ultimate = (
   self.currentCD = self.CD;
 
   const log: ILog[] = [];
-  let skills = [...self.skillSet.ultimate, ...self.extraSkill];
+  let skills = self.extraSkill.map((s) => {
+    const { skillDuration, ...rest } = s;
+    return rest;
+  }) as ISkill[];
+
+  skills.push(...self.skillSet.ultimate);
   if (self.teamPosition === 0) {
     skills.push(...self.skillSet.leader);
   }
@@ -127,14 +138,9 @@ export const ultimate = (
   );
   skills.sort((a, b) => a.on - b.on);
   skills.forEach((s) => {
-    const skill = s as SkillEffect;
-    const { skillDuration, ...rest } = skill;
-    trigger(G, ctx, rest, log);
+    trigger(G, ctx, s, log);
   });
 
-  self.effects = self.effects.filter(
-    (e) => e.invalidWhen !== SkillCondition.ULTIMATE
-  );
   G.log.slice(-1)[0].push(...log);
   endMove(G, ctx);
 };
