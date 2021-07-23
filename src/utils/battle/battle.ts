@@ -362,10 +362,25 @@ export const processSkill = (
         logArr?.push(healLog);
 
         if (!target.isSilence) {
+          const tempG = {
+            ...G,
+            selected: {
+              ...G.selected,
+              [ctx.currentPlayer]: target.teamPosition,
+            },
+            target: {
+              ...G.target,
+              [ctx.currentPlayer]: from.character.teamPosition,
+            },
+          };
+          const tempCtx = {
+            ...ctx,
+            currentPlayer: to.player,
+          };
           target.skillSet.passive
             .filter((s) => s.condition === SkillCondition.HEALED)
             .forEach((s) => {
-              trigger(G, ctx, s);
+              trigger(tempG, tempCtx, s, logArr);
             });
         }
         break;
