@@ -320,14 +320,6 @@ export const processSkill = (
             shield: target.shield,
           },
         });
-
-        if (!target.isSilence) {
-          target.skillSet.passive.forEach((targetSkill) => {
-            if (targetSkill.condition === SkillCondition.GUARD) {
-              trigger(G, ctx, targetSkill, logArr);
-            }
-          });
-        }
         break;
       case SkillActionType.HEAL:
         let healBasis: number | undefined;

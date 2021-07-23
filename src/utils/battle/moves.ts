@@ -155,6 +155,7 @@ export const guard = (
   } else {
     return INVALID_MOVE;
   }
+  const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
 
   const log: ILog[] = [];
   trigger(
@@ -168,6 +169,15 @@ export const guard = (
     },
     log
   );
+
+  // trigger guard passive
+  if (!selectedCharacter.isSilence) {
+    selectedCharacter.skillSet.passive.forEach((targetSkill) => {
+      if (targetSkill.condition === SkillCondition.GUARD) {
+        trigger(G, ctx, targetSkill, log);
+      }
+    });
+  }
 
   G.log.slice(-1)[0].push(...log);
   endMove(G, ctx);
