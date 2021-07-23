@@ -69,9 +69,9 @@ export const processSkill = (
 
     if (
       (skill as ISkill).possibility &&
-      skill.type !== SkillEffectType.PARALYZED &&
-      skill.type !== SkillEffectType.SLEPT &&
-      skill.type !== SkillEffectType.SILENCED
+      skill.type !== SkillActionType.PARALYSIS &&
+      skill.type !== SkillActionType.SLEEP &&
+      skill.type !== SkillActionType.SILENCE
     ) {
       const r = ctx.random?.Number();
       if (!r || r > (skill as ISkill).possibility!) {
@@ -426,7 +426,7 @@ export const processSkill = (
         const paraBuff = para?.value ? para.value : 0;
         const rPara = ctx.random?.Number();
 
-        if (rPara && rPara < (skill as ISkill).possibility! * (1 + paraBuff)) {
+        if (rPara && rPara <= (skill as ISkill).possibility! * (1 + paraBuff)) {
           target.isParalysis = true;
           target.effects.push(effect);
         }
@@ -449,7 +449,7 @@ export const processSkill = (
 
         if (
           rSleep &&
-          rSleep < (skill as ISkill).possibility! * (1 + sleepBuff)
+          rSleep <= (skill as ISkill).possibility! * (1 + sleepBuff)
         ) {
           target.isSleep = true;
           target.effects.push(effect);
@@ -472,7 +472,7 @@ export const processSkill = (
 
         if (
           rSilence &&
-          rSilence < (skill as ISkill).possibility! * (1 + silenceBuff)
+          rSilence <= (skill as ISkill).possibility! * (1 + silenceBuff)
         ) {
           target.isSilence = true;
           target.effects.push(effect);
