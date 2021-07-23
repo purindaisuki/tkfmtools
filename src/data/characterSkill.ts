@@ -834,7 +834,7 @@ export const data: Readonly<{
       {
         condition: SkillCondition.BATTLE_BEGIN,
         target: SkillTarget.SELF,
-        type: SkillActionType.FREEZE_CD,
+        type: SkillEffectType.CD_FREEZED,
         on: SkillOn.TURN_BEGIN,
         duration: 2,
       },

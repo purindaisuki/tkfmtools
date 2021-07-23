@@ -30,7 +30,6 @@ export enum SkillActionType {
   CANCEL_GUARD,
   CHANGE_CD,
   CHANGE_CURRENT_CD,
-  FREEZE_CD,
   CHANGE_MAX_HP,
   CLEAR_ABNORMAL,
   CLEAR_ATTACK_DEBUFF,
@@ -44,7 +43,7 @@ export enum SkillActionType {
 }
 
 export enum SkillEffectType {
-  ATTACK_POWER = 22,
+  ATTACK_POWER = 21,
   NORMAL_ATTACK_DAMAGE,
   ULTIMATE_DAMAGE,
   DEALT_DAMAGE,
@@ -58,6 +57,7 @@ export enum SkillEffectType {
   HEALED,
   SHIELD_EFFECT,
   SHIELDED,
+  CD_FREEZED,
   IMMUNE_CHANGE_CD,
   IMMUNE_SLEEP,
   IMMUNE_SILENCE,

@@ -184,6 +184,7 @@ export const processSkill = (
               !sameEffect(e, {
                 ...skill.skill,
                 from: from.character.teamPosition,
+                fromPlayer: ctx.currentPlayer,
               } as typeof e)
           );
         }
@@ -299,11 +300,6 @@ export const processSkill = (
           target.isParalysis = false;
           target.isBroken = false;
           target.effects = [];
-        }
-        break;
-      case SkillActionType.FREEZE_CD:
-        if (skill.duration) {
-          target.currentCD += skill.duration;
         }
         break;
       case SkillActionType.GUARD:
@@ -853,7 +849,6 @@ export const Battle = (setupData: BattleSetupData) => ({
         c.isMoved = false;
         // aside from battle begin
         if (ctx.turn > 2) {
-          c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
           // clear expired effects
           c.effects = c.effects.filter((s) => {
             if (s.duration !== undefined) {
@@ -893,6 +888,9 @@ export const Battle = (setupData: BattleSetupData) => ({
             }
             return extraSkill.skillDuration !== 0;
           });
+          if (!c.effects.some((e) => e.type === SkillEffectType.CD_FREEZED)) {
+            c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
+          }
         }
 
         // turn-based skills
