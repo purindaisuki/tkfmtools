@@ -64,7 +64,7 @@ const CharTagMasnory = () => {
     <Masonry breakpointCols={breakpointColumnsConfig}>
       {Object.keys(charString.name).map(
         (key) =>
-          key !== "nr" && (
+          !isNaN(key) && (
             <CharAccordion
               title={<CharCard id={key} />}
               content={<CharAccordionDetail id={key} />}
