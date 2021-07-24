@@ -484,7 +484,7 @@ export const processSkill = (
         break;
       default:
         if (skill.type in SkillActionType) {
-          throw `action not allow in effects, type: ${skill.type}`;
+          throw new Error(`action not allow in effects, type: ${skill.type}`);
         }
         target.effects.push(effect);
         break;
@@ -492,7 +492,7 @@ export const processSkill = (
   });
 };
 
-const getSkillTargets = (
+export const getSkillTargets = (
   G: IGameState,
   ctx: Ctx,
   skill: ISkill | SkillEffect
@@ -514,10 +514,23 @@ const getSkillTargets = (
       targets = selfTeam.filter((c, ind) => !c.isDead && ind !== selected);
       break;
     case SkillTarget.TEAM_LEAST_HP:
-      const leastHP = Math.min(
-        ...selfTeam.filter((c) => !c.isDead).map((c) => c.HP)
-      );
-      targets = selfTeam.filter((c) => c.HP === leastHP).slice(0, 1);
+      const leastHP = selfTeam.reduce((arr, c) => {
+        if (!c.isDead) {
+          if (!arr[0] || c.HP / c.maxHP < arr[0].HP / arr[0].maxHP) {
+            arr = [c];
+          } else if (c.HP / c.maxHP === arr[0].HP / arr[0].maxHP) {
+            arr.push(c);
+          }
+        }
+        return arr;
+      }, [] as Character[]);
+
+      const ind =
+        leastHP.length === 1 || !ctx.random?.Die
+          ? 0
+          : ctx.random.Die(leastHP.length) - 1;
+
+      targets = leastHP.length === 0 ? [] : [leastHP[ind]];
       break;
     case SkillTarget.ALL_ENEMIES:
       targets = enemies.filter((c) => !c.isDead);
@@ -582,7 +595,6 @@ export const trigger = (
     return;
   }
 
-  const enemies = getEnemies(G, ctx);
   const selfTeam = G.lineups[ctx.currentPlayer];
   const selected = G.selected[ctx.currentPlayer];
   const { CD, skillDuration, repeat, ...rest } = skill as UltimateSkill &
@@ -592,6 +604,18 @@ export const trigger = (
 
   for (let i = 0; i < repeatTimes; i++) {
     if (skill.on === SkillOn.TURN_END) {
+      if (
+        !(
+          skill.type === SkillActionType.NORMAL_ATTACK ||
+          skill.type === SkillActionType.ULTIMATE ||
+          skill.type === SkillActionType.HEAL
+        )
+      ) {
+        throw new Error(
+          `invalid type for end turn effect, type: ${skill.type}`
+        );
+      }
+
       targets.forEach((c) => {
         const endTurnEffect = {
           ...rest,
@@ -605,25 +629,13 @@ export const trigger = (
               endTurnEffect.value = selfTeam[selected].ATK * skill.value;
               break;
             case SkillEffectBasis.TARGET_ATK:
-              endTurnEffect.value =
-                skill.value *
-                (isEnemy
-                  ? enemies[c.teamPosition].ATK
-                  : selfTeam[c.teamPosition].ATK);
+              endTurnEffect.value = skill.value * c.ATK;
               break;
             case SkillEffectBasis.TARGET_MAX_HP:
-              endTurnEffect.value =
-                skill.value *
-                (isEnemy
-                  ? enemies[c.teamPosition].maxHP
-                  : selfTeam[c.teamPosition].maxHP);
+              endTurnEffect.value = skill.value * c.maxHP;
               break;
             case SkillEffectBasis.TARGET_CURRENT_HP:
-              endTurnEffect.value =
-                skill.value *
-                (isEnemy
-                  ? enemies[c.teamPosition].HP
-                  : selfTeam[c.teamPosition].HP);
+              endTurnEffect.value = skill.value * c.HP;
               break;
           }
         }
@@ -701,7 +713,7 @@ export const initCharacter = (
   });
 
   if (!res) {
-    throw "invalid argumnet";
+    throw new Error("invalid argumnet");
   }
 
   const { ATK: baseATK, HP: baseHP } = res;
