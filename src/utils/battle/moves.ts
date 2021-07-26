@@ -208,3 +208,14 @@ export const switchTarget = (
     return INVALID_MOVE;
   }
 };
+
+export const doNothing = (G: IGameState, ctx: Ctx) => {
+  if (G.selected[ctx.currentPlayer] !== -1) {
+    G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]].isMoved = true;
+    endMove(G, ctx);
+  } else {
+    G.lineups[ctx.currentPlayer].forEach((c) => {
+      c.isMoved = true;
+    });
+  }
+};

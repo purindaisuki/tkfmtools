@@ -17,6 +17,7 @@ import {
 } from "types/battle";
 import {
   attack,
+  doNothing,
   guard,
   ultimate,
   switchMember,
@@ -211,15 +212,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     guard,
     switchMember,
     switchTarget,
-    doNothing: (G: IGameState, ctx: Ctx) => {
-      if (G.selected[ctx.currentPlayer] !== -1) {
-        G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]].isMoved =
-          true;
-        endMove(G, ctx);
-      } else {
-        G.lineups[ctx.currentPlayer].forEach((c) => (c.isMoved = true));
-      }
-    },
+    doNothing,
   },
   turn: {
     onBegin: (G: IGameState, ctx: Ctx) => {
