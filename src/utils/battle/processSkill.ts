@@ -258,7 +258,7 @@ export const takeEffect = (
               });
           }
 
-          if (!target.isSilence) {
+          if (!target.isSilence && !target.isParalysis && !target.isSleep) {
             target.skillSet.passive
               .filter(
                 (s) =>
@@ -345,7 +345,7 @@ export const takeEffect = (
         healLog.to.shield = target.shield;
         logArr?.push(healLog);
 
-        if (!target.isSilence) {
+        if (!target.isSilence && !target.isParalysis && !target.isSleep) {
           const tempG = {
             ...G,
             selected: {

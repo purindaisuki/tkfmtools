@@ -284,7 +284,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         if (c.teamPosition === 0) {
           skills.push(...c.skillSet.leader);
         }
-        if (!c.isSilence) {
+        if (!c.isSilence && !c.isParalysis && !c.isSleep) {
           skills.push(...c.skillSet.passive);
         }
 
