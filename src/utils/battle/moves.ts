@@ -8,7 +8,8 @@ import {
   SkillTarget,
 } from "types/skills";
 import { IGameState, ILog } from "types/battle";
-import { endMove, trigger } from ".";
+import { endMove } from ".";
+import { trigger } from "./processSkill";
 import { getEnemies } from "./helpers";
 
 export const canSelect = (
