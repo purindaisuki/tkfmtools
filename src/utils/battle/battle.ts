@@ -23,7 +23,6 @@ import {
   switchTarget,
   canSelect,
 } from ".";
-import { canTarget } from "./moves";
 import { trigger, takeEffect } from "./processSkill";
 import { calcAttack } from "./calculators";
 import { getEnemies, merge } from "./helpers";
@@ -141,13 +140,15 @@ export const initCharacter = (
   };
 };
 
-const nextTarget = (G: IGameState, ctx: Ctx) => {
+export const nextTarget = (G: IGameState, ctx: Ctx) => {
   const enemies = getEnemies(G, ctx);
-  if (enemies[G.target[ctx.currentPlayer]].isDead) {
-    return enemies.findIndex((_, ind) => canTarget(G, ctx, ind));
-  } else {
-    return G.target[ctx.currentPlayer];
-  }
+  const opponent = ctx.currentPlayer === "0" ? "1" : "0";
+
+  return G.taunt[opponent].length === 0
+    ? enemies[G.target[ctx.currentPlayer]].isDead
+      ? enemies.findIndex((c) => !c.isDead)
+      : G.target[ctx.currentPlayer]
+    : G.taunt[opponent][0];
 };
 
 export const endMove = (G: IGameState, ctx: Ctx) => {
@@ -172,6 +173,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       lineups: { "0": lineups[0], "1": lineups[1] },
       selected: { "0": 0, "1": 0 },
       target: { "0": 0, "1": 0 },
+      taunt: { "0": [], "1": [] },
       skillQueue: [],
       log: [],
     };
@@ -251,6 +253,9 @@ export const Battle = (setupData: BattleSetupData) => ({
                   break;
                 case SkillActionType.TAUNT:
                   c.isTaunt = false;
+                  G.taunt[ctx.currentPlayer] = G.taunt[
+                    ctx.currentPlayer
+                  ].filter((i) => i !== c.teamPosition);
                   break;
                 case SkillActionType.PARALYSIS:
                   c.isParalysis = false;

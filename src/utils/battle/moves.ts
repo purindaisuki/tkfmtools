@@ -33,10 +33,11 @@ export const canTarget = (G: IGameState, ctx: Ctx, target: number) => {
   if (!enemies[target]) {
     return false;
   }
+  const tauntIndices = G.taunt[ctx.currentPlayer === "0" ? "1" : "0"];
 
-  const tauntIndex = enemies.findIndex((c) => c.isTaunt && !c.isDead);
-
-  return tauntIndex === -1 ? !enemies[target].isDead : tauntIndex === target;
+  return tauntIndices.length === 0
+    ? !enemies[target].isDead
+    : target === tauntIndices[0];
 };
 
 export const canAttack = (

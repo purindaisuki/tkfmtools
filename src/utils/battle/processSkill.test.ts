@@ -49,6 +49,7 @@ beforeEach(() => {
     lineups: { "0": lineup, "1": enemy },
     selected: { "0": 0, "1": 0 },
     target: { "0": 0, "1": 0 },
+    taunt: { "0": [], "1": [] },
     skillQueue: [],
     log: [[]],
   };
@@ -1192,6 +1193,7 @@ describe("process skills", () => {
         const skill = normalAttack;
         target.HP = 1;
         target.isTaunt = true;
+        G.taunt["1"].push(0);
 
         takeEffect(
           G,
@@ -1204,6 +1206,7 @@ describe("process skills", () => {
         expect(target.HP).toBe(0);
         expect(target.isDead).toBe(true);
         expect(target.isTaunt).toBe(false);
+        expect(G.taunt["1"]).not.toEqual(expect.arrayContaining([0]));
       });
     });
 
@@ -1536,6 +1539,7 @@ describe("process skills", () => {
       );
 
       expect(selected.isTaunt).toBe(true);
+      expect(G.taunt["0"]).toEqual(expect.arrayContaining([0]));
     });
   });
 });
@@ -1910,5 +1914,3 @@ describe("trigger skills", () => {
     }).toThrow(`invalid type for end turn effect, type: ${skill.type}`);
   });
 });
-
-describe("battle system", () => {});

@@ -275,6 +275,9 @@ export const takeEffect = (
           }
         } else if (target.isDead) {
           target.isTaunt = false;
+          G.taunt[to.player] = G.taunt[to.player].filter(
+            (i) => i !== target.teamPosition
+          );
           target.isGuard = false;
           target.isSilence = false;
           target.isSleep = false;
@@ -462,6 +465,7 @@ export const takeEffect = (
       case SkillActionType.TAUNT:
         target.isTaunt = true;
         target.effects.push(effect);
+        G.taunt[to.player].push(target.teamPosition);
         break;
       default:
         if (skill.type in SkillActionType) {

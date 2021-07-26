@@ -48,6 +48,7 @@ export interface IGameState {
   lineups: Record<string, BattleCharacter[]>;
   selected: Record<string, number>;
   target: Record<string, number>;
+  taunt: Record<string, number[]>;
   skillQueue: SkillQueue;
   log: ILog[][];
 }
