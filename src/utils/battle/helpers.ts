@@ -4,7 +4,7 @@ import { IGameState } from "types/battle";
 
 export const sameEffect = <T extends SkillEffect>(e1: T, e2: T) => {
   for (let p in e1) {
-    if (p !== "duartion" && p !== "stack" && e1[p] !== e2[p]) {
+    if (p !== "duration" && p !== "stack" && e1[p] !== e2[p]) {
       return false;
     }
   }
