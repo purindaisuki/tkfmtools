@@ -27,3 +27,13 @@ export const merge = <T extends { [key: string]: any }[]>(...objects: T) =>
 
     return result;
   }, {}) as any;
+
+export const generateMaxedCharacterSetupData = (id: string) => ({
+  id: id,
+  level: 60,
+  potential: +id[0] < 3 ? 12 : 6,
+  potentialSub: Array(6).fill(true),
+  discipline: +id[0] < 4 ? 3 : 0,
+  star: 5,
+  bond: 5,
+});
