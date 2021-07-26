@@ -370,7 +370,7 @@ describe("heal calculation", () => {
       on: SkillOn.ON_ACTION,
     };
 
-    expect(calcHeal(character, character, heal, 123456)).toBe(12345);
+    expect(calcHeal(character, character, heal, 123456)).toBe(15185);
   });
 
   test("heal by maxHP", () => {

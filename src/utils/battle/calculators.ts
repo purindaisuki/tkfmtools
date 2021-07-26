@@ -252,17 +252,19 @@ export const calcHeal = (
         break;
       case SkillEffectBasis.DAMAGE:
         if (damage === undefined) {
-          throw "invalid argument";
+          throw new Error("invalid argument");
         }
 
-        return Math.floor(damage * action.value + correctionValue);
+        base = damage;
+        break;
       default:
-        throw "invalid argument";
+        throw new Error("invalid argument");
     }
   }
 
   if (
     action.on !== SkillOn.TURN_END &&
+    action.basis !== SkillEffectBasis.DAMAGE &&
     action.basis !== SkillEffectBasis.TARGET_MAX_HP &&
     action.basis !== SkillEffectBasis.TARGET_CURRENT_HP
   ) {
