@@ -197,7 +197,6 @@ describe("attack validation", () => {
     const selected = G.lineups["0"][0];
     const target = G.lineups["1"][0];
     const expectedSkillsOnSelf = selected.skillSet.passive
-      .concat(selected.skillSet.leader)
       .concat(selected.skillSet.normalAttack)
       .concat(selected.extraSkill)
       .filter(
@@ -214,7 +213,6 @@ describe("attack validation", () => {
         stack: s.maxStack ? 1 : undefined,
       }));
     const expectedSkillsOnTarget = target.skillSet.passive
-      .concat(selected.skillSet.leader)
       .concat(selected.extraSkill)
       .filter(
         (s) =>
@@ -244,7 +242,7 @@ describe("attack validation", () => {
   test("should not trigger passive skill effects", () => {
     const selected = G.lineups["0"][0];
     const target = G.lineups["1"][0];
-    const expectedSkillsOnSelf = selected.skillSet.leader
+    const expectedSkillsOnSelf = selected.skillSet.passive
       .concat(selected.skillSet.normalAttack)
       .concat(selected.extraSkill)
       .filter(
@@ -260,8 +258,8 @@ describe("attack validation", () => {
         fromPlayer: "0",
         stack: s.maxStack ? 1 : undefined,
       }));
-    const expectedSkillsOnTarget = selected.skillSet.leader
-      .concat(selected.extraSkill)
+    const expectedSkillsOnTarget = target.skillSet.passive
+      .concat(target.extraSkill)
       .filter(
         (s) =>
           s.target === SkillTarget.SELF &&
@@ -279,13 +277,13 @@ describe("attack validation", () => {
     target.isSilence = true;
     attack(G, ctx, 0, 0);
     expect(selected.isMoved).toBe(true);
-    expect(selected.effects.length).toBe(expectedSkillsOnSelf.length);
+    expect(selected.effects.length).toBe(0);
     expect(selected.effects).toEqual(
-      expect.arrayContaining(expectedSkillsOnSelf)
+      expect.not.arrayContaining(expectedSkillsOnSelf)
     );
-    expect(target.effects.length).toBe(expectedSkillsOnTarget.length);
+    expect(target.effects.length).toBe(0);
     expect(target.effects).toEqual(
-      expect.arrayContaining(expectedSkillsOnTarget)
+      expect.not.arrayContaining(expectedSkillsOnTarget)
     );
   });
 

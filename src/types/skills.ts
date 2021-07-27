@@ -202,7 +202,6 @@ export type SkillEffect = Omit<ISkill, "CD" | "possibility" | "repeat"> & {
 };
 
 export interface ISkillSet {
-  leader: ISkill[];
   normalAttack: Exclude<ISkill, TurnBasedSkill>[];
   ultimate: UltimateSkill[];
   passive: ISkill[];

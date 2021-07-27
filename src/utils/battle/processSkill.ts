@@ -222,9 +222,15 @@ export const takeEffect = (
         damageLog.to.shield = target.shield;
         logArr?.push(damageLog);
 
-        // dot won't trigger attacked skills
-        if (!target.isDead && skill.on !== SkillOn.TURN_END) {
-          target.isSleep = false;
+        if (!target.isDead) {
+          // wake character only when HP decreases
+          if (damageLog.to.originalHP !== damageLog.to.HP) {
+            target.isSleep = false;
+          }
+          // dot won't trigger attacked skills
+          if (skill.on === SkillOn.TURN_END) {
+            break;
+          }
 
           // trigger target's passive
           const enemyID = ctx.currentPlayer === "0" ? "1" : "0";
@@ -241,23 +247,6 @@ export const takeEffect = (
           };
           const tempCtx = { ...ctx, currentPlayer: enemyID };
 
-          if (target.teamPosition === 0) {
-            target.skillSet.leader
-              .filter(
-                (s) =>
-                  s.condition === SkillCondition.ATTACKED &&
-                  !(
-                    s.type === SkillActionType.COUNTER_STRIKE &&
-                    (skill.type === SkillActionType.COUNTER_STRIKE ||
-                      skill.type === SkillActionType.FOLLOW_UP_ATTACK)
-                  )
-              )
-              .forEach((targetSkill) => {
-                // followup attack and counterstrike won't trigger counterstrike
-                trigger(tempG, tempCtx, targetSkill, logArr);
-              });
-          }
-
           if (!target.isSilence && !target.isParalysis && !target.isSleep) {
             target.skillSet.passive
               .filter(
@@ -273,7 +262,7 @@ export const takeEffect = (
                 trigger(tempG, tempCtx, targetSkill, logArr);
               });
           }
-        } else if (target.isDead) {
+        } else {
           target.isTaunt = false;
           G.taunt[to.player] = G.taunt[to.player].filter(
             (i) => i !== target.teamPosition

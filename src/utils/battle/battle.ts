@@ -6,6 +6,7 @@ import {
   SkillTarget,
   SkillEffectType,
   ExtraSkill,
+  ISkill,
 } from "types/skills";
 import { CharacterStats, ICharacterData } from "types/characters";
 import {
@@ -45,7 +46,6 @@ export const initCharacter = (
       baseHP: HP,
       maxHP: HP,
       skillSet: {
-        leader: [],
         normalAttack: [],
         ultimate: [],
         passive: [],
@@ -87,28 +87,34 @@ export const initCharacter = (
 
   const { ATK: baseATK, HP: baseHP } = res;
 
-  const { ultimate, starPassive, potentialPassive, ...rest } = skillData[id];
+  const { ultimate, starPassive, potentialPassive, leader, ...rest } =
+    skillData[id];
 
   // get skills according to character stats
   let currUltimate = ultimate.common.map((s, ind) =>
     merge(s, ultimate.bond[bond - 1][ind] ? ultimate.bond[bond - 1][ind] : {})
   );
-  let currStarPassive = starPassive
-    .filter((s) => s.star <= star)
-    .map((s) => {
+
+  let passive = [] as ISkill[];
+
+  if (teamPosition === 0) {
+    passive.push(...leader);
+  }
+  starPassive.forEach((s) => {
+    if (s.star <= star) {
       const { star, ...rest } = s;
-      return rest;
-    });
-  let currPotentialPassive = potentialPassive
-    .filter(
-      (s) =>
-        s.potential < potential ||
-        (s.potential === potential && potentialSub[0])
-    )
-    .map((s) => {
+      passive.push(rest);
+    }
+  });
+  potentialPassive.forEach((s) => {
+    if (
+      s.potential < potential ||
+      (s.potential === potential && potentialSub[0])
+    ) {
       const { potential, ...rest } = s;
-      return rest;
-    });
+      passive.push(rest);
+    }
+  });
 
   return {
     id,
@@ -120,7 +126,7 @@ export const initCharacter = (
     skillSet: {
       ...rest,
       ultimate: currUltimate,
-      passive: currStarPassive.concat(currPotentialPassive),
+      passive: passive,
     },
     extraSkill: [],
     ATK: baseATK,
@@ -187,14 +193,6 @@ export const Battle = (setupData: BattleSetupData) => ({
         };
         const tempCtx = { ...ctx, currentPlayer: playerID };
 
-        if (ind === 0) {
-          // leader skill
-          c.skillSet.leader.forEach((s) => {
-            if (s.condition === SkillCondition.BATTLE_BEGIN) {
-              trigger(tempG, tempCtx, s);
-            }
-          });
-        }
         // 1st turn passives
         c.skillSet.passive.forEach((s) => {
           if (s.condition === SkillCondition.BATTLE_BEGIN) {
@@ -281,9 +279,7 @@ export const Battle = (setupData: BattleSetupData) => ({
 
         // turn-based skills
         let skills = [];
-        if (c.teamPosition === 0) {
-          skills.push(...c.skillSet.leader);
-        }
+
         if (!c.isSilence && !c.isParalysis && !c.isSleep) {
           skills.push(...c.skillSet.passive);
         }
@@ -304,7 +300,6 @@ export const Battle = (setupData: BattleSetupData) => ({
           }
         });
 
-        c.ATK = c.baseATK;
         c.ATK = calcAttack(c);
       });
 

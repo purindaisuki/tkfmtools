@@ -68,9 +68,7 @@ export const attack = (
   }) as ISkill[];
 
   skills.push(...self.skillSet.normalAttack);
-  if (self.teamPosition === 0) {
-    skills.push(...self.skillSet.leader);
-  }
+
   if (!self.isSilence) {
     skills.push(...self.skillSet.passive);
   }
@@ -126,9 +124,7 @@ export const ultimate = (
   }) as ISkill[];
 
   skills.push(...self.skillSet.ultimate);
-  if (self.teamPosition === 0) {
-    skills.push(...self.skillSet.leader);
-  }
+
   if (!self.isSilence) {
     skills.push(...self.skillSet.passive);
   }

@@ -1824,7 +1824,7 @@ describe("tests not reset in each test", () => {
     test.each(
       target.map((c, ind) => [c, attackBuff[ind]] as [BattleCharacter, number])
     )(
-      "value of effects and character attack should meet: $#",
+      "value of effects and character attack should meet",
       (character, expectedEffectValue) => {
         expect(character.effects.length).toBe(1);
         expect(character.effects[0].value).toBe(expectedEffectValue);
@@ -1856,7 +1856,7 @@ describe("tests not reset in each test", () => {
     );
 
     test.each(target)(
-      "value of effects and character attack should meet: $#",
+      "value of effects and character attack should meet",
       (character) => {
         expect(character.effects.length).toBe(1);
         expect(character.effects[0].value).toBe(skill.value);
