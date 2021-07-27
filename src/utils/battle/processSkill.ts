@@ -49,7 +49,7 @@ export const takeEffect = (
     }
 
     if (
-      (skill as ISkill).possibility &&
+      (skill as ISkill).possibility !== undefined &&
       skill.type !== SkillActionType.PARALYSIS &&
       skill.type !== SkillActionType.SLEEP &&
       skill.type !== SkillActionType.SILENCE
