@@ -220,6 +220,49 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.target[ctx.currentPlayer] = nextTarget(G, ctx);
       G.log.push([]);
 
+      // clear expired effects
+      if (ctx.turn > 2) {
+        Object.values(G.lineups).forEach((lineup) => {
+          lineup.forEach((c) => {
+            c.effects = c.effects.filter((s) => {
+              if (
+                s.duration !== undefined &&
+                s.fromPlayer === ctx.currentPlayer
+              ) {
+                s.duration--;
+              }
+              if (s.duration === 0) {
+                switch (s.type) {
+                  case SkillActionType.SHIELD:
+                    if (s.value) {
+                      c.shield -= s.value;
+                    }
+                    break;
+                  case SkillActionType.TAUNT:
+                    c.isTaunt = false;
+                    G.taunt[ctx.currentPlayer] = G.taunt[
+                      ctx.currentPlayer
+                    ].filter((i) => i !== c.teamPosition);
+                    break;
+                  case SkillActionType.PARALYSIS:
+                    c.isParalysis = false;
+                    break;
+                  case SkillActionType.SLEEP:
+                    c.isSleep = false;
+                    break;
+                  case SkillActionType.SILENCE:
+                    c.isSilence = false;
+                    break;
+                }
+                return false;
+              }
+
+              return true;
+            });
+          });
+        });
+      }
+
       selfTeam.forEach((c, ind): boolean | void => {
         if (c.isDead) {
           return true;
@@ -230,39 +273,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         c.isMoved = false;
         // aside from battle begin
         if (ctx.turn > 2) {
-          // clear expired effects
-          c.effects = c.effects.filter((s) => {
-            if (s.duration !== undefined) {
-              s.duration--;
-            }
-            if (s.duration === 0) {
-              switch (s.type) {
-                case SkillActionType.SHIELD:
-                  if (s.value) {
-                    c.shield -= s.value;
-                  }
-                  break;
-                case SkillActionType.TAUNT:
-                  c.isTaunt = false;
-                  G.taunt[ctx.currentPlayer] = G.taunt[
-                    ctx.currentPlayer
-                  ].filter((i) => i !== c.teamPosition);
-                  break;
-                case SkillActionType.PARALYSIS:
-                  c.isParalysis = false;
-                  break;
-                case SkillActionType.SLEEP:
-                  c.isSleep = false;
-                  break;
-                case SkillActionType.SILENCE:
-                  c.isSilence = false;
-                  break;
-              }
-              return false;
-            }
-
-            return true;
-          });
+          // clear expired extra skills
           c.extraSkill = c.extraSkill.filter((s) => {
             const extraSkill = s as ExtraSkill;
             if (extraSkill.skillDuration !== undefined) {
