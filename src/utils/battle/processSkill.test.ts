@@ -1398,37 +1398,40 @@ describe("tests should reset in each test", () => {
           },
         ];
 
-        abnormalDebuffTypes.forEach((s) => {
-          const skill = {
-            condition: SkillCondition.ULTIMATE,
-            target: SkillTarget.SINGLE_ENEMY,
-            type: s.type,
-            CD: 4,
-            on: SkillOn.AFTER_ACTION,
-            duration: 1,
-            possibility: 1,
-          };
+        const generateSkill = (type: SkillActionType) => ({
+          condition: SkillCondition.ULTIMATE,
+          target: SkillTarget.SINGLE_ENEMY,
+          type: type,
+          CD: 4,
+          on: SkillOn.AFTER_ACTION,
+          duration: 1,
+          possibility: 1,
+        });
 
-          test(`should ${s.name} target`, () => {
-            const selected = G.lineups["0"][0];
-            const target = G.lineups["1"][0];
+        test.each(abnormalDebuffTypes)("should $name target", (data) => {
+          const skill = generateSkill(data.type);
+          const selected = G.lineups["0"][0];
+          const target = G.lineups["1"][0];
 
-            takeEffect(
-              G,
-              { ...ctx, random: { Number: () => 1 } } as Ctx,
-              { character: selected },
-              { characters: [target], player: "1" },
-              skill
-            );
+          takeEffect(
+            G,
+            { ...ctx, random: { Number: () => 1 } } as Ctx,
+            { character: selected },
+            { characters: [target], player: "1" },
+            skill
+          );
 
-            expect(target[s.property]).toBe(true);
-          });
+          expect(target[data.property]).toBe(true);
+        });
 
-          test(`should not ${s.name} target: immune`, () => {
+        test.each(abnormalDebuffTypes)(
+          "should not $name target: target immunes debuffs",
+          (data) => {
+            const skill = generateSkill(data.type);
             const selected = G.lineups["0"][0];
             const target = G.lineups["1"][0];
             const immune = {
-              type: s.immuneType,
+              type: data.immuneType,
               condition: SkillCondition.BATTLE_BEGIN,
               target: SkillTarget.SELF,
               on: SkillOn.TURN_BEGIN,
@@ -1443,10 +1446,14 @@ describe("tests should reset in each test", () => {
               skill
             );
 
-            expect(target[s.property]).toBe(false);
-          });
+            expect(target[data.property]).toBe(false);
+          }
+        );
 
-          test(`should not ${s.name} target: possibility not pass`, () => {
+        test.each(abnormalDebuffTypes)(
+          "should not $name target: possibility not pass",
+          (data) => {
+            const skill = generateSkill(data.type);
             const selected = G.lineups["0"][0];
             const target = G.lineups["1"][0];
             const decreasePossibilityEffect = {
@@ -1454,7 +1461,7 @@ describe("tests should reset in each test", () => {
               target: SkillTarget.SINGLE_ENEMY,
               value: -1,
               on: SkillOn.AFTER_ACTION,
-              type: s.effectType,
+              type: data.effectType,
               fromPlayer: "1",
               from: 0,
             };
@@ -1469,9 +1476,9 @@ describe("tests should reset in each test", () => {
               skill
             );
 
-            expect(target[s.property]).toBe(false);
-          });
-        });
+            expect(target[data.property]).toBe(false);
+          }
+        );
       });
 
       test("should taunt", () => {
@@ -1816,11 +1823,14 @@ describe("tests not reset in each test", () => {
 
     test.each(
       target.map((c, ind) => [c, attackBuff[ind]] as [BattleCharacter, number])
-    )("values should meet", (character, expectedEffectValue) => {
-      expect(character.effects.length).toBe(1);
-      expect(character.effects[0].value).toBe(expectedEffectValue);
-      expect(character.ATK).toBe(character.baseATK + expectedEffectValue);
-    });
+    )(
+      "value of effects and character attack should meet: $#",
+      (character, expectedEffectValue) => {
+        expect(character.effects.length).toBe(1);
+        expect(character.effects[0].value).toBe(expectedEffectValue);
+        expect(character.ATK).toBe(character.baseATK + expectedEffectValue);
+      }
+    );
   });
 
   describe("attack power buff based on target attack", () => {
@@ -1845,13 +1855,16 @@ describe("tests not reset in each test", () => {
       skill
     );
 
-    test.each(target)("values should meet", (character) => {
-      expect(character.effects.length).toBe(1);
-      expect(character.effects[0].value).toBe(skill.value);
-      expect(character.ATK).toBe(
-        Math.floor(character.baseATK * (1 + skill.value))
-      );
-    });
+    test.each(target)(
+      "value of effects and character attack should meet: $#",
+      (character) => {
+        expect(character.effects.length).toBe(1);
+        expect(character.effects[0].value).toBe(skill.value);
+        expect(character.ATK).toBe(
+          Math.floor(character.baseATK * (1 + skill.value))
+        );
+      }
+    );
   });
 
   describe("should target specified positions", () => {
@@ -1928,7 +1941,7 @@ describe("tests not reset in each test", () => {
       },
     ];
 
-    test.each(attributes)("should target $name teammates", (data) => {
+    test.each(attributes)("should target $name attribute teammates", (data) => {
       const skill = { target: data.target } as ISkill;
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
