@@ -93,6 +93,36 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.7.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/28 게임 업데이트",
+              "description": "Updated character stats formula. Fixed Summer Lulu bugs and dot bugs."
+            },
+            {
+              "type": "Fix",
+              "title": "Expiration of effects put on enemy",
+              "description": "Corrected the issue that effects put on enemy expire 1 turn early."
+            },
+            {
+              "type": "Fix",
+              "title": "Calculation of heal",
+              "description": "Fixed heal based on damage should consider recoveryed buffs/debuffs."
+            },
+            {
+              "type": "Fix",
+              "title": "Battle simulation softlock issue",
+              "description": "Fixed the simulation softlocked if enemies are all paralyzed or sleeping."
+            },
+            {
+              "type": "Fix",
+              "title": "Removed scarecrow from the character list.",
+              "description": "Removed scarecrow from the character list."
+            }
+          ]
+        },
+        {
           "version": "v1.7.0",
           "content": [
             {

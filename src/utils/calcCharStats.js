@@ -73,7 +73,13 @@ const calcCharStats = ({
 }) => {
   const characterData = charData.find((c) => c.id === id);
   if (!characterData) {
-    throw `invalid character id: ${id}`;
+    throw new Error(`invalid character id: ${id}`);
+  }
+  if ((id[0] === "3" || id[0] === "4") && potential > 6) {
+    throw new Error(`invalid potential: ${potential}`);
+  }
+  if (id[0] === "4" && +discipline > 0) {
+    throw new Error(`invalid discipline: ${discipline}`);
   }
 
   const { initATK, initHP } = characterData.stats;
@@ -100,7 +106,8 @@ const calcCharStats = ({
   }, calcCharPotential(id, [1, 0], [potential - 1, 6]).buff);
 
   const disciplineBuff =
-    1 + (isNaN(parseInt(discipline)) ? 0 : +discipline * 0.05);
+    1 +
+    (isNaN(parseInt(discipline)) ? 0 : +discipline * (+discipline + 1) * 0.025);
   const starBuff = (star + 5) / (9 - id[0]);
 
   return {

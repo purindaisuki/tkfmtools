@@ -14,6 +14,7 @@ import {
 
 export const data: Readonly<{
   [id: string]: Omit<ISkillSet, "ultimate" | "passive" | "extra"> & {
+    leader: ISkill[];
     ultimate: {
       common: UltimateSkill[];
       bond: {
@@ -1587,7 +1588,7 @@ export const data: Readonly<{
           condition: SkillCondition.NORMAL_ATTACK,
           value: 1,
           target: SkillTarget.SINGLE_ENEMY,
-          on: SkillOn.AFTER_ACTION,
+          on: SkillOn.ON_ACTION,
         },
       },
       {
@@ -1600,7 +1601,7 @@ export const data: Readonly<{
           condition: SkillCondition.NORMAL_ATTACK,
           value: 1,
           target: SkillTarget.SINGLE_ENEMY,
-          on: SkillOn.AFTER_ACTION,
+          on: SkillOn.ON_ACTION,
         },
       },
       {
@@ -1613,7 +1614,7 @@ export const data: Readonly<{
           type: SkillActionType.ULTIMATE,
           value: 2,
           target: SkillTarget.SINGLE_ENEMY,
-          on: SkillOn.AFTER_ACTION,
+          on: SkillOn.ON_ACTION,
         },
       },
       {
@@ -1626,7 +1627,7 @@ export const data: Readonly<{
           type: SkillActionType.ULTIMATE,
           value: 2,
           target: SkillTarget.SINGLE_ENEMY,
-          on: SkillOn.AFTER_ACTION,
+          on: SkillOn.ON_ACTION,
         },
       },
     ],
@@ -1650,16 +1651,6 @@ export const data: Readonly<{
           type: SkillEffectType.ATTACK_POWER,
           basis: SkillEffectBasis.TARGET_ATK,
           value: 0.2,
-          CD: 4,
-          on: SkillOn.BEFORE_ACTION,
-        },
-        {
-          condition: SkillCondition.ULTIMATE,
-          target: SkillTarget.TEAM,
-          duration: 1,
-          type: SkillEffectType.ATTACK_POWER,
-          basis: SkillEffectBasis.SELF_ATK,
-          value: 0.3,
           CD: 4,
           on: SkillOn.AFTER_ACTION,
         },
@@ -1701,28 +1692,28 @@ export const data: Readonly<{
       bond: [
         {
           0: { value: 0.2 },
+          1: { skill: { value: 0.15 } },
           2: { skill: { value: 0.15 } },
-          3: { skill: { value: 0.15 } },
         },
         {
           0: { value: 0.25 },
+          1: { skill: { value: 0.15 } },
           2: { skill: { value: 0.15 } },
-          3: { skill: { value: 0.15 } },
         },
         {
           0: { value: 0.25 },
+          1: { skill: { value: 0.2 } },
           2: { skill: { value: 0.2 } },
-          3: { skill: { value: 0.2 } },
         },
         {
           0: { value: 0.3 },
+          1: { skill: { value: 0.2 } },
           2: { skill: { value: 0.2 } },
-          3: { skill: { value: 0.2 } },
         },
         {
           0: { value: 0.3 },
+          1: { skill: { value: 0.25 } },
           2: { skill: { value: 0.25 } },
-          3: { skill: { value: 0.25 } },
         },
       ],
     },

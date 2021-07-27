@@ -93,6 +93,36 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.7.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "7/28 遊戲更新",
+              "description": "更新角色素值公式、修正夏日露露及持續傷害 bug。"
+            },
+            {
+              "type": "Fix",
+              "title": "施加於敵方技能效果之回合數計算",
+              "description": "修正施加於敵方技能效果會早一回合失效。"
+            },
+            {
+              "type": "Fix",
+              "title": "吸血數值計算",
+              "description": "修正吸血未受被回復量增減影響。"
+            },
+            {
+              "type": "Fix",
+              "title": "戰鬥模擬卡死問題",
+              "description": "修正敵人全部麻痺／睡眠時會卡死。"
+            },
+            {
+              "type": "Fix",
+              "title": "移除角色列表中之稻草人",
+              "description": "移除角色列表中之稻草人。"
+            }
+          ]
+        },
+        {
           "version": "v1.7.0",
           "content": [
             {
