@@ -96,7 +96,7 @@
           "version": "v1.7.1",
           "content": [
             {
-              "type": "New",
+              "type": "Change",
               "title": "7/28 遊戲更新",
               "description": "更新角色素值公式、修正夏日露露及持續傷害 bug。"
             },

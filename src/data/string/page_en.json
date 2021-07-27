@@ -100,7 +100,7 @@
           "version": "v1.7.1",
           "content": [
             {
-              "type": "New",
+              "type": "Change",
               "title": "7/28 game update",
               "description": "Updated character stats formula. Fixed Summer Lulu bugs and dot bugs."
             },
