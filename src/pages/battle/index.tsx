@@ -48,12 +48,6 @@ const scarecrow = {
   attribute: 5,
   ATK: 0,
   HP: 5000000000,
-  level: 60,
-  potential: 0,
-  potentialSub: Array(6).fill(false),
-  discipline: 0,
-  star: 0,
-  bond: 0,
 };
 
 const TabPanel = ({
