@@ -64,15 +64,23 @@ export const attack = (
   const log: ILog[] = [];
   let skills = [...self.skillSet.normalAttack];
 
-  skills.push(
-    ...self.extraSkill.map((s) => {
-      const { skillDuration, ...rest } = s;
-      return rest;
-    })
-  );
-
   if (!self.isSilence) {
+    skills.push(
+      ...self.extraSkill.map((s) => {
+        const { skillDuration, ...rest } = s;
+        return rest;
+      })
+    );
     skills.push(...self.skillSet.passive);
+  } else {
+    skills.push(
+      ...self.extraSkill
+        .filter((s) => s.type === SkillActionType.NORMAL_ATTACK)
+        .map((s) => {
+          const { skillDuration, ...rest } = s;
+          return rest;
+        })
+    );
   }
 
   skills = skills.filter(
@@ -122,15 +130,23 @@ export const ultimate = (
   const log: ILog[] = [];
   let skills = [...self.skillSet.ultimate] as ISkill[];
 
-  skills.push(
-    ...self.extraSkill.map((s) => {
-      const { skillDuration, ...rest } = s;
-      return rest;
-    })
-  );
-
   if (!self.isSilence) {
+    skills.push(
+      ...self.extraSkill.map((s) => {
+        const { skillDuration, ...rest } = s;
+        return rest;
+      })
+    );
     skills.push(...self.skillSet.passive);
+  } else {
+    skills.push(
+      ...self.extraSkill
+        .filter((s) => s.type === SkillActionType.ULTIMATE)
+        .map((s) => {
+          const { skillDuration, ...rest } = s;
+          return rest;
+        })
+    );
   }
 
   skills = skills.filter(
