@@ -62,12 +62,14 @@ export const attack = (
 
   const self = G.lineups[ctx.currentPlayer][selected];
   const log: ILog[] = [];
-  let skills = self.extraSkill.map((s) => {
-    const { skillDuration, ...rest } = s;
-    return rest;
-  }) as ISkill[];
+  let skills = [...self.skillSet.normalAttack];
 
-  skills.push(...self.skillSet.normalAttack);
+  skills.push(
+    ...self.extraSkill.map((s) => {
+      const { skillDuration, ...rest } = s;
+      return rest;
+    })
+  );
 
   if (!self.isSilence) {
     skills.push(...self.skillSet.passive);
@@ -118,12 +120,14 @@ export const ultimate = (
   self.currentCD = self.CD;
 
   const log: ILog[] = [];
-  let skills = self.extraSkill.map((s) => {
-    const { skillDuration, ...rest } = s;
-    return rest;
-  }) as ISkill[];
+  let skills = [...self.skillSet.ultimate] as ISkill[];
 
-  skills.push(...self.skillSet.ultimate);
+  skills.push(
+    ...self.extraSkill.map((s) => {
+      const { skillDuration, ...rest } = s;
+      return rest;
+    })
+  );
 
   if (!self.isSilence) {
     skills.push(...self.skillSet.passive);
