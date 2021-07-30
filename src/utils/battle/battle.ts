@@ -220,6 +220,22 @@ export const Battle = (setupData: BattleSetupData) => ({
       G.target[ctx.currentPlayer] = nextTarget(G, ctx);
       G.log.push([]);
 
+      // update character states
+      selfTeam.forEach((c): boolean | void => {
+        if (c.isDead) {
+          return true;
+        }
+        c.isBroken = false;
+        c.isGuard = false;
+        c.isMoved = false;
+        // CD reduction
+        if (ctx.turn > 2) {
+          if (!c.effects.some((e) => e.type === SkillEffectType.CD_FREEZED)) {
+            c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
+          }
+        }
+      });
+
       // clear expired effects
       if (ctx.turn > 2) {
         Object.values(G.lineups).forEach((lineup) => {
@@ -268,9 +284,6 @@ export const Battle = (setupData: BattleSetupData) => ({
           return true;
         }
 
-        c.isBroken = false;
-        c.isGuard = false;
-        c.isMoved = false;
         // aside from battle begin
         if (ctx.turn > 2) {
           // clear expired extra skills
@@ -283,9 +296,6 @@ export const Battle = (setupData: BattleSetupData) => ({
             }
             return extraSkill.skillDuration !== 0;
           });
-          if (!c.effects.some((e) => e.type === SkillEffectType.CD_FREEZED)) {
-            c.currentCD = c.currentCD === 0 ? 0 : c.currentCD - 1;
-          }
         }
 
         // turn-based skills
