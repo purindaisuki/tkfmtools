@@ -1,8 +1,15 @@
 import { Ctx } from "boardgame.io";
 import { Client } from "boardgame.io/client";
-import { BattleSetupData, IGameState, ScarecrowStats } from "types/battle";
+import { Local } from "boardgame.io/multiplayer";
+import {
+  BattleSetupData,
+  IGameState,
+  ILog,
+  ScarecrowStats,
+} from "types/battle";
 import {
   ExtraSkill,
+  SkillActionType,
   SkillCondition,
   SkillEffect,
   SkillTarget,
@@ -14,6 +21,8 @@ import { calcAttack } from "./calculators";
 import { generateMaxedCharacterSetupData, sameEffect } from "./helpers";
 import calcCharStats from "utils/calcCharStats";
 import { data as skillData } from "data/characterSkill";
+import { DoNothingBot } from "./bots";
+const fs = require("fs");
 
 describe("character initialization", () => {
   test("should return initialized character including leader skills", () => {
@@ -280,9 +289,11 @@ describe("battle helpers", () => {
 });
 
 describe("battle system", () => {
-  const getClient = (setupData: BattleSetupData) =>
+  const getClient = (setupData: BattleSetupData, bot?: any) =>
     Client({
       game: Battle(setupData),
+      multiplayer: bot ? Local({ bots: { "1": bot } }) : undefined,
+      playerID: bot ? "0" : undefined,
     });
 
   test("should set lineups and trigger skills should be triggered on battle begin", () => {
@@ -387,9 +398,7 @@ describe("battle system", () => {
   test("should declare player 0 as the winner", () => {
     const setupData = {
       lineups: [
-        ["108", "103", "104", "105", "101"].map((c) =>
-          generateMaxedCharacterSetupData(c)
-        ),
+        ["108"].map((c) => generateMaxedCharacterSetupData(c)),
         ["401"].map((c) => generateMaxedCharacterSetupData(c)),
       ],
     } as BattleSetupData;
@@ -398,6 +407,21 @@ describe("battle system", () => {
     client.moves.attack(0, 0);
 
     expect(client.getState()?.ctx.gameover).toStrictEqual({ winner: "0" });
+  });
+
+  test("should declare player 1 as the winner", () => {
+    const setupData = {
+      lineups: [
+        ["401"].map((c) => generateMaxedCharacterSetupData(c)),
+        ["108"].map((c) => generateMaxedCharacterSetupData(c)),
+      ],
+    } as BattleSetupData;
+    const client = getClient(setupData);
+
+    client.moves.attack(0, 0);
+    client.moves.attack(0, 0);
+
+    expect(client.getState()?.ctx.gameover).toStrictEqual({ winner: "1" });
   });
 
   test("should declare player 1 as the winner", () => {
@@ -649,5 +673,377 @@ describe("battle system", () => {
     expect(client.getState()?.G.lineups["0"][0].effects).toEqual(
       expect.not.arrayContaining(expectedEffects)
     );
+  });
+
+  describe("multiplayer: player vs bot", () => {
+    const sleep = (ms = 500) =>
+      new Promise((resolve) => setTimeout(resolve, ms));
+
+    test("bot should work", async () => {
+      const setupData = {
+        lineups: [
+          ["216"].map((c) => generateMaxedCharacterSetupData(c)),
+          ["212", "137"].map((c) => generateMaxedCharacterSetupData(c)),
+        ],
+      } as BattleSetupData;
+      const client = getClient(setupData, DoNothingBot);
+
+      client.start();
+      client.moves.guard(0);
+
+      // wait bot
+      await sleep();
+      const ctx = client.getState()?.ctx as Ctx;
+
+      expect(ctx.currentPlayer).toBe("0");
+      expect(ctx.turn).toBe(3);
+      expect(ctx.gameover).toBe(undefined);
+    });
+  });
+
+  describe("calculate total damage", () => {
+    const scarecrow = {
+      id: "scarecrow",
+      attribute: 5,
+      ATK: 0,
+      HP: 5000000000,
+    };
+    const testedCharacters = [
+      "101",
+      "103",
+      "104",
+      "105",
+      "107",
+      "108",
+      "125",
+      "128",
+      "129",
+      "131",
+      "132",
+      "213",
+      "238",
+    ];
+
+    describe("calculate leader damage", () => {
+      let damageTable = {} as { [key: string]: number[] };
+      testedCharacters.forEach((id) => {
+        const setupData = {
+          lineups: [
+            [id].map((c) => generateMaxedCharacterSetupData(c)),
+            [scarecrow],
+          ],
+        } as BattleSetupData;
+        const client = getClient(setupData);
+        const getTotalDamage = (log: ILog[]) =>
+          log.reduce(
+            (num, j) =>
+              (num +=
+                j.value &&
+                (j.type === SkillActionType.NORMAL_ATTACK ||
+                  j.type === SkillActionType.ULTIMATE ||
+                  j.type === SkillActionType.FOLLOW_UP_ATTACK)
+                  ? j.value
+                  : 0),
+            0
+          );
+        let dLog: number[] = [];
+
+        for (let turn = 1; turn < 51; turn++) {
+          if (id === "128" && (turn < 3 || turn === 4)) {
+            client.moves.guard(0);
+          } else if (
+            client.getState()?.G.lineups["0"][0].currentCD === 0 &&
+            !(id === "108" && turn > 12)
+          ) {
+            client.moves.ultimate(0, 0);
+          } else {
+            client.moves.attack(0, 0);
+          }
+          client.moves.doNothing(0);
+        }
+
+        const G = client.getState()?.G as IGameState;
+
+        for (let i = 0; i < G.log.length / 2 - 1; i++) {
+          let v = getTotalDamage(G.log[i * 2]);
+          if (i < 98) {
+            v += getTotalDamage(G.log[i * 2 + 1]);
+          }
+          dLog.push(v);
+        }
+        damageTable[id] = dLog;
+      });
+
+      test.each(Object.entries(damageTable))(
+        "length of %s damage table should be 50",
+        (_, damages) => {
+          expect(damages.length).toBe(50);
+        }
+      );
+
+      fs.writeFile(
+        "./damage_table.json",
+        JSON.stringify(damageTable),
+        (err: any) => {
+          if (err) console.log(err);
+        }
+      );
+    });
+
+    describe("calculate 4+1 comp damage", () => {
+      let damageTable = {} as { [key: string]: number[] };
+      testedCharacters.forEach((id) => {
+        const setupData = {
+          lineups: [
+            ["130", "126", "157", "209", id].map((c) =>
+              generateMaxedCharacterSetupData(c)
+            ),
+            [scarecrow],
+          ],
+        } as BattleSetupData;
+        const client = getClient(setupData);
+        const getTotalDamage = (log: ILog[]) =>
+          log.reduce(
+            (num, j) =>
+              (num +=
+                j.value &&
+                (j.type === SkillActionType.NORMAL_ATTACK ||
+                  j.type === SkillActionType.ULTIMATE ||
+                  j.type === SkillActionType.FOLLOW_UP_ATTACK)
+                  ? j.value
+                  : 0),
+            0
+          );
+        let dLog: number[] = [];
+        const dpsCD = client.getState()?.G.lineups["0"][4].CD;
+
+        const normalRotation = () => {
+          client.moves.attack(0, 0);
+          client.moves.attack(1, 0);
+          client.moves.attack(4, 0);
+          client.moves.attack(3, 0);
+          client.moves.attack(2, 0);
+          client.moves.doNothing(0);
+        };
+
+        const batonPass = (id: string) => {
+          client.moves.ultimate(0, 0);
+          client.moves.attack(3, 0);
+          if (id === "104") {
+            client.moves.attack(4, 0);
+            client.moves.attack(1, 0);
+            client.moves.ultimate(2, 0);
+          } else {
+            client.moves.attack(1, 0);
+            client.moves.ultimate(2, 0);
+            if (id === "108" && (turn === 5 || turn === 8)) {
+              client.moves.ultimate(4, 0);
+            } else {
+              client.moves.attack(4, 0);
+            }
+          }
+          client.moves.doNothing(0);
+          client.moves.ultimate(3, 0);
+          client.moves.attack(0, 0);
+          client.moves.attack(1, 0);
+          client.moves.ultimate(2, 0);
+          if (
+            client.getState()?.G.lineups["0"][4].currentCD === 0 &&
+            id !== "108"
+          ) {
+            client.moves.ultimate(4, 0);
+          } else {
+            client.moves.attack(4, 0);
+          }
+          client.moves.doNothing(0);
+        };
+
+        let turn = 1;
+        client.start();
+        while (turn < 51) {
+          let moved = false;
+          if (dpsCD === 5 || dpsCD === 6) {
+            switch (turn % 6) {
+              case 0:
+                batonPass(id);
+                moved = true;
+                break;
+              case 1:
+                if (turn > 6) {
+                  moved = true;
+                }
+                break;
+              case 2:
+                if (turn > 7) {
+                  client.moves.attack(0, 0);
+                  client.moves.ultimate(1, 0);
+                  if (id !== "104") {
+                    client.moves.attack(3, 0);
+                    client.moves.attack(2, 0);
+                    client.moves.attack(4, 0);
+                  } else {
+                    client.moves.attack(4, 0);
+                    client.moves.attack(3, 0);
+                    client.moves.attack(2, 0);
+                  }
+                  client.moves.doNothing(0);
+                  moved = true;
+                }
+                break;
+              case 3:
+                if (turn > 7) {
+                  client.moves.attack(0, 0);
+                  client.moves.attack(1, 0);
+                  client.moves.ultimate(2, 0);
+                  if (id !== "104") {
+                    client.moves.attack(3, 0);
+                    client.moves.attack(4, 0);
+                  } else {
+                    client.moves.attack(4, 0);
+                    client.moves.attack(3, 0);
+                  }
+                  client.moves.doNothing(0);
+                  moved = true;
+                }
+                break;
+            }
+          } else if ((dpsCD === 4 && id !== "125") || id === "131") {
+            if (id === "128" && turn < 5) {
+              client.moves.attack(0, 0);
+              client.moves.attack(1, 0);
+              if (turn === 3) {
+                client.moves.ultimate(4, 0);
+              } else {
+                client.moves.guard(4);
+              }
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (id === "131" && turn === 4) {
+              client.moves.attack(0, 0);
+              client.moves.attack(1, 0);
+              client.moves.ultimate(4, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (id === "131" && turn === 7) {
+              client.moves.attack(0, 0);
+              client.moves.ultimate(4, 0);
+              client.moves.ultimate(1, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (turn === 5 || (turn > 5 && turn % 4 === 0)) {
+              batonPass(id);
+              moved = true;
+            } else if (turn === 6 || (turn > 6 && turn % 4 === 1)) {
+              moved = true;
+            } else if (turn === 7 || turn % 8 === 6) {
+              client.moves.attack(0, 0);
+              client.moves.ultimate(1, 0);
+              client.moves.attack(4, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            }
+          } else {
+            const SLuluCD = client.getState()?.G.lineups["0"][0].currentCD;
+            const NoelCD = client.getState()?.G.lineups["0"][1].currentCD;
+            if (turn === 4 && id !== "125") {
+              client.moves.attack(0, 0);
+              client.moves.attack(1, 0);
+              client.moves.ultimate(4, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (turn === 7 && id !== "125") {
+              client.moves.attack(0, 0);
+              if (id !== "101") {
+                client.moves.ultimate(4, 0);
+              }
+              client.moves.ultimate(1, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              if (id === "101") {
+                client.moves.ultimate(4, 0);
+              }
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (turn === 50 && id !== "125") {
+              client.moves.ultimate(0, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(1, 0);
+              client.moves.ultimate(2, 0);
+              if (id === "101") {
+                client.moves.attack(4, 0);
+              } else {
+                client.moves.ultimate(4, 0);
+              }
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (SLuluCD === 0) {
+              batonPass(id);
+              turn++;
+              moved = true;
+            } else if (SLuluCD === 2 && NoelCD === 0) {
+              client.moves.attack(0, 0);
+              client.moves.ultimate(1, 0);
+              if (id !== "101") {
+                client.moves.attack(4, 0);
+              }
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              if (id === "101") {
+                client.moves.ultimate(4, 0);
+              }
+              client.moves.doNothing(0);
+              moved = true;
+            } else if (id === "101" && SLuluCD === 1) {
+              client.moves.attack(0, 0);
+              client.moves.attack(1, 0);
+              client.moves.attack(3, 0);
+              client.moves.attack(2, 0);
+              client.moves.ultimate(4, 0);
+              client.moves.doNothing(0);
+              moved = true;
+            }
+          }
+          if (!moved) {
+            normalRotation();
+          }
+          turn++;
+        }
+
+        const G = client.getState()?.G as IGameState;
+        for (let i = 0; i < G.log.length / 2 - 1; i++) {
+          let v = getTotalDamage(G.log[i * 2]);
+          if (i < 98) {
+            v += getTotalDamage(G.log[i * 2 + 1]);
+          }
+          dLog.push(v);
+        }
+        damageTable[id] = dLog;
+      });
+
+      test.each(Object.entries(damageTable))(
+        "length of %s damage table should be 50",
+        (_, damages) => {
+          expect(damages.length).toBe(50);
+        }
+      );
+
+      fs.writeFile(
+        "./4+1_damage_table.json",
+        JSON.stringify(damageTable),
+        (err: any) => {
+          if (err) console.log(err);
+        }
+      );
+    });
   });
 });
