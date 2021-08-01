@@ -107,7 +107,7 @@ export const takeEffect = (
       case SkillActionType.CHANGE_CD:
         if (skill.value !== undefined) {
           target.CD += skill.value;
-          target.currentCD = target.CD;
+          target.currentCD = target.currentCD === 0 ? 0 : target.CD;
         }
         break;
       case SkillActionType.CHANGE_CURRENT_CD:
