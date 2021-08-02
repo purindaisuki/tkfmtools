@@ -1,5 +1,5 @@
 import React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import LineupDataProvider from "containers/LineupDataProvider";
 import TeamDataProvider from "containers/TeamDataProvider";
 import Layout from "containers/Layout";
@@ -35,7 +35,7 @@ export const wrapPageElement = ({ element, props: { pageContext } }) => (
   </LanguageProvider>
 );
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: { fontFamily: fontFamily },
 });
 
