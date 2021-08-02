@@ -1,5 +1,2 @@
-export * from "./CharacterButton";
-export * from "./CharacterDetailsPopover";
-export * from "./BattleLog";
-export * from "./BattleSettings";
-export * from "./BattleHelp";
+export * from "./BattleApp";
+export * from "./BattleBoard";

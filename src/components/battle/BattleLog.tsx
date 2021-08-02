@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { TableBody, TableRow, TableCell } from "@material-ui/core";
-import { useLanguage } from "containers/LanguageProvider";
-import Table from "components/Table";
-import { HPBar } from ".";
 import { IGameState, ILog } from "types/battle";
+import { useLanguage } from "containers/LanguageProvider";
 import Scrollable from "containers/Scrollable";
+import { HPBar } from "./CharacterButton";
+import Table from "components/Table";
 import { ArrowIcon } from "components/icon";
 
 const LogCell = ({
@@ -110,7 +110,7 @@ type Props = {
   G: IGameState;
 };
 
-export const BattleLog = ({ G }: Props): JSX.Element => {
+const BattleLog = ({ G }: Props): JSX.Element => {
   const { pageString }: any = useLanguage();
   const logLength = G.log.length;
 
@@ -160,3 +160,5 @@ const TableWrapper = styled(Scrollable)`
 const TurnTextWrapper = styled(TextWrapper)`
   font-weight: bold;
 `;
+
+export default BattleLog;

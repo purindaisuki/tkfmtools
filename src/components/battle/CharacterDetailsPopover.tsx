@@ -1,7 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { Popover } from "@material-ui/core";
-import { useLanguage } from "containers/LanguageProvider";
 import { BattleCharacter as Character, IGameState } from "types/battle";
 import {
   SkillActionType,
@@ -10,6 +9,7 @@ import {
   SkillEffectType,
   SkillOn,
 } from "types/skills";
+import { useLanguage } from "containers/LanguageProvider";
 
 const effectString = (effect: SkillEffect, skillString: any) => {
   let string =
@@ -50,7 +50,7 @@ type Props = {
   onClose: () => void;
 };
 
-export const CharacterDetailsPopover = ({
+const CharacterDetailsPopover = ({
   G,
   id,
   character,
@@ -102,3 +102,5 @@ export const CharacterDetailsPopover = ({
     </Popover>
   );
 };
+
+export default CharacterDetailsPopover;

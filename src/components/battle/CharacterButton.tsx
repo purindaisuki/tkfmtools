@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button as MuiButton, Tooltip } from "@material-ui/core";
 import type { Ctx } from "boardgame.io";
-import { useLanguage } from "containers/LanguageProvider";
 import { BattleCharacter as Character, IGameState } from "types/battle";
+import { useLanguage } from "containers/LanguageProvider";
+import CharacterDetailsPopover from "./CharacterDetailsPopover";
 import ImageSupplier from "components/ImageSupplier";
-import { CharacterDetailsPopover } from "components/battle";
 import IconButton from "components/IconButton";
 import {
   ClockIcon,
@@ -14,7 +14,7 @@ import {
   ParalysisIcon,
   SilenceIcon,
   SleepIcon,
-  TauntIcon
+  TauntIcon,
 } from "components/icon";
 
 enum CharacterButtonState {
@@ -271,7 +271,7 @@ const StyledHPBar = styled.div<{
   }
 `;
 
-export const CharacterButton = ({
+const CharacterButton = ({
   G,
   ctx,
   player,
@@ -403,3 +403,5 @@ const StyledCharacterMuiButton = styled(Button)<{
     );
   }
 `;
+
+export default CharacterButton;

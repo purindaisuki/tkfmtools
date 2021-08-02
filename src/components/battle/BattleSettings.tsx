@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, ButtonProps, Slider } from "@material-ui/core";
+import { BattleSetupData } from "types/battle";
+import { useLanguage } from "containers/LanguageProvider";
 import Header from "components/Header";
 import LocalizedLink from "components/LocalizedLink";
 import RadioGroup, { Radio } from "components/RadioGroup";
 import { OpenIcon } from "components/icon";
-import { useLanguage } from "containers/LanguageProvider";
-import { BattleSetupData } from "types/battle";
 
 export interface IGameSetupProps {
   lineups: BattleSetupData["lineups"];
@@ -53,7 +53,7 @@ type LinkProps = {
   replace: boolean;
 };
 
-export const BattleSettings = ({
+const BattleSettings = ({
   lineups,
   botIndex,
   iterations,
@@ -108,7 +108,7 @@ export const BattleSettings = ({
             max={1000}
             min={1}
             valueLabelDisplay="auto"
-            onChange={(e, value: number | number[]) =>
+            onChange={(_, value: number | number[]) =>
               setIterationsValue(value as number)
             }
             onChangeCommitted={handleIterationsChange(iterationsValue)}
@@ -122,7 +122,7 @@ export const BattleSettings = ({
             max={100}
             min={1}
             valueLabelDisplay="auto"
-            onChange={(e, value: number | number[]) =>
+            onChange={(_, value: number | number[]) =>
               setPlayoutDepthValue(value as number)
             }
             onChangeCommitted={handlePlayoutDepthChange(playoutDepthValue)}
@@ -186,3 +186,5 @@ const StyledSlider = styled(Slider)`
     }
   }
 `;
+
+export default BattleSettings;

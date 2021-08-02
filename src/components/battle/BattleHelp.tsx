@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "components/Header";
 import { useLanguage } from "containers/LanguageProvider";
 
-export const BattleHelp = (): JSX.Element => {
+const BattleHelp = (): JSX.Element => {
   const { pageString }: any = useLanguage();
 
   return (
@@ -31,3 +31,5 @@ const TextWrapper = styled.div`
   padding: 0.4rem 0;
   font-size: 0.875rem;
 `;
+
+export default BattleHelp;
