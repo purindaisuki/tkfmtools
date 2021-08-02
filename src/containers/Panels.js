@@ -57,12 +57,12 @@ const Container = styled.div`
   > div {
     display: ${(props) => props.theme.panelLayout.divDisplay};
     margin: ${(props) => props.theme.panelLayout.divMargin};
-    > div {
-      ${(props) =>
-        props.theme.panelLayout.divDivMaxHeight === "var(--divDivMaxHeight)"
-          ? `max-height: ${props.theme.panelLayout.divDivMaxHeight};`
-          : ""};
-    }
+    ${(props) =>
+      props.theme.panelLayout.divDivMaxHeight === "var(--divDivMaxHeight)"
+        ? `> div {
+            max-height: none;
+          }`
+        : ""}
   }
   @media screen and (max-width: 1000px) ${(props) =>
       props.$horizontal ? "" : ",(min-width: 0px)"} {

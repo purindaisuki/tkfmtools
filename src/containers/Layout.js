@@ -27,7 +27,7 @@ const transformTheme = (theme) => {
   return newTheme;
 };
 
-const LayoutContext = createContext();
+export const LayoutContext = createContext();
 
 export const useLayoutConfig = () => useContext(LayoutContext);
 
@@ -108,10 +108,9 @@ const Layout = ({ children, withTabs, pagePath }) => {
 
   const currentTheme = state.isDark ? darkTheme : lightTheme;
   const theme = state.didLoad ? currentTheme : transformTheme(currentTheme);
-
-  const panelLayout = !state.didLoad
-    ? transformTheme(panelsStyle[state.layoutIndex])
-    : panelsStyle[layout !== undefined ? layout : 0];
+  const panelLayout = state.didLoad
+    ? panelsStyle[layout !== undefined ? layout : 0]
+    : transformTheme(panelsStyle[state.layoutIndex]);
 
   return (
     <ThemeProvider
