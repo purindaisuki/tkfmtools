@@ -93,6 +93,7 @@ export enum SkillOn {
   BEFORE_ACTION,
   ON_ACTION,
   AFTER_ACTION,
+  ACTION_END,
   TURN_END,
 }
 
