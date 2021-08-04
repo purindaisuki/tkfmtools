@@ -127,6 +127,16 @@ const damagedBuff = {
   value: 0.2,
 };
 
+const takeEffectWhenCharacterExistBuff = {
+  condition: SkillCondition.BATTLE_BEGIN,
+  otherCondition: SkillCondition.EXIST_CHARACTER,
+  otherConditionValue: "134",
+  target: SkillTarget.SELF,
+  type: SkillEffectType.DEALT_DAMAGE,
+  value: 0.21,
+  on: SkillOn.TURN_BEGIN,
+};
+
 const guardEffectBuff = {
   condition: SkillCondition.BATTLE_BEGIN,
   target: SkillTarget.SELF,
@@ -199,6 +209,7 @@ const character = {
     ultimateDamagedBuff,
     damagedBuff,
     dealtDamageBuff,
+    takeEffectWhenCharacterExistBuff,
     attributeDamagedBuff,
     attributeEffectBuff,
     guardEffectBuff,
@@ -218,11 +229,11 @@ const character = {
 } as BattleCharacter;
 
 describe("attack power calculation", () => {
-  test("conditional buffs take its effect", () => {
+  test("conditional buffs should take its effect", () => {
     expect(calcAttack(character)).toBe(2401232);
   });
 
-  test("conditional buffs not take its effect", () => {
+  test("conditional buffs should not take its effect", () => {
     expect(calcAttack({ ...character, HP: 1 })).toBe(2284565);
   });
 });
@@ -245,11 +256,11 @@ describe("damage calculation", () => {
     on: SkillOn.ON_ACTION,
   };
 
-  test("normal attack damage", () => {
+  test("normal attack damage should match", () => {
     expect(calcDamage(character, character, normalAttack)).toBe(3274408);
   });
 
-  test("damage with attribute effect", () => {
+  test("damage should affect by attribute effect", () => {
     expect(
       calcDamage(
         character,
@@ -259,17 +270,35 @@ describe("damage calculation", () => {
     ).toBe(5554052);
   });
 
-  test("ultimate damage", () => {
+  test("damage should affect by takeEffectWhenCharacterExistBuff", () => {
+    expect(
+      calcDamage(character, character, normalAttack, [
+        character,
+        { ...character, id: "134" },
+      ])
+    ).toBe(3772688);
+  });
+
+  test("damage should not affect by takeEffectWhenCharacterExistBuff", () => {
+    expect(
+      calcDamage(character, character, normalAttack, [
+        character,
+        { ...character, id: "134", isDead: true },
+      ])
+    ).toBe(3274408);
+  });
+
+  test("ultimate damage should match", () => {
     expect(calcDamage(character, character, ultimate)).toBe(8375898);
   });
 
-  test("damage when opponent guards", () => {
+  test("damage should affect when opponent guards", () => {
     expect(
       calcDamage(character, { ...character, isGuard: true }, ultimate)
     ).toBe(2429010);
   });
 
-  test("real attack", () => {
+  test("real attack should match", () => {
     const realAttack = {
       condition: SkillCondition.BATTLE_BEGIN,
       conditionValue: 1,
@@ -285,7 +314,7 @@ describe("damage calculation", () => {
     ).toBe(37036);
   });
 
-  test("dot", () => {
+  test("dot should match", () => {
     const dot = {
       condition: SkillCondition.NORMAL_ATTACK,
       target: SkillTarget.SINGLE_ENEMY,
@@ -299,7 +328,7 @@ describe("damage calculation", () => {
     expect(calcDamage(character, character, dot)).toBe(148147);
   });
 
-  test("follow up attack", () => {
+  test("follow up attack should match", () => {
     const followupAttack = {
       condition: SkillCondition.ATTACK,
       target: SkillTarget.ALL_ENEMIES,
@@ -313,7 +342,7 @@ describe("damage calculation", () => {
 });
 
 describe("heal calculation", () => {
-  test("heal by self attack (normal attack)", () => {
+  test("heal by self attack should match(normal attack)", () => {
     const heal = {
       condition: SkillCondition.NORMAL_ATTACK,
       target: SkillTarget.TEAM,
@@ -328,7 +357,7 @@ describe("heal calculation", () => {
     );
   });
 
-  test("heal by self attack (ultimate)", () => {
+  test("heal by self attack should match(ultimate)", () => {
     const heal = {
       condition: SkillCondition.ULTIMATE,
       target: SkillTarget.TEAM,
@@ -344,7 +373,7 @@ describe("heal calculation", () => {
     );
   });
 
-  test("heal by target attack(end turn heal)", () => {
+  test("heal by target attack should match(end turn heal)", () => {
     const heal = {
       condition: SkillCondition.BATTLE_BEGIN,
       target: SkillTarget.TEAM,
@@ -359,7 +388,7 @@ describe("heal calculation", () => {
     );
   });
 
-  test("heal by damage", () => {
+  test("heal by damage should match", () => {
     const heal = {
       star: 3,
       condition: SkillCondition.ATTACK,
@@ -373,7 +402,7 @@ describe("heal calculation", () => {
     expect(calcHeal(character, character, heal, 123456)).toBe(15185);
   });
 
-  test("heal by maxHP", () => {
+  test("heal by maxHP should match", () => {
     const heal = {
       condition: SkillCondition.NORMAL_ATTACK,
       target: SkillTarget.SELF,
@@ -391,7 +420,7 @@ describe("heal calculation", () => {
 });
 
 describe("shield calculation", () => {
-  test("shield (normal attack)", () => {
+  test("shield should match(normal attack)", () => {
     const shield = {
       condition: SkillCondition.NORMAL_ATTACK,
       target: SkillTarget.TEAM,
@@ -407,7 +436,7 @@ describe("shield calculation", () => {
     );
   });
 
-  test("shield (ultimate)", () => {
+  test("shield should match(ultimate)", () => {
     const shield = {
       condition: SkillCondition.ULTIMATE,
       target: SkillTarget.TEAM,
@@ -423,7 +452,7 @@ describe("shield calculation", () => {
     );
   });
 
-  test("shield by maxHP", () => {
+  test("shield by maxHP should match", () => {
     const shield = {
       condition: SkillCondition.NORMAL_ATTACK,
       target: SkillTarget.SELF,

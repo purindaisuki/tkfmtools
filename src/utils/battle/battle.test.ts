@@ -722,6 +722,8 @@ describe("battle system", () => {
       "132",
       "213",
       "238",
+      "134",
+      "135"
     ];
 
     describe("calculate leader damage", () => {

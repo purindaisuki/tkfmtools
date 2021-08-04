@@ -50,5 +50,6 @@
   "endTurnEffect": {
     "damage": ["每回合受到 {value} 傷害"],
     "heal": ["每回合治療 {value} HP"]
-  }
+  },
+  "attribute": ["火", "水", "風", "光", "闇"]
 }

@@ -1,3 +1,5 @@
+import { CharacterAttribute } from "./characters";
+
 export enum SkillTarget {
   SELF,
   TEAM,
@@ -86,6 +88,7 @@ export enum SkillCondition {
   BATTLE_BEGIN,
   HP_GREATER_THAN,
   HP_LESS_THAN,
+  EXIST_CHARACTER,
 }
 
 export enum SkillOn {
@@ -101,16 +104,19 @@ export interface ISkill {
   type: SkillActionType | SkillEffectType;
   condition: SkillCondition;
   conditionValue?: number;
-  otherCondition?: SkillCondition.HP_GREATER_THAN | SkillCondition.HP_LESS_THAN;
-  otherConditionValue?: number;
+  otherCondition?:
+    | SkillCondition.HP_GREATER_THAN
+    | SkillCondition.HP_LESS_THAN
+    | SkillCondition.EXIST_CHARACTER;
+  otherConditionValue?: number | string;
   value?: number;
   basis?: SkillEffectBasis;
-  target: SkillTarget | number[];
+  target: SkillTarget | number[] | string[];
   on: SkillOn;
   duration?: number /* undefined -> always */;
   CD?: number;
   maxStack?: number /* undefined -> no limit */;
-  byAttribute?: number /* get extra damaged by A attribute */;
+  byAttribute?: CharacterAttribute /* get extra damaged by A attribute */;
   repeat?: number;
   possibility?: number;
   skill?: ExtraSkill;

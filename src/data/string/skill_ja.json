@@ -77,5 +77,6 @@
   "endTurnEffect": {
     "damage": ["Take {value} damage every turn"],
     "heal": ["Recover {value} HP every turn"]
-  }
+  },
+  "attribute": ["fire", "water", "wind", "light", "dark"]
 }

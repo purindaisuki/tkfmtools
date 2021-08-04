@@ -309,8 +309,9 @@ const CharacterButton = ({
       </DetailsButton>
       <CharacterDetailsPopover
         G={G}
-        id={id}
         character={character}
+        player={player}
+        id={id}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}

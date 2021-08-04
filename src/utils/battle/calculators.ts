@@ -60,7 +60,9 @@ const ATTRIBUTE_CHART = [
 export const calcDamage = (
   from: Character,
   to: Character,
-  action: ISkill | SkillEffect
+  action: ISkill | SkillEffect,
+  fromLineup?: Character[],
+  toLineup?: Character[]
 ) => {
   if (
     !action.value ||
@@ -94,16 +96,31 @@ export const calcDamage = (
       return true;
     }
 
-    if (
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.HP / from.maxHP < e.otherConditionValue) ||
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.HP / from.maxHP >= e.otherConditionValue)
-    ) {
-      return true;
+    if (e.otherConditionValue) {
+      switch (e.otherCondition) {
+        case SkillCondition.HP_GREATER_THAN:
+          if (from.HP / from.maxHP < e.otherConditionValue) {
+            return true;
+          }
+          break;
+        case SkillCondition.HP_LESS_THAN:
+          if (from.HP / from.maxHP >= e.otherConditionValue) {
+            return true;
+          }
+          break;
+        case SkillCondition.EXIST_CHARACTER:
+          if (
+            !toLineup ||
+            !toLineup.some(
+              (c) => !c.isDead && c.id === (e.otherConditionValue as string)
+            )
+          ) {
+            return true;
+          }
+          break;
+      }
     }
+
     const stack = e.stack ? e.stack : 1;
 
     switch (e.type) {
@@ -167,15 +184,29 @@ export const calcDamage = (
       return true;
     }
 
-    if (
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_GREATER_THAN &&
-        from.HP / from.maxHP < e.otherConditionValue) ||
-      (e.otherConditionValue &&
-        e.otherCondition === SkillCondition.HP_LESS_THAN &&
-        from.HP / from.maxHP >= e.otherConditionValue)
-    ) {
-      return true;
+    if (e.otherConditionValue) {
+      switch (e.otherCondition) {
+        case SkillCondition.HP_GREATER_THAN:
+          if (from.HP / from.maxHP < e.otherConditionValue) {
+            return true;
+          }
+          break;
+        case SkillCondition.HP_LESS_THAN:
+          if (from.HP / from.maxHP >= e.otherConditionValue) {
+            return true;
+          }
+          break;
+        case SkillCondition.EXIST_CHARACTER:
+          if (
+            !fromLineup ||
+            !fromLineup.some(
+              (c) => !c.isDead && c.id === (e.otherConditionValue as string)
+            )
+          ) {
+            return true;
+          }
+          break;
+      }
     }
 
     const stack = e.stack ? e.stack : 1;

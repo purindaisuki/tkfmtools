@@ -4,12 +4,45 @@ import { Popover } from "@material-ui/core";
 import { BattleCharacter as Character, IGameState } from "types/battle";
 import {
   SkillActionType,
+  SkillCondition,
   SkillEffect,
   SkillEffectBasis,
   SkillEffectType,
   SkillOn,
 } from "types/skills";
 import { useLanguage } from "containers/LanguageProvider";
+
+const validateEffect = (
+  character: Character,
+  lineup: Character[],
+  effect: SkillEffect
+) => {
+  if (effect.otherConditionValue) {
+    switch (effect.otherCondition) {
+      case SkillCondition.HP_GREATER_THAN:
+        if (character.HP / character.maxHP < effect.otherConditionValue) {
+          return false;
+        }
+        break;
+      case SkillCondition.HP_LESS_THAN:
+        if (character.HP / character.maxHP >= effect.otherConditionValue) {
+          return false;
+        }
+        break;
+      case SkillCondition.EXIST_CHARACTER:
+        if (
+          !lineup.some(
+            (c) => !c.isDead && c.id === (effect.otherConditionValue as string)
+          )
+        ) {
+          return false;
+        }
+        break;
+    }
+  }
+
+  return true;
+};
 
 const effectString = (effect: SkillEffect, skillString: any) => {
   let string =
@@ -33,6 +66,13 @@ const effectString = (effect: SkillEffect, skillString: any) => {
     } else {
       string = string[effect.value > 0 ? 0 : 1].replace("{value}", value);
     }
+
+    if (effect.byAttribute !== undefined) {
+      string = string.replace(
+        "{attribute}",
+        skillString.attribute[effect.byAttribute]
+      );
+    }
   }
 
   if (effect.duration) {
@@ -43,8 +83,9 @@ const effectString = (effect: SkillEffect, skillString: any) => {
 
 type Props = {
   G: IGameState;
-  id?: string;
   character: Character;
+  player: string;
+  id?: string;
   open: boolean;
   anchorEl: HTMLButtonElement | null;
   onClose: () => void;
@@ -52,8 +93,9 @@ type Props = {
 
 const CharacterDetailsPopover = ({
   G,
-  id,
   character,
+  player,
+  id,
   open,
   anchorEl,
   onClose,
@@ -90,14 +132,16 @@ const CharacterDetailsPopover = ({
       <div>{`CD: ${character.currentCD}/${character.CD}`}</div>
       <div>
         {`${pageString.battle.index.effect}:`}
-        {character.effects.map((e, ind) => (
-          <div key={ind}>
-            {effectString(e, skillString) +
-              ` (${charString.name[G.lineups[e.fromPlayer][e.from].id]} (${
-                e.from + 1
-              }))`}
-          </div>
-        ))}
+        {character.effects.map((e, ind) =>
+          validateEffect(character, G.lineups[player], e) ? (
+            <div key={ind}>
+              {effectString(e, skillString) +
+                ` (${charString.name[G.lineups[e.fromPlayer][e.from].id]} (${
+                  e.from + 1
+                }))`}
+            </div>
+          ) : null
+        )}
       </div>
     </Popover>
   );

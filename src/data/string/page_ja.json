@@ -93,6 +93,26 @@
       "change": "変更",
       "content": [
         {
+          "version": "v1.7.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "8/4 ゲーム更新",
+              "description": "新キャラ「紅の裁断師 アンスティー、蒼の縫製師 アンスナー」追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "Leader skills of Summer Lulu and Summer Nana",
+              "description": "Corrected the casting timing of leader skills of Summer Lulu and Summer Nana."
+            },
+            {
+              "type": "Fix",
+              "title": "Leader skill of Ritsuki",
+              "description": "Fixed the issue that the leader skill of Ritsuki doesn't work when the passive skills of a character contain CD change effects."
+            }
+          ]
+        },
+        {
           "version": "v1.7.1",
           "content": [
             {

@@ -93,6 +93,26 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.7.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "8/4 게임 업데이트",
+              "description": "붉은 재단사 아나스티, 푸른 재봉사 아나스나 추가."
+            },
+            {
+              "type": "Fix",
+              "title": "Leader skills of Summer Lulu and Summer Nana",
+              "description": "Corrected the casting timing of leader skills of Summer Lulu and Summer Nana."
+            },
+            {
+              "type": "Fix",
+              "title": "Leader skill of Ritsuki",
+              "description": "Fixed the issue that the leader skill of Ritsuki doesn't work when the passive skills of a character contain CD change effects."
+            }
+          ]
+        },
+        {
           "version": "v1.7.1",
           "content": [
             {

@@ -93,6 +93,26 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.7.2",
+          "content": [
+            {
+              "type": "New",
+              "title": "8/4 遊戲更新",
+              "description": "新增剪裁之紅 安絲蒂、縫紉之藍 安絲娜。"
+            },
+            {
+              "type": "Fix",
+              "title": "夏日露露、夏日娜娜隊長技",
+              "description": "修正夏日露露、夏日娜娜隊長技能施放時機。"
+            },
+            {
+              "type": "Fix",
+              "title": "凜月隊長技",
+              "description": "修正凜月隊長技在角色被動有變動 CD 時無效。"
+            }
+          ]
+        },
+        {
           "version": "v1.7.1",
           "content": [
             {

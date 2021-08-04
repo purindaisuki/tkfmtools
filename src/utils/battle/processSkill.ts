@@ -175,7 +175,13 @@ export const takeEffect = (
       case SkillActionType.ULTIMATE:
       case SkillActionType.FOLLOW_UP_ATTACK:
       case SkillActionType.REAL_ATTACK:
-        const damage = calcDamage(from.character, target, skill);
+        const damage = calcDamage(
+          from.character,
+          target,
+          skill,
+          G.lineups[effect.fromPlayer],
+          G.lineups[to.player]
+        );
         let restDamage = damage;
 
         const damageLog = {
@@ -549,9 +555,22 @@ export const getSkillTargets = (
       targets = leftmost ? [leftmost] : [];
       break;
     default:
-      // unimplemented: position specific skill may change in actual game if someone is dead
-      const target = skill.target;
-      targets = selfTeam.filter((c, ind) => !c.isDead && target.includes(ind));
+      if (typeof skill.target === "object") {
+        if (typeof skill.target[0] === "number") {
+          // unimplemented: position specific skill may change in actual game if someone is dead
+          targets = selfTeam.filter(
+            (c, ind) => !c.isDead && (skill.target as number[]).includes(ind)
+          );
+          break;
+        } else if (typeof skill.target[0] === "string") {
+          targets = selfTeam.filter(
+            (c) => !c.isDead && (skill.target as string[]).includes(c.id)
+          );
+          break;
+        }
+      }
+
+      throw new Error(`invalid skill target type: ${typeof skill.target}`);
   }
 
   return { targets, isEnemy };
