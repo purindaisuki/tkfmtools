@@ -10,7 +10,7 @@ import {
 import { BattleCharacter as Character } from "types/battle";
 import { CharacterAttribute } from "types/characters";
 
-const correctionValue = 0.0001;
+const correctionTerm = 0.0001;
 
 export const calcAttack = (character: Character) => {
   let ATKEffectPercentage = 0;
@@ -33,15 +33,16 @@ export const calcAttack = (character: Character) => {
               character.HP / character.maxHP >= e.otherConditionValue)
           )
         ) {
-          ATKEffectPercentage += e.value * stack * 100;
+          ATKEffectPercentage += e.value * stack;
         }
       }
     }
   });
 
   return (
-    Math.floor(character.baseATK * (1 + ATKEffectPercentage / 100)) +
-    ATKEffectValue
+    Math.floor(
+      character.baseATK * (1 + ATKEffectPercentage) + correctionTerm
+    ) + ATKEffectValue
   );
 };
 
@@ -159,11 +160,11 @@ export const calcDamage = (
   });
 
   if (action.basis === SkillEffectBasis.TARGET_CURRENT_HP) {
-    return Math.floor(to.HP * action.value * guardEffect + correctionValue);
+    return Math.floor(to.HP * action.value * guardEffect + correctionTerm);
   }
 
   if (action.basis === SkillEffectBasis.TARGET_MAX_HP) {
-    return Math.floor(to.maxHP * action.value * guardEffect + correctionValue);
+    return Math.floor(to.maxHP * action.value * guardEffect + correctionTerm);
   }
 
   if (action.on === SkillOn.TURN_END) {
@@ -175,7 +176,7 @@ export const calcDamage = (
         guardEffect *
         damagedEffect *
         action.value +
-        correctionValue
+        correctionTerm
     );
   }
 
@@ -246,7 +247,7 @@ export const calcDamage = (
       damagedEffect *
       attributeDamagedEffect *
       action.value +
-      correctionValue
+      correctionTerm
   );
 };
 
@@ -339,7 +340,7 @@ export const calcHeal = (
 
   return Math.floor(
     base * healEffect * healedEffect * damageEffect * action.value +
-      correctionValue
+      correctionTerm
   );
 };
 
@@ -410,6 +411,6 @@ export const calcShield = (
 
   return Math.floor(
     base * shieldEffect * shieldedEffect * damageEffect * action.value +
-      correctionValue
+      correctionTerm
   );
 };

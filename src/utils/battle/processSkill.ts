@@ -16,6 +16,8 @@ import { BattleCharacter as Character, IGameState, ILog } from "types/battle";
 import { calcAttack, calcDamage, calcHeal, calcShield } from "./calculators";
 import { getEnemies, sameEffect } from "./helpers";
 
+const correctionTerm = 0.0001;
+
 export const takeEffect = (
   G: IGameState,
   ctx: Ctx,
@@ -32,15 +34,18 @@ export const takeEffect = (
     from: from.character.teamPosition,
   } as SkillEffect;
 
+  let ATKBuffValues: [number, number] | undefined;
   if (
     skill.type === SkillEffectType.ATTACK_POWER &&
     skill.basis === SkillEffectBasis.SELF_ATK &&
     skill.value
   ) {
-    effect = {
-      ...effect,
-      value: from.character.ATK * skill.value,
-    };
+    const value = Math.floor(from.character.ATK * skill.value + correctionTerm);
+    const valueAfterSelf = Math.floor(
+      (from.character.ATK + value) * skill.value + correctionTerm
+    );
+
+    ATKBuffValues = [value, valueAfterSelf];
   }
 
   to.characters.forEach((target): boolean | void => {
@@ -83,21 +88,15 @@ export const takeEffect = (
         break;
       case SkillEffectType.ATTACK_POWER:
         if (effect.value) {
-          let correctedValue = effect.value;
           // if is behind character then multiple its value again
-          if (skill.basis === SkillEffectBasis.SELF_ATK && skill.value) {
-            correctedValue = Math.floor(
-              correctedValue *
-                (from.character.teamPosition < target.teamPosition
-                  ? 1 + skill.value
-                  : 1)
-            );
+          if (ATKBuffValues) {
+            effect.value =
+              ATKBuffValues[
+                from.character.teamPosition >= target.teamPosition ? 0 : 1
+              ];
           }
 
-          target.effects.push({
-            ...effect,
-            value: correctedValue,
-          });
+          target.effects.push({ ...effect });
           target.ATK = calcAttack(target);
         }
         break;
@@ -619,7 +618,9 @@ export const trigger = (
         if (skill.value) {
           switch (skill.basis) {
             case SkillEffectBasis.SELF_ATK:
-              endTurnEffect.value = selfTeam[selected].ATK * skill.value;
+              endTurnEffect.value = Math.floor(
+                selfTeam[selected].ATK * skill.value + correctionTerm
+              );
               break;
             case SkillEffectBasis.TARGET_ATK:
               endTurnEffect.value = skill.value * c.ATK;
