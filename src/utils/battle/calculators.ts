@@ -40,9 +40,8 @@ export const calcAttack = (character: Character) => {
   });
 
   return (
-    Math.floor(
-      character.baseATK * (1 + ATKEffectPercentage) + correctionTerm
-    ) + ATKEffectValue
+    Math.floor(character.baseATK * (1 + ATKEffectPercentage) + correctionTerm) +
+    ATKEffectValue
   );
 };
 
@@ -144,7 +143,8 @@ export const calcDamage = (
       case SkillEffectType.ULTIMATE_DAMAGED:
         if (
           action.type === SkillActionType.ULTIMATE ||
-          action.type === SkillActionType.FOLLOW_UP_ATTACK
+          action.type === SkillActionType.FOLLOW_UP_ATTACK ||
+          action.type === SkillActionType.COUNTER_STRIKE
         ) {
           attackDamageEffect += e.value * stack;
         }
@@ -227,7 +227,8 @@ export const calcDamage = (
       case SkillEffectType.ULTIMATE_DAMAGE:
         if (
           action.type === SkillActionType.ULTIMATE ||
-          action.type === SkillActionType.FOLLOW_UP_ATTACK
+          action.type === SkillActionType.FOLLOW_UP_ATTACK ||
+          action.type === SkillActionType.COUNTER_STRIKE
         ) {
           attackDamageEffect += e.value * stack;
         }
