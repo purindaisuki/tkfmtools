@@ -53,6 +53,7 @@ describe("select validation", () => {
   test("should return true", () => {
     G.lineups["0"][0].isTaunt = true;
     G.lineups["0"][0].isSilence = true;
+
     expect(canSelect(G, ctx, 0)).toBe(true);
   });
 
@@ -62,21 +63,25 @@ describe("select validation", () => {
 
   test("should return false: character moved", () => {
     G.lineups["0"][1].isMoved = true;
+
     expect(canSelect(G, ctx, 1)).toBe(false);
   });
 
   test("should return false: character dead", () => {
     G.lineups["0"][1].isDead = true;
+
     expect(canSelect(G, ctx, 1)).toBe(false);
   });
 
   test("should return false: character paralyzed", () => {
     G.lineups["0"][1].isParalysis = true;
+
     expect(canSelect(G, ctx, 1)).toBe(false);
   });
 
   test("should return false: character slept", () => {
     G.lineups["0"][1].isSleep = true;
+
     expect(canSelect(G, ctx, 1)).toBe(false);
   });
 
@@ -94,6 +99,7 @@ describe("target validation", () => {
     G.lineups["1"][0].isBroken = true;
     G.lineups["1"][0].isGuard = true;
     G.lineups["1"][0].isTaunt = true;
+
     expect(canTarget(G, ctx, 0)).toBe(true);
   });
 
@@ -104,11 +110,13 @@ describe("target validation", () => {
   test("should return false: enemy is taunting", () => {
     G.lineups["1"][0].isTaunt = true;
     G.taunt["1"].push(0);
+
     expect(canTarget(G, ctx, 2)).toBe(false);
   });
 
   test("should return false: enemy is dead", () => {
     G.lineups["1"][0].isDead = true;
+
     expect(canTarget(G, ctx, 0)).toBe(false);
   });
 });
@@ -120,6 +128,7 @@ describe("attack validation", () => {
 
   test("should return false", () => {
     G.lineups["0"][0].isParalysis = true;
+
     expect(canAttack(G, ctx, 0, 2)).toBe(false);
   });
 
@@ -141,7 +150,9 @@ describe("attack validation", () => {
       }, 0);
 
     attack(G, ctx, 0, 0);
+
     expect(selected.isMoved).toBe(true);
+
     expect(target.HP).toBe(target.maxHP - damage);
   });
 
@@ -167,7 +178,9 @@ describe("attack validation", () => {
     const expectedHp = 1 + heal > selected.maxHP ? selected.maxHP : 1 + heal;
 
     attack(G, ctx, 2, 0);
+
     expect(selected.isMoved).toBe(true);
+
     expect(selected.HP).toBe(expectedHp);
   });
 
@@ -189,7 +202,9 @@ describe("attack validation", () => {
       }, 0);
 
     attack(G, ctx, 1, 0);
+
     expect(selected.isMoved).toBe(true);
+
     expect(selected.shield).toBe(shield);
   });
 
@@ -228,12 +243,15 @@ describe("attack validation", () => {
       }));
 
     attack(G, ctx, 0, 0);
+
     expect(selected.isMoved).toBe(true);
-    expect(selected.effects.length).toBe(expectedSkillsOnSelf.length);
+
+    expect(selected.effects).toHaveLength(expectedSkillsOnSelf.length);
     expect(selected.effects).toEqual(
       expect.arrayContaining(expectedSkillsOnSelf)
     );
-    expect(target.effects.length).toBe(expectedSkillsOnTarget.length);
+
+    expect(target.effects).toHaveLength(expectedSkillsOnTarget.length);
     expect(target.effects).toEqual(
       expect.arrayContaining(expectedSkillsOnTarget)
     );
@@ -276,12 +294,15 @@ describe("attack validation", () => {
     selected.isSilence = true;
     target.isSilence = true;
     attack(G, ctx, 0, 0);
+
     expect(selected.isMoved).toBe(true);
-    expect(selected.effects.length).toBe(0);
+
+    expect(selected.effects).toHaveLength(0);
     expect(selected.effects).toEqual(
       expect.not.arrayContaining(expectedSkillsOnSelf)
     );
-    expect(target.effects.length).toBe(0);
+
+    expect(target.effects).toHaveLength(0);
     expect(target.effects).toEqual(
       expect.not.arrayContaining(expectedSkillsOnTarget)
     );
@@ -319,6 +340,7 @@ describe("attack validation", () => {
       }, [] as ILog[]);
 
     attack(G, ctx, 0, 0);
+
     expect(G.log.slice(-1)[0]).toEqual(expect.arrayContaining(expectedLog));
   });
 });
@@ -326,6 +348,7 @@ describe("attack validation", () => {
 describe("ultimate move validation", () => {
   test("should return true", () => {
     G.lineups["0"][0].currentCD = 0;
+
     expect(canUltimate(G, ctx, 0, 1)).toBe(true);
   });
 
@@ -336,6 +359,7 @@ describe("ultimate move validation", () => {
   test("should return false: character silenced", () => {
     G.lineups["0"][0].currentCD = 0;
     G.lineups["0"][0].isSilence = true;
+
     expect(canUltimate(G, ctx, 0, 2)).toBe(false);
   });
 });
@@ -343,17 +367,21 @@ describe("ultimate move validation", () => {
 describe("switch selected validation", () => {
   test("should switch selected character", () => {
     switchMember(G, ctx, 1);
+
     expect(G.selected["0"]).toBe(1);
   });
 
   test("should return INVALID MOVE: out of index", () => {
     expect(switchMember(G, ctx, 3)).toBe(INVALID_MOVE);
+
     expect(G.selected["0"]).toBe(0);
   });
 
   test("should return INVALID MOVE: character moved", () => {
     G.lineups["0"][1].isMoved = true;
+
     expect(switchMember(G, ctx, 1)).toBe(INVALID_MOVE);
+
     expect(G.selected["0"]).toBe(0);
   });
 });
@@ -361,24 +389,30 @@ describe("switch selected validation", () => {
 describe("switch target validation", () => {
   test("should switch target", () => {
     switchTarget(G, ctx, 1);
+
     expect(G.target["0"]).toBe(1);
   });
 
   test("should return INVALID MOVE: out of index", () => {
     expect(switchMember(G, ctx, 5)).toBe(INVALID_MOVE);
+
     expect(G.target["0"]).toBe(0);
   });
 
   test("should return INVALID MOVE: enemy is taunting", () => {
     G.lineups["1"][0].isTaunt = true;
     G.taunt["1"].push(0);
+
     expect(switchTarget(G, ctx, 2)).toBe(INVALID_MOVE);
+
     expect(G.target["0"]).toBe(0);
   });
 
   test("should return INVALID MOVE: character dead", () => {
     G.lineups["1"][1].isDead = true;
+
     expect(switchTarget(G, ctx, 1)).toBe(INVALID_MOVE);
+
     expect(G.target["0"]).toBe(0);
   });
 });

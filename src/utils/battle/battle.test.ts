@@ -354,9 +354,9 @@ describe("battle system", () => {
       ],
     } as BattleSetupData;
     const client = getClient(setupData);
-    const { guard } = client.moves;
 
-    guard(0);
+    client.moves.guard(0);
+
     expect((client.getState()?.G as IGameState).selected["0"]).toBe(1);
   });
 
@@ -372,10 +372,10 @@ describe("battle system", () => {
       ],
     } as BattleSetupData;
     const client = getClient(setupData);
-    const { guard } = client.moves;
+
     const G = client.getState()?.G as IGameState;
     G.lineups["0"].forEach((_, i: number) => {
-      guard(i);
+      client.moves.guard(i);
     });
 
     expect(client.getState()?.ctx.currentPlayer).toBe("1");
@@ -720,11 +720,23 @@ describe("battle system", () => {
       "129",
       "131",
       "132",
+      "134",
+      "135",
       "213",
       "238",
-      "134",
-      "135"
     ];
+    const getTotalDamage = (log: ILog[]) =>
+      log.reduce(
+        (num, j) =>
+          (num +=
+            j.value &&
+            (j.type === SkillActionType.NORMAL_ATTACK ||
+              j.type === SkillActionType.ULTIMATE ||
+              j.type === SkillActionType.FOLLOW_UP_ATTACK)
+              ? j.value
+              : 0),
+        0
+      );
 
     describe("calculate leader damage", () => {
       let damageTable = {} as { [key: string]: number[] };
@@ -736,18 +748,6 @@ describe("battle system", () => {
           ],
         } as BattleSetupData;
         const client = getClient(setupData);
-        const getTotalDamage = (log: ILog[]) =>
-          log.reduce(
-            (num, j) =>
-              (num +=
-                j.value &&
-                (j.type === SkillActionType.NORMAL_ATTACK ||
-                  j.type === SkillActionType.ULTIMATE ||
-                  j.type === SkillActionType.FOLLOW_UP_ATTACK)
-                  ? j.value
-                  : 0),
-            0
-          );
         let dLog: number[] = [];
 
         for (let turn = 1; turn < 51; turn++) {
@@ -779,7 +779,7 @@ describe("battle system", () => {
       test.each(Object.entries(damageTable))(
         "length of %s damage table should be 50",
         (_, damages) => {
-          expect(damages.length).toBe(50);
+          expect(damages).toHaveLength(50);
         }
       );
 
@@ -804,18 +804,6 @@ describe("battle system", () => {
           ],
         } as BattleSetupData;
         const client = getClient(setupData);
-        const getTotalDamage = (log: ILog[]) =>
-          log.reduce(
-            (num, j) =>
-              (num +=
-                j.value &&
-                (j.type === SkillActionType.NORMAL_ATTACK ||
-                  j.type === SkillActionType.ULTIMATE ||
-                  j.type === SkillActionType.FOLLOW_UP_ATTACK)
-                  ? j.value
-                  : 0),
-            0
-          );
         let dLog: number[] = [];
         const dpsCD = client.getState()?.G.lineups["0"][4].CD;
 
@@ -861,7 +849,6 @@ describe("battle system", () => {
         };
 
         let turn = 1;
-        client.start();
         while (turn < 51) {
           let moved = false;
           if (dpsCD === 5 || dpsCD === 6) {
@@ -1035,12 +1022,128 @@ describe("battle system", () => {
       test.each(Object.entries(damageTable))(
         "length of %s damage table should be 50",
         (_, damages) => {
-          expect(damages.length).toBe(50);
+          expect(damages).toHaveLength(50);
         }
       );
 
       fs.writeFile(
         "./4+1_damage_table.json",
+        JSON.stringify(damageTable),
+        (err: any) => {
+          if (err) console.log(err);
+        }
+      );
+    });
+
+    describe("new META???", () => {
+      let damageTable = {} as { [key: string]: number[] };
+      testedCharacters.forEach((id): void | boolean => {
+        if (id === "135") {
+          return true;
+        }
+        const setupData = {
+          lineups: [
+            ["135", "209", "157", "130", id].map((c) =>
+              generateMaxedCharacterSetupData(c)
+            ),
+            [scarecrow],
+          ],
+        } as BattleSetupData;
+        const client = getClient(setupData);
+        const dpsCD = client.getState()?.G.lineups["0"][4].CD as number;
+        let dLog: number[] = [];
+
+        const normalRotation = () => {
+          client.moves.attack(3, 0);
+          client.moves.attack(1, 0);
+          client.moves.attack(2, 0);
+          client.moves.attack(4, 0);
+          client.moves.attack(0, 0);
+          client.moves.doNothing(0);
+        };
+
+        const batonPass = () => {
+          client.moves.ultimate(3, 0);
+          client.moves.attack(1, 0);
+          client.moves.ultimate(2, 0);
+          client.moves.attack(4, 0);
+          client.moves.attack(0, 0);
+          client.moves.doNothing(0);
+
+          client.moves.ultimate(1, 0);
+          client.moves.ultimate(2, 0);
+          client.moves.attack(3, 0);
+          if (id === "108") {
+            client.moves.attack(4, 0);
+          } else {
+            client.moves.ultimate(4, 0);
+          }
+          client.moves.ultimate(0, 0);
+          client.moves.doNothing(0);
+        };
+
+        let turn = 1;
+        while (turn < 51) {
+          if (dpsCD <= 4) {
+            if (
+              (dpsCD === 3 && id !== "101" && (turn === 4 || turn === 10)) ||
+              (id === "128" && (turn === 3 || turn === 10)) ||
+              (id === "108" && (turn === 5 || turn === 9)) ||
+              (id === "101" &&
+                (turn === 4 || turn === 9 || (turn > 7 && turn % 4 === 3))) ||
+              (id === "238" && turn === 10)
+            ) {
+              client.moves.attack(3, 0);
+              client.moves.attack(1, 0);
+              client.moves.attack(2, 0);
+              client.moves.ultimate(4, 0);
+              client.moves.attack(0, 0);
+              client.moves.doNothing(0);
+            } else if (
+              id === "128" &&
+              (turn === 1 || turn === 2 || turn === 9 || turn === 11)
+            ) {
+              client.moves.attack(3, 0);
+              client.moves.attack(1, 0);
+              client.moves.attack(2, 0);
+              client.moves.attack(0, 0);
+              client.moves.guard(4);
+              client.moves.doNothing(0);
+            } else if (turn === 6 || (turn > 8 && turn % 4 === 0)) {
+              batonPass();
+            } else if (!(turn === 7 || (turn > 9 && turn % 4 === 1))) {
+              normalRotation();
+            }
+          } else {
+            if (turn % 6 === 0) {
+              batonPass();
+            } else if (turn === 1 || turn % 6 !== 1) {
+              normalRotation();
+            }
+          }
+          turn++;
+        }
+
+        const G = client.getState()?.G as IGameState;
+        for (let i = 0; i < G.log.length / 2 - 1; i++) {
+          let v = getTotalDamage(G.log[i * 2]);
+          if (i < 98) {
+            v += getTotalDamage(G.log[i * 2 + 1]);
+          }
+          dLog.push(v);
+        }
+        damageTable[id] = dLog;
+      });
+
+      test.each(Object.entries(damageTable))(
+        "length of %s damage table should be 50",
+        (_, damages) => {
+          expect(damages).toHaveLength(50);
+        }
+      );
+
+      fs.writeFile(
+        "./blue_head_baton_pass.json",
         JSON.stringify(damageTable),
         (err: any) => {
           if (err) console.log(err);

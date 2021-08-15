@@ -107,7 +107,7 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(1);
+        expect(selected.effects).toHaveLength(1);
         expect(selected.effects[0].stack).toBe(1);
       });
 
@@ -131,7 +131,7 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(1);
+        expect(selected.effects).toHaveLength(1);
         expect(selected.effects[0].stack).toBe(2);
       });
 
@@ -155,7 +155,7 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(1);
+        expect(selected.effects).toHaveLength(1);
         expect(selected.effects[0].stack).toBe(6);
       });
     });
@@ -179,10 +179,12 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(1);
-        expect(selected.effects).toEqual(
-          expect.arrayContaining([{ ...skill, fromPlayer: "0", from: 0 }])
-        );
+        expect(selected.effects).toHaveLength(1);
+        expect(selected.effects).toContainEqual({
+          ...skill,
+          fromPlayer: "0",
+          from: 0,
+        });
       });
 
       test("should push effects to character", () => {
@@ -204,10 +206,12 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(1);
-        expect(selected.effects).toEqual(
-          expect.arrayContaining([{ ...skill, fromPlayer: "0", from: 0 }])
-        );
+        expect(selected.effects).toHaveLength(1);
+        expect(selected.effects).toContainEqual({
+          ...skill,
+          fromPlayer: "0",
+          from: 0,
+        });
       });
 
       test("should not push effects to character", () => {
@@ -229,7 +233,7 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(0);
+        expect(selected.effects).toHaveLength(0);
       });
     });
 
@@ -259,11 +263,10 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.extraSkill.length).toBe(1);
-        expect(selected.effects.length).toBe(0);
-        expect(selected.extraSkill).toEqual(
-          expect.arrayContaining([extraSkill])
-        );
+        expect(selected.effects).toHaveLength(0);
+
+        expect(selected.extraSkill).toHaveLength(1);
+        expect(selected.extraSkill).toContainEqual(extraSkill);
       });
 
       test("should cancel target guard", () => {
@@ -286,7 +289,8 @@ describe("tests should reset in each test", () => {
         );
 
         expect(target.isGuard).toBe(false);
-        expect(target.effects.length).toBe(0);
+
+        expect(target.effects).toHaveLength(0);
       });
 
       test("should change max CD", () => {
@@ -310,7 +314,8 @@ describe("tests should reset in each test", () => {
 
         expect(selected.CD).toBe(initialCD + skill.value);
         expect(selected.currentCD).toBe(initialCD + skill.value);
-        expect(selected.effects.length).toBe(0);
+
+        expect(selected.effects).toHaveLength(0);
       });
 
       test("should change current CD", () => {
@@ -334,7 +339,8 @@ describe("tests should reset in each test", () => {
 
         expect(selected.CD).toBe(initialCD);
         expect(selected.currentCD).toBe(initialCD + skill.value);
-        expect(selected.effects.length).toBe(0);
+
+        expect(selected.effects).toHaveLength(0);
       });
 
       test("current CD should be non-negative", () => {
@@ -358,7 +364,8 @@ describe("tests should reset in each test", () => {
 
         expect(selected.CD).toBe(initialCD);
         expect(selected.currentCD).toBe(0);
-        expect(selected.effects.length).toBe(0);
+
+        expect(selected.effects).toHaveLength(0);
       });
 
       test("should change max HP", () => {
@@ -382,7 +389,8 @@ describe("tests should reset in each test", () => {
 
         expect(selected.maxHP).toBe(expectedMaxHP);
         expect(selected.HP).toBe(expectedMaxHP);
-        expect(selected.effects.length).toBe(0);
+
+        expect(selected.effects).toHaveLength(0);
       });
 
       test("should clear abnormal states", () => {
@@ -474,10 +482,8 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining(buffs.slice(0, 1))
-        );
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual(buffs[0]);
       });
 
       test("should clear sustain debuffs", () => {
@@ -541,10 +547,8 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining(buffs.slice(1, 2))
-        );
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual(buffs[1]);
       });
 
       test("should clear specified effects from self", () => {
@@ -579,7 +583,7 @@ describe("tests should reset in each test", () => {
           skill
         );
 
-        expect(selected.effects.length).toBe(2);
+        expect(selected.effects).toHaveLength(2);
         expect(selected.effects).toEqual(
           expect.arrayContaining(buffs.slice(1))
         );
@@ -635,7 +639,8 @@ describe("tests should reset in each test", () => {
           );
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
-          expect(log.length).toBe(expectedLog.length);
+
+          expect(log).toHaveLength(expectedLog.length);
           expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
@@ -679,7 +684,8 @@ describe("tests should reset in each test", () => {
           );
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
-          expect(log.length).toBe(expectedLog.length);
+
+          expect(log).toHaveLength(expectedLog.length);
           expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
@@ -723,7 +729,8 @@ describe("tests should reset in each test", () => {
           );
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
-          expect(log.length).toBe(expectedLog.length);
+
+          expect(log).toHaveLength(expectedLog.length);
           expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
@@ -751,16 +758,12 @@ describe("tests should reset in each test", () => {
             skill
           );
 
-          expect(target.effects).toEqual(
-            expect.arrayContaining([
-              {
-                ...triggeredPassiveSkills,
-                fromPlayer: "1",
-                from: 0,
-                stack: 1,
-              },
-            ])
-          );
+          expect(target.effects).toContainEqual({
+            ...triggeredPassiveSkills,
+            fromPlayer: "1",
+            from: 0,
+            stack: 1,
+          });
         });
 
         test("should not trigger attacked passive skills", () => {
@@ -788,16 +791,12 @@ describe("tests should reset in each test", () => {
             skill
           );
 
-          expect(target.effects).not.toEqual(
-            expect.arrayContaining([
-              {
-                ...triggeredPassiveSkills,
-                fromPlayer: "1",
-                from: 0,
-                stack: 1,
-              },
-            ])
-          );
+          expect(target.effects).not.toContainEqual({
+            ...triggeredPassiveSkills,
+            fromPlayer: "1",
+            from: 0,
+            stack: 1,
+          });
         });
 
         test("should trigger counterstrike", () => {
@@ -855,6 +854,7 @@ describe("tests should reset in each test", () => {
           );
 
           expect(selected.HP).toBe(expectedLog[1].to.HP);
+
           expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
@@ -983,8 +983,10 @@ describe("tests should reset in each test", () => {
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
           expect(target.shield).toBe(expectedLog[0].to.shield);
-          expect(log).toEqual(expect.arrayContaining(expectedLog));
+
           expect(target.effects[0].value).toBe(expectedLog[0].to.shield);
+
+          expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
         test("should neutralize shield and deal damage", () => {
@@ -1035,10 +1037,13 @@ describe("tests should reset in each test", () => {
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
           expect(target.shield).toBe(expectedLog[0].to.shield);
+
+          expect(target.effects).not.toContainEqual({
+            ...shieldEffect,
+            value: 0,
+          });
+
           expect(log).toEqual(expect.arrayContaining(expectedLog));
-          expect(target.effects).not.toEqual(
-            expect.arrayContaining([{ ...shieldEffect, value: 0 }])
-          );
         });
 
         test("real attack should ignore shield", () => {
@@ -1096,8 +1101,10 @@ describe("tests should reset in each test", () => {
 
           expect(target.HP).toBe(expectedLog[0].to.HP);
           expect(target.shield).toBe(expectedLog[0].to.shield);
-          expect(log).toEqual(expect.arrayContaining(expectedLog));
+
           expect(target.effects[0].value).toBe(expectedLog[0].to.shield);
+
+          expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
         test("should wake target", () => {
@@ -1161,7 +1168,8 @@ describe("tests should reset in each test", () => {
           expect(target.HP).toBe(0);
           expect(target.isDead).toBe(true);
           expect(target.isTaunt).toBe(false);
-          expect(G.taunt["1"]).not.toEqual(expect.arrayContaining([0]));
+
+          expect(G.taunt["1"]).not.toContain(0);
         });
       });
 
@@ -1201,7 +1209,8 @@ describe("tests should reset in each test", () => {
         );
 
         expect(selected.isGuard).toBe(true);
-        expect(log.length).toBe(expectedLog.length);
+
+        expect(log).toHaveLength(expectedLog.length);
         expect(log).toEqual(expect.arrayContaining(expectedLog));
       });
 
@@ -1250,7 +1259,8 @@ describe("tests should reset in each test", () => {
           );
 
           expect(target.HP).toBe(expectedHp);
-          expect(log.length).toBe(expectedLog.length);
+
+          expect(log).toHaveLength(expectedLog.length);
           expect(log).toEqual(expect.arrayContaining(expectedLog));
         });
 
@@ -1277,16 +1287,12 @@ describe("tests should reset in each test", () => {
             healSkill
           );
 
-          expect(target.effects.length).toBe(1);
-          expect(target.effects).toEqual(
-            expect.arrayContaining([
-              {
-                ...skill,
-                fromPlayer: "0",
-                from: 1,
-              },
-            ])
-          );
+          expect(target.effects).toHaveLength(1);
+          expect(target.effects).toContainEqual({
+            ...skill,
+            fromPlayer: "0",
+            from: 1,
+          });
         });
 
         test("should not trigger healed passive skills", () => {
@@ -1313,7 +1319,7 @@ describe("tests should reset in each test", () => {
             healSkill
           );
 
-          expect(target.effects.length).toBe(0);
+          expect(target.effects).toHaveLength(0);
         });
       });
 
@@ -1358,18 +1364,16 @@ describe("tests should reset in each test", () => {
         );
 
         expect(target.shield).toBe(shield);
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining([
-            {
-              ...skill,
-              value: shield,
-              fromPlayer: "0",
-              from: 0,
-            },
-          ])
-        );
-        expect(log.length).toBe(expectedLog.length);
+
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual({
+          ...skill,
+          value: shield,
+          fromPlayer: "0",
+          from: 0,
+        });
+
+        expect(log).toHaveLength(expectedLog.length);
         expect(log).toEqual(expect.arrayContaining(expectedLog));
       });
 
@@ -1501,7 +1505,8 @@ describe("tests should reset in each test", () => {
         );
 
         expect(selected.isTaunt).toBe(true);
-        expect(G.taunt["0"]).toEqual(expect.arrayContaining([0]));
+
+        expect(G.taunt["0"]).toContain(0);
       });
     });
   });
@@ -1512,10 +1517,9 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(1);
-      expect(targets).toEqual(
-        expect.arrayContaining(G.lineups["0"].slice(0, 1))
-      );
+
+      expect(targets).toHaveLength(1);
+      expect(targets).toContainEqual(G.lineups["0"][0]);
     });
 
     test("should target team", () => {
@@ -1523,7 +1527,8 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(G.lineups["0"].length);
+
+      expect(targets).toHaveLength(G.lineups["0"].length);
       expect(targets).toEqual(expect.arrayContaining(G.lineups["0"]));
     });
 
@@ -1532,7 +1537,8 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(G.lineups["0"].length - 1);
+
+      expect(targets).toHaveLength(G.lineups["0"].length - 1);
       expect(targets).toEqual(expect.arrayContaining(G.lineups["0"].slice(1)));
     });
 
@@ -1548,8 +1554,9 @@ describe("tests should reset in each test", () => {
       );
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(1);
-      expect(targets).toEqual(expect.arrayContaining([expectedTarget]));
+
+      expect(targets).toHaveLength(1);
+      expect(targets).toContainEqual(expectedTarget);
     });
 
     test("should target the leftmost character on team", () => {
@@ -1564,8 +1571,9 @@ describe("tests should reset in each test", () => {
       );
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(1);
-      expect(targets).toEqual(expect.arrayContaining([expectedTarget]));
+
+      expect(targets).toHaveLength(1);
+      expect(targets).toContainEqual(expectedTarget);
     });
 
     test("should target all enemies", () => {
@@ -1573,7 +1581,8 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(true);
-      expect(targets.length).toBe(G.lineups["1"].length);
+
+      expect(targets).toHaveLength(G.lineups["1"].length);
       expect(targets).toEqual(expect.arrayContaining(G.lineups["1"]));
     });
 
@@ -1582,10 +1591,9 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(true);
-      expect(targets.length).toBe(1);
-      expect(targets).toEqual(
-        expect.arrayContaining([G.lineups["1"][G.target["0"]]])
-      );
+
+      expect(targets).toHaveLength(1);
+      expect(targets).toContainEqual(G.lineups["1"][G.target["0"]]);
     });
 
     test("should target specified indices", () => {
@@ -1593,7 +1601,8 @@ describe("tests should reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe((skill.target as number[]).length);
+
+      expect(targets).toHaveLength((skill.target as number[]).length);
       expect(targets).toEqual(
         expect.arrayContaining(
           G.lineups["0"].filter((_, i) =>
@@ -1649,7 +1658,8 @@ describe("tests should reset in each test", () => {
       trigger(G, ctx, skill, log);
 
       expect(target.HP).toBe(expectedLog.slice(-1)[0].to.HP);
-      expect(log.length).toBe(expectedLog.length);
+
+      expect(log).toHaveLength(expectedLog.length);
       expect(log).toEqual(expect.arrayContaining(expectedLog));
     });
 
@@ -1670,18 +1680,15 @@ describe("tests should reset in each test", () => {
 
         trigger(G, ctx, skill, log);
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining([
-            {
-              ...skill,
-              value: selected.ATK * skill.value,
-              fromPlayer: "0",
-              from: 0,
-            },
-          ])
-        );
-        expect(log.length).toBe(0);
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual({
+          ...skill,
+          value: selected.ATK * skill.value,
+          fromPlayer: "0",
+          from: 0,
+        });
+
+        expect(log).toHaveLength(0);
       });
 
       test("value should be based on target attack power", () => {
@@ -1699,18 +1706,15 @@ describe("tests should reset in each test", () => {
 
         trigger(G, ctx, skill, log);
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining([
-            {
-              ...skill,
-              value: target.ATK * skill.value,
-              fromPlayer: "0",
-              from: 0,
-            },
-          ])
-        );
-        expect(log.length).toBe(0);
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual({
+          ...skill,
+          value: target.ATK * skill.value,
+          fromPlayer: "0",
+          from: 0,
+        });
+
+        expect(log).toHaveLength(0);
       });
 
       test("value should be based on target max HP", () => {
@@ -1728,18 +1732,15 @@ describe("tests should reset in each test", () => {
 
         trigger(G, ctx, skill, log);
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining([
-            {
-              ...skill,
-              value: target.maxHP * skill.value,
-              fromPlayer: "0",
-              from: 0,
-            },
-          ])
-        );
-        expect(log.length).toBe(0);
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual({
+          ...skill,
+          value: target.maxHP * skill.value,
+          fromPlayer: "0",
+          from: 0,
+        });
+
+        expect(log).toHaveLength(0);
       });
 
       test("value should be based on target current HP", () => {
@@ -1759,18 +1760,15 @@ describe("tests should reset in each test", () => {
 
         trigger(G, ctx, skill, log);
 
-        expect(target.effects.length).toBe(1);
-        expect(target.effects).toEqual(
-          expect.arrayContaining([
-            {
-              ...skill,
-              value: target.HP * skill.value,
-              fromPlayer: "0",
-              from: 0,
-            },
-          ])
-        );
-        expect(log.length).toBe(0);
+        expect(target.effects).toHaveLength(1);
+        expect(target.effects).toContainEqual({
+          ...skill,
+          value: target.HP * skill.value,
+          fromPlayer: "0",
+          from: 0,
+        });
+
+        expect(log).toHaveLength(0);
       });
     });
 
@@ -1826,9 +1824,10 @@ describe("tests not reset in each test", () => {
     )(
       "value of effects and character attack should meet",
       (character, expectedEffectValue) => {
-        expect(character.effects.length).toBe(1);
-        expect(character.effects[0].value).toBe(expectedEffectValue);
         expect(character.ATK).toBe(character.baseATK + expectedEffectValue);
+
+        expect(character.effects).toHaveLength(1);
+        expect(character.effects[0].value).toBe(expectedEffectValue);
       }
     );
   });
@@ -1858,11 +1857,12 @@ describe("tests not reset in each test", () => {
     test.each(target)(
       "value of effects and character attack should meet",
       (character) => {
-        expect(character.effects.length).toBe(1);
-        expect(character.effects[0].value).toBe(skill.value);
         expect(character.ATK).toBe(
           Math.floor(character.baseATK * (1 + skill.value))
         );
+
+        expect(character.effects).toHaveLength(1);
+        expect(character.effects[0].value).toBe(skill.value);
       }
     );
   });
@@ -1902,7 +1902,8 @@ describe("tests not reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(1);
+
+      expect(targets).toHaveLength(1);
       expect(targets).toEqual(
         expect.arrayContaining(
           G.lineups["0"].filter((c) => c.position === data.position)
@@ -1946,7 +1947,8 @@ describe("tests not reset in each test", () => {
       const { targets, isEnemy } = getSkillTargets(G, ctx, skill);
 
       expect(isEnemy).toBe(false);
-      expect(targets.length).toBe(1);
+
+      expect(targets).toHaveLength(1);
       expect(targets).toEqual(
         expect.arrayContaining(
           G.lineups["0"].filter((c) => c.attribute === data.attribute)
