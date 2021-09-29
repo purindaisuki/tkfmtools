@@ -1,5 +1,56 @@
 const path = require("path");
 const langConfig = require("./src/languageConfig.json");
+const page_tr = require("./src/data/string/page_zh-TW.json");
+const char_tr = require("./src/data/string/character_zh-TW.json");
+const item_tr = require("./src/data/string/item_zh-TW.json");
+const stage_tr = require("./src/data/string/stage_zh-TW.json");
+const skill_tr = require("./src/data/string/skill_zh-TW.json");
+const page_en = require("./src/data/string/page_en.json");
+const char_en = require("./src/data/string/character_en.json");
+const item_en = require("./src/data/string/item_en.json");
+const stage_en = require("./src/data/string/stage_en.json");
+const skill_en = require("./src/data/string/skill_en.json");
+const page_ja = require("./src/data/string/page_ja.json");
+const char_ja = require("./src/data/string/character_ja.json");
+const item_ja = require("./src/data/string/item_ja.json");
+const stage_ja = require("./src/data/string/stage_ja.json");
+const skill_ja = require("./src/data/string/skill_ja.json");
+const page_ko = require("./src/data/string/page_ko.json");
+const char_ko = require("./src/data/string/character_ko.json");
+const item_ko = require("./src/data/string/item_ko.json");
+const stage_ko = require("./src/data/string/stage_ko.json");
+const skill_ko = require("./src/data/string/skill_ko.json");
+
+const stringData = {
+  "zh-TW": {
+    pageString: page_tr,
+    charString: char_tr,
+    itemString: item_tr,
+    stageString: stage_tr,
+    skillString: skill_tr,
+  },
+  en: {
+    pageString: page_en,
+    charString: char_en,
+    itemString: item_en,
+    stageString: stage_en,
+    skillString: skill_en,
+  },
+  ja: {
+    pageString: page_ja,
+    charString: char_ja,
+    itemString: item_ja,
+    stageString: stage_ja,
+    skillString: skill_ja,
+  },
+  ko: {
+    pageString: page_ko,
+    charString: char_ko,
+    itemString: item_ko,
+    stageString: stage_ko,
+    skillString: skill_ko,
+  },
+};
 
 // Absolute imports
 exports.onCreateWebpackConfig = ({ actions }) => {
@@ -40,6 +91,7 @@ exports.onCreatePage = ({ page, actions }) => {
         context: {
           ...page.context,
           lang: entry[0],
+          stringData: stringData[entry[0]],
         },
       });
     }
@@ -50,11 +102,12 @@ exports.onCreatePage = ({ page, actions }) => {
       // Pass in the stringData as context to every page
       context: {
         ...page.context,
-        lang: entry[0],
-        withTabs: withTabs,
-        withLineupData: withLineupData,
-        withTeamData: withTeamData,
         pagePath: page.path,
+        lang: entry[0],
+        stringData: stringData[entry[0]],
+        withTabs,
+        withLineupData,
+        withTeamData,
       },
     });
   });
