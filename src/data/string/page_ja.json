@@ -353,7 +353,7 @@
           ]
         },
         {
-          "version": 4,
+          "version": "v1.5.1",
           "content": [
             {
               "type": "Fix",
