@@ -75,7 +75,7 @@ const navbarContent = (lang, isDefault) => [
   },
   {
     to: [
-      "https://forms.gle/X5HZZoebkgGZjsCd9",
+      "https://discord.com/invite/RRRABMtHYj",
       "https://reurl.cc/jqGAVL",
       isDefault
         ? "https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B"
