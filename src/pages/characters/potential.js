@@ -48,7 +48,7 @@ const CharSelectPanel = ({ selected, handleSelect }) => {
         titleIcon={RaceIcon}
         border
       />
-      <Grid container spacing={1} justify="space-around">
+      <Grid container spacing={1} justifyContent="space-around">
         <Grid
           item
           xs={4}
@@ -164,10 +164,10 @@ const MaterialCard = styled(ItemCard)`
 `;
 
 const resultLayoutConfig = {
-  "en": { 1360: 5, 1200: 4, 768: 3, 0: 2 },
+  en: { 1360: 5, 1200: 4, 768: 3, 0: 2 },
   "zh-TW": { 1360: 6, 1200: 5, 768: 4, 624: 3, 0: 2 },
-  "ja": { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
-  "ko": { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
+  ja: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
+  ko: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
 };
 
 const ResultPanel = ({ result, handleModalOpen }) => {
