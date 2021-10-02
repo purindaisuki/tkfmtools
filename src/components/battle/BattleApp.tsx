@@ -24,6 +24,7 @@ const wrapper = () =>
   });
 
 const bots = [AutoBot, DoNothingBot, CustomMCTSBot];
+export const defaultLineups = [[], [scarecrow]] as BattleSetupData["lineups"];
 
 export const BattleApp = ({
   location,
@@ -35,9 +36,7 @@ export const BattleApp = ({
 
   const lineupsFromTeam = (location.state as any)?.lineups;
   const [lineups, setLineups] = useState<BattleSetupData["lineups"]>(
-    (lineupsFromTeam
-      ? lineupsFromTeam
-      : [[], [scarecrow]]) as BattleSetupData["lineups"]
+    lineupsFromTeam ? lineupsFromTeam : defaultLineups
   );
 
   const [botIndex, setBotIndex] = useLocalStorage("bot-type", 0);

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { navigate } from "gatsby";
 import styled from "styled-components";
 import {
   Button,
@@ -161,15 +162,40 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
 
   const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean);
 
-  const handleTeamClick = (team, ind) => (event) => {
+  const handleTeamClick = (team, ind) => async (event) => {
     if (isFromPlayer || isFromEnemies) {
+      let href = event.target.href;
+      event.preventDefault();
+
       // validate team
+      let skillData = await import("data/characterSkill").then(
+        (module) => module.data
+      );
+
       if (
-        team.some((c) => c.id && c.level.length === 0) ||
+        team.some((c) => c.id && (c.level.length === 0 || !skillData[c.id])) ||
         team.every((c) => !c.id)
       ) {
-        event.preventDefault();
         setSnackbarOpen(true);
+      } else {
+        const selectedTeam = team
+          .filter((c) => c.id)
+          .map((c) => {
+            const { key, ...rest } = c;
+            return rest;
+          });
+        const selectedLineups = isFromPlayer
+          ? [selectedTeam, lineups[1]]
+          : [lineups[0], selectedTeam];
+
+        navigate(href, {
+          state: {
+            lineups: selectedLineups,
+            isFromPlayer,
+            isFromEnemies,
+          },
+          replace: true,
+        });
       }
     } else {
       selectTeam(ind);
@@ -191,58 +217,36 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
             <span>{pageString.team.index.newComposition}</span>
           </NewButton>
         </DataItem>
-        {localTeams?.map((t, ind) => {
-          let newLineups;
-          if (isFromPlayer || isFromEnemies) {
-            const team = t.characters
-              .filter((c) => c.id)
-              .map((c) => {
-                const { key, ...rest } = c;
-                return rest;
-              });
-            newLineups = isFromPlayer ? [team, lineups[1]] : [lineups[0], team];
-          }
-          return (
-            <DataItem
-              component={LocalizedLink}
-              to={isFromPlayer || isFromEnemies ? "/battle/" : "/team/build/"}
-              state={
-                isFromPlayer || isFromEnemies
-                  ? {
-                      lineups: newLineups,
-                      isFromPlayer,
-                      isFromEnemies,
-                    }
-                  : undefined
-              }
-              replace={isFromPlayer || isFromEnemies}
-              button
-              key={ind}
-              onClick={handleTeamClick(t.characters, ind)}
-            >
-              <TitleText>{t.name}</TitleText>
-              <CharsBox chars={t.characters} />
-              <ListItemSecondaryAction>
-                <OperationButton
-                  onClick={() => pushTeam(getTeam(ind))}
-                  tooltipText={pageString.team.index.copyTooltip}
-                  edge="end"
-                  aria-label="copy-team"
-                >
-                  {CopyIcon}
-                </OperationButton>
-                <OperationButton
-                  onClick={() => deleteTeam(ind)}
-                  tooltipText={pageString.team.index.deleteTooltip}
-                  edge="end"
-                  aria-label="delete-team"
-                >
-                  {DeleteIcon}
-                </OperationButton>
-              </ListItemSecondaryAction>
-            </DataItem>
-          );
-        })}
+        {localTeams?.map((t, ind) => (
+          <DataItem
+            component={LocalizedLink}
+            to={isFromPlayer || isFromEnemies ? "/battle/" : "/team/build/"}
+            button
+            key={ind}
+            onClick={handleTeamClick(t.characters, ind)}
+          >
+            <TitleText>{t.name}</TitleText>
+            <CharsBox chars={t.characters} />
+            <ListItemSecondaryAction>
+              <OperationButton
+                onClick={() => pushTeam(getTeam(ind))}
+                tooltipText={pageString.team.index.copyTooltip}
+                edge="end"
+                aria-label="copy-team"
+              >
+                {CopyIcon}
+              </OperationButton>
+              <OperationButton
+                onClick={() => deleteTeam(ind)}
+                tooltipText={pageString.team.index.deleteTooltip}
+                edge="end"
+                aria-label="delete-team"
+              >
+                {DeleteIcon}
+              </OperationButton>
+            </ListItemSecondaryAction>
+          </DataItem>
+        ))}
       </List>
       <Snackbar
         open={isSnackbarOpen}

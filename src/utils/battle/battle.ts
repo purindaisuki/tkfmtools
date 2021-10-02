@@ -72,6 +72,10 @@ export const initCharacter = (
   const { id, level, potential, potentialSub, discipline, star, bond } =
     characterStats as CharacterStats;
 
+  if (!skillData[id]) {
+    throw new Error(`invalid character id: ${id}`);
+  }
+
   const res = calcCharStats({
     id,
     level,
