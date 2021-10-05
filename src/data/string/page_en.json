@@ -97,6 +97,21 @@
       "change": "Change",
       "content": [
         {
+          "version": "v1.7.3",
+          "content":[
+            {
+              "type": "New",
+              "title": "9/29 new characters for recruitment",
+              "description": "Archangel Saint Milae, Well-Respected Aristocrat Lotiya, Dreameater Aridya, Magical Knight Tyrella, Angel of Punishment, Angel of Bliss avaliable for recruiting."
+            },
+            {
+              "type": "Fix",
+              "title": "Snake Queen Mesmiia tag fix",
+              "description": "\"Weaken\" tag added to Snake Queen Mesmiia"
+            }
+          ]
+        },
+        {
           "version": "v1.7.2",
           "content": [
             {
