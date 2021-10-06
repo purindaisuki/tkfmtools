@@ -93,6 +93,21 @@
       "change": "変更",
       "content": [
         {
+          "version": "v1.7.3",
+          "content":[
+            {
+              "type": "New",
+              "title": "9/29 ゲーム更新",
+              "description": "召集令に「天使長 聖女ミラ、千年血族 ラティヤ、夢喰い アルティア、魔法少女 トトラ、懲戒天使、福音天使」追加。"
+            },
+            {
+              "type": "Fix",
+              "title": "Recruitment tags for Snake Queen Mesmiia",
+              "description": "Added \"Weaken\" to the recruitment tags for Snake Queen Mesmiia."
+            }
+          ]
+        },
+        {
           "version": "v1.7.2",
           "content": [
             {
