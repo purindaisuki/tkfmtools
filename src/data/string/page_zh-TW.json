@@ -45,6 +45,10 @@
             {
               "link": "https://github.com/PureStream",
               "text": "PureStream"
+            },
+            {
+              "link": "https://github.com/toosyou",
+              "text": "toosyou"
             }
           ]
         },
@@ -94,14 +98,14 @@
       "content": [
         {
           "version": "v1.7.3",
-          "content":[
+          "content": [
             {
               "type": "New",
               "title": "9/29 遊戲更新",
               "description": "全境徵才新增天使長 聖米勒、千年血族 洛緹亞、食夢 阿爾蒂雅、魔法少女 托特拉、懲戒天使、福音天使。"
             },
             {
-              "type": "Fix",
+              "type": "Change",
               "title": "蛇女之后 梅絲米奈雅徵才標籤",
               "description": "蛇女之后 梅絲米奈雅增加「削弱」徵才標籤。"
             }
