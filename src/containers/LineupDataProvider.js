@@ -83,7 +83,7 @@ const LineupDataProvider = ({ children }) => {
     );
   }, [isImportingLineup, localLineups]);
 
-  const firebaseRef = useRef();
+  const uploadFunctionRef = useRef();
 
   const pushLineup = useCallback(
     async (lineup, setting) => {
@@ -101,12 +101,14 @@ const LineupDataProvider = ({ children }) => {
         newLineups = [{ date: localDate, data: dehydratedLineup }];
       }
 
-      if (!firebaseRef?.current) {
-        firebaseRef.current = await import("../utils/firebase");
+      if (!uploadFunctionRef?.current) {
+        uploadFunctionRef.current = await import("../utils/firebase").then(
+          (module) => module.uploadLineup
+        );
       }
 
       if (setting?.firebase) {
-        firebaseRef.current.uploadLineup({ date: localDate, data: lineup });
+        uploadFunctionRef.current({ date: localDate, data: lineup });
       }
 
       if (!setLocalLineups(newLineups)) {
