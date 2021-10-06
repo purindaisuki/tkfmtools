@@ -12,24 +12,39 @@
         {
           "header": "Introduction",
           "content": [
-            "The goal of this website is to collect, organize, and present TenkafuMA data.",
-            "This website includes a recruitment filter, item drop filter, potential materials calculator, line-up analysis, and team composition tool."
+            {
+              "text": "The goal of this website is to collect, organize, and present TenkafuMA data."
+            },
+            {
+              "text": "This website includes a recruitment filter, item drop filter, potential materials calculator, line-up analysis, and team composition tool."
+            }
           ]
         },
         {
           "header": "Disclaimer",
           "content": [
-            "All materials and information on this website are collected by players and may not reflect the actual situation. In all circumstances, actual game data shall prevail."
+            {
+              "text": "All materials and information on this website are collected by players and may not reflect the actual situation. In all circumstances, actual game data shall prevail."
+            }
           ]
         },
         {
           "header": "Privacy policy",
           "content": [
-            "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
-            "Google Privacy & Terms",
-            ". Some browser extensions such as Adblock will block data collection. If you are willing to help improve this website, please add this website to your list of allowed sites."
-          ],
-          "link": "https://policies.google.com/technologies/partner-sites"
+            {
+              "text": "This website use Google Analytics to collect user data, which is collected anonymously and only for the purpose of imporving this website. Google Analytics use cookies to keep track of data about users. To learn more how it works, please check ",
+              "inline": true
+            },
+            {
+              "link": "https://policies.google.com/technologies/partner-sites",
+              "text": "Google Privacy & Terms",
+              "inline": true
+            },
+            {
+              "text": ". Some browser extensions such as Adblock will block data collection. If you are willing to help improve this website, please add this website to your list of allowed sites.",
+              "inline": true
+            }
+          ]
         },
         {
           "header": "Special thanks",
@@ -55,11 +70,17 @@
         {
           "header": "Feedback",
           "content": [
-            "Bug reports, suggestions, and thoughts are always welcome. Please check ",
-            "here",
-            "."
-          ],
-          "link": "https://github.com/purindaisuki/tkfmtools#feedback"
+            {
+              "text": "Bug reports, suggestions, and thoughts are always welcome. Please check ",
+              "inline": true
+            },
+            {
+              "link": "https://github.com/purindaisuki/tkfmtools#feedback",
+              "text": "here",
+              "inline": true
+            },
+            { "text": ".", "inline": true }
+          ]
         },
         {
           "header": "Reference",

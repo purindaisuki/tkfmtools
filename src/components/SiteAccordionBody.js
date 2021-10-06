@@ -11,35 +11,25 @@ import Modal from "components/Modal";
 import { ChangeChip, FixChip, NewChip } from "components/Chip";
 import { DeleteIcon } from "components/icon";
 
-const SiteDescription = ({ content, link }) => {
-  if (typeof link === "string") {
-    return (
-      <p>
-        {content[0]}
-        <a href={link} target="_blank" rel="noreferrer">
-          {content[1]}
-        </a>
-        {content[2]}
-      </p>
-    );
-  }
+const SiteDescriptionLine = ({ text, link }) =>
+  link ? (
+    <a href={link} target="_blank" rel="noreferrer">
+      {text}
+    </a>
+  ) : (
+    text
+  );
 
-  if (typeof content[0].link === "string") {
-    return content.map((item, ind) => (
+const SiteDescription = ({ content }) =>
+  content.map((item, ind) =>
+    item.inline ? (
+      <SiteDescriptionLine key={ind} {...item} />
+    ) : (
       <p key={ind}>
-        {item.link ? (
-          <a href={item.link} target="_blank" rel="noreferrer">
-            {item.text}
-          </a>
-        ) : (
-          item.text
-        )}
+        <SiteDescriptionLine {...item} />
       </p>
-    ));
-  }
-
-  return content.map((text, ind) => <p key={ind}>{text}</p>);
-};
+    )
+  );
 
 export const SiteDescriptions = () => {
   const { pageString } = useLanguage();
@@ -51,7 +41,13 @@ export const SiteDescriptions = () => {
           <DescriptionContainer key={ind}>
             <DescriptionHeader title={item.header} />
             <DescriptionBody>
-              <SiteDescription {...item} />
+              {item.content.every((i) => i.inline) ? (
+                <p>
+                  <SiteDescription content={item.content} />
+                </p>
+              ) : (
+                <SiteDescription content={item.content} />
+              )}
             </DescriptionBody>
           </DescriptionContainer>
         ))}

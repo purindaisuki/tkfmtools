@@ -54,7 +54,7 @@ const MoveLog = ({
       </LogCell>
       <LogCell>{ArrowIcon}</LogCell>
       <LogCell>{`${moveLog.value ? moveLog.value : ""} (${(
-        skillString.type[moveLog.type] as string
+        skillString.type[moveLog.type][0] as string
       ).replace(" {value}", "")})`}</LogCell>
       {moveLog.value || moveLog.from.position !== moveLog.to.position ? (
         <>

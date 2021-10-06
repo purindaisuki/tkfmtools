@@ -12,24 +12,39 @@
         {
           "header": "介紹",
           "content": [
-            "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。",
-            "本站包含全境徵才、主線地圖道具掉落整理及篩選，角色潛力計算、隊伍編成及分析。"
+            {
+              "text": "本站為基於手遊天下布魔中數據所建之網站，旨在統整資料、並提供方便的工具。"
+            },
+            {
+              "text": "本站包含全境徵才、主線地圖道具掉落整理及篩選，角色潛力計算、隊伍編成及分析。"
+            }
           ]
         },
         {
           "header": "免責聲明",
           "content": [
-            "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主，因本站資料所致利害一概不負責。"
+            {
+              "text": "本站工具所用數據多為熱心玩家自主蒐集，實際情形請以官方及遊戲內為主，因本站資料所致利害一概不負責。"
+            }
           ]
         },
         {
           "header": "隱私權聲明",
           "content": [
-            "本站使用 Google Analytics 收集使用者數據，其使用 cookies 追蹤使用者行為，然收集之數據皆為匿名且非針對個人，只用於改進本站。關於 Google Analytics 如何收集數據請見 ",
-            "Google 隱私權與條款",
-            " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。"
-          ],
-          "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW"
+            {
+              "text": "本站使用 Google Analytics 收集使用者數據，其使用 cookies 追蹤使用者行為，然收集之數據皆為匿名且非針對個人，只用於改進本站。關於 Google Analytics 如何收集數據請見 ",
+              "inline": true
+            },
+            {
+              "link": "https://policies.google.com/technologies/partner-sites?hl=zh-TW",
+              "text": "Google 隱私權與條款",
+              "inline": true
+            },
+            {
+              "text": " 。而諸如 Adblock 等外掛會阻擋資料傳輸，如果您願意幫助本站成長請將本站加入白名單。",
+              "inline": true
+            }
+          ]
         },
         {
           "header": "特別感謝",
@@ -54,8 +69,15 @@
         },
         {
           "header": "意見回饋",
-          "content": ["Bug、建議、使用心得等請至 ", "這裡", " 。"],
-          "link": "https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B"
+          "content": [
+            { "text": "Bug、建議、使用心得等請至 ", "inline": true },
+            {
+              "link": "https://github.com/purindaisuki/tkfmtools/blob/master/README.zh-TW.md#%E6%84%8F%E8%A6%8B%E5%9B%9E%E9%A5%8B",
+              "text": "這裡",
+              "inline": true
+            },
+            { "text": " 。", "inline": true }
+          ]
         },
         {
           "header": "參考",
