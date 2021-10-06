@@ -21,17 +21,13 @@ const useExport = () => {
   const exporterRef = useRef();
   const [isExporting, setExporting] = useState(false);
 
-  // lazy is not available for ssr
-  useEffect(() => {
-    React.lazy(
-      import("html2canvas").then(
-        (module) => (exporterRef.current = module.default)
-      )
-    );
-  }, []);
+  const exportImage = async ({ componentRef, fileName, html2canvasOption }) => {
+    if (!exporterRef?.current) {
+      exporterRef.current = (await import("html2canvas")).default;
+      console.log(exporterRef.current);
+    }
 
-  const exportImage = ({ componentRef, fileName, html2canvasOption }) => {
-    if (componentRef?.current && exporterRef?.current) {
+    if (componentRef?.current) {
       setExporting(true);
 
       const element = ReactDOM.findDOMNode(componentRef.current);

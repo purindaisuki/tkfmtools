@@ -346,18 +346,10 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     isModalOpen: false,
     isCopySnackbarOpen: false,
     isUploadSnackbarOpen: false,
-    shareLink: "https://tkfmtools.page.link/____",
+    shareLink: "loading",
   });
 
   const firebaseRef = useRef();
-
-  useEffect(() => {
-    React.lazy(
-      import("../../utils/firebase").then(
-        (module) => (firebaseRef.current = module)
-      )
-    );
-  }, []);
 
   const handleNameChange = (event) => {
     const newTeam = JSON.parse(JSON.stringify(currentTeam));
@@ -367,18 +359,20 @@ const TeamHeader = ({ isExporting, handleExport }) => {
   };
 
   const handleShare = async () => {
-    if (firebaseRef?.current) {
-      const url = new URL(window.location.href);
-
-      url.searchParams.set("team", JSON.stringify(currentTeam));
-
-      const shortLink = await firebaseRef.current.getShortLink(url.href);
-
-      setState((state) => ({
-        ...state,
-        shareLink: shortLink,
-      }));
+    if (!firebaseRef?.current) {
+      firebaseRef.current = await import("../../utils/firebase");
     }
+
+    const url = new URL(window.location.href);
+
+    url.searchParams.set("team", JSON.stringify(currentTeam));
+
+    const shortLink = await firebaseRef.current.getShortLink(url.href);
+
+    setState((state) => ({
+      ...state,
+      shareLink: shortLink,
+    }));
   };
 
   const handleCopy = () => {
@@ -389,39 +383,41 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     }));
   };
 
-  const handleUpload = (input) => () => {
-    if (firebaseRef?.current) {
-      let uploadTeam = JSON.parse(JSON.stringify(currentTeam));
-      let maxLv = 60;
-      if (input.chapter === "S") {
-        maxLv = parseInt(input.stage.slice(2)) + 19;
-      }
-      if (input.chapter === "E" && input.stage.slice(0, 2) === "Ex") {
-        maxLv = parseInt(input.stage.slice(-1)) * 10 + 20;
-      }
-      uploadTeam.characters.forEach((c) => {
-        if (!isNaN(parseInt(c.level)) && parseInt(c.level) > maxLv) {
-          c.level = maxLv;
-        }
-      });
-
-      firebaseRef.current.teamsRef
-        .add({
-          ...input,
-          ...uploadTeam,
-          time: firebaseRef.current.Timestamp.now(),
-        })
-        .then(() =>
-          setState((state) => ({
-            ...state,
-            isModalOpen: false,
-            isUploadSnackbarOpen: true,
-          }))
-        )
-        .catch((err) => {
-          console.error(err);
-        });
+  const handleUpload = (input) => async () => {
+    if (!firebaseRef?.current) {
+      firebaseRef.current = await import("../../utils/firebase");
     }
+
+    let uploadTeam = JSON.parse(JSON.stringify(currentTeam));
+    let maxLv = 60;
+    if (input.chapter === "S") {
+      maxLv = parseInt(input.stage.slice(2)) + 19;
+    }
+    if (input.chapter === "E" && input.stage.slice(0, 2) === "Ex") {
+      maxLv = parseInt(input.stage.slice(-1)) * 10 + 20;
+    }
+    uploadTeam.characters.forEach((c) => {
+      if (!isNaN(parseInt(c.level)) && parseInt(c.level) > maxLv) {
+        c.level = maxLv;
+      }
+    });
+
+    firebaseRef.current.teamsRef
+      .add({
+        ...input,
+        ...uploadTeam,
+        time: firebaseRef.current.Timestamp.now(),
+      })
+      .then(() =>
+        setState((state) => ({
+          ...state,
+          isModalOpen: false,
+          isUploadSnackbarOpen: true,
+        }))
+      )
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleModal = (boolean) => () =>
