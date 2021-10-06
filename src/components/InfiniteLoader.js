@@ -73,7 +73,7 @@ const InfiniteLoader = ({
         }
 
         if (!didCancel) {
-          if (items && items.length !== 0) {
+          if (items.length !== 0) {
             dispatch({ type: "PUSH", items: items });
           }
           dispatch({ type: "FETCH", isFetching: false });
