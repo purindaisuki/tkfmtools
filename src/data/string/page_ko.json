@@ -93,6 +93,21 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.7.3",
+          "content":[
+            {
+              "type": "New",
+              "title": "9/29 game update",
+              "description": "Archangel Saint Milae, Well-Respected Aristocrat Lotiya, Dreameater Aridya, Magical Knight Tyrella, Angel of Punishment and Angel of Bliss are available from recruitment now."
+            },
+            {
+              "type": "Fix",
+              "title": "Recruitment tags for Snake Queen Mesmiia",
+              "description": "Corrected the recruitment tags for Snake Queen Mesmiia."
+            }
+          ]
+        },
+        {
           "version": "v1.7.2",
           "content": [
             {
