@@ -85,16 +85,8 @@ const LineupDataProvider = ({ children }) => {
 
   const firebaseRef = useRef();
 
-  useEffect(() => {
-    React.lazy(
-      import("../utils/firebase").then(
-        (module) => (firebaseRef.current = module)
-      )
-    );
-  }, []);
-
   const pushLineup = useCallback(
-    (lineup, setting) => {
+    async (lineup, setting) => {
       let newLineups;
       const tzoffset = new Date().getTimezoneOffset() * 60000;
       const localDate = new Date(Date.now() - tzoffset)
@@ -109,7 +101,11 @@ const LineupDataProvider = ({ children }) => {
         newLineups = [{ date: localDate, data: dehydratedLineup }];
       }
 
-      if (setting?.firebase && firebaseRef.current) {
+      if (!firebaseRef?.current) {
+        firebaseRef.current = await import("../utils/firebase");
+      }
+
+      if (setting?.firebase) {
         firebaseRef.current.uploadLineup({ date: localDate, data: lineup });
       }
 

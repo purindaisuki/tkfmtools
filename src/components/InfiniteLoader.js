@@ -26,11 +26,11 @@ const reducer = (state, action) => {
 };
 
 const InfiniteLoader = ({
-  listenLatestUpdate,
+  listenToUpdate,
   fetchItem,
   renderItem,
-  hasVisited,
-  onResetVisited,
+  shouldReset,
+  onReset,
 }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
@@ -55,42 +55,64 @@ const InfiniteLoader = ({
   }, [bottomBoundaryRef]);
 
   useEffect(() => {
-    const cleanup = listenLatestUpdate(dispatch);
+    if (!state.loadMore) {
+      return;
+    }
+
+    // flag for preventing from setting state for unmounted components
+    let didCancel = false;
+
+    const fetch = async () => {
+      dispatch({ type: "FETCH", isFetching: true });
+      try {
+        const items = await fetchItem();
+
+        if (!items) {
+          // fetchItem is not ready
+          return;
+        }
+
+        if (!didCancel) {
+          if (items && items.length !== 0) {
+            dispatch({ type: "PUSH", items: items });
+          }
+          dispatch({ type: "FETCH", isFetching: false });
+          dispatch({ type: "LOAD_MORE", loadMore: false });
+        }
+      } catch (error) {
+        if (!didCancel) {
+          console.log(error);
+          dispatch({ type: "FETCH", isFetching: false });
+          dispatch({ type: "LOAD_MORE", loadMore: false });
+        }
+      }
+    };
+
+    fetch();
+
+    return () => {
+      didCancel = true;
+    };
+  }, [fetchItem, state.loadMore]);
+
+  useEffect(() => {
+    const cleanup = listenToUpdate((newItems) => {
+      dispatch({ type: "UNSHIFT", items: newItems });
+    });
 
     if (cleanup) {
       return () => cleanup();
     }
-  }, [listenLatestUpdate]);
+  }, [listenToUpdate]);
 
   useEffect(() => {
-    if (!state.loadMore || state.isFetching) {
-      return;
-    }
-
-    dispatch({ type: "FETCH", isFetching: true });
-    fetchItem()
-      .then((items) => {
-        if (items?.length !== 0) {
-          dispatch({ type: "PUSH", items: items });
-        }
-        dispatch({ type: "FETCH", isFetching: false });
-        dispatch({ type: "LOAD_MORE", loadMore: false });
-      })
-      .catch((err) => {
-        dispatch({ type: "FETCH", isFetching: false });
-        dispatch({ type: "LOAD_MORE", loadMore: false });
-        console.log(err);
-      });
-  }, [fetchItem, state.loadMore]);
-
-  useEffect(() => {
-    if (hasVisited) {
+    if (!shouldReset) {
       return;
     }
 
     dispatch({ type: "RESET" });
-    onResetVisited();
-  }, [hasVisited, onResetVisited]);
+    onReset();
+  }, [shouldReset, onReset]);
 
   return (
     <>
