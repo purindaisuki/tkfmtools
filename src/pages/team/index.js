@@ -128,9 +128,12 @@ const Team = ({ location }) => {
           },
           {
             layout: "cloud",
-            content: !(
-              location.state?.isFromPlayer || location.state?.isFromEnemies
-            ) && <CloudTeamList />,
+            content:
+              location.state?.isFromPlayer || location.state?.isFromEnemies ? (
+                <LocalTeamList {...location.state} />
+              ) : (
+                <CloudTeamList />
+              ),
           },
         ]}
         initLayoutIndex={0}
