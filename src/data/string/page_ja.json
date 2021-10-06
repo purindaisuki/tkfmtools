@@ -1080,6 +1080,7 @@
       "settingDescription": "最新のチーム分析データをデフォルトに設定",
       "errorSnackbar": "データがありません",
       "errorSelectSnackbar": "Invalid team format",
+      "errorUnsupportedCharacter": "Unsupported character(s) included",
       "tabs": {
         "local": "自分の編成",
         "cloud": "みんなの編成"

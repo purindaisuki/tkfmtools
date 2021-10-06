@@ -1077,6 +1077,7 @@
       "settingDescription": "최신 라인업 분석 데이터를 기본 설정으로 적용하기",
       "errorSnackbar": "해당 디바이스에 데이터가 없습니다",
       "errorSelectSnackbar": "Invalid team format",
+      "errorUnsupportedCharacter": "Unsupported character(s) included",
       "tabs": {
         "local": "자신의 팀",
         "cloud": "다른 팀"

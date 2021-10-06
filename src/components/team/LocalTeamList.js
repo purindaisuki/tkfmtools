@@ -18,6 +18,9 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
   const { newTeam, getTeam, selectTeam, pushTeam, deleteTeam } = actions;
 
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState(
+    pageString.team.index.errorSelectSnackbar
+  );
 
   const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean);
 
@@ -32,30 +35,36 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
       );
 
       if (
-        team.some((c) => c.id && (c.level.length === 0 || !skillData[c.id])) ||
-        team.every((c) => !c.id)
+        team.some((c) => c.id && (c.level.length === 0 || !skillData[c.id]))
       ) {
         setSnackbarOpen(true);
-      } else {
-        const selectedTeam = team
-          .filter((c) => c.id)
-          .map((c) => {
-            const { key, ...rest } = c;
-            return rest;
-          });
-        const selectedLineups = isFromPlayer
-          ? [selectedTeam, lineups[1]]
-          : [lineups[0], selectedTeam];
-
-        navigate(href, {
-          state: {
-            lineups: selectedLineups,
-            isFromPlayer,
-            isFromEnemies,
-          },
-          replace: true,
-        });
+        setSnackbarMessage(pageString.team.index.errorUnsupportedCharacter);
+        return;
       }
+      if (team.every((c) => !c.id)) {
+        setSnackbarOpen(true);
+        setSnackbarMessage(pageString.team.index.errorSelectSnackbar);
+        return;
+      }
+
+      const selectedTeam = team
+        .filter((c) => c.id)
+        .map((c) => {
+          const { key, ...rest } = c;
+          return rest;
+        });
+      const selectedLineups = isFromPlayer
+        ? [selectedTeam, lineups[1]]
+        : [lineups[0], selectedTeam];
+
+      navigate(href, {
+        state: {
+          lineups: selectedLineups,
+          isFromPlayer,
+          isFromEnemies,
+        },
+        replace: true,
+      });
     } else {
       selectTeam(ind);
     }
@@ -110,7 +119,7 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
       <Snackbar
         open={isSnackbarOpen}
         onClose={handleSnackbar(false)}
-        message={pageString.team.index.errorSelectSnackbar}
+        message={snackbarMessage}
         type="error"
       />
     </>

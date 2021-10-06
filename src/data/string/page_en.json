@@ -1084,6 +1084,7 @@
       "settingDescription": "Import the latest line-up analysis data as default",
       "errorSnackbar": "Local data not found",
       "errorSelectSnackbar": "Invalid team format",
+      "errorUnsupportedCharacter": "Unsupported character(s) included",
       "tabs": {
         "local": "Mine",
         "cloud": "Others"
