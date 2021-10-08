@@ -15,7 +15,8 @@ module.exports = {
     ],
     "@babel/plugin-proposal-class-properties",
     "@babel/proposal-object-rest-spread",
-    ["@babel/plugin-proposal-private-methods", { loose: false }],
+    ["@babel/plugin-proposal-private-methods"],
+    ["@babel/plugin-proposal-private-property-in-object", { loose: false }],
   ],
   presets: [
     ["@babel/preset-env", { targets: { node: "current" } }],
