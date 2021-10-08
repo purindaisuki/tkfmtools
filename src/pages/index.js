@@ -56,15 +56,18 @@ const ModalBody = styled.div`
 `;
 
 const Home = () => {
+  const { pageString } = useLanguage();
+  const latestMsg = pageString.index.updateLog.content[0];
+
   const [state, setState] = useState({
     expanded: 0,
     modalOpen: false,
   });
 
-  const [localVersion, setVersion] = useLocalStorage("last-read-version");
-
-  const { pageString } = useLanguage();
-  const latestMsg = pageString.index.updateLog.content[0];
+  const [localVersion, setVersion] = useLocalStorage(
+    "last-read-version",
+    latestMsg.version
+  );
 
   const handleExpand = (panel) => (event, isExpanded) => {
     setState((state) => ({
