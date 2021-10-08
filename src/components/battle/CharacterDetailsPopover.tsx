@@ -1,7 +1,11 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { Popover } from "@material-ui/core";
-import { BattleCharacter as Character, IGameState } from "types/battle";
+import {
+  BattleCharacter as Character,
+  IGameState,
+  PlayerID,
+} from "types/battle";
 import {
   SkillActionType,
   SkillCondition,
@@ -81,10 +85,10 @@ const effectString = (effect: SkillEffect, skillString: any) => {
   return string;
 };
 
-type Props = {
+type PopoverProps = {
   G: IGameState;
   character: Character;
-  player: string;
+  player: PlayerID;
   id?: string;
   open: boolean;
   anchorEl: HTMLButtonElement | null;
@@ -99,7 +103,7 @@ const CharacterDetailsPopover = ({
   open,
   anchorEl,
   onClose,
-}: Props): JSX.Element => {
+}: PopoverProps): JSX.Element => {
   const { colors }: any = useTheme();
   const { charString, pageString, skillString }: any = useLanguage();
 

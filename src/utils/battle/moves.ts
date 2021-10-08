@@ -1,4 +1,3 @@
-import type { Ctx } from "boardgame.io";
 import { INVALID_MOVE } from "boardgame.io/core";
 import {
   ISkill,
@@ -7,14 +6,14 @@ import {
   SkillOn,
   SkillTarget,
 } from "types/skills";
-import { IGameState, ILog } from "types/battle";
+import { BattleCtx, IGameState, ILog } from "types/battle";
 import { endMove } from ".";
 import { trigger } from "./processSkill";
 import { getEnemies } from "./helpers";
 
 export const canSelect = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number
 ): boolean => {
   const selectedCharacter = G.lineups[ctx.currentPlayer][selected];
@@ -28,7 +27,7 @@ export const canSelect = (
         !selectedCharacter.isBroken;
 };
 
-export const canTarget = (G: IGameState, ctx: Ctx, target: number) => {
+export const canTarget = (G: IGameState, ctx: BattleCtx, target: number) => {
   const enemies = getEnemies(G, ctx);
   if (!enemies[target]) {
     return false;
@@ -42,14 +41,14 @@ export const canTarget = (G: IGameState, ctx: Ctx, target: number) => {
 
 export const canAttack = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number,
   target: number
 ): boolean => canSelect(G, ctx, selected) && canTarget(G, ctx, target);
 
 export const attack = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number,
   target: number
 ): IGameState | typeof INVALID_MOVE | void => {
@@ -99,7 +98,7 @@ export const attack = (
 
 export const canUltimate = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number,
   target: number
 ): boolean => {
@@ -113,7 +112,7 @@ export const canUltimate = (
 
 export const ultimate = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number,
   target: number
 ): IGameState | typeof INVALID_MOVE | void => {
@@ -165,7 +164,7 @@ export const ultimate = (
 
 export const guard = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   selected: number
 ): IGameState | typeof INVALID_MOVE | void => {
   if (canSelect(G, ctx, selected)) {
@@ -203,7 +202,7 @@ export const guard = (
 
 export const switchMember = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   ind: number
 ): IGameState | typeof INVALID_MOVE | void => {
   if (canSelect(G, ctx, ind)) {
@@ -215,7 +214,7 @@ export const switchMember = (
 
 export const switchTarget = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   ind: number
 ): IGameState | typeof INVALID_MOVE | void => {
   if (canTarget(G, ctx, ind)) {
@@ -225,7 +224,7 @@ export const switchTarget = (
   }
 };
 
-export const doNothing = (G: IGameState, ctx: Ctx) => {
+export const doNothing = (G: IGameState, ctx: BattleCtx) => {
   if (G.selected[ctx.currentPlayer] !== -1) {
     G.lineups[ctx.currentPlayer][G.selected[ctx.currentPlayer]].isMoved = true;
     endMove(G, ctx);

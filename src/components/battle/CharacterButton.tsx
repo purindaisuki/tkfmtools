@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button as MuiButton, Tooltip } from "@material-ui/core";
-import type { Ctx } from "boardgame.io";
-import { BattleCharacter as Character, IGameState } from "types/battle";
+import {
+  BattleCtx,
+  BattleCharacter as Character,
+  IGameState,
+  PlayerID,
+} from "types/battle";
 import { useLanguage } from "containers/LanguageProvider";
 import CharacterDetailsPopover from "./CharacterDetailsPopover";
 import ImageSupplier from "components/ImageSupplier";
@@ -27,7 +31,7 @@ enum CharacterButtonState {
 
 export const getCharacterButtonState = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   character: Character,
   player: string
 ) => {
@@ -279,8 +283,8 @@ const CharacterButton = ({
   onClick,
 }: {
   G: IGameState;
-  ctx: Ctx;
-  player: string;
+  ctx: BattleCtx;
+  player: PlayerID;
   character: Character;
   onClick: () => void;
 }): JSX.Element => {

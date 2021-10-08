@@ -1,5 +1,4 @@
-import { Ctx } from "boardgame.io";
-import { BattleCharacter, IGameState, ILog } from "types/battle";
+import { BattleCtx, BattleCharacter, IGameState, ILog } from "types/battle";
 import {
   ExtraSkill,
   ISkill,
@@ -18,7 +17,7 @@ import { calcDamage, calcHeal, calcShield } from "./calculators";
 import { generateMaxedCharacterSetupData } from "./helpers";
 
 let G: IGameState;
-let ctx: Ctx;
+let ctx: BattleCtx;
 
 const setup = () => {
   const lineup = ["105", "157", "106", "409", "216"]
@@ -54,7 +53,7 @@ const setup = () => {
     log: [[]],
   };
 
-  ctx = { currentPlayer: "0" } as Ctx;
+  ctx = { currentPlayer: "0" } as BattleCtx;
 };
 
 describe("tests should reset in each test", () => {
@@ -200,7 +199,7 @@ describe("tests should reset in each test", () => {
 
         takeEffect(
           G,
-          { ...ctx, random: { Number: () => 1 } } as Ctx,
+          { ...ctx, random: { Number: () => 1 } } as BattleCtx,
           { character: selected },
           { characters: [selected], player: "0" },
           skill
@@ -227,7 +226,7 @@ describe("tests should reset in each test", () => {
 
         takeEffect(
           G,
-          { ...ctx, random: { Number: () => 1 } } as Ctx,
+          { ...ctx, random: { Number: () => 1 } } as BattleCtx,
           { character: selected },
           { characters: [selected], player: "0" },
           skill
@@ -471,7 +470,7 @@ describe("tests should reset in each test", () => {
             fromPlayer: "1",
             from: 0,
           },
-        ];
+        ] as SkillEffect[];
         target.effects.push(...buffs);
 
         takeEffect(
@@ -536,7 +535,7 @@ describe("tests should reset in each test", () => {
             fromPlayer: "1",
             from: 0,
           },
-        ];
+        ] as SkillEffect[];
         target.effects.push(...buffs);
 
         takeEffect(
@@ -948,7 +947,7 @@ describe("tests should reset in each test", () => {
             duration: 4,
             fromPlayer: "1",
             from: 0,
-          };
+          } as SkillEffect & { value: number };
           target.shield = shieldEffect.value;
           target.effects.push(shieldEffect);
 
@@ -1002,7 +1001,7 @@ describe("tests should reset in each test", () => {
             duration: 4,
             fromPlayer: "1",
             from: 0,
-          };
+          } as SkillEffect & { value: number };
           target.shield = shieldEffect.value;
           target.effects.push(shieldEffect);
 
@@ -1059,7 +1058,7 @@ describe("tests should reset in each test", () => {
             duration: 4,
             fromPlayer: "1",
             from: 0,
-          };
+          } as SkillEffect & { value: number };
           target.shield = shieldEffect.value;
           target.effects.push(shieldEffect);
 
@@ -1419,7 +1418,7 @@ describe("tests should reset in each test", () => {
 
           takeEffect(
             G,
-            { ...ctx, random: { Number: () => 1 } } as Ctx,
+            { ...ctx, random: { Number: () => 1 } } as BattleCtx,
             { character: selected },
             { characters: [target], player: "1" },
             skill
@@ -1444,7 +1443,7 @@ describe("tests should reset in each test", () => {
 
             takeEffect(
               G,
-              { ...ctx, random: { Number: () => 1 } } as Ctx,
+              { ...ctx, random: { Number: () => 1 } } as BattleCtx,
               { character: selected },
               { characters: [target], player: "1" },
               skill
@@ -1468,13 +1467,13 @@ describe("tests should reset in each test", () => {
               type: data.effectType,
               fromPlayer: "1",
               from: 0,
-            };
+            } as SkillEffect & { value: number };
 
             target.effects.push(decreasePossibilityEffect);
 
             takeEffect(
               G,
-              { ...ctx, random: { Number: () => 1 } } as Ctx,
+              { ...ctx, random: { Number: () => 1 } } as BattleCtx,
               { character: selected },
               { characters: [target], player: "1" },
               skill
@@ -1549,7 +1548,7 @@ describe("tests should reset in each test", () => {
 
       const { targets, isEnemy } = getSkillTargets(
         G,
-        { ...ctx, random: { Die: (num: number) => num } } as Ctx,
+        { ...ctx, random: { Die: (num: number) => num } } as BattleCtx,
         skill
       );
 
@@ -1566,7 +1565,7 @@ describe("tests should reset in each test", () => {
 
       const { targets, isEnemy } = getSkillTargets(
         G,
-        { ...ctx, random: { Die: (num: number) => num } } as Ctx,
+        { ...ctx, random: { Die: (num: number) => num } } as BattleCtx,
         skill
       );
 

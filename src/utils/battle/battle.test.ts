@@ -1,7 +1,8 @@
-import { Ctx } from "boardgame.io";
+import { Ctx, Game } from "boardgame.io";
 import { Client } from "boardgame.io/client";
 import { Local } from "boardgame.io/multiplayer";
 import {
+  BattleCtx,
   BattleSetupData,
   IGameState,
   ILog,
@@ -194,7 +195,7 @@ describe("character initialization", () => {
 
 describe("battle helpers", () => {
   let G: IGameState;
-  let ctx: Ctx;
+  let ctx: BattleCtx;
 
   beforeEach(() => {
     const lineup = ["105", "157", "106", "409", "216"]
@@ -230,7 +231,7 @@ describe("battle helpers", () => {
       log: [[]],
     };
 
-    ctx = { currentPlayer: "0" } as Ctx;
+    ctx = { currentPlayer: "0" } as BattleCtx;
   });
 
   test("should return next target", () => {
@@ -290,8 +291,8 @@ describe("battle helpers", () => {
 
 describe("battle system", () => {
   const getClient = (setupData: BattleSetupData, bot?: any) =>
-    Client({
-      game: Battle(setupData),
+    Client<IGameState>({
+      game: Battle(setupData) as Game<IGameState, Ctx>,
       multiplayer: bot ? Local({ bots: { "1": bot } }) : undefined,
       playerID: bot ? "0" : undefined,
     });
@@ -307,6 +308,7 @@ describe("battle system", () => {
         ),
       ],
     } as BattleSetupData;
+
     const client = getClient(setupData);
     const expectedLineups = setupData.lineups.map((lineup) =>
       lineup.map((c, i) => initCharacter(c, i))
@@ -319,7 +321,7 @@ describe("battle system", () => {
       skillQueue: [],
       log: [[]],
     } as IGameState;
-    const ctx = { currentPlayer: "0" } as Ctx;
+    const ctx = { currentPlayer: "0" } as BattleCtx;
 
     expectedLineups.forEach((lineup, player) => {
       lineup.forEach((c, ind) => {
@@ -327,7 +329,10 @@ describe("battle system", () => {
           ...G,
           selected: { ...G.selected, [player.toString()]: ind },
         };
-        const tempCtx = { ...ctx, currentPlayer: player.toString() };
+        const tempCtx = {
+          ...ctx,
+          currentPlayer: player.toString(),
+        } as BattleCtx;
 
         c.skillSet.passive.forEach((s) => {
           if (s.condition === SkillCondition.BATTLE_BEGIN) {
@@ -693,7 +698,7 @@ describe("battle system", () => {
 
       // wait bot
       await sleep();
-      const ctx = client.getState()?.ctx as Ctx;
+      const ctx = client.getState()?.ctx as BattleCtx;
 
       expect(ctx.currentPlayer).toBe("0");
       expect(ctx.turn).toBe(3);

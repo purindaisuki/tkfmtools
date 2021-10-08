@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { PageProps } from "gatsby";
-import { Ctx } from "boardgame.io";
 import { Client as BgioClient } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
-import { BattleSetupData, IGameState } from "types/battle";
+import { BattleCtx, BattleSetupData, IGameState } from "types/battle";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useLanguage } from "containers/LanguageProvider";
 import { BattleBoard, BattleBoardProps } from "./BattleBoard";
@@ -18,7 +17,7 @@ const scarecrow = {
 
 // use wrapper to get generic function's type
 const wrapper = () =>
-  BgioClient<IGameState, BattleBoardProps, Ctx>({
+  BgioClient<IGameState, BattleBoardProps, BattleCtx>({
     game: Battle({ lineups: [[], []] }),
     board: BattleBoard,
   });

@@ -1,4 +1,11 @@
-import { ISkill, SkillActionType, SkillEffect, ISkillSet, ExtraSkill } from "types/skills";
+import type { Ctx } from "boardgame.io";
+import {
+  ISkill,
+  SkillActionType,
+  SkillEffect,
+  ISkillSet,
+  ExtraSkill,
+} from "types/skills";
 import {
   CharacterAttribute,
   CharacterPosition,
@@ -44,22 +51,28 @@ export type SkillQueue = {
   skill: ISkill;
 }[];
 
+export type PlayerID = "0" | "1";
+
+export type BattleCtx = Ctx & {
+  currentPlayer: PlayerID;
+};
+
 export interface IGameState {
-  lineups: Record<string, BattleCharacter[]>;
-  selected: Record<string, number>;
-  target: Record<string, number>;
-  taunt: Record<string, number[]>;
+  lineups: Record<PlayerID, BattleCharacter[]>;
+  selected: Record<PlayerID, number>;
+  target: Record<PlayerID, number>;
+  taunt: Record<PlayerID, number[]>;
   skillQueue: SkillQueue;
   log: ILog[][];
 }
 
 export interface ILog {
-  player: string;
+  player: PlayerID;
   type: SkillActionType;
   value?: number;
-  from: { player: string; position: number };
+  from: { player: PlayerID; position: number };
   to: {
-    player: string;
+    player: PlayerID;
     position: number;
     originalHP: number;
     HP: number;

@@ -1,4 +1,3 @@
-import type { Ctx } from "boardgame.io";
 import {
   SkillActionType,
   SkillCondition,
@@ -10,11 +9,13 @@ import {
 } from "types/skills";
 import { CharacterStats, ICharacterData } from "types/characters";
 import {
+  BattleCtx,
   BattleCharacter as Character,
   BattleSetupData,
   IGameState,
   ILog,
   ScarecrowStats,
+  PlayerID,
 } from "types/battle";
 import {
   attack,
@@ -151,7 +152,7 @@ export const initCharacter = (
   };
 };
 
-export const nextTarget = (G: IGameState, ctx: Ctx) => {
+export const nextTarget = (G: IGameState, ctx: BattleCtx) => {
   const enemies = getEnemies(G, ctx);
   const opponent = ctx.currentPlayer === "0" ? "1" : "0";
 
@@ -162,7 +163,7 @@ export const nextTarget = (G: IGameState, ctx: Ctx) => {
     : G.taunt[opponent][0];
 };
 
-export const endMove = (G: IGameState, ctx: Ctx) => {
+export const endMove = (G: IGameState, ctx: BattleCtx) => {
   const lineup = G.lineups[ctx.currentPlayer];
   lineup[G.selected[ctx.currentPlayer]].isMoved = true;
 
@@ -176,7 +177,7 @@ export const endMove = (G: IGameState, ctx: Ctx) => {
 
 export const Battle = (setupData: BattleSetupData) => ({
   name: "tkfm-battle-simulator",
-  setup: (ctx: Ctx) => {
+  setup: (ctx: BattleCtx) => {
     const lineups = setupData.lineups.map((lineup) =>
       lineup.map((c, ind) => initCharacter(c, ind))
     );
@@ -187,7 +188,7 @@ export const Battle = (setupData: BattleSetupData) => ({
       taunt: { "0": [], "1": [] },
       skillQueue: [],
       log: [],
-    };
+    } as IGameState;
 
     Object.entries(G.lineups).forEach(([playerID, lineup]) => {
       lineup.forEach((c, ind) => {
@@ -195,7 +196,7 @@ export const Battle = (setupData: BattleSetupData) => ({
           ...G,
           selected: { ...G.selected, [playerID]: ind },
         };
-        const tempCtx = { ...ctx, currentPlayer: playerID };
+        const tempCtx = { ...ctx, currentPlayer: playerID as PlayerID };
 
         // 1st turn passives
         c.skillSet.passive.forEach((s) => {
@@ -217,7 +218,7 @@ export const Battle = (setupData: BattleSetupData) => ({
     doNothing,
   },
   turn: {
-    onBegin: (G: IGameState, ctx: Ctx) => {
+    onBegin: (G: IGameState, ctx: BattleCtx) => {
       const selfTeam = G.lineups[ctx.currentPlayer];
 
       // update target
@@ -333,7 +334,7 @@ export const Battle = (setupData: BattleSetupData) => ({
         canSelect(G, ctx, ind)
       );
     },
-    onEnd: (G: IGameState, ctx: Ctx) => {
+    onEnd: (G: IGameState, ctx: BattleCtx) => {
       const selfTeam = G.lineups[ctx.currentPlayer];
       const log: ILog[] = [];
       selfTeam.forEach((c, ind) => {
@@ -360,12 +361,12 @@ export const Battle = (setupData: BattleSetupData) => ({
 
       G.log.slice(-1)[0].push(...log);
     },
-    endIf: (G: IGameState, ctx: Ctx) =>
+    endIf: (G: IGameState, ctx: BattleCtx) =>
       !G.lineups[ctx.currentPlayer].some((_, ind) => canSelect(G, ctx, ind)),
   },
   minPlayers: 2,
   maxPlayers: 2,
-  endIf: (G: IGameState, ctx: Ctx): any => {
+  endIf: (G: IGameState, ctx: BattleCtx): any => {
     const isAllDead = Object.values(G.lineups).map((lineup) =>
       lineup.every((c) => c.isDead)
     );

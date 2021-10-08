@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { CircularProgress, Tab, Tabs } from "@material-ui/core";
 import { BoardProps } from "boardgame.io/react";
-import { IGameState } from "types/battle";
+import { BattleCtx, IGameState, PlayerID } from "types/battle";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import useLocalStorage from "hooks/useLocalStorage";
@@ -125,6 +125,7 @@ const StyledTab = styled(Tab)<{ $selected: boolean }>`
 `;
 
 export type BattleBoardProps = BoardProps<IGameState> & {
+  ctx: BattleCtx;
   settingProps: IGameSetupProps;
   handleReset: () => void;
 };
@@ -249,7 +250,7 @@ export const BattleBoard = ({
                     key={ind}
                     G={G}
                     ctx={ctx}
-                    player={player}
+                    player={player as PlayerID}
                     character={c}
                     onClick={handleCharacterClick(ind, player)}
                   />

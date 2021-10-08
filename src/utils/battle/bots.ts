@@ -1,12 +1,6 @@
-import type { Ctx } from "boardgame.io";
 import { MCTSBot } from "boardgame.io/ai";
-import { IGameState } from "types/battle";
-import {
-  canAttack,
-  canSelect,
-  canTarget,
-  canUltimate,
-} from "utils/battle";
+import { BattleCtx, IGameState } from "types/battle";
+import { canAttack, canSelect, canTarget, canUltimate } from "utils/battle";
 import { getEnemies } from "./helpers";
 import { BattleCharacter as Character } from "types/battle";
 
@@ -27,7 +21,7 @@ export class CustomMCTSBot extends MCTSBot {
     super({
       ...opts,
       ...opts.game.ai,
-      enumerate: (G: IGameState, ctx: Ctx) => {
+      enumerate: (G: IGameState, ctx: BattleCtx) => {
         let moves = [];
         const lineup = G.lineups[ctx.currentPlayer];
         const enemies = getEnemies(G, ctx);
@@ -65,7 +59,7 @@ export class CustomMCTSBot extends MCTSBot {
       },
       objectives: () => ({
         kill: {
-          checker: (G: IGameState, ctx: Ctx) => {
+          checker: (G: IGameState, ctx: BattleCtx) => {
             const moves = G.log[ctx.turn - 1];
             if (moves.length === 0) {
               return false;
@@ -80,7 +74,7 @@ export class CustomMCTSBot extends MCTSBot {
           weight: 1,
         },
         dontDie: {
-          checker: (G: IGameState, ctx: Ctx) =>
+          checker: (G: IGameState, ctx: BattleCtx) =>
             G.lineups[ctx.currentPlayer].some((c) => c.isDead),
           weight: -1,
         },
@@ -93,7 +87,7 @@ export class AutoBot extends MCTSBot {
   constructor(opts: any) {
     super({
       ...opts,
-      enumerate: (G: IGameState, ctx: Ctx) => {
+      enumerate: (G: IGameState, ctx: BattleCtx) => {
         const lineup = G.lineups[ctx.currentPlayer];
         const enemies = getEnemies(G, ctx);
 

@@ -1,4 +1,3 @@
-import type { Ctx } from "boardgame.io";
 import {
   ISkill,
   SkillActionType,
@@ -12,7 +11,13 @@ import {
   UltimateSkill,
   ExtraSkill,
 } from "types/skills";
-import { BattleCharacter as Character, IGameState, ILog } from "types/battle";
+import {
+  BattleCtx,
+  BattleCharacter as Character,
+  IGameState,
+  ILog,
+  PlayerID,
+} from "types/battle";
 import { calcAttack, calcDamage, calcHeal, calcShield } from "./calculators";
 import { getEnemies, sameEffect } from "./helpers";
 
@@ -20,9 +25,9 @@ const correctionTerm = 0.0001;
 
 export const takeEffect = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   from: { character: Character },
-  to: { characters: Character[]; player: string },
+  to: { characters: Character[]; player: PlayerID },
   skill: ISkill | ExtraSkill | SkillEffect,
   logArr?: ILog[]
 ) => {
@@ -250,7 +255,7 @@ export const takeEffect = (
               [enemyID]: G.selected[ctx.currentPlayer],
             },
           };
-          const tempCtx = { ...ctx, currentPlayer: enemyID };
+          const tempCtx = { ...ctx, currentPlayer: enemyID as PlayerID };
 
           if (!target.isSilence && !target.isParalysis && !target.isSleep) {
             target.skillSet.passive
@@ -473,7 +478,7 @@ export const takeEffect = (
 
 export const getSkillTargets = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   skill: ISkill | SkillEffect
 ) => {
   const enemies = getEnemies(G, ctx);
@@ -577,7 +582,7 @@ export const getSkillTargets = (
 
 export const trigger = (
   G: IGameState,
-  ctx: Ctx,
+  ctx: BattleCtx,
   skill: ISkill | ExtraSkill | SkillEffect,
   logArr?: ILog[]
 ) => {

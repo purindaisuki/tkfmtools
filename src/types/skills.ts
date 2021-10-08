@@ -1,3 +1,4 @@
+import { PlayerID } from "./battle";
 import { CharacterAttribute } from "./characters";
 
 export enum SkillTarget {
@@ -204,7 +205,7 @@ export type EndTurnSkill = ISkill & {
 
 export type SkillEffect = Omit<ISkill, "CD" | "possibility" | "repeat"> & {
   from: number;
-  fromPlayer: string;
+  fromPlayer: PlayerID;
   stack?: number;
 };
 

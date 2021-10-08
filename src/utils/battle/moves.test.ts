@@ -1,6 +1,5 @@
-import { Ctx } from "boardgame.io";
 import { INVALID_MOVE } from "boardgame.io/core";
-import { IGameState, ILog } from "types/battle";
+import { BattleCtx, IGameState, ILog } from "types/battle";
 import {
   SkillActionType,
   SkillCondition,
@@ -22,7 +21,7 @@ import { calcDamage, calcHeal, calcShield } from "./calculators";
 import { generateMaxedCharacterSetupData } from "./helpers";
 
 let G: IGameState;
-let ctx: Ctx;
+let ctx: BattleCtx;
 
 beforeEach(() => {
   const lineup = ["105", "157", "106"]
@@ -42,7 +41,7 @@ beforeEach(() => {
     log: [[]],
   };
 
-  ctx = { currentPlayer: "0" } as Ctx;
+  ctx = { currentPlayer: "0" } as BattleCtx;
 });
 
 describe("select validation", () => {
