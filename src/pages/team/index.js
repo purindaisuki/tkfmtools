@@ -4,7 +4,6 @@ import { Button, Checkbox, Divider, MenuItem } from "@material-ui/core";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import Switchable from "containers/Switchable";
-import Head from "components/Head";
 import Header from "components/Header";
 import DropDown from "components/DropDown";
 import IconButton from "components/IconButton";
@@ -100,11 +99,6 @@ const Team = ({ location }) => {
 
   return (
     <PageWrapper>
-      <Head
-        title={pageString.team.index.helmet.title}
-        description={pageString.team.index.helmet.description}
-        path="/team/"
-      />
       <StyledHeader
         title={
           location.state?.isFromPlayer || location.state?.isFromEnemies

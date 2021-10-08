@@ -22,18 +22,20 @@ const WithData = ({ children, withLineupData, withTeamData }) =>
     children
   );
 
-export const wrapPageElement = ({ element, props: { pageContext } }) => (
-  <LanguageProvider pageContext={pageContext}>
-    <Layout withTabs={pageContext.withTabs} pagePath={pageContext.pagePath}>
-      <WithData
-        withLineupData={pageContext.withLineupData}
-        withTeamData={pageContext.withTeamData}
-      >
-        {element}
-      </WithData>
-    </Layout>
-  </LanguageProvider>
-);
+export const wrapPageElement = ({ element, props: { pageContext } }) => {
+  const { pagePath, isIndex, withTabs, withLineupData, withTeamData, ...rest } =
+    pageContext;
+
+  return (
+    <LanguageProvider pageContext={rest}>
+      <Layout pagePath={pagePath} isIndex={isIndex} withTabs={withTabs}>
+        <WithData withLineupData={withLineupData} withTeamData={withTeamData}>
+          {element}
+        </WithData>
+      </Layout>
+    </LanguageProvider>
+  );
+};
 
 const theme = createTheme({
   typography: { fontFamily: fontFamily },

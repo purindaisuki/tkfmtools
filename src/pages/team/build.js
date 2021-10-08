@@ -6,7 +6,6 @@ import useExport from "hooks/useExport";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import Swappable from "containers/Swappable";
-import Head from "components/Head";
 import IconButton, { ExportButton } from "components/IconButton";
 import Header from "components/Header";
 import { ScrollableModal } from "components/Modal";
@@ -572,18 +571,11 @@ const TeamBuild = () => {
     });
 
   return (
-    <>
-      <Head
-        title={pageString.team.build.helmet.title}
-        description={pageString.team.build.helmet.description}
-        path="/team/build/"
-      />
-      <ExportWrapper ref={componentRef}>
-        <TeamHeader isExporting={isExporting} handleExport={handleExport} />
-        <StyledDivider />
-        <DraggableCharsList />
-      </ExportWrapper>
-    </>
+    <ExportWrapper ref={componentRef}>
+      <TeamHeader isExporting={isExporting} handleExport={handleExport} />
+      <StyledDivider />
+      <DraggableCharsList />
+    </ExportWrapper>
   );
 };
 

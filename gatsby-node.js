@@ -103,6 +103,7 @@ exports.onCreatePage = ({ page, actions }) => {
       context: {
         ...page.context,
         pagePath: page.path,
+        isIndex: page.component.includes("index"),
         lang: entry[0],
         stringData: stringData[entry[0]],
         withTabs,

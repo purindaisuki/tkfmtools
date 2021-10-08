@@ -4,7 +4,6 @@ import { Button, Grid } from "@material-ui/core";
 import useCharacterSelect from "hooks/useCharacterSelect";
 import { useLineupData } from "containers/LineupDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import ImageSupplier from "components/ImageSupplier";
 import Input, { Select } from "components/Input";
 import PotentialInput from "components/PotentialInput";
@@ -331,11 +330,6 @@ const Index = () => {
 
   return (
     <CharGroupsContainer>
-      <Head
-        title={pageString.analysis.index.helmet.title}
-        description={pageString.analysis.index.helmet.description}
-        path="/analysis/"
-      />
       <DataManageButtons
         handleData={handleData}
         handleModalOpen={handleDataModal(true)}

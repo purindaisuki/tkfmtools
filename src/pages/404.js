@@ -9,7 +9,6 @@ const NotFound = () => {
 
   return (
     <Wrapper>
-      <title>{pageString[404].title}</title>
       <NotFoundImg name="pageNotFound" isBackground={true} alt="">
         <Message>
           <StyledH1>{pageString[404].h1}</StyledH1>

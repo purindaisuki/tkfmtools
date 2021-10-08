@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Switchable from "containers/Switchable";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import IconButton from "components/IconButton";
 import CharTagMasonry from "components/CharTagMasonry";
 import CharTagTable from "components/CharTagTable";
@@ -45,22 +44,15 @@ const Index = () => {
   const { pageString } = useLanguage();
 
   return (
-    <>
-      <Head
-        title={pageString.enlist.index.helmet.title}
-        description={pageString.enlist.index.helmet.description}
-        path="/enlist/"
-      />
-      <Switchable
-        localStorageKey="enlist-character-layout"
-        layoutSwitcher={<LayoutSwitcher />}
-        items={[
-          { layout: "Masonry", content: <CharTagMasonry /> },
-          { layout: "Table", content: <CharTagTable /> },
-        ]}
-        initLayoutIndex={0}
-      />
-    </>
+    <Switchable
+      localStorageKey="enlist-character-layout"
+      layoutSwitcher={<LayoutSwitcher />}
+      items={[
+        { layout: "Masonry", content: <CharTagMasonry /> },
+        { layout: "Table", content: <CharTagTable /> },
+      ]}
+      initLayoutIndex={0}
+    />
   );
 };
 

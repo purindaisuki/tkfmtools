@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import ResultTablePanel from "components/ResultTablePanel";
 import { SortableTh } from "components/SortableTable";
 import Header from "components/Header";
@@ -274,11 +273,6 @@ const Filter = () => {
 
   return (
     <>
-      <Head
-        title={pageString.items.drop.filter.helmet.title}
-        description={pageString.items.drop.filter.helmet.description}
-        path="/items/drop/filter/"
-      />
       <Panels panelsWidth={["62%", "38%"]}>
         <ItemFilterPanel
           filterBtnValue={state.filterBtnValue}

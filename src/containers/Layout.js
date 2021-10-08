@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import styled, { ThemeProvider } from "styled-components";
 import useSwitch from "hooks/useSwitch";
 import useWindowSize from "hooks/useWindowSize";
@@ -7,6 +6,7 @@ import WithTabs from "containers/withTabs";
 import { panelsStyle } from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import { lightTheme, darkTheme } from "components/theme";
+import Head from "components/Head";
 import Navbar from "components/Navbar";
 import Sidebar from "components/Sidebar";
 import BackToTop from "components/BackToTop";
@@ -31,7 +31,7 @@ export const LayoutContext = createContext();
 
 export const useLayoutConfig = () => useContext(LayoutContext);
 
-const Layout = ({ children, withTabs, pagePath }) => {
+const Layout = ({ children, pagePath, isIndex, withTabs }) => {
   const { userLanguage, isDefault, pageString } = useLanguage();
 
   const { layout, setLayout } = useSwitch("global-layout", [0, 1]);
@@ -112,6 +112,19 @@ const Layout = ({ children, withTabs, pagePath }) => {
     ? panelsStyle[layout !== undefined ? layout : 0]
     : transformTheme(panelsStyle[state.layoutIndex]);
 
+  const pagePathKeys =
+    !pagePath || pagePath === "/dev-404-page/" || pagePath === "/404.html"
+      ? ["404"]
+      : pagePath.split("/").slice(1, -1);
+  let helmetString = pagePathKeys.reduce(
+    (string, key) => string[key],
+    pageString
+  );
+  helmetString =
+    pagePathKeys[0] === "404"
+      ? helmetString
+      : (isIndex ? helmetString.index : helmetString).helmet;
+
   return (
     <ThemeProvider
       theme={{
@@ -121,165 +134,11 @@ const Layout = ({ children, withTabs, pagePath }) => {
         panelLayout: panelLayout,
       }}
     >
-      <Helmet
-        htmlAttributes={{
-          lang: userLanguage,
-        }}
-      >
-        <meta charSet="utf-8" />
-        <meta name="application-name" content="Tkfm Toolbox" />
-        <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta
-          name="msapplication-TileImage"
-          content="/tkfmtools/mstile-144x144.png"
-        />
-        <meta
-          name="msapplication-square70x70logo"
-          content="/tkfmtools/mstile-70x70.png"
-        />
-        <meta
-          name="msapplication-square150x150logo"
-          content="/tkfmtools/mstile-150x150.png"
-        />
-        <meta
-          name="msapplication-wide310x150logo"
-          content="mstile-310x150.png"
-        />
-        <meta
-          name="msapplication-square310x310logo"
-          content="/tkfmtools/mstile-310x310.png"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,shrink-to-fit=no"
-        />
-        <meta name="title" content={pageString.index.helmet.title} />
-        <meta
-          name="description"
-          content={pageString.index.helmet.description}
-        />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:locale"
-          content={langConfig[userLanguage].ogLocale}
-        />
-        <meta property="og:title" content={pageString.index.helmet.title} />
-        <meta
-          property="og:description"
-          content={pageString.index.helmet.description}
-        />
-        <meta
-          property="og:url"
-          content={`https://purindaisuki.github.io/tkfmtools/${
-            isDefault ? "" : "en"
-          }`}
-        />
-        <meta
-          property="og:image"
-          content={`https://purindaisuki.github.io/tkfmtools/website_preview_recruitment${
-            isDefault ? "" : "_en"
-          }.png`}
-        />
-        <meta property="og:image:width" content="1440" />
-        <meta property="og:image:height" content="756" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:title"
-          content={pageString.index.helmet.title}
-        />
-        <meta
-          property="twitter:description"
-          content={pageString.index.helmet.description}
-        />
-        <meta
-          property="twitter:url"
-          content={`https://purindaisuki.github.io/tkfmtools/${
-            isDefault ? "" : "en"
-          }`}
-        />
-        <meta
-          property="twitter:image"
-          content={`https://purindaisuki.github.io/tkfmtools/website_preview_recruitment${
-            isDefault ? "" : "_en"
-          }.png`}
-        />
-        <meta
-          name="google-site-verification"
-          content="F_IfmH-gHHQSs2j53dl-2l-zMqnWtwWOnfqdQiwLUow"
-        />
-        <title lang={userLanguage}>{pageString.index.helmet.title}</title>
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="57x57"
-          href="/tkfmtools/apple-touch-icon-57x57.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="114x114"
-          href="/tkfmtools/apple-touch-icon-114x114.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="72x72"
-          href="/tkfmtools/apple-touch-icon-72x72.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="144x144"
-          href="/tkfmtools/apple-touch-icon-144x144.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="60x60"
-          href="/tkfmtools/apple-touch-icon-60x60.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="120x120"
-          href="/tkfmtools/apple-touch-icon-120x120.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="76x76"
-          href="/tkfmtools/apple-touch-icon-76x76.png"
-        />
-        <link
-          rel="apple-touch-icon-precomposed"
-          sizes="152x152"
-          href="/tkfmtools/apple-touch-icon-152x152.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/tkfmtools/favicon-196x196.png"
-          sizes="196x196"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/tkfmtools/favicon-96x96.png"
-          sizes="96x96"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/tkfmtools/favicon-32x32.png"
-          sizes="32x32"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/tkfmtools/favicon-16x16.png"
-          sizes="16x16"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/tkfmtools/favicon-128.png"
-          sizes="128x128"
-        />
-        <link rel="manifest" href="/tkfmtools/manifest.json" />
-      </Helmet>
+      <Head
+        title={helmetString.title}
+        description={helmetString.description}
+        path={pagePath}
+      />
       <Navbar withSidebar={state.withSidebar} toggleSidebar={toggleSidebar} />
       <div id="back-to-top-anchor" />
       {state.withSidebar && (

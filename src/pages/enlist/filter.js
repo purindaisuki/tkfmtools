@@ -14,7 +14,6 @@ import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import { ResultTablePanel } from "components/recruitment-filter";
 import ResultTablePanelByCharacter from "components/ResultTablePanel";
-import Head from "components/Head";
 import { SortableTh } from "components/SortableTable";
 import Header from "components/Header";
 import { HeaderIconButton } from "components/IconButton";
@@ -700,11 +699,6 @@ const Filter = () => {
 
   return (
     <>
-      <Head
-        title={pageString.enlist.filter.helmet.title}
-        description={pageString.enlist.filter.helmet.description}
-        path="/enlist/filter/"
-      />
       <Panels panelsWidth={["60%", "40%"]}>
         <CharFilterPanel
           handleBtnGroupChange={handleBtnGroupChange}

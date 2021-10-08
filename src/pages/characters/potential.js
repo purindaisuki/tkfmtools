@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Grid } from "@material-ui/core";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import Header from "components/Header";
 import { ItemCard } from "components/Card";
 import ImageSupplier from "components/ImageSupplier";
@@ -296,11 +295,6 @@ const Potential = () => {
 
   return (
     <>
-      <Head
-        title={pageString.characters.potential.helmet.title}
-        description={pageString.characters.potential.helmet.description}
-        path="/characters/potential/"
-      />
       <Panels panelsWidth={["30%", "70%"]}>
         <CharSelectPanel
           selected={{

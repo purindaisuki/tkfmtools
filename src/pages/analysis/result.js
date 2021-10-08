@@ -3,7 +3,6 @@ import styled from "styled-components";
 import useExport from "hooks/useExport";
 import { useLineupData } from "containers/LineupDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import Header from "components/Header";
 import { ExportButton } from "components/IconButton";
 import ImageSupplier from "components/ImageSupplier";
@@ -306,11 +305,6 @@ const Analysis = () => {
 
   return (
     <>
-      <Head
-        title={pageString.analysis.result.helmet.title}
-        description={pageString.analysis.result.helmet.description}
-        path="/analysis/result/"
-      />
       <StyledExportButton onClick={handleExport} isLoading={isExporting} />
       <ChartsContainer ref={componentRef}>
         <CollectionWrapper>

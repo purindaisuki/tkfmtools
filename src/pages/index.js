@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import IconButton from "components/IconButton";
 import Accordion from "components/Accordion";
 import {
@@ -87,11 +86,6 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <Head
-        title={pageString.index.helmet.title}
-        description={pageString.index.helmet.description}
-        path="/"
-      />
       <Header>
         <span>{pageString.index.helmet.title}</span>
         <span>{latestMsg.version}</span>

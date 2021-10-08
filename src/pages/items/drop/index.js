@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
-import Head from "components/Head";
 import IconButton from "components/IconButton";
 import SortableTable, { SortableTh } from "components/SortableTable";
 import { ItemCard } from "components/Card";
@@ -357,11 +356,6 @@ const Index = () => {
 
   return (
     <>
-      <Head
-        title={pageString.items.drop.index.helmet.title}
-        description={pageString.items.drop.index.helmet.description}
-        path="/items/drop/"
-      />
       <SettingButtonWrapper>
         <IconButton
           onClick={handleModal(true)}
