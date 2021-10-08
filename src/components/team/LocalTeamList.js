@@ -12,7 +12,7 @@ import Snackbar from "components/Snackbar";
 import { NewIcon, CopyIcon, DeleteIcon } from "components/icon";
 
 const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
-  const { pageString } = useLanguage();
+  const { pageString, isDefault, userLanguage } = useLanguage();
 
   const { localTeams, actions } = useTeamData();
   const { newTeam, getTeam, selectTeam, pushTeam, deleteTeam } = actions;
@@ -26,7 +26,6 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
 
   const handleTeamClick = (team, ind) => async (event) => {
     if (isFromPlayer || isFromEnemies) {
-      let href = event.target.href;
       event.preventDefault();
 
       // validate team
@@ -57,7 +56,7 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
         ? [selectedTeam, lineups[1]]
         : [lineups[0], selectedTeam];
 
-      navigate(href, {
+      navigate((isDefault ? "" : "/" + userLanguage) + "/battle/", {
         state: {
           lineups: selectedLineups,
           isFromPlayer,
