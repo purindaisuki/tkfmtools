@@ -115,10 +115,6 @@ const LineupDataProvider = ({ children }) => {
         return 0;
       }
 
-      if (typeof window !== "undefined" && window.gtag) {
-        window.gtag("event", "line_up_save");
-      }
-
       return newLineups.length;
     },
     [localLineups, setLocalLineups]

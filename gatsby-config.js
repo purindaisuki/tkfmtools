@@ -28,24 +28,10 @@ module.exports = {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
         id: "GTM-KHV3HZD",
-        includeInDevelopment: true,
+        includeInDevelopment: false,
         defaultDataLayer: {
           platform: "gatsby",
         },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        trackingIds: ["G-Z22RL2KGP1"],
-      },
-      gtagConfig: {
-        anonymize_ip: true,
-        cookie_expires: 0,
-      },
-      pluginConfig: {
-        head: false,
-        respectDNT: true,
       },
     },
   ],
