@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid, MenuItem } from "@material-ui/core";
 import { useTeamData } from "containers/TeamDataProvider";
