@@ -51,74 +51,66 @@ const cardTextWrapConfig = {
 const parseRarity = (rarity) =>
   rarity === 0 ? "N" : rarity === 1 ? "R" : rarity === 2 ? "SR" : "SSR";
 
-const TableBody = React.forwardRef(({ sortedData, renderTo }, ref) => {
+const TableRow = React.forwardRef(({ item: char, ind }, ref) => {
   const { userLanguage, charString } = useLanguage();
 
+  if (!char.available) {
+    return (
+      <MuiTableRow hover>
+        <MuiTableCell>
+          <ResponsiveCharCard
+            id={char.id}
+            $textWrapConfig={cardTextWrapConfig[userLanguage]}
+          />
+        </MuiTableCell>
+        <MuiTableCell>{parseRarity(char.rarity)}</MuiTableCell>
+        <MuiTableCell>{charString.tags[char.attribute]}</MuiTableCell>
+        <MuiTableCell>{charString.tags[char.position]}</MuiTableCell>
+        <MuiTableCell colSpan="5">{charString.tagWarnMsg}</MuiTableCell>
+      </MuiTableRow>
+    );
+  }
+
   return (
-    <MuiTableBody>
-      {sortedData.map((char, ind) => {
-        if (ind > renderTo) {
+    <MuiTableRow hover ref={ind === 0 ? ref : undefined}>
+      {Object.entries(char).map(([key, value]) => {
+        if (key === "available") {
           return null;
         }
-
-        if (!char.available) {
+        if (key === "id") {
           return (
-            <MuiTableRow hover key={char.id}>
-              <MuiTableCell>
-                <ResponsiveCharCard
-                  id={char.id}
-                  $textWrapConfig={cardTextWrapConfig[userLanguage]}
-                />
-              </MuiTableCell>
-              <MuiTableCell>{parseRarity(char.rarity)}</MuiTableCell>
-              <MuiTableCell>{charString.tags[char.attribute]}</MuiTableCell>
-              <MuiTableCell>{charString.tags[char.position]}</MuiTableCell>
-              <MuiTableCell colSpan="5">{charString.tagWarnMsg}</MuiTableCell>
-            </MuiTableRow>
+            <MuiTableCell key={key}>
+              <ResponsiveCharCard
+                id={char.id}
+                $textWrapConfig={cardTextWrapConfig[userLanguage]}
+              />
+            </MuiTableCell>
+          );
+        }
+        if (key === "rarity") {
+          return <MuiTableCell key={key}>{parseRarity(value)}</MuiTableCell>;
+        }
+        if (key === "else") {
+          return (
+            <MuiTableCell key={key}>
+              {value.map((tag) => charString.tags[tag]).join(", ")}
+            </MuiTableCell>
           );
         }
 
         return (
-          <MuiTableRow hover key={char.id} ref={ind === 0 ? ref : undefined}>
-            {Object.entries(char).map(([key, value]) => {
-              if (key === "available") {
-                return null;
-              }
-              if (key === "id") {
-                return (
-                  <MuiTableCell key={key}>
-                    <ResponsiveCharCard
-                      id={char.id}
-                      $textWrapConfig={cardTextWrapConfig[userLanguage]}
-                    />
-                  </MuiTableCell>
-                );
-              }
-              if (key === "rarity") {
-                return (
-                  <MuiTableCell key={key}>{parseRarity(value)}</MuiTableCell>
-                );
-              }
-              if (key === "else") {
-                return (
-                  <MuiTableCell key={key}>
-                    {value.map((tag) => charString.tags[tag]).join(", ")}
-                  </MuiTableCell>
-                );
-              }
-
-              return (
-                <MuiTableCell key={key}>
-                  {value < 0 ? "-" : charString.tags[value]}
-                </MuiTableCell>
-              );
-            })}
-          </MuiTableRow>
+          <MuiTableCell key={key}>
+            {value < 0 ? "-" : charString.tags[value]}
+          </MuiTableCell>
         );
       })}
-    </MuiTableBody>
+    </MuiTableRow>
   );
 });
+
+const TableBody = ({ sortedData, renderRow }) => (
+  <MuiTableBody>{renderRow(sortedData, TableRow)}</MuiTableBody>
+);
 
 const CharTagTable = () => {
   const { charString } = useLanguage();

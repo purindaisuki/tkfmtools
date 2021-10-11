@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Scrollable from "containers/Scrollable";
 import SortableTable from "components/SortableTable";
 
+const overseen = 2;
+
 const WindowTable = ({
   className,
   head,
@@ -16,52 +18,85 @@ const WindowTable = ({
   const thRef = useRef();
   const trRef = useRef();
 
-  const [state, setState] = useState({
-    scrollTop: 0,
-    renderTo: 0,
+  const [geometry, setGeometry] = useState({
+    wrapperHeight: 0,
     sizerHeight: 0,
+    tableHeadHeight: 0,
+    tableRowHeight: 0,
   });
+  const [renderList, setRenderList] = useState([0]);
+  const [scrollTop, setScrollTop] = useState(0);
 
   useEffect(() => {
-    const height =
-      wrapperRef && wrapperRef.current
-        ? wrapperRef.current.getBoundingClientRect().height
-        : 0;
-    const headHeight =
-      thRef && thRef.current ? thRef.current.getBoundingClientRect().height : 0;
-    const scrollBottom = state.scrollTop + height;
-    const rowHeight =
-      trRef && trRef.current ? trRef.current.getBoundingClientRect().height : 0;
-    const renderTo = Math.min(
-      Math.floor(scrollBottom / rowHeight),
+    const wrapperHeight =
+      wrapperRef?.current?.getBoundingClientRect().height ?? 0;
+    const tableHeadHeight = thRef?.current?.getBoundingClientRect().height ?? 0;
+    const tableRowHeight = trRef?.current?.getBoundingClientRect().height ?? 0;
+    const sizerHeight = tableHeadHeight + data.length * tableRowHeight;
+
+    setGeometry({
+      wrapperHeight,
+      sizerHeight,
+      tableHeadHeight,
+      tableRowHeight,
+    });
+  }, [data.length, wrapperRef, trRef, thRef]);
+
+  useEffect(() => {
+    const scrollBottom = scrollTop + geometry.wrapperHeight;
+
+    // render items in (startIndex, stopIndex)
+    const startIndex = Math.max(
+      Math.floor(scrollTop / geometry.tableRowHeight) - overseen,
+      0
+    );
+    const stopIndex = Math.min(
+      Math.floor(scrollBottom / geometry.tableRowHeight) + overseen,
       data.length - 1
     );
-    const sizerHeight = headHeight + data.length * rowHeight;
+    const windowList = Array.from(
+      { length: stopIndex - startIndex + 1 },
+      (_, i) => i + startIndex
+    );
 
-    setState((state) => ({
-      ...state,
-      renderTo: Math.max(state.renderTo, renderTo),
-      sizerHeight: sizerHeight,
-    }));
-  }, [wrapperRef, trRef, thRef, state.scrollTop]);
+    const newRenderList = [...new Set(renderList.concat(windowList))];
 
-  const handleScroll = (event) => {
-    setState((state) => ({
-      ...state,
-      scrollTop: event.target.scrollTop,
-    }));
+    setRenderList(newRenderList);
+  }, [data.length, geometry, scrollTop]);
+
+  const handleScroll = ({ target }) => {
+    setScrollTop(target.scrollTop);
   };
+
+  const renderRow = (sortedData, TableRow, tableRowProps) =>
+    sortedData.map((item, ind) => {
+      if (!renderList.includes(ind)) {
+        return ind < renderList.slice(-1)[0] ? (
+          <VirtualRow
+            $height={trRef.current.getBoundingClientRect().height}
+            key={ind}
+          />
+        ) : null;
+      }
+
+      return (
+        <TableRow
+          item={item}
+          ind={ind}
+          key={item.id ?? ind}
+          ref={trRef}
+          {...tableRowProps}
+        />
+      );
+    });
 
   return (
     <Scrollable className={className} onScroll={handleScroll} ref={wrapperRef}>
-      <Sizer $height={state.sizerHeight}>
+      <Sizer $height={geometry.sizerHeight}>
         <SortableTable
           data={data}
           head={React.cloneElement(head, { ref: thRef })}
-          body={React.cloneElement(body, {
-            renderTo: state.renderTo,
-            ref: trRef,
-          })}
+          body={React.cloneElement(body, { renderRow })}
           sortFunc={sortFunc}
           defaultSortKey={defaultSortKey}
           border={border}
@@ -77,6 +112,10 @@ const Sizer = styled.div`
   td {
     white-space: nowrap;
   }
+`;
+
+const VirtualRow = styled.tr`
+  height: ${({ $height }) => $height}px;
 `;
 
 export default WindowTable;
