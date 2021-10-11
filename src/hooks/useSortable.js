@@ -1,17 +1,17 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const useSortable = (data, sortData, config) => {
-  const [sortConfig, setSortConfig] = useState(config);
+const useSortable = (data, sortFunc, initConfig) => {
+  const [sortConfig, setSortConfig] = useState(initConfig);
 
   const sortedData = useMemo(() => {
     const sortableData = Array.from(data);
 
     if (sortConfig.key) {
-      sortData(sortableData, sortConfig);
+      sortFunc(sortableData, sortConfig);
     }
 
     return sortableData;
-  }, [data, sortConfig]);
+  }, [data, sortFunc, sortConfig]);
 
   const requestSort = (key) => {
     const direction =
@@ -26,6 +26,12 @@ const useSortable = (data, sortData, config) => {
     data?.length !== 0 && sortConfig.key === key
       ? sortConfig.direction
       : undefined;
+
+  useEffect(() => {
+    if (sortConfig.key !== initConfig.key) {
+      requestSort(initConfig.key);
+    }
+  }, [sortConfig.key, initConfig.key]);
 
   return {
     sortedData,

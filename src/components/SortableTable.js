@@ -20,13 +20,6 @@ export const SortableTable = ({
     { key: defaultSortKey, direction: "desc" }
   );
 
-  // apply default key if value assigned after first render
-  useEffect(() => {
-    if (sortConfig.key !== defaultSortKey) {
-      requestSort(defaultSortKey);
-    }
-  }, [defaultSortKey]);
-
   return (
     <Table
       className={className}
