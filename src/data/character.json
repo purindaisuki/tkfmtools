@@ -102,7 +102,7 @@
       "attribute": 3,
       "position": 5,
       "race": -1,
-      "body": -1,
+      "body": 14,
       "oppai": -1,
       "rank": 20,
       "else": [26],
@@ -968,7 +968,7 @@
       "race": -1,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
+      "rank": 18,
       "else": [],
       "available": true
     },
