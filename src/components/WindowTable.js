@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Scrollable from "containers/Scrollable";
 import SortableTable from "components/SortableTable";
 
+// overseen out of window
 const overseen = 2;
 
 const WindowTable = ({
@@ -27,7 +28,7 @@ const WindowTable = ({
   const [renderList, setRenderList] = useState([0]);
   const [scrollTop, setScrollTop] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const wrapperHeight =
       wrapperRef?.current?.getBoundingClientRect().height ?? 0;
     const tableHeadHeight = thRef?.current?.getBoundingClientRect().height ?? 0;
@@ -42,7 +43,7 @@ const WindowTable = ({
     });
   }, [data.length, wrapperRef, trRef, thRef]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const scrollBottom = scrollTop + geometry.wrapperHeight;
 
     // render items in (startIndex, stopIndex)
@@ -59,7 +60,7 @@ const WindowTable = ({
       (_, i) => i + startIndex
     );
 
-    const newRenderList = [...new Set(renderList.concat(windowList))];
+    const newRenderList = Array.from(new Set(renderList.concat(windowList)));
 
     setRenderList(newRenderList);
   }, [data.length, geometry, scrollTop]);
@@ -107,7 +108,7 @@ const WindowTable = ({
 };
 
 const Sizer = styled.div`
-  height: ${(props) => props.$height}px;
+  height: ${({ $height }) => $height}px;
   th,
   td {
     white-space: nowrap;

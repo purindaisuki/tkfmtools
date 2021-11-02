@@ -1,9 +1,9 @@
 import React, { createContext, useContext } from "react";
 import langConfig from "languageConfig.json";
 
-const defaultLanguage = Object.keys(langConfig).filter(
+const defaultLanguage = Object.keys(langConfig).find(
   (key) => langConfig[key].default
-)[0];
+);
 
 const LanguageContext = createContext({
   userLanguage: defaultLanguage,
