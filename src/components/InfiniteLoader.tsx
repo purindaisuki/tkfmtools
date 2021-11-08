@@ -72,10 +72,13 @@ const InfiniteLoader = <T,>({
         }
       });
     });
+    const bottomDiv = bottomBoundaryRef.current;
 
-    scrollObserver.observe(bottomBoundaryRef.current);
+    scrollObserver.observe(bottomDiv);
 
-    return () => scrollObserver.unobserve(bottomBoundaryRef.current);
+    return () => {
+      scrollObserver.unobserve(bottomDiv);
+    };
   }, [bottomBoundaryRef]);
 
   useEffect(() => {
