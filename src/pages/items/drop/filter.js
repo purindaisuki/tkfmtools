@@ -169,18 +169,33 @@ const TableBody = ({ sortedData }) => {
   );
 };
 
+const HelpModal = ({ open, onClose }) => {
+  const { pageString } = useLanguage();
+
+  return (
+    <TextModal
+      title={pageString.items.drop.filter.helpModal.title}
+      open={open}
+      onClose={onClose}
+      content={pageString.items.drop.filter.helpModal.content}
+      ariaLabelledby="help-modal-title"
+      ariaDescribedby="help-modal-description"
+    />
+  );
+};
+
+const toStageKey = (stage) => {
+  const splits = stage.split("-");
+
+  return (
+    parseInt(splits[0]) * 1000 +
+    parseInt(splits[1].split(" ")[0]) * 10 +
+    (splits[1].includes("free") ? 1 : 0) +
+    (splits.length > 2 ? parseInt(splits[2]) : 0)
+  );
+};
+
 const sortFunc = (sortableItems, sortConfig) => {
-  const toStageKey = (stage) => {
-    const splits = stage.split("-");
-
-    return (
-      parseInt(splits[0]) * 1000 +
-      parseInt(splits[1].split(" ")[0]) * 10 +
-      (splits[1].includes("free") ? 1 : 0) +
-      (splits.length > 2 ? parseInt(splits[2]) : 0)
-    );
-  };
-
   sortableItems.sort((a, b) => {
     let aKey;
     let bKey;
@@ -202,12 +217,9 @@ const sortFunc = (sortableItems, sortConfig) => {
 };
 
 const Filter = () => {
-  const { pageString } = useLanguage();
-
   const [state, setState] = useState({
     filterBtnValue: [],
     data: [],
-    isHelpModalOpen: false,
   });
 
   const filterBy = (event, val) => {
@@ -247,7 +259,7 @@ const Filter = () => {
     );
 
     filteredStages = filteredStages.map((stage) => {
-      const parsedStage = stage.chapter + "-" + stage.stage;
+      const parsedStage = `${stage.chapter}-${stage.stage}`;
       const newStage = { stage: parsedStage, energy: stage.energy };
       stage.drops.forEach((item) => {
         if (val.includes(item.id)) {
@@ -261,13 +273,6 @@ const Filter = () => {
       ...state,
       filterBtnValue: val,
       data: filteredStages,
-    }));
-  };
-
-  const handelHelpModal = (boolean) => () => {
-    setState((state) => ({
-      ...state,
-      isHelpModalOpen: boolean,
     }));
   };
 
@@ -285,19 +290,11 @@ const Filter = () => {
           body={<TableBody />}
           sortFunc={sortFunc}
           defaultSortKey={state.filterBtnValue[0]}
-          handleModalOpen={handelHelpModal(true)}
           maxHeight="calc(100vh - 16rem)"
           striped
+          helpModal={<HelpModal />}
         />
       </Panels>
-      <TextModal
-        title={pageString.items.drop.filter.helpModal.title}
-        open={state.isHelpModalOpen}
-        onClose={handelHelpModal(false)}
-        content={pageString.items.drop.filter.helpModal.content}
-        ariaLabelledby="help-modal-title"
-        ariaDescribedby="help-modal-description"
-      />
     </>
   );
 };

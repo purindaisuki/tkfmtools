@@ -259,31 +259,62 @@ const RankCharImg = styled(CharImg)`
   border: none;
 `;
 
+const TreeMapHeaderWithModal = () => {
+  const { pageString } = useLanguage();
+
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <TreeMapHeader
+        title={pageString.analysis.result.chart[1].title}
+        withHelp
+        onClickHelp={() => setOpen(true)}
+      />
+      <TextModal
+        title={pageString.analysis.result.helpModal.title}
+        content={pageString.analysis.result.helpModal.content}
+        open={open}
+        onClose={() => setOpen(false)}
+        ariaLabelledby="treemap-modal-title"
+        ariaDescribedby="treemap-modal-description"
+      />
+    </>
+  );
+};
+
+const RankHeaderWithModal = ({ PRArray }) => {
+  const { pageString } = useLanguage();
+
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <RankHeader
+        title={`${pageString.analysis.result.rank.title} ${
+          PRArray.slice(-1)[0] ? PRArray.slice(-1)[0].PR : "-"
+        }`}
+        withHelp
+        onClickHelp={() => setOpen(true)}
+      />
+      <RankModal
+        title={pageString.analysis.result.rank.PR}
+        open={open}
+        onClose={() => setOpen(false)}
+        ariaLabelledby="rank-modal-title"
+        ariaDescribedby="rank-modal-description"
+      >
+        {pageString.analysis.result.rankModal.content}
+      </RankModal>
+    </>
+  );
+};
+
 const Analysis = () => {
   const { pageString, charString } = useLanguage();
-
   const { currentLineup } = useLineupData();
-
   const { isExporting, exportImage } = useExport();
-
-  const [state, setState] = useState({
-    isTreemapModalOpen: false,
-    isRankModalOpen: false,
-  });
-
   const componentRef = useRef();
-
-  const handleTreemapModal = (boolean) => () =>
-    setState((state) => ({
-      ...state,
-      isTreemapModalOpen: boolean,
-    }));
-
-  const handleRankModal = (boolean) => () =>
-    setState((state) => ({
-      ...state,
-      isRankModalOpen: boolean,
-    }));
 
   const handleExport = () =>
     exportImage({
@@ -319,11 +350,7 @@ const Analysis = () => {
           <CharCollectionBox lineup={currentLineup} />
         </CollectionWrapper>
         <ChartWrapper>
-          <TreeMapHeader
-            title={pageString.analysis.result.chart[1].title}
-            withHelp
-            onClickHelp={handleTreemapModal(true)}
-          />
+          <TreeMapHeaderWithModal />
           <TreeMap data={lineupStats.treeMapDataByAttribute} />
         </ChartWrapper>
         <ChartWrapper>
@@ -352,15 +379,7 @@ const Analysis = () => {
             sm={isSm}
           />
         </ChartWrapper>
-        <RankHeader
-          title={`${pageString.analysis.result.rank.title} ${
-            lineupStats.PRArray.slice(-1)[0]
-              ? lineupStats.PRArray.slice(-1)[0].PR
-              : "-"
-          }`}
-          withHelp
-          onClickHelp={handleRankModal(true)}
-        />
+        <RankHeaderWithModal PRArray={lineupStats.PRArray} />
         <ChartWrapper>
           <ChartHeader>{pageString.analysis.result.rank.high}</ChartHeader>
           <RankContainer
@@ -376,21 +395,6 @@ const Analysis = () => {
           />
         </ChartWrapper>
       </ChartsContainer>
-      <TextModal
-        title={pageString.analysis.result.helpModal.title}
-        content={pageString.analysis.result.helpModal.content}
-        open={state.isTreemapModalOpen}
-        onClose={handleTreemapModal(false)}
-        ariaLabelledby="treemap-modal-title"
-        ariaDescribedby="treemap-modal-description"
-      />
-      <RankModal
-        title={pageString.analysis.result.rank.PR}
-        open={state.isRankModalOpen}
-        onClose={handleRankModal(false)}
-      >
-        {pageString.analysis.result.rankModal.content}
-      </RankModal>
     </>
   );
 };

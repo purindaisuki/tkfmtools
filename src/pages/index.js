@@ -14,14 +14,14 @@ import {
 import Modal from "components/Modal";
 import { ExpandMoreIcon, NoteIcon } from "components/icon";
 
-const UpdateModal = ({ modalOpen, onClose }) => {
+const UpdateModal = ({ open, onClose }) => {
   const { pageString } = useLanguage();
   const latestMsg = pageString.index.updateLog.content[0];
 
   return (
     <MsgModal
       title={`${pageString.index.helmet.title} ${latestMsg.version}`}
-      open={modalOpen}
+      open={open}
       onClose={onClose}
       ariaLabelledby="update-modal-title"
     >
@@ -55,36 +55,68 @@ const ModalBody = styled.div`
   }
 `;
 
+const UpdateNote = ({ setVersion, latestVersion, $unread }) => {
+  const { pageString } = useLanguage();
+
+  const [open, setOpen] = useState(false);
+
+  const handleModal = (boolean) => () => {
+    setOpen(boolean);
+
+    if (boolean && $unread) {
+      setVersion(latestVersion);
+    }
+  };
+
+  return (
+    <>
+      <NoteButton
+        onClick={handleModal(true)}
+        tooltipText={pageString.index.noteButtonTooltip}
+        $unread={$unread}
+      >
+        {NoteIcon}
+      </NoteButton>
+      <UpdateModal open={open} onClose={handleModal(false)} />
+    </>
+  );
+};
+
+const NoteButton = styled(IconButton)`
+  position: relative;
+  cursor: pointer;
+  && {
+    padding: 0;
+  }
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: ${(props) => props.theme.colors.onSurface};
+  }
+  &:after {
+    position: absolute;
+    content: "";
+    right: -0.3rem;
+    top: -0.3rem;
+    background-color: red;
+    border-radius: 100%;
+    animation: ${unreadAnimation} 1.5s ease-in-out infinite;
+    ${(props) => (props.$unread ? "width: .6rem; height: .6rem;" : "")}
+  }
+`;
+
 const Home = () => {
   const { pageString } = useLanguage();
   const latestMsg = pageString.index.updateLog.content[0];
 
-  const [state, setState] = useState({
-    expanded: 0,
-    modalOpen: false,
-  });
-
+  const [expanded, setExpanded] = useState(0);
   const [localVersion, setVersion] = useLocalStorage(
     "last-read-version",
     latestMsg.version
   );
 
-  const handleExpand = (panel) => (event, isExpanded) => {
-    setState((state) => ({
-      ...state,
-      expanded: isExpanded ? panel : false,
-    }));
-  };
-
-  const handleModal = (boolean) => () => {
-    setState((state) => ({
-      ...state,
-      modalOpen: boolean,
-    }));
-
-    if (boolean && localVersion !== latestMsg.version) {
-      setVersion(latestMsg.version);
-    }
+  const handleExpand = (panel) => (_, isExpanded) => {
+    setExpanded(isExpanded ? panel : null);
   };
 
   return (
@@ -92,13 +124,11 @@ const Home = () => {
       <Header>
         <span>{pageString.index.helmet.title}</span>
         <span>{latestMsg.version}</span>
-        <NoteButton
-          onClick={handleModal(true)}
-          tooltipText={pageString.index.noteButtonTooltip}
+        <UpdateNote
+          setVersion={setVersion}
+          latestVersion={latestMsg.version}
           $unread={localVersion !== latestMsg.version}
-        >
-          {NoteIcon}
-        </NoteButton>
+        />
       </Header>
       {[
         {
@@ -119,7 +149,7 @@ const Home = () => {
         },
       ].map((item, ind) => (
         <DescriptionAccordion
-          expanded={state.expanded === ind}
+          expanded={expanded === ind}
           onChange={handleExpand(ind)}
           expandIcon={ExpandMoreIcon}
           title={item.header}
@@ -127,7 +157,6 @@ const Home = () => {
           key={ind}
         />
       ))}
-      <UpdateModal modalOpen={state.modalOpen} onClose={handleModal(false)} />
     </HomeContainer>
   );
 };
@@ -172,28 +201,6 @@ const unreadAnimation = keyframes`
     88% {
         transform: scale(.9,1.2) translate(0,-20%);
     }
-`;
-const NoteButton = styled(IconButton)`
-  position: relative;
-  cursor: pointer;
-  && {
-    padding: 0;
-  }
-  svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
-  }
-  &:after {
-    position: absolute;
-    content: "";
-    right: -0.3rem;
-    top: -0.3rem;
-    background-color: red;
-    border-radius: 100%;
-    animation: ${unreadAnimation} 1.5s ease-in-out infinite;
-    ${(props) => (props.$unread ? "width: .6rem; height: .6rem;" : "")}
-  }
 `;
 const DescriptionAccordion = styled(Accordion)`
   && {

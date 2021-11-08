@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
 import Table from "components/Table";
@@ -8,16 +7,21 @@ import Header from "components/Header";
 import { TableHead } from "./table-head";
 import { TableBody } from "./table-body";
 
-export const ResultTablePanel = (props) => {
+export const ResultTablePanel = ({
+  filteredData,
+  maxHeight,
+  striped,
+  helpModal,
+}) => {
   const { pageString } = useLanguage();
-  const { filteredData, handleModalOpen, maxHeight, striped } = props;
+  const [open, setOpen] = useState(false);
 
   return (
     <>
       <Header
         title={pageString.items.drop.filter.resultTitle}
         withHelp
-        onClickHelp={handleModalOpen}
+        onClickHelp={() => setOpen(true)}
         border
       />
       <TableWrapper $maxHeight={maxHeight}>
@@ -26,6 +30,8 @@ export const ResultTablePanel = (props) => {
           <TableBody sortedData={filteredData} />
         </StyledTable>
       </TableWrapper>
+      {helpModal &&
+        React.cloneElement(helpModal, { open, onClose: () => setOpen(false) })}
     </>
   );
 };

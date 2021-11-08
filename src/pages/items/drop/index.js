@@ -276,15 +276,46 @@ const StyledModal = styled(ScrollableModal)`
   }
 `;
 
-const toStageKey = (key) => {
+const Setting = (props) => {
+  const { pageString } = useLanguage();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handleModal = (boolean) => () => setModalOpen(boolean);
+
   return (
-    parseInt(key.chapter) * 1000 +
-    parseInt(key.stage.split(" ")[0]) * 10 +
-    (key.stage.includes("free") ? 1 : 0) +
-    (key.stage.includes("-") ? parseInt(key.stage.split("-")[1]) : 0)
+    <>
+      <SettingButtonWrapper>
+        <IconButton
+          onClick={handleModal(true)}
+          tooltipText={pageString.items.drop.index.settingTooltip}
+        >
+          {SettingIcon}
+        </IconButton>
+      </SettingButtonWrapper>
+      <SettingModal
+        {...props}
+        isModalOpen={isModalOpen}
+        onClose={handleModal(false)}
+      />
+    </>
   );
 };
 
+const SettingButtonWrapper = styled.div`
+    position absolute;
+    right: 0;
+    top: -4rem;
+`;
+
+const BtnGroupsValues = {
+  column: [0, 1, 2, 3],
+  rank: [1, 2, 3, 4],
+  rarity: [0, 1, 2, 3],
+};
+const toStageKey = (key) =>
+  parseInt(key.chapter) * 1000 +
+  parseInt(key.stage.split(" ")[0]) * 10 +
+  (key.stage.includes("free") ? 1 : 0) +
+  (key.stage.includes("-") ? parseInt(key.stage.split("-")[1]) : 0);
 const sortFunc = (sortableItems, sortConfig) => {
   sortableItems.sort((a, b) => {
     let aKey;
@@ -305,13 +336,6 @@ const sortFunc = (sortableItems, sortConfig) => {
     return 0;
   });
 };
-
-const BtnGroupsValues = {
-  column: [0, 1, 2, 3],
-  rank: [1, 2, 3, 4],
-  rarity: [0, 1, 2, 3],
-};
-
 const stageDrop = [].concat(
   ...stageDropData.map((chapter) =>
     chapter.stages.map((stage) => ({
@@ -322,21 +346,17 @@ const stageDrop = [].concat(
 );
 
 const Index = () => {
-  const { pageString } = useLanguage();
-
   const [state, setState] = useState({
     ...BtnGroupsValues,
     column:
       typeof window !== "undefined" && window.innerWidth < 600
         ? [0]
         : BtnGroupsValues.column,
-    isModalOpen: false,
     columnHasMounted:
       typeof window !== "undefined" && window.innerWidth < 600
-        ? [...Array(4).keys()].map((b, i) => i === 0)
+        ? [...Array(4).keys()].map((_, i) => i === 0)
         : Array(4).fill(true),
   });
-
   const filterBy = (key) => (event, val) => {
     setState((state) => ({
       ...state,
@@ -348,22 +368,9 @@ const Index = () => {
     }));
   };
 
-  const handleModal = (boolean) => () =>
-    setState((state) => ({
-      ...state,
-      isModalOpen: boolean,
-    }));
-
   return (
     <>
-      <SettingButtonWrapper>
-        <IconButton
-          onClick={handleModal(true)}
-          tooltipText={pageString.items.drop.index.settingTooltip}
-        >
-          {SettingIcon}
-        </IconButton>
-      </SettingButtonWrapper>
+      <Setting {...state} filterBy={filterBy} />
       <TableWrapper>
         <SortableTable
           data={stageDrop}
@@ -386,12 +393,6 @@ const Index = () => {
           border
         />
       </TableWrapper>
-      <SettingModal
-        {...state}
-        isModalOpen={state.isModalOpen}
-        onClose={handleModal(false)}
-        filterBy={filterBy}
-      />
     </>
   );
 };
@@ -404,11 +405,6 @@ const TableWrapper = styled(Scrollable)`
   table {
     text-align: center;
   }
-`;
-const SettingButtonWrapper = styled.div`
-    position absolute;
-    right: 0;
-    top: -4rem;
 `;
 
 export default Index;

@@ -145,12 +145,14 @@ const CharFilterPanel = ({
   enlistHour,
   handleBtnGroupChange,
   handleEnlistHourChange,
-  handleModalOpen,
+  filterLayout,
+  resultLayout,
+  handleLayoutChange,
   groupBtnByClass,
 }) => {
   const { pageString } = useLanguage();
-
   const [minute, setMinute] = useState("00");
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -166,7 +168,7 @@ const CharFilterPanel = ({
               {DeleteIcon}
             </HeaderIconButton>
             <HeaderIconButton
-              onClick={handleModalOpen}
+              onClick={() => setOpen(true)}
               tooltipText={pageString.enlist.filter.settingTooltip}
             >
               {SettingIcon}
@@ -201,6 +203,13 @@ const CharFilterPanel = ({
         size="small"
         inputProps={{ "aria-label": "recruitment-minute" }}
         onChange={(e) => setMinute(e.target.value)}
+      />
+      <SettingModal
+        open={open}
+        onClose={() => setOpen(false)}
+        filterLayout={filterLayout}
+        resultLayout={resultLayout}
+        handleLayoutChange={handleLayoutChange}
       />
     </>
   );
@@ -268,12 +277,8 @@ const TagTooltip = ({ children, char }) => {
     guaranteeSRTexts.length === 0
       ? distinctTexts
       : distinctTexts.length === 0
-      ? pageString.enlist.filter.guaranteeSR + ":\n" + guaranteeSRTexts
-      : distinctTexts +
-        "\n" +
-        pageString.enlist.filter.guaranteeSR +
-        ":\n" +
-        guaranteeSRTexts;
+      ? `${pageString.enlist.filter.guaranteeSR}:\n${guaranteeSRTexts}`
+      : `${distinctTexts}\n${pageString.enlist.filter.guaranteeSR}:\n${guaranteeSRTexts}`;
 
   return (
     <DistinctCharacterTooltip
@@ -396,6 +401,21 @@ const StyledModal = styled(ScrollableModal)`
   }
 `;
 
+const HelpModal = ({ open, onClose }) => {
+  const { pageString } = useLanguage();
+
+  return (
+    <TextModal
+      title={pageString.enlist.filter.helpModal.title}
+      open={open}
+      onClose={onClose}
+      content={pageString.enlist.filter.helpModal.content}
+      ariaLabelledby="help-modal-title"
+      ariaDescribedby="help-modal-description"
+    />
+  );
+};
+
 function* combinations(elements, num) {
   for (let i = 0; i < elements.length; i++) {
     if (num === 1) yield [elements[i]];
@@ -440,27 +460,22 @@ const calcMinCombs = (inputTags, currCombs) => {
 };
 
 const Filter = () => {
+  const { pageString, charString } = useLanguage();
   const [state, setState] = useState({
     filterBtnValue: [],
-    enlistHour: "9",
-    isHelpModalOpen: false,
-    isSettingModalOpen: false,
-    isSnackbarOpen: false,
+    enlistHour: 9,
   });
-
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const { layout: btnLayout, setLayout: setBtnLayout } = useSwitch(
     "group-btns-by-class",
     [0, 1],
     typeof window === "undefined" || window.innerWidth <= 1000 ? 1 : 0
   );
-
   const { layout: resultLayout, setLayout: setReslutLayout } = useSwitch(
     "show-filter-result-by",
     [0, 1],
     0
   );
-
-  const { pageString, charString } = useLanguage();
 
   // get data from json only once (empty dependency), they are character available for recruiting
   const availableCharacters = useMemo(
@@ -530,11 +545,16 @@ const Filter = () => {
 
     const sortedTags = [...state.filterBtnValue].sort();
 
-    if (dataLayer && sortedTags.length === 5) {
-      dataLayer.push({
-        event: "five_tags_selected",
-        character_tag_combination: sortedTags,
-      });
+    try {
+      // sent data to GA
+      if (dataLayer && sortedTags.length === 5) {
+        dataLayer.push({
+          event: "five_tags_selected",
+          character_tag_combination: sortedTags,
+        });
+      }
+    } catch (e) {
+      // dataLayer is not available at development stage but we don't want it crash
     }
 
     // 0 -> Filter and display by character, 1 -> Filter and group by tags
@@ -620,7 +640,7 @@ const Filter = () => {
   const handleEnlistHourChange = (event) => {
     setState((state) => ({
       ...state,
-      enlistHour: event.target.value,
+      enlistHour: +event.target.value,
     }));
   };
 
@@ -637,10 +657,7 @@ const Filter = () => {
     }
 
     if (newValue.length > 5) {
-      setState((state) => ({
-        ...state,
-        isSnackbarOpen: true,
-      }));
+      setSnackbarOpen(true);
       return;
     }
 
@@ -654,20 +671,6 @@ const Filter = () => {
     setState((state) => ({
       ...state,
       filterBtnValue: [],
-    }));
-  };
-
-  const handelHelpModal = (boolean) => () => {
-    setState((state) => ({
-      ...state,
-      isHelpModalOpen: boolean,
-    }));
-  };
-
-  const handleSettingModal = (boolean) => () => {
-    setState((state) => ({
-      ...state,
-      isSettingModalOpen: boolean,
     }));
   };
 
@@ -690,13 +693,6 @@ const Filter = () => {
     }
   };
 
-  const handleSnackbarClose = () => {
-    setState((state) => ({
-      ...state,
-      isSnackbarOpen: false,
-    }));
-  };
-
   return (
     <>
       <Panels panelsWidth={["60%", "40%"]}>
@@ -706,17 +702,19 @@ const Filter = () => {
           enlistHour={state.enlistHour}
           handleEnlistHourChange={handleEnlistHourChange}
           filterBtnValue={state.filterBtnValue}
-          handleModalOpen={handleSettingModal(true)}
+          filterLayout={btnLayout}
+          resultLayout={resultLayout}
+          handleLayoutChange={handleLayoutChange}
           groupBtnByClass={btnLayout === 0}
         />
         {resultLayout === 1 ? (
           <ResultTablePanel
             filteredData={filteredData}
-            handleModalOpen={handelHelpModal(true)}
             maxHeight={
               btnLayout === 0 ? "calc(100vh - 5rem)" : "calc(100vh - 16rem)"
             }
             striped
+            helpModal={<HelpModal />}
           />
         ) : (
           <ResultTablePanelByCharacter
@@ -725,32 +723,17 @@ const Filter = () => {
             body={<TableBody />}
             sortFunc={sortFunc}
             defaultSortKey="rarity"
-            handleModalOpen={handelHelpModal(true)}
             maxHeight={
               btnLayout === 0 ? "calc(100vh - 5rem)" : "calc(100vh - 16rem)"
             }
             striped
+            helpModal={<HelpModal />}
           />
         )}
       </Panels>
-      <SettingModal
-        open={state.isSettingModalOpen}
-        onClose={handleSettingModal(false)}
-        filterLayout={btnLayout}
-        resultLayout={resultLayout}
-        handleLayoutChange={handleLayoutChange}
-      />
-      <TextModal
-        title={pageString.enlist.filter.helpModal.title}
-        open={state.isHelpModalOpen}
-        onClose={handelHelpModal(false)}
-        content={pageString.enlist.filter.helpModal.content}
-        ariaLabelledby="help-modal-title"
-        ariaDescribedby="help-modal-description"
-      />
       <Snackbar
-        open={state.isSnackbarOpen}
-        onClose={handleSnackbarClose}
+        open={isSnackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
         message={pageString.enlist.filter.snackbarMsg}
         type="warn"
       />

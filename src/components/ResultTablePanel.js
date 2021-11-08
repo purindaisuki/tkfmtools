@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
@@ -11,19 +11,20 @@ const ResultTablePanel = ({
   body,
   sortFunc,
   defaultSortKey,
-  handleModalOpen,
   maxHeight,
   striped,
   headerEnd,
+  helpModal,
 }) => {
   const { pageString } = useLanguage();
+  const [open, setOpen] = useState(false);
 
   return (
     <>
       <Header
         title={pageString.items.drop.filter.resultTitle}
         withHelp
-        onClickHelp={handleModalOpen}
+        onClickHelp={() => setOpen(true)}
         end={headerEnd}
         border
       />
@@ -37,6 +38,8 @@ const ResultTablePanel = ({
           striped={striped}
         />
       </TableWrapper>
+      {helpModal &&
+        React.cloneElement(helpModal, { open, onClose: () => setOpen(false) })}
     </>
   );
 };
