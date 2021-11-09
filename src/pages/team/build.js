@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Divider } from "@material-ui/core";
 import useTeamSlots from "hooks/useTeamSlots";
@@ -99,54 +99,48 @@ const ModalCharCard = styled(CharCard)`
   margin: 0.2rem;
 `;
 
+const charsListReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL_AND_SELECT":
+      return {
+        ...state,
+        didModalMounted: true,
+        isSelectModalOpen: true,
+        slotIndex: action.slotIndex,
+      };
+    case "CLOSE_MODAL":
+      return {
+        ...state,
+        isSelectModalOpen: false,
+        slotIndex: null,
+      };
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+};
+
 const DraggableCharsList = () => {
   const { didLoad, actions } = useTeamData();
   const { setCurrentTeam } = actions;
 
   const [currentTeam, setTeamSlots] = useTeamSlots();
 
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(charsListReducer, {
     didModalMounted: false,
     isSelectModalOpen: false,
-    slotIndex: undefined,
-    canRender: false,
+    slotIndex: null,
   });
 
-  useEffect(() => {
-    setState((state) => ({
-      ...state,
-      canRender: didLoad,
-    }));
-  }, [didLoad]);
-
-  const handleSelectModalOpen = (slotIndex) => () =>
-    setState((state) => ({
-      ...state,
-      didModalMounted: true,
-      isSelectModalOpen: true,
-      slotIndex: slotIndex,
-    }));
-
-  const handleSelectModalClose = () =>
-    setState((state) => ({
-      ...state,
-      isSelectModalOpen: false,
-      slotIndex: undefined,
-    }));
-
-  const handleCharSelect = (charId, index) => () => {
-    setTeamSlots(charId, index === undefined ? state.slotIndex : index);
-
-    setState((state) => ({
-      ...state,
-      isSelectModalOpen: false,
-      slotIndex: undefined,
-    }));
-  };
+  const handleCharSelect =
+    (charId, index = null) =>
+    () => {
+      setTeamSlots(charId, index === null ? state.slotIndex : index);
+      dispatch({ type: "CLOSE_MODAL" });
+    };
 
   return (
     <>
-      {state.canRender && (
+      {didLoad && (
         <Swappable
           items={currentTeam.characters}
           renderItem={(character, index, provided, isDragging) => (
@@ -156,8 +150,10 @@ const DraggableCharsList = () => {
               provided={provided}
               isDragging={isDragging}
               ref={provided.innerRef}
-              handleSelectModalOpen={handleSelectModalOpen(index)}
-              handleCharDelete={handleCharSelect(undefined, index)}
+              handleSelectModalOpen={() =>
+                dispatch({ type: "OPEN_MODAL_AND_SELECT", slotIndex: index })
+              }
+              handleCharDelete={handleCharSelect(null, index)}
             />
           )}
           onUpdate={(newCharacters) =>
@@ -172,7 +168,7 @@ const DraggableCharsList = () => {
       {state.didModalMounted && (
         <CharSelectModal
           open={state.isSelectModalOpen}
-          onClose={handleSelectModalClose}
+          onClose={() => dispatch({ type: "CLOSE_MODAL" })}
           handleSelect={handleCharSelect}
         />
       )}

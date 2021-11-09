@@ -1,3 +1,4 @@
+import type { BattleAppAction } from "./BattleApp";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, ButtonProps, Slider } from "@material-ui/core";
@@ -13,11 +14,8 @@ export interface IGameSetupProps {
   botIndex: number;
   iterations: number;
   playoutDepth: number;
-  handleSelectScarecrow: () => void;
-  handleSelectScarecrows: () => void;
   handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleIterationsChange: (newValue: number) => () => void;
-  handlePlayoutDepthChange: (newValue: number) => () => void;
+  dispatch: React.Dispatch<BattleAppAction>;
 }
 
 export const SelectTeamButton = ({
@@ -58,11 +56,8 @@ const BattleSettings = ({
   botIndex,
   iterations,
   playoutDepth,
-  handleSelectScarecrow,
-  handleSelectScarecrows,
   handleBotChange,
-  handleIterationsChange,
-  handlePlayoutDepthChange,
+  dispatch,
 }: IGameSetupProps): JSX.Element => {
   const { pageString }: any = useLanguage();
   const [iterationsValue, setIterationsValue] = useState(iterations);
@@ -77,10 +72,14 @@ const BattleSettings = ({
         text={pageString.battle.index.setting.select}
       />
       <SettingHeader title={pageString.battle.index.setting.enemy} />
-      <StyledButton onClick={handleSelectScarecrow}>
+      <StyledButton
+        onClick={() => dispatch({ type: "SET_EMENY_AS_SCARECROW", number: 1 })}
+      >
         {pageString.battle.index.setting.scarecrow}
       </StyledButton>
-      <StyledButton onClick={handleSelectScarecrows}>
+      <StyledButton
+        onClick={() => dispatch({ type: "SET_EMENY_AS_SCARECROW", number: 5 })}
+      >
         {`${pageString.battle.index.setting.scarecrow} ×5`}
       </StyledButton>
       <SelectTeamButton
@@ -111,7 +110,12 @@ const BattleSettings = ({
             onChange={(_, value: number | number[]) =>
               setIterationsValue(value as number)
             }
-            onChangeCommitted={handleIterationsChange(iterationsValue)}
+            onChangeCommitted={() =>
+              dispatch({
+                type: "SET_ITERATIONS",
+                iterations: iterationsValue as number,
+              })
+            }
             aria-labelledby="iterations-slider"
           />
           <TextWrapper id="playoutDepth-slider">
@@ -125,7 +129,12 @@ const BattleSettings = ({
             onChange={(_, value: number | number[]) =>
               setPlayoutDepthValue(value as number)
             }
-            onChangeCommitted={handlePlayoutDepthChange(playoutDepthValue)}
+            onChangeCommitted={() =>
+              dispatch({
+                type: "SET_PLAYOUT_DEPTH",
+                playoutDepth: playoutDepthValue as number,
+              })
+            }
             aria-labelledby="playoutDepth-slider"
           />
         </div>

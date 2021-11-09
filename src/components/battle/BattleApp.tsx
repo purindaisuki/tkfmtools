@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { PageProps } from "gatsby";
 import { Client as BgioClient } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
@@ -25,6 +25,56 @@ const wrapper = () =>
 const bots = [AutoBot, DoNothingBot, CustomMCTSBot];
 export const defaultLineups = [[], [scarecrow]] as BattleSetupData["lineups"];
 
+type BattleAppState = {
+  Client: ReturnType<typeof wrapper> | null;
+  lineups: BattleSetupData["lineups"];
+  iterations: number;
+  playoutDepth: number;
+  resetFlag: boolean;
+};
+
+export type BattleAppAction =
+  | ({ type: "SET_CLIENT" } & Pick<BattleAppState, "Client">)
+  | ({ type: "SET_LINEUPS" } & Pick<BattleAppState, "lineups">)
+  | { type: "SET_EMENY_AS_SCARECROW"; number: number }
+  | ({ type: "SET_ITERATIONS" } & Pick<BattleAppState, "iterations">)
+  | ({ type: "SET_PLAYOUT_DEPTH" } & Pick<BattleAppState, "playoutDepth">)
+  | { type: "RESET" };
+
+const battleReducer = (state: BattleAppState, action: BattleAppAction) => {
+  switch (action.type) {
+    case "SET_CLIENT":
+      return { ...state, Client: action.Client };
+    case "SET_LINEUPS":
+      return { ...state, lineups: action.lineups };
+    case "SET_EMENY_AS_SCARECROW":
+      if (action.number < 1 || action.number > 5) {
+        throw new Error(`Invalid number: ${action.number}`);
+      }
+
+      const newLineups = [
+        state.lineups[0],
+        Array(action.number).fill(scarecrow),
+      ] as BattleSetupData["lineups"];
+
+      window.history.replaceState({ lineups: newLineups }, "");
+
+      return { ...state, lineups: newLineups };
+    case "SET_ITERATIONS":
+      if (!action.iterations || action.iterations < 1) {
+        throw new Error(`Invaild iterations: ${action.iterations}`);
+      }
+      return { ...state, iterations: action.iterations };
+    case "SET_PLAYOUT_DEPTH":
+      if (!action.playoutDepth || action.playoutDepth < 1) {
+        throw new Error(`Invaild playoutDepth: ${action.playoutDepth}`);
+      }
+      return { ...state, playoutDepth: action.playoutDepth };
+    case "RESET":
+      return { ...state, resetFlag: !state.resetFlag };
+  }
+};
+
 export const BattleApp = ({
   location,
   board,
@@ -34,73 +84,65 @@ export const BattleApp = ({
   const { pageString }: any = useLanguage();
 
   const lineupsFromTeam = (location.state as any)?.lineups;
-  const [lineups, setLineups] = useState<BattleSetupData["lineups"]>(
-    lineupsFromTeam ? lineupsFromTeam : defaultLineups
-  );
 
   const [botIndex, setBotIndex] = useLocalStorage("bot-type", 0);
-  const [iterations, setIterations] = useState(100);
-  const [playoutDepth, setPlayoutDepth] = useState(30);
-  // reset by useEffect rather than use the built-in function of library due to its issue
-  const [resetFlag, setResetFlag] = useState(false);
-
-  const [Client, setClient] = useState<
-    ReturnType<typeof wrapper> | undefined
-  >();
+  const [state, dispatch] = useReducer(battleReducer, {
+    Client: null,
+    lineups: lineupsFromTeam ? lineupsFromTeam : defaultLineups,
+    iterations: 100,
+    playoutDepth: 30,
+    // reset by useEffect rather than use the built-in function of library due to its issue
+    resetFlag: false,
+  });
 
   const initBattle = (setupData: BattleSetupData, botIndex: number) => {
-    setClient(() =>
-      BgioClient({
+    dispatch({
+      type: "SET_CLIENT",
+      Client: BgioClient({
         game: Battle(setupData),
         board: board,
         numPlayers: 2,
         debug: false,
         multiplayer: Local({ bots: { 1: bots[botIndex] } }),
-      })
-    );
+      }),
+    });
   };
 
   const settingProps = {
-    lineups,
+    lineups: state.lineups,
     botIndex,
-    iterations,
-    playoutDepth,
-    handleSelectScarecrow: () => {
-      const newLineups = [
-        lineups[0],
-        [scarecrow],
-      ] as BattleSetupData["lineups"];
-      setLineups(newLineups);
-      window.history.replaceState({ lineups: newLineups }, "");
-    },
-    handleSelectScarecrows: () => {
-      const newLineups = [
-        lineups[0],
-        Array(5).fill(scarecrow),
-      ] as BattleSetupData["lineups"];
-      setLineups(newLineups);
-      window.history.replaceState({ lineups: newLineups }, "");
-    },
+    iterations: state.iterations,
+    playoutDepth: state.playoutDepth,
     handleBotChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       setBotIndex(
         pageString.battle.index.setting.labels.indexOf(event.target.value)
       );
     },
-    handleIterationsChange: (newValue: number | number[]) => () =>
-      setIterations(newValue as number),
-    handlePlayoutDepthChange: (newValue: number | number[]) => () =>
-      setPlayoutDepth(newValue as number),
+    dispatch,
   };
 
   useEffect(() => {
-    initBattle({ lineups, iterations, playoutDepth }, botIndex);
-  }, [lineups, iterations, playoutDepth, botIndex, resetFlag]);
+    initBattle(
+      {
+        lineups: state.lineups,
+        iterations: state.iterations,
+        playoutDepth: state.playoutDepth,
+      },
+      botIndex
+    );
+  }, [
+    state.lineups,
+    state.iterations,
+    state.playoutDepth,
+    state.resetFlag,
+    botIndex,
+  ]);
 
-  return Client ? (
-    <Client
+  return state.Client ? (
+    <state.Client
       playerID="0"
       settingProps={settingProps}
-      handleReset={() => setResetFlag(!resetFlag)}
+      handleReset={() => dispatch({ type: "RESET" })}
     />
   ) : (
     <div />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
 import { Button, Grid } from "@material-ui/core";
 import useCharacterSelect from "hooks/useCharacterSelect";
@@ -184,19 +184,19 @@ const SelectWrapper = styled(Grid)`
   height: 40%;
 `;
 
-const DataManageButtons = ({ handleData, handleModalOpen }) => {
+const DataManageButtons = ({ dispatch, handleData }) => {
   const { pageString } = useLanguage();
 
   return (
     <DataButtonContainer>
       <IconButton
-        onClick={handleData("save")}
+        onClick={() => handleData("SAVE_DATA")}
         tooltipText={pageString.analysis.index.saveButton}
       >
         {SaveIcon}
       </IconButton>
       <IconButton
-        onClick={handleModalOpen}
+        onClick={() => dispatch({ type: "HANDLE_DATA_MODAL", open: true })}
         tooltipText={pageString.analysis.index.loadButton}
       >
         {LoadIcon}
@@ -215,37 +215,59 @@ const DataButtonContainer = styled.div`
   }
 `;
 
-const DataModal = ({ handleData }) => {
+const ModalContent = ({ handleData }) => {
   const { pageString } = useLanguage();
 
   const { localLineups } = useLineupData();
 
-  if (!localLineups) {
-    return null;
-  }
+  return (
+    localLineups &&
+    localLineups.map((d, ind) => (
+      <Header
+        title={d.date}
+        end={
+          <>
+            <IconButton
+              onClick={() => handleData("LOAD_DATA", ind)}
+              tooltipText={pageString.analysis.index.loadButton}
+            >
+              {LoadIcon}
+            </IconButton>
+            <IconButton
+              onClick={() => handleData("DELETE_DATA", ind)}
+              tooltipText={pageString.analysis.index.deleteButton}
+            >
+              {DeleteIcon}
+            </IconButton>
+          </>
+        }
+        key={ind}
+      />
+    ))
+  );
+};
 
-  return localLineups.map((d, ind) => (
-    <Header
-      title={d.date}
-      end={
-        <>
-          <IconButton
-            onClick={handleData("load", ind)}
-            tooltipText={pageString.analysis.index.loadButton}
-          >
-            {LoadIcon}
-          </IconButton>
-          <IconButton
-            onClick={handleData("delete", ind)}
-            tooltipText={pageString.analysis.index.deleteButton}
-          >
-            {DeleteIcon}
-          </IconButton>
-        </>
-      }
-      key={ind}
-    />
-  ));
+const positionImg = [
+  "attacker",
+  "defender",
+  "healer",
+  "obsructer",
+  "supporter",
+];
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "HANDLE_SUCCESS_SNACKBAR":
+      return { ...state, isSuccessSnackbarOpen: action.open };
+    case "HANDLE_ERROR_SNACKBAR":
+      return { ...state, isErrorSnackbarOpen: action.open };
+    case "HANDLE_DATA_MODAL":
+      return { ...state, isDataModalOpen: action.open };
+    case "HANDLE_HELP_MODAL":
+      return { ...state, isHelpModalOpen: action.open };
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
 };
 
 const Index = () => {
@@ -254,86 +276,51 @@ const Index = () => {
   const { currentLineup, actions } = useLineupData();
   const { pushLineup, getLineup, deleteLineup, setCurrentLineup } = actions;
 
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, {
     isDataModalOpen: false,
     isHelpModalOpen: false,
     isSuccessSnackbarOpen: false,
     isErrorSnackbarOpen: false,
   });
 
-  const handleData = (action, ind) => () => {
-    switch (action) {
-      case "save":
-        if (pushLineup(currentLineup, { firebase: true })) {
-          setState((state) => ({ ...state, isSuccessSnackbarOpen: true }));
+  const handleData = useCallback(
+    (type, dataIndex) => {
+      switch (type) {
+        case "SAVE_DATA":
+          if (pushLineup(currentLineup, { firebase: true })) {
+            dispatch({ type: "HANDLE_SUCCESS_SNACKBAR", open: true });
+            return;
+          }
+          break;
+        case "LOAD_DATA":
+          const loadedData = getLineup(dataIndex);
 
+          if (loadedData) {
+            setCurrentLineup(loadedData);
+
+            dispatch({ type: "HANDLE_SUCCESS_SNACKBAR", open: true });
+            dispatch({ type: "HANDLE_DATA_MODAL", open: false });
+            return;
+          }
+          break;
+        case "DELETE_DATA":
+          if (deleteLineup(dataIndex)) {
+            dispatch({ type: "HANDLE_SUCCESS_SNACKBAR", open: true });
+            return;
+          }
           return;
-        }
+        default:
+          throw new Error(`Unknown action type: ${type}`);
+      }
 
-      case "load":
-        const loadedData = getLineup(ind);
-        if (loadedData) {
-          setState((state) => ({
-            ...state,
-            isSuccessSnackbarOpen: true,
-            isDataModalOpen: false,
-          }));
-
-          setCurrentLineup(loadedData);
-
-          return;
-        }
-
-      case "delete":
-        if (deleteLineup(ind)) {
-          setState((state) => ({
-            ...state,
-            isDataModalOpen: true,
-          }));
-
-          return;
-        }
-
-      default:
-        break;
-    }
-
-    setState((state) => ({
-      ...state,
-      isErrorSnackbarOpen: true,
-    }));
-  };
-
-  const handleSuccessSnackbarClose = () => {
-    setState((state) => ({ ...state, isSuccessSnackbarOpen: false }));
-  };
-
-  const handleErrorSnackbarClose = () => {
-    setState((state) => ({ ...state, isErrorSnackbarOpen: false }));
-  };
-
-  const handleDataModal = (boolean) => () => {
-    setState((state) => ({ ...state, isDataModalOpen: boolean }));
-  };
-
-  const handleHelpModal = (boolean) => () => {
-    setState((state) => ({ ...state, isHelpModalOpen: boolean }));
-  };
-
-  const positionImg = [
-    "attacker",
-    "defender",
-    "healer",
-    "obsructer",
-    "supporter",
-  ];
+      dispatch({ type: "HANDLE_ERROR_SNACKBAR", open: true });
+    },
+    [currentLineup, setCurrentLineup, getLineup, pushLineup, deleteLineup]
+  );
 
   return (
     <CharGroupsContainer>
-      <DataManageButtons
-        handleData={handleData}
-        handleModalOpen={handleDataModal(true)}
-      />
+      <DataManageButtons dispatch={dispatch} handleData={handleData} />
       {charByPositionData.map((group, ind) => (
         <React.Fragment key={ind}>
           <Header
@@ -342,7 +329,9 @@ const Index = () => {
               <PositionImgWrapper name={`ui_${positionImg[ind]}`} alt="" />
             }
             withHelp={ind === 0}
-            onClickHelp={handleHelpModal(true)}
+            onClickHelp={() =>
+              dispatch({ type: "HANDLE_HELP_MODAL", open: true })
+            }
             border
           />
           <Grid container spacing={2}>
@@ -354,30 +343,32 @@ const Index = () => {
       ))}
       <Snackbar
         open={state.isSuccessSnackbarOpen}
-        onClose={handleSuccessSnackbarClose}
+        onClose={() =>
+          dispatch({ type: "HANDLE_SUCCESS_SNACKBAR", open: false })
+        }
         message={pageString.analysis.index.successMsg}
         type="success"
       />
       <Snackbar
         open={state.isErrorSnackbarOpen}
-        onClose={handleErrorSnackbarClose}
+        onClose={() => dispatch({ type: "HANDLE_ERROR_SNACKBAR", open: false })}
         message={pageString.analysis.index.errorMsg}
         type="error"
       />
       <ScrollableModal
         title={pageString.analysis.index.modalTitle}
         open={state.isDataModalOpen}
-        onClose={handleDataModal(false)}
+        onClose={() => dispatch({ type: "HANDLE_DATA_MODAL", open: false })}
         ariaLabelledby="data-operation-modal-title"
         ariaDescribedby="data-operation-modal-description"
       >
-        <DataModal handleData={handleData} />
+        <ModalContent handleData={handleData} />
       </ScrollableModal>
       <TextModal
         title={pageString.analysis.index.helpModal.title}
         content={pageString.analysis.index.helpModal.content}
         open={state.isHelpModalOpen}
-        onClose={handleHelpModal(false)}
+        onClose={() => dispatch({ type: "HANDLE_HELP_MODAL", open: false })}
         ariaLabelledby="help-modal-title"
         ariaDescribedby="help-modal-description"
       />
