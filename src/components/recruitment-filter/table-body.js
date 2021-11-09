@@ -8,8 +8,6 @@ import {
 import { useLanguage } from "containers/LanguageProvider";
 import { ImgCard } from "components/Card";
 
-
-
 export const TableBody = ({ sortedData }) => {
   const { charString } = useLanguage();
 
@@ -56,30 +54,23 @@ const CardRow = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
 const Card = styled.div`
   display: flex;
   align-items: center;
-
   height: 3rem;
-
   padding: 1px 8px 1px 1px;
   margin: 4px;
-
   background-color: ${(props) => props.theme.colors.dropdownHover + "40"};
   box-shadow: 2px 2px 2px 1px
     ${(props) => props.theme.colors.dropdownHover + "80"};
   border-radius: 3rem;
   color: ${(props) => props.theme.colors.onSurface};
-
   @media screen and (max-width: 600px) {
     font-size: small;
   }
 `;
-
 const CharacterImage = styled(ImgCard)`
   margin-right: 2px;
-
   > div:first-child {
     width: 3rem;
     height: 3rem;
@@ -90,7 +81,6 @@ const CharacterImage = styled(ImgCard)`
           ? props.theme.colors.shadow
           : props.theme.colors.secondary};
   }
-
   img {
     border: none;
   }

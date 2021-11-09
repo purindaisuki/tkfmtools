@@ -98,8 +98,8 @@ const CharImgWrapper = styled(ImageSupplier)`
   border-radius: 0.25rem;
 `;
 
-const UiImgWrapper = ({ children, layoutConfig, name, alt }) => (
-  <MaterialWrapper $layoutConfig={layoutConfig}>
+const UiImgWrapper = ({ children, name, alt, $lang }) => (
+  <MaterialWrapper $lang={$lang}>
     <div>
       <UiImg name={name} alt={alt} />
       {children}
@@ -107,14 +107,23 @@ const UiImgWrapper = ({ children, layoutConfig, name, alt }) => (
   </MaterialWrapper>
 );
 
-const MaterialWrapper = styled.span`
+const resultLayoutConfig = {
+  en: { 1360: 5, 1200: 4, 768: 3, 0: 2 },
+  "zh-TW": { 1360: 6, 1200: 5, 768: 4, 624: 3, 0: 2 },
+  ja: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
+  ko: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
+};
+
+const MaterialWrapper = styled.span.attrs(({ $lang }) => ({
+  layoutConfig: resultLayoutConfig[$lang],
+}))`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.4rem;
   margin: 0.2rem 0;
   ${(props) =>
-    Object.entries(props.$layoutConfig).map(
+    Object.entries(props.layoutConfig).map(
       ([breakpoint, denominator]) =>
         `@media screen and (min-width: ${breakpoint}px) {
             width: calc(100% / ${denominator});
@@ -132,11 +141,11 @@ const UiImg = styled(ImageSupplier)`
   margin-right: 0.4rem;
 `;
 
-const MaterialBox = ({ result, layoutConfig }) => (
+const MaterialBox = ({ result, $lang }) => (
   <>
     {result.items &&
       Object.entries(result.items).map((item) => (
-        <MaterialWrapper key={item[0]} $layoutConfig={layoutConfig}>
+        <MaterialWrapper key={item[0]} $lang={$lang}>
           <div>
             <MaterialCard id={item[0]} alt="" />
           </div>
@@ -144,7 +153,7 @@ const MaterialBox = ({ result, layoutConfig }) => (
         </MaterialWrapper>
       ))}
     {result.items && result.money && (
-      <UiImgWrapper name="money" alt="money" layoutConfig={layoutConfig}>
+      <UiImgWrapper name="money" alt="money" $lang={$lang}>
         {result.money}
       </UiImgWrapper>
     )}
@@ -162,13 +171,6 @@ const MaterialCard = styled(ItemCard)`
   }
 `;
 
-const resultLayoutConfig = {
-  en: { 1360: 5, 1200: 4, 768: 3, 0: 2 },
-  "zh-TW": { 1360: 6, 1200: 5, 768: 4, 624: 3, 0: 2 },
-  ja: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
-  ko: { 1460: 5, 1305: 4, 768: 3, 624: 2, 0: 2 },
-};
-
 const ResultPanel = ({ result, handleModalOpen }) => {
   const { userLanguage, pageString } = useLanguage();
 
@@ -182,34 +184,23 @@ const ResultPanel = ({ result, handleModalOpen }) => {
         border
       />
       <MaterialContainer>
-        <MaterialBox
-          result={result}
-          layoutConfig={resultLayoutConfig[userLanguage]}
-        />
+        <MaterialBox result={result} $lang={userLanguage} />
       </MaterialContainer>
       <Header
         title={pageString.characters.potential.resultBuffTitle}
         titleIcon={BuffIcon}
         border
       />
-      <UiImgWrapper
-        layoutConfig={resultLayoutConfig[userLanguage]}
-        name="ui_small_atk"
-        alt="ATK"
-      >
+      <UiImgWrapper name="ui_small_atk" alt="ATK" $lang={userLanguage}>
         {`${result.buff.ATK} %`}
       </UiImgWrapper>
-      <UiImgWrapper
-        layoutConfig={resultLayoutConfig[userLanguage]}
-        name="ui_small_hp"
-        alt="HP"
-      >
+      <UiImgWrapper name="ui_small_hp" alt="HP" $lang={userLanguage}>
         {`${result.buff.HP} %`}
       </UiImgWrapper>
       <UiImgWrapper
-        layoutConfig={resultLayoutConfig[userLanguage]}
         name="ui_small_potentialPassive"
         alt="Passive"
+        $lang={userLanguage}
       >
         {`${
           result.buff.PASSIVE === 0

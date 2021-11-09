@@ -41,13 +41,6 @@ const StyledTh = styled(SortableTh)`
   }
 `;
 
-const cardTextWrapConfig = {
-  "zh-TW": 900,
-  en: 1300,
-  ja: 1300,
-  ko: 1300,
-};
-
 const parseRarity = (rarity) =>
   rarity === 0 ? "N" : rarity === 1 ? "R" : rarity === 2 ? "SR" : "SSR";
 
@@ -58,10 +51,7 @@ const TableRow = React.forwardRef(({ item: char, ind }, ref) => {
     return (
       <MuiTableRow hover>
         <MuiTableCell>
-          <ResponsiveCharCard
-            id={char.id}
-            $textWrapConfig={cardTextWrapConfig[userLanguage]}
-          />
+          <ResponsiveCharCard id={char.id} $lang={userLanguage} $type="TABLE" />
         </MuiTableCell>
         <MuiTableCell>{parseRarity(char.rarity)}</MuiTableCell>
         <MuiTableCell>{charString.tags[char.attribute]}</MuiTableCell>
@@ -82,7 +72,8 @@ const TableRow = React.forwardRef(({ item: char, ind }, ref) => {
             <MuiTableCell key={key}>
               <ResponsiveCharCard
                 id={char.id}
-                $textWrapConfig={cardTextWrapConfig[userLanguage]}
+                $lang={userLanguage}
+                $type="TABLE"
               />
             </MuiTableCell>
           );

@@ -189,13 +189,6 @@ const TableBody = ({ column, rarity, rank, columnHasMounted, sortedData }) => (
   </MuiTableBody>
 );
 
-const btnLayoutConfig = {
-  en: { 0: 2, 990: 4 },
-  "zh-TW": { 0: 4 },
-  ja: { 0: 4 },
-  ko: { 0: 4 },
-};
-
 const ButtonGroupContainer = ({
   filterBtnValue,
   filterBy,
@@ -210,7 +203,8 @@ const ButtonGroupContainer = ({
       <ToggleButtonGroup
         value={filterBtnValue}
         onChange={filterBy}
-        layoutConfig={btnLayoutConfig[userLanguage]}
+        $lang={userLanguage}
+        $type="ITEM_DROPS_TABLE"
       >
         {groupValues.map((v, ind) => (
           <StyledToggleButton value={v} key={ind}>

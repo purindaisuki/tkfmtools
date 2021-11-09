@@ -101,13 +101,13 @@ const LineupDataProvider = ({ children }) => {
         newLineups = [{ date: localDate, data: dehydratedLineup }];
       }
 
-      if (!uploadFunctionRef?.current) {
-        uploadFunctionRef.current = await import("../utils/firebase").then(
-          (module) => module.uploadLineup
-        );
-      }
-
       if (setting?.firebase) {
+        if (!uploadFunctionRef?.current) {
+          uploadFunctionRef.current = await import("../utils/firebase").then(
+            (module) => module.uploadLineup
+          );
+        }
+
         uploadFunctionRef.current({ date: localDate, data: lineup });
       }
 

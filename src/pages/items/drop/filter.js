@@ -19,13 +19,6 @@ import { DeleteIcon } from "components/icon";
 import itemDropData from "data/byStageToItem";
 import stageDropData from "data/stageDrop.json";
 
-const btnLayoutConfig = {
-  en: { 1360: 4, 992: 3, 768: 4, 624: 3, 0: 2 },
-  "zh-TW": { 1360: 5, 992: 4, 768: 5, 624: 4, 410: 3, 0: 2 },
-  ja: { 1360: 5, 992: 4, 768: 5, 624: 4, 410: 3, 0: 2 },
-  ko: { 1460: 5, 1200: 4, 1000: 3, 920: 5, 740: 4, 570: 3, 0: 2 },
-};
-
 const ItemFilterPanel = ({ filterBtnValue, filterBy, clearBtnValue }) => {
   const { userLanguage, pageString, itemString } = useLanguage();
 
@@ -46,7 +39,8 @@ const ItemFilterPanel = ({ filterBtnValue, filterBy, clearBtnValue }) => {
       <ToggleButtonGroup
         value={filterBtnValue}
         onChange={filterBy}
-        layoutConfig={btnLayoutConfig[userLanguage]}
+        $lang={userLanguage}
+        $type="ITEM_DROPS_FILTER"
       >
         {Object.entries(itemDropData).map(([id, data], ind) => {
           if (data.drop.length === 0) return null;

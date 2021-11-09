@@ -1,13 +1,13 @@
 import React from "react";
-import { useLanguage } from "containers/LanguageProvider";
+import styled from "styled-components";
 import {
   TableHead as MuiTableHead,
   TableRow as MuiTableRow,
   TableCell,
 } from "@material-ui/core";
-import styled from "styled-components";
+import { useLanguage } from "containers/LanguageProvider";
 
-export const TableHead = (props) => {
+export const TableHead = () => {
   const { pageString } = useLanguage();
 
   return (

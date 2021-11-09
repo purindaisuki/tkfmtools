@@ -14,7 +14,7 @@ export const SortableTable = ({
   striped,
   border,
 }) => {
-  const { sortedData, sortConfig, requestSort, getSortDirection } = useSortable(
+  const { sortedData, requestSort, getSortDirection } = useSortable(
     data,
     sortFunc,
     { key: defaultSortKey, direction: "desc" }
@@ -28,14 +28,8 @@ export const SortableTable = ({
       $border={border}
       size="small"
     >
-      {React.cloneElement(head, {
-        sortedData: sortedData,
-        requestSort: requestSort,
-        getSortDirection: getSortDirection,
-      })}
-      {React.cloneElement(body, {
-        sortedData: sortedData,
-      })}
+      {React.cloneElement(head, { sortedData, requestSort, getSortDirection })}
+      {React.cloneElement(body, { sortedData })}
     </Table>
   );
 };
@@ -47,11 +41,11 @@ export const SortableTh = styled(TableCell)`
     cursor: pointer;
     user-select: none;
     &:after {
-      content: "${(props) =>
-        props.direction
-          ? props.direction === "asc"
-            ? " \\25B2"
-            : " \\25BC"
+      content: "${({ direction }) =>
+        direction === "asc"
+          ? " \\25B2"
+          : direction === "desc"
+          ? " \\25BC"
           : undefined}";
     }
   }

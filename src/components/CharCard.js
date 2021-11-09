@@ -67,7 +67,16 @@ const TitleText = styled(TextWrapper)`
   font-size: small;
 `;
 
-export const ResponsiveCharCard = styled(CharCard)`
+const cardTextWrapConfig = {
+  TABLE: { "zh-TW": 900, en: 1300, ja: 1300, ko: 1300 },
+  FILTER: { "zh-TW": 1360, en: 1360, ja: 1460, ko: 1360 },
+};
+
+export const ResponsiveCharCard = styled(CharCard).attrs(
+  ({ $lang, $type }) => ({
+    $textWrapConfig: cardTextWrapConfig[$type][$lang],
+  })
+)`
   @media screen and (min-width: ${(props) => props.$textWrapConfig}px) {
     flex-direction: row;
     align-items: center;

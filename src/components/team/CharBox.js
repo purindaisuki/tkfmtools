@@ -5,26 +5,23 @@ import ImageSupplier from "components/ImageSupplier";
 
 const CharsBox = ({ chars }) => {
   const { charString } = useLanguage();
-
-  if (chars.every((c) => c === undefined || c.id === undefined)) {
-    return (
-      <CharContainer>
-        <EmptySlot />
-      </CharContainer>
-    );
-  }
+  const isEmpty = !chars.some((c) => c?.id);
 
   return (
     <CharContainer>
-      {chars.map(
-        (c, ind) =>
-          c?.id && (
-            <CharImg
-              key={ind}
-              name={`char_small_${c.id}`}
-              alt={charString.name[c.id]}
-            />
-          )
+      {isEmpty ? (
+        <EmptySlot />
+      ) : (
+        chars.map(
+          (c, ind) =>
+            c?.id && (
+              <CharImg
+                key={ind}
+                name={`char_small_${c.id}`}
+                alt={charString.name[c.id]}
+              />
+            )
+        )
       )}
     </CharContainer>
   );

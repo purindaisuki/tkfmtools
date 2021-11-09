@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const teamsRef = firebase.firestore().collection("teams");
+export const teamCollection = firebase.firestore().collection("teams");
 export const Timestamp = firebase.firestore.Timestamp;
 
 const storageRef = firebase.storage().ref();

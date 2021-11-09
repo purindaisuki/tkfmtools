@@ -22,31 +22,28 @@ const useExport = () => {
   const [isExporting, setExporting] = useState(false);
 
   const exportImage = async ({ componentRef, fileName, html2canvasOption }) => {
-    if (!exporterRef?.current) {
-      exporterRef.current = (await import("html2canvas")).default;
-      console.log(exporterRef.current);
-    }
-
     if (componentRef?.current) {
       setExporting(true);
 
-      const element = ReactDOM.findDOMNode(componentRef.current);
+      if (!exporterRef?.current) {
+        exporterRef.current = (await import("html2canvas")).default;
+      }
 
-      exporterRef
-        .current(element, {
-          logging: false,
-          scrollY: -window.scrollY,
-          useCORS: true,
-          backgroundColor: colors.background,
-          ...html2canvasOption,
-        })
-        .then((canvas) => {
-          saveAs(
-            canvas.toDataURL("image/jpeg", 1.0),
-            fileName ? fileName : "component"
-          );
-        })
-        .then(() => setExporting(false));
+      const element = ReactDOM.findDOMNode(componentRef.current);
+      const canvas = await exporterRef.current(element, {
+        logging: false,
+        scrollY: -window.scrollY,
+        useCORS: true,
+        backgroundColor: colors.background,
+        ...html2canvasOption,
+      });
+
+      await saveAs(
+        canvas.toDataURL("image/jpeg", 1.0),
+        fileName ? fileName : "component"
+      );
+
+      setExporting(false);
     } else {
       throw new Error("'componentRef' must be a RefObject");
     }

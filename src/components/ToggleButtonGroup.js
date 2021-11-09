@@ -49,21 +49,46 @@ const ToggleButtonGroup = ({
   className,
   value,
   onChange,
-  layoutConfig,
+  $lang,
+  $type,
 }) => {
   return (
     <StyledToggleButtonGroup
+      className={className}
       value={value}
       onChange={onChange}
-      $layoutConfig={layoutConfig}
-      className={className}
+      $lang={$lang}
+      $type={$type}
     >
       {children}
     </StyledToggleButtonGroup>
   );
 };
 
-const StyledToggleButtonGroup = styled(MuiToggleButtonGroup)`
+const btnLayoutConfig = {
+  ENLIST_FILTER: {
+    en: { 1400: 5, 1160: 4, 1000: 3, 768: 4, 580: 3, 0: 2 },
+    "zh-TW": { 1260: 6, 1080: 5, 1000: 4, 768: 5, 550: 4, 355: 3, 0: 2 },
+    ja: { 1460: 6, 1250: 5, 1030: 4, 1000: 3, 768: 5, 630: 4, 430: 3, 0: 2 },
+    ko: { 1260: 6, 768: 5, 550: 4, 365: 3, 0: 2 },
+  },
+  ITEM_DROPS_FILTER: {
+    en: { 1360: 4, 992: 3, 768: 4, 624: 3, 0: 2 },
+    "zh-TW": { 1360: 5, 992: 4, 768: 5, 624: 4, 410: 3, 0: 2 },
+    ja: { 1360: 5, 992: 4, 768: 5, 624: 4, 410: 3, 0: 2 },
+    ko: { 1460: 5, 1200: 4, 1000: 3, 920: 5, 740: 4, 570: 3, 0: 2 },
+  },
+  ITEM_DROPS_TABLE: {
+    en: { 0: 2, 990: 4 },
+    "zh-TW": { 0: 4 },
+    ja: { 0: 4 },
+    ko: { 0: 4 },
+  },
+};
+
+const StyledToggleButtonGroup = styled(MuiToggleButtonGroup).attrs(
+  ({ $lang, $type }) => ({ $layoutConfig: btnLayoutConfig[$type][$lang] })
+)`
   &&& {
     display: grid;
     gap: 0.5rem;

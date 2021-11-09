@@ -1,8 +1,8 @@
 import React from "react";
-import Input from "components/Input";
 import styled, { useTheme } from "styled-components";
 import { ListSubheader, MenuItem } from "@material-ui/core";
 import { useLanguage } from "containers/LanguageProvider";
+import Input from "components/Input";
 
 const StageSelect = ({ children, className, value, error, handleChange }) => {
   const { pageString, stageString } = useLanguage();

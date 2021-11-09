@@ -91,7 +91,7 @@ const CloudTeamList = () => {
   const { actions } = useTeamData();
   const { newTeam } = actions;
 
-  const [teamsRef, setTeamsRef] = useState();
+  const [teamCollection, setTeamCollection] = useState();
   const [filter, setFilter] = useState({ chapter: "all", stage: "all" });
   const [query, setQuery] = useState();
   const [lastFetchedItem, setLastFetchedItem] = useState();
@@ -99,17 +99,19 @@ const CloudTeamList = () => {
 
   // not import browser-targeted Firebase bundle when SSR
   useEffect(() => {
-    import("../../utils/firebase").then((module) => {
-      setTeamsRef(module.teamsRef);
-    });
+    const initteamCollection = async () => {
+      setTeamCollection((await import("../../utils/firebase")).teamCollection);
+    };
+
+    initteamCollection();
   }, []);
 
   useEffect(() => {
-    if (!teamsRef) {
+    if (!teamCollection) {
       return;
     }
 
-    let newQuery = teamsRef.orderBy("time", "desc");
+    let newQuery = teamCollection.orderBy("time", "desc");
 
     if (filter.chapter !== "all") {
       newQuery = newQuery
@@ -118,7 +120,7 @@ const CloudTeamList = () => {
     }
 
     setQuery(newQuery);
-  }, [filter, teamsRef]);
+  }, [filter, teamCollection]);
 
   const fetchItem = async () => {
     if (!query) {

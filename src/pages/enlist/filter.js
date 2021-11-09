@@ -41,7 +41,7 @@ import {
 import tagData from "data/tag.json";
 import charData from "data/character.json";
 
-const TagButtonGroup = ({ value, onChange, layoutConfig, groupRange }) => {
+const TagButtonGroup = ({ value, onChange, groupRange, $lang }) => {
   const { charString } = useLanguage();
 
   const attrIcons = {
@@ -58,7 +58,8 @@ const TagButtonGroup = ({ value, onChange, layoutConfig, groupRange }) => {
     <ToggleButtonGroup
       value={value}
       onChange={onChange}
-      layoutConfig={layoutConfig}
+      $lang={$lang}
+      $type="ENLIST_FILTER"
     >
       {tagData.slice(groupRange[0], groupRange[1]).map((t) =>
         [...Array(t.range[1]).keys()].slice(t.range[0]).map((id) => (
@@ -70,13 +71,6 @@ const TagButtonGroup = ({ value, onChange, layoutConfig, groupRange }) => {
       )}
     </ToggleButtonGroup>
   );
-};
-
-const btnLayoutConfig = {
-  en: { 1400: 5, 1160: 4, 1000: 3, 768: 4, 580: 3, 0: 2 },
-  "zh-TW": { 1260: 6, 1080: 5, 1000: 4, 768: 5, 550: 4, 355: 3, 0: 2 },
-  ja: { 1460: 6, 1250: 5, 1030: 4, 1000: 3, 768: 5, 630: 4, 430: 3, 0: 2 },
-  ko: { 1260: 6, 768: 5, 550: 4, 365: 3, 0: 2 },
 };
 
 const TagPanel = ({
@@ -100,8 +94,8 @@ const TagPanel = ({
                 (v) => v >= t.range[0] && v < t.range[1]
               )}
               onChange={handleBtnGroupChange(ind)}
-              layoutConfig={btnLayoutConfig[userLanguage]}
               groupRange={[ind, ind + 1]}
+              $lang={userLanguage}
             />
           </BtnGroupWrapper>
         ))
@@ -110,8 +104,8 @@ const TagPanel = ({
           <TagButtonGroup
             value={filterBtnValue}
             onChange={handleBtnGroupChange()}
-            layoutConfig={btnLayoutConfig[userLanguage]}
             groupRange={[0, 7]}
+            $lang={userLanguage}
           />
         </BtnGroupWrapper>
       )}
@@ -295,8 +289,6 @@ const TagTooltip = ({ children, char }) => {
 const parseRarity = (rarity) =>
   rarity === 0 ? "N" : rarity === 1 ? "R" : rarity === 2 ? "SR" : "SSR";
 
-const cardTextWrapConfig = { "zh-TW": 1360, en: 1360, ja: 1460, ko: 1360 };
-
 const TableBody = ({ sortedData }) => {
   const { userLanguage, charString } = useLanguage();
 
@@ -309,7 +301,8 @@ const TableBody = ({ sortedData }) => {
               <CharCardWrapper>
                 <ResponsiveCharCard
                   id={char.id}
-                  $textWrapConfig={cardTextWrapConfig[userLanguage]}
+                  $lang={userLanguage}
+                  $type="FILTER"
                 />
                 <MarksContainer>
                   {char.distinctTagCombs.length !== 0 ? (
@@ -459,6 +452,18 @@ const calcMinCombs = (inputTags, currCombs) => {
   return combs;
 };
 
+const availableCharacters = charData
+  .filter((char) => char.tags.available)
+  .map((char) => {
+    const { id, rarity, tags } = char;
+    const { else: elseTags, ...otherTags } = tags;
+    return {
+      id,
+      rarity,
+      tags: [...Object.values(otherTags), ...elseTags],
+    };
+  });
+
 const Filter = () => {
   const { pageString, charString } = useLanguage();
   const [state, setState] = useState({
@@ -475,23 +480,6 @@ const Filter = () => {
     "show-filter-result-by",
     [0, 1],
     0
-  );
-
-  // get data from json only once (empty dependency), they are character available for recruiting
-  const availableCharacters = useMemo(
-    () =>
-      charData
-        .filter((char) => char.tags.available)
-        .map((char) => {
-          const { id, rarity, tags } = char;
-          const { else: elseTags, ...otherTags } = tags;
-          return {
-            id,
-            rarity,
-            tags: [...Object.values(otherTags), ...elseTags],
-          };
-        }),
-    []
   );
 
   const getCharsByTags = useCallback(
@@ -554,7 +542,7 @@ const Filter = () => {
         });
       }
     } catch (e) {
-      // dataLayer is not available at development stage but we don't want it crash
+      // dataLayer is not available at development stage but we don't want the page crashes
     }
 
     // 0 -> Filter and display by character, 1 -> Filter and group by tags
