@@ -31,7 +31,7 @@ const useSortable = (data, sortFunc, initConfig) => {
     if (sortConfig.key !== initConfig.key) {
       requestSort(initConfig.key);
     }
-  }, [sortConfig.key, initConfig.key]);
+  }, [initConfig.key]);
 
   return {
     sortedData,
