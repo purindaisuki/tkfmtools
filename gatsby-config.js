@@ -34,6 +34,7 @@ module.exports = {
         theme_color: "#F48FB1",
         display: "standalone",
         icon: "src/images/favicon.png",
+        cache_busting_mode: "none",
         localize: [
           {
             start_url: "/en/",
@@ -54,6 +55,16 @@ module.exports = {
             description: string_ko.index.helmet.description,
           },
         ],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-offline",
+      options: {
+        precachePages: ["/", "/enlist/filter/"],
+        workboxConfig: {
+          globPatterns: ["**/*.{html,js,css}"],
+          maximumFileSizeToCacheInBytes: 4000000,
+        },
       },
     },
     {

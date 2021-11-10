@@ -123,7 +123,7 @@ const Layout = ({ children, pagePath, isIndex, withTabs }) => {
   helmetString =
     pagePathKeys[0] === "404"
       ? helmetString
-      : (isIndex ? helmetString.index : helmetString).helmet;
+      : (isIndex ? helmetString.index : helmetString)?.helmet;
 
   return (
     <ThemeProvider
@@ -135,8 +135,8 @@ const Layout = ({ children, pagePath, isIndex, withTabs }) => {
       }}
     >
       <Head
-        title={helmetString.title}
-        description={helmetString.description}
+        title={helmetString?.title || "TkfmToolbox"}
+        description={helmetString?.description || ""}
         path={pagePath}
       />
       <Navbar withSidebar={state.withSidebar} toggleSidebar={toggleSidebar} />
