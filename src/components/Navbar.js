@@ -223,8 +223,9 @@ const ThemeSwitcher = () => {
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <ThemeSwitcherLabel>
+    <ThemeSwitcherLabel htmlFor="theme-switcher">
       <ThemeSwitcherInput
+        id="theme-switcher"
         type="checkbox"
         checked={isDark}
         onChange={toggleTheme}
