@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   TableHead as MuiTableHead,
@@ -6,10 +6,12 @@ import {
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
 } from "@material-ui/core";
+import useWindowSize from "hooks/useWindowSize";
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
 import IconButton from "components/IconButton";
-import SortableTable, { SortableTh } from "components/SortableTable";
+import { SortableTh } from "components/SortableTable";
+import WindowTable from "components/VariableHeightWindowTable";
 import { ItemCard } from "components/Card";
 import { StyledChip as Chip } from "components/Chip";
 import { ScrollableModal } from "components/Modal";
@@ -19,12 +21,7 @@ import { SettingIcon } from "components/icon";
 import stageDropData from "data/stageDrop.json";
 import itemData from "data/item.json";
 
-const TableHead = ({
-  column,
-  columnHasMounted,
-  requestSort,
-  getSortDirection,
-}) => {
+const TableHead = ({ column, requestSort, getSortDirection }) => {
   const { pageString } = useLanguage();
 
   return (
@@ -34,19 +31,16 @@ const TableHead = ({
           ([key, string], ind) => {
             const sortable = key === "stage" || key === "energy";
 
-            return (
-              (ind === 0 || columnHasMounted[ind - 1]) && (
-                <StyledTh
-                  onClick={sortable ? () => requestSort(key) : undefined}
-                  direction={sortable ? getSortDirection(key) : undefined}
-                  key={string}
-                  $sortable={sortable}
-                  $hidden={ind !== 0 && !column.includes(ind - 1)}
-                >
-                  {string}
-                </StyledTh>
-              )
-            );
+            return ind === 0 || column.includes(ind - 1) ? (
+              <StyledTh
+                onClick={sortable ? () => requestSort(key) : null}
+                direction={sortable ? getSortDirection(key) : null}
+                key={string}
+                $sortable={sortable}
+              >
+                {string}
+              </StyledTh>
+            ) : null;
           }
         )}
       </StyledTableHeadRow>
@@ -58,39 +52,26 @@ const StyledTh = styled(SortableTh)`
   && {
     background-color: ${(props) => props.theme.colors.secondary};
     color: ${(props) => props.theme.colors.onSecondary};
-    ${(props) => (props.$hidden ? "display: none;" : "")}
-  }
-  white-space: nowrap;
-  ${(props) => (props.$sortable ? "" : "cursor: default;")}
-`;
-const StyledTableRow = styled(MuiTableRow)`
-  && {
-    ${(props) => (props.$hidden ? "display: none;" : "")}
+    ${(props) => (props.$sortable ? "" : "cursor: default;")}
   }
 `;
-const StyledTableHeadRow = styled(StyledTableRow)`
+const StyledTableHeadRow = styled(MuiTableRow)`
   && {
     background-color: ${(props) => props.theme.colors.secondary};
     color: ${(props) => props.theme.colors.onSecondary};
   }
 `;
 
-const ItemTd = ({ items, rarity, rank, hidden }) => {
+const ItemTd = ({ items, rarity, rank }) => {
   const { itemString } = useLanguage();
 
   return (
-    <StyledTableCell $hidden={hidden}>
+    <MuiTableCell>
       <ItemsContainer>
-        {items.length !== 0 &&
+        {items &&
+          items.length !== 0 &&
           items.map((item) => (
-            <ItemWrapper
-              key={item.id}
-              $hidden={
-                !rarity.includes(item.rarity) ||
-                (itemData[item.id].category === 0 &&
-                  !rank.includes(itemData[item.id].rank))
-              }
-            >
+            <ItemWrapper key={item.id}>
               <ItemCard id={item.id} />
               <StyledChip
                 $rarity={item.rarity}
@@ -99,27 +80,20 @@ const ItemTd = ({ items, rarity, rank, hidden }) => {
             </ItemWrapper>
           ))}
       </ItemsContainer>
-    </StyledTableCell>
+    </MuiTableCell>
   );
 };
 
-const StyledTableCell = styled(MuiTableCell)`
-  && {
-    ${(props) => (props.$hidden ? "display: none;" : "")}
-  }
-`;
 const ItemsContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
   > div:last-child {
     margin: 0;
   }
 `;
 const ItemWrapper = styled.div`
-  display: ${(props) => (props.$hidden ? "none" : "flex")};
-  flex-direction: row;
+  display: flex;
   align-items: center;
   flex-wrap: nowrap;
   margin-right: 0.8rem;
@@ -134,12 +108,12 @@ const ItemWrapper = styled.div`
 `;
 const StyledChip = styled(Chip)`
   && {
-    background-color: ${(props) =>
-      props.$rarity === 0
+    background-color: ${({ $rarity }) =>
+      $rarity === 0
         ? "lightgray"
-        : props.$rarity === 1
+        : $rarity === 1
         ? "#90CAF9"
-        : props.$rarity === 2
+        : $rarity === 2
         ? "#A5D6A7"
         : "#FFAB91"};
     color: black;
@@ -147,46 +121,26 @@ const StyledChip = styled(Chip)`
   margin-left: 0.4rem;
 `;
 
-const TableBody = ({ column, rarity, rank, columnHasMounted, sortedData }) => (
-  <MuiTableBody>
-    {sortedData.map((s) => {
-      const { chapter, stage, energy, ...rest } = s;
+const TableRow = ({ item, column, rarity, rank }) => {
+  const { chapter, stage, energy, materials, trainItems, expPotions } = item;
 
-      return (
-        <StyledTableRow
-          key={`${chapter}-${stage}`}
-          $hidden={Object.values(rest)
-            .filter((v, i) => column.includes(i))
-            .every(
-              (v) =>
-                !v.some(
-                  (i) =>
-                    rarity.includes(i.rarity) &&
-                    (itemData[i.id].category !== 0 ||
-                      rank.includes(itemData[i.id].rank))
-                )
-            )}
-        >
-          <MuiTableCell>{`${chapter}-${stage}`}</MuiTableCell>
-          {Object.values(rest).map(
-            (v, ind) =>
-              columnHasMounted[ind] && (
-                <ItemTd
-                  items={v}
-                  rarity={rarity}
-                  rank={rank}
-                  hidden={!column.includes(ind)}
-                  key={ind}
-                />
-              )
-          )}
-          <StyledTableCell $hidden={!column.includes(3)}>
-            {columnHasMounted[3] && energy}
-          </StyledTableCell>
-        </StyledTableRow>
-      );
-    })}
-  </MuiTableBody>
+  return (
+    <MuiTableRow>
+      <MuiTableCell>{`${chapter}-${stage}`}</MuiTableCell>
+      {Object.values([materials, trainItems, expPotions]).map(
+        (v, ind) =>
+          v &&
+          column.includes(ind) && (
+            <ItemTd items={v} rarity={rarity} rank={rank} key={ind} />
+          )
+      )}
+      {column.includes(3) && <MuiTableCell>{energy}</MuiTableCell>}
+    </MuiTableRow>
+  );
+};
+
+const TableBody = ({ renderRows, ...props }) => (
+  <MuiTableBody>{renderRows(TableRow, props)}</MuiTableBody>
 );
 
 const ButtonGroupContainer = ({
@@ -305,11 +259,13 @@ const BtnGroupsValues = {
   rank: [1, 2, 3, 4],
   rarity: [0, 1, 2, 3],
 };
+
 const toStageKey = (key) =>
   parseInt(key.chapter) * 1000 +
   parseInt(key.stage.split(" ")[0]) * 10 +
   (key.stage.includes("free") ? 1 : 0) +
   (key.stage.includes("-") ? parseInt(key.stage.split("-")[1]) : 0);
+
 const sortFunc = (sortableItems, sortConfig) => {
   sortableItems.sort((a, b) => {
     let aKey;
@@ -330,6 +286,7 @@ const sortFunc = (sortableItems, sortConfig) => {
     return 0;
   });
 };
+
 const stageDrop = [].concat(
   ...stageDropData.map((chapter) =>
     chapter.stages.map((stage) => ({
@@ -339,59 +296,121 @@ const stageDrop = [].concat(
   )
 );
 
+const getFilteredDropData = ({ column, rank, rarity }, windowWidth) => {
+  let filteredDropData = [];
+  const rarityAndRankFilter = (item) =>
+    rarity.includes(item.rarity) && rank.includes(itemData[item.id].rank);
+
+  for (let i = 0; i < stageDrop.length; i++) {
+    const { materials, trainItems, expPotions, ...rest } = stageDrop[i];
+
+    const filteredMaterials = column.includes(0)
+      ? materials.filter(rarityAndRankFilter)
+      : [];
+    const filteredTrainItems = column.includes(1)
+      ? trainItems.filter(rarityAndRankFilter)
+      : [];
+    const filteredExpPotions = column.includes(2)
+      ? expPotions.filter(rarityAndRankFilter)
+      : [];
+
+    if (
+      filteredMaterials.length > 0 ||
+      filteredTrainItems.length > 0 ||
+      filteredExpPotions.length > 0
+    ) {
+      const itemNumber = Math.max(
+        filteredMaterials.length,
+        filteredTrainItems.length,
+        filteredExpPotions.length
+      );
+
+      filteredDropData.push({
+        ...rest,
+        id: `${rest.chapter}-${rest.stage}`,
+        materials: filteredMaterials,
+        trainItems: filteredTrainItems,
+        expPotions: filteredExpPotions,
+        // 2.5rem * itemNumber + 13px
+        height: 2.5 * 16 * (windowWidth > 490 ? 1 : 0.9) * itemNumber + 13,
+      });
+    }
+  }
+
+  return filteredDropData;
+};
+
 const Index = () => {
-  const [state, setState] = useState({
+  const initColumn =
+    typeof window !== "undefined" && window.innerWidth < 600
+      ? [0]
+      : BtnGroupsValues.column;
+  const [windowWidth, _] = useWindowSize();
+
+  const [state, setState] = useState(() => ({
     ...BtnGroupsValues,
-    column:
-      typeof window !== "undefined" && window.innerWidth < 600
-        ? [0]
-        : BtnGroupsValues.column,
-    columnHasMounted:
-      typeof window !== "undefined" && window.innerWidth < 600
-        ? [...Array(4).keys()].map((_, i) => i === 0)
-        : Array(4).fill(true),
-  });
+    column: initColumn,
+    dropData: getFilteredDropData(
+      {
+        column: initColumn,
+        rank: BtnGroupsValues.rank,
+        rarity: BtnGroupsValues.rarity,
+      },
+      windowWidth
+    ),
+  }));
+
   const filterBy = (key) => (event, val) => {
-    setState((state) => ({
-      ...state,
-      [key]: val,
-      columnHasMounted:
-        key === "column"
-          ? state.columnHasMounted.map((b, i) => b || val.includes(i))
-          : state.columnHasMounted,
-    }));
+    const { column, rank, rarity } = state;
+    const newFilter = { column, rank, rarity };
+
+    newFilter[key] = val;
+
+    const dropData = getFilteredDropData(newFilter, windowWidth);
+
+    setState((state) => ({ ...newFilter, dropData }));
   };
+
+  useEffect(() => {
+    if (windowWidth === 0) return;
+
+    const { dropData, ...filter } = state;
+    const newDropData = getFilteredDropData(filter, windowWidth);
+
+    setState({ ...filter, dropData: newDropData });
+  }, [windowWidth]);
 
   return (
     <>
-      <Setting {...state} filterBy={filterBy} />
-      <TableWrapper>
-        <SortableTable
-          data={stageDrop}
-          head={
-            <TableHead
-              column={state.column}
-              columnHasMounted={state.columnHasMounted}
-            />
-          }
-          body={
-            <TableBody
-              column={state.column}
-              rarity={state.rarity}
-              rank={state.rank}
-              columnHasMounted={state.columnHasMounted}
-            />
-          }
-          sortFunc={sortFunc}
-          defaultSortKey={"stage"}
-          border
-        />
-      </TableWrapper>
+      <Setting
+        column={state.column}
+        rank={state.rank}
+        rarity={state.rarity}
+        filterBy={filterBy}
+      />
+      <ItemTable
+        data={state.dropData}
+        head={<TableHead column={state.column} />}
+        // 3rem + 1px
+        headHeight={3 * 16 * (windowWidth > 490 ? 1 : 0.9) + 1}
+        renderRow={(item) => (
+          <TableRow
+            item={item}
+            column={state.column}
+            rarity={state.rarity}
+            rank={state.rank}
+          />
+        )}
+        overseen={10}
+        sortFunc={sortFunc}
+        defaultSortKey={"stage"}
+        border
+      />
     </>
   );
 };
 
-const TableWrapper = styled(Scrollable)`
+const ItemTable = styled(WindowTable)`
   overflow-x: auto;
   height: calc(100vh - 11rem);
   padding-right: 0;

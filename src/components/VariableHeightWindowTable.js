@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { TableBody } from "@material-ui/core";
 import useSort from "hooks/useSort";
@@ -8,7 +8,7 @@ import Table from "components/Table";
 
 const TableRows = ({
   data,
-  itemHeight,
+  itemsPosition,
   headHeight,
   renderIndices,
   renderRow,
@@ -16,7 +16,10 @@ const TableRows = ({
   renderIndices.slice(-1)[0] >= data.length || data.length === 0 ? null : (
     <>
       {renderIndices[0] > 0 ? (
-        <VirtualRow $height={renderIndices[0] * itemHeight} key={data[0].id} />
+        <VirtualRow
+          $height={itemsPosition[renderIndices[0] - 1] - headHeight}
+          key={data[0].id}
+        />
       ) : null}
       {renderIndices.map((i) => (
         <React.Fragment key={data[i].id}>{renderRow(data[i])}</React.Fragment>
@@ -24,13 +27,38 @@ const TableRows = ({
     </>
   );
 
-const WindowTable = ({
+const findSortedIndex = (arr, value) => {
+  let low = 0;
+  let high = arr.length;
+
+  while (low < high) {
+    const mid = (low + high) >>> 1;
+
+    if (arr[mid] < value) low = mid + 1;
+    else high = mid;
+  }
+
+  return low;
+};
+
+const getGeometry = (data, headHeight) => {
+  let itemsPosition = Array(data.length);
+
+  for (let i = 0; i < data.length; i++) {
+    itemsPosition[i] = (itemsPosition[i - 1] ?? headHeight) + data[i].height;
+  }
+
+  let sizerHeight = itemsPosition.slice(-1)[0];
+
+  return { sizerHeight, itemsPosition };
+};
+
+const VariableHeightWindowTable = ({
   className,
   head,
   headHeight,
   renderRow,
   data,
-  itemHeight,
   overseen = 5,
   sortFunc,
   defaultSortKey,
@@ -43,9 +71,14 @@ const WindowTable = ({
     { key: defaultSortKey, direction: "desc" }
   );
 
+  const { sizerHeight, itemsPosition } = useMemo(
+    () => getGeometry(sortedData, headHeight),
+    [sortedData, headHeight]
+  );
+
   const findItemIndex = useCallback(
-    (position) => Math.floor(position / itemHeight),
-    []
+    (position) => findSortedIndex(itemsPosition, position),
+    [itemsPosition]
   );
 
   const { renderIndices, wrapperRef, handleScroll } = useWindowList({
@@ -56,7 +89,7 @@ const WindowTable = ({
 
   return (
     <Scrollable className={className} onScroll={handleScroll} ref={wrapperRef}>
-      <Sizer $height={headHeight + data.length * itemHeight}>
+      <Sizer $height={sizerHeight}>
         <Table stickyHeader $striped={striped} $border={border} size="small">
           {React.cloneElement(head, {
             requestSort,
@@ -65,7 +98,7 @@ const WindowTable = ({
           <TableBody>
             <TableRows
               data={sortedData}
-              itemHeight={itemHeight}
+              itemsPosition={itemsPosition}
               headHeight={headHeight}
               renderIndices={renderIndices}
               renderRow={renderRow}
@@ -89,4 +122,4 @@ const VirtualRow = styled.tr`
   height: ${({ $height }) => $height}px;
 `;
 
-export default WindowTable;
+export default VariableHeightWindowTable;

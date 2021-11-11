@@ -6,22 +6,23 @@ import {
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
 } from "@material-ui/core";
+import useWindowSize from "hooks/useWindowSize";
 import { useLanguage } from "containers/LanguageProvider";
 import { ResponsiveCharCard } from "components/CharCard";
 import WindowTable from "components/WindowTable";
 import { SortableTh } from "components/SortableTable";
 import charData from "data/character.json";
 
-const TableHead = React.forwardRef((props, ref) => {
+const TableHead = ({ requestSort, getSortDirection }) => {
   const { charString } = useLanguage();
 
   return (
-    <MuiTableHead ref={ref}>
+    <MuiTableHead>
       <MuiTableRow hover>
         {Object.entries(charString.tagAttributes).map(([attr, string], ind) => (
           <StyledTh
-            onClick={() => props.requestSort(attr)}
-            direction={props.getSortDirection(attr)}
+            onClick={() => requestSort(attr)}
+            direction={getSortDirection(attr)}
             key={attr}
           >
             {string}
@@ -30,21 +31,20 @@ const TableHead = React.forwardRef((props, ref) => {
       </MuiTableRow>
     </MuiTableHead>
   );
-});
+};
 
 const StyledTh = styled(SortableTh)`
   && {
     background-color: ${(props) => props.theme.colors.secondary};
     color: ${(props) => props.theme.colors.onSecondary};
     text-align: start;
-    white-space: nowrap;
   }
 `;
 
 const parseRarity = (rarity) =>
   rarity === 0 ? "N" : rarity === 1 ? "R" : rarity === 2 ? "SR" : "SSR";
 
-const TableRow = React.forwardRef(({ item: char, ind }, ref) => {
+const TableRow = ({ item: char }) => {
   const { userLanguage, charString } = useLanguage();
 
   if (!char.available) {
@@ -62,54 +62,50 @@ const TableRow = React.forwardRef(({ item: char, ind }, ref) => {
   }
 
   return (
-    <MuiTableRow hover ref={ind === 0 ? ref : undefined}>
+    <MuiTableRow hover>
       {Object.entries(char).map(([key, value]) => {
-        if (key === "available") {
-          return null;
+        switch (key) {
+          case "available":
+            return null;
+          case "id":
+            return (
+              <MuiTableCell key={key}>
+                <ResponsiveCharCard
+                  id={char.id}
+                  $lang={userLanguage}
+                  $type="TABLE"
+                />
+              </MuiTableCell>
+            );
+          case "rarity":
+            return <MuiTableCell key={key}>{parseRarity(value)}</MuiTableCell>;
+          case "else":
+            return (
+              <MuiTableCell key={key}>
+                {value.map((tag) => charString.tags[tag]).join(", ")}
+              </MuiTableCell>
+            );
+          default:
+            return (
+              <MuiTableCell key={key}>
+                {value < 0 ? "-" : charString.tags[value]}
+              </MuiTableCell>
+            );
         }
-        if (key === "id") {
-          return (
-            <MuiTableCell key={key}>
-              <ResponsiveCharCard
-                id={char.id}
-                $lang={userLanguage}
-                $type="TABLE"
-              />
-            </MuiTableCell>
-          );
-        }
-        if (key === "rarity") {
-          return <MuiTableCell key={key}>{parseRarity(value)}</MuiTableCell>;
-        }
-        if (key === "else") {
-          return (
-            <MuiTableCell key={key}>
-              {value.map((tag) => charString.tags[tag]).join(", ")}
-            </MuiTableCell>
-          );
-        }
-
-        return (
-          <MuiTableCell key={key}>
-            {value < 0 ? "-" : charString.tags[value]}
-          </MuiTableCell>
-        );
       })}
     </MuiTableRow>
   );
-});
+};
 
-const TableBody = ({ sortedData, renderRow }) => (
-  <MuiTableBody>{renderRow(sortedData, TableRow)}</MuiTableBody>
-);
+const charTagData = charData.map((char) => {
+  const { id, rarity, tags } = char;
+  return { id, rarity, ...tags };
+});
 
 const CharTagTable = () => {
   const { charString } = useLanguage();
 
-  const charTagData = charData.map((char) => {
-    const { id, rarity, tags } = char;
-    return { id, rarity, ...tags };
-  });
+  const [windowWidth, _] = useWindowSize();
 
   const sortFunc = (sortableItems, sortConfig) => {
     sortableItems.sort((a, b) => {
@@ -139,7 +135,11 @@ const CharTagTable = () => {
     <CharTable
       data={charTagData}
       head={<TableHead />}
-      body={<TableBody />}
+      // 3rem + 1px
+      headHeight={3 * 16 * (windowWidth > 490 ? 1 : 0.9) + 1}
+      renderRow={(item) => <TableRow item={item} />}
+      // 3.6rem + 13px
+      itemHeight={3.6 * 16 * (windowWidth > 490 ? 1 : 0.9) + 13}
       sortFunc={sortFunc}
       defaultSortKey={"rarity"}
       border

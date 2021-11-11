@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { TableCell } from "@material-ui/core";
-import useSortable from "hooks/useSortable";
+import useSort from "hooks/useSort";
 import Table from "components/Table";
 
 export const SortableTable = ({
@@ -14,7 +14,7 @@ export const SortableTable = ({
   striped,
   border,
 }) => {
-  const { sortedData, requestSort, getSortDirection } = useSortable(
+  const { sortedData, requestSort, getSortDirection } = useSort(
     data,
     sortFunc,
     { key: defaultSortKey, direction: "desc" }

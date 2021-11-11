@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-const useSortable = (data, sortFunc, initConfig) => {
+const useSort = (data, sortFunc, initConfig) => {
   const [sortConfig, setSortConfig] = useState(initConfig);
 
   const sortedData = useMemo(() => {
@@ -41,4 +41,4 @@ const useSortable = (data, sortFunc, initConfig) => {
   };
 };
 
-export default useSortable;
+export default useSort;
