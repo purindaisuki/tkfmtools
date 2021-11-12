@@ -9,7 +9,7 @@ import RadioGroup, { Radio } from "components/RadioGroup";
 import IconButton from "components/IconButton";
 import Modal from "components/Modal";
 import { ChangeChip, FixChip, NewChip } from "components/Chip";
-import { DeleteIcon } from "components/icon";
+import { DeleteIcon, InstallIcon, iosShareIcon } from "components/icon";
 
 const SiteDescriptionLine = ({ text, link }) =>
   link ? (
@@ -98,24 +98,54 @@ const DescriptionBody = styled.div`
   }
 `;
 
-export const SiteSetting = () => {
-  const { layout, setLayout } = useLayoutConfig();
-
+export const SiteSetting = ({ deferredPrompt, clearDeferredPrompt }) => {
   const { pageString } = useLanguage();
+
+  const { layout, setLayout } = useLayoutConfig();
   const layouts = pageString.index.setting.labels;
 
-  const [isModalOpen, setModal] = useState(false);
+  const [browser, setBrowser] = useState();
 
-  const handleModal = (boolean) => () => setModal(boolean);
+  const [isClearModalOpen, setClearModal] = useState(false);
+  const [isInstallModalOpen, setInstallModalOpen] = useState(false);
 
-  const clearLocalStorage = () => {
-    if (typeof window !== "undefined") {
-      localStorage.clear();
+  const handleClearModal = (boolean) => () => setClearModal(boolean);
+
+  const handleInstall = async () => {
+    const detect = (await import("detect-browser")).detect;
+    const browser = detect();
+
+    if (browser?.type !== "browser") return;
+
+    switch (browser.name) {
+      case "chrome":
+      case "edge":
+      case "samsung":
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+
+          const { outcome } = await deferredPrompt.userChoice;
+
+          if (outcome === "accepted") {
+            clearDeferredPrompt();
+          }
+        }
+        break;
+      default:
+        setInstallModalOpen(true);
+        setBrowser(browser.name);
     }
   };
 
   return (
     <BodyContainer>
+      <SettingHeader title={pageString.index.setting.installTitle} />
+      <IconButton
+        onClick={handleInstall}
+        tooltipText={pageString.index.setting.installButtonTooltip}
+      >
+        {InstallIcon}
+      </IconButton>
       <RadioGroup
         label={pageString.index.setting.groupLabel}
         value={layouts[layout]}
@@ -125,17 +155,17 @@ export const SiteSetting = () => {
           <Radio label={label} value={label} key={label} />
         ))}
       </RadioGroup>
-      <ClearHeader title={pageString.index.setting.clearTitle} />
+      <SettingHeader title={pageString.index.setting.clearTitle} />
       <StyledButton
-        onClick={handleModal(true)}
+        onClick={handleClearModal(true)}
         tooltipText={pageString.index.setting.clearButton}
       >
         {DeleteIcon}
       </StyledButton>
       <StyledModal
         title={pageString.index.setting.clearModalTitle}
-        open={isModalOpen}
-        onClose={handleModal(false)}
+        open={isClearModalOpen}
+        onClose={handleClearModal(false)}
         ariaLabelledby="clear-modal"
         aria-describedby="clear-modal-description"
       >
@@ -143,14 +173,36 @@ export const SiteSetting = () => {
           {pageString.index.setting.clearModalContent}
         </p>
         <ButtonsWrapper>
-          <TextButton $clear onClick={clearLocalStorage}>
+          <TextButton $clear onClick={() => localStorage.clear()}>
             {pageString.index.setting.clear}
           </TextButton>
-          <TextButton onClick={handleModal(false)}>
+          <TextButton onClick={handleClearModal(false)}>
             {pageString.index.setting.cancel}
           </TextButton>
         </ButtonsWrapper>
       </StyledModal>
+      <InstallModal
+        title={pageString.index.setting.installButtonTooltip}
+        open={isInstallModalOpen}
+        onClose={() => setInstallModalOpen(false)}
+        ariaLabelledby="install-modal"
+        aria-describedby="install-modal-description"
+      >
+        <div id="install-modal-description">
+          {browser === "ios" ? (
+            <>
+              <p>
+                {`1. ${pageString.index.setting.iosInstall[0]}`}
+                {iosShareIcon}
+              </p>
+              <br />
+              <p>{`2. ${pageString.index.setting.iosInstall[1]}`}</p>
+            </>
+          ) : (
+            <p>{pageString.index.setting.unsupported} </p>
+          )}
+        </div>
+      </InstallModal>
     </BodyContainer>
   );
 };
@@ -169,7 +221,30 @@ const StyledModal = styled(Modal)`
     }
   }
 `;
-const ClearHeader = styled(Header)`
+const InstallModal = styled(StyledModal)`
+  > div:nth-child(3) {
+    width: 30%;
+    height: auto;
+    @media screen and (max-width: 1000px) {
+      width: 40%;
+    }
+    @media screen and (max-width: 600px) {
+      width: 60%;
+    }
+  }
+  #install-modal-description {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0 0.4rem 0.4rem 0.4rem;
+    fill: ${(props) => props.theme.colors.link};
+  }
+`;
+const SettingHeader = styled(Header)`
   margin-bottom: 0;
   font-size: medium;
 `;

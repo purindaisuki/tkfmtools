@@ -105,6 +105,13 @@
       "header": "전체 설정",
       "groupLabel": "화면 설정 (일부 페이지 및 디바이스에서만 사용 가능)",
       "labels": ["세로", "가로"],
+      "installTitle": "텐카푸마 툴박스 설치",
+      "installButtonTooltip": "설치",
+      "iosInstall": [
+        "공유 아이콘을 터치합니다",
+        "「홈 화면에 추가」 를 선택합니다"
+      ],
+      "unsupported": "브라우저에서 지원하지 않음 :(",
       "clearTitle": "로컬에 저장된 모든 데이터 지우기",
       "clearButton": "삭제",
       "clearModalTitle": "삭제하시겠습니까?",
@@ -118,6 +125,16 @@
       "fix": "수정",
       "change": "변경",
       "content": [
+        {
+          "version": "v1.8.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "Offline mode",
+              "description": "You can install TenkafuMa toolbox in global settings and then it's available when offline. (available on Chrome, Edge, Safari)"
+            }
+          ]
+        },
         {
           "version": "v1.7.3",
           "content": [

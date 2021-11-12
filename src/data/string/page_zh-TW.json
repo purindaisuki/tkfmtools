@@ -105,6 +105,10 @@
       "header": "全域設定",
       "groupLabel": "版面配置（部分頁面及裝置有效）",
       "labels": ["直式", "橫式"],
+      "installTitle": "安裝天下布魔工具箱",
+      "installButtonTooltip": "安裝",
+      "iosInstall": ["請按分享按鈕", "按「加入主畫面」"],
+      "unsupported": "你的瀏覽器不支援此功能 :(",
       "clearTitle": "清除本地所有資料",
       "clearButton": "清除",
       "clearModalTitle": "確認清除？",
@@ -118,6 +122,16 @@
       "fix": "修正",
       "change": "變更",
       "content": [
+        {
+          "version": "v1.8.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "離線瀏覽功能",
+              "description": "可於全域設定安裝天下布魔工具箱（支援 Chrome, Edge, Safari），安裝後支援離線瀏覽。"
+            }
+          ]
+        },
         {
           "version": "v1.7.3",
           "content": [

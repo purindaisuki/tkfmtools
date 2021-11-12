@@ -105,11 +105,15 @@
       "header": "共通設定",
       "groupLabel": "画面設定（一部ページとデバイスでのみ有効）",
       "labels": ["縦", "横"],
-      "clearTitle": "サイトにある全てのデータを消去",
-      "clearButton": "消去",
-      "clearModalTitle": "本当に消去しますか？",
-      "clearModalContent": "本サイトのチーム分析、編成等の全てのデータが消去されます。消去すると元に戻すことはできません。本当に消去しますか？",
-      "clear": "消去",
+      "installTitle": "天下布魔道具箱をインストールします",
+      "installButtonTooltip": "インストール",
+      "iosInstall": ["シェアマークを選択", "「ホーム画面に追加」を選択"],
+      "unsupported": "お使いのブラウザではサポートされていません :(",
+      "clearTitle": "サイトにある全てのデータを削除します",
+      "clearButton": "削除",
+      "clearModalTitle": "本当に削除しますか？",
+      "clearModalContent": "本サイトのチーム分析、編成等の全てのデータが削除されます。削除すると元に戻すことはできません。本当に削除しますか？",
+      "clear": "削除",
       "cancel": "キャンセル"
     },
     "updateLog": {
@@ -118,6 +122,16 @@
       "fix": "修正",
       "change": "変更",
       "content": [
+        {
+          "version": "v1.8.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "オフライン機能",
+              "description": "「共通設定」で天下布魔道具箱をインストールすることができます(Chrome, Edge, Safari)、インストールすればオフラインでも利用できます。"
+            }
+          ]
+        },
         {
           "version": "v1.7.3",
           "content": [

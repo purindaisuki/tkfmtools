@@ -108,6 +108,10 @@
       "header": "Global Settings",
       "groupLabel": "Layout (Only works for some pages and devices)",
       "labels": ["Portrait", "Landscape"],
+      "installTitle": "Install TenkafuMa Toolbox",
+      "installButtonTooltip": "Install",
+      "iosInstall": ["Press the share button", "Press 'Add to home screen'"],
+      "unsupported": "Your browser does not support this feature :(",
       "clearTitle": "Clear all data stored in localStorage",
       "clearButton": "Clear",
       "clearModalTitle": "Are you sure?",
@@ -121,6 +125,16 @@
       "fix": "Fix",
       "change": "Change",
       "content": [
+        {
+          "version": "v1.8.0",
+          "content": [
+            {
+              "type": "New",
+              "title": "Offline mode",
+              "description": "You can install TenkafuMa toolbox in global settings and then it's available when offline. (available on Chrome, Edge, Safari)"
+            }
+          ]
+        },
         {
           "version": "v1.7.3",
           "content": [

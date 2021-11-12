@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useLanguage } from "containers/LanguageProvider";
@@ -82,9 +82,25 @@ const UpdateNote = ({ setVersion, latestVersion, $unread }) => {
   );
 };
 
+const unreadAnimation = keyframes`
+    0%, 67%, 80%, 96%, 100% {
+        transform: scale(1,1) translate(0,0);
+    }
+    72% {
+        transform: scale(1.1,.9) translate(0,5%);
+    }
+    76%, 92% {
+        transform: scale(1.2,.8) translate(0,15%);
+    }
+    84% {
+        transform: scale(.9,1.2) translate(0,-100%);
+    }
+    88% {
+        transform: scale(.9,1.2) translate(0,-20%);
+    }
+`;
 const NoteButton = styled(IconButton)`
   position: relative;
-  cursor: pointer;
   && {
     padding: 0;
   }
@@ -110,14 +126,27 @@ const Home = () => {
   const latestMsg = pageString.index.updateLog.content[0];
 
   const [expanded, setExpanded] = useState(0);
-  const [localVersion, setVersion] = useLocalStorage(
-    "last-read-version",
-    latestMsg.version
-  );
+  const [localVersion, setVersion] = useLocalStorage("last-read-version");
+
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   const handleExpand = (panel) => (_, isExpanded) => {
     setExpanded(isExpanded ? panel : null);
   };
+
+  const clearDeferredPrompt = () => setDeferredPrompt(null);
+
+  useEffect(() => {
+    const promptHandler = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener("beforeinstallprompt", promptHandler);
+
+    return () =>
+      window.removeEventListener("beforeinstallprompt", promptHandler);
+  }, []);
 
   return (
     <HomeContainer>
@@ -137,7 +166,12 @@ const Home = () => {
         },
         {
           header: pageString.index.setting.header,
-          body: <SiteSetting />,
+          body: (
+            <SiteSetting
+              deferredPrompt={deferredPrompt}
+              clearDeferredPrompt={clearDeferredPrompt}
+            />
+          ),
         },
         {
           header: pageString.index.updateLog.header,
@@ -184,23 +218,6 @@ const Header = styled.div`
     margin: 0.4rem;
     font-size: large;
   }
-`;
-const unreadAnimation = keyframes`
-    0%, 67%, 80%, 96%, 100% {
-        transform: scale(1,1) translate(0,0);
-    }
-    72% {
-        transform: scale(1.1,.9) translate(0,5%);
-    }
-    76%, 92% {
-        transform: scale(1.2,.8) translate(0,15%);
-    }
-    84% {
-        transform: scale(.9,1.2) translate(0,-100%);
-    }
-    88% {
-        transform: scale(.9,1.2) translate(0,-20%);
-    }
 `;
 const DescriptionAccordion = styled(Accordion)`
   && {
