@@ -44,9 +44,7 @@ function useLocalStorage<T>(
           value instanceof Function ? value(localValue) : value;
         setLocalValue(valueToStore);
 
-        if (typeof window !== "undefined") {
-          localStorage.setItem(key, JSON.stringify(valueToStore));
-        }
+        localStorage.setItem(key, JSON.stringify(valueToStore));
 
         return 1;
       } catch (error) {
