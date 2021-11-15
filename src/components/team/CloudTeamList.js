@@ -8,6 +8,7 @@ import StyledListItem from "components/team/StyledListItem";
 import CharsBox from "components/team/CharBox";
 import InfiniteLoader from "components/InfiniteLoader";
 import StageSelect from "components/StageSelect";
+import handlePromise from "utils/handlePromise";
 import languageConfig from "languageConfig.json";
 
 const CloudTeamItem = ({ team, handleSelectTeam }) => {
@@ -28,7 +29,7 @@ const CloudTeamItem = ({ team, handleSelectTeam }) => {
     >
       <Grid container spacing={1}>
         <GridItem item xs={6}>
-          {team.stage + " : " + stageText}
+          {`${team.stage} : ${stageText}`}
         </GridItem>
         <GridItem item xs={6}>
           <FootText>{`${pageString.team.index.author} : ${team.author}`}</FootText>
@@ -71,8 +72,8 @@ const StyledCloudTeamItem = styled(StyledListItem)`
       font-size: small;
       background: linear-gradient(
         90deg,
-        ${(props) => props.theme.colors.shadow + "2A"},
-        ${(props) => props.theme.colors.shadow + "0D"}
+        ${(props) => `${props.theme.colors.shadow}2A`},
+        ${(props) => `${props.theme.colors.shadow}0D`}
       );
     }
   }
@@ -91,63 +92,37 @@ const CloudTeamList = () => {
   const { actions } = useTeamData();
   const { newTeam } = actions;
 
-  const [teamCollection, setTeamCollection] = useState();
+  const [teamCollection, setTeamCollection] = useState(null);
   const [filter, setFilter] = useState({ chapter: "all", stage: "all" });
-  const [query, setQuery] = useState();
-  const [lastFetchedItem, setLastFetchedItem] = useState();
+  const [query, setQuery] = useState(null);
+  const [lastFetchedItem, setLastFetchedItem] = useState(null);
   const [shouldReset, setShouldReset] = useState(false);
-
-  // not import browser-targeted Firebase bundle when SSR
-  useEffect(() => {
-    const initteamCollection = async () => {
-      setTeamCollection((await import("../../utils/firebase")).teamCollection);
-    };
-
-    initteamCollection();
-  }, []);
-
-  useEffect(() => {
-    if (!teamCollection) {
-      return;
-    }
-
-    let newQuery = teamCollection.orderBy("time", "desc");
-
-    if (filter.chapter !== "all") {
-      newQuery = newQuery
-        .where("chapter", "==", filter.chapter)
-        .where("stage", "==", filter.stage);
-    }
-
-    setQuery(newQuery);
-  }, [filter, teamCollection]);
 
   const fetchItem = async () => {
     if (!query) {
-      return;
+      return null;
     }
 
     const pagenatedQuery = lastFetchedItem
       ? query.startAfter(lastFetchedItem).limit(10)
       : query.limit(10);
+    const [snapshot, err] = await handlePromise(pagenatedQuery.get());
 
-    try {
-      const snapshot = await pagenatedQuery.get();
-      const docs = lastFetchedItem ? snapshot.docs : snapshot.docs.slice(1);
-      const last = docs[docs.length - 1];
+    if (err) {
+      throw err;
+    }
 
-      if (last) {
-        setLastFetchedItem(last);
-      } else {
-        return [];
-      }
+    const docs = lastFetchedItem ? snapshot.docs : snapshot.docs.slice(1);
+    const last = docs[docs.length - 1];
 
-      return docs.map((t) => ({ id: t.id, ...t.data() }));
-    } catch (error) {
-      console.log(error);
-
+    if (last) {
+      setLastFetchedItem(last);
+    } else {
+      // no items
       return [];
     }
+
+    return docs.map((t) => ({ id: t.id, ...t.data() }));
   };
 
   const listenToUpdate = useCallback(
@@ -176,31 +151,53 @@ const CloudTeamList = () => {
     [query]
   );
 
-  const handleChange = (event) => {
-    if (!event.target.value) {
+  const handleChange = ({ target }) => {
+    if (!target.value) {
       return;
     }
 
-    const arr = event.target.value.split("/");
+    const arr = target.value.split("/");
 
     setFilter({ chapter: arr[0], stage: arr[1] });
-    setLastFetchedItem(undefined);
+    setLastFetchedItem(null);
     setShouldReset(true);
   };
 
   const handleSelectTeam = (data) => () => {
     const { name, characters } = data;
 
-    newTeam({
-      name: name,
-      characters: characters,
-    });
+    newTeam({ name, characters });
   };
+
+  // not import browser-targeted Firebase bundle at SSR stage
+  useEffect(() => {
+    const initteamCollection = async () => {
+      setTeamCollection((await import("../../utils/firebase")).teamCollection);
+    };
+
+    initteamCollection();
+  }, []);
+
+  useEffect(() => {
+    if (!teamCollection) {
+      return;
+    }
+
+    let newQuery = teamCollection.orderBy("time", "desc");
+
+    if (filter.chapter !== "all") {
+      newQuery = newQuery
+        .where("chapter", "==", filter.chapter)
+        .where("stage", "==", filter.stage);
+    }
+
+    setQuery(newQuery);
+  }, [filter, teamCollection]);
 
   return (
     <>
       <StyledStageSelect
-        value={filter.chapter + "/" + filter.stage}
+        value={`${filter.chapter}/${filter.stage}`}
         handleChange={handleChange}
       >
         <MenuItem value="all/all">{pageString.team.index.allStage}</MenuItem>
@@ -227,8 +224,8 @@ const CloudTeamList = () => {
 const StyledStageSelect = styled(StageSelect)`
   && {
     position: absolute;
-    top: -3.2rem;
-    right: 3rem;
+    top: -3.3rem;
+    right: 0;
     width: 30%;
     height: 2rem;
     .MuiSelect-select {

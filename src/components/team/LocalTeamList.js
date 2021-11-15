@@ -1,15 +1,78 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { navigate } from "gatsby";
 import styled from "styled-components";
-import { List, ListItemSecondaryAction } from "@material-ui/core";
+import {
+  Checkbox,
+  List,
+  ListItemSecondaryAction,
+  MenuItem,
+} from "@material-ui/core";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import LocalizedLink from "components/LocalizedLink";
+import DropDown from "components/DropDown";
 import IconButton from "components/IconButton";
 import StyledListItem from "components/team/StyledListItem";
 import CharsBox from "components/team/CharBox";
 import Snackbar from "components/Snackbar";
-import { NewIcon, CopyIcon, DeleteIcon } from "components/icon";
+import { CopyIcon, DeleteIcon, NewIcon, SettingIcon } from "components/icon";
+
+const SettingDropDown = () => {
+  const { pageString } = useLanguage();
+
+  const { isImportingLineup, actions } = useTeamData();
+  const { toggleImportLineupData } = actions;
+
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleToggle = () => {
+    if (!toggleImportLineupData()) {
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean);
+
+  return (
+    <>
+      <DropDown
+        button={
+          <StyledButton tooltipText={pageString.team.index.settingTooltip}>
+            {SettingIcon}
+          </StyledButton>
+        }
+        items={[{ id: "setting-description" }]}
+        renderItem={(item) => (
+          <>
+            <Checkbox
+              edge="start"
+              checked={isImportingLineup}
+              disableRipple
+              inputProps={{ "aria-labelledby": item.id }}
+            />
+            <span id={item.id}>{pageString.team.index.settingDescription}</span>
+          </>
+        )}
+        itemOnClick={handleToggle}
+        ariaId="setting-menu"
+      />
+      <Snackbar
+        open={isSnackbarOpen}
+        onClose={handleSnackbar(false)}
+        message={pageString.team.index.errorSnackbar}
+        type="error"
+      />
+    </>
+  );
+};
+
+const StyledButton = styled(IconButton)`
+  && {
+    position: absolute;
+    top: -3.3rem;
+    right: 0;
+  }
+`;
 
 const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
   const { pageString, isDefault, userLanguage } = useLanguage();
@@ -71,6 +134,7 @@ const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
 
   return (
     <>
+      <SettingDropDown />
       <List>
         <StyledListItem
           component={LocalizedLink}

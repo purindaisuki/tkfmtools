@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useRef } from "react";
 import styled from "styled-components";
 import { CircularProgress, List } from "@material-ui/core";
+import handlePromise from "utils/handlePromise";
 
 type InfiniteLoaderState<T> = {
   items: T[];
@@ -10,8 +11,9 @@ type InfiniteLoaderState<T> = {
 
 type InfiniteLoaderAction<T> =
   | { type: "PUSH" | "UNSHIFT"; items: T[] }
-  | { type: "FLAG_FECTHING"; isFetching: boolean }
-  | { type: "FLAG_SHOULD_LOAD"; shouldLoad: boolean }
+  | { type: "START_FETCHING" }
+  | { type: "END_FETCHING" }
+  | { type: "FLAG_SHOULD_LOAD" }
   | { type: "RESET" };
 
 const initState = {
@@ -29,10 +31,12 @@ const reducer = <T,>(
       return { ...state, items: state.items.concat(action.items) };
     case "UNSHIFT":
       return { ...state, items: action.items.concat(state.items) };
-    case "FLAG_FECTHING":
-      return { ...state, isFetching: action.isFetching };
+    case "START_FETCHING":
+      return { ...state, isFetching: true };
+    case "END_FETCHING":
+      return { ...state, isFetching: false, shouldLoad: false };
     case "FLAG_SHOULD_LOAD":
-      return { ...state, shouldLoad: action.shouldLoad };
+      return { ...state, shouldLoad: true };
     case "RESET":
       return initState;
     default:
@@ -42,7 +46,7 @@ const reducer = <T,>(
 
 type InfiniteLoaderProps<T> = {
   listenToUpdate: (callback: (newItems: T[]) => void) => void | (() => void);
-  fetchItem: () => Promise<T[]>;
+  fetchItem: () => Promise<T[] | null>;
   renderItem: (i: T) => JSX.Element;
   shouldReset: boolean;
   onReset: () => void;
@@ -68,7 +72,7 @@ const InfiniteLoader = <T,>({
     const scrollObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.intersectionRatio > 0) {
-          dispatch({ type: "FLAG_SHOULD_LOAD", shouldLoad: true });
+          dispatch({ type: "FLAG_SHOULD_LOAD" });
         }
       });
     });
@@ -90,29 +94,24 @@ const InfiniteLoader = <T,>({
     let didCancel = false;
 
     const fetch = async () => {
-      dispatch({ type: "FLAG_FECTHING", isFetching: true });
-      try {
-        const items = await fetchItem();
+      if (didCancel) return;
 
-        if (!items) {
-          // fetchItem fails
-          return;
-        }
+      dispatch({ type: "START_FETCHING" });
 
-        if (!didCancel) {
-          if (items.length !== 0) {
-            dispatch({ type: "PUSH", items: items });
-          }
-          dispatch({ type: "FLAG_FECTHING", isFetching: false });
-          dispatch({ type: "FLAG_SHOULD_LOAD", shouldLoad: false });
-        }
-      } catch (error) {
-        if (!didCancel) {
-          console.log(error);
-          dispatch({ type: "FLAG_FECTHING", isFetching: false });
-          dispatch({ type: "FLAG_SHOULD_LOAD", shouldLoad: false });
-        }
+      const [items, err] = await handlePromise(fetchItem());
+
+      if (items === null) {
+        // fetchItem not ready
+        return;
       }
+
+      if (err) {
+        console.log(err);
+      } else if (items.length !== 0) {
+        dispatch({ type: "PUSH", items: items });
+      }
+
+      dispatch({ type: "END_FETCHING" });
     };
 
     fetch();

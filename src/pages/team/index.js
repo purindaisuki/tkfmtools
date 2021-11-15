@@ -1,66 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Button, Checkbox, Divider, MenuItem } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import Switchable from "containers/Switchable";
 import Header from "components/Header";
-import DropDown from "components/DropDown";
-import IconButton from "components/IconButton";
 import LocalTeamList from "components/team/LocalTeamList";
 import CloudTeamList from "components/team/CloudTeamList";
-import Snackbar from "components/Snackbar";
-import { SettingIcon } from "components/icon";
 import languageConfig from "languageConfig.json";
-
-const SettingDropDown = () => {
-  const { pageString } = useLanguage();
-
-  const { isImportingLineup, actions } = useTeamData();
-  const { toggleImportLineupData } = actions;
-
-  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
-
-  const handleToggle = () => {
-    if (!toggleImportLineupData()) {
-      setSnackbarOpen(true);
-    }
-  };
-
-  const handleSnackbar = (boolean) => () => setSnackbarOpen(boolean);
-
-  return (
-    <>
-      <DropDown
-        button={
-          <IconButton tooltipText={pageString.team.index.settingTooltip}>
-            {SettingIcon}
-          </IconButton>
-        }
-        items={[{ id: "setting-description" }]}
-        renderItem={(item) => (
-          <>
-            <Checkbox
-              edge="start"
-              checked={isImportingLineup}
-              disableRipple
-              inputProps={{ "aria-labelledby": item.id }}
-            />
-            <span id={item.id}>{pageString.team.index.settingDescription}</span>
-          </>
-        )}
-        itemOnClick={handleToggle}
-        ariaId="setting-menu"
-      />
-      <Snackbar
-        open={isSnackbarOpen}
-        onClose={handleSnackbar(false)}
-        message={pageString.team.index.errorSnackbar}
-        type="error"
-      />
-    </>
-  );
-};
 
 const tabs = ["local", "cloud"];
 
@@ -103,9 +50,8 @@ const Team = ({ location }) => {
         title={
           location.state?.isFromPlayer || location.state?.isFromEnemies
             ? pageString.team.index.selectTeam
-            : undefined
+            : null
         }
-        end={<SettingDropDown />}
       />
       <StyledDivider />
       <TabPanel
@@ -145,7 +91,7 @@ const StyledHeader = styled(Header)`
   position: relative;
   left: -1rem;
   width: 100%;
-  height: auto;
+  height: 3.6rem;
   margin: 0;
   padding: 0 0 0.5rem 1rem;
   border: none;
