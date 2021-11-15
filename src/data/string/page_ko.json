@@ -1115,6 +1115,7 @@
       "shareTooltip": "편성한 팀 공유",
       "copyTooltip": "링크 복사",
       "copySnackbarMsg": "복사 완료",
+      "unknownError": "Unkwon error happened :(",
       "selectModalTitle": "캐릭터 선택",
       "emptySlotText": "캐릭터 선택",
       "nameInputLabel": "팀 이름",

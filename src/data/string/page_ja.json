@@ -1115,6 +1115,7 @@
       "shareTooltip": "編成シェア",
       "copyTooltip": "リンクコピー",
       "copySnackbarMsg": "コピー済",
+      "unknownError": "Unkwon error happened :(",
       "selectModalTitle": "キャラ選択",
       "emptySlotText": "選択キャラ",
       "nameInputLabel": "チーム名",

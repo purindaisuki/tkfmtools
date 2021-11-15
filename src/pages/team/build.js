@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Divider } from "@material-ui/core";
+import { Button, CircularProgress, Divider } from "@material-ui/core";
 import useTeamSlots from "hooks/useTeamSlots";
 import useExport from "hooks/useExport";
 import { useTeamData } from "containers/TeamDataProvider";
@@ -17,6 +17,7 @@ import CharSlot from "components/CharSlot";
 import CharCard from "components/CharCard";
 import ImageSupplier from "components/ImageSupplier";
 import { CopyIcon, LoadIcon, ShareIcon } from "components/icon";
+import handlePromise from "utils/handlePromise";
 import charData from "data/character.json";
 
 const charByRarityData = charData.reduce(
@@ -176,7 +177,9 @@ const DraggableCharsList = () => {
   );
 };
 
-const UploadModal = ({ open, onClose, handleUpload }) => {
+const UploadModal = ({ open, onClose, isUploading, handleUpload }) => {
+  const { pageString } = useLanguage();
+
   const [state, setState] = useState({
     chapter: "",
     stage: "",
@@ -186,8 +189,6 @@ const UploadModal = ({ open, onClose, handleUpload }) => {
     isAuthorValid: false,
     isDescriptionValid: true,
   });
-
-  const { pageString } = useLanguage();
 
   const handleChange = (key) => (event) => {
     let newState;
@@ -282,7 +283,11 @@ const UploadModal = ({ open, onClose, handleUpload }) => {
               : null
           }
         >
-          {pageString.team.build.uploadButton}
+          {isUploading ? (
+            <StyledSpinner size={24} thickness={6} disableShrink />
+          ) : (
+            pageString.team.build.uploadButton
+          )}
         </StyledButton>
         <StyledButton onClick={onClose}>
           {pageString.team.build.cancelButton}
@@ -330,6 +335,46 @@ const StyledButton = styled(Button)`
     box-shadow: inset 0 0 20rem #fff1;
   }
 `;
+const StyledSpinner = styled(CircularProgress)`
+  && {
+    display: block;
+    margin: auto;
+    color: #fff;
+  }
+`;
+
+const headerReducer = (state, action) => {
+  switch (action.type) {
+    case "OPEN_MODAL":
+      return { ...state, isModalOpen: true };
+    case "START_UPLOAD":
+      return { ...state, isUploading: true };
+    case "UPLOAD_SUCCESS":
+      return {
+        ...state,
+        isModalOpen: false,
+        isUploading: false,
+        isUploadSnackbarOpen: true,
+      };
+    case "UPLOAD_FAIL":
+      return { ...state, isUploading: false, isUploadSnackbarOpen: true };
+    case "COPY_LINK":
+      navigator.clipboard.writeText(state.shareLink);
+      return { ...state, isCopySnackbarOpen: true };
+    case "SET_LINK":
+      return { ...state, shareLink: action.link };
+    case "HANDLE_MODAL":
+      return { ...state, isModalOpen: action.open };
+    case "HANDLE_ERROR_SNACKBAR":
+      return { ...state, isErrorSnackbarOpen: action.open };
+    case "CLOSE_COPY_SNACKBAR":
+      return { ...state, isCopySnackbarOpen: false };
+    case "CLOSE_UPLOAD_SNACKBAR":
+      return { ...state, isUploadSnackbarOpen: false };
+    default:
+      throw new Error(`unknown action type: ${action.type}`);
+  }
+};
 
 const TeamHeader = ({ isExporting, handleExport }) => {
   const { pageString } = useLanguage();
@@ -337,20 +382,23 @@ const TeamHeader = ({ isExporting, handleExport }) => {
   const { currentTeam, actions } = useTeamData();
   const { setCurrentTeam } = actions;
 
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(headerReducer, {
+    shareLink: "loading...",
+    isUploading: false,
     isModalOpen: false,
     isCopySnackbarOpen: false,
     isUploadSnackbarOpen: false,
-    shareLink: "loading",
+    isErrorSnackbarOpen: false,
   });
 
   const firebaseRef = useRef();
 
-  const handleNameChange = (event) => {
-    const newTeam = JSON.parse(JSON.stringify(currentTeam));
-    newTeam.name = event.target.value;
-
-    setCurrentTeam(newTeam);
+  const handleNameChange = ({ target }) => {
+    // shallow copy is okay since we don't mute deep properties
+    setCurrentTeam({
+      ...currentTeam,
+      name: target.value,
+    });
   };
 
   const handleShare = async () => {
@@ -359,32 +407,31 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     }
 
     const url = new URL(window.location.href);
-
     url.searchParams.set("team", JSON.stringify(currentTeam));
 
-    const shortLink = await firebaseRef.current.getShortLink(url.href);
+    const [shortLink, err] = await handlePromise(
+      firebaseRef.current.getShortLink(url.href)
+    );
 
-    setState((state) => ({
-      ...state,
-      shareLink: shortLink,
-    }));
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(state.shareLink);
-    setState((state) => ({
-      ...state,
-      isCopySnackbarOpen: true,
-    }));
+    if (shortLink) {
+      dispatch({ type: "SET_LINK", link: shortLink });
+    } else {
+      dispatch({ type: "HANDLE_ERROR_SNACKBAR", open: true });
+    }
   };
 
   const handleUpload = (input) => async () => {
+    if (state.isUploading) return;
+
+    dispatch({ type: "START_UPLOAD" });
+
     if (!firebaseRef?.current) {
       firebaseRef.current = await import("../../utils/firebase");
     }
 
     let uploadTeam = JSON.parse(JSON.stringify(currentTeam));
     let maxLv = 60;
+    // set character level to upper bound if it exceeds
     if (input.chapter === "S") {
       maxLv = parseInt(input.stage.slice(2)) + 19;
     }
@@ -397,41 +444,20 @@ const TeamHeader = ({ isExporting, handleExport }) => {
       }
     });
 
-    firebaseRef.current.teamsRef
-      .add({
+    const [_, err] = await handlePromise(
+      firebaseRef.current.teamCollection.add({
         ...input,
         ...uploadTeam,
         time: firebaseRef.current.Timestamp.now(),
       })
-      .then(() =>
-        setState((state) => ({
-          ...state,
-          isModalOpen: false,
-          isUploadSnackbarOpen: true,
-        }))
-      )
-      .catch((err) => {
-        console.error(err);
-      });
+    );
+
+    if (!err) {
+      dispatch({ type: "UPLOAD_SUCCESS" });
+    } else {
+      dispatch({ type: "UPLOAD_FAIL" });
+    }
   };
-
-  const handleModal = (boolean) => () =>
-    setState((state) => ({
-      ...state,
-      isModalOpen: boolean,
-    }));
-
-  const handleCopySnackbarClose = () =>
-    setState((state) => ({
-      ...state,
-      isCopySnackbarOpen: false,
-    }));
-
-  const handleUploadSnackbarClose = () =>
-    setState((state) => ({
-      ...state,
-      isUploadSnackbarOpen: false,
-    }));
 
   return (
     <>
@@ -457,7 +483,7 @@ const TeamHeader = ({ isExporting, handleExport }) => {
         end={
           <>
             <IconButton
-              onClick={handleModal(true)}
+              onClick={() => dispatch({ type: "HANDLE_MODAL", open: true })}
               tooltipText={pageString.team.build.uploadTooltip}
               dataHtml2canvasIgnore
             >
@@ -484,7 +510,7 @@ const TeamHeader = ({ isExporting, handleExport }) => {
                     {state.shareLink}
                   </StyledA>
                   <IconButton
-                    onClick={handleCopy}
+                    onClick={() => dispatch({ type: "COPY_LINK" })}
                     tooltipText={pageString.team.build.copyTooltip}
                   >
                     {CopyIcon}
@@ -500,20 +526,27 @@ const TeamHeader = ({ isExporting, handleExport }) => {
       />
       <UploadModal
         open={state.isModalOpen}
-        onClose={handleModal(false)}
+        onClose={() => dispatch({ type: "HANDLE_MODAL", open: false })}
+        isUploading={state.isUploading}
         handleUpload={handleUpload}
       />
       <Snackbar
         open={state.isCopySnackbarOpen}
-        onClose={handleCopySnackbarClose}
+        onClose={() => dispatch({ type: "CLOSE_COPY_SNACKBAR" })}
         message={pageString.team.build.copySnackbarMsg}
         type="success"
       />
       <Snackbar
         open={state.isUploadSnackbarOpen}
-        onClose={handleUploadSnackbarClose}
+        onClose={() => dispatch({ type: "CLOSE_UPLOAD_SNACKBAR" })}
         message={pageString.team.build.uploadSnackbarMsg}
         type="success"
+      />
+      <Snackbar
+        open={state.isErrorSnackbarOpen}
+        onClose={() => dispatch({ type: "HANDLE_ERROR_SNACKBAR", open: false })}
+        message={pageString.team.build.unknownError}
+        type="error"
       />
     </>
   );

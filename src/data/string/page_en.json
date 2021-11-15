@@ -1119,6 +1119,7 @@
       "shareTooltip": "Share team composition",
       "copyTooltip": "Copy link",
       "copySnackbarMsg": "Copied",
+      "unknownError": "Unkwon error happened :(",
       "selectModalTitle": "Character selection",
       "emptySlotText": "Select character",
       "nameInputLabel": "Team name",

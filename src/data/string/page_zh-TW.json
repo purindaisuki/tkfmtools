@@ -1101,6 +1101,7 @@
       "shareTooltip": "分享編成",
       "copyTooltip": "複製連結",
       "copySnackbarMsg": "已複製",
+      "unknownError": "發生不明錯誤 :(",
       "selectModalTitle": "角色選擇",
       "emptySlotText": "選擇角色",
       "nameInputLabel": "編成名",
