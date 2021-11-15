@@ -47,6 +47,8 @@ const StyledFab = styled(Fab)`
   &&& {
     background-color: ${(props) => props.theme.colors.secondary};
     svg {
+      width: 2.5rem;
+      height: 2.5rem;
       fill: ${(props) => props.theme.colors.onSecondary};
     }
     &:hover {
