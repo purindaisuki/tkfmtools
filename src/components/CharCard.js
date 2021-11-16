@@ -4,7 +4,7 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import { ImgCard, CardTable } from "components/Card";
 import {
@@ -53,15 +53,16 @@ const TextWrapper = styled.div`
   margin-right: 1rem;
   transition: all 0.3s ease;
   text-transform: none;
-  text-shadow: 0 0 1px ${(props) => props.theme.colors.surface},
-    -2px 0 1px ${(props) => props.theme.colors.surface},
-    2px 0 1px ${(props) => props.theme.colors.surface},
-    0 -2px 1px ${(props) => props.theme.colors.surface},
-    0 2px 1px ${(props) => props.theme.colors.surface},
-    2px 2px 1px ${(props) => props.theme.colors.surface},
-    2px -2px 1px ${(props) => props.theme.colors.surface},
-    -2px 2px 1px ${(props) => props.theme.colors.surface},
-    -2px -2px 1px ${(props) => props.theme.colors.surface};
+  ${({ theme }) => `
+  text-shadow: 0 0 1px ${theme.colors.surface},
+    -2px 0 1px ${theme.colors.surface},
+    2px 0 1px ${theme.colors.surface},
+    0 -2px 1px ${theme.colors.surface},
+    0 2px 1px ${theme.colors.surface},
+    2px 2px 1px ${theme.colors.surface},
+    2px -2px 1px ${theme.colors.surface},
+    -2px 2px 1px ${theme.colors.surface},
+    -2px -2px 1px ${theme.colors.surface};`}
 `;
 const TitleText = styled(TextWrapper)`
   font-size: small;
@@ -77,7 +78,7 @@ export const ResponsiveCharCard = styled(CharCard).attrs(
     $textWrapConfig: cardTextWrapConfig[$type][$lang],
   })
 )`
-  @media screen and (min-width: ${(props) => props.$textWrapConfig}px) {
+  @media screen and (min-width: ${({ $textWrapConfig }) => $textWrapConfig}px) {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
@@ -125,8 +126,8 @@ const IconWrapper = styled.div`
   margin-right: 0.4rem;
   > svg {
     width: 1.2rem;
-    fill: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.secondary};
+    fill: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 

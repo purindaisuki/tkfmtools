@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@mui/material";
 import useCharacterSelect from "hooks/useCharacterSelect";
 import { useLineupData } from "containers/LineupDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
@@ -135,46 +135,32 @@ const CharContainer = ({ index }) => {
 const StyledCharContainer = styled(Grid)`
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rem;
-  margin-right: 2rem;
-  && {
-    max-width: 30rem;
-  }
+  max-width: 30rem;
 `;
 const CharImgWrapper = styled(Button)`
-  ${(props) => (props.$owned ? null : "filter: grayscale(100%);")}
-  && {
-    transition: filter 0.1s ease;
-  }
+  ${({ $owned }) => ($owned ? null : "filter: grayscale(100%);")}
+  transition: filter 0.1s ease;
 `;
 const CharImg = styled(ImageSupplier)`
   width: 7rem;
   height: 7rem;
 `;
 const LevelInput = styled(Input)`
-  && {
-    input {
-      padding: 0.6rem 1rem;
-    }
-    color: ${(props) =>
-      props.disabled ? props.theme.colors.dropdownHover : "inherit"};
+  input {
+    padding: 0.6rem 1rem;
   }
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.dropdownHover : "inherit"};
 `;
 const StyledSelect = styled(Select)`
-  && {
-    width: 100%;
-    > div > div {
-      padding: 0.6rem 1rem;
-      padding-right: 2rem;
-      color: ${(props) =>
-        props.disabled ? props.theme.colors.dropdownHover : "inherit"};
-    }
-    svg {
-      fill: ${(props) =>
-        props.disabled
-          ? props.theme.colors.dropdownHover
-          : props.theme.colors.onSurface};
-    }
+  width: 100%;
+  .MuiSelect-select {
+    color: ${({ theme, disabled }) =>
+      disabled ? theme.colors.dropdownHover : "inherit"};
+  }
+  svg {
+    fill: ${({ theme, disabled }) =>
+      disabled ? theme.colors.dropdownHover : theme.colors.onSurface};
   }
 `;
 const SelectGrid = styled(Grid)`
@@ -324,9 +310,11 @@ const Index = () => {
       {charByPositionData.map((group, ind) => (
         <React.Fragment key={ind}>
           <Header
-            title={charString.tags[ind + 5]}
-            titleIcon={
-              <PositionImgWrapper name={`ui_${positionImg[ind]}`} alt="" />
+            title={
+              <span>
+                <PositionImgWrapper name={`ui_${positionImg[ind]}`} alt="" />
+                {charString.tags[ind + 5]}
+              </span>
             }
             withHelp={ind === 0}
             onClickHelp={() =>
@@ -390,6 +378,7 @@ const CharGroupsContainer = styled.div`
 `;
 const PositionImgWrapper = styled(ImageSupplier)`
   width: 2rem;
+  height: 2rem;
   margin-right: 0.2rem;
 `;
 

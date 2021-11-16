@@ -37,7 +37,7 @@ export const ResultTablePanel = ({
 };
 
 const TableWrapper = styled(Scrollable)`
-  max-height: ${(props) => props.$maxHeight};
+  max-height: ${({ $maxHeight }) => $maxHeight};
   overflow-x: hidden;
   overflow-y: auto;
   @media screen and (max-width: 1000px) {

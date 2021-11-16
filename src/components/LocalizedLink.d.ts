@@ -1,4 +1,5 @@
 import React from "react";
+import { LinkProps } from "@mui/material";
 
 export interface LocalizedLinkProps {
   to: string;
@@ -8,6 +9,6 @@ export interface LocalizedLinkProps {
   state?: any;
 }
 
-declare const LocalizedLink: React.FC<LocalizedLinkProps>;
+declare const LocalizedLink: React.FC<LinkProps & LocalizedLinkProps>;
 
 export default LocalizedLink;

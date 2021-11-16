@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, CircularProgress, Divider } from "@material-ui/core";
+import { Button, CircularProgress, Divider } from "@mui/material";
 import useTeamSlots from "hooks/useTeamSlots";
 import useExport from "hooks/useExport";
 import { useTeamData } from "containers/TeamDataProvider";
@@ -87,12 +87,8 @@ const RarityChars = styled.div`
   margin: 0 -0.4rem 0 -1rem;
 `;
 const CharButton = styled(Button)`
-  && {
-    padding: 0;
-    .MuiButton-label {
-      color: ${(props) => props.theme.colors.onSurface};
-    }
-  }
+  padding: 0;
+  color: ${({ theme }) => theme.colors.onSurface};
 `;
 const ModalCharCard = styled(CharCard)`
   min-width: 0;
@@ -298,12 +294,10 @@ const UploadModal = ({ open, onClose, isUploading, handleUpload }) => {
 };
 
 const StyledInput = styled(Input)`
-  && {
-    margin: 0.4rem 0;
-    width: 100%;
-    svg {
-      fill: ${(props) => props.theme.colors.onSurface};
-    }
+  margin: 0.4rem 0;
+  width: 100%;
+  svg {
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
   textarea {
     font-size: small;
@@ -312,7 +306,7 @@ const StyledInput = styled(Input)`
 const MessageBox = styled.ul`
   margin: 0;
   padding: 0.5rem 0 0 1rem;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${({ theme }) => theme.colors.onSurface};
   font-size: small;
 `;
 const ButtonBox = styled.div`
@@ -321,14 +315,15 @@ const ButtonBox = styled.div`
   justify-content: flex-end;
   && > button:last-child {
     margin-right: 0;
-    background-color: ${(props) => props.theme.colors.dropdownHover};
+    background-color: ${({ theme }) => theme.colors.dropdownHover};
   }
 `;
 const StyledButton = styled(Button)`
-  &&& {
-    margin: 0.5rem 0.5rem 0 0.5rem;
-    background-color: ${(props) =>
-      props.theme.colors.success + (props.$isValid ? "" : "80")};
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  &,
+  &:hover {
+    background-color: ${({ theme, $isValid }) =>
+      `${theme.colors.success}${$isValid ? "" : "80"}`};
     color: #fff;
   }
   &:hover {
@@ -336,11 +331,9 @@ const StyledButton = styled(Button)`
   }
 `;
 const StyledSpinner = styled(CircularProgress)`
-  && {
-    display: block;
-    margin: auto;
-    color: #fff;
-  }
+  display: block;
+  margin: auto;
+  color: ${({ theme }) => theme.colors.blue};
 `;
 
 const headerReducer = (state, action) => {
@@ -463,22 +456,20 @@ const TeamHeader = ({ isExporting, handleExport }) => {
     <>
       <StyledHeader
         title={
-          <div>
-            <Input
-              id="team-name-input"
-              value={currentTeam ? currentTeam.name : ""}
-              onChange={handleNameChange}
-              label={
-                <span data-html2canvas-ignore="true">
-                  {pageString.team.build.nameInputLabel}
-                </span>
-              }
-              placeholder={pageString.team.build.nameInputPlaceholder}
-              variant="outlined"
-              size="small"
-              inputProps={{ "aria-label": "team-name" }}
-            />
-          </div>
+          <Input
+            id="team-name-input"
+            value={currentTeam ? currentTeam.name : ""}
+            onChange={handleNameChange}
+            label={
+              <span data-html2canvas-ignore="true">
+                {pageString.team.build.nameInputLabel}
+              </span>
+            }
+            placeholder={pageString.team.build.nameInputPlaceholder}
+            variant="outlined"
+            size="small"
+            inputProps={{ "aria-label": "team-name" }}
+          />
         }
         end={
           <>
@@ -577,10 +568,10 @@ const StyledHeader = styled(Header)`
 `;
 const StyledA = styled.a`
   margin-right: 0.4rem;
-  color: ${(props) => props.theme.colors.link};
+  color: ${({ theme }) => theme.colors.link};
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.colors.linkHover};
+    color: ${({ theme }) => theme.colors.linkHover};
   }
 `;
 
@@ -618,10 +609,8 @@ const ExportWrapper = styled.div`
   }
 `;
 const StyledDivider = styled(Divider)`
-  && {
-    margin: 0.5rem 0;
-    background-color: ${(props) => props.theme.colors.dropdownHover};
-  }
+  margin: 0.5rem 0;
+  background-color: ${({ theme }) => theme.colors.dropdownHover};
 `;
 
 export default TeamBuild;

@@ -1,7 +1,7 @@
 import type { BattleAppAction } from "./BattleApp";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, ButtonProps, Slider } from "@material-ui/core";
+import { Button, ButtonProps, Slider } from "@mui/material";
 import { BattleSetupData } from "types/battle";
 import { useLanguage } from "containers/LanguageProvider";
 import Header from "components/Header";
@@ -145,38 +145,32 @@ const BattleSettings = ({
 
 const SettingHeader = styled(Header)`
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
   font-size: 1rem;
 `;
 const StyledButton = styled(Button)`
-  && {
-    margin-right: 0.5rem;
-    border: 1px solid ${(props) => props.theme.colors.secondaryBorder};
-    border-radius: 0.25rem;
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
-    &:hover {
-      border: 1px solid ${(props) => props.theme.colors.secondary};
-      box-shadow: inset 0 0 0.5rem ${(props) => props.theme.colors.secondary},
-        0 0 0.1rem ${(props) => props.theme.colors.secondary};
-    }
-  }
+  ${({ theme }) => `
+  margin-right: 0.5rem;
+  border: 1px solid ${theme.colors.secondaryBorder};
+  border-radius: 0.25rem;
+  background-color: ${theme.colors.surface};
+  color: ${theme.colors.onSurface};
+  &:hover {
+    border: 1px solid ${theme.colors.secondary};
+    box-shadow: inset 0 0 0.5rem ${theme.colors.secondary},
+      0 0 0.1rem ${theme.colors.secondary};
+  }`}
 ` as React.ComponentType<ButtonProps | LinkProps>;
 const StyledLink = styled(LocalizedLink)`
-  && {
-    text-decoration: none;
-    svg {
-      width: 1.4rem;
-      height: 1.4rem;
-      margin-left: 0.4rem;
-      fill: ${(props) => props.theme.colors.onSurface};
-    }
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-left: 0.4rem;
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
 `;
 const StyledRadioGroup = styled(RadioGroup)`
-  && {
-    margin-top: 0.4rem;
-  }
+  margin-top: 0.4rem;
   label,
   span {
     font-size: 0.875rem;
@@ -187,13 +181,12 @@ const TextWrapper = styled.div`
 `;
 
 const StyledSlider = styled(Slider)`
-  && {
-    color: ${(props) => props.theme.colors.secondary};
-    max-width: 18rem;
-    .MuiSlider-valueLabel > span > span {
-      color: ${(props) => props.theme.colors.onSecondary};
-    }
-  }
+  ${({ theme }) => `
+  color: ${theme.colors.secondary};
+  max-width: 18rem;
+  .MuiSlider-valueLabel > span > span {
+    color: ${theme.colors.onSecondary};
+  }`}
 `;
 
 export default BattleSettings;

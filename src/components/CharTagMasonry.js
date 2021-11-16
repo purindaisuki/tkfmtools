@@ -20,32 +20,30 @@ const CharAccordion = ({ title, content }) => {
 
 const StyledAccordion = styled(Accordion)`
   && {
-    && {
-      margin-bottom: 1rem;
-    }
-    border: 1px solid ${(props) => props.theme.colors.border};
-    border-radius: 0.25rem;
-    box-shadow: 0 0 0.15em lightgray;
-    > .MuiAccordionSummary-root {
-      padding: 0;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-      border-bottom: 0px solid ${(props) => props.theme.colors.border};
-    }
-    > .MuiAccordionSummary-root.Mui-expanded {
-      border-bottom: 1px solid ${(props) => props.theme.colors.border};
-    }
-    .MuiAccordionSummary-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0;
-      margin: 0;
-    }
-    .MuiAccordionDetails-root {
-      margin: 0;
-      padding: 0;
-    }
+    margin-bottom: 1rem;
+  }
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.15em lightgray;
+  > .MuiAccordionSummary-root {
+    padding: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 0px solid ${({ theme }) => theme.colors.border};
+  }
+  > .MuiAccordionSummary-root.Mui-expanded {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  }
+  .MuiAccordionSummary-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+  }
+  .MuiAccordionDetails-root {
+    margin: 0;
+    padding: 0;
   }
 `;
 

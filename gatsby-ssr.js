@@ -1,11 +1,11 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { StylesProvider } from "@mui/styles";
 import LineupDataProvider from "containers/LineupDataProvider";
 import TeamDataProvider from "containers/TeamDataProvider";
 import Layout from "containers/Layout";
 import { panelsStyle } from "containers/Panels";
 import LanguageProvider from "containers/LanguageProvider";
-import { lightTheme, darkTheme, fontFamily } from "components/theme";
+import { lightTheme, darkTheme } from "components/theme";
 
 const WithData = ({ children, withLineupData, withTeamData }) =>
   withLineupData ? (
@@ -37,12 +37,8 @@ export const wrapPageElement = ({ element, props: { pageContext } }) => {
   );
 };
 
-const theme = createTheme({
-  typography: { fontFamily: fontFamily },
-});
-
 export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={theme}>{element}</ThemeProvider>
+  <StylesProvider injectFirst>{element}</StylesProvider>
 );
 
 export const onRenderBody = ({ setHeadComponents }) => {

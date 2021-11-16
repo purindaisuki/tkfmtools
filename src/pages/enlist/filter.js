@@ -5,10 +5,10 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-  Tooltip,
   Zoom,
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { styled as muiStyled } from "@mui/material/styles";
 import useSwitch from "hooks/useSwitch";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
@@ -119,18 +119,16 @@ const BtnGroupWrapper = styled.div`
   padding-top: 0.8rem;
   margin: 1rem 0;
   border-radius: 0.25rem;
-  border: 1px solid ${(props) => props.theme.colors.secondary};
-  background-color: ${(props) => props.theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.surface};
 `;
 const AttributeChip = styled(StyledChip)`
-  && {
-    position: absolute;
-    z-index: 1;
-    top: -0.6rem;
-    width: ${(props) => (props.$lang === "en" ? "4.5rem" : "auto")};
-    background-color: brown;
-    color: white;
-  }
+  position: absolute;
+  z-index: 1;
+  top: -0.6rem;
+  width: ${({ $lang }) => ($lang === "en" ? "4.5rem" : "auto")};
+  background-color: brown;
+  color: white;
 `;
 
 const CharFilterPanel = ({
@@ -181,23 +179,25 @@ const CharFilterPanel = ({
         titleIcon={ClockIcon}
         border
       />
-      <StyledSelect
-        values={[...Array(10).keys()].slice(1)}
-        value={enlistHour}
-        variant="outlined"
-        size="small"
-        inputProps={{ "aria-label": "recruitment-hour" }}
-        onChange={handleEnlistHourChange}
-      />
-      {"："}
-      <StyledSelect
-        values={["00", "10", "20", "30", "40", "50"]}
-        value={minute}
-        variant="outlined"
-        size="small"
-        inputProps={{ "aria-label": "recruitment-minute" }}
-        onChange={(e) => setMinute(e.target.value)}
-      />
+      <SelectWrapper>
+        <StyledSelect
+          values={[...Array(10).keys()].slice(1)}
+          value={enlistHour}
+          variant="outlined"
+          size="small"
+          inputProps={{ "aria-label": "recruitment-hour" }}
+          onChange={handleEnlistHourChange}
+        />
+        {"："}
+        <StyledSelect
+          values={["00", "10", "20", "30", "40", "50"]}
+          value={minute}
+          variant="outlined"
+          size="small"
+          inputProps={{ "aria-label": "recruitment-minute" }}
+          onChange={(e) => setMinute(e.target.value)}
+        />
+      </SelectWrapper>
       <SettingModal
         open={open}
         onClose={() => setOpen(false)}
@@ -218,13 +218,17 @@ const IconWrapper = styled.div`
     height: 1.2rem;
     margin-right: 0.4rem;
     margin-bottom: 0.2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
-    color: ${(props) => props.theme.colors.onSurface};
+    fill: ${({ theme }) => theme.colors.onSurface};
+    color: ${({ theme }) => theme.colors.onSurface};
   }
 `;
+const SelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const StyledSelect = styled(Select)`
-  && > div > div {
-    padding-right: 1.4rem;
+  .MuiSelect-select {
+    padding: 0.2rem 1.4rem 0.2rem 0.6rem;
   }
 `;
 
@@ -248,14 +252,6 @@ const TableHead = ({ requestSort, getSortDirection }) => {
   );
 };
 
-const DistinctCharacterTooltip = withStyles({
-  tooltip: {
-    right: "0",
-    fontSize: "1rem",
-    whiteSpace: "pre",
-  },
-})(Tooltip);
-
 const TagTooltip = ({ children, char }) => {
   const { charString, pageString } = useLanguage();
 
@@ -275,14 +271,9 @@ const TagTooltip = ({ children, char }) => {
       : `${distinctTexts}\n${pageString.enlist.filter.guaranteeSR}:\n${guaranteeSRTexts}`;
 
   return (
-    <DistinctCharacterTooltip
-      title={texts}
-      TransitionComponent={Zoom}
-      placement="bottom"
-      arrow
-    >
+    <Tooltip title={texts} TransitionComponent={Zoom} placement="bottom" arrow>
       {children}
-    </DistinctCharacterTooltip>
+    </Tooltip>
   );
 };
 

@@ -9,17 +9,17 @@ const Scrollable = styled.div`
   &::-webkit-scrollbar {
     width: 0.4rem;
     height: 0.4rem;
-    background: ${(props) => props.theme.colors.surface};
+    background: ${({ theme }) => theme.colors.surface};
   }
   &::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.colors.border};
+    background: ${({ theme }) => theme.colors.border};
     border-radius: 0.25rem;
   }
   &::-webkit-scrollbar-track {
-    background: ${(props) => props.theme.colors.surface};
+    background: ${({ theme }) => theme.colors.surface};
   }
   &::-webkit-scrollbar-corner {
-    background: ${(props) => props.theme.colors.surface};
+    background: ${({ theme }) => theme.colors.surface};
   }
 `;
 

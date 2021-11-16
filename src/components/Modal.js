@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Backdrop, Fade, Modal as MuiModal } from "@material-ui/core";
+import { Backdrop, Fade, Modal as MuiModal } from "@mui/material";
 import Scrollable from "containers/Scrollable";
 import Header from "components/Header";
 
@@ -40,34 +40,32 @@ export const Modal = ({
 );
 
 const ModalContentWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.surface};
-  color: ${(props) => props.theme.colors.onSurface};
   position: absolute;
-  width: 70%;
-  height: auto;
-  left: 0;
-  right: 0;
   top: 10%;
   bottom: auto;
-  margin: auto;
+  left: 0;
+  right: 0;
+  width: 70%;
   @media screen and (max-width: 1000px) {
     width: 80%;
   }
   @media screen and (max-width: 768px) {
     width: 90%;
   }
+  height: auto;
+  margin: auto;
   padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.onSurface};
   border-radius: 0.25rem;
-  border: 1px solid ${(props) => props.theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.border};
 `;
 const ModalHeader = styled(Header)`
   margin: -1rem;
   margin-bottom: 1rem;
   padding: 0.2rem 0.5rem;
-  background-color: ${(props) => props.theme.colors.secondary};
-  span {
-    color: ${(props) => props.theme.colors.onSecondary};
-  }
+  color: ${({ theme }) => theme.colors.onSecondary};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 const CloseWrapper = styled.span`
   cursor: pointer;

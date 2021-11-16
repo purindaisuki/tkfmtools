@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { TableBody } from "@material-ui/core";
+import { TableBody } from "@mui/material";
 import useSort from "hooks/useSort";
 import useWindowList from "hooks/useWindowList";
 import Scrollable from "containers/Scrollable";

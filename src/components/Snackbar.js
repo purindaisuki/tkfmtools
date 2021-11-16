@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Snackbar as MuiSnackbar } from "@material-ui/core";
+import { Snackbar as MuiSnackbar } from "@mui/material";
 import { AlertIcon, ErrorIcon, SuccessIcon } from "components/icon";
 
 const Snackbar = ({ open, onClose, message, type }) => {
@@ -28,12 +28,12 @@ const StyledSnackbar = styled(MuiSnackbar)`
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    background-color: ${(props) =>
-      props.$type === "warn"
-        ? props.theme.colors.warn
-        : props.$type === "success"
-        ? props.theme.colors.success
-        : props.theme.colors.error};
+    background-color: ${({ theme, $type }) =>
+      $type === "warn"
+        ? theme.colors.warn
+        : $type === "success"
+        ? theme.colors.success
+        : theme.colors.error};
     font-size: medium;
   }
   .MuiSnackbarContent-action {
@@ -44,12 +44,12 @@ const StyledSnackbar = styled(MuiSnackbar)`
     width: 1.4rem;
     height: 1.4rem;
     margin-right: 0.4rem;
-    fill: ${(props) =>
-      props.$type === "warn"
-        ? props.theme.colors.onWarn
-        : props.$type === "success"
-        ? props.theme.colors.onSuccess
-        : props.theme.colors.onError};
+    fill: ${({ theme, $type }) =>
+      $type === "warn"
+        ? theme.colors.onWarn
+        : $type === "success"
+        ? theme.colors.onSuccess
+        : theme.colors.onError};
   }
 `;
 

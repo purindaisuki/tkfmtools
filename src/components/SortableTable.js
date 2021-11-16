@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { TableCell } from "@material-ui/core";
+import { TableCell } from "@mui/material";
 import useSort from "hooks/useSort";
 import Table from "components/Table";
 
@@ -36,8 +36,8 @@ export const SortableTable = ({
 
 export const SortableTh = styled(TableCell)`
   && {
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
+    background-color: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.onSurface};
     cursor: pointer;
     user-select: none;
     &:after {
@@ -46,7 +46,7 @@ export const SortableTh = styled(TableCell)`
           ? " \\25B2"
           : direction === "desc"
           ? " \\25BC"
-          : undefined}";
+          : ""}";
     }
   }
 `;

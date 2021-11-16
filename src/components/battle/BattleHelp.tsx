@@ -24,7 +24,7 @@ const BattleHelp = (): JSX.Element => {
 
 const SettingHeader = styled(Header)`
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
   font-size: 1rem;
 `;
 const TextWrapper = styled.div`

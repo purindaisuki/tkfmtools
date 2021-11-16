@@ -48,24 +48,26 @@ const Panels = ({ children, panelsWidth, horizontal }) => {
 };
 
 const Container = styled.div`
-  display: ${(props) => props.theme.panelLayout.display};
-  width: ${(props) => props.theme.panelLayout.width};
-  max-width: ${(props) => props.theme.panelLayout.maxWidth};
-  margin: ${(props) => props.theme.panelLayout.margin};
-  margin-bottom: ${(props) => props.theme.panelLayout.marginBottom};
-  border-spacing: ${(props) => props.theme.panelLayout.borderSpacing};
+  ${({ theme }) => `
+  display: ${theme.panelLayout.display};
+  width: ${theme.panelLayout.width};
+  max-width: ${theme.panelLayout.maxWidth};
+  margin: ${theme.panelLayout.margin};
+  margin-bottom: ${theme.panelLayout.marginBottom};
+  border-spacing: ${theme.panelLayout.borderSpacing};
   > div {
-    display: ${(props) => props.theme.panelLayout.divDisplay};
-    margin: ${(props) => props.theme.panelLayout.divMargin};
-    ${(props) =>
-      props.theme.panelLayout.divDivMaxHeight === "var(--divDivMaxHeight)"
+    display: ${theme.panelLayout.divDisplay};
+    margin: ${theme.panelLayout.divMargin};
+    ${
+      theme.panelLayout.divDivMaxHeight === "var(--divDivMaxHeight)"
         ? `> div {
             max-height: none;
           }`
-        : ""}
-  }
-  @media screen and (max-width: 1000px) ${(props) =>
-      props.$horizontal ? "" : ",(min-width: 0px)"} {
+        : ""
+    }
+  }`}
+  @media screen and (max-width: 1000px) ${({ $horizontal }) =>
+    $horizontal ? "" : ",(min-width: 0px)"} {
     display: block;
     width: 100%;
     max-width: 1000px;
@@ -82,15 +84,15 @@ const Container = styled.div`
 `;
 const OutlinedPanel = styled.div`
   display: table-cell;
-  width: ${(props) =>
-    props.theme.panelLayout.divWidth === "var(--divWidth)"
-      ? props.theme.panelLayout.divWidth
-      : props.$width};
+  width: ${({ theme, $width }) =>
+    theme.panelLayout.divWidth === "var(--divWidth)"
+      ? theme.panelLayout.divWidth
+      : $width};
   padding: 1rem;
   border-radius: 0.25rem;
-  border: 1px solid ${(props) => props.theme.colors.border};
-  background-color: ${(props) => props.theme.colors.surface};
-  box-shadow: 0 0 0.15em ${(props) => props.theme.colors.shadow};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.surface};
+  box-shadow: 0 0 0.15em ${({ theme }) => theme.colors.shadow};
 `;
 
 export default Panels;

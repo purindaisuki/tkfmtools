@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import useCharacterStats from "hooks/useCharacterStats";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
@@ -17,12 +17,10 @@ const SlotOperationButton = ({ children, onClick, tooltipText }) => (
 );
 
 const StyledButton = styled(IconButton)`
-  && {
-    width: 1.2rem;
-    height: 1.2rem;
-    padding: 0;
-    margin: 0 0.4rem;
-  }
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0;
+  margin: 0 0.4rem;
 `;
 
 const SlotOperationButtons = ({ handleChange, handleDelete }) => {
@@ -145,18 +143,18 @@ const CharName = styled.div`
   align-items: flex-start;
   top: 0.4rem;
   left: calc(5rem + 4%);
-  font-size: ${(props) => (props.$lang === "ja" ? "1.2rem" : "x-large")};
+  font-size: ${({ $lang }) => ($lang === "ja" ? "1.2rem" : "x-large")};
   transition: all 0.3s ease;
   > span:first-child {
-    font-size: ${(props) => (props.$lang === "ja" ? ".9rem" : "medium")};
+    font-size: ${({ $lang }) => ($lang === "ja" ? ".9rem" : "medium")};
   }
   @media screen and (max-width: 768px) {
     align-items: flex-end;
     left: auto;
     right: calc(96% - 6.5rem);
-    font-size: ${(props) => (props.$lang === "ja" ? "1rem" : "large")};
+    font-size: ${({ $lang }) => ($lang === "ja" ? "1rem" : "large")};
     > span:first-child {
-      font-size: ${(props) => (props.$lang === "ja" ? ".8rem" : "small")};
+      font-size: ${({ $lang }) => ($lang === "ja" ? ".8rem" : "small")};
     }
   }
 `;
@@ -182,7 +180,7 @@ const CharStats = styled.div`
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
   span {
     position: relative;
@@ -213,13 +211,13 @@ const CharStats = styled.div`
       transform: skew(30deg);
       transform-origin: 0 0;
       mask: linear-gradient(270deg, transparent 1rem, #000 75%);
-      border: 1px solid ${(props) => props.theme.colors.shadow};
+      border: 1px solid ${({ theme }) => theme.colors.shadow};
       border-top: none;
       border-right: none;
       background: linear-gradient(
         270deg,
         transparent 1rem,
-        ${(props) => props.theme.colors.shadow + "33"} 75%
+        ${({ theme }) => `${theme.colors.shadow}33`} 75%
       );
     }
   }
@@ -243,7 +241,7 @@ const CharSlot = React.forwardRef(
       <StyledSlot
         $colorNumber={charMap[char?.id]?.tags.attribute}
         $isDragging={isDragging}
-        $isEmpty={char?.id === undefined}
+        $isEmpty={!char?.id}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
         ref={ref}
@@ -257,7 +255,7 @@ const CharSlot = React.forwardRef(
           />
         ) : (
           <EmptySlotContent onClick={handleSelectModalOpen}>
-            {pageString.team.build.emptySlotText}
+            <TextWrapper>{pageString.team.build.emptySlotText}</TextWrapper>
           </EmptySlotContent>
         )}
       </StyledSlot>
@@ -275,15 +273,16 @@ const StyledSlot = styled.div`
   margin: 0 0 0.6rem;
   span {
     white-space: pre;
-    text-shadow: 0 0 2px ${(props) => props.theme.colors.surface},
-      -2px 0 2px ${(props) => props.theme.colors.surface},
-      2px 0 2px ${(props) => props.theme.colors.surface},
-      0 -2px 2px ${(props) => props.theme.colors.surface},
-      0 2px 2px ${(props) => props.theme.colors.surface},
-      2px 2px 2px ${(props) => props.theme.colors.surface},
-      2px -2px 2px ${(props) => props.theme.colors.surface},
-      -2px 2px 2px ${(props) => props.theme.colors.surface},
-      -2px -2px 2px ${(props) => props.theme.colors.surface};
+    ${({ theme }) => `
+    text-shadow: 0 0 1px ${theme.colors.surface},
+      -2px 0 1px ${theme.colors.surface},
+      2px 0 1px ${theme.colors.surface},
+      0 -2px 1px ${theme.colors.surface},
+      0 2px 1px ${theme.colors.surface},
+      2px 2px 1px ${theme.colors.surface},
+      2px -2px 1px ${theme.colors.surface},
+      -2px 2px 1px ${theme.colors.surface},
+      -2px -2px 1px ${theme.colors.surface};`}
   }
   &:before {
     content: "";
@@ -293,13 +292,13 @@ const StyledSlot = styled.div`
     width: 0;
     border: 0.25rem solid transparent;
     border-right: 0.4rem solid
-      ${(props) =>
-        props.$colorNumber !== undefined
-          ? props.theme.chart.colors[props.$colorNumber]
-          : props.theme.colors.dropdownHover};
+      ${({ theme, $colorNumber }) =>
+        $colorNumber !== undefined
+          ? theme.chart.colors[$colorNumber]
+          : theme.colors.dropdownHover};
     border-left: 0;
-    ${(props) =>
-      props.$isDragging
+    ${({ $isDragging }) =>
+      $isDragging
         ? `border-top: none;
         border-bottom: none;`
         : ""}
@@ -312,23 +311,18 @@ const StyledSlot = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    border: 1px solid ${(props) => props.theme.colors.shadow + "80"};
+    border: 1px solid ${({ theme }) => theme.colors.shadow + "80"};
     border-left: none;
     border-right: none;
+    ${({ theme, $isDragging }) => `
     background: linear-gradient(
       180deg,
-      ${(props) =>
-        props.$isDragging
-          ? props.theme.colors.surface
-          : props.theme.colors.shadow + "0D"},
-      ${(props) =>
-        props.$isDragging
-          ? props.theme.colors.shadow
-          : props.theme.colors.shadow + "66"}
-    );
+      ${$isDragging ? theme.colors.surface : `${theme.colors.shadow}0D`},
+      ${$isDragging ? theme.colors.shadow : `${theme.colors.shadow}66`}
+    );`}
     background-size: 100% 200%;
-    clip-path: ${(props) =>
-      props.$isEmpty
+    clip-path: ${({ $isEmpty }) =>
+      $isEmpty
         ? "none"
         : `polygon(
             0 0,
@@ -336,8 +330,7 @@ const StyledSlot = styled.div`
             100% calc(100% - 1.6rem),
             calc(14rem + 5%) calc(100% - 1.6rem),
             calc(12.6rem + 5%) 100%,0 100%
-        )
-        `};
+        )`};
   }
   &:hover {
     :before {
@@ -349,12 +342,12 @@ const StyledSlot = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    margin: 0 0 ${(props) => (props.$isEmpty ? ".6" : "2.2")}rem;
+    margin: 0 0 ${({ $isEmpty }) => ($isEmpty ? ".6" : "2.2")}rem;
     &:after {
       clip-path: none;
     }
     &:hover > div:last-child:after {
-      background: ${(props) => props.theme.colors.shadow + "4D"};
+      background: ${({ theme }) => theme.colors.shadow + "4D"};
     }
   }
 `;
@@ -363,26 +356,14 @@ const EmptySlotContent = styled(Button)`
   z-index: 1;
   width: 100%;
   height: 100%;
-  && .MuiButton-label {
-    position: absolute;
-    top: 50%;
-    left: calc(5rem + 4%);
-    width: auto;
-    height: 0;
-    font-size: x-large;
-    color: ${(props) => props.theme.colors.shadow};
-    @media screen and (max-width: 768px) {
-      left: calc(3.2rem + 3%);
-      font-size: large;
-    }
-  }
+  font-family: inherit;
   &:before {
     position: absolute;
     z-index: 1;
     top: 50%;
     left: calc(0.2rem + 2%);
     content: "+";
-    color: ${(props) => props.theme.colors.shadow};
+    color: ${({ theme }) => theme.colors.shadow};
     font-size: 4rem;
     line-height: 0;
     text-align: center;
@@ -401,6 +382,16 @@ const EmptySlotContent = styled(Button)`
       rgba(255, 255, 255, 0.25) 25%,
       transparent
     );
+  }
+`;
+const TextWrapper = styled.span`
+  position: absolute;
+  left: calc(5rem + 4%);
+  font-size: x-large;
+  color: ${({ theme }) => theme.colors.shadow};
+  @media screen and (max-width: 768px) {
+    left: calc(3.2rem + 3%);
+    font-size: large;
   }
 `;
 

@@ -5,7 +5,7 @@ import useWindowSize from "hooks/useWindowSize";
 import WithTabs from "containers/withTabs";
 import { panelsStyle } from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
-import { lightTheme, darkTheme } from "components/theme";
+import { MuiThemeProvider, lightTheme, darkTheme } from "components/theme";
 import Head from "components/Head";
 import Navbar from "components/Navbar";
 import Sidebar from "components/Sidebar";
@@ -28,7 +28,6 @@ const transformTheme = (theme) => {
 };
 
 export const LayoutContext = createContext();
-
 export const useLayoutConfig = () => useContext(LayoutContext);
 
 const Layout = ({ children, pagePath, isIndex, withTabs }) => {
@@ -108,8 +107,9 @@ const Layout = ({ children, pagePath, isIndex, withTabs }) => {
 
   const currentTheme = state.isDark ? darkTheme : lightTheme;
   const theme = state.didLoad ? currentTheme : transformTheme(currentTheme);
+
   const panelLayout = state.didLoad
-    ? panelsStyle[layout !== undefined ? layout : 0]
+    ? panelsStyle[layout || 0]
     : transformTheme(panelsStyle[state.layoutIndex]);
 
   const pagePathKeys =
@@ -126,40 +126,37 @@ const Layout = ({ children, pagePath, isIndex, withTabs }) => {
       : (isIndex ? helmetString.index : helmetString)?.helmet;
 
   return (
-    <ThemeProvider
-      theme={{
-        ...theme,
-        toggleTheme: toggleTheme,
-        isDark: state.isDark,
-        panelLayout: panelLayout,
-      }}
-    >
-      <Head
-        title={helmetString?.title || "TkfmToolbox"}
-        description={helmetString?.description || ""}
-        path={pagePath}
-      />
-      <Navbar withSidebar={state.withSidebar} toggleSidebar={toggleSidebar} />
-      <div id="back-to-top-anchor" />
-      {state.withSidebar && (
-        <Sidebar open={state.isSidebarOpen} toggleSidebar={toggleSidebar} />
-      )}
-      <LayoutContext.Provider
-        value={{
-          layout: layout,
-          setLayout: setLayout,
+    <MuiThemeProvider>
+      <ThemeProvider
+        theme={{
+          ...theme,
+          toggleTheme: toggleTheme,
+          isDark: state.isDark,
+          panelLayout: panelLayout,
         }}
       >
-        <Main>
-          {withTabs ? (
-            <WithTabs pagePath={pagePath}>{children}</WithTabs>
-          ) : (
-            children
-          )}
-        </Main>
-      </LayoutContext.Provider>
-      <BackToTop />
-    </ThemeProvider>
+        <Head
+          title={helmetString?.title || "TkfmToolbox"}
+          description={helmetString?.description || ""}
+          path={pagePath}
+        />
+        <Navbar withSidebar={state.withSidebar} toggleSidebar={toggleSidebar} />
+        <div id="back-to-top-anchor" />
+        {state.withSidebar && (
+          <Sidebar open={state.isSidebarOpen} toggleSidebar={toggleSidebar} />
+        )}
+        <LayoutContext.Provider value={{ layout, setLayout }}>
+          <Main>
+            {withTabs ? (
+              <WithTabs pagePath={pagePath}>{children}</WithTabs>
+            ) : (
+              children
+            )}
+          </Main>
+        </LayoutContext.Provider>
+        <BackToTop />
+      </ThemeProvider>
+    </MuiThemeProvider>
   );
 };
 
@@ -167,8 +164,8 @@ const Main = styled.main`
   padding: 1rem;
   height: 100%;
   min-height: calc(100vh - 56px);
-  background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.onSurface};
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.onSurface};
 `;
 
 export default Layout;

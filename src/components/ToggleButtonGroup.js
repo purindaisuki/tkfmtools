@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
-} from "@material-ui/lab";
+} from "@mui/material";
 
 export const ToggleButton = ({ className, children, value, ...rest }) => {
   return (
@@ -22,16 +22,16 @@ const StyledToggleButton = styled(MuiToggleButton)`
   &&& {
     padding: 0.3rem 0.15rem;
     border-radius: 0.25rem;
-    border: 1px solid ${(props) => props.theme.colors.secondaryBorder};
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
+    border: 1px solid ${({ theme }) => theme.colors.secondaryBorder};
+    background-color: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.onSurface};
     white-space: break-spaces;
     user-select: none;
     text-transform: none;
     &:hover {
-      border: 1px solid ${(props) => props.theme.colors.secondary};
-      box-shadow: inset 0 0 0.5rem ${(props) => props.theme.colors.secondary},
-        0 0 0.1rem ${(props) => props.theme.colors.secondary};
+      border: 1px solid ${({ theme }) => theme.colors.secondary};
+      box-shadow: inset 0 0 0.5rem ${({ theme }) => theme.colors.secondary},
+        0 0 0.1rem ${({ theme }) => theme.colors.secondary};
     }
   }
   svg {
@@ -39,8 +39,8 @@ const StyledToggleButton = styled(MuiToggleButton)`
     height: 1.4rem;
     margin-right: 0.6rem;
     vertical-align: middle;
-    fill: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.secondary};
+    fill: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
@@ -92,19 +92,19 @@ const StyledToggleButtonGroup = styled(MuiToggleButtonGroup).attrs(
   &&& {
     display: grid;
     gap: 0.5rem;
-    ${(props) =>
-      Object.entries(props.$layoutConfig).map(
+    ${({ $layoutConfig }) =>
+      Object.entries($layoutConfig).map(
         ([breakpoint, repeat]) =>
           `@media screen and (min-width: ${breakpoint}px) {
                 grid-template-columns: repeat(${repeat}, 1fr);
             }`
       )}
     .Mui-selected {
-      background-color: ${(props) => props.theme.colors.secondary};
-      color: ${(props) => props.theme.colors.onSecondary};
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.onSecondary};
       svg {
-        fill: ${(props) => props.theme.colors.onSecondary};
-        color: ${(props) => props.theme.colors.onSecondary};
+        fill: ${({ theme }) => theme.colors.onSecondary};
+        color: ${({ theme }) => theme.colors.onSecondary};
       }
     }
   }

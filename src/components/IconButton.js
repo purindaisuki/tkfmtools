@@ -4,7 +4,7 @@ import {
   CircularProgress,
   IconButton as MuiIconButton,
   Tooltip,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import { ExportIcon } from "components/icon";
 
@@ -23,6 +23,7 @@ const IconButton = ({
       aria-label={tooltipText}
       aria-describedby={ariaDescribedby}
       data-html2canvas-ignore={dataHtml2canvasIgnore ? "true" : "false"}
+      size="large"
     >
       {children}
     </StyledIconButton>
@@ -33,20 +34,18 @@ const TextWrapper = styled.span`
   font-size: small;
 `;
 const StyledIconButton = styled(MuiIconButton)`
-  padding: 0.5rem 0.5rem;
+  padding: 0.75rem;
   svg {
     width: 1.6rem;
     height: 1.6rem;
-    fill: ${(props) =>
-      props.$active
-        ? props.theme.colors.secondary
-        : props.theme.colors.onSurface};
+    fill: ${({ theme, $active }) =>
+      $active ? theme.colors.secondary : theme.colors.onSurface};
   }
   &:hover {
     box-shadow: inset 0 0 10rem 10rem
-      ${(props) => props.theme.colors.shadow + "33"};
+      ${({ theme }) => `${theme.colors.shadow}33`};
     svg {
-      fill: ${(props) => props.theme.colors.secondary};
+      fill: ${({ theme }) => theme.colors.secondary};
     }
   }
 `;
@@ -67,12 +66,10 @@ export const HeaderIconButton = ({
 );
 
 export const StyledHeaderIconButton = styled(IconButton)`
-  && {
-    padding: 0.4rem;
-    svg {
-      width: 1.4rem;
-      height: 1.4rem;
-    }
+  padding: 0.4rem;
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
   }
 `;
 
@@ -95,25 +92,18 @@ export const ExportButton = ({ className, onClick, isLoading }) => {
 };
 
 const StyledExportButton = styled(IconButton)`
-  &&& {
-    ${(props) =>
-      props.$isLoading
-        ? `background-color: ${props.theme.colors.dropdownHover};`
-        : ""}
-    svg {
-      ${(props) =>
-        props.$isLoading ? `fill: ${props.theme.colors.shadow};` : ""}
-    }
-  }
+  ${({ theme, $isLoading }) =>
+    $isLoading
+      ? `background-color: ${theme.colors.dropdownHover};
+        svg {
+          fill: ${theme.colors.shadow};
+        }`
+      : ""}
 `;
 const StyledSpinner = styled(CircularProgress)`
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   margin: auto;
-  color: ${(props) => props.theme.colors.blue};
+  color: ${({ theme }) => theme.colors.blue};
 `;
 
 export default IconButton;

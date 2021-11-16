@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "@reach/router";
 import styled from "styled-components";
-import { Tab, Tabs } from "@material-ui/core";
+import { Tab, Tabs } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import LocalizedLink from "components/LocalizedLink";
 import {
@@ -89,38 +89,32 @@ const withTabs = ({ children, pagePath }) => {
 };
 
 const StyledTabs = styled(Tabs)`
-  && {
-    margin: -1rem;
-    margin-bottom: 1rem;
-    background-color:  ${(props) => props.theme.colors.shadow + "1A"};
-    .MuiTabs-indicator {
-      background-color:  ${(props) => props.theme.colors.secondary};
-    }
-    .MuiTab-root {
-      min-width: 0;
-      min-height: 0;
-      padding: .6rem 1.2rem;
-      z-index: 1;
-      > span {
-        display: ${(props) => (props.$lang === "en" ? "flex" : "inline")}};
-        font-size: ${(props) => (props.$lang === "en" ? "1rem" : "medium")}};
-      }
-    }
-    .MuiTab-wrapper {
-      color: ${(props) => props.theme.colors.onSurface}
-    }
+  margin: -1rem;
+  margin-bottom: 1rem;
+  background-color: ${({ theme }) => `${theme.colors.shadow}1A`};
+  .MuiTabs-indicator {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+  .MuiTab-root {
+    z-index: 1;
+    display: ${({ $lang }) => ($lang === "en" ? "flex" : "inline")};
+    min-width: 0;
+    min-height: 0;
+    padding: 0.6rem 1.2rem;
+    color: ${({ theme }) => theme.colors.onSurface};
+    font-size: ${({ $lang }) => ($lang === "en" ? "1rem" : "medium")};
+  }
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0rem 0.2rem;
+    margin-left: 0;
+    fill: ${({ theme }) => theme.colors.onSurface};
+  }
+  .Mui-selected {
+    color: ${({ theme }) => theme.colors.secondary};
     svg {
-      width: 1.4rem;
-      height: 1.4rem;
-      margin: 0rem .2rem;
-      margin-left: 0;
-      fill: ${(props) => props.theme.colors.onSurface};
-    }
-    .Mui-selected > span {
-      color: ${(props) => props.theme.colors.secondary};
-      svg {
-        fill: ${(props) => props.theme.colors.secondary};
-      }
+      fill: ${({ theme }) => theme.colors.secondary};
     }
   }
 `;

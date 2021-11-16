@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { useLayoutConfig } from "containers/Layout";
 import { useLanguage } from "containers/LanguageProvider";
 import Accordion from "components/Accordion";
@@ -60,9 +60,9 @@ const BodyContainer = styled.div`
   width: 100%;
   font-size: 0.9rem;
   a {
-    color: ${(props) => props.theme.colors.link};
+    color: ${({ theme }) => theme.colors.link};
     &:hover {
-      color: ${(props) => props.theme.colors.linkHover};
+      color: ${({ theme }) => theme.colors.linkHover};
     }
   }
   ul {
@@ -241,7 +241,7 @@ const InstallModal = styled(StyledModal)`
     width: 1.2rem;
     height: 1.2rem;
     margin: 0 0.4rem 0.4rem 0.4rem;
-    fill: ${(props) => props.theme.colors.link};
+    fill: ${({ theme }) => theme.colors.link};
   }
 `;
 const SettingHeader = styled(Header)`
@@ -259,13 +259,13 @@ const ButtonsWrapper = styled.div`
   right: 0rem;
 `;
 const TextButton = styled(Button)`
-  &&& {
-    margin: 0 1rem;
-    background-color: ${(props) =>
-      props.$clear ? props.theme.colors.error : "gray"};
-    span {
-      color: ${(props) => props.theme.colors.onError};
-    }
+  margin: 0 1rem;
+  background-color: ${({ theme, $clear }) =>
+    $clear ? theme.colors.error : theme.colors.dropdownHover};
+  color: ${({ theme }) => theme.colors.onError};
+  &:hover {
+    background-color: ${({ theme, $clear }) =>
+      $clear ? `${theme.colors.error}DD` : `${theme.colors.dropdownHover}DD`};
   }
 `;
 
@@ -297,29 +297,31 @@ export const LogMsg = ({ msg, alwaysOpen }) => {
 };
 
 const MsgAccordion = styled(Accordion)`
-  && {
+  border-bottom: 1px solid lightgray;
+  > .MuiAccordionSummary-root {
+    padding: 0 0.5rem;
+    border-bottom: 0px solid lightgray;
+  }
+  > .MuiAccordionSummary-root.Mui-expanded {
     border-bottom: 1px solid lightgray;
-    > .MuiAccordionSummary-root {
-      padding: 0 0.5rem;
-      border-bottom: 0px solid lightgray;
+  }
+  .MuiAccordionSummary-content {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    > span {
+      padding: 0.25rem 0.4rem;
+      margin-right: 0.4rem;
     }
-    > .MuiAccordionSummary-root.Mui-expanded {
-      border-bottom: 1px solid lightgray;
-    }
-    .MuiAccordionSummary-content {
-      display: flex;
-      align-items: center;
-      margin: 0.5rem 0;
-      > span {
-        padding: 0.25rem 0.4rem;
-        margin-right: 0.4rem;
-      }
-    }
-    && .MuiAccordionDetails-root {
-      font-size: small;
-      padding: 0.4rem 0.5rem;
-      margin: 0;
-    }
+  }
+  && .MuiAccordionDetails-root {
+    font-size: small;
+    padding: 0.4rem 0.5rem;
+    margin: 0;
+  }
+  svg {
+    width: 1.6rem;
+    height: 1.6rem;s
   }
 `;
 
@@ -458,14 +460,14 @@ const LicenseList = styled.ul`
 const LicenseItemHeader = styled(DescriptionHeader)`
   margin-bottom: 0;
   font-size: medium;
-  && a {
+  a {
     text-decoration: none;
   }
 `;
 const LicenseItemContent = styled.div`
   padding-left: 0.5rem;
   padding-bottom: 0.5rem;
-  && a {
+  a {
     text-decoration: none;
   }
 `;

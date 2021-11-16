@@ -12,8 +12,8 @@ module.exports = {
   pathPrefix,
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-styled-components`,
     `gatsby-plugin-material-ui`,
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,

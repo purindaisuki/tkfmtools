@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Divider } from "@material-ui/core";
-import { useTeamData } from "containers/TeamDataProvider";
+import { Button, Divider } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import Switchable from "containers/Switchable";
 import Header from "components/Header";
@@ -34,11 +33,9 @@ const TabsWrapper = styled.div`
   top: 0.5rem;
 `;
 const StyledTab = styled(Button)`
-  && {
-    color: ${(props) =>
-      props.theme.colors.onSurface + (props.$active ? "" : "80")};
-    font-size: large;
-  }
+  color: ${(props) =>
+    props.theme.colors.onSurface + (props.$active ? "" : "80")};
+  font-size: large;
 `;
 
 const Team = ({ location }) => {
@@ -88,27 +85,11 @@ const PageWrapper = styled.div`
   margin: auto;
 `;
 const StyledHeader = styled(Header)`
-  position: relative;
-  left: -1rem;
-  width: 100%;
   height: 3.6rem;
   margin: 0;
-  padding: 0 0 0.5rem 1rem;
-  border: none;
-  label {
-    margin-right: 0.6rem;
-    font-size: large;
-  }
-  > div:last-child {
-    position: relative;
-    bottom: -0.4rem;
-    right: -1rem;
-  }
 `;
 const StyledDivider = styled(Divider)`
-  && {
-    background-color: ${(props) => props.theme.colors.dropdownHover};
-  }
+  background-color: ${({ theme }) => theme.colors.dropdownHover};
 `;
 const TabPanel = styled(Switchable)`
   position: relative;

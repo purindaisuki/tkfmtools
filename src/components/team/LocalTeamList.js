@@ -6,7 +6,7 @@ import {
   List,
   ListItemSecondaryAction,
   MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import LocalizedLink from "components/LocalizedLink";
@@ -67,11 +67,9 @@ const SettingDropDown = () => {
 };
 
 const StyledButton = styled(IconButton)`
-  && {
-    position: absolute;
-    top: -3.3rem;
-    right: 0;
-  }
+  position: absolute;
+  top: -3.3rem;
+  right: 0;
 `;
 
 const LocalTeamList = ({ isFromPlayer, isFromEnemies, lineups }) => {
@@ -196,7 +194,7 @@ const NewButton = styled.div`
   svg {
     width: 2rem;
     height: 2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
   span {
     margin-left: 1rem;
@@ -206,7 +204,7 @@ const NewButton = styled.div`
 `;
 const TitleText = styled.span`
   width: 8rem;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${({ theme }) => theme.colors.onSurface};
   font-size: small;
   white-space: nowrap;
   overflow: hidden;

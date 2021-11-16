@@ -15,10 +15,8 @@ const Header = ({
 }) => (
   <StyledHeader className={className} $border={border}>
     <TitleWrapper>
-      <span id={id}>
-        {titleIcon}
-        {title}
-      </span>
+      {titleIcon && <TitleIcon id={id}>{titleIcon}</TitleIcon>}
+      {title}
       {withHelp && onClickHelp && (
         <HeaderIconButton onClick={onClickHelp} tooltipText="Help">
           {HelpIcon}
@@ -29,35 +27,29 @@ const Header = ({
   </StyledHeader>
 );
 
-export const StyledHeader = styled.div`
+const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
   height: 2.2rem;
-  ${(props) =>
-    props.$border
-      ? `border-bottom: solid 1px ${props.theme.colors.border};`
-      : ""}
-  color: ${(props) => props.theme.colors.onSurface};
+  ${({ theme, $border }) =>
+    $border ? `border-bottom: solid 1px ${theme.colors.border};` : ""}
+  color: ${({ theme }) => theme.colors.onSurface};
   font-size: large;
   font-weight: normal;
 `;
-export const TitleWrapper = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  > span {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-    svg {
-      width: 1.2rem;
-      height: 1.2rem;
-      margin-right: 0.4rem;
-      margin-bottom: 0.2rem;
-      fill: ${(props) => props.theme.colors.onSurface};
-    }
+`;
+const TitleIcon = styled.span`
+  margin-right: 0.4rem;
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
 `;
 

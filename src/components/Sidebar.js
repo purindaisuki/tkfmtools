@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { List, ListItem, SwipeableDrawer } from "@material-ui/core";
+import { List, ListItem, SwipeableDrawer } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import LocalizedLink from "components/LocalizedLink";
 import Accordion from "components/Accordion";
@@ -65,19 +65,17 @@ const StyledListItem = styled(ListItem)`
   position: relative;
   font-size: large;
   cursor: pointer;
-  && {
-    padding: 1rem 1.25rem;
-    color: ${(props) => props.theme.colors.onSurface};
-  }
+  padding: 1rem 1.25rem;
+  color: ${({ theme }) => theme.colors.onSurface};
   svg {
-    fill: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.secondary};
+    fill: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
     width: 1.6rem;
     height: 1.6rem;
     margin-right: 1.25rem;
   }
   &:hover {
-    border-left: 0.5rem solid ${(props) => props.theme.colors.secondary};
+    border-left: 0.5rem solid ${({ theme }) => theme.colors.secondary};
     background-color: rgba(0, 0, 0, 0.04);
     .MuiAccordion-root {
       background-color: rgba(0, 0, 0, 0.005);
@@ -86,35 +84,33 @@ const StyledListItem = styled(ListItem)`
   }
 `;
 const ListItemAccordion = styled(Accordion)`
-  && {
-    width: 100%;
+  width: 100%;
+  cursor: default;
+  .MuiAccordionSummary-root {
+    margin: -1rem -1.25rem;
+    padding: 1rem 1.25rem;
+  }
+  .MuiAccordionSummary-content {
+    margin: 0;
+  }
+  .MuiAccordionDetails-root {
+    margin: 0 -1.25rem -1rem -1.25rem;
+    padding: 0 3.5rem;
+    font-size: medium;
     cursor: default;
-    .MuiAccordionSummary-root {
-      margin: -1rem -1.25rem;
-      padding: 1rem 1.25rem;
-      padding-right: 1.75rem;
-    }
-    .MuiAccordionSummary-content {
-      margin: 0;
-    }
-    .MuiAccordionDetails-root {
-      margin: 0 -1.25rem -1rem -1.25rem;
-      padding: 0 3.5rem;
-      font-size: medium;
-      cursor: default;
-    }
-    .MuiList-root {
-      padding-top: 0.5rem;
-    }
+  }
+  .MuiList-root {
+    padding-top: 0.5rem;
+  }
+  .MuiAccordionSummary-expandIconWrapper svg {
+    margin: 0;
   }
 `;
 const AccordionItem = styled(ListItem)`
-  && {
-    padding: 0.5rem;
-  }
-  color: ${(props) => props.theme.colors.link};
+  padding: 0.5rem;
+  color: ${({ theme }) => theme.colors.link};
   &:hover {
-    color: ${(props) => props.theme.colors.linkHover};
+    color: ${({ theme }) => theme.colors.linkHover};
   }
 `;
 
@@ -153,20 +149,20 @@ const SidebarItem = ({
 
 export const BetaTitleWrapper = styled.span`
   position: relative;
-  ${(props) =>
-    props.$isBeta
+  ${({ theme, $isBeta }) =>
+    $isBeta
       ? `&:after {
-    position: absolute;
-    top: 50%;
-    right: -0.4rem;
-    content: "BETA";
-    padding: 0 3px;
-    border-radius: 2px;
-    background: ${props.theme.colors.dropdownHover};
-    transform: translate(100%, -50%);
-    line-height: 12px;
-    font-size: 9px;
-  }`
+        position: absolute;
+        top: 50%;
+        right: -0.4rem;
+        content: "BETA";
+        padding: 0 3px;
+        border-radius: 2px;
+        background: ${theme.colors.dropdownHover};
+        transform: translate(100%, -50%);
+        line-height: 0.75rem;
+        font-size: 9px;
+      }`
       : ""}
 `;
 
@@ -220,30 +216,30 @@ const Sidebar = ({ open, toggleSidebar }) => {
 
 const StyledDrawer = styled(SwipeableDrawer)`
   .MuiDrawer-paper {
-    background-color: ${(props) => props.theme.colors.surface};
+    background-color: ${({ theme }) => theme.colors.surface};
     width: 20rem;
   }
 `;
 const SidebarHeader = styled.div`
-    display: flex;
-    align-items: center;
-    height: 4rem;
-    padding: .8rem;
-    border-radius: 0;
-    font-size: x-large;
-    @media screen and (max-width: 490px) {
-        font-size: large;
-    }
-    font-weight: bold;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.onPrimary};
-    svg {
-        fill: ${(props) => props.theme.colors.onPrimary};
-        margin: .4rem 1.25rem .4rem .6rem;
-        width: 1.6rem;
-        height 1.6rem;
-        vertical-align: bottom;
-    }
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  padding: .8rem;
+  border-radius: 0;
+  font-size: x-large;
+  @media screen and (max-width: 490px) {
+    font-size: large;
+  }
+  font-weight: bold;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  svg {
+    fill: ${({ theme }) => theme.colors.onPrimary};
+    margin: .4rem 1.25rem .4rem .6rem;
+    width: 1.6rem;
+    height 1.6rem;
+    vertical-align: bottom;
+  }
 `;
 const StyledList = styled(List)`
   && {

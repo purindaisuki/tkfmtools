@@ -72,7 +72,7 @@ export const CardTable = ({ className, children, striped }) => (
 );
 
 const StyledTable = styled(Table)`
-  && .MuiTableCell-root {
+  .MuiTableCell-root {
     font-size: 0.9rem;
     padding: 0.3rem;
     padding-left: 0.75rem;

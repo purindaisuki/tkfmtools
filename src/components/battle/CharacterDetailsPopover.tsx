@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Popover } from "@material-ui/core";
+import { Popover } from "@mui/material";
 import {
   BattleCharacter as Character,
   IGameState,

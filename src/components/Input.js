@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import { MenuItem, TextField } from "@material-ui/core";
+import { MenuItem, TextField } from "@mui/material";
 
 export const Select = ({ className, values, renderValues, ...rest }) => {
   const { colors } = useTheme();
@@ -22,6 +22,14 @@ export const Select = ({ className, values, renderValues, ...rest }) => {
               color: colors.onSurface,
             },
             dense: true,
+            sx: {
+              "& .Mui-selected": {
+                backgroundColor: `${colors.secondary}33`,
+              },
+              "& .MuiMenuItem-root:hover": {
+                backgroundColor: `${colors.secondary}66`,
+              },
+            },
           },
         },
       }}
@@ -41,18 +49,21 @@ export const Select = ({ className, values, renderValues, ...rest }) => {
 const Input = styled(TextField)`
   .MuiInputBase-root,
   && label {
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
+    background-color: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.onSurface};
   }
   .MuiInputBase-root {
-    border: 1px solid ${(props) => props.theme.colors.dropdownHover};
+    border: 1px solid ${({ theme }) => theme.colors.dropdownHover};
+  }
+  .MuiSelect-select {
+    padding: 0.6rem 2rem 0.6rem 1rem;
   }
   && fieldset {
     border-color: rgba(0, 0, 0, 0);
   }
   &&:hover {
     .MuiInputBase-root {
-      border: 1px solid ${(props) => props.theme.colors.shadow};
+      border: 1px solid ${({ theme }) => theme.colors.shadow};
     }
     fieldset {
       border-color: rgba(0, 0, 0, 0);
@@ -60,7 +71,7 @@ const Input = styled(TextField)`
   }
   && .Mui-focused {
     fieldset {
-      border: 2px solid ${(props) => props.theme.colors.secondary};
+      border: 2px solid ${({ theme }) => theme.colors.secondary};
     }
     &.MuiInputBase-root,
     + .MuiInputBase-root {
@@ -69,21 +80,12 @@ const Input = styled(TextField)`
   }
 `;
 const StyledSelect = styled(Input)`
-  && > div {
+  .MuiInputBase-root {
     width: 100%;
-    > div {
-      padding: 0.2rem;
-      padding-left: 0.4rem;
-      padding-right: 1rem;
-      color: ${(props) =>
-        props.disabled ? props.theme.colors.dropdownHover : "inherit"};
-    }
     svg {
       right: 0;
-      fill: ${(props) =>
-        props.disabled
-          ? props.theme.colors.dropdownHover
-          : props.theme.colors.onSurface};
+      fill: ${({ theme, disabled }) =>
+        disabled ? theme.colors.dropdownHover : theme.colors.onSurface};
     }
   }
 `;

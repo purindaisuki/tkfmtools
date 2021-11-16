@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef } from "react";
 import styled from "styled-components";
-import { CircularProgress, List } from "@material-ui/core";
+import { CircularProgress, List } from "@mui/material";
 import handlePromise from "utils/handlePromise";
 
 type InfiniteLoaderState<T> = {
@@ -154,11 +154,9 @@ const InfiniteLoader = <T,>({
 };
 
 const StyledSpinner = styled(CircularProgress)`
-  && {
-    display: block;
-    margin: auto;
-    color: ${(props) => props.theme.colors.secondary};
-  }
+  display: block;
+  margin: auto;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export default InfiniteLoader;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import { Checkbox, Grid } from "@material-ui/core";
+import { Checkbox, Grid } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import Input, { Select } from "components/Input";
 import charMap from "data/charMap";
@@ -95,29 +95,15 @@ const Wrapper = styled.div`
   position: relative;
 `;
 const StyledInput = styled(Input)`
-  && {
-    width: 100%;
-    > div {
-      color: ${(props) =>
-        props.disabled ? props.theme.colors.dropdownHover : "inherit"};
-    }
-    svg {
-      right: 0;
-      fill: ${(props) =>
-        props.disabled
-          ? props.theme.colors.dropdownHover
-          : props.theme.colors.onSurface};
-    }
+  width: 100%;
+  svg {
+    right: 0;
+    fill: ${({ theme, disabled }) =>
+      disabled ? theme.colors.dropdownHover : theme.colors.onSurface};
   }
 `;
 const StyledSelect = styled(Select)`
-  && {
-    margin: 0.3rem;
-    > div > div {
-      padding: 0.6rem;
-      padding-right: 2rem;
-    }
-  }
+  margin: 0.3rem;
 `;
 const Title = styled.span`
   margin-left: 0.4rem;
@@ -125,18 +111,14 @@ const Title = styled.span`
 `;
 const CheckboxGrid = styled(Grid)`
   &&.Mui-checked svg {
-    fill: ${(props) =>
-      props.theme.chart.colors[
-        props.$type === "ATK" ? 0 : props.$type === "HP" ? 2 : 4
-      ]};
+    fill: ${({ theme, $type }) =>
+      theme.chart.colors[$type === "ATK" ? 0 : $type === "HP" ? 2 : 4]};
   }
 `;
 const StyledCheckbox = styled(Checkbox)`
-  && {
-    padding: 0;
-    svg {
-      fill: ${(props) => props.theme.colors.dropdownHover};
-    }
+  padding: 0;
+  svg {
+    fill: ${({ theme }) => theme.colors.dropdownHover};
   }
 `;
 const Indicator = styled.span`
@@ -146,12 +128,10 @@ const Indicator = styled.span`
   width: calc(100% / 6 - 4px);
   height: 4px;
   margin: 0 2px;
-  background-color: ${(props) =>
-    !props.$checked
-      ? props.theme.colors.dropdownHover
-      : props.theme.chart.colors[
-          props.$type === "ATK" ? 0 : props.$type === "HP" ? 2 : 4
-        ]};
+  background-color: ${({ theme, $checked, $type }) =>
+    !$checked
+      ? theme.colors.dropdownHover
+      : theme.chart.colors[$type === "ATK" ? 0 : $type === "HP" ? 2 : 4]};
 `;
 
 export default PotentialInput;

@@ -24,8 +24,8 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: calc(100vh - 6rem);
-  background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.onSurface};
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.onSurface};
 `;
 const NotFoundImg = styled(ImageSupplier)`
   background-position: center;
@@ -40,20 +40,21 @@ const Message = styled.div`
   top: 25%;
   left: max(calc(35% - 20rem), 1rem);
   width: max-content;
-  background: ${(props) => props.theme.colors.background + "BF"};
-  box-shadow: 0 0 1rem ${(props) => props.theme.colors.background};
+  background: ${({ theme }) => theme.colors.background + "BF"};
+  box-shadow: 0 0 1rem ${({ theme }) => theme.colors.background};
   @media screen and (max-width: 992px) {
     top: 30%;
     left: calc(50% - 9.5rem);
-    text-shadow: 0 0 2px ${(props) => props.theme.colors.background},
-      -2px 0 2px ${(props) => props.theme.colors.background},
-      2px 0 2px ${(props) => props.theme.colors.background},
-      0 -2px 2px ${(props) => props.theme.colors.background},
-      0 2px 2px ${(props) => props.theme.colors.background},
-      2px 2px 2px ${(props) => props.theme.colors.background},
-      2px -2px 2px ${(props) => props.theme.colors.background},
-      -2px 2px 2px ${(props) => props.theme.colors.background},
-      -2px -2px 2px ${(props) => props.theme.colors.background};
+    ${({ theme }) => `
+    text-shadow: 0 0 1px ${theme.colors.surface},
+      -2px 0 1px ${theme.colors.surface},
+      2px 0 1px ${theme.colors.surface},
+      0 -2px 1px ${theme.colors.surface},
+      0 2px 1px ${theme.colors.surface},
+      2px 2px 1px ${theme.colors.surface},
+      2px -2px 1px ${theme.colors.surface},
+      -2px 2px 1px ${theme.colors.surface},
+      -2px -2px 1px ${theme.colors.surface};`}
   }
 `;
 const StyledH1 = styled.h1`
@@ -69,9 +70,9 @@ const StyledP = styled.p`
 `;
 const StyledLink = styled(LocalizedLink)`
   font-size: x-large;
-  color: ${(props) => props.theme.colors.link};
+  color: ${({ theme }) => theme.colors.link};
   &:hover {
-    color: ${(props) => props.theme.colors.linkHover};
+    color: ${({ theme }) => theme.colors.linkHover};
   }
 `;
 

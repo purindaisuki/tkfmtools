@@ -400,11 +400,9 @@ const Analysis = () => {
 };
 
 const StyledExportButton = styled(ExportButton)`
-  && {
-    position: absolute;
-    top: -4rem;
-    right: 0;
-  }
+  position: absolute;
+  top: -4rem;
+  right: 0;
 `;
 const ChartsContainer = styled.div`
   display: flex;

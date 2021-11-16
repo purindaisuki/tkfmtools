@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import useCharacterSelect from "hooks/useCharacterSelect";
 import ImageSupplier from "components/ImageSupplier";
 import Input, { Select } from "components/Input";
@@ -22,7 +22,10 @@ const ImgSelect = ({ type, values, value, onChange, disabled }) => (
 const StyledSelect = styled(Select)`
   position: absolute;
   left: 1.6rem;
-  background-color: ${(props) => props.theme.colors.surface};
+  background-color: ${({ theme }) => theme.colors.surface};
+  && .MuiSelect-select {
+    padding: 0.1rem 1.5rem 0.1rem 0.4rem;
+  }
 `;
 
 const CharStatsSelect = ({ className, char, levelInputId, onSelect }) => {
@@ -106,32 +109,24 @@ const StyledCharStatsSelect = styled(Grid)`
   flex-wrap: wrap;
   top: 0.6rem;
   left: calc(14rem + 5%);
-  && {
-    width: 32rem;
-  }
+  width: 32rem;
   > div {
     display: flex;
   }
   @media screen and (max-width: 1000px) {
-    && {
-      width: 28rem;
-    }
+    width: 28rem;
   }
   @media screen and (max-width: 768px) {
     left: calc(7rem + 5%);
-    && {
-      width: 26rem;
-    }
+    width: 26rem;
   }
   @media screen and (max-width: 599px) {
-    top: 0.4rem;
-    && {
-      width: 14rem;
-    }
+    top: 0.2rem;
+    width: 14rem;
   }
 `;
 const StyledLabel = styled.label`
-  margin: 0.1rem 0.4rem 0 0.2rem;
+  margin: 0.4rem 0.4rem 0 0.2rem;
 `;
 const LevelInput = styled(Input)`
   width: 100%;
@@ -139,31 +134,27 @@ const LevelInput = styled(Input)`
   > div {
     width: 2rem;
     > input {
-      padding: 0.2rem;
+      padding: 0.1rem;
       text-align: center;
     }
   }
 `;
 const UiImg = styled(ImageSupplier)`
   position: relative;
-  width: 4.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   background-repeat: no-repeat;
   background-size: 1.6rem 1.6rem;
-  background-position: 0 0.3rem;
+  background-position: 0 0.6rem;
 `;
 const StyledPotentialInput = styled(PotentialInput)`
   position: absolute;
   left: 1.8rem;
-  && > div > div {
-    width: 100%;
-    > div {
-      padding: 0.2rem;
-      padding-left: 0.4rem;
-      padding-right: 1rem;
-    }
-  }
   span {
     top: -0.5rem;
+  }
+  && .MuiSelect-select {
+    padding: 0.1rem 1rem 0.1rem 0.4rem;
   }
 `;
 

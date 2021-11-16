@@ -5,7 +5,7 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import ResultTablePanel from "components/ResultTablePanel";

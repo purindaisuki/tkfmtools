@@ -19,9 +19,13 @@ const WrappedLink = ({ to, disableLocale, decoration, ...rest }) => {
 };
 
 const StyledLink = styled(Link)`
-  &:hover {
-    ${(props) => (props.$decoration ? null : "text-decoration: none;")}
-  }
+  ${({ $decoration }) =>
+    $decoration
+      ? ""
+      : `text-decoration: none;
+        &:hover {
+          text-decoration: none;
+        }`}
 `;
 
 // pass ref down

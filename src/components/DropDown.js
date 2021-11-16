@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { List, ListItem, Menu, MenuItem } from "@material-ui/core";
+import { List, ListItem, Menu, MenuItem } from "@mui/material";
 
 const DropDown = ({
   button,
@@ -70,19 +70,18 @@ const DropDown = ({
 };
 
 const StyledMenu = styled(Menu)`
+  position: absolute;
   .MuiPaper-root {
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
+    background-color: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.onSurface};
   }
 `;
 const StyledMenuItem = styled(MenuItem)`
-  && {
-    &:hover {
-      background-color: ${(props) => props.theme.colors.dropdownHover};
-    }
-    svg {
-      fill: ${(props) => props.theme.colors.secondary};
-    }
+  svg {
+    fill: ${({ theme }) => theme.colors.secondary};
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.dropdownHover};
   }
 `;
 

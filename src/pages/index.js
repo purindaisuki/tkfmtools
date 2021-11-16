@@ -101,13 +101,11 @@ const unreadAnimation = keyframes`
 `;
 const NoteButton = styled(IconButton)`
   position: relative;
-  && {
-    padding: 0;
-  }
+  padding: 0;
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
   &:after {
     position: absolute;
@@ -117,7 +115,7 @@ const NoteButton = styled(IconButton)`
     background-color: red;
     border-radius: 100%;
     animation: ${unreadAnimation} 1.5s ease-in-out infinite;
-    ${(props) => (props.$unread ? "width: .6rem; height: .6rem;" : "")}
+    ${({ $unread }) => ($unread ? "width: .6rem; height: .6rem;" : "")}
   }
 `;
 
@@ -213,38 +211,36 @@ const Header = styled.div`
   margin-bottom: 2rem;
   font-size: x-large;
   font-weight: bold;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${({ theme }) => theme.colors.onSurface};
   > span:nth-child(2) {
     margin: 0.4rem;
     font-size: large;
   }
 `;
 const DescriptionAccordion = styled(Accordion)`
-  && {
-    width: 90%;
-    max-width: 1000px;
-    @media screen and (max-width: 600px) {
-      width: 100%;
-    }
-    border: 1px solid ${(props) => props.theme.colors.border};
-    border-radius: 0.25rem;
-    & {
-      box-shadow: 0 0 0.15em lightgray;
-    }
-    > .MuiAccordionSummary-root {
-      font-size: large;
-      padding: 0.75rem 1.25rem;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-      border-bottom: 0px solid ${(props) => props.theme.colors.border};
-    }
-    > .MuiAccordionSummary-root.Mui-expanded {
-      border-bottom: 1px solid ${(props) => props.theme.colors.border};
-    }
-    .MuiAccordionDetails-root {
-      margin: 1rem;
-      padding: 0;
-    }
+  width: 90%;
+  max-width: 1000px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0.25rem;
+  & {
+    box-shadow: 0 0 0.15em lightgray;
+  }
+  > .MuiAccordionSummary-root {
+    font-size: large;
+    padding: 0.75rem 1.25rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 0px solid ${({ theme }) => theme.colors.border};
+  }
+  > .MuiAccordionSummary-root.Mui-expanded {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  }
+  .MuiAccordionDetails-root {
+    margin: 1rem;
+    padding: 0;
   }
 `;
 

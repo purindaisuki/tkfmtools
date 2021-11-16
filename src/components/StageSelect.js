@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import { ListSubheader, MenuItem } from "@material-ui/core";
+import { ListSubheader, MenuItem } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import Input from "components/Input";
 
@@ -44,23 +44,17 @@ const StageSelect = ({ children, className, value, error, handleChange }) => {
           {chapter.name}
         </StyledListSubheader>,
         chapter.stages?.map((stage) => (
-          <MenuItem value={chapter.chapter + "/" + stage.id} key={stage.id}>
-            {stage.id + " : " + stage.name}
+          <MenuItem value={`${chapter.chapter}/${stage.id}`} key={stage.id}>
+            {`${stage.id} : ${stage.name}`}
           </MenuItem>
         )),
         chapter.stagePrefix &&
           [...Array(61).keys()].slice(1).map((ind) => (
             <MenuItem
-              value={chapter.chapter + "/" + chapter.chapter + "-" + ind}
-              key={chapter.chapter + "-" + ind}
+              value={`${chapter.chapter}/${chapter.chapter}-${ind}`}
+              key={`${chapter.chapter}-${ind}`}
             >
-              {chapter.chapter +
-                "-" +
-                ind +
-                " : " +
-                chapter.stagePrefix +
-                ind +
-                chapter.stageSuffix}
+              {`${chapter.chapter}-${ind} : ${chapter.stagePrefix}${ind}${chapter.stageSuffix}`}
             </MenuItem>
           )),
       ])}
@@ -69,21 +63,18 @@ const StageSelect = ({ children, className, value, error, handleChange }) => {
 };
 
 const StyledInput = styled(Input)`
-  && {
-    margin: 0.4rem 0;
-    width: 100%;
-    svg {
-      fill: ${(props) => props.theme.colors.onSurface};
-    }
+  margin: 0.4rem 0;
+  width: 100%;
+  svg {
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
 `;
 const StyledListSubheader = styled(ListSubheader)`
-  && {
-    color: ${(props) => props.theme.colors.onSurface};
-    font-size: 1rem;
-    font-style: italic;
-    line-height: 2rem;
-  }
+  color: ${({ theme }) => theme.colors.onSurface};
+  background-color: ${({ theme }) => theme.colors.surface};
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 2rem;
 `;
 
 export default StageSelect;

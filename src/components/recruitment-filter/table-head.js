@@ -4,7 +4,7 @@ import {
   TableHead as MuiTableHead,
   TableRow as MuiTableRow,
   TableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 
 export const TableHead = () => {
@@ -22,9 +22,7 @@ export const TableHead = () => {
 };
 
 const CellWrapper = styled(TableCell)`
-  && {
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
-    user-select: none;
-  }
+  background-color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.onSurface};
+  user-select: none;
 `;

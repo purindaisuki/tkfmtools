@@ -1,3 +1,40 @@
+import React from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+export const fontFamily = `
+    '黑體-繁', '微軟正黑體','Helvetica', 'Arial', 'LiHei Pro', 
+    '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif
+`;
+
+const muiTheme = createTheme({
+  typography: { fontFamily },
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: "1rem",
+          whiteSpace: "pre",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "rgba(0,0,0,0)",
+          },
+        },
+      },
+    },
+  },
+});
+
+export const MuiThemeProvider = ({ children }) => (
+  <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
+);
+
 export const lightTheme = {
   colors: {
     background: "#FAFAFA",
@@ -87,10 +124,3 @@ export const darkTheme = {
     treeMapText: "brighter",
   },
 };
-
-export const fontFamily = `
-    'Helvetica', 'Arial', 'LiHei Pro', '黑體-繁', '微軟正黑體',
-    '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif
-`;

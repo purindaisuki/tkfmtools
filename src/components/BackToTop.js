@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Fab, useScrollTrigger, Zoom } from "@material-ui/core";
+import { Fab, useScrollTrigger, Zoom } from "@mui/material";
 import { ToTopIcon } from "components/icon";
 
 const ScrollTop = ({ children }) => {
@@ -44,16 +44,17 @@ const BackToTop = () => (
 );
 
 const StyledFab = styled(Fab)`
-  &&& {
-    background-color: ${(props) => props.theme.colors.secondary};
+  &,
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
     svg {
       width: 2.5rem;
       height: 2.5rem;
-      fill: ${(props) => props.theme.colors.onSecondary};
+      fill: ${({ theme }) => theme.colors.onSecondary};
     }
-    &:hover {
-      box-shadow: inset 0 0 10rem rgba(0, 0, 0, 0.05);
-    }
+  }
+  &:hover {
+    box-shadow: inset 0 0 10rem rgba(0, 0, 0, 0.05);
   }
 `;
 

@@ -6,7 +6,7 @@ import {
   FormLabel,
   Radio as MuiRadio,
   RadioGroup as MuiRadioGroup,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const RadioGroup = ({ children, className, label, value, handleChange }) => (
   <RadioGroupWrapper>
@@ -26,7 +26,7 @@ const RadioGroup = ({ children, className, label, value, handleChange }) => (
 
 const RadioGroupWrapper = styled.div`
   && label {
-    color: ${(props) => props.theme.colors.onSurface};
+    color: ${({ theme }) => theme.colors.onSurface};
   }
   > div > div {
     display: flex;
@@ -40,10 +40,10 @@ const RadioGroupWrapper = styled.div`
       margin-bottom: 0;
       padding-right: 0.8rem;
       span:first-child.Mui-checked span {
-        color: ${(props) => props.theme.colors.secondary};
+        color: ${({ theme }) => theme.colors.secondary};
       }
       span:first-child {
-        color: ${(props) => props.theme.colors.shadow};
+        color: ${({ theme }) => theme.colors.shadow};
       }
     }
   }

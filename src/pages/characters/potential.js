@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import Panels from "containers/Panels";
 import { useLanguage } from "containers/LanguageProvider";
 import Header from "components/Header";
@@ -80,21 +80,13 @@ const CharSelectPanel = ({ selected, handleSelect }) => {
 };
 
 const StyledSelect = styled(Select)`
-  && {
-    .MuiInputLabel-shrink {
-      transform: translate(14px, -1px) scale(0.75);
-    }
-    > div > div {
-      padding: 0.6rem;
-    }
+  .MuiInputLabel-shrink {
+    transform: translate(14px, -1px) scale(0.75);
   }
 `;
 const CharImgWrapper = styled(ImageSupplier)`
-  && {
-    max-width: 5.2rem;
-  }
-  margin-right: 1rem;
-  border: 2px solid ${(props) => props.theme.colors.secondary};
+  max-width: 5.2rem;
+  border: 2px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 0.25rem;
 `;
 
@@ -115,15 +107,15 @@ const resultLayoutConfig = {
 };
 
 const MaterialWrapper = styled.span.attrs(({ $lang }) => ({
-  layoutConfig: resultLayoutConfig[$lang],
+  $layoutConfig: resultLayoutConfig[$lang],
 }))`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.4rem;
   margin: 0.2rem 0;
-  ${(props) =>
-    Object.entries(props.layoutConfig).map(
+  ${({ $layoutConfig }) =>
+    Object.entries($layoutConfig).map(
       ([breakpoint, denominator]) =>
         `@media screen and (min-width: ${breakpoint}px) {
             width: calc(100% / ${denominator});
@@ -171,8 +163,14 @@ const MaterialCard = styled(ItemCard)`
   }
 `;
 
-const ResultPanel = ({ result, handleModalOpen }) => {
+const ResultPanel = ({ result }) => {
   const { userLanguage, pageString } = useLanguage();
+
+  const [open, setOpen] = useState(false);
+
+  const handleModal = (boolean) => () => {
+    setOpen(boolean);
+  };
 
   return (
     <>
@@ -180,7 +178,7 @@ const ResultPanel = ({ result, handleModalOpen }) => {
         title={pageString.characters.potential.resultDemandTitle}
         titleIcon={ItemIcon}
         withHelp
-        onClickHelp={handleModalOpen}
+        onClickHelp={handleModal(true)}
         border
       />
       <MaterialContainer>
@@ -212,6 +210,14 @@ const ResultPanel = ({ result, handleModalOpen }) => {
             : "1 & 2"
         }`}
       </UiImgWrapper>
+      <TextModal
+        title={pageString.characters.potential.helpModal.title}
+        open={open}
+        onClose={handleModal(false)}
+        content={pageString.characters.potential.helpModal.content}
+        ariaLabelledby="help-modal-title"
+        ariaDescribedby="help-modal-description"
+      />
     </>
   );
 };
@@ -225,8 +231,6 @@ const MaterialContainer = styled.div`
 `;
 
 const Potential = () => {
-  const { pageString } = useLanguage();
-
   const [state, setState] = useState({
     character: "101",
     currStage: 1,
@@ -234,7 +238,7 @@ const Potential = () => {
     targetStage: 1,
     targetSub: 1,
     result: {
-      items: undefined,
+      items: null,
       money: 0,
       buff: {
         ATK: 0,
@@ -242,7 +246,6 @@ const Potential = () => {
         PASSIVE: 0,
       },
     },
-    isHelpModalOpen: false,
   });
 
   const handleSelect = (attr) => (event) => {
@@ -277,40 +280,20 @@ const Potential = () => {
     setState(newState);
   };
 
-  const handelHelpModal = (boolean) => () => {
-    setState((state) => ({
-      ...state,
-      isHelpModalOpen: boolean,
-    }));
-  };
-
   return (
-    <>
-      <Panels panelsWidth={["30%", "70%"]}>
-        <CharSelectPanel
-          selected={{
-            character: state.character,
-            currStage: state.currStage,
-            currSub: state.currSub,
-            targetStage: state.targetStage,
-            targetSub: state.targetSub,
-          }}
-          handleSelect={handleSelect}
-        />
-        <ResultPanel
-          result={state.result}
-          handleModalOpen={handelHelpModal(true)}
-        />
-      </Panels>
-      <TextModal
-        title={pageString.characters.potential.helpModal.title}
-        open={state.isHelpModalOpen}
-        onClose={handelHelpModal(false)}
-        content={pageString.characters.potential.helpModal.content}
-        ariaLabelledby="help-modal-title"
-        ariaDescribedby="help-modal-description"
+    <Panels panelsWidth={["30%", "70%"]}>
+      <CharSelectPanel
+        selected={{
+          character: state.character,
+          currStage: state.currStage,
+          currSub: state.currSub,
+          targetStage: state.targetStage,
+          targetSub: state.targetSub,
+        }}
+        handleSelect={handleSelect}
       />
-    </>
+      <ResultPanel result={state.result} />
+    </Panels>
   );
 };
 

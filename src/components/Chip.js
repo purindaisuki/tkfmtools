@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Chip } from "@material-ui/core";
+import { Chip } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 
 export const NewChip = () => {
@@ -15,21 +15,17 @@ export const NewChip = () => {
 };
 
 export const StyledChip = styled(Chip)`
-  && {
-    height: auto;
-    width: ${(props) => (props.$lang === "en" ? "3.8rem" : "auto")};
-    color: ${(props) => props.theme.colors.onPrimary};
-    font-size: small;
-    > span {
-      padding: 0 0.4rem;
-    }
-    margin-right: 0.4rem;
+  height: auto;
+  width: ${({ $lang }) => ($lang === "en" ? "3.8rem" : "auto")};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  font-size: small;
+  > span {
+    padding: 0 0.4rem;
   }
+  margin-right: 0.4rem;
 `;
 const StyledNewChip = styled(StyledChip)`
-  && {
-    background-color: ${(props) => props.theme.colors.success};
-  }
+  background-color: ${({ theme }) => theme.colors.success};
 `;
 
 export const FixChip = () => {
@@ -43,9 +39,7 @@ export const FixChip = () => {
   );
 };
 const StyledFixChip = styled(StyledChip)`
-  && {
-    background-color: ${(props) => props.theme.colors.error};
-  }
+  background-color: ${({ theme }) => theme.colors.error};
 `;
 
 export const ChangeChip = () => {
@@ -60,7 +54,5 @@ export const ChangeChip = () => {
 };
 
 const StyledChangeChip = styled(StyledChip)`
-  && {
-    background-color: ${(props) => props.theme.colors.blue};
-  }
+  background-color: ${({ theme }) => theme.colors.blue};
 `;

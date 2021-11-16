@@ -1,7 +1,7 @@
 import React from "react";
 import { Location } from "@reach/router";
 import styled, { useTheme } from "styled-components";
-import { AppBar, Button, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar } from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import DropDown from "components/DropDown";
 import IconButton from "components/IconButton";
@@ -17,7 +17,7 @@ const DesktopNavbar = () => {
   const { isDefault, userLanguage, pageString } = useLanguage();
 
   return (
-    <div>
+    <>
       <LocalizedLink to="/">
         <NavButton
           edge="start"
@@ -78,36 +78,37 @@ const DesktopNavbar = () => {
           </NavbarLink>
         )
       )}
-    </div>
+    </>
   );
 };
 
 const NavButton = styled(IconButton)`
-  && svg {
-    fill: ${(props) => props.theme.colors.onPrimary};
+  svg,
+  &:hover svg {
+    fill: ${({ theme }) => theme.colors.onPrimary};
   }
 `;
 const StyledDropDown = styled(DropDown)`
-  && .MuiListItem-root {
+  .MuiListItem-root {
     padding: 0;
   }
 `;
 const StyledLink = styled(LocalizedLink)`
   width: 100%;
   padding: 0.4rem 1rem;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${({ theme }) => theme.colors.onSurface};
   font-size: medium;
   text-decoration: none;
 `;
 const NavbarLink = styled(StyledLink)`
   width: auto;
   padding: 0.6rem;
-  color: ${(props) =>
-    props.theme.colors.onPrimary + (props.$active ? "" : "BF")};
-  ${(props) =>
-    props.$active ? "text-shadow: 0 0 10px #fff,0 0 10px #fff8;" : ""}
+  color: ${({ theme, $active }) =>
+    theme.colors.onPrimary + ($active ? "" : "BF")};
+  ${({ $active }) =>
+    $active ? "text-shadow: 0 0 10px #fff,0 0 10px #fff8;" : ""}
   &:hover {
-    color: ${(props) => props.theme.colors.onPrimary};
+    color: ${({ theme }) => theme.colors.onPrimary};
     text-shadow: 0 0 10px #fff, 0 0 10px #fff8;
   }
   @media screen and (min-width: 1200px) {
@@ -118,35 +119,31 @@ const NavbarLink = styled(StyledLink)`
 const StyledA = styled.a`
   width: 100%;
   padding: 0.4rem 1rem;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${({ theme }) => theme.colors.onSurface};
   font-size: medium;
   text-decoration: none;
 `;
 const TextButton = styled(Button)`
-  && {
-    padding: 0.6rem;
-    color: ${(props) =>
-      props.theme.colors.onPrimary + (props.$active ? "" : "BF")};
-    ${(props) =>
-      props.$active ? "text-shadow: 0 0 10px #fff,0 0 10px #fff8;" : ""}
-    &:hover {
-      color: ${(props) => props.theme.colors.onPrimary};
-      text-shadow: 0 0 10px #fff, 0 0 10px #fff8;
-    }
-    font-size: medium;
-    .MuiButton-label {
-      line-height: normal;
-      text-transform: none;
-    }
-    @media screen and (min-width: 1200px) {
-      padding: 0.8rem;
-      font-size: 1.2rem;
-    }
+  padding: 0.6rem;
+  color: ${({ theme, $active }) =>
+    theme.colors.onPrimary + ($active ? "" : "BF")};
+  ${({ $active }) =>
+    $active ? "text-shadow: 0 0 10px #fff,0 0 10px #fff8;" : ""}
+  &:hover {
+    color: ${({ theme }) => theme.colors.onPrimary};
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff8;
+  }
+  text-transform: none;
+  line-height: normal;
+  font-size: medium;
+  @media screen and (min-width: 1200px) {
+    padding: 0.8rem;
+    font-size: 1.2rem;
   }
 `;
 const BetaWrapper = styled(BetaTitleWrapper)`
-  ${(props) =>
-    props.$isBeta
+  ${({ $isBeta }) =>
+    $isBeta
       ? `&:after {
     top: -1px;
     left: 0;
@@ -214,8 +211,9 @@ const LanguageSwitcher = () => {
 };
 
 const LanguageButton = styled(IconButton)`
-  && svg {
-    fill: ${(props) => props.theme.colors.onPrimary};
+  svg,
+  &:hover svg {
+    fill: ${({ theme }) => theme.colors.onPrimary};
   }
 `;
 
@@ -257,19 +255,18 @@ const Slider = styled.div`
   background-position: ${(props) => props.$offset};
   background-repeat: no-repeat;
   background-size: 1rem 1rem;
-  background-color: ${(props) => props.theme.colors.slider};
+  background-color: ${({ theme }) => theme.colors.slider};
   cursor: pointer;
   transition: 0.3s;
   &:before {
     position: absolute;
+    bottom: 0.2rem;
+    left: 0.2rem;
     content: "";
     height: 1.2rem;
     width: 1.2rem;
-    left: 0.2rem;
-    bottom: 0.2rem;
     border-radius: 50%;
     background-color: #d7ccc8;
-    -webkit-transition: 0.3s;
     transition: 0.3s;
   }
 `;
@@ -278,8 +275,6 @@ const ThemeSwitcherInput = styled.input`
   width: 0;
   height: 0;
   &:checked + ${Slider}:before {
-    -webkit-transform: translateX(1.6rem);
-    -ms-transform: translateX(1.6rem);
     transform: translateX(1.6rem);
   }
 `;
@@ -291,7 +286,7 @@ const Navbar = ({ withSidebar, toggleSidebar }) => {
   if (withSidebar) {
     // update mainbar title
     title = pageString.index.helmet.title;
-    if (typeof window !== `undefined`) {
+    if (typeof window !== "undefined") {
       const pathArray = window.location.pathname.split("/");
       let titleString = pageString;
       let flag = false;
@@ -324,45 +319,45 @@ const Navbar = ({ withSidebar, toggleSidebar }) => {
   }
 
   return (
-    <StyledNavbar position="sticky">
-      <Toolbar>
-        {withSidebar ? (
-          <div>
-            <NavButton
-              edge="start"
-              onClick={toggleSidebar(true)}
-              tooltipText={pageString.navbar.menuButton}
-              aria-label="menu"
-            >
-              {MenuIcon}
-            </NavButton>
-            <Text>{title}</Text>
-          </div>
-        ) : (
-          <DesktopNavbar />
-        )}
-        <div>
+    <AppBar position="sticky">
+      <StyledToolbar>
+        <NavContentWrapper>
+          {withSidebar ? (
+            <>
+              <NavButton
+                edge="start"
+                onClick={toggleSidebar(true)}
+                tooltipText={pageString.navbar.menuButton}
+                aria-label="menu"
+              >
+                {MenuIcon}
+              </NavButton>
+              <Text>{title}</Text>
+            </>
+          ) : (
+            <DesktopNavbar />
+          )}
+        </NavContentWrapper>
+        <NavContentWrapper>
           <LanguageSwitcher />
           <ThemeSwitcher />
-        </div>
-      </Toolbar>
-    </StyledNavbar>
+        </NavContentWrapper>
+      </StyledToolbar>
+    </AppBar>
   );
 };
 
-const StyledNavbar = styled(AppBar)`
-  && > div {
-    display: flex;
-    justify-content: space-between;
-    z-index: 3;
-    min-height: 56px;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.onPrimary};
-    > div {
-      display: flex;
-      align-items: center;
-    }
-  }
+const NavContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  min-height: 56px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.onPrimary};
 `;
 const Text = styled.div`
   font-size: x-large;

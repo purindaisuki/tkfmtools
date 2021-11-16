@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CircularProgress, Tab, Tabs } from "@material-ui/core";
+import { CircularProgress, Tab, Tabs } from "@mui/material";
 import { BoardProps } from "boardgame.io/react";
 import { BattleCtx, IGameState, PlayerID } from "types/battle";
 import Panels from "containers/Panels";
@@ -97,30 +97,29 @@ const InfoTabs = ({
 };
 
 const StyledTabs = styled(Tabs)`
-  && {
-    min-height: 0;
-    .MuiTabs-indicator {
-      background-color: ${(props) => props.theme.colors.secondary};
-    }
+  min-height: 0;
+  .MuiTabs-indicator {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+  .Mui-selected {
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 const StyledTab = styled(Tab)<{ $selected: boolean }>`
-  && {
-    padding: 0.3rem 0.5rem;
-    min-width: 120px;
-    min-height: 0;
-    .MuiTab-wrapper {
-      flex-direction: row;
-      margin-bottom: 0.5rem;
-      svg {
-        height: 1.6rem;
-        width: 1.6rem;
-        margin-right: 0.4rem;
-        margin-bottom: 0;
-        fill: ${(props) =>
-          props.theme.colors[props.$selected ? "secondary" : "onSurface"]};
-      }
-    }
+  flex-direction: row;
+  align-items: center;
+  min-width: 120px;
+  min-height: 0;
+  margin-bottom: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  color: ${({ theme }) => theme.colors.onSurface};
+  && svg {
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0;
+    fill: ${({ theme, $selected }) =>
+      theme.colors[$selected ? "secondary" : "onSurface"]};
   }
 `;
 
@@ -338,7 +337,7 @@ const MainPanel = styled.div<{ $isBattleOver: boolean }>`
 `;
 const StyledHeader = styled(Header)`
   margin-bottom: 0.5rem;
-  border-bottom: 2px solid ${(props) => props.theme.colors.secondary};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.secondary};
 `;
 const ControlPanel = styled.div`
   position: relative;
@@ -354,14 +353,10 @@ const SpinnerWrapper = styled.div`
   font-size: 0.875rem;
 `;
 const StyledSpinner = styled(CircularProgress)`
-  && {
-    margin: 0 0.5rem;
-    color: ${(props) => props.theme.colors.secondary};
-  }
+  margin: 0 0.5rem;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 const StyledSelectTeamButton = styled(SelectTeamButton)`
-  &&&& {
-    height: 100%;
-    padding: 1rem;
-  }
+  height: 100%;
+  padding: 1rem;
 `;

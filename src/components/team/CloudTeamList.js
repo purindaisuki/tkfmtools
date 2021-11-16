@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Grid, MenuItem } from "@material-ui/core";
+import { Grid, MenuItem } from "@mui/material";
 import { useTeamData } from "containers/TeamDataProvider";
 import { useLanguage } from "containers/LanguageProvider";
 import LocalizedLink from "components/LocalizedLink";
@@ -55,10 +55,8 @@ const CloudTeamItem = ({ team, handleSelectTeam }) => {
 };
 
 const StyledCloudTeamItem = styled(StyledListItem)`
-  && {
-    padding-right: 1rem;
-    user-select: text;
-  }
+  padding-right: 1rem;
+  user-select: text;
   > div {
     > div:nth-child(2) {
       justify-content: flex-end;
@@ -72,8 +70,8 @@ const StyledCloudTeamItem = styled(StyledListItem)`
       font-size: small;
       background: linear-gradient(
         90deg,
-        ${(props) => `${props.theme.colors.shadow}2A`},
-        ${(props) => `${props.theme.colors.shadow}0D`}
+        ${({ theme }) => `${theme.colors.shadow}2A`},
+        ${({ theme }) => `${theme.colors.shadow}0D`}
       );
     }
   }

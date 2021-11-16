@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button as MuiButton, Tooltip } from "@material-ui/core";
+import { Button as MuiButton, Tooltip } from "@mui/material";
 import {
   BattleCtx,
   BattleCharacter as Character,
@@ -84,8 +84,8 @@ const StateIcon = styled.span<{ $active: boolean }>`
     width: 1rem;
     height: 1rem;
     margin-bottom: 1px;
-    fill: ${(props) =>
-      props.theme.colors[props.$active ? "secondary" : "dropdownHover"]};
+    fill: ${({ theme, $active }) =>
+      theme.colors[$active ? "secondary" : "dropdownHover"]};
   }
 `;
 const TooltipTextWrapper = styled.span`
@@ -233,13 +233,14 @@ const StyledHPBar = styled.div<{
   $originalHP?: number;
   $originalShield?: number;
 }>`
+  ${({ theme, $HP, $shield, $originalHP, $originalShield }) => `
   position: relative;
   height: 0.5rem;
   width: 100%;
   max-width: 9.2rem;
   margin-left: 0.2rem;
   margin-bottom: 0.5rem;
-  background-color: ${(props) => props.theme.colors.dropdownHover};
+  background-color: ${theme.colors.dropdownHover};
   border-radius: 0.25rem;
   div {
     height: 100%;
@@ -248,31 +249,31 @@ const StyledHPBar = styled.div<{
   }
   > div:nth-child(1) {
     position: absolute;
-    width: ${(props) => (props.$originalHP ? props.$originalHP : 0)}%;
-    background-color: ${(props) => props.theme.colors.shadow};
+    width: ${$originalHP || 0}%;
+    background-color: ${theme.colors.shadow};
   }
   > div:nth-child(2) {
     position: absolute;
     top: 0.7rem;
-    width: ${(props) => (props.$originalShield ? props.$originalShield : 0)}%;
+    width: ${$originalShield || 0}%;
     height: 60%;
-    background-color: ${(props) => props.theme.colors.shadow};
+    background-color: ${theme.colors.shadow};
   }
   > div:nth-child(3) {
     position: absolute;
-    width: ${(props) => props.$HP}%;
-    background-color: ${(props) => props.theme.colors.secondary};
+    width: ${$HP}%;
+    background-color: ${theme.colors.secondary};
   }
   > div:nth-child(4) {
     position: absolute;
     top: 0.7rem;
-    width: ${(props) => props.$shield}%;
+    width: ${$shield}%;
     height: 60%;
-    background-color: ${(props) => props.theme.chart.colors[1]};
+    background-color: ${theme.chart.colors[1]};
   }
   @media screen and (max-width: 600px) {
     margin-top: 1rem;
-  }
+  }`}
 `;
 
 const CharacterButton = ({
@@ -345,20 +346,19 @@ const ButtonWrapper = styled.div`
   position: relative;
 `;
 const DetailsButton = styled(IconButton)`
-  && {
-    position: absolute;
-    z-index: 1;
-    top: 0.2rem;
-    right: 0.4rem;
-    padding: 0.4rem;
-    color: ${(props) => props.theme.colors.onBackground};
-  }
+  position: absolute;
+  z-index: 1;
+  top: 0.2rem;
+  right: 0.4rem;
+  padding: 0.4rem;
+  color: ${({ theme }) => theme.colors.onBackground};
 `;
 
 export const CharacterAvatar = styled(ImageSupplier)<{
   $grayscale: boolean;
   $attr: number;
 }>`
+  ${({ theme, $attr, $grayscale }) => `
   z-index: 1;
   width: 4rem;
   height: 4rem;
@@ -367,46 +367,38 @@ export const CharacterAvatar = styled(ImageSupplier)<{
     height: 3.5rem;
   }
   border: 0.2rem solid
-    ${(props) =>
-      props.$grayscale
-        ? props.theme.colors.dropdownHover
-        : props.theme.chart.colors[props.$attr]};
+    ${$grayscale ? theme.colors.dropdownHover : theme.chart.colors[$attr]};
   border-radius: 100%;
-  background-color: ${(props) => props.theme.colors.background};
-  filter: grayscale(${(props) => (props.$grayscale ? 1 : 0)});
+  background-color: ${theme.colors.background};
+  filter: grayscale(${$grayscale ? 1 : 0});
+  `}
 `;
 
 const Button = styled(MuiButton)`
-  && {
-    color: ${(props) => props.theme.colors.onBackground};
-  }
+  color: ${({ theme }) => theme.colors.onBackground};
 `;
 const StyledCharacterMuiButton = styled(Button)<{
   $state: CharacterButtonState;
 }>`
-  && {
-    display: flex;
-    margin-bottom: 0.5rem;
-    border: 2px solid
-      ${(props) => {
-        switch (props.$state) {
-          case CharacterButtonState.SELECTED:
-            return props.theme.colors.secondary;
-          case CharacterButtonState.TARGETED:
-            return props.theme.chart.colors[1];
-          default:
-            return props.theme.colors.shadow;
-        }
-      }};
-    ${(props) =>
-      props.$state === CharacterButtonState.NOT_MOVABLE
-        ? "background-color: rgba(0, 0, 0, 0.1);"
-        : ""}
-    filter: brightness(
-      ${(props) =>
-      props.$state === CharacterButtonState.NOT_MOVABLE ? 0.7 : 1}
-    );
-  }
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid
+    ${({ theme, $state }) => {
+      switch ($state) {
+        case CharacterButtonState.SELECTED:
+          return theme.colors.secondary;
+        case CharacterButtonState.TARGETED:
+          return theme.chart.colors[1];
+        default:
+          return theme.colors.shadow;
+      }
+    }};
+  ${({ $state }) =>
+    $state === CharacterButtonState.NOT_MOVABLE
+      ? `background-color: rgba(0, 0, 0, 0.1);
+        filter: brightness(0.7);
+        `
+      : "filter: brightness(1);"}
 `;
 
 export default CharacterButton;

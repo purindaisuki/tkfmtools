@@ -4,7 +4,7 @@ import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const Accordion = ({
   className,
@@ -30,26 +30,24 @@ const Accordion = ({
 };
 
 const StyledAccordion = styled(MuiAccordion)`
-  && {
-    box-shadow: none;
-    background-color: ${(props) => props.theme.colors.surface};
-    color: ${(props) => props.theme.colors.onSurface};
-    transition: all 0.3s ease;
-    &.Mui-expanded {
+  box-shadow: none;
+  background-color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.onSurface};
+  transition: all 0.3s ease;
+  &.Mui-expanded {
+    margin: 0;
+  }
+  > .MuiAccordionSummary-root {
+    transition: border-bottom 0.3s ease;
+    min-height: 0;
+  }
+  .MuiAccordionSummary-expandIconWrapper {
+    padding: 0;
+    svg {
+      fill: ${({ theme }) => theme.colors.secondary};
       margin: 0;
-    }
-    > .MuiAccordionSummary-root {
-      transition: border-bottom 0.3s ease;
-      min-height: 0;
-    }
-    .MuiAccordionSummary-expandIcon {
-      padding: 0;
-      svg {
-        fill: ${(props) => props.theme.colors.secondary};
-        margin: 0;
-        width: 1.6rem;
-        height: 1.6rem;
-      }
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 `;

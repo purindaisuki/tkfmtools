@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import { ListItem } from "@material-ui/core";
+import { ListItem } from "@mui/material";
 
 const StyledListItem = styled(ListItem)`
-  && {
-    margin-bottom: 0.6rem;
-    padding-right: 6.8rem;
-    color: ${(props) => props.theme.colors.onSurface};
-  }
+  margin-bottom: 0.6rem;
+  padding-right: 6.8rem;
+  color: ${({ theme }) => theme.colors.onSurface};
   background: linear-gradient(
     90deg,
-    ${(props) => props.theme.colors.shadow + "2A"},
-    ${(props) => props.theme.colors.shadow + "0D"}
+    ${({ theme }) => `${theme.colors.shadow}2A`},
+    ${({ theme }) => `${theme.colors.shadow}0D`}
   );
 `;
 

@@ -5,7 +5,7 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
 import Scrollable from "containers/Scrollable";
 import { useLanguage } from "containers/LanguageProvider";
@@ -26,7 +26,7 @@ const TableHead = ({ column, requestSort, getSortDirection }) => {
 
   return (
     <MuiTableHead>
-      <StyledTableHeadRow>
+      <MuiTableRow>
         {Object.entries(pageString.items.drop.index.tableHead).map(
           ([key, string], ind) => {
             const sortable = key === "stage" || key === "energy";
@@ -43,22 +43,16 @@ const TableHead = ({ column, requestSort, getSortDirection }) => {
             ) : null;
           }
         )}
-      </StyledTableHeadRow>
+      </MuiTableRow>
     </MuiTableHead>
   );
 };
 
 const StyledTh = styled(SortableTh)`
   && {
-    background-color: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.onSecondary};
-    ${(props) => (props.$sortable ? "" : "cursor: default;")}
-  }
-`;
-const StyledTableHeadRow = styled(MuiTableRow)`
-  && {
-    background-color: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.onSecondary};
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.onSecondary};
+    ${({ $sortable }) => ($sortable ? "" : "cursor: default;")}
   }
 `;
 
@@ -101,13 +95,10 @@ const ItemWrapper = styled.div`
     flex-wrap: nowrap;
     font-size: 1rem;
   }
-  img {
-    width: 2rem;
-    height: 2rem;
-  }
 `;
 const StyledChip = styled(Chip)`
   && {
+    margin-left: 0.4rem;
     background-color: ${({ $rarity }) =>
       $rarity === 0
         ? "lightgray"
@@ -117,8 +108,8 @@ const StyledChip = styled(Chip)`
         ? "#A5D6A7"
         : "#FFAB91"};
     color: black;
+    font-size: 0.875rem;
   }
-  margin-left: 0.4rem;
 `;
 
 const TableRow = ({ item, column, rarity, rank }) => {

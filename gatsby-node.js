@@ -52,11 +52,15 @@ const stringData = {
   },
 };
 
-// Absolute imports
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
+      // absolute imports
       modules: [path.resolve(__dirname, "src"), "node_modules"],
+      // change material-ui engine to styled-components
+      alias: {
+        "@mui/styled-engine": "@mui/styled-engine-sc",
+      },
     },
   });
 };

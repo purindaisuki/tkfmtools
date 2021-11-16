@@ -5,7 +5,7 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
 import { useLanguage } from "containers/LanguageProvider";
 import { ResponsiveCharCard } from "components/CharCard";
@@ -35,8 +35,8 @@ const TableHead = ({ requestSort, getSortDirection }) => {
 
 const StyledTh = styled(SortableTh)`
   && {
-    background-color: ${(props) => props.theme.colors.secondary};
-    color: ${(props) => props.theme.colors.onSecondary};
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.onSecondary};
     text-align: start;
   }
 `;

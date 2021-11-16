@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TableBody, TableRow, TableCell } from "@material-ui/core";
+import { TableBody, TableRow, TableCell } from "@mui/material";
 import { IGameState, ILog } from "types/battle";
 import { useLanguage } from "containers/LanguageProvider";
 import Scrollable from "containers/Scrollable";
@@ -28,7 +28,7 @@ const TextWrapper = styled.span`
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    fill: ${(props) => props.theme.colors.onSurface};
+    fill: ${({ theme }) => theme.colors.onSurface};
   }
 `;
 
@@ -88,8 +88,8 @@ const MoveLog = ({
 };
 
 const CharacterTextWrapper = styled.span<{ $isEnemy: boolean }>`
-  color: ${(props) =>
-    props.theme.colors[props.$isEnemy ? "secondary" : "onSurface"]};
+  color: ${({ theme, $isEnemy }) =>
+    theme.colors[$isEnemy ? "secondary" : "onSurface"]};
 `;
 const HPTextWrapper = styled(TextWrapper)`
   margin-left: 0.3rem;

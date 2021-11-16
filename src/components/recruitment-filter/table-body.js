@@ -4,7 +4,7 @@ import {
   TableBody as MuiTableBody,
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useLanguage } from "containers/LanguageProvider";
 import { ImgCard } from "components/Card";
 
@@ -55,19 +55,20 @@ const CardRow = styled.div`
   flex-wrap: wrap;
 `;
 const Card = styled.div`
+  ${({ theme }) => `
   display: flex;
   align-items: center;
   height: 3rem;
   padding: 1px 8px 1px 1px;
   margin: 4px;
-  background-color: ${(props) => props.theme.colors.dropdownHover + "40"};
+  background-color: ${theme.colors.dropdownHover + "40"};
   box-shadow: 2px 2px 2px 1px
-    ${(props) => props.theme.colors.dropdownHover + "80"};
+    ${theme.colors.dropdownHover + "80"};
   border-radius: 3rem;
-  color: ${(props) => props.theme.colors.onSurface};
+  color: ${theme.colors.onSurface};
   @media screen and (max-width: 600px) {
     font-size: small;
-  }
+  }`}
 `;
 const CharacterImage = styled(ImgCard)`
   margin-right: 2px;
@@ -76,10 +77,8 @@ const CharacterImage = styled(ImgCard)`
     height: 3rem;
     border-radius: 100%;
     border: 2.5px solid
-      ${(props) =>
-        props.rarity < 2
-          ? props.theme.colors.shadow
-          : props.theme.colors.secondary};
+      ${({ theme, rarity }) =>
+        rarity < 2 ? theme.colors.shadow : theme.colors.secondary};
   }
   img {
     border: none;
