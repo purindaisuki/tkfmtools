@@ -1004,6 +1004,7 @@
       "successMsg": "成功",
       "errorMsg": "失敗",
       "modalTitle": "データ読み込み",
+      "noData": "データなし",
       "helpModal": {
         "title": "チーム分析 サポート",
         "content": [

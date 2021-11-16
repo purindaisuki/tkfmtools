@@ -206,8 +206,7 @@ const ModalContent = ({ handleData }) => {
 
   const { localLineups } = useLineupData();
 
-  return (
-    localLineups &&
+  return localLineups?.length !== 0 ? (
     localLineups.map((d, ind) => (
       <Header
         title={d.date}
@@ -230,6 +229,8 @@ const ModalContent = ({ handleData }) => {
         key={ind}
       />
     ))
+  ) : (
+    <div>{pageString.analysis.index.noData}</div>
   );
 };
 

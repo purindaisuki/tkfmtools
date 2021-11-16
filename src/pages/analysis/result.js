@@ -204,19 +204,23 @@ const RankContainer = ({ rank, chars }) => {
 
   return (
     <StyledRankContainer>
-      {chars.map((c) => (
-        <RankCharWrapper $rank={rank} key={c.id}>
-          <RankCharImg
-            name={`char_small_${c.id}`}
-            isBackground
-            alt={charString.name[c.id]}
-            $owned
-            $rank={rank}
-          />
-          <span>{`${pageString.analysis.result.rank.cp}  ${c.cp}`}</span>
-          <span>{`${pageString.analysis.result.rank.PR}  ${c.PR}`}</span>
-        </RankCharWrapper>
-      ))}
+      {chars.length !== 0 ? (
+        chars.map((c) => (
+          <RankCharWrapper $rank={rank} key={c.id}>
+            <RankCharImg
+              name={`char_small_${c.id}`}
+              isBackground
+              alt={charString.name[c.id]}
+              $owned
+              $rank={rank}
+            />
+            <span>{`${pageString.analysis.result.rank.cp}  ${c.cp}`}</span>
+            <span>{`${pageString.analysis.result.rank.PR}  ${c.PR}`}</span>
+          </RankCharWrapper>
+        ))
+      ) : (
+        <ChartHeader>{pageString.analysis.index.noData}</ChartHeader>
+      )}
     </StyledRankContainer>
   );
 };
@@ -312,8 +316,14 @@ const RankHeaderWithModal = ({ PRArray }) => {
 
 const Analysis = () => {
   const { pageString, charString } = useLanguage();
+
   const { currentLineup } = useLineupData();
+  const ownedCharsNum = currentLineup?.filter(
+    (c) => c.owned && c.level !== 0
+  ).length;
+
   const { isExporting, exportImage } = useExport();
+
   const componentRef = useRef();
 
   const handleExport = () =>
@@ -341,17 +351,17 @@ const Analysis = () => {
         <CollectionWrapper>
           <ChartHeader>{pageString.analysis.result.chart[0].title}</ChartHeader>
           <ChartHeader>
-            {`${
-              currentLineup
-                ? currentLineup.filter((c) => c.owned && c.level !== 0).length
-                : 0
-            }/${charData.length}`}
+            {`${ownedCharsNum || 0}/${charData.length}`}
           </ChartHeader>
           <CharCollectionBox lineup={currentLineup} />
         </CollectionWrapper>
         <ChartWrapper>
           <TreeMapHeaderWithModal />
-          <TreeMap data={lineupStats.treeMapDataByAttribute} />
+          {ownedCharsNum !== 0 ? (
+            <TreeMap data={lineupStats.treeMapDataByAttribute} />
+          ) : (
+            <ChartHeader>{pageString.analysis.index.noData}</ChartHeader>
+          )}
         </ChartWrapper>
         <ChartWrapper>
           <ChartHeader>{pageString.analysis.result.chart[2].title}</ChartHeader>

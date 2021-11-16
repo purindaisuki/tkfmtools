@@ -1004,6 +1004,7 @@
       "successMsg": "Success",
       "errorMsg": "Failed",
       "modalTitle": "Load data",
+      "noData": "No data",
       "helpModal": {
         "title": "Line-up analysis - Help",
         "content": [

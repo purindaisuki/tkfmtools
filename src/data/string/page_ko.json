@@ -1002,6 +1002,7 @@
       "successMsg": "성공",
       "errorMsg": "실패",
       "modalTitle": "정보 로딩",
+      "noData": "데이터 없음",
       "helpModal": {
         "title": "라인업 분석 - 도움말",
         "content": [

@@ -990,6 +990,7 @@
       "successMsg": "成功",
       "errorMsg": "失敗",
       "modalTitle": "讀取資料",
+      "noData": "無資料",
       "helpModal": {
         "title": "隊伍分析 幫助",
         "content": [
