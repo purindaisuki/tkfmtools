@@ -23,10 +23,10 @@ export const Select = ({ className, values, renderValues, ...rest }) => {
             },
             dense: true,
             sx: {
-              "& .Mui-selected": {
+              "&& .Mui-selected": {
                 backgroundColor: `${colors.secondary}33`,
               },
-              "& .MuiMenuItem-root:hover": {
+              "&& .MuiMenuItem-root:hover": {
                 backgroundColor: `${colors.secondary}66`,
               },
             },
@@ -51,6 +51,9 @@ const Input = styled(TextField)`
   && label {
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
+  }
+  .MuiInputLabel-root {
+    position: absolute;
   }
   .MuiInputBase-root {
     border: 1px solid ${({ theme }) => theme.colors.dropdownHover};
