@@ -126,6 +126,16 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.8.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "12/29 게임 업데이트",
+              "description": "탐닉의 오니 이부키 슈텐, 타룡 카시피나, 소닉 팬텀 이노리, 날카로운 가시 가벨, 최후의 은룡 프리실라 are available from recruitment now."
+            }
+          ]
+        },
+        {
           "version": "v1.8.0",
           "content": [
             {

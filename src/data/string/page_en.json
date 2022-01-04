@@ -126,6 +126,16 @@
       "change": "Change",
       "content": [
         {
+          "version": "v1.8.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "12/29 game update",
+              "description": "Oni of Bliss Ibuki Shuten, Fallen Dragon Karina, Supersonic Phantom Inori, Stinger Janelle, Last of the Silver Dragons Pulicia are available from recruitment now."
+            }
+          ]
+        },
+        {
           "version": "v1.8.0",
           "content": [
             {

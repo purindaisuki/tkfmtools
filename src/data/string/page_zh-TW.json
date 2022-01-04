@@ -123,6 +123,16 @@
       "change": "變更",
       "content": [
         {
+          "version": "v1.8.1",
+          "content": [
+            {
+              "type": "New",
+              "title": "12/29 遊戲更新",
+              "description": "全境徵才新增極樂之鬼 伊吹朱點、墮龍 凱茜菲娜、音速魅影 祈、刺針 嘉維爾、最後的銀龍 普莉希拉。"
+            }
+          ]
+        },
+        {
           "version": "v1.8.0",
           "content": [
             {
