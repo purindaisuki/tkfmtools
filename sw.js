@@ -46,11 +46,11 @@ self.__precacheManifest = [
   },
   {
     "url": "404.html",
-    "revision": "fdd8914c192419807e2a3fac3df55e8f"
+    "revision": "823159c97a5b3bce354853ea7730ee59"
   },
   {
     "url": "404/index.html",
-    "revision": "69e32bfcdf9331c43d020d006c0cb2fc"
+    "revision": "798cea2e71028fbad44cecd1682f2ddf"
   },
   {
     "url": "4accbfb9ca4c22805f8a5a27dbe87689390fd05d-4d734b0d67b0f6e2efb8.js"
@@ -87,28 +87,31 @@ self.__precacheManifest = [
   },
   {
     "url": "analysis/index.html",
-    "revision": "dae594c7b4be89177fe436058285e345"
+    "revision": "db5a1492d1bbd36ad1f8c89743bdeeb0"
   },
   {
     "url": "analysis/result/index.html",
-    "revision": "a3029f4af0ede90856252ff070a3d175"
+    "revision": "d6671dfb6707a844b8210fe404acb7ea"
   },
   {
     "url": "app-332005589e2b25f62a2e.js"
+  },
+  {
+    "url": "app-d488516ff4fb3a830829.js"
   },
   {
     "url": "ba84465c50cd65a883382dd9f0696c08a8091814-17536fea7541e7ffada5.js"
   },
   {
     "url": "battle/index.html",
-    "revision": "6601ef2bb71065b6e699859311c5aed6"
+    "revision": "227a61bb19beea7002593377ca9eec03"
   },
   {
     "url": "bee240a3-17ac05865318dfb29d84.js"
   },
   {
     "url": "characters/potential/index.html",
-    "revision": "9b22b7f6ef5cded65854d0874bf2061c"
+    "revision": "e0ab28884fc24bc504ee71fff4a10324"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-a9e6fc658fb55feee5a2.js"
@@ -157,67 +160,67 @@ self.__precacheManifest = [
   },
   {
     "url": "en/404.html",
-    "revision": "d612d26f8b768fc70ff0a5cf184df391"
+    "revision": "78971af7e83af64c2d84866b24e8de38"
   },
   {
     "url": "en/404/index.html",
-    "revision": "946ed49030e0bf23190ffe2639992f44"
+    "revision": "60f2a9f1322a359dcf7a0d852bcfc0a7"
   },
   {
     "url": "en/analysis/index.html",
-    "revision": "e756f18efdaadadcb2ec1cf85e4efb24"
+    "revision": "106277148a5586c0c86e53bdfea105cb"
   },
   {
     "url": "en/analysis/result/index.html",
-    "revision": "82722aa2e2513ce9b69832d9429056a5"
+    "revision": "f9b29d7d9850ad6795777207f1d8f497"
   },
   {
     "url": "en/battle/index.html",
-    "revision": "0de11c7ad4793bd2c0ed89db90c79549"
+    "revision": "77d8d3aeaeb02c35ce53494ee548426e"
   },
   {
     "url": "en/characters/potential/index.html",
-    "revision": "96b1234a1ee67fc955f04eb472f3c774"
+    "revision": "4a671171b1e0b1b8d91c946269d18cfe"
   },
   {
     "url": "en/enlist/filter/index.html",
-    "revision": "d5cc10683227f67042422680ff73185a"
+    "revision": "fc6a7dc0b1e711c5d4e4b630cb1fcfa8"
   },
   {
     "url": "en/enlist/index.html",
-    "revision": "487a9dfe750ae4bb6049af300e085e82"
+    "revision": "be6df5e07a43b1853fbbe9f080c8dd6d"
   },
   {
     "url": "en/index.html",
-    "revision": "6ef84a4f74ecbfc1a3fda1aa763b40b6"
+    "revision": "29fb468fd5522eb762950781b171d491"
   },
   {
     "url": "en/items/drop/filter/index.html",
-    "revision": "739cfab481b9e4ed014f18f90b7000b7"
+    "revision": "ad710a679b61645de7e352ac031bef33"
   },
   {
     "url": "en/items/drop/index.html",
-    "revision": "0489c34dcd7df3531de881c297aad86e"
+    "revision": "1685640142c3b3b45f084742ebf9ae31"
   },
   {
     "url": "en/offline-plugin-app-shell-fallback/index.html",
-    "revision": "27b848d672736746b43b57633f635631"
+    "revision": "62d6b7a7e49d3d39554096ee4ef6d483"
   },
   {
     "url": "en/team/build/index.html",
-    "revision": "2e25cfdb53da9452397d2909e4fe78b9"
+    "revision": "d057db51cc8751f093b074b7a3cf0097"
   },
   {
     "url": "en/team/index.html",
-    "revision": "a06f787627b9b210da4281440075f0e8"
+    "revision": "382dc0717126b0bf9486b4575325ffec"
   },
   {
     "url": "enlist/filter/index.html",
-    "revision": "ac588012eec66244ae58b52632e249a5"
+    "revision": "17ea9bcb19152144446bf53cf0e1db2f"
   },
   {
     "url": "enlist/index.html",
-    "revision": "e3f1b9ad887c2ddb19fb2df89b077ed3"
+    "revision": "0e03214a4416df6b73bf86975cd5c507"
   },
   {
     "url": "f5f6e74e6367895a7f6eecb3efd0490eb7855011-bb590cc58865ce88f1d1.js"
@@ -230,131 +233,131 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "db13fef9aaedfc413bd10c6a8d838eec"
+    "revision": "87595787a74776bd15d0ca663dd8a7cd"
   },
   {
     "url": "items/drop/filter/index.html",
-    "revision": "38b2f08548e9c70952af0c8a99ff42b5"
+    "revision": "72c7d0da40127ab595831d17c55e00d8"
   },
   {
     "url": "items/drop/index.html",
-    "revision": "c78d24ef48b597398379b2bbdc7ffe3b"
+    "revision": "12ee644dc887c4288b58ae779c2f46c7"
   },
   {
     "url": "ja/404.html",
-    "revision": "bb0d21043c65982d2f573df73519ff7f"
+    "revision": "be5410820b635d345ad49612f631ef7a"
   },
   {
     "url": "ja/404/index.html",
-    "revision": "7d69a593d28758dc173b2579670a7ce3"
+    "revision": "50d01d42d932aefc316dce89e8ab5d2e"
   },
   {
     "url": "ja/analysis/index.html",
-    "revision": "66ce59cfb6c3109fdbf380f026b5534b"
+    "revision": "49cc23b354bed07ed55a3fbc9482109c"
   },
   {
     "url": "ja/analysis/result/index.html",
-    "revision": "dffa2e7a233f584a84b5822babdeff99"
+    "revision": "5f465c8e7b7408e891f52129af3681b7"
   },
   {
     "url": "ja/battle/index.html",
-    "revision": "103905dc60c00c74dadc9bf6fdf0f866"
+    "revision": "0d111a94e48b33a6d32a4a7340b651ca"
   },
   {
     "url": "ja/characters/potential/index.html",
-    "revision": "194ebbdfb7be861fa9d4ef3f6aafec8e"
+    "revision": "e9e7de3b178a54b6b222514b0f142db6"
   },
   {
     "url": "ja/enlist/filter/index.html",
-    "revision": "351d5c17b8fd5aebff58471d08790a6e"
+    "revision": "01a203074498defa17445ef450cb1886"
   },
   {
     "url": "ja/enlist/index.html",
-    "revision": "61765247cab400844566da5a4a52ba7b"
+    "revision": "063e0aee5cb716ac75658d3244ebe7dd"
   },
   {
     "url": "ja/index.html",
-    "revision": "2acce37797bf2d6be0d0ccdd44dcee1c"
+    "revision": "d05983917240cf1400a1d2c91e50b197"
   },
   {
     "url": "ja/items/drop/filter/index.html",
-    "revision": "157a65ddf1e23bf730718540c6724b5a"
+    "revision": "95e788ee53710d7205e664ba3569db7a"
   },
   {
     "url": "ja/items/drop/index.html",
-    "revision": "cea4710fef31853226041f63d2d068cd"
+    "revision": "aa71d4b8f517d481744e68c910d42f11"
   },
   {
     "url": "ja/offline-plugin-app-shell-fallback/index.html",
-    "revision": "4565c07019f5e9ebf1c3b3bc0d242f29"
+    "revision": "2176b1e9ecd5ed357088b607d02565df"
   },
   {
     "url": "ja/team/build/index.html",
-    "revision": "b7277ffb344c51c885571430afb71103"
+    "revision": "af229147cdc04a9fda8e7300443a4e84"
   },
   {
     "url": "ja/team/index.html",
-    "revision": "6030bf22f0f530859cce24051366ac89"
+    "revision": "77c1f9a796f3652a8715d35c2ab6e2e3"
   },
   {
     "url": "ko/404.html",
-    "revision": "d3d7cfaa57b6d68046a90bc5a2d127ac"
+    "revision": "47819458f30b056776e6f54f35a4416f"
   },
   {
     "url": "ko/404/index.html",
-    "revision": "371519340ac970fa068e85c160826a1c"
+    "revision": "25966d34f527fa64bada4dfaf65686f8"
   },
   {
     "url": "ko/analysis/index.html",
-    "revision": "1180135503236fe9fa67130cb553c6b0"
+    "revision": "914cd107f35a2c9607ef41ddf251f77a"
   },
   {
     "url": "ko/analysis/result/index.html",
-    "revision": "36c0d164e2d0c4f8ca985191d3dafc25"
+    "revision": "e1672ec51121bb90ea8fd11e41d3ca16"
   },
   {
     "url": "ko/battle/index.html",
-    "revision": "711fa0e1edf5f430495f582531de9424"
+    "revision": "42ebae75d44ed063c1564e4bf650b9d1"
   },
   {
     "url": "ko/characters/potential/index.html",
-    "revision": "567ce94e603e0c7d98e7a50e87e08d6d"
+    "revision": "177d1d2ced04bb10d0f8272809c8d913"
   },
   {
     "url": "ko/enlist/filter/index.html",
-    "revision": "6eda663e0dfdba97106be3a5c97fa1ee"
+    "revision": "c767c1e2ea35b3e5b116622bc14a48df"
   },
   {
     "url": "ko/enlist/index.html",
-    "revision": "4e6643e3fa961c6f5dc3c1dc82856c80"
+    "revision": "2f611415e02e55b3560dd476861a9455"
   },
   {
     "url": "ko/index.html",
-    "revision": "5154d4e76f2b444e08652c6b280c3915"
+    "revision": "976a46a104992b5281522eaf47b8c588"
   },
   {
     "url": "ko/items/drop/filter/index.html",
-    "revision": "f974b191603beef20ff5442af3252bb2"
+    "revision": "8be3ae536318fc20dee8bdb7ef3b6d86"
   },
   {
     "url": "ko/items/drop/index.html",
-    "revision": "3857bf6f68965f1e32201813cbc56db0"
+    "revision": "b6fd5db9d144f265c0382164ca2f7c65"
   },
   {
     "url": "ko/offline-plugin-app-shell-fallback/index.html",
-    "revision": "46da9bdf300e0bff83f8c49a27161908"
+    "revision": "de0d5241f67d51b9d9f4cc8652fb7c95"
   },
   {
     "url": "ko/team/build/index.html",
-    "revision": "3515dc73157f9dd7cd3db55c8b8cfd59"
+    "revision": "0c5ef1739e92f50563461bfb04a7b863"
   },
   {
     "url": "ko/team/index.html",
-    "revision": "bec2ef95b05fa907918ab52bd0fd8e30"
+    "revision": "ed7c9e5a17c51eebf6a03ab0221c2b0c"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "91fbb48fd837b7fc3f1df0e901fd78ef"
+    "revision": "5f1b22977e49c0fda761a17c63eaa9b2"
   },
   {
     "url": "polyfill-a48428891306ffe63524.js"
@@ -364,11 +367,11 @@ self.__precacheManifest = [
   },
   {
     "url": "team/build/index.html",
-    "revision": "3ffe3bb40ee01cd07033cabc188087f4"
+    "revision": "4732ba0a1e83cec7807398289d9d7ee9"
   },
   {
     "url": "team/index.html",
-    "revision": "6f7662d8fb60c7d080c17738a1ca33d1"
+    "revision": "f86d93da9f8d22205dab359fbea7c26c"
   },
   {
     "url": "webpack-runtime-f6ab9bc0b4b9f592d847.js"
@@ -379,7 +382,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "4ae9951312e310f06c0182faab74b114"
+    "revision": "5ddac8f818ce96673cad736c51ed4121"
   },
   {
     "url": "page-data/index/page-data.json",
@@ -515,7 +518,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/tkfmtools/app-332005589e2b25f62a2e.js`))) {
+  if (!resources || !(await caches.match(`/tkfmtools/app-d488516ff4fb3a830829.js`))) {
     return await fetch(event.request)
   }
 
