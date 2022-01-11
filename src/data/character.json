@@ -597,9 +597,9 @@
     "tags": {
       "attribute": 4,
       "position": 8,
-      "race": -1,
+      "race": 12,
       "body": -1,
-      "oppai": -1,
+      "oppai": 16,
       "rank": 19,
       "else": [27],
       "available": true
