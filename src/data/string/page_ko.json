@@ -126,6 +126,16 @@
       "change": "변경",
       "content": [
         {
+          "version": "v1.8.2",
+          "content": [
+            {
+              "type": "Change",
+              "title": "Recruitment tags for Supersonic Phantom Inori, Stinger Janelle, Magical Knight Tyrella",
+              "description": "\"Medium Sized\", \"Human\" and \"Explosiveness\" tags have been added for Supersonic Phantom Inori, Stinger Janelle and Magical Knight Tyrella respectively."
+            }
+          ]
+        },
+        {
           "version": "v1.8.1",
           "content": [
             {

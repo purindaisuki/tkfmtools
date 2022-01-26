@@ -406,7 +406,7 @@
       "attribute": 2,
       "position": 5,
       "race": 12,
-      "body": -1,
+      "body": 14,
       "oppai": -1,
       "rank": 20,
       "else": [],
@@ -569,7 +569,7 @@
       "body": 14,
       "oppai": 16,
       "rank": 19,
-      "else": [21, 27],
+      "else": [21, 27, 28],
       "available": true
     },
     "stats": { "initATK": 799.4, "initHP": 2909.2 },
@@ -581,7 +581,7 @@
     "tags": {
       "attribute": 2,
       "position": 5,
-      "race": -1,
+      "race": 10,
       "body": -1,
       "oppai": 16,
       "rank": 19,
