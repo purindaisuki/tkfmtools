@@ -585,7 +585,7 @@
       "body": -1,
       "oppai": 16,
       "rank": 19,
-      "else": [],
+      "else": [21],
       "available": true
     },
     "stats": { "initATK": 750.4, "initHP":  3102.4},
