@@ -206,7 +206,7 @@
             "available": true
         },
         "stats": {
-            "initATK": 677,
+            "initATK": 676.8,
             "initHP": 5720
         },
         "potentialType": 1
@@ -229,7 +229,7 @@
         },
         "stats": {
             "initATK": 936,
-            "initHP": 3418
+            "initHP": 3417.6
         },
         "potentialType": 1
     },
@@ -250,7 +250,7 @@
         },
         "stats": {
             "initATK": 968,
-            "initHP": 3306
+            "initHP": 3305.6
         },
         "potentialType": 1
     },
@@ -612,8 +612,8 @@
             "available": true
         },
         "stats": {
-            "initATK": 962,
-            "initHP": 3326
+            "initATK": 961.6,
+            "initHP": 3326.4
         },
         "potentialType": 1
     },
