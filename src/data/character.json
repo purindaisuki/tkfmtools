@@ -206,7 +206,7 @@
       "initATK": 936,
       "initHP": 3417.6
     },
-    "potentialType": 1
+    "potentialType": 0
   },
   {
     "id": "120",
@@ -225,7 +225,7 @@
       "initATK": 968,
       "initHP": 3305.6
     },
-    "potentialType": 1
+    "potentialType": 0
   },
   {
     "id": "125",
@@ -586,7 +586,7 @@
       "initATK": 963.2,
       "initHP": 3318.4
     },
-    "potentialType": 2
+    "potentialType": 0
   },
   {
     "id": "150",
@@ -833,7 +833,7 @@
       "initATK": 976,
       "initHP": 3275.2
     },
-    "potentialType": 2
+    "potentialType": 0
   },
   {
     "id": "172",
@@ -1422,7 +1422,7 @@
       "initATK": 781.2,
       "initHP": 2979.2
     },
-    "potentialType": 2
+    "potentialType": 0
   },
   {
     "id": "261",
