@@ -760,6 +760,25 @@
     "potentialType": 2
   },
   {
+    "id": "162",
+    "rarity": 3,
+    "tags": {
+      "attribute": 1,
+      "position": 7,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 924.8,
+      "initHP": 3454.4
+    },
+    "potentialType": 0
+  },
+  {
     "id": "163",
     "rarity": 3,
     "tags": {
@@ -1708,6 +1727,25 @@
       "initHP": 2544
     },
     "potentialType": 3
+  },
+  {
+    "id": "313",
+    "rarity": 1,
+    "tags": {
+      "attribute": 3,
+      "position": 7,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 651.6,
+      "initHP": 2488.8
+    },
+    "potentialType": 2
   },
   {
     "id": "401",
