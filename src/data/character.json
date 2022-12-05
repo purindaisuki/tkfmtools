@@ -575,12 +575,12 @@
     "tags": {
       "attribute": 2,
       "position": 5,
-      "race": -1,
+      "race": 10,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "rank": 20,
+      "else": [21, 27],
+      "available": true
     },
     "stats": {
       "initATK": 932.8,
@@ -594,12 +594,12 @@
     "tags": {
       "attribute": 0,
       "position": 7,
-      "race": -1,
-      "body": -1,
+      "race": 11,
+      "body": 14,
       "oppai": -1,
-      "rank": -1,
+      "rank": 20,
       "else": [],
-      "available": false
+      "available": true
     },
     "stats": {
       "initATK": 963.2,
@@ -784,12 +784,12 @@
     "tags": {
       "attribute": 1,
       "position": 7,
-      "race": -1,
-      "body": -1,
+      "race": 12,
+      "body": 14,
       "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "rank": 20,
+      "else": [24],
+      "available": true
     },
     "stats": {
       "initATK": 924.8,
@@ -803,12 +803,12 @@
     "tags": {
       "attribute": 3,
       "position": 9,
-      "race": -1,
-      "body": -1,
-      "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "race": 10,
+      "body": 14,
+      "oppai": 17,
+      "rank": 20,
+      "else": [24],
+      "available": true
     },
     "stats": {
       "initATK": 944,
@@ -825,9 +825,9 @@
       "race": -1,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "rank": 20,
+      "else": [28],
+      "available": true
     },
     "stats": {
       "initATK": 931.2,
@@ -863,9 +863,9 @@
       "race": -1,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "rank": 20,
+      "else": [24],
+      "available": true
     },
     "stats": {
       "initATK": 976,
@@ -1430,12 +1430,12 @@
     "tags": {
       "attribute": 1,
       "position": 7,
-      "race": -1,
-      "body": -1,
-      "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "race": 10,
+      "body": 14,
+      "oppai": 15,
+      "rank": 19,
+      "else": [24, 26],
+      "available": true
     },
     "stats": {
       "initATK": 770,
@@ -1487,12 +1487,12 @@
     "tags": {
       "attribute": 3,
       "position": 9,
-      "race": -1,
+      "race": 12,
       "body": -1,
-      "oppai": -1,
-      "rank": -1,
-      "else": [],
-      "available": false
+      "oppai": 16,
+      "rank": 19,
+      "else": [24],
+      "available": true
     },
     "stats": {
       "initATK": 781.2,
@@ -1753,12 +1753,12 @@
     "tags": {
       "attribute": 3,
       "position": 7,
-      "race": -1,
-      "body": -1,
-      "oppai": -1,
+      "race": 10,
+      "body": 13,
+      "oppai": 15,
       "rank": -1,
-      "else": [],
-      "available": false
+      "else": [24],
+      "available": true
     },
     "stats": {
       "initATK": 651.6,
