@@ -579,7 +579,7 @@
       "body": -1,
       "oppai": -1,
       "rank": 20,
-      "else": [21, 27],
+      "else": [14, 21, 27],
       "available": true
     },
     "stats": {
@@ -662,7 +662,7 @@
       "initATK": 944,
       "initHP": 3732.8
     },
-    "potentialType": 2
+    "potentialType": 0
   },
   {
     "id": "154",
@@ -814,7 +814,7 @@
       "initATK": 944,
       "initHP": 3388.8
     },
-    "potentialType": 2
+    "potentialType": 0
   },
   {
     "id": "166",
@@ -864,7 +864,7 @@
       "body": -1,
       "oppai": -1,
       "rank": 20,
-      "else": [24],
+      "else": [24, 26],
       "available": true
     },
     "stats": {
