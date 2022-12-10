@@ -40,11 +40,11 @@ self.__precacheManifest = [
   },
   {
     "url": "404.html",
-    "revision": "1963236a5c60bb78973f6ea0c9590c73"
+    "revision": "9d50b99d8066a346d7b506a3c3bac3c5"
   },
   {
     "url": "404/index.html",
-    "revision": "b2db7fa588622a54b273da9c08d3f25a"
+    "revision": "52ba758302807f32d553859d47180b04"
   },
   {
     "url": "4accbfb9ca4c22805f8a5a27dbe87689390fd05d-60564b7b9b149e4a094a.js"
@@ -87,11 +87,14 @@ self.__precacheManifest = [
   },
   {
     "url": "analysis/index.html",
-    "revision": "90d02bfbe78aec500e7b4f211e36c679"
+    "revision": "036547ccacbd2ba4fb90e8733de4118a"
   },
   {
     "url": "analysis/result/index.html",
-    "revision": "2e3bdd4bfa7742d581b16cbf821d6fd0"
+    "revision": "4e684a5f06aab4c39a692bcee4be2ec0"
+  },
+  {
+    "url": "app-1ecdd58deae1b6b68f68.js"
   },
   {
     "url": "app-2cfde297e4abfe629027.js"
@@ -119,14 +122,14 @@ self.__precacheManifest = [
   },
   {
     "url": "battle/index.html",
-    "revision": "346944da272f343b358e39a675f358ba"
+    "revision": "0dcf3a85031054470b3bb4e471d8fb7b"
   },
   {
     "url": "bee240a3-17ac05865318dfb29d84.js"
   },
   {
     "url": "characters/potential/index.html",
-    "revision": "8ae099abf1da629154732e286047c2c3"
+    "revision": "4ec7535732f18a62945f5a9fb622db30"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-a9e6fc658fb55feee5a2.js"
@@ -139,6 +142,9 @@ self.__precacheManifest = [
   },
   {
     "url": "component---src-pages-analysis-result-js-24dfd6a035f2ab649bea.js"
+  },
+  {
+    "url": "component---src-pages-analysis-result-js-7b8fbf96089b427151a1.js"
   },
   {
     "url": "component---src-pages-analysis-result-js-83af0955dc5a15243e30.js"
@@ -190,67 +196,67 @@ self.__precacheManifest = [
   },
   {
     "url": "en/404.html",
-    "revision": "91a9b2684ed3fb70b0d52672ffc97c8e"
+    "revision": "ccc8ee643ae02eb1b1f4614921e242fb"
   },
   {
     "url": "en/404/index.html",
-    "revision": "24192f7a43a357ebf28fb51e79a6b0fe"
+    "revision": "0405595266eca85b6830d88d19460996"
   },
   {
     "url": "en/analysis/index.html",
-    "revision": "1eb603353711f73bc00ce7b5905278ea"
+    "revision": "d3a39598fc23adbb6a881586bc511ae6"
   },
   {
     "url": "en/analysis/result/index.html",
-    "revision": "a233375abd599899f6667a6f0d4662b8"
+    "revision": "7073f62c0f1a3987fce94c9a40630446"
   },
   {
     "url": "en/battle/index.html",
-    "revision": "d519208e119192d76aaa7c72eeecef5c"
+    "revision": "42969dfd670cdc2e3fc6c29ee1192429"
   },
   {
     "url": "en/characters/potential/index.html",
-    "revision": "c6acbd1aba368b9377cd2a8e80be74d9"
+    "revision": "892b233c0c7c713dc5109a345be7641f"
   },
   {
     "url": "en/enlist/filter/index.html",
-    "revision": "0a65108e62516d45346eee69c7ff6311"
+    "revision": "e56b61de6b51389e1d848f4c952f7816"
   },
   {
     "url": "en/enlist/index.html",
-    "revision": "f22f7871414b5c8f133f69b5a09c8251"
+    "revision": "e7fcf26710a95ac4bd9c6561364d0519"
   },
   {
     "url": "en/index.html",
-    "revision": "97eb865eecd7338a0ac7a6f7aaffc04f"
+    "revision": "e571858f77899969f1126ada3da20a3b"
   },
   {
     "url": "en/items/drop/filter/index.html",
-    "revision": "e86fbd1c222497b01a0aac2bdafe76c3"
+    "revision": "f78d91de30fd607204029184c428470e"
   },
   {
     "url": "en/items/drop/index.html",
-    "revision": "0c1bfecd72a6bf801b1f3c042a0ff839"
+    "revision": "3d146445e15872b19a2e2089a91ab763"
   },
   {
     "url": "en/offline-plugin-app-shell-fallback/index.html",
-    "revision": "01890766d1e6ae4476cc24ac5c31c4ed"
+    "revision": "c57562f36fb408cbc4af411a5e072fdb"
   },
   {
     "url": "en/team/build/index.html",
-    "revision": "456ee0e4ab0407a231c8f8864fd44a9d"
+    "revision": "1d08701d141f8c120c11d1374de52dfe"
   },
   {
     "url": "en/team/index.html",
-    "revision": "f8ced9d6c6383617fe94a32c1df0c0cf"
+    "revision": "3d85cbe4d6da169362b74a03270faaa3"
   },
   {
     "url": "enlist/filter/index.html",
-    "revision": "c64b959dd72922fccc8ae60a8134d78c"
+    "revision": "c1bad3b2b49f0ce5c34d3e2c2d03299f"
   },
   {
     "url": "enlist/index.html",
-    "revision": "ff95a221888f5e11688dac775be130f7"
+    "revision": "3b563602bf554ac3c62536d9484ce4cd"
   },
   {
     "url": "f5f6e74e6367895a7f6eecb3efd0490eb7855011-bb590cc58865ce88f1d1.js"
@@ -263,131 +269,131 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "c6d963717676c4e1b477749657ea6788"
+    "revision": "d3054273fe723aa9a21ad1a7878d0847"
   },
   {
     "url": "items/drop/filter/index.html",
-    "revision": "3308c8080740289e2c520038ff64ca4d"
+    "revision": "1515492b9faca1790354256063323409"
   },
   {
     "url": "items/drop/index.html",
-    "revision": "c38df9a076c368cbdc714490e8fa6920"
+    "revision": "97646b35446be7987570e45f5172fc5e"
   },
   {
     "url": "ja/404.html",
-    "revision": "dee2e311f994334f6cdeb9fada8ee316"
+    "revision": "01c4e0a79d0d7cc5042b09bd771d37f5"
   },
   {
     "url": "ja/404/index.html",
-    "revision": "7f2850d15dd52be7f15a9385ae7e369e"
+    "revision": "6cfcbe87911dd9c92bd1e27b9d1f8da9"
   },
   {
     "url": "ja/analysis/index.html",
-    "revision": "fa4812c4ea6accc4b26009073d135f18"
+    "revision": "0d0f2c2b0d5d5262c8bfff1f8d9b9151"
   },
   {
     "url": "ja/analysis/result/index.html",
-    "revision": "8b3c921419a62c4ca0938192d03f76f1"
+    "revision": "5b5669f3cd648096ed6a5cc2f63bc25f"
   },
   {
     "url": "ja/battle/index.html",
-    "revision": "cd40b6e82d9eb294a0cad28563d5c44a"
+    "revision": "1d0c0e01e3d97686a7c2802d924cb9aa"
   },
   {
     "url": "ja/characters/potential/index.html",
-    "revision": "e3a3c483a4048810cbcdfc5f86e62d2c"
+    "revision": "bd674141fe49d525c9c415570606fb3e"
   },
   {
     "url": "ja/enlist/filter/index.html",
-    "revision": "21f4131a8190d3cad99ca5ece747cbcb"
+    "revision": "7a11123aba78fc32d673a9d455c949dc"
   },
   {
     "url": "ja/enlist/index.html",
-    "revision": "3f9eacb5e77efe793d18a6ea89a857cf"
+    "revision": "3aef383bbb87411dffa050e7f007b6a0"
   },
   {
     "url": "ja/index.html",
-    "revision": "15f135f69211ee461bffb506d6de26c1"
+    "revision": "24feca4208ff315ab80e26fd9721e48e"
   },
   {
     "url": "ja/items/drop/filter/index.html",
-    "revision": "168db49c681db0afa461daa970644020"
+    "revision": "a6434a3b9a4e997ed8eee890837c680f"
   },
   {
     "url": "ja/items/drop/index.html",
-    "revision": "6565dad9be5f2a1c45079137b2105f07"
+    "revision": "a2b966cbd6b6d9a470ba67b5ec99579e"
   },
   {
     "url": "ja/offline-plugin-app-shell-fallback/index.html",
-    "revision": "b65faa0faba3371481c1a03ce17ebf7f"
+    "revision": "eb668db2f8c3a846da8ad77865f86549"
   },
   {
     "url": "ja/team/build/index.html",
-    "revision": "4c887663f0b98a2ec5cbd8193c59f68b"
+    "revision": "61baab18792c76987ea963ecd904b2aa"
   },
   {
     "url": "ja/team/index.html",
-    "revision": "121fb731d9ff559fd01797eacbec5fa0"
+    "revision": "bb067c9854385b0c20307ee4d71c2f19"
   },
   {
     "url": "ko/404.html",
-    "revision": "6e19e7ca71c6cc0d51c3959624511498"
+    "revision": "5875a5808358154be18da3a13e56cb4f"
   },
   {
     "url": "ko/404/index.html",
-    "revision": "06bb7d3f791d664d1ea3bc9ef29ae134"
+    "revision": "38f8549a3f09cd10dd082cdba0933998"
   },
   {
     "url": "ko/analysis/index.html",
-    "revision": "00ff6cdba24ace35473df95be1d9b0a9"
+    "revision": "82489d592da88488f1aff3190318514e"
   },
   {
     "url": "ko/analysis/result/index.html",
-    "revision": "bd564fbb2012c5dc1ec4786dcc053087"
+    "revision": "d1b3dbc1ac4bf0989ec6ed5049c8c9b2"
   },
   {
     "url": "ko/battle/index.html",
-    "revision": "f6613843886b4fbd53b33c3aa58ed669"
+    "revision": "a3111304a961ceeda710f4e9fd7d66c6"
   },
   {
     "url": "ko/characters/potential/index.html",
-    "revision": "8f621effa383de976fc5f7cbd8bece22"
+    "revision": "541c79b8d9cea715402db15d1ba07b6a"
   },
   {
     "url": "ko/enlist/filter/index.html",
-    "revision": "335a5fc968cc9b5db87da60dfbd706ab"
+    "revision": "a98e6e16373608f2951c0a0789fef615"
   },
   {
     "url": "ko/enlist/index.html",
-    "revision": "f32214018d01ce92e80fd2e1beaab27d"
+    "revision": "c2d19443af92d74e41908f047e82dc33"
   },
   {
     "url": "ko/index.html",
-    "revision": "2171bc443b0b50d048ddfe1a800dd0d4"
+    "revision": "268e5ad8349159dd78ae2cccb4909b45"
   },
   {
     "url": "ko/items/drop/filter/index.html",
-    "revision": "dce662cd616a437c9493ee2599e20fb3"
+    "revision": "4755f64303758c6ca798bd914ae036c4"
   },
   {
     "url": "ko/items/drop/index.html",
-    "revision": "9eb4b3fd4a51b52aea50cc74f9173575"
+    "revision": "cdd18edbf119fcced27ba98c75de573e"
   },
   {
     "url": "ko/offline-plugin-app-shell-fallback/index.html",
-    "revision": "9182cfa4d7744017f158f055935b5d51"
+    "revision": "5a5d978527b3f90d548b64f42a1e39ad"
   },
   {
     "url": "ko/team/build/index.html",
-    "revision": "f945c3c55aafb2370771672dca1e23ba"
+    "revision": "c697575cf8b639ae938f7ff555c60ddd"
   },
   {
     "url": "ko/team/index.html",
-    "revision": "47f10104c057d7dce788a1caeb9b7885"
+    "revision": "de64f4321d5ee438049a066a720681e8"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "54ccc29aa64904f4280034c84b3bbf63"
+    "revision": "bd57e86fc6bcfe220abe2ba677f743ac"
   },
   {
     "url": "polyfill-a48428891306ffe63524.js"
@@ -397,11 +403,11 @@ self.__precacheManifest = [
   },
   {
     "url": "team/build/index.html",
-    "revision": "7cab94bfa2a024d685868c7913d4f1d0"
+    "revision": "5083ee06a6873ee5bd430b5d8dccb704"
   },
   {
     "url": "team/index.html",
-    "revision": "3cc5cd26aa7aa567fd3f9eb0b9c4c206"
+    "revision": "2662d20f7857dd171df8746fafa59081"
   },
   {
     "url": "webpack-runtime-0386b7e2f09b674e3fdb.js"
@@ -416,6 +422,9 @@ self.__precacheManifest = [
     "url": "webpack-runtime-8d448f94ec453575b3ed.js"
   },
   {
+    "url": "webpack-runtime-90ba3a255c5c602867c4.js"
+  },
+  {
     "url": "webpack-runtime-9dafe063fbb5c497464f.js"
   },
   {
@@ -426,51 +435,51 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
-    "revision": "3e76806b5b20ab540661df0a00b14775"
+    "revision": "18e1ee7c71d295e6362fd349c8cc3a88"
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "3f4a3d6a68ea4a36a8bff6a3f9f28982"
+    "revision": "857a9a307166ac71139bd8a4a92b887d"
   },
   {
     "url": "page-data/index/page-data.json",
-    "revision": "912b9dee69696651d20557d06f555ef8"
+    "revision": "114214621488d5910a26631f3391d8ac"
   },
   {
     "url": "page-data/en/page-data.json",
-    "revision": "c87b02c3a64797d1de71dddc2b98e693"
+    "revision": "f22558ade18a5692e7113079aa392b24"
   },
   {
     "url": "page-data/ja/page-data.json",
-    "revision": "33771d198bcee1d1328c5479a81f6f47"
+    "revision": "3403aacddd2d4bc431f47034ab79d6fd"
   },
   {
     "url": "page-data/ko/page-data.json",
-    "revision": "66f1efa990e4fa470cc580230798b2c3"
+    "revision": "b6938cc55a3fe2a093a58d73983c6eca"
   },
   {
     "url": "page-data/enlist/filter/page-data.json",
-    "revision": "6e8d243a9ce09d9066e9709f822ac860"
+    "revision": "7b6762de24761f93a13ec6a8b2dd93a7"
   },
   {
     "url": "page-data/sq/d/2549082989.json",
-    "revision": "02623d81eb25966495c59dc85d5df4e2"
+    "revision": "fcb1f52b2e5082492ec049bc78dc0e1d"
   },
   {
     "url": "page-data/sq/d/3068648073.json",
-    "revision": "5a64b0879e0bacdf553d92df58575c5c"
+    "revision": "b9591b7f09c4ceacffa23079d7800d68"
   },
   {
     "url": "page-data/en/enlist/filter/page-data.json",
-    "revision": "024ad48d2764354f17599a0d448f05f0"
+    "revision": "066361a49103b45dceb452a1cc4aa987"
   },
   {
     "url": "page-data/ja/enlist/filter/page-data.json",
-    "revision": "b4a1d543ecf4fa4b512da637555b13d4"
+    "revision": "fb60921a25bcb03dd7cd4055b0faeffb"
   },
   {
     "url": "page-data/ko/enlist/filter/page-data.json",
-    "revision": "c59e272d12ddbb4250e5a2094b28765b"
+    "revision": "196988bb11a2bb3d093f278356989aa4"
   },
   {
     "url": "manifest.webmanifest",
@@ -566,7 +575,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/tkfmtools/app-6e2af9aa6a48e1b9d33c.js`))) {
+  if (!resources || !(await caches.match(`/tkfmtools/app-1ecdd58deae1b6b68f68.js`))) {
     return await fetch(event.request)
   }
 
