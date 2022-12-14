@@ -1235,6 +1235,44 @@
     "potentialType": 0
   },
   {
+    "id": "197",
+    "rarity": 3,
+    "tags": {
+      "attribute": 2,
+      "position": 5,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 995.2,
+      "initHP": 3544
+    },
+    "potentialType": 0
+  },
+  {
+    "id": "198",
+    "rarity": 3,
+    "tags": {
+      "attribute": 3,
+      "position": 5,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 1036.8,
+      "initHP": 3400
+    },
+    "potentialType": 0
+  },
+  {
     "id": "209",
     "rarity": 2,
     "tags": {
