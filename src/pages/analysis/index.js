@@ -14,6 +14,7 @@ import Snackbar from "components/Snackbar";
 import { ScrollableModal, TextModal } from "components/Modal";
 import calcCharStats from "utils/calcCharStats";
 import charByPositionData from "data/charByPosition";
+import charMap from "data/charMap";
 
 const CharContainer = ({ index }) => {
   const { pageString, charString } = useLanguage();
@@ -22,6 +23,7 @@ const CharContainer = ({ index }) => {
   const { setCurrentLineup } = actions;
 
   const charState = currentLineup[index];
+  const { rarity } = charMap[charId];
 
   const onSelect = useCallback(
     (newCharState) => {
@@ -98,9 +100,9 @@ const CharContainer = ({ index }) => {
           <StyledSelect
             label={pageString.analysis.index.disciplineTitle}
             values={selectItems.discipline.values}
-            value={charState.id[0] === "4" ? "-" : charState.discipline}
+            value={rarity === 0 ? "-" : charState.discipline}
             onChange={handleSelectChange("discipline")}
-            disabled={!charState.owned || charState.id[0] === "4"}
+            disabled={!charState.owned || rarity === 0}
             margin="dense"
           />
         </SelectWrapper>

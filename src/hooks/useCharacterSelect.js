@@ -1,40 +1,39 @@
 import { useCallback, useState } from "react";
+import charMap from "data/charMap";
 
-const getCharSelects = (charState) => ({
-  star: {
-    imgNames:
-      "ui_star_" +
-      (charState.id[0] === "1"
-        ? "ssr"
-        : charState.id[0] === "2"
-        ? "sr"
-        : charState.id[0] === "3"
-        ? "r"
-        : "n"),
-    values: [...Array(6).keys()].slice(4 - charState.id[0]),
-    disabled: false,
-  },
-  bond: {
-    imgNames: "ui_bond_" + charState.bond,
-    values: [...Array(6).keys()].slice(1),
-    disabled: false,
-  },
-  discipline: {
-    imgNames: "ui_discipline",
-    values: charState.id[0] === "4" ? ["-"] : [...Array(4).keys()],
-    disabled: charState.id[0] === "4",
-  },
-  potential: {
-    imgNames: "ui_potentialPassive",
-    values: [...Array(parseInt(charState.id[0]) > 2 ? 7 : 13).keys()].slice(1),
-    disabled: false,
-  },
-  potentialSub: {
-    imgNames: undefined,
-    values: Array(6).fill(false),
-    disabled: false,
-  },
-});
+const getCharSelects = (charState) => {
+  const { rarity } = charMap[charState.id];
+  const isNCharacter = rarity === 0;
+  return {
+    star: {
+      imgNames:
+        "ui_star_" +
+        (rarity === 3 ? "ssr" : rarity === 2 ? "sr" : rarity === 1 ? "r" : "n"),
+      values: [...Array(6).keys()].slice(rarity),
+      disabled: false,
+    },
+    bond: {
+      imgNames: "ui_bond_" + charState.bond,
+      values: [...Array(6).keys()].slice(1),
+      disabled: false,
+    },
+    discipline: {
+      imgNames: "ui_discipline",
+      values: isNCharacter ? ["-"] : [...Array(4).keys()],
+      disabled: isNCharacter,
+    },
+    potential: {
+      imgNames: "ui_potentialPassive",
+      values: [...Array(rarity < 2 ? 7 : 13).keys()].slice(1),
+      disabled: false,
+    },
+    potentialSub: {
+      imgNames: undefined,
+      values: Array(6).fill(false),
+      disabled: false,
+    },
+  };
+};
 
 const convertLegacyData = (charState) => {
   if (typeof charState.potentialSub !== "object") {

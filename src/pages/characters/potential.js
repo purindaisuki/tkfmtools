@@ -10,6 +10,7 @@ import { Select } from "components/Input";
 import { TextModal } from "components/Modal";
 import { BuffIcon, ItemIcon, RaceIcon } from "components/icon";
 import { calcCharPotential } from "utils/calcCharStats";
+import charMap from "data/charMap";
 
 const getSelectValues = (selected) => ({
   character: "",
@@ -26,9 +27,9 @@ const getSelectValues = (selected) => ({
 const CharSelectPanel = ({ selected, handleSelect }) => {
   const { pageString, charString } = useLanguage();
 
-  const characterList = Object.keys(charString.name).filter(
-    (key) => key === "nr" || parseInt(key[0]) < 3
-  );
+  const characterList = Object.keys(charString.name).filter((key) => {
+    return key === "nr" || charMap[key]?.rarity >= 2;
+  });
 
   const selectValues = getSelectValues(selected);
 

@@ -12,12 +12,15 @@ const calcCharPotential = (id, from, to, potentialType) => {
     return result;
   }
 
-  const type =
-    id === "nr" || id[0] === "4" || id[0] === "3"
-      ? 3
-      : potentialType !== undefined
-      ? potentialType
-      : charData.find((c) => c.id === id).potentialType;
+  let type;
+  if (id === "nr") {
+    type = 3;
+  } else {
+    const { rarity, potentialType: cPotentialType } = charData.find(
+      (c) => c.id === id
+    );
+    type = rarity < 2 ? 3 : potentialType ?? cPotentialType;
+  }
 
   const stages = potentialData.type[type];
   for (let i = from[0] - 1; i < to[0] - 1 + 1; i++) {
@@ -71,18 +74,15 @@ const calcCharStats = ({
   discipline,
   star,
 }) => {
-  const characterData = charData.find((c) => c.id === id);
-  if (!characterData) {
-    throw new Error(`invalid character id: ${id}`);
-  }
-  if ((id[0] === "3" || id[0] === "4") && potential > 6) {
+  const { rarity, stats } = charData.find((c) => c.id === id);
+  if (rarity < 2 && potential > 6) {
     throw new Error(`invalid potential: ${potential}`);
   }
-  if (id[0] === "4" && +discipline > 0) {
+  if (rarity === 0 && +discipline > 0) {
     throw new Error(`invalid discipline: ${discipline}`);
   }
 
-  const { initATK, initHP } = characterData.stats;
+  const { initATK, initHP } = stats;
 
   const levelBuff = 1.1 ** (level - 1);
 
@@ -108,7 +108,7 @@ const calcCharStats = ({
   const disciplineBuff =
     1 +
     (isNaN(parseInt(discipline)) ? 0 : +discipline * (+discipline + 1) * 0.025);
-  const starBuff = (star + 5) / (9 - id[0]);
+  const starBuff = (star + 5) / (rarity + 5);
 
   return {
     ATK: Math.floor(
