@@ -23,7 +23,7 @@ const CharContainer = ({ index }) => {
   const { setCurrentLineup } = actions;
 
   const charState = currentLineup[index];
-  const { rarity } = charMap[charId];
+  const { rarity } = charMap[charState.id];
 
   const onSelect = useCallback(
     (newCharState) => {
