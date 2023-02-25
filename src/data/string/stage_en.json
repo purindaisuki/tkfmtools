@@ -540,5 +540,35 @@
       { "id": "20-20", "name": "Valley Volley" },
       { "id": "20-21", "name": "Ayane's Choice" }
     ]
+  },
+  {
+    "chapter": "21",
+    "name": "Chapter 21：Go forth! Hero!",
+    "stages": [
+      { "id": "21-2", "name": "Some Panting" },
+      { "id": "21-3", "name": "The Sage of Legend" },
+      { "id": "21-3 free", "name": "Basement" },
+      { "id": "21-4", "name": "Misty Forest" },
+      { "id": "21-5", "name": "Bounds of the Forest" },
+      { "id": "21-6", "name": "Momentary Happiness" },
+      { "id": "21-6 free", "name": "Storage Room" },
+      { "id": "21-7", "name": "Visitor" },
+      { "id": "21-8", "name": "Forcefield Collapse" },
+      { "id": "21-8 free", "name": "Raw Materials Room" },
+      { "id": "21-9", "name": "Illusion Magic" },
+      { "id": "21-10", "name": "Monsters in the Forest" },
+      { "id": "21-11", "name": "Powerless Hero" },
+      { "id": "21-11 free", "name": "Medicine Room" },
+      { "id": "21-12", "name": "Turbulent Forest" },
+      { "id": "21-13", "name": "Rampaging Beast" },
+      { "id": "21-14", "name": "Go forth! Hero!" },
+      { "id": "21-14 free", "name": "Garbage Dump" },
+      { "id": "21-15", "name": "Appease Turbulence" },
+      { "id": "21-16", "name": "Return to Silence" },
+      { "id": "21-17", "name": "Distant Grasslands" },
+      { "id": "21-18", "name": "Ravine Battle" },
+      { "id": "21-19", "name": "Retreat from the Front" },
+      { "id": "21-20", "name": "Harbor Fortress" }
+    ]
   }
 ]
