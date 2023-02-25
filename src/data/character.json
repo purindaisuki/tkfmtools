@@ -880,7 +880,7 @@
       "attribute": 0,
       "position": 7,
       "race": -1,
-      "body": -1,
+      "body": 14,
       "oppai": -1,
       "rank": 20,
       "else": [24, 26],
