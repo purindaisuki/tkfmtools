@@ -1,6 +1,28 @@
 import type { Ctx } from "boardgame.io";
 import { SkillEffect } from "types/skills";
 import { IGameState } from "types/battle";
+import charMap from "data/charMap";
+
+interface CharMap {
+  [id: string]: {
+    rarity: number;
+    tags: {
+      attribute: number;
+      position: number;
+      race: number;
+      body: number;
+      oppai: number;
+      rank: number;
+      else: number[];
+      available: boolean;
+    };
+    stats: {
+      initATK: number;
+      initHP: number;
+    };
+    potentialType: number;
+  };
+}
 
 export const sameEffect = <T extends SkillEffect>(e1: T, e2: T) => {
   for (let p in e1) {
@@ -28,12 +50,15 @@ export const merge = <T extends { [key: string]: any }[]>(...objects: T) =>
     return result;
   }, {}) as any;
 
-export const generateMaxedCharacterSetupData = (id: string) => ({
-  id: id,
-  level: 60,
-  potential: +id[0] < 3 ? 12 : 6,
-  potentialSub: Array(6).fill(true),
-  discipline: +id[0] < 4 ? 3 : 0,
-  star: 5,
-  bond: 5,
-});
+export const generateMaxedCharacterSetupData = (id: string) => {
+  const { rarity } = (charMap as CharMap)[id];
+  return {
+    id: id,
+    level: 60,
+    potential: rarity < 2 ? 6 : 12,
+    potentialSub: Array(6).fill(true),
+    discipline: rarity === 0 ? 0 : 3,
+    star: 5,
+    bond: 5,
+  };
+};
