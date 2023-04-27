@@ -608,6 +608,25 @@
     "potentialType": 0
   },
   {
+    "id": "148",
+    "rarity": 3,
+    "tags": {
+      "attribute": 1,
+      "position": 5,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 945.6,
+      "initHP": 3382.4
+    },
+    "potentialType": 0
+  },
+  {
     "id": "149",
     "rarity": 3,
     "tags": {
