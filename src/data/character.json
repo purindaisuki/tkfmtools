@@ -2394,6 +2394,44 @@
     "potentialType": 2
   },
   {
+    "id": "511",
+    "rarity": 3,
+    "tags": {
+      "attribute": 4,
+      "position": 7,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 881.6,
+      "initHP": 4000
+    },
+    "potentialType": 2
+  },
+  {
+    "id": "513",
+    "rarity": 3,
+    "tags": {
+      "attribute": 4,
+      "position": 5,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 1041.6,
+      "initHP": 3385.6
+    },
+    "potentialType": 0
+  },
+  {
     "id": "514",
     "rarity": 3,
     "tags": {
