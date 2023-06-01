@@ -823,10 +823,10 @@
       "attribute": 1,
       "position": 7,
       "race": 12,
-      "body": -1,
+      "body": 14,
       "oppai": -1,
       "rank": 20,
-      "else": [24, 26],
+      "else": [22, 24, 26],
       "available": true
     },
     "stats": {
