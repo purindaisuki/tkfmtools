@@ -1111,7 +1111,7 @@
       "body": -1,
       "oppai": -1,
       "rank": 20,
-      "else": [28],
+      "else": [28, 29],
       "available": true
     },
     "stats": {
