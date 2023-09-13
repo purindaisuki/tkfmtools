@@ -236,9 +236,9 @@
       "race": -1,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
+      "rank": 20,
       "else": [],
-      "available": false
+      "available": true
     },
     "stats": {
       "initATK": 872,
@@ -616,9 +616,9 @@
       "race": -1,
       "body": -1,
       "oppai": -1,
-      "rank": -1,
+      "rank": 20,
       "else": [],
-      "available": false
+      "available": true
     },
     "stats": {
       "initATK": 945.6,
