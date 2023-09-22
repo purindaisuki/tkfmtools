@@ -233,11 +233,11 @@
     "tags": {
       "attribute": 2,
       "position": 7,
-      "race": -1,
+      "race": 12,
       "body": -1,
       "oppai": -1,
       "rank": 20,
-      "else": [],
+      "else": [24, 26],
       "available": true
     },
     "stats": {
@@ -613,11 +613,11 @@
     "tags": {
       "attribute": 1,
       "position": 5,
-      "race": -1,
+      "race": 11,
       "body": -1,
-      "oppai": -1,
+      "oppai": 15,
       "rank": 20,
-      "else": [],
+      "else": [28],
       "available": true
     },
     "stats": {
