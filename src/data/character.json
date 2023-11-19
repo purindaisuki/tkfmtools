@@ -617,7 +617,7 @@
       "body": -1,
       "oppai": 15,
       "rank": 20,
-      "else": [28],
+      "else": [21, 28],
       "available": true
     },
     "stats": {
@@ -2677,5 +2677,81 @@
       "initHP": 3499.2
     },
     "potentialType": 0
+  },
+  {
+    "id": "525",
+    "rarity": 3,
+    "tags": {
+      "attribute": 4,
+      "position": 9,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 1049.6,
+      "initHP": 3360
+    },
+    "potentialType": 0
+  },
+  {
+    "id": "526",
+    "rarity": 3,
+    "tags": {
+      "attribute": 0,
+      "position": 9,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 1028.8,
+      "initHP": 3427.2
+    },
+    "potentialType": 2
+  },
+  {
+    "id": "531",
+    "rarity": 3,
+    "tags": {
+      "attribute": 4,
+      "position": 5,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 1032,
+      "initHP": 3414.4
+    },
+    "potentialType": 0
+  },
+  {
+    "id": "532",
+    "rarity": 3,
+    "tags": {
+      "attribute": 1,
+      "position": 8,
+      "race": -1,
+      "body": -1,
+      "oppai": -1,
+      "rank": -1,
+      "else": [],
+      "available": false
+    },
+    "stats": {
+      "initATK": 680,
+      "initHP": 5185.6
+    },
+    "potentialType": 2
   }
 ]

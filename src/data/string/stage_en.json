@@ -570,5 +570,35 @@
       { "id": "21-19", "name": "Retreat from the Front" },
       { "id": "21-20", "name": "Harbor Fortress" }
     ]
+  },
+  {
+    "chapter": "22",
+    "name": "Chapter 22：Survival of the Hounddogs",
+    "stages": [
+      { "id": "22-2", "name": "Entrenched Tug o' War" },
+      { "id": "22-3", "name": "Why We Fight" },
+      { "id": "22-4", "name": "Rally the Troops" },
+      { "id": "22-5", "name": "Halt!" },
+      { "id": "22-5 free", "name": "Party on the Plains" },
+      { "id": "22-6", "name": "Feast of Revelry" },
+      { "id": "22-7", "name": "Laying Plans" },
+      { "id": "22-7 free", "name": "Army Purge" },
+      { "id": "22-8", "name": "Captain's Speech" },
+      { "id": "22-9", "name": "Weaponry" },
+      { "id": "22-9 free", "name": "Cleaning the Trenches" },
+      { "id": "22-10", "name": "Battle Commences" },
+      { "id": "22-11", "name": "Misjudged" },
+      { "id": "22-12", "name": "Silent Respite" },
+      { "id": "22-13", "name": "Lifting the Ban" },
+      { "id": "22-14", "name": "An Appetizer" },
+      { "id": "22-14 free", "name": "A Bonus Treat" },
+      { "id": "22-15", "name": "Big Fella" },
+      { "id": "22-16", "name": "Hound Fangs" },
+      { "id": "22-16 free", "name": "Scene of Chaos" },
+      { "id": "22-17", "name": "Survival of the Hounddogs" },
+      { "id": "22-18", "name": "An Unexpected Turn" },
+      { "id": "22-19", "name": "Reconciliation" },
+      { "id": "22-20", "name": "Archdemon's Arrival" }
+    ]
   }
 ]
